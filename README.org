@@ -1,0 +1,13 @@
+#+STARTUP: showall indent
+
+* fakeymacs
+
+Windows の操作を emacs のキーバインドで行うための設定です。
+
+Keyhac for Windows ver 1.75 以上で動作する設定となっています。
+
+- https://sites.google.com/site/craftware/keyhac-ja
+
+詳しくは以下を参照してください。
+
+- [[https://www49.atwiki.jp/ntemacs/pages/25.html][Windows の操作を emacs のキーバインドで行うための設定 （Keyhac版）]]
