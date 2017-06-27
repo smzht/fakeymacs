@@ -87,8 +87,8 @@
 #   記録する。このため、キーボードマクロ記録時や再生時、IME の状態に留意した利用が必要。
 #
 # ＜全てのアプリケーションソフトで共通の動き＞
-# ・other_window_key 変数に設定したキーにより、表示しているウインドウの中で、一番最近
-#   までフォーカスがあったウインドウに移動する。NTEmacs の機能やランチャーの機能から
+# ・other_window_key 変数に設定したキーにより、表示しているウィンドウの中で、一番最近
+#   までフォーカスがあったウィンドウに移動する。NTEmacs の機能やランチャーの機能から
 #   Windows アプリケーションソフトを起動した際に、起動元のアプリケーションソフトに戻る
 #   のに便利。この機能は Ctl-x o にも割り当てているが、こちらは emacs のキーバインドを
 #   適用したアプリケーションソフトのみで有効となる。
@@ -208,7 +208,7 @@ def configure(keymap):
     # scroll_key = None # PageUp、PageDownキーのみを利用する
     scroll_key = ["M-v", "C-v"]
 
-    # 表示しているウインドウの中で、一番最近までフォーカスがあったウインドウに移動するキーを指定する
+    # 表示しているウィンドウの中で、一番最近までフォーカスがあったウィンドウに移動するキーを指定する
     other_window_key = "A-o"
 
     # クリップボードリストを起動するキーを指定する
@@ -219,7 +219,7 @@ def configure(keymap):
 
     # アクティブウィンドウを切り替えるキーの組み合わせ（前、後 の順）を指定する（複数指定可）
     # （内部で A-Tab による切替えを行っているため、設定するキーは Altキーとの組み合わせとしてください）
-    # （切り替え画面が起動した後は、Alt+矢印キーでもウインドウを切り替えることができます。Alt+Escキー
+    # （切り替え画面が起動した後は、Alt+矢印キーでもウィンドウを切り替えることができます。Alt+Escキー
     #   でキャンセルとなります。）
     # （デフォルトキーは、["A-S-Tab", "A-Tab"]）
     window_switching_key = [["A-p", "A-n"]]
@@ -534,7 +534,7 @@ def configure(keymap):
         self_insert_command("Enter", "Up", "End")()
 
     ##################################################
-    ## バッファ / ウインドウ操作
+    ## バッファ / ウィンドウ操作
     ##################################################
 
     def kill_buffer():
@@ -991,7 +991,7 @@ def configure(keymap):
     define_key(keymap_emacs, "Ctl-x h",   reset_search(reset_undo(reset_counter(reset_mark(mark_whole_buffer)))))
     define_key(keymap_emacs, "Ctl-x C-p", reset_search(reset_undo(reset_counter(reset_mark(mark_page)))))
 
-    ## 「バッファ / ウインドウ操作」のキー設定
+    ## 「バッファ / ウィンドウ操作」のキー設定
     define_key(keymap_emacs, "Ctl-x k", reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
     define_key(keymap_emacs, "Ctl-x b", reset_search(reset_undo(reset_counter(reset_mark(switch_to_buffer)))))
     define_key(keymap_emacs, "Ctl-x o", reset_search(reset_undo(reset_counter(reset_mark(other_window)))))
@@ -1225,7 +1225,7 @@ def configure(keymap):
     keymap_global = keymap.defineWindowKeymap()
 
     ##################################################
-    ## ウインドウ操作（デスクトップ用）
+    ## ウィンドウ操作（デスクトップ用）
     ##################################################
 
     def popWindow(wnd):
@@ -1335,7 +1335,7 @@ def configure(keymap):
     ## キーバインド（デスクトップ用）
     ##################################################
 
-    # 表示しているウインドウの中で、一番最近までフォーカスがあったウインドウに移動
+    # 表示しているウィンドウの中で、一番最近までフォーカスがあったウィンドウに移動
     define_key(keymap_global, other_window_key, reset_search(reset_undo(reset_counter(reset_mark(other_window)))))
 
     # アクティブウィンドウの切り替え
