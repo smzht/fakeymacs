@@ -218,9 +218,10 @@ def configure(keymap):
     lancherList_key = "A-l"
 
     # アクティブウィンドウを切り替えるキーの組み合わせ（前、後 の順）を指定する（複数指定可）
-    # （内部で A-Tab による切替えを行っているため、設定するキーは Altキーとの組み合わせとしてください）
-    # （切り替え画面が起動した後は、Alt+矢印キーでもウィンドウを切り替えることができます。Alt+Escキー
-    #   でキャンセルとなります。）
+    # （内部で A-Tab による切り替えを行っているため、設定するキーは Altキーとの組み合わせとしてください）
+    # （切り替え画面が起動した後は、Alt + 矢印キー でも指定するウィンドウを切り替えることができます。
+    #   また、A-g もしくは A-Esc で切り替え画面の終了（キャンセル）となり、Altキーを離すか A-Enter で
+    #   切り替えるウィンドウの確定となります。）
     # （デフォルトキーは、["A-S-Tab", "A-Tab"]）
     window_switching_key = [["A-p", "A-n"]]
 
@@ -282,7 +283,7 @@ def configure(keymap):
 
             fakeymacs.last_window = window
 
-        if is_list_window(window):
+        if is_list_window(window) or is_task_switching_window(window):
             return False
 
         if window.getProcessName() in not_emacs_target:
@@ -1364,6 +1365,24 @@ def configure(keymap):
 
     # IME の「単語登録」プログラムの起動
     define_key(keymap_global, word_register_key, keymap.ShellExecuteCommand(None, word_register_name, word_register_param, ""))
+
+
+    ####################################################################################################
+    ## タスク切り替え画面の設定
+    ####################################################################################################
+
+    def is_task_switching_window(window):
+        if window.getClassName() in ("MultitaskingViewFrame", "TaskSwitcherWnd"):
+            return True
+        return False
+
+    keymap_tsw = keymap.defineWindowKeymap(check_func=is_task_switching_window)
+
+    ##################################################
+    ## キーバインド（タスク切り替え画面用）
+    ##################################################
+
+    define_key(keymap_tsw, "A-g", self_insert_command("A-Esc"))
 
 
     ####################################################################################################
