@@ -1669,14 +1669,25 @@ def configure(keymap):
     ## Emacs の場合、IME 切り替え用のキーを C-\ に置き換える（オプション）
     ####################################################################################################
     if 0:
-        # NTEmacs の利用時に Windows の IME の切換えを無効とするための設定です。（mozc.el を利用する場合など）
-        # 追加したいキーがある場合は、次の方法で追加するキーの名称もしくはコードを確認し、
-        # スクリプトを修正してください。
+        # emacs で mozc を利用する際に Windows の IME の切換えキーを mozc の切り替えキーとして
+        # 機能させるための設定です。初期設定では NTEmacs（gnupack 含む）と Windows の Xサーバで動く
+        # emacs を指定しています。追加したいキーがある場合は、次の方法で追加するキーの名称もしくは
+        # コードを確認し、スクリプトを修正してください。
         # 　1) タスクバーにある Keyhac のアイコンを左クリックしてコンソールを開く。
         # 　2) アイコンを右クリックしてメニューを開き、「内部ログ ON」を選択する。
         # 　3) 確認したいキーを押す。
 
-        keymap_real_emacs = keymap.defineWindowKeymap(class_name="Emacs")
+        def is_real_emacs(window):
+            if (window.getClassName() == "Emacs" or
+                (window.getProcessName() in ("XWin.exe",       # Cygwin/X
+                                             "XWin_MobaX.exe", # MobaXterm/X
+                                             "Xming.exe",      # Xming
+                                             "vcxsrv.exe") and # VcXsrv
+                 " - emacs-" in window.getText())):
+                return True
+            return False
+
+        keymap_real_emacs = keymap.defineWindowKeymap(check_func=is_real_emacs)
 
         # IME 切り替え用のキーを C-\ に置き換える
         keymap_real_emacs["(28)"]   = keymap.InputKeyCommand("C-Yen") # [変換] キー
