@@ -1671,11 +1671,7 @@ def configure(keymap):
     if 0:
         # emacs で mozc を利用する際に Windows の IME の切換えキーを mozc の切り替えキーとして
         # 機能させるための設定です。初期設定では NTEmacs（gnupack 含む）と Windows の Xサーバで動く
-        # emacs を指定しています。追加したいキーがある場合は、次の方法で追加するキーの名称もしくは
-        # コードを確認し、スクリプトを修正してください。
-        # 　1) タスクバーにある Keyhac のアイコンを左クリックしてコンソールを開く。
-        # 　2) アイコンを右クリックしてメニューを開き、「内部ログ ON」を選択する。
-        # 　3) 確認したいキーを押す。
+        # emacs を指定しています。
 
         def is_real_emacs(window):
             if (window.getClassName() == "Emacs" or
