@@ -2,7 +2,7 @@
 
 ##                               nickname: fakeymacs
 ##
-## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20170708_01
+## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20170711_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -1679,7 +1679,7 @@ def configure(keymap):
                                              "XWin_MobaX.exe", # MobaXterm/X
                                              "Xming.exe",      # Xming
                                              "vcxsrv.exe") and # VcXsrv
-                 " - emacs-" in window.getText())):
+                 re.search(r"^emacs@", window.getText()))): # ウィンドウのタイトルを検索する正規表現を指定
                 return True
             return False
 
