@@ -11,3 +11,15 @@ Keyhac for Windows ver 1.75 以上で動作する設定となっています。
 詳しくは以下を参照してください。
 
 - [[https://www49.atwiki.jp/ntemacs/pages/25.html][Windows の操作を emacs のキーバインドで行うための設定 （Keyhac版）]]
+
+
+※ 以下の機能を削除した light 版も登録しました。
+
+- emacsシフトモード
+- other_window
+- shell_command
+- ウィンドウの最小化、リストア
+- アクティブウィンドウのディスプレイ間移動
+- 仮想デスクトップの切り替え
+- ランチャーリスト
+- クリップボードリスト
