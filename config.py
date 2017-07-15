@@ -1273,37 +1273,19 @@ def configure(keymap):
                                     window_list.append(wnd)
                             else:
                                 window_list.append(wnd)
-
-                            # print(process_name + " : " + class_name + " : " + title + " : " + str(wnd.isMinimized()))
             return True
 
         window_dict = {}
         window_list = []
-        # print("----------------------------------------------------------------------------------------------------")
         Window.enum(makeWindowList, None)
 
         return window_list
-
-    # def restoreWindow():
-    #     wnd = keymap.getTopLevelWindow()
-    #     if wnd and wnd.isMinimized():
-    #         wnd.restore()
 
     def previous_desktop():
         self_insert_command("W-C-Left")()
 
     def next_desktop():
         self_insert_command("W-C-Right")()
-
-    # def previous_window():
-    #     self_insert_command("A-S-Esc")()
-    #     delay(0.2)
-    #     keymap.delayedCall(restoreWindow, 0)
-
-    # def next_window():
-    #     self_insert_command("A-Esc")()
-    #     delay(0.2)
-    #     keymap.delayedCall(restoreWindow, 0)
 
     def previous_window():
         self_insert_command("A-S-Tab")()
