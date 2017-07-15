@@ -101,15 +101,11 @@ def configure(keymap):
 
     # emacs のキーバインドに“したくない”アプリケーションソフトを指定する
     # （Keyhac のメニューから「内部ログ」を ON にすると processname や classname を確認することができます）
-    not_emacs_target     = [# "cmd.exe",            # cmd
-                            # "powershell.exe",     # powershell
-                            "bash.exe",           # bash
+    not_emacs_target     = ["bash.exe",           # bash
                             "mintty.exe",         # mintty
                             "emacs.exe",          # Emacs
                             "emacs-w32.exe",      # Emacs
                             "gvim.exe",           # GVim
-                            # "eclipse.exe",        # Eclipse
-                            # "firefox.exe",        # firefox
                             "xyzzy.exe",          # xyzzy
                             "VirtualBox.exe",     # VirtualBox
                             "XWin.exe",           # Cygwin/X
@@ -124,12 +120,8 @@ def configure(keymap):
 
     # IME の切り替え“のみをしたい”アプリケーションソフトを指定する
     # （指定できるアプリケーションソフトは、not_emacs_target で（除外）指定したものからのみとなります）
-    ime_target           = [# "cmd.exe",            # cmd
-                            # "powershell.exe",     # powershell
-                            "mintty.exe",         # mintty
+    ime_target           = ["mintty.exe",         # mintty
                             "gvim.exe",           # GVim
-                            # "eclipse.exe",        # Eclipse
-                            # "firefox.exe",        # firefox
                             "xyzzy.exe",          # xyzzy
                             "putty.exe",          # PuTTY
                             "ttermpro.exe",       # TeraTerm
@@ -192,10 +184,6 @@ def configure(keymap):
     word_register_name = r"C:\Program Files (x86)\Google\Google Japanese Input\GoogleIMEJaTool.exe"
     word_register_param = "--mode=word_register_dialog"
 
-    # IME の「単語登録」プログラムとそのパラメータを指定する（for MS-IME）
-    # word_register_name = r"C:\Windows\System32\IME\IMEJP\IMJPDCT.EXE"
-    # word_register_param = ""
-
     # コマンドのリピート回数の最大値を指定する
     repeat_max = 1024
 
@@ -227,10 +215,8 @@ def configure(keymap):
             return False
 
         if window.getProcessName() in not_emacs_target:
-            fakeymacs.keybind = "not_emacs"
             return False
 
-        fakeymacs.keybind = "emacs"
         return True
 
     def is_ime_target(window):
