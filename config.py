@@ -275,7 +275,10 @@ def configure(keymap):
 
             fakeymacs.last_window = window
 
-        if is_list_window(window) or is_task_switching_window(window):
+        if is_task_switching_window(window):
+            return False
+
+        if is_list_window(window):
             return False
 
         if window.getProcessName() in not_emacs_target:
