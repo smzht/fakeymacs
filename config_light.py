@@ -599,7 +599,7 @@ def configure(keymap):
             vkeys.remove(vkey)
         return vkeys
 
-    def addSideModifier(key):
+    def addSideOfModifierKey(key):
         key = key.replace("C-", side_of_ctrl_key + "C-")
         key = key.replace("A-", side_of_alt_key + "A-")
         return key
@@ -621,7 +621,7 @@ def configure(keymap):
                     keys_lists.append(["Esc", key])
 
             for keys_list in keys_lists:
-                keys_list[0] = addSideModifier(keys_list[0])
+                keys_list[0] = addSideOfModifierKey(keys_list[0])
         else:
             keys_lists = []
 
@@ -635,7 +635,7 @@ def configure(keymap):
                 keymap[keys_list[0]][keys_list[1]] = command
 
     def self_insert_command(*keys):
-        return keymap.InputKeyCommand(*list(map(addSideModifier, keys)))
+        return keymap.InputKeyCommand(*list(map(addSideOfModifierKey, keys)))
 
     if use_emacs_ime_mode:
         def self_insert_command2(*keys):
