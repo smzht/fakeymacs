@@ -563,7 +563,10 @@ def configure(keymap):
             fakeymacs.is_undo_mode = True
 
     def kill_emacs():
-        self_insert_command("A-F4")()
+        # Excel のファイルを開いた直後一回目、kill_emacs が正常に動作しない。その対策。
+        self_insert_command("D-Alt", "F4")()
+        delay(0.1)
+        self_insert_command("U-Alt")()
 
     def universal_argument():
         if fakeymacs.is_universal_argument:
