@@ -2,7 +2,7 @@
 
 ##                               nickname: fakeymacs
 ##
-## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20170823_01
+## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20171005_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
