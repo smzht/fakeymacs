@@ -134,6 +134,7 @@ def configure(keymap):
     not_emacs_target     = ["bash.exe",           # bash
                             "mintty.exe",         # mintty
                             "emacs.exe",          # Emacs
+                            "emacs-X11.exe",      # Emacs
                             "emacs-w32.exe",      # Emacs
                             "gvim.exe",           # GVim
                             "xyzzy.exe",          # xyzzy
