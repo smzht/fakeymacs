@@ -2,7 +2,7 @@
 
 ##                               nickname: fakeymacs
 ##
-## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20171005_01
+## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20171010_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -797,7 +797,7 @@ def configure(keymap):
 
     def repeat(func):
         def _func():
-            if fakeymacs.repeat_counter >= repeat_max:
+            if fakeymacs.repeat_counter > repeat_max:
                 print("コマンドのリピート回数の最大値を超えています")
                 repeat_counter = repeat_max
             else:
@@ -819,7 +819,7 @@ def configure(keymap):
 
     def repeat3(func):
         def _func():
-            if fakeymacs.repeat_counter >= repeat_max:
+            if fakeymacs.repeat_counter > repeat_max:
                 print("コマンドのリピート回数の最大値を超えています")
                 repeat_counter = repeat_max
             else:
