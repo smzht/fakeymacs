@@ -2,7 +2,7 @@
 
 ##                               nickname: fakeymacs
 ##
-## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20171010_01
+## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20171012_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -216,6 +216,7 @@ def configure(keymap):
     #   また、A-g もしくは A-Esc で切り替え画面の終了（キャンセル）となり、Altキーを離すか A-Enter で
     #   切り替えるウィンドウの確定となります。）
     # （デフォルトキーは、["A-S-Tab", "A-Tab"]）
+    # window_switching_key = None
     window_switching_key = [["A-p", "A-n"]]
 
     # アクティブウィンドウをディスプレイ間で移動するキーの組み合わせ（前、後 の順）を指定する（複数指定可）
@@ -1363,6 +1364,8 @@ def configure(keymap):
     ## キーバインド（タスク切り替え画面用）
     ##################################################
 
+    define_key(keymap_tsw, "A-p", previous_window)
+    define_key(keymap_tsw, "A-n", next_window)
     define_key(keymap_tsw, "A-g", self_insert_command("A-Esc"))
 
 
