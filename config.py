@@ -2,7 +2,7 @@
 
 ##                               nickname: fakeymacs
 ##
-## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20171012_01
+## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20171014_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -305,6 +305,9 @@ def configure(keymap):
     # mark がセットされると True になる
     fakeymacs.is_marked = False
 
+    # リージョンを拡張する際に、正方向に拡張すると True、逆方向に拡張すると False になる
+    fakeymacs.forward_direction = False
+
     # 検索が開始されると True になる
     fakeymacs.is_searching = False
 
@@ -384,42 +387,54 @@ def configure(keymap):
 
     def backward_char():
         self_insert_command("Left")()
+        fakeymacs.forward_direction = False
 
     def forward_char():
         self_insert_command("Right")()
+        fakeymacs.forward_direction = True
 
     def backward_word():
         self_insert_command("C-Left")()
+        fakeymacs.forward_direction = False
 
     def forward_word():
         self_insert_command("C-Right")()
+        fakeymacs.forward_direction = True
 
     def previous_line():
         self_insert_command("Up")()
+        fakeymacs.forward_direction = False
 
     def next_line():
         self_insert_command("Down")()
+        fakeymacs.forward_direction = True
 
     def move_beginning_of_line():
         self_insert_command("Home")()
+        fakeymacs.forward_direction = False
 
     def move_end_of_line():
         self_insert_command("End")()
         if checkWindow("WINWORD.EXE$", "_WwG$"): # Microsoft Word
             if fakeymacs.is_marked:
                 self_insert_command("Left")()
+        fakeymacs.forward_direction = True
 
     def beginning_of_buffer():
         self_insert_command("C-Home")()
+        fakeymacs.forward_direction = False
 
     def end_of_buffer():
         self_insert_command("C-End")()
+        fakeymacs.forward_direction = True
 
     def scroll_up():
         self_insert_command("PageUp")()
+        fakeymacs.forward_direction = False
 
     def scroll_down():
         self_insert_command("PageDown")()
+        fakeymacs.forward_direction = True
 
     def recenter():
         if checkWindow("sakura.exe$", "EditorClient$|SakuraView166$"): # Sakura Editor
@@ -494,10 +509,7 @@ def configure(keymap):
 
     def kill_ring_save():
         self_insert_command("C-c")()
-        if (checkWindow("sakura.exe$", "EditorClient$|SakuraView166$") or # Sakura Editor
-            checkWindow("Code.exe$", "Chrome_WidgetWin_1$")):             # Visual Studio Code
-            # 選択されているリージョンのハイライトを解除するために Esc を発行する
-            self_insert_command("Esc")()
+        reset_region()
 
     def yank():
         self_insert_command("C-v")()
@@ -514,16 +526,23 @@ def configure(keymap):
 
     def set_mark_command():
         if fakeymacs.is_marked:
+            reset_region()
             fakeymacs.is_marked = False
         else:
             fakeymacs.is_marked = True
 
     def mark_whole_buffer():
-        if checkWindow("EXCEL.EXE$", "EXCEL"): # Microsoft Excel
-            # Excel のセルの中でも機能するようにする対策
-            self_insert_command("C-End", "C-S-Home")()
+        if checkWindow("cmd.exe$", "ConsoleWindowClass$"): # Cmd
+            self_insert_command("Home", "C-a")()
+            fakeymacs.forward_direction = True # 逆の設定にする
+        elif checkWindow("powershell.exe$", "ConsoleWindowClass$"): # Powershell
+            self_insert_command("End", "S-Home")()
+            fakeymacs.forward_direction = False
         else:
-            self_insert_command("C-Home", "C-a")()
+            self_insert_command("C-End", "C-S-Home")()
+            fakeymacs.forward_direction = False
+
+        fakeymacs.is_marked = True
 
     def mark_page():
         mark_whole_buffer()
@@ -631,10 +650,14 @@ def configure(keymap):
         self_insert_command("Tab")()
 
     def keyboard_quit():
+        reset_region()
+
         # Microsoft Excel または Evernote 以外の場合、Esc を発行する
         if not (checkWindow("EXCEL.EXE$", "EXCEL") or checkWindow("Evernote.exe$", "WebViewHost$")):
             self_insert_command("Esc")()
+
         keymap.command_RecordStop()
+
         if fakeymacs.is_undo_mode:
             fakeymacs.is_undo_mode = False
         else:
@@ -757,6 +780,37 @@ def configure(keymap):
             fakeymacs.is_universal_argument = True
             digit_argument(number)
         return _func
+
+    def reset_region():
+        if (checkWindow("sakura.exe$", "EditorClient$|SakuraView166$") or # Sakura Editor
+            checkWindow("Code.exe$", "Chrome_WidgetWin_1$")):             # Visual Studio Code
+            # 選択されているリージョンのハイライトを解除するために Esc を発行する
+            self_insert_command("Esc")()
+
+        elif (checkWindow("WINWORD.EXE$", "_WwG$") or                      # Microsoft Word
+              checkWindow("iexplore.exe$", "Internet Explorer_Server$") or # IE
+              checkWindow(None, "Windows.UI.Core.CoreWindow$") or
+              checkWindow(None, "MozillaWindowClass$") or
+              checkWindow(None, "Chrome_WidgetWin_1$")):
+            # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
+            if fakeymacs.forward_direction:
+                self_insert_command("Right")()
+            else:
+                self_insert_command("Left")()
+
+        elif checkWindow("cmd.exe$", "ConsoleWindowClass$"): # Cmd
+            # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
+            if fakeymacs.forward_direction:
+                self_insert_command("Right", "Left")()
+            else:
+                self_insert_command("Left", "Right")()
+
+        else:
+            # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
+            if fakeymacs.forward_direction:
+                self_insert_command("Left", "Right")()
+            else:
+                self_insert_command("Right", "Left")()
 
     def mark(func):
         def _func():
@@ -989,8 +1043,8 @@ def configure(keymap):
         define_key(keymap_emacs, "C-S-2", reset_search(reset_undo(reset_counter(set_mark_command))))
 
     define_key(keymap_emacs, "C-Space",   reset_search(reset_undo(reset_counter(set_mark_command))))
-    define_key(keymap_emacs, "Ctl-x h",   reset_search(reset_undo(reset_counter(reset_mark(mark_whole_buffer)))))
-    define_key(keymap_emacs, "Ctl-x C-p", reset_search(reset_undo(reset_counter(reset_mark(mark_page)))))
+    define_key(keymap_emacs, "Ctl-x h",   reset_search(reset_undo(reset_counter(mark_whole_buffer))))
+    define_key(keymap_emacs, "Ctl-x C-p", reset_search(reset_undo(reset_counter(mark_page))))
 
     ## 「バッファ / ウィンドウ操作」のキー設定
     define_key(keymap_emacs, "Ctl-x k", reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
