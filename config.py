@@ -792,7 +792,7 @@ def configure(keymap):
         if (checkWindow("sakura.exe$", "EditorClient$|SakuraView166$") or # Sakura Editor
             checkWindow("Code.exe$", "Chrome_WidgetWin_1$") or            # Visual Studio Code
             checkWindow("Hidemaru.exe$", "HM32CLIENT$")):                 # Hidemaru Editor
-            # 選択されているリージョンのハイライトを解除するために Esc を発行する
+            # 選択されているリージョンのハイライトを解除するために Esc キーを発行する
             self_insert_command("Esc")()
 
         elif checkWindow("cmd.exe$", "ConsoleWindowClass$"): # Cmd
@@ -802,7 +802,8 @@ def configure(keymap):
             else:
                 self_insert_command("Left", "Right")()
 
-        elif checkWindow(None, "Edit$"): # NotePad 等
+        elif (checkWindow(None, "Edit$") or    # NotePad 等
+              checkWindow("EXCEL.EXE", None)): # Microsoft Excel
             # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
             if fakeymacs.forward_direction:
                 self_insert_command("Left", "Right")()
@@ -810,7 +811,7 @@ def configure(keymap):
                 self_insert_command("Right", "Left")()
 
         else:
-            # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
+            # 選択されているリージョンのハイライトを解除するためにカーソルキーを発行する
             if fakeymacs.forward_direction:
                 self_insert_command("Right")()
             else:
