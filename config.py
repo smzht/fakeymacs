@@ -795,18 +795,6 @@ def configure(keymap):
             # 選択されているリージョンのハイライトを解除するために Esc を発行する
             self_insert_command("Esc")()
 
-        elif (checkWindow("WINWORD.EXE$", "_WwG$") or                      # Microsoft Word
-              checkWindow("iexplore.exe$", "Internet Explorer_Server$") or # IE
-              checkWindow("sublime_text.exe$", "PX_WINDOW_CLASS$") or      # Sublime Text
-              checkWindow(None, "Windows.UI.Core.CoreWindow$") or          # Edge 等
-              checkWindow(None, "MozillaWindowClass$") or                  # Firefox、Thunderbird 等
-              checkWindow(None, "Chrome_WidgetWin_1$")):                   # Chrome、Atom 等
-            # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
-            if fakeymacs.forward_direction:
-                self_insert_command("Right")()
-            else:
-                self_insert_command("Left")()
-
         elif checkWindow("cmd.exe$", "ConsoleWindowClass$"): # Cmd
             # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
             if fakeymacs.forward_direction:
@@ -814,12 +802,19 @@ def configure(keymap):
             else:
                 self_insert_command("Left", "Right")()
 
-        else:
+        elif checkWindow(None, "Edit$"): # NotePad 等
             # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
             if fakeymacs.forward_direction:
                 self_insert_command("Left", "Right")()
             else:
                 self_insert_command("Right", "Left")()
+
+        else:
+            # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
+            if fakeymacs.forward_direction:
+                self_insert_command("Right")()
+            else:
+                self_insert_command("Left")()
 
     def mark(func):
         def _func():
