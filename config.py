@@ -2,7 +2,7 @@
 
 ##                               nickname: fakeymacs
 ##
-## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20171014_01
+## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20171015_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -305,7 +305,7 @@ def configure(keymap):
     # mark がセットされると True になる
     fakeymacs.is_marked = False
 
-    # リージョンを拡張する際に、正方向に拡張すると True、逆方向に拡張すると False になる
+    # リージョンを拡張する際に、順方向に拡張すると True、逆方向に拡張すると False になる
     fakeymacs.forward_direction = False
 
     # 検索が開始されると True になる
@@ -498,12 +498,19 @@ def configure(keymap):
             kill_region()
 
     def kill_region():
-        # コマンドプロンプトには Cut に対応するショートカットがない。この対策。
+        # コマンドプロンプトには Cut に対応するショートカットがない。そのための対策
+        # だが、完全な対策とはなっていない。
         if checkWindow("cmd.exe$", "ConsoleWindowClass$"): # Cmd
             self_insert_command("C-c")()
             delay()
+
+            if fakeymacs.forward_direction:
+                key = "Delete"
+            else:
+                key = "Back"
+                
             for i in range(len(getClipboardText())):
-                self_insert_command("Delete")()
+                self_insert_command(key)()
         else:
             self_insert_command("C-x")()
 
@@ -783,15 +790,17 @@ def configure(keymap):
 
     def reset_region():
         if (checkWindow("sakura.exe$", "EditorClient$|SakuraView166$") or # Sakura Editor
-            checkWindow("Code.exe$", "Chrome_WidgetWin_1$")):             # Visual Studio Code
+            checkWindow("Code.exe$", "Chrome_WidgetWin_1$") or            # Visual Studio Code
+            checkWindow("Hidemaru.exe$", "HM32CLIENT$")):                 # Hidemaru Editor
             # 選択されているリージョンのハイライトを解除するために Esc を発行する
             self_insert_command("Esc")()
 
         elif (checkWindow("WINWORD.EXE$", "_WwG$") or                      # Microsoft Word
               checkWindow("iexplore.exe$", "Internet Explorer_Server$") or # IE
-              checkWindow(None, "Windows.UI.Core.CoreWindow$") or
-              checkWindow(None, "MozillaWindowClass$") or
-              checkWindow(None, "Chrome_WidgetWin_1$")):
+              checkWindow("sublime_text.exe$", "PX_WINDOW_CLASS$") or      # Sublime Text
+              checkWindow(None, "Windows.UI.Core.CoreWindow$") or          # Edge 等
+              checkWindow(None, "MozillaWindowClass$") or                  # Firefox、Thunderbird 等
+              checkWindow(None, "Chrome_WidgetWin_1$")):                   # Chrome、Atom 等
             # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
             if fakeymacs.forward_direction:
                 self_insert_command("Right")()
