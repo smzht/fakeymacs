@@ -433,8 +433,11 @@ def configure(keymap):
         else:
             self_insert_command("C-x")()
 
-    def kill_ring_save():
+    def copy():
         self_insert_command("C-c")()
+
+    def kill_ring_save():
+        copy()
         reset_region()
 
     def yank():
@@ -921,7 +924,7 @@ def configure(keymap):
     define_key(keymap_emacs, "C-k",      reset_search(reset_undo(reset_counter(reset_mark(repeat3(kill_line))))))
     define_key(keymap_emacs, "C-w",      reset_search(reset_undo(reset_counter(reset_mark(kill_region)))))
     define_key(keymap_emacs, "M-w",      reset_search(reset_undo(reset_counter(reset_mark(kill_ring_save)))))
-    define_key(keymap_emacs, "C-c",      reset_search(reset_undo(reset_counter(reset_mark(kill_ring_save)))))
+    define_key(keymap_emacs, "C-c",      reset_search(reset_undo(reset_counter(reset_mark(copy)))))
     define_key(keymap_emacs, "C-y",      reset_search(reset_undo(reset_counter(reset_mark(repeat(yank))))))
     define_key(keymap_emacs, "C-v",      reset_search(reset_undo(reset_counter(reset_mark(repeat(yank)))))) # scroll_key の設定で上書きされない場合
     define_key(keymap_emacs, "C-z",      reset_search(reset_counter(reset_mark(undo))))
