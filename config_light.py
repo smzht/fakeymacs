@@ -467,7 +467,7 @@ def configure(keymap):
 
         elif checkWindow("powershell.exe$", "ConsoleWindowClass$"): # Powershell
             self_insert_command("End", "S-Home")()
-            fakeymacs.forward_direction = True
+            fakeymacs.forward_direction = False
 
         elif (checkWindow("EXCEL.EXE$", "EXCEL") or  # Microsoft Excel
               checkWindow("notepad.exe$", "Edit$")): # NotePad
