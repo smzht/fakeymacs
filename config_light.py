@@ -462,16 +462,22 @@ def configure(keymap):
     def mark_whole_buffer():
         if checkWindow("cmd.exe$", "ConsoleWindowClass$"): # Cmd
             self_insert_command("Home", "C-a")()
+            fakeymacs.forward_direction = True # 逆の設定にする
 
-        elif checkWindow("EXCEL.EXE$", "EXCEL"): # Microsoft Excel
-            # Excel のセルの中でも機能するようにする対策
-            self_insert_command("C-Home", "C-S-End")()
+        elif checkWindow("powershell.exe$", "ConsoleWindowClass$"): # Powershell
+            self_insert_command("C-a")()
+            fakeymacs.forward_direction = True
+
+        elif (checkWindow("EXCEL.EXE$", "EXCEL") or  # Microsoft Excel
+              checkWindow("notepad.exe$", "Edit$")): # NotePad
+            self_insert_command("C-End", "C-S-Home")()
+            fakeymacs.forward_direction = False
 
         else:
-            self_insert_command("C-End", "C-a")()
+            self_insert_command("C-Home", "C-a")()
+            fakeymacs.forward_direction = False
 
         fakeymacs.is_marked = True
-        fakeymacs.forward_direction = True
 
     def mark_page():
         mark_whole_buffer()
