@@ -2,7 +2,7 @@
 
 ##                             nickname: fakeymacs light
 ##
-## Windows の操作を emacs のキーバインドで行うための設定 light（Keyhac版）ver.20171015_01
+## Windows の操作を emacs のキーバインドで行うための設定 light（Keyhac版）ver.20171016_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -237,7 +237,7 @@ def configure(keymap):
     fakeymacs.is_marked = False
 
     # リージョンを拡張する際に、順方向に拡張すると True、逆方向に拡張すると False になる
-    fakeymacs.forward_direction = False
+    fakeymacs.forward_direction = None
 
     # 検索が開始されると True になる
     fakeymacs.is_searching = False
@@ -318,54 +318,42 @@ def configure(keymap):
 
     def backward_char():
         self_insert_command("Left")()
-        fakeymacs.forward_direction = False
 
     def forward_char():
         self_insert_command("Right")()
-        fakeymacs.forward_direction = True
 
     def backward_word():
         self_insert_command("C-Left")()
-        fakeymacs.forward_direction = False
 
     def forward_word():
         self_insert_command("C-Right")()
-        fakeymacs.forward_direction = True
 
     def previous_line():
         self_insert_command("Up")()
-        fakeymacs.forward_direction = False
 
     def next_line():
         self_insert_command("Down")()
-        fakeymacs.forward_direction = True
 
     def move_beginning_of_line():
         self_insert_command("Home")()
-        fakeymacs.forward_direction = False
 
     def move_end_of_line():
         self_insert_command("End")()
         if checkWindow("WINWORD.EXE$", "_WwG$"): # Microsoft Word
             if fakeymacs.is_marked:
                 self_insert_command("Left")()
-        fakeymacs.forward_direction = True
 
     def beginning_of_buffer():
         self_insert_command("C-Home")()
-        fakeymacs.forward_direction = False
 
     def end_of_buffer():
         self_insert_command("C-End")()
-        fakeymacs.forward_direction = True
 
     def scroll_up():
         self_insert_command("PageUp")()
-        fakeymacs.forward_direction = False
 
     def scroll_down():
         self_insert_command("PageDown")()
-        fakeymacs.forward_direction = True
 
     def recenter():
         if checkWindow("sakura.exe$", "EditorClient$|SakuraView166$"): # Sakura Editor
@@ -435,11 +423,11 @@ def configure(keymap):
             self_insert_command("C-c")()
             delay()
 
-            if fakeymacs.forward_direction:
+            if fakeymacs.forward_direction or fakeymacs.forward_direction is None:
                 key = "Delete"
             else:
                 key = "Back"
-                
+
             for i in range(len(getClipboardText())):
                 self_insert_command(key)()
         else:
@@ -707,7 +695,7 @@ def configure(keymap):
 
         elif checkWindow("cmd.exe$", "ConsoleWindowClass$"): # Cmd
             # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
-            if fakeymacs.forward_direction:
+            if fakeymacs.forward_direction or fakeymacs.forward_direction is None:
                 self_insert_command("Right", "Left")()
             else:
                 self_insert_command("Left", "Right")()
@@ -715,19 +703,21 @@ def configure(keymap):
         elif (checkWindow(None, "Edit$") or    # NotePad 等
               checkWindow("EXCEL.EXE", None)): # Microsoft Excel
             # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
-            if fakeymacs.forward_direction:
+            if fakeymacs.forward_direction or fakeymacs.forward_direction is None:
                 self_insert_command("Left", "Right")()
             else:
                 self_insert_command("Right", "Left")()
 
         else:
             # 選択されているリージョンのハイライトを解除するためにカーソルキーを発行する
-            if fakeymacs.forward_direction:
+            if fakeymacs.forward_direction or fakeymacs.forward_direction is None:
                 self_insert_command("Right")()
             else:
                 self_insert_command("Left")()
 
-    def mark(func):
+        fakeymacs.forward_direction = None
+
+    def mark(func, forward_direction=None, force=False):
         def _func():
             if fakeymacs.is_marked:
                 # D-Shift だと、M-< や M-> 押下時に、D-Shift が解除されてしまう。その対策。
@@ -735,6 +725,10 @@ def configure(keymap):
                 delay()
                 func()
                 self_insert_command("U-LShift", "U-RShift")()
+
+                # fakeymacs.forward_direction を強制設定指示か未設定の場合、設定する
+                if force or fakeymacs.forward_direction is None:
+                    fakeymacs.forward_direction = forward_direction
             else:
                 func()
         return _func
@@ -894,26 +888,26 @@ def configure(keymap):
     define_key(keymap_emacs, "Ctl-x d",   reset_search(reset_undo(reset_counter(reset_mark(dired)))))
 
     ## 「カーソル移動」のキー設定
-    define_key(keymap_emacs, "C-b",        reset_search(reset_undo(reset_counter(mark(repeat(backward_char))))))
-    define_key(keymap_emacs, "C-f",        reset_search(reset_undo(reset_counter(mark(repeat(forward_char))))))
-    define_key(keymap_emacs, "M-b",        reset_search(reset_undo(reset_counter(mark(repeat(backward_word))))))
-    define_key(keymap_emacs, "M-f",        reset_search(reset_undo(reset_counter(mark(repeat(forward_word))))))
-    define_key(keymap_emacs, "C-p",        reset_search(reset_undo(reset_counter(mark(repeat(previous_line))))))
-    define_key(keymap_emacs, "C-n",        reset_search(reset_undo(reset_counter(mark(repeat(next_line))))))
-    define_key(keymap_emacs, "C-a",        reset_search(reset_undo(reset_counter(mark(move_beginning_of_line)))))
-    define_key(keymap_emacs, "C-e",        reset_search(reset_undo(reset_counter(mark(move_end_of_line)))))
-    define_key(keymap_emacs, "M-S-Comma",  reset_search(reset_undo(reset_counter(mark(beginning_of_buffer)))))
-    define_key(keymap_emacs, "M-S-Period", reset_search(reset_undo(reset_counter(mark(end_of_buffer)))))
+    define_key(keymap_emacs, "C-b",        reset_search(reset_undo(reset_counter(mark(repeat(backward_char), False)))))
+    define_key(keymap_emacs, "C-f",        reset_search(reset_undo(reset_counter(mark(repeat(forward_char), True)))))
+    define_key(keymap_emacs, "M-b",        reset_search(reset_undo(reset_counter(mark(repeat(backward_word), False)))))
+    define_key(keymap_emacs, "M-f",        reset_search(reset_undo(reset_counter(mark(repeat(forward_word), True)))))
+    define_key(keymap_emacs, "C-p",        reset_search(reset_undo(reset_counter(mark(repeat(previous_line), False)))))
+    define_key(keymap_emacs, "C-n",        reset_search(reset_undo(reset_counter(mark(repeat(next_line), True)))))
+    define_key(keymap_emacs, "C-a",        reset_search(reset_undo(reset_counter(mark(move_beginning_of_line, False, True)))))
+    define_key(keymap_emacs, "C-e",        reset_search(reset_undo(reset_counter(mark(move_end_of_line, True, True)))))
+    define_key(keymap_emacs, "M-S-Comma",  reset_search(reset_undo(reset_counter(mark(beginning_of_buffer, False, True)))))
+    define_key(keymap_emacs, "M-S-Period", reset_search(reset_undo(reset_counter(mark(end_of_buffer, True, True)))))
     define_key(keymap_emacs, "C-l",        reset_search(reset_undo(reset_counter(recenter))))
 
-    define_key(keymap_emacs, "Left",     reset_search(reset_undo(reset_counter(mark(repeat(backward_char))))))
-    define_key(keymap_emacs, "Right",    reset_search(reset_undo(reset_counter(mark(repeat(forward_char))))))
-    define_key(keymap_emacs, "Up",       reset_search(reset_undo(reset_counter(mark(repeat(previous_line))))))
-    define_key(keymap_emacs, "Down",     reset_search(reset_undo(reset_counter(mark(repeat(next_line))))))
-    define_key(keymap_emacs, "PageUP",   reset_search(reset_undo(reset_counter(mark(scroll_up)))))
-    define_key(keymap_emacs, "PageDown", reset_search(reset_undo(reset_counter(mark(scroll_down)))))
-    define_key(keymap_emacs, "Home",     reset_search(reset_undo(reset_counter(mark(move_beginning_of_line)))))
-    define_key(keymap_emacs, "End",      reset_search(reset_undo(reset_counter(mark(move_end_of_line)))))
+    define_key(keymap_emacs, "Left",     reset_search(reset_undo(reset_counter(mark(repeat(backward_char), False)))))
+    define_key(keymap_emacs, "Right",    reset_search(reset_undo(reset_counter(mark(repeat(forward_char), True)))))
+    define_key(keymap_emacs, "Up",       reset_search(reset_undo(reset_counter(mark(repeat(previous_line), False)))))
+    define_key(keymap_emacs, "Down",     reset_search(reset_undo(reset_counter(mark(repeat(next_line), True)))))
+    define_key(keymap_emacs, "PageUP",   reset_search(reset_undo(reset_counter(mark(scroll_up, False, True)))))
+    define_key(keymap_emacs, "PageDown", reset_search(reset_undo(reset_counter(mark(scroll_down, True, True)))))
+    define_key(keymap_emacs, "Home",     reset_search(reset_undo(reset_counter(mark(move_beginning_of_line, False, True)))))
+    define_key(keymap_emacs, "End",      reset_search(reset_undo(reset_counter(mark(move_end_of_line, True, True)))))
 
     ## 「カット / コピー / 削除 / アンドゥ」のキー設定
     define_key(keymap_emacs, "Back",     reset_search(reset_undo(reset_counter(reset_mark(repeat2(delete_backward_char))))))
@@ -990,8 +984,8 @@ def configure(keymap):
 
     ## 「スクロール」のキー設定（上書きされないように最後に設定する）
     if scroll_key:
-        define_key(keymap_emacs, scroll_key[0], reset_search(reset_undo(reset_counter(mark(scroll_up)))))
-        define_key(keymap_emacs, scroll_key[1], reset_search(reset_undo(reset_counter(mark(scroll_down)))))
+        define_key(keymap_emacs, scroll_key[0], reset_search(reset_undo(reset_counter(mark(scroll_up, False, True)))))
+        define_key(keymap_emacs, scroll_key[1], reset_search(reset_undo(reset_counter(mark(scroll_down, True, True)))))
 
     ## 「カット」のキー設定（上書きされないように最後に設定する）
     if ctl_x_prefix_key != "C-x":
