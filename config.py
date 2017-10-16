@@ -486,8 +486,7 @@ def configure(keymap):
             kill_region()
 
     def kill_region():
-        # コマンドプロンプトには Cut に対応するショートカットがない。そのための対策
-        # だが、完全な対策とはなっていない。
+        # コマンドプロンプトには Cut に対応するショートカットがない。その対策。
         if checkWindow("cmd.exe$", "ConsoleWindowClass$"): # Cmd
             self_insert_command("C-c")()
             delay()
@@ -532,15 +531,16 @@ def configure(keymap):
     def mark_whole_buffer():
         if checkWindow("cmd.exe$", "ConsoleWindowClass$"): # Cmd
             self_insert_command("Home", "C-a")()
-            fakeymacs.forward_direction = True # 逆の設定にする
-        elif checkWindow("powershell.exe$", "ConsoleWindowClass$"): # Powershell
-            self_insert_command("End", "S-Home")()
-            fakeymacs.forward_direction = False
+
+        elif checkWindow("EXCEL.EXE$", "EXCEL"): # Microsoft Excel
+            # Excel のセルの中でも機能するようにする対策
+            self_insert_command("C-Home", "C-S-End")()
+
         else:
-            self_insert_command("C-End", "C-S-Home")()
-            fakeymacs.forward_direction = False
+            self_insert_command("C-End", "C-a")()
 
         fakeymacs.is_marked = True
+        fakeymacs.forward_direction = True
 
     def mark_page():
         mark_whole_buffer()
