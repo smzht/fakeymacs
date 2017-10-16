@@ -456,6 +456,7 @@ def configure(keymap):
         if fakeymacs.is_marked:
             reset_region()
             fakeymacs.is_marked = False
+            fakeymacs.forward_direction = None
         else:
             fakeymacs.is_marked = True
 
@@ -465,7 +466,7 @@ def configure(keymap):
             fakeymacs.forward_direction = True # 逆の設定にする
 
         elif checkWindow("powershell.exe$", "ConsoleWindowClass$"): # Powershell
-            self_insert_command("C-a")()
+            self_insert_command("End", "S-Home")()
             fakeymacs.forward_direction = True
 
         elif (checkWindow("EXCEL.EXE$", "EXCEL") or  # Microsoft Excel
@@ -724,8 +725,6 @@ def configure(keymap):
             else:
                 self_insert_command("Left")()
 
-        fakeymacs.forward_direction = None
-
     def mark(func, forward_direction=None, force=False):
         def _func():
             if fakeymacs.is_marked:
@@ -746,6 +745,7 @@ def configure(keymap):
         def _func():
             func()
             fakeymacs.is_marked = False
+            fakeymacs.forward_direction = None
         return _func
 
     def reset_counter(func):
