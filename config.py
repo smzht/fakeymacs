@@ -170,6 +170,10 @@ def configure(keymap):
     # 左右どちらの Altキーを使うかを指定する（"L": 左、"R": 右）
     side_of_alt_key = "L"
 
+    # keyboard_quit 実行時等にリージョンを解除する機能を使うかどうかを指定する（True: 使う、False: 使わない）
+    # （リージョンを解除する機能は、リージョンをキーボードで指定した場合のみ利用可能です）
+    use_region_reset = True
+
     # emacs日本語入力モードを使うかどうかを指定する（True: 使う、False: 使わない）
     use_emacs_ime_mode = True
 
@@ -799,7 +803,8 @@ def configure(keymap):
         return _func
 
     def reset_region():
-        if fakeymacs.is_marked and fakeymacs.forward_direction is not None:
+        if use_region_reset and fakeymacs.is_marked and fakeymacs.forward_direction is not None:
+
             if (checkWindow("sakura.exe$", "EditorClient$|SakuraView166$") or # Sakura Editor
                 checkWindow("Code.exe$", "Chrome_WidgetWin_1$") or            # Visual Studio Code
                 checkWindow("Hidemaru.exe$", "HM32CLIENT$")):                 # Hidemaru Editor
