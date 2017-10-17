@@ -439,30 +439,40 @@ def configure(keymap):
         self_insert_command("Delete")()
 
     def backward_kill_word(repeat=1):
+        reset_region()
         fakeymacs.is_marked = True
+
         def move_beginning_of_region():
             for i in range(repeat):
                 backward_word()
+
         mark(move_beginning_of_region)()
         delay()
         kill_region()
 
     def kill_word(repeat=1):
+        reset_region()
         fakeymacs.is_marked = True
+
         def move_end_of_region():
             for i in range(repeat):
                 forward_word()
+
         mark(move_end_of_region)()
         delay()
         kill_region()
 
     def kill_line(repeat=1):
+        reset_region()
         fakeymacs.is_marked = True
+
         if repeat == 1:
             mark(move_end_of_line)()
             delay()
+
             if checkWindow("cmd.exe$|powershell.exe$", "ConsoleWindowClass$"): # Cmd or Powershell
                 kill_region()
+
             elif checkWindow("Hidemaru.exe$", "HM32CLIENT$"): # Hidemaru Editor
                 kill_region()
                 delay()
@@ -481,6 +491,7 @@ def configure(keymap):
                         next_line()
                     move_end_of_line()
                     forward_char()
+
             mark(move_end_of_region)()
             delay()
             kill_region()
@@ -787,32 +798,33 @@ def configure(keymap):
         return _func
 
     def reset_region():
-        if (checkWindow("sakura.exe$", "EditorClient$|SakuraView166$") or # Sakura Editor
-            checkWindow("Code.exe$", "Chrome_WidgetWin_1$") or            # Visual Studio Code
-            checkWindow("Hidemaru.exe$", "HM32CLIENT$")):                 # Hidemaru Editor
-            # 選択されているリージョンのハイライトを解除するために Esc キーを発行する
-            self_insert_command("Esc")()
+        if fakeymacs.is_marked and fakeymacs.forward_direction is not None:
+            if (checkWindow("sakura.exe$", "EditorClient$|SakuraView166$") or # Sakura Editor
+                checkWindow("Code.exe$", "Chrome_WidgetWin_1$") or            # Visual Studio Code
+                checkWindow("Hidemaru.exe$", "HM32CLIENT$")):                 # Hidemaru Editor
+                # 選択されているリージョンのハイライトを解除するために Esc キーを発行する
+                self_insert_command("Esc")()
 
-        elif checkWindow("cmd.exe$", "ConsoleWindowClass$"): # Cmd
-            # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
-            if fakeymacs.forward_direction or fakeymacs.forward_direction is None:
-                self_insert_command("Right", "Left")()
-            else:
-                self_insert_command("Left", "Right")()
+            elif checkWindow("cmd.exe$", "ConsoleWindowClass$"): # Cmd
+                # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
+                if fakeymacs.forward_direction:
+                    self_insert_command("Right", "Left")()
+                else:
+                    self_insert_command("Left", "Right")()
 
-        elif (checkWindow(None, "Edit$") or    # NotePad 等
-              checkWindow("EXCEL.EXE", None)): # Microsoft Excel
-            # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
-            if fakeymacs.forward_direction or fakeymacs.forward_direction is None:
-                self_insert_command("Left", "Right")()
+            elif (checkWindow(None, "Edit$") or    # NotePad 等
+                  checkWindow("EXCEL.EXE", None)): # Microsoft Excel
+                # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
+                if fakeymacs.forward_direction:
+                    self_insert_command("Left", "Right")()
+                else:
+                    self_insert_command("Right", "Left")()
             else:
-                self_insert_command("Right", "Left")()
-        else:
-            # 選択されているリージョンのハイライトを解除するためにカーソルキーを発行する
-            if fakeymacs.forward_direction or fakeymacs.forward_direction is None:
-                self_insert_command("Right")()
-            else:
-                self_insert_command("Left")()
+                # 選択されているリージョンのハイライトを解除するためにカーソルキーを発行する
+                if fakeymacs.forward_direction:
+                    self_insert_command("Right")()
+                else:
+                    self_insert_command("Left")()
 
     def mark(func, forward_direction=None):
         def _func():
