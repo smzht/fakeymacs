@@ -2,7 +2,7 @@
 
 ##                             nickname: fakeymacs light
 ##
-## Windows の操作を emacs のキーバインドで行うための設定 light（Keyhac版）ver.20171016_01
+## Windows の操作を emacs のキーバインドで行うための設定 light（Keyhac版）ver.20171017_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -474,7 +474,6 @@ def configure(keymap):
               checkWindow("notepad.exe$", "Edit$")): # NotePad
             self_insert_command("C-End", "C-S-Home")()
             fakeymacs.forward_direction = False
-
         else:
             self_insert_command("C-Home", "C-a")()
             fakeymacs.forward_direction = False
@@ -718,7 +717,6 @@ def configure(keymap):
                 self_insert_command("Left", "Right")()
             else:
                 self_insert_command("Right", "Left")()
-
         else:
             # 選択されているリージョンのハイライトを解除するためにカーソルキーを発行する
             if fakeymacs.forward_direction or fakeymacs.forward_direction is None:
