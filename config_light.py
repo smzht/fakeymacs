@@ -377,7 +377,7 @@ def configure(keymap):
             for i in range(repeat):
                 backward_word()
 
-        mark(move_beginning_of_region)()
+        mark(move_beginning_of_region, False)()
         delay()
         kill_region()
 
@@ -389,7 +389,7 @@ def configure(keymap):
             for i in range(repeat):
                 forward_word()
 
-        mark(move_end_of_region)()
+        mark(move_end_of_region, True)()
         delay()
         kill_region()
 
@@ -398,7 +398,7 @@ def configure(keymap):
         fakeymacs.is_marked = True
 
         if repeat == 1:
-            mark(move_end_of_line)()
+            mark(move_end_of_line, True)()
             delay()
 
             if checkWindow("cmd.exe$|powershell.exe$", "ConsoleWindowClass$"): # Cmd or Powershell
@@ -423,7 +423,7 @@ def configure(keymap):
                     move_end_of_line()
                     forward_char()
 
-            mark(move_end_of_region)()
+            mark(move_end_of_region, True)()
             delay()
             kill_region()
 
@@ -433,13 +433,14 @@ def configure(keymap):
             self_insert_command("C-c")()
             delay()
 
-            if fakeymacs.forward_direction or fakeymacs.forward_direction is None:
-                key = "Delete"
-            else:
-                key = "Back"
+            if fakeymacs.is_marked and fakeymacs.forward_direction is not None:
+                if fakeymacs.forward_direction:
+                    key = "Delete"
+                else:
+                    key = "Back"
 
-            for i in range(len(getClipboardText())):
-                self_insert_command(key)()
+                for i in range(len(getClipboardText())):
+                    self_insert_command(key)()
         else:
             self_insert_command("C-x")()
 
@@ -722,8 +723,9 @@ def configure(keymap):
                 else:
                     self_insert_command("Left", "Right")()
 
-            elif (checkWindow(None, "Edit$") or    # NotePad 等
-                  checkWindow("EXCEL.EXE", None)): # Microsoft Excel
+            elif (checkWindow(None, "Edit$") or                           # NotePad 等
+                  checkWindow("EXCEL.EXE", None) or                       # Microsoft Excel
+                  checkWindow("powershell.exe$", "ConsoleWindowClass$")): # Powershell
                 # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
                 if fakeymacs.forward_direction:
                     self_insert_command("Left", "Right")()
@@ -736,7 +738,7 @@ def configure(keymap):
                 else:
                     self_insert_command("Left")()
 
-    def mark(func, forward_direction=None):
+    def mark(func, forward_direction):
         def _func():
             if fakeymacs.is_marked:
                 # D-Shift だと、M-< や M-> 押下時に、D-Shift が解除されてしまう。その対策。
