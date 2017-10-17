@@ -462,7 +462,8 @@ def configure(keymap):
 
     def mark_whole_buffer():
         if checkWindow("cmd.exe$", "ConsoleWindowClass$"): # Cmd
-            self_insert_command("Home", "C-a")()
+            # "Home", "C-a" では上手く動かない場合がある
+            self_insert_command("Home", "S-End")()
             fakeymacs.forward_direction = True # 逆の設定にする
 
         elif checkWindow("powershell.exe$", "ConsoleWindowClass$"): # Powershell
