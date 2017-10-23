@@ -1273,10 +1273,10 @@ def configure(keymap):
         define_key(keymap_ei, "Right",    ei_record_func(forward_char))
         define_key(keymap_ei, "Up",       ei_record_func(previous_line))
         define_key(keymap_ei, "Down",     ei_record_func(next_line))
-        define_key(keymap_ei, "PageUP",   ei_record_func(scroll_up))
-        define_key(keymap_ei, "PageDown", ei_record_func(scroll_down))
         define_key(keymap_ei, "Home",     ei_record_func(move_beginning_of_line))
         define_key(keymap_ei, "End",      ei_record_func(move_end_of_line))
+        define_key(keymap_ei, "PageUP",   ei_record_func(scroll_up))
+        define_key(keymap_ei, "PageDown", ei_record_func(scroll_down))
 
         ## 「カット / コピー / 削除 / アンドゥ」のキー設定
         define_key(keymap_ei, "Back",   ei_record_func(delete_backward_char))
