@@ -181,8 +181,8 @@ def configure(keymap):
     #   Alt + 矢印キーでもウィンドウを切り替えることができます。また、A-g もしくは A-Esc で切り替え画面の
     #   終了（キャンセル）となり、Altキーを離すか A-Enter で切り替えるウィンドウの確定となります。）
     # （デフォルトキーは、["A-S-Tab", "A-Tab"]）
-    # window_switching_key = None
-    window_switching_key = [["A-p", "A-n"]]
+    # window_switching_key = [["A-p", "A-n"]]
+    window_switching_key = None
 
     # IME の「単語登録」プログラムを起動するキーを指定する
     # word_register_key = None
