@@ -2,7 +2,7 @@
 
 ##                               nickname: fakeymacs
 ##
-## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20171103_01
+## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20171110_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -181,6 +181,7 @@ def configure(keymap):
     use_emacs_ime_mode = True
 
     # emacs日本語入力モードを切り替える（トグルする）キーを指定する
+    # toggle_emacs_ime_mode_key = None
     toggle_emacs_ime_mode_key = "C-t"
 
     # emacs日本語入力モードが有効なときに表示するバルーンメッセージを指定する
@@ -222,8 +223,7 @@ def configure(keymap):
     # （切り替え画面が起動した後は、A-p、A-n でウィンドウを切り替えられるように設定している他、
     #   Alt + 矢印キーでもウィンドウを切り替えることができます。また、A-g もしくは A-Esc で切り替え画面の
     #   終了（キャンセル）となり、Altキーを離すか A-Enter で切り替えるウィンドウの確定となります。）
-    # （デフォルトキーは、["A-S-Tab", "A-Tab"]）
-    # window_switching_key = None
+    # window_switching_key = None # A-S-Tab、A-Tabキーのみを利用する
     window_switching_key = [["A-p", "A-n"]]
 
     # アクティブウィンドウをディスプレイ間で移動するキーの組み合わせ（前、後 の順）を指定する（複数指定可）
@@ -233,6 +233,7 @@ def configure(keymap):
     window_movement_key = [["A-S-b", "A-S-f"], ["A-S-Left", "A-S-Right"], [None, "A-S-o"]] # Multi-display
 
     # ウィンドウを最小化、リストアするキーの組み合わせ（リストア、最小化 の順）を指定する（複数指定可）
+    # window_minimize_key = None
     window_minimize_key = [["A-r", "A-m"]]
 
     # 仮想デスクトップを切り替えるキーの組み合わせ（前、後 の順）を指定する（複数指定可）
