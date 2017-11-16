@@ -133,8 +133,8 @@ def configure(keymap):
     # （Keyhac のメニューから「内部ログ」を ON にすると processname や classname を確認することができます）
     not_emacs_target     = ["bash.exe",           # WSL
                             "ubuntu.exe",         # WSL
-                            "sles-12.exe",        # WSL
-                            "opensuse-42.exe",    # WSL
+                            "SLES-12.exe",        # WSL
+                            "openSUSE-42.exe",    # WSL
                             "mintty.exe",         # mintty
                             "Cmder.exe",          # Cmder
                             "ConEmu.exe",         # ConEmu
@@ -159,8 +159,8 @@ def configure(keymap):
     # （指定できるアプリケーションソフトは、not_emacs_target で（除外）指定したものからのみとなります）
     ime_target           = ["bash.exe",           # WSL
                             "ubuntu.exe",         # WSL
-                            "sles-12.exe",        # WSL
-                            "opensuse-42.exe",    # WSL
+                            "SLES-12.exe",        # WSL
+                            "openSUSE-42.exe",    # WSL
                             "mintty.exe",         # mintty
                             "Cmder.exe",          # Cmder
                             "ConEmu.exe",         # ConEmu
