@@ -137,6 +137,9 @@ def configure(keymap):
                             "sles-12.exe",        # WSL
                             "opensuse-42.exe",    # WSL
                             "mintty.exe",         # mintty
+                            "Cmder.exe",          # Cmder
+                            "ConEmu.exe",         # ConEmu
+                            "ConEmu64.exe",       # ConEmu
                             "emacs.exe",          # Emacs
                             "emacs-X11.exe",      # Emacs
                             "emacs-w32.exe",      # Emacs
@@ -161,6 +164,9 @@ def configure(keymap):
                             "sles-12.exe",        # WSL
                             "opensuse-42.exe",    # WSL
                             "mintty.exe",         # mintty
+                            "Cmder.exe",          # Cmder
+                            "ConEmu.exe",         # ConEmu
+                            "ConEmu64.exe",       # ConEmu
                             "gvim.exe",           # GVim
                             "xyzzy.exe",          # xyzzy
                             "putty.exe",          # PuTTY
