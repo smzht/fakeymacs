@@ -2,7 +2,7 @@
 
 ##                             nickname: fakeymacs light
 ##
-## Windows の操作を emacs のキーバインドで行うための設定 light（Keyhac版）ver.20171110_01
+## Windows の操作を emacs のキーバインドで行うための設定 light（Keyhac版）ver.20171116_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -102,7 +102,10 @@ def configure(keymap):
     # emacs のキーバインドに“したくない”アプリケーションソフトを指定する
     # （Keyhac のメニューから「内部ログ」を ON にすると processname や classname を確認することができます）
     not_emacs_target     = ["bash.exe",           # WSL
+                            "wsl.exe",            # WSL
                             "ubuntu.exe",         # WSL
+                            "sles-12.exe",        # WSL
+                            "opensuse-42.exe",    # WSL
                             "mintty.exe",         # mintty
                             "emacs.exe",          # Emacs
                             "emacs-X11.exe",      # Emacs
@@ -123,7 +126,10 @@ def configure(keymap):
     # IME の切り替え“のみをしたい”アプリケーションソフトを指定する
     # （指定できるアプリケーションソフトは、not_emacs_target で（除外）指定したものからのみとなります）
     ime_target           = ["bash.exe",           # WSL
+                            "wsl.exe",            # WSL
                             "ubuntu.exe",         # WSL
+                            "sles-12.exe",        # WSL
+                            "opensuse-42.exe",    # WSL
                             "mintty.exe",         # mintty
                             "gvim.exe",           # GVim
                             "xyzzy.exe",          # xyzzy
