@@ -2,7 +2,7 @@
 
 ##                               nickname: fakeymacs
 ##
-## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20171116_01
+## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20171127_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -253,7 +253,11 @@ def configure(keymap):
 
     # IME の「単語登録」プログラムを起動するキーを指定する
     # word_register_key = None
-    word_register_key = "C-CloseBracket"
+    # 日本語キーボードでも英語キーボードでも、「:」の右隣のキーに設定する
+    if is_japanese_keyboard:
+        word_register_key = "C-CloseBracket"
+    else:
+        word_register_key = "C-DoubleQuote"
 
     # IME の「単語登録」プログラムとそのパラメータを指定する（for Google日本語入力）
     # word_register_name = r"C:\Program Files\Google\Google Japanese Input\GoogleIMEJaTool.exe"
