@@ -489,7 +489,7 @@ def configure(keymap):
             mark(move_end_of_line, True)()
             delay()
 
-            if checkWindow("cmd.exe$|powershell.exe$", "ConsoleWindowClass$"): # Cmd or Powershell
+            if checkWindow("cmd.exe$|powershell.exe$", "ConsoleWindowClass$"): # Cmd or PowerShell
                 kill_region()
 
             elif checkWindow("Hidemaru.exe$", "HM32CLIENT$"): # Hidemaru Editor
@@ -566,7 +566,7 @@ def configure(keymap):
             self_insert_command("Home", "S-End")()
             fakeymacs.forward_direction = True # 逆の設定にする
 
-        elif checkWindow("powershell.exe$", "ConsoleWindowClass$"): # Powershell
+        elif checkWindow("powershell.exe$", "ConsoleWindowClass$"): # PowerShell
             self_insert_command("End", "S-Home")()
             fakeymacs.forward_direction = False
 
@@ -608,7 +608,7 @@ def configure(keymap):
     ##################################################
 
     def isearch(direction):
-        if checkWindow("powershell.exe$", "ConsoleWindowClass$"): # Powershell
+        if checkWindow("powershell.exe$", "ConsoleWindowClass$"): # PowerShell
             self_insert_command({"backward":"C-r", "forward":"C-s"}[direction])()
         else:
             if fakeymacs.is_searching:
@@ -834,7 +834,7 @@ def configure(keymap):
                 else:
                     self_insert_command("Left", "Right")()
 
-            elif (checkWindow("powershell.exe$", "ConsoleWindowClass$") or # Powershell
+            elif (checkWindow("powershell.exe$", "ConsoleWindowClass$") or # PowerShell
                   checkWindow("EXCEL.EXE", None) or                        # Microsoft Excel
                   checkWindow(None, "Edit$")):                             # NotePad 等                  
                 # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
