@@ -2,7 +2,7 @@
 
 ##                               nickname: fakeymacs
 ##
-## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20171201_01
+## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20180118_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -1153,7 +1153,7 @@ def configure(keymap):
                 if fakeymacs.ei_last_window == window:
                     return True
                 else:
-                    disable_emacs_ime_mode(False)
+                    disable_emacs_ime_mode(update=False)
                     return False
             else:
                 return False
@@ -1185,9 +1185,9 @@ def configure(keymap):
 
         def toggle_emacs_ime_mode():
             if fakeymacs.ei_last_window:
-                disable_emacs_ime_mode(True, True)
+                disable_emacs_ime_mode(toggle=True)
             else:
-                enable_emacs_ime_mode(True, True)
+                enable_emacs_ime_mode(toggle=True)
 
         ##################################################
         ## IME の切り替え（emacs日本語入力モード用）
