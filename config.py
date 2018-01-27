@@ -836,7 +836,7 @@ def configure(keymap):
 
             elif (checkWindow("powershell.exe$", "ConsoleWindowClass$") or # PowerShell
                   checkWindow("EXCEL.EXE", None) or                        # Microsoft Excel
-                  checkWindow(None, "Edit$")):                             # NotePad 等                  
+                  checkWindow(None, "Edit$")):                             # NotePad 等
                 # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
                 if fakeymacs.forward_direction:
                     self_insert_command("Left", "Right")()
