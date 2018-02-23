@@ -2,7 +2,7 @@
 
 ##                               nickname: fakeymacs
 ##
-## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20180118_01
+## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20180222_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -498,7 +498,9 @@ def configure(keymap):
                 if getClipboardText() == "":
                     self_insert_command("Delete")()
             else:
-                self_insert_command("C-c", "Delete")() # 改行を消せるようにするため C-x にはしていない
+                # 改行を消せるようにするため Cut にはしていない
+                copy()
+                self_insert_command("Delete")()
         else:
             def move_end_of_region():
                 if checkWindow("WINWORD.EXE$", "_WwG$"): # Microsoft Word
@@ -518,8 +520,7 @@ def configure(keymap):
     def kill_region():
         # コマンドプロンプトには Cut に対応するショートカットがない。その対策。
         if checkWindow("cmd.exe$", "ConsoleWindowClass$"): # Cmd
-            self_insert_command("C-c")()
-            delay()
+            copy()
 
             if fakeymacs.is_marked and fakeymacs.forward_direction is not None:
                 if fakeymacs.forward_direction:
@@ -527,13 +528,11 @@ def configure(keymap):
                 else:
                     key = "Back"
 
+                delay()
                 for i in range(len(getClipboardText())):
                     self_insert_command(key)()
         else:
-            self_insert_command("C-x")()
-
-    def copy():
-        self_insert_command("C-c")()
+            cut()
 
     def kill_ring_save():
         copy()
@@ -740,12 +739,28 @@ def configure(keymap):
     ## 共通関数
     ##################################################
 
+    def delay(sec=0.02):
+        time.sleep(sec)
+
+    def copy():
+        self_insert_command("C-c")()
+        pushToClipboardList()
+
+    def cut():
+        self_insert_command("C-x")()
+        pushToClipboardList()
+
+    def pushToClipboardList():
+        # clipboard 監視の対象外とするアプリケーションソフトで copy / cut した場合でも
+        # クリップボードの内容をクリップボードリストに登録する
+        if keymap.getWindow().getProcessName() in not_clipboard_target:
+            delay(0.05)
+            if getClipboardText():
+                keymap.clipboard_history.push(getClipboardText())
+
     def checkWindow(processName, className):
         return ((processName is None or re.match(processName, keymap.getWindow().getProcessName())) and
                 (className is None or re.match(className, keymap.getWindow().getClassName())))
-
-    def delay(sec=0.02):
-        time.sleep(sec)
 
     def vkeys():
         vkeys = list(keyCondition.vk_str_table.keys())
