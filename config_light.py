@@ -2,7 +2,7 @@
 
 ##                             nickname: fakeymacs light
 ##
-## Windows の操作を emacs のキーバインドで行うための設定 light（Keyhac版）ver.20180222_01
+## Windows の操作を emacs のキーバインドで行うための設定 light（Keyhac版）ver.20180410_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -663,9 +663,10 @@ def configure(keymap):
         # clipboard 監視の対象外とするアプリケーションソフトで copy / cut した場合でも
         # クリップボードの内容をクリップボードリストに登録する
         if keymap.getWindow().getProcessName() in not_clipboard_target:
-            delay(0.05)
-            if getClipboardText():
-                keymap.clipboard_history.push(getClipboardText())
+            delay(0.1)
+            clipboard_text = getClipboardText()
+            if clipboard_text:
+                keymap.clipboard_history._push(clipboard_text)
 
     def checkWindow(processName, className):
         return ((processName is None or re.match(processName, keymap.getWindow().getProcessName())) and
