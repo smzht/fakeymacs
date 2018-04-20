@@ -1,6 +1,6 @@
 #+STARTUP: showall indent
 
-* fakeymacs
+* Fakeymacs
 
 Windows の操作を emacs のキーバインドで行うための設定です。
 
@@ -12,9 +12,9 @@ Keyhac for Windows ver 1.75 以上で動作する設定となっています。
 
 - [[https://www49.atwiki.jp/ntemacs/pages/25.html][Windows の操作を emacs のキーバインドで行うための設定 （Keyhac版）]]
 
-** light バージョン
+** Light バージョン
 
-機能を制限した light バージョン（config_light.py）も登録しました。full バージョン（config.py）
+機能を制限した Light バージョン（config_light.py）も登録しました。Full バージョン（config.py）
 との違いは以下のとおりとなります。
 
 |-----------------------------------------------+--------------------+-----------------|
