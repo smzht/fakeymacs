@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20180410_01
+## Windows の操作を emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20180512_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -103,8 +103,11 @@ def configure(keymap):
     # （Keyhac のメニューから「内部ログ」を ON にすると processname や classname を確認することができます）
     not_emacs_target     = ["bash.exe",           # WSL
                             "ubuntu.exe",         # WSL
+                            "ubuntu1804.exe",     # WSL
                             "SLES-12.exe",        # WSL
                             "openSUSE-42.exe",    # WSL
+                            "debian.exe",         # WSL
+                            "kali.exe",           # WSL
                             "mintty.exe",         # mintty
                             "Cmder.exe",          # Cmder
                             "ConEmu.exe",         # ConEmu
@@ -129,8 +132,11 @@ def configure(keymap):
     # （指定できるアプリケーションソフトは、not_emacs_target で（除外）指定したものからのみとなります）
     ime_target           = ["bash.exe",           # WSL
                             "ubuntu.exe",         # WSL
+                            "ubuntu1804.exe",     # WSL
                             "SLES-12.exe",        # WSL
                             "openSUSE-42.exe",    # WSL
+                            "debian.exe",         # WSL
+                            "kali.exe",           # WSL
                             "mintty.exe",         # mintty
                             "Cmder.exe",          # Cmder
                             "ConEmu.exe",         # ConEmu
