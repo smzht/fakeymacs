@@ -1224,8 +1224,8 @@ def configure(keymap):
 
         ## 「スクロール」のキー設定（上書きされないように最後に設定する）
         if scroll_key:
-            define_key(keymap_ei, scroll_key[0].replace("M-", "A-"), ei_record_func(scroll_up))
-            define_key(keymap_ei, scroll_key[1].replace("M-", "A-"), ei_record_func(scroll_down))
+            define_key(keymap_ei, scroll_key[0] and scroll_key[0].replace("M-", "A-"), ei_record_func(scroll_up))
+            define_key(keymap_ei, scroll_key[1] and scroll_key[1].replace("M-", "A-"), ei_record_func(scroll_down))
 
         ## emacs日本語入力モードを切り替える（トグルする）
         define_key(keymap_emacs, toggle_emacs_ime_mode_key, toggle_emacs_ime_mode)
