@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20180512_01
+## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20180601_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -85,6 +85,8 @@
 #   この設定では、Sakura Editor のみ対応している。
 # ・キーボードマクロは emacs の挙動と異なり、IME の変換キーも含めた入力したキーそのものを
 #   記録する。このため、キーボードマクロ記録時や再生時、IME の状態に留意した利用が必要。
+# ・kill-buffer に Ctl-x k とは別に M-k も割り当てている。プラウザのタブを削除する際
+#   などに利用可。
 #
 # ＜全てのアプリケーションソフトで共通の動き＞
 # ・other_window_key 変数に設定したキーにより、表示しているウィンドウの中で、一番最近
@@ -1119,6 +1121,7 @@ def configure(keymap):
     define_key(keymap_emacs, "Ctl-x k", reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
     define_key(keymap_emacs, "Ctl-x b", reset_search(reset_undo(reset_counter(reset_mark(switch_to_buffer)))))
     define_key(keymap_emacs, "Ctl-x o", reset_search(reset_undo(reset_counter(reset_mark(other_window)))))
+    define_key(keymap_emacs, "M-k",     reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
 
     ## 「文字列検索 / 置換」のキー設定
     define_key(keymap_emacs, "C-r",   reset_undo(reset_counter(reset_mark(isearch_backward))))
