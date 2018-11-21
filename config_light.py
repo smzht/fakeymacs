@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20180626_01
+## Windows の操作を emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20181121_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -119,6 +119,7 @@ def configure(keymap):
                             "emacs-X11.exe",      # Emacs
                             "emacs-w32.exe",      # Emacs
                             "gvim.exe",           # GVim
+                            "Code.exe",           # VSCode
                             "xyzzy.exe",          # xyzzy
                             "VirtualBox.exe",     # VirtualBox
                             "XWin.exe",           # Cygwin/X
@@ -146,6 +147,7 @@ def configure(keymap):
                             "ConEmu.exe",         # ConEmu
                             "ConEmu64.exe",       # ConEmu
                             "gvim.exe",           # GVim
+                            "Code.exe",           # VSCode
                             "xyzzy.exe",          # xyzzy
                             "putty.exe",          # PuTTY
                             "ttermpro.exe",       # TeraTerm
