@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20181121_01
+## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20190131_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -15,8 +15,8 @@
 # 本設定を利用するための仕様は、以下を参照してください。
 #
 # ＜共通の仕様＞
-# ・not_emacs_target 変数と ime_target 変数で、emacsキーバインドや IME の切り替えキーバインド
-#   の対象とするアプリケーションソフトを指定できる。
+# ・emacs_tareget_class 変数、not_emacs_target 変数、ime_target 変数で、emacsキーバインドや
+#   IME の切り替えキーバインドの対象とするアプリケーションソフトを指定できる。
 # ・not_clipboard_target 変数で、clipboard 監視の対象外とするアプリケーションソフトを指定
 #   できる。
 # ・日本語と英語のどちらのキーボードを利用するかを is_japanese_keyboard 変数で指定できる。
@@ -130,6 +130,9 @@ def configure(keymap):
     ####################################################################################################
     ## カスタマイズの設定
     ####################################################################################################
+
+    # emacs のキーバインドにするウィンドウのクラスネームを指定する（全ての設定に優先する）
+    emacs_target_class   = ["Edit"]               # テキスト入力フィールドなどが該当
 
     # emacs のキーバインドに“したくない”アプリケーションソフトを指定する
     # （Keyhac のメニューから「内部ログ」を ON にすると processname や classname を確認することができます）
@@ -313,17 +316,25 @@ def configure(keymap):
         if is_list_window(window):
             return False
 
-        if window.getProcessName() in not_emacs_target:
-            fakeymacs.keybind = "not_emacs"
-            return False
-
-        fakeymacs.keybind = "emacs"
-        return True
+        if window.getClassName() in emacs_target_class:
+            fakeymacs.keybind = "emacs"
+            return True
+        else:
+            if window.getProcessName() in not_emacs_target:
+                fakeymacs.keybind = "not_emacs"
+                return False
+            else:
+                fakeymacs.keybind = "emacs"
+                return True
 
     def is_ime_target(window):
-        if window.getProcessName() in ime_target:
-            return True
-        return False
+        if window.getClassName() in emacs_target_class:
+            return False
+        else:
+            if window.getProcessName() in ime_target:
+                return True
+            else:
+                return False
 
     if use_emacs_ime_mode:
         keymap_emacs = keymap.defineWindowKeymap(check_func=lambda wnd: is_emacs_target(wnd) and not is_emacs_ime_mode(wnd))
