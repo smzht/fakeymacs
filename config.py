@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20190131_01
+## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20190204_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -319,22 +319,22 @@ def configure(keymap):
         if window.getClassName() in emacs_target_class:
             fakeymacs.keybind = "emacs"
             return True
-        else:
-            if window.getProcessName() in not_emacs_target:
-                fakeymacs.keybind = "not_emacs"
-                return False
-            else:
-                fakeymacs.keybind = "emacs"
-                return True
+
+        if window.getProcessName() in not_emacs_target:
+            fakeymacs.keybind = "not_emacs"
+            return False
+
+        fakeymacs.keybind = "emacs"
+        return True
 
     def is_ime_target(window):
         if window.getClassName() in emacs_target_class:
             return False
-        else:
-            if window.getProcessName() in ime_target:
-                return True
-            else:
-                return False
+
+        if window.getProcessName() in ime_target:
+            return True
+
+        return False
 
     if use_emacs_ime_mode:
         keymap_emacs = keymap.defineWindowKeymap(check_func=lambda wnd: is_emacs_target(wnd) and not is_emacs_ime_mode(wnd))
