@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20190204_01
+## Windows の操作を emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20190327_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -77,8 +77,9 @@
 # ・C-y を前置引数を指定して実行すると、ヤンク（ペースト）の繰り返しが行われる。
 # ・C-l は、アプリケーションソフト個別対応とする。recenter 関数で個別に指定すること。
 #   この設定では、Sakura Editor のみ対応している。
-# ・キーボードマクロは emacs の挙動と異なり、IME の変換キーも含めた入力したキーそのものを
-#   記録する。このため、キーボードマクロ記録時や再生時、IME の状態に留意した利用が必要。
+# ・キーボードマクロは emacs の挙動と異なり、IME の変換キーも含めた入力したキーそのもの
+#   を記録する。このため、キーボードマクロの記録と再生の開始時に IME を強制的に OFF に
+#   するようにし、キーボードマクロの再生時の IME 状態の考慮が不要となるようにしている。
 # ・kill-buffer に Ctl-x k とは別に M-k も割り当てている。プラウザのタブを削除する際
 #   などに利用可。
 #
@@ -588,6 +589,9 @@ def configure(keymap):
     ##################################################
 
     def kmacro_start_macro():
+        if keymap.getWindow().getImeStatus():
+            toggle_input_method()
+
         keymap.command_RecordStart()
 
     def kmacro_end_macro():
@@ -616,7 +620,12 @@ def configure(keymap):
 
     def kmacro_end_and_call_macro():
         fakeymacs.is_playing_kmacro = True
+
+        if keymap.getWindow().getImeStatus():
+            toggle_input_method()
+
         keymap.command_RecordPlay()
+
         fakeymacs.is_playing_kmacro = False
 
     ##################################################
