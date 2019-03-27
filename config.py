@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20190327_01
+## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20190327_02
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -392,7 +392,7 @@ def configure(keymap):
 
     def toggle_input_method():
         self_insert_command("A-(25)")()
-        delay(0.05)
+        delay(0.1)
 
         # IME の状態を格納する
         ime_status = keymap.getWindow().getImeStatus()
@@ -407,6 +407,8 @@ def configure(keymap):
 
             # IME の状態をバルーンヘルプで表示する
             keymap.popBalloon("ime_status", message, 500)
+
+        delay(0.1)
 
     ##################################################
     ## ファイル操作
@@ -666,7 +668,6 @@ def configure(keymap):
     def kmacro_start_macro():
         if keymap.getWindow().getImeStatus():
             toggle_input_method()
-
         keymap.command_RecordStart()
 
     def kmacro_end_macro():
@@ -694,14 +695,14 @@ def configure(keymap):
                        keymap.record_seq.append((ctl_x_prefix_vkey[0], True))
 
     def kmacro_end_and_call_macro():
-        fakeymacs.is_playing_kmacro = True
+        def callKmacro():
+            fakeymacs.is_playing_kmacro = True
+            if keymap.getWindow().getImeStatus():
+                toggle_input_method()
+            keymap.command_RecordPlay()
+            fakeymacs.is_playing_kmacro = False
 
-        if keymap.getWindow().getImeStatus():
-            toggle_input_method()
-
-        keymap.command_RecordPlay()
-
-        fakeymacs.is_playing_kmacro = False
+        keymap.delayedCall(callKmacro, 0)
 
     ##################################################
     ## その他
