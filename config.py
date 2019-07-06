@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20190327_02
+## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20190706_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -121,6 +121,7 @@ import time
 import sys
 import os.path
 import re
+import fnmatch
 
 import keyhac_keymap
 from keyhac import *
@@ -452,7 +453,7 @@ def configure(keymap):
 
     def move_end_of_line():
         self_insert_command("End")()
-        if checkWindow("WINWORD.EXE$", "_WwG$"): # Microsoft Word
+        if checkWindow("WINWORD.EXE", "_WwG"): # Microsoft Word
             if fakeymacs.is_marked:
                 self_insert_command("Left")()
 
@@ -469,7 +470,8 @@ def configure(keymap):
         self_insert_command("PageDown")()
 
     def recenter():
-        if checkWindow("sakura.exe$", "EditorClient$|SakuraView166$"): # Sakura Editor
+        if (checkWindow("sakura.exe", "EditorClient") or # Sakura Editor
+            checkWindow("sakura.exe", "SakuraView166")): # Sakura Editor
             self_insert_command("C-h")()
 
     ##################################################
@@ -514,10 +516,11 @@ def configure(keymap):
             mark(move_end_of_line, True)()
             delay()
 
-            if checkWindow("cmd.exe$|powershell.exe$", "ConsoleWindowClass$"): # Cmd or PowerShell
+            if (checkWindow("cmd.exe", "ConsoleWindowClass") or       # Cmd
+                checkWindow("powershell.exe", "ConsoleWindowClass")): # PowerShell
                 kill_region()
 
-            elif checkWindow("Hidemaru.exe$", "HM32CLIENT$"): # Hidemaru Editor
+            elif checkWindow("Hidemaru.exe", "HM32CLIENT"): # Hidemaru Editor
                 kill_region()
                 delay()
                 if getClipboardText() == "":
@@ -528,7 +531,7 @@ def configure(keymap):
                 self_insert_command("Delete")()
         else:
             def move_end_of_region():
-                if checkWindow("WINWORD.EXE$", "_WwG$"): # Microsoft Word
+                if checkWindow("WINWORD.EXE", "_WwG"): # Microsoft Word
                     for i in range(repeat):
                         next_line()
                     move_beginning_of_line()
@@ -544,7 +547,7 @@ def configure(keymap):
 
     def kill_region():
         # コマンドプロンプトには Cut に対応するショートカットがない。その対策。
-        if checkWindow("cmd.exe$", "ConsoleWindowClass$"): # Cmd
+        if checkWindow("cmd.exe", "ConsoleWindowClass"): # Cmd
             copy()
 
             if fakeymacs.is_marked and fakeymacs.forward_direction is not None:
@@ -568,7 +571,7 @@ def configure(keymap):
 
     def undo():
         # redo（C-y）の機能を持っていないアプリケーションソフトは常に undo とする
-        if checkWindow("notepad.exe$", "Edit$"): # NotePad
+        if checkWindow("notepad.exe", "Edit"): # NotePad
             self_insert_command("C-z")()
         else:
             if fakeymacs.is_undo_mode:
@@ -585,17 +588,17 @@ def configure(keymap):
             fakeymacs.is_marked = True
 
     def mark_whole_buffer():
-        if checkWindow("cmd.exe$", "ConsoleWindowClass$"): # Cmd
+        if checkWindow("cmd.exe", "ConsoleWindowClass"): # Cmd
             # "Home", "C-a" では上手く動かない場合がある
             self_insert_command("Home", "S-End")()
             fakeymacs.forward_direction = True # 逆の設定にする
 
-        elif checkWindow("powershell.exe$", "ConsoleWindowClass$"): # PowerShell
+        elif checkWindow("powershell.exe", "ConsoleWindowClass"): # PowerShell
             self_insert_command("End", "S-Home")()
             fakeymacs.forward_direction = False
 
-        elif (checkWindow("EXCEL.EXE$", "EXCEL") or # Microsoft Excel
-              checkWindow(None, "Edit$")):          # NotePad 等
+        elif (checkWindow("EXCEL.EXE", "EXCEL*") or # Microsoft Excel
+              checkWindow(None, "Edit")):           # NotePad 等
             self_insert_command("C-End", "C-S-Home")()
             fakeymacs.forward_direction = False
         else:
@@ -632,12 +635,12 @@ def configure(keymap):
     ##################################################
 
     def isearch(direction):
-        if checkWindow("powershell.exe$", "ConsoleWindowClass$"): # PowerShell
+        if checkWindow("powershell.exe", "ConsoleWindowClass"): # PowerShell
             self_insert_command({"backward":"C-r", "forward":"C-s"}[direction])()
         else:
             if fakeymacs.is_searching:
-                if checkWindow("EXCEL.EXE$", None): # Microsoft Excel
-                    if checkWindow(None, "EDTBX$"): # 検索ウィンドウ
+                if checkWindow("EXCEL.EXE", None): # Microsoft Excel
+                    if checkWindow(None, "EDTBX"): # 検索ウィンドウ
                         self_insert_command({"backward":"A-S-f", "forward":"A-f"}[direction])()
                     else:
                         self_insert_command("C-f")()
@@ -654,8 +657,9 @@ def configure(keymap):
         isearch("forward")
 
     def query_replace():
-        if (checkWindow("sakura.exe$", "EditorClient$|SakuraView166$") or # Sakura Editor
-            checkWindow("Hidemaru.exe$", "HM32CLIENT$")):                 # Hidemaru Editor
+        if (checkWindow("sakura.exe", "EditorClient") or  # Sakura Editor
+            checkWindow("sakura.exe", "SakuraView166") or # Sakura Editor
+            checkWindow("Hidemaru.exe", "HM32CLIENT")):   # Hidemaru Editor
             self_insert_command("C-r")()
         else:
             self_insert_command("C-h")()
@@ -720,7 +724,8 @@ def configure(keymap):
         reset_region()
 
         # Microsoft Excel または Evernote 以外の場合、Esc を発行する
-        if not (checkWindow("EXCEL.EXE$", "EXCEL") or checkWindow("Evernote.exe$", "WebViewHost$")):
+        if not (checkWindow("EXCEL.EXE", "EXCEL*") or
+                checkWindow("Evernote.exe", "WebViewHost")):
             self_insert_command("Esc")()
 
         keymap.command_RecordStop()
@@ -792,8 +797,9 @@ def configure(keymap):
                 keymap.clipboard_history._push(clipboard_text)
 
     def checkWindow(processName, className):
-        return ((processName is None or re.match(processName, keymap.getWindow().getProcessName())) and
-                (className is None or re.match(className, keymap.getWindow().getClassName())))
+        window = keymap.getWindow()
+        return ((processName is None or fnmatch.fnmatch(window.getProcessName(), processName)) and
+                (className is None or fnmatch.fnmatch(window.getClassName(), className)))
 
     def vkeys():
         vkeys = list(keyCondition.vk_str_table.keys())
@@ -869,22 +875,23 @@ def configure(keymap):
     def reset_region():
         if use_region_reset and fakeymacs.is_marked and fakeymacs.forward_direction is not None:
 
-            if (checkWindow("sakura.exe$", "EditorClient$|SakuraView166$") or # Sakura Editor
-                checkWindow("Code.exe$", "Chrome_WidgetWin_1$") or            # Visual Studio Code
-                checkWindow("Hidemaru.exe$", "HM32CLIENT$")):                 # Hidemaru Editor
+            if (checkWindow("sakura.exe", "EditorClient") or     # Sakura Editor
+                checkWindow("sakura.exe", "SakuraView166") or    # Sakura Editor
+                checkWindow("Code.exe", "Chrome_WidgetWin_1") or # Visual Studio Code
+                checkWindow("Hidemaru.exe", "HM32CLIENT")):      # Hidemaru Editor
                 # 選択されているリージョンのハイライトを解除するために Esc キーを発行する
                 self_insert_command("Esc")()
 
-            elif checkWindow("cmd.exe$", "ConsoleWindowClass$"): # Cmd
+            elif checkWindow("cmd.exe", "ConsoleWindowClass"): # Cmd
                 # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
                 if fakeymacs.forward_direction:
                     self_insert_command("Right", "Left")()
                 else:
                     self_insert_command("Left", "Right")()
 
-            elif (checkWindow("powershell.exe$", "ConsoleWindowClass$") or # PowerShell
-                  checkWindow("EXCEL.EXE", None) or                        # Microsoft Excel
-                  checkWindow(None, "Edit$")):                             # NotePad 等
+            elif (checkWindow("powershell.exe", "ConsoleWindowClass") or # PowerShell
+                  checkWindow("EXCEL.EXE", None) or                      # Microsoft Excel
+                  checkWindow(None, "Edit")):                            # NotePad 等
                 # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
                 if fakeymacs.forward_direction:
                     self_insert_command("Left", "Right")()
