@@ -1792,13 +1792,25 @@ def configure(keymap):
 
 
     ####################################################################################################
-    ## Excel の場合、C-Enter に F2（セル編集モード移行）を割り当てる（オプション）
+    ## C-Enter に F2（編集モード移行）を割り当てる（オプション）
     ####################################################################################################
     if 0:
-        keymap_excel = keymap.defineWindowKeymap(class_name="EXCEL*")
+        F2_target = [["EXCEL.EXE",    "EXCEL*"],
+                     ["explorer.exe", "DirectUIHWND"]]
 
-        # C-Enter 押下で、「セル編集モード」に移行する
-        define_key(keymap_excel, "C-Enter", reset_search(reset_undo(reset_counter(reset_mark(self_insert_command("F2"))))))
+        def is_F2_target(window):
+            windowProcessName = window.getProcessName()
+            windowClassName   = window.getClassName()
+
+            for processName, className in F2_target:
+                if ((processName is None or fnmatch.fnmatch(windowProcessName, processName)) and
+                    (className is None or fnmatch.fnmatch(windowClassName, className))):
+                    return True
+            return False
+
+        keymap_F2 = keymap.defineWindowKeymap(check_func=is_F2_target)
+
+        define_key(keymap_F2, "C-Enter", reset_search(reset_undo(reset_counter(reset_mark(self_insert_command("F2"))))))
 
 
     ####################################################################################################
