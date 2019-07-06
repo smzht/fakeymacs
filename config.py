@@ -1753,6 +1753,7 @@ def configure(keymap):
                     ["Facebook",        keymap.ShellExecuteCommand(None, r"https://www.facebook.com/", "", "")],
                     ["Twitter",         keymap.ShellExecuteCommand(None, r"https://twitter.com/", "", "")],
                     ["Keyhac",          keymap.ShellExecuteCommand(None, r"https://sites.google.com/site/craftware/keyhac-ja", "", "")],
+                    ["Fakeymacs",       keymap.ShellExecuteCommand(None, r"https://github.com/smzht/fakeymacs", "", "")],
                     ["NTEmacs＠ウィキ", keymap.ShellExecuteCommand(None, r"http://www49.atwiki.jp/ntemacs/", "", "")],
                 ]
                 website_items[0][0] = list_formatter.format(website_items[0][0])
