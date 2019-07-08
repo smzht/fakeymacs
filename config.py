@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20190706_01
+## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20190708_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -796,8 +796,9 @@ def configure(keymap):
             if clipboard_text:
                 keymap.clipboard_history._push(clipboard_text)
 
-    def checkWindow(processName, className):
-        window = keymap.getWindow()
+    def checkWindow(processName, className, window=None):
+        if window == None:
+            window = keymap.getWindow()
         return ((processName is None or fnmatch.fnmatch(window.getProcessName(), processName)) and
                 (className is None or fnmatch.fnmatch(window.getClassName(), className)))
 
