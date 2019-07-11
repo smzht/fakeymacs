@@ -1416,7 +1416,7 @@ def configure(keymap):
                         # 操作の対象としたくないアプリケーションソフトの“プロセス名称”を、re.match 関数
                         # （先頭からのマッチ）の正規表現に「|」を使って繋げて指定してください。
                         # （完全マッチとするためには $ の指定が必要です。）
-                        if not re.match(r"RocketDock.exe$", process_name): # サンプルとして RocketDock.exe を登録
+                        if not re.match(r"RocketDock\.exe$", process_name): # サンプルとして RocketDock.exe を登録
 
                             # 表示されていないストアアプリ（「設定」等）が window_list に登録されるのを抑制する
                             if class_name == "Windows.UI.Core.CoreWindow":
