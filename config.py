@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20190710_01
+## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20190717_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -891,8 +891,7 @@ def configure(keymap):
                     self_insert_command("Left", "Right")()
 
             elif (checkWindow("powershell.exe", "ConsoleWindowClass") or # PowerShell
-                  checkWindow("EXCEL.EXE", None) or                      # Microsoft Excel
-                  checkWindow(None, "Edit")):                            # NotePad 等
+                  checkWindow("EXCEL.EXE", None)):                       # Microsoft Excel
                 # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
                 if fakeymacs.forward_direction:
                     self_insert_command("Left", "Right")()
