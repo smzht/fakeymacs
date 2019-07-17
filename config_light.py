@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20190717_02
+## Windows の操作を emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20190718_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -530,7 +530,7 @@ def configure(keymap):
             fakeymacs.forward_direction = False
 
         elif (checkWindow("EXCEL.EXE", "EXCEL*") or # Microsoft Excel
-              checkWindow(None, "Edit")):           # NotePad 等
+              checkWindow(None, "Edit")):           # Edit クラス
             self_insert_command("C-End", "C-S-Home")()
             fakeymacs.forward_direction = False
         else:
@@ -789,10 +789,17 @@ def configure(keymap):
     def reset_region():
         if use_region_reset and fakeymacs.is_marked and fakeymacs.forward_direction is not None:
 
-            if (checkWindow("Code.exe", "Chrome_WidgetWin_1") or # Visual Studio Code
-                checkWindow("sakura.exe", "EditorClient") or     # Sakura Editor
-                checkWindow("sakura.exe", "SakuraView166") or    # Sakura Editor
-                checkWindow("Hidemaru.exe", "HM32CLIENT")):      # Hidemaru Editor
+            if checkWindow(None, "Edit"): # Edit クラス
+                # 選択されているリージョンのハイライトを解除するためにカーソルキーを発行する
+                if fakeymacs.forward_direction:
+                    self_insert_command("Right")()
+                else:
+                    self_insert_command("Left")()
+
+            elif (checkWindow("Code.exe", "Chrome_WidgetWin_1") or # Visual Studio Code
+                  checkWindow("sakura.exe", "EditorClient") or     # Sakura Editor
+                  checkWindow("sakura.exe", "SakuraView166") or    # Sakura Editor
+                  checkWindow("Hidemaru.exe", "HM32CLIENT")):      # Hidemaru Editor
                 # 選択されているリージョンのハイライトを解除するために Esc キーを発行する
                 self_insert_command("Esc")()
 
