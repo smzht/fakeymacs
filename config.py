@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20190717_01
+## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20190717_02
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -723,9 +723,11 @@ def configure(keymap):
     def keyboard_quit():
         reset_region()
 
-        # Microsoft Excel または Evernote 以外の場合、Esc を発行する
-        if not (checkWindow("EXCEL.EXE", "EXCEL*") or
-                checkWindow("Evernote.exe", "WebViewHost")):
+        # Esc を発行して問題ないアプリケーションソフトには Esc を発行する
+        if not (checkWindow("cmd.exe", "ConsoleWindowClass") or        # Cmd
+                checkWindow("powershell.exe", "ConsoleWindowClass") or # PowerShell
+                checkWindow("EXCEL.EXE", "EXCEL*") or                  # Microsoft Excel
+                checkWindow("Evernote.exe", "WebViewHost")):           # Evernote
             self_insert_command("Esc")()
 
         keymap.command_RecordStop()
@@ -876,9 +878,9 @@ def configure(keymap):
     def reset_region():
         if use_region_reset and fakeymacs.is_marked and fakeymacs.forward_direction is not None:
 
-            if (checkWindow("sakura.exe", "EditorClient") or     # Sakura Editor
+            if (checkWindow("Code.exe", "Chrome_WidgetWin_1") or # Visual Studio Code
+                checkWindow("sakura.exe", "EditorClient") or     # Sakura Editor
                 checkWindow("sakura.exe", "SakuraView166") or    # Sakura Editor
-                checkWindow("Code.exe", "Chrome_WidgetWin_1") or # Visual Studio Code
                 checkWindow("Hidemaru.exe", "HM32CLIENT")):      # Hidemaru Editor
                 # 選択されているリージョンのハイライトを解除するために Esc キーを発行する
                 self_insert_command("Esc")()
