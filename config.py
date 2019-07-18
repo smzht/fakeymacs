@@ -885,13 +885,6 @@ def configure(keymap):
                 else:
                     self_insert_command("Left")()
 
-            elif (checkWindow("Code.exe", "Chrome_WidgetWin_1") or # Visual Studio Code
-                  checkWindow("sakura.exe", "EditorClient") or     # Sakura Editor
-                  checkWindow("sakura.exe", "SakuraView166") or    # Sakura Editor
-                  checkWindow("Hidemaru.exe", "HM32CLIENT")):      # Hidemaru Editor
-                # 選択されているリージョンのハイライトを解除するために Esc キーを発行する
-                self_insert_command("Esc")()
-
             elif checkWindow("cmd.exe", "ConsoleWindowClass"): # Cmd
                 # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
                 if fakeymacs.forward_direction:
