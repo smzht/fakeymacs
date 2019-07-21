@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20190718_01
+## Windows の操作を emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20190721_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -624,6 +624,7 @@ def configure(keymap):
 
     def kmacro_end_and_call_macro():
         def callKmacro():
+            delay()
             fakeymacs.is_playing_kmacro = True
             if keymap.getWindow().getImeStatus():
                 toggle_input_method()
@@ -1133,13 +1134,19 @@ def configure(keymap):
             fakeymacs.ei_last_func = None
             ei_popBalloon(toggle)
             if update:
-                keymap.delayedCall(keymap.updateKeymap, 0)
+                if fakeymacs.is_playing_kmacro:
+                    keymap.updateKeymap()
+                else:
+                    keymap.delayedCall(keymap.updateKeymap, 0)
 
         def disable_emacs_ime_mode(update=True, toggle=False):
             fakeymacs.ei_last_window = None
             ei_popBalloon(toggle)
             if update:
-                keymap.delayedCall(keymap.updateKeymap, 0)
+                if fakeymacs.is_playing_kmacro:
+                    keymap.updateKeymap()
+                else:
+                    keymap.delayedCall(keymap.updateKeymap, 0)
 
         def toggle_emacs_ime_mode():
             if fakeymacs.ei_last_window:
