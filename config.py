@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20190721_02
+## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20190724_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -1473,9 +1473,10 @@ def configure(keymap):
 
     def restore_window():
         window_list = getWindowList()
-        if not (sys.getwindowsversion().major == 6 and
-                sys.getwindowsversion().minor == 1):
-            window_list.reverse()
+
+        # ウィンドウのリストアが最小化した順番の逆順にならないときに有効化してください
+        # window_list.reverse()
+
         for wnd in window_list:
             if wnd.isMinimized():
                 wnd.restore()
