@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20190725_01
+## Windows の操作を emacs のキーバインドで行うための設定（Keyhac版）ver.20190811_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -160,6 +160,7 @@ def configure(keymap):
                             "XWin_MobaX.exe",     # MobaXterm/X
                             "Xming.exe",          # Xming
                             "vcxsrv.exe",         # VcXsrv
+                            "X410.exe",           # X410
                             "putty.exe",          # PuTTY
                             "ttermpro.exe",       # TeraTerm
                             "MobaXterm.exe",      # MobaXterm

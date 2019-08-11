@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20190721_02
+## Windows の操作を emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20190811_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -130,6 +130,7 @@ def configure(keymap):
                             "XWin_MobaX.exe",     # MobaXterm/X
                             "Xming.exe",          # Xming
                             "vcxsrv.exe",         # VcXsrv
+                            "X410.exe",           # X410
                             "putty.exe",          # PuTTY
                             "ttermpro.exe",       # TeraTerm
                             "MobaXterm.exe",      # MobaXterm
