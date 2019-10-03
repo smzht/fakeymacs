@@ -2,7 +2,7 @@
 
 * Fakeymacs
 
-Windows の操作を emacs のキーバインドで行うための設定です。
+Windows の操作を Emacs のキーバインドで行うための設定です。
 
 Keyhac for Windows ver 1.75 以上で動作する設定となっています。
 
@@ -10,7 +10,7 @@ Keyhac for Windows ver 1.75 以上で動作する設定となっています。
 
 詳しくは以下を参照してください。
 
-- [[https://www49.atwiki.jp/ntemacs/pages/25.html][Windows の操作を emacs のキーバインドで行うための設定 （Keyhac版）]]
+- [[https://www49.atwiki.jp/ntemacs/pages/25.html][Windows の操作を Emacs のキーバインドで行うための設定 （Keyhac版）]]
 
 ** Light バージョン
 
@@ -50,5 +50,5 @@ IME のショートカットキーが利用できるようになります。
 
 上記で紹介している wiki のページに詳しく書いておりますが、本設定は IME を 「Google 日本語入力」
 とし、プロパティの「キー設定」を「ことえり」にしたときに最適に動作するように調整しています。
-「Google 日本語入力」は、mozc_emacs_helper.exe を利用することで NTEmacs や WSL の emacs とも
+「Google 日本語入力」は、mozc_emacs_helper.exe を利用することで NTEmacs や WSL の Emacs とも
 連携可能な IME となっておりますので、利用されていない方は是非お試しください。
