@@ -15,7 +15,7 @@
 # 本設定を利用するための仕様は、以下を参照してください。
 #
 # ＜共通の仕様＞
-# ・emacs_tareget_class 変数、not_emacs_target 変数、ime_target 変数で、emacsキーバインドや
+# ・emacs_tareget_class 変数、not_emacs_target 変数、ime_target 変数で、Emacsキーバインドや
 #   IME の切り替えキーバインドの対象とするアプリケーションソフトを指定できる。
 # ・not_clipboard_target 変数で、clipboard 監視の対象外とするアプリケーションソフトを指定
 #   できる。
@@ -27,20 +27,20 @@
 #   ・C-    : Ctrlキー
 #   ・A-    : Altキー
 #   ・M-    : Altキー と Esc、C-[ のプレフィックスキーを利用する３パターンを定義
-#             （emacsキーバインド設定で利用可。emacs の Meta と同様の意味。）
+#             （Emacsキーバインド設定で利用可。emacs の Meta と同様の意味。）
 #   ・Ctl-x : ctl_x_prefix_key 変数で定義されているプレフィックスキーに置換え
-#             （emacsキーバインド設定で利用可。変数の意味は以下を参照のこと。）
+#             （Emacsキーバインド設定で利用可。変数の意味は以下を参照のこと。）
 #   ・(999) : 仮想キーコード指定
 #
-# ＜emacsキーバインド設定と IME の切り替え設定を有効にしたアプリケーションソフトでの動き＞
+# ＜Emacsキーバインド設定と IME の切り替え設定を有効にしたアプリケーションソフトでの動き＞
 # ・toggle_input_method_key 変数の設定により、IME を切り替えるキーを指定できる。
-# ・use_emacs_ime_mode 変数の設定により、emacs日本語入力モードを使うかどうかを指定
-#   できる。emacs日本語入力モードは、IME が ON の時に文字（英数字かスペースを除く
+# ・use_emacs_ime_mode 変数の設定により、Emacs日本語入力モードを使うかどうかを指定
+#   できる。Emacs日本語入力モードは、IME が ON の時に文字（英数字かスペースを除く
 #   特殊文字）を入力すると起動する。
-#   emacs日本語入力モードでは、以下のキーのみが emacsキーバインドとして利用でき、
+#   Emacs日本語入力モードでは、以下のキーのみが Emacsキーバインドとして利用でき、
 #   その他のキーは Windows にそのまま渡されるようになるため、IME のショートカットキー
 #   として利用することができる。
-#   ・emacs日本語入力モードで使える emacsキーバインドキー
+#   ・Emacs日本語入力モードで使える Emacsキーバインドキー
 #     ・C-[
 #     ・C-b、C-f
 #     ・C-p、C-n
@@ -51,17 +51,17 @@
 #     ・C-g
 #     ・scroll_key 変数で指定したスクロールキー
 #     ・toggle_emacs_ime_mode_key 変数で指定したキー
-#      （emacsキーバインド用のキーではないが、emacs日本語入力モードを切り替えるキー）
-#   emacs日本語入力モードは、以下の操作で終了する。
+#      （Emacsキーバインド用のキーではないが、Emacs日本語入力モードを切り替えるキー）
+#   Emacs日本語入力モードは、以下の操作で終了する。
 #   ・Enter、C-m または C-g が押された場合
 #   ・[半角／全角] キー、A-` キーが押された場合
 #   ・BS、C-h 押下直後に toggle_input_method_key 変数で指定したキーが押された場合
 #     （間違って日本語入力をしてしまった時のキー操作を想定しての対策）
 #   ・toggle_emacs_ime_mode_key 変数で指定したキーが押された場合
-# ・emacs日本語入力モードの使用を有効にした際、emacs_ime_mode_balloon_message 変数の
+# ・Emacs日本語入力モードの使用を有効にした際、emacs_ime_mode_balloon_message 変数の
 #   設定でバルーンメッセージとして表示する文字列を指定できる。
 #
-# ＜emacsキーバインド設定を有効にしたアプリケーションソフトでの動き＞
+# ＜Emacsキーバインド設定を有効にしたアプリケーションソフトでの動き＞
 # ・use_ctrl_i_as_tab 変数の設定により、C-iキーを Tabキーとして使うかどうかを指定できる。
 # ・use_esc_as_meta 変数の設定より、Escキーを Metaキーとして使うかどうかを指定できる。
 #   use_esc_as_meta 変数が True（Metaキーとして使う）に設定されている場合、ESC の
@@ -102,10 +102,10 @@ def configure(keymap):
     ## カスタマイズの設定
     ####################################################################################################
 
-    # emacs のキーバインドにするウィンドウのクラスネームを指定する（全ての設定に優先する）
+    # Emacs のキーバインドにするウィンドウのクラスネームを指定する（全ての設定に優先する）
     emacs_target_class   = ["Edit"]                # テキスト入力フィールドなどが該当
 
-    # emacs のキーバインドに“したくない”アプリケーションソフトを指定する
+    # Emacs のキーバインドに“したくない”アプリケーションソフトを指定する
     # （Keyhac のメニューから「内部ログ」を ON にすると processname や classname を確認することができます）
     not_emacs_target     = ["bash.exe",            # WSL
                             "ubuntu.exe",          # WSL
@@ -176,14 +176,14 @@ def configure(keymap):
     # （リージョンを解除する機能は、リージョンをキーボードで指定した場合のみ利用可能です）
     use_region_reset = True
 
-    # emacs日本語入力モードを使うかどうかを指定する（True: 使う、False: 使わない）
+    # Emacs日本語入力モードを使うかどうかを指定する（True: 使う、False: 使わない）
     use_emacs_ime_mode = True
 
-    # emacs日本語入力モードを切り替える（トグルする）キーを指定する
+    # Emacs日本語入力モードを切り替える（トグルする）キーを指定する
     # toggle_emacs_ime_mode_key = None
     toggle_emacs_ime_mode_key = "C-t"
 
-    # emacs日本語入力モードが有効なときに表示するバルーンメッセージを指定する
+    # Emacs日本語入力モードが有効なときに表示するバルーンメッセージを指定する
     # emacs_ime_mode_balloon_message = None
     emacs_ime_mode_balloon_message = "▲"
 
@@ -1104,7 +1104,7 @@ def configure(keymap):
 
 
     ####################################################################################################
-    ## emacs日本語入力モードの設定
+    ## Emacs日本語入力モードの設定
     ####################################################################################################
     if use_emacs_ime_mode:
 
@@ -1125,11 +1125,11 @@ def configure(keymap):
         # IME の状態を格納する
         fakeymacs.ei_ime_status = False
 
-        # emacs日本語入力モードが開始されたときのウィンドウオブジェクトを格納する変数を初期化する
+        # Emacs日本語入力モードが開始されたときのウィンドウオブジェクトを格納する変数を初期化する
         fakeymacs.ei_last_window = None
 
         ##################################################
-        ## emacs日本語入力モード の切り替え
+        ## Emacs日本語入力モード の切り替え
         ##################################################
 
         def enable_emacs_ime_mode(update=True, toggle=False):
@@ -1152,7 +1152,7 @@ def configure(keymap):
                 enable_emacs_ime_mode(toggle=True)
 
         ##################################################
-        ## IME の切り替え（emacs日本語入力モード用）
+        ## IME の切り替え（Emacs日本語入力モード用）
         ##################################################
 
         def ei_toggle_input_method():
@@ -1168,7 +1168,7 @@ def configure(keymap):
             return _func
 
         ##################################################
-        ## その他（emacs日本語入力モード用）
+        ## その他（Emacs日本語入力モード用）
         ##################################################
 
         def ei_esc():
@@ -1183,7 +1183,7 @@ def configure(keymap):
             disable_emacs_ime_mode()
 
         ##################################################
-        ## 共通関数（emacs日本語入力モード用）
+        ## 共通関数（Emacs日本語入力モード用）
         ##################################################
 
         def ei_record_func(func):
@@ -1214,7 +1214,7 @@ def configure(keymap):
                 keymap.delayedCall(keymap.updateKeymap, 0)
 
         ##################################################
-        ## キーバインド（emacs日本語入力モード用）
+        ## キーバインド（Emacs日本語入力モード用）
         ##################################################
 
         ## 全てキーパターンの設定（ei_record_func 関数を通すための設定）
@@ -1275,7 +1275,7 @@ def configure(keymap):
             define_key(keymap_ei, scroll_key[0] and scroll_key[0].replace("M-", "A-"), ei_record_func(scroll_up))
             define_key(keymap_ei, scroll_key[1] and scroll_key[1].replace("M-", "A-"), ei_record_func(scroll_down))
 
-        ## emacs日本語入力モードを切り替える（トグルする）
+        ## Emacs日本語入力モードを切り替える（トグルする）
         define_key(keymap_emacs, toggle_emacs_ime_mode_key, toggle_emacs_ime_mode)
         define_key(keymap_ime,   toggle_emacs_ime_mode_key, toggle_emacs_ime_mode)
         define_key(keymap_ei,    toggle_emacs_ime_mode_key, toggle_emacs_ime_mode)

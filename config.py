@@ -15,7 +15,7 @@
 # 本設定を利用するための仕様は、以下を参照してください。
 #
 # ＜共通の仕様＞
-# ・emacs_tareget_class 変数、not_emacs_target 変数、ime_target 変数で、emacsキーバインドや
+# ・emacs_tareget_class 変数、not_emacs_target 変数、ime_target 変数で、Emacsキーバインドや
 #   IME の切り替えキーバインドの対象とするアプリケーションソフトを指定できる。
 # ・not_clipboard_target 変数で、clipboard 監視の対象外とするアプリケーションソフトを指定
 #   できる。
@@ -27,20 +27,20 @@
 #   ・C-    : Ctrlキー
 #   ・A-    : Altキー
 #   ・M-    : Altキー と Esc、C-[ のプレフィックスキーを利用する３パターンを定義
-#             （emacsキーバインド設定で利用可。emacs の Meta と同様の意味。）
+#             （Emacsキーバインド設定で利用可。emacs の Meta と同様の意味。）
 #   ・Ctl-x : ctl_x_prefix_key 変数で定義されているプレフィックスキーに置換え
-#             （emacsキーバインド設定で利用可。変数の意味は以下を参照のこと。）
+#             （Emacsキーバインド設定で利用可。変数の意味は以下を参照のこと。）
 #   ・(999) : 仮想キーコード指定
 #
-# ＜emacsキーバインド設定と IME の切り替え設定を有効にしたアプリケーションソフトでの動き＞
+# ＜Emacsキーバインド設定と IME の切り替え設定を有効にしたアプリケーションソフトでの動き＞
 # ・toggle_input_method_key 変数の設定により、IME を切り替えるキーを指定できる。
-# ・use_emacs_ime_mode 変数の設定により、emacs日本語入力モードを使うかどうかを指定
-#   できる。emacs日本語入力モードは、IME が ON の時に文字（英数字かスペースを除く
+# ・use_emacs_ime_mode 変数の設定により、Emacs日本語入力モードを使うかどうかを指定
+#   できる。Emacs日本語入力モードは、IME が ON の時に文字（英数字かスペースを除く
 #   特殊文字）を入力すると起動する。
-#   emacs日本語入力モードでは、以下のキーのみが emacsキーバインドとして利用でき、
+#   Emacs日本語入力モードでは、以下のキーのみが Emacsキーバインドとして利用でき、
 #   その他のキーは Windows にそのまま渡されるようになるため、IME のショートカットキー
 #   として利用することができる。
-#   ・emacs日本語入力モードで使える emacsキーバインドキー
+#   ・Emacs日本語入力モードで使える Emacsキーバインドキー
 #     ・C-[
 #     ・C-b、C-f
 #     ・C-p、C-n
@@ -51,23 +51,23 @@
 #     ・C-g
 #     ・scroll_key 変数で指定したスクロールキー
 #     ・toggle_emacs_ime_mode_key 変数で指定したキー
-#      （emacsキーバインド用のキーではないが、emacs日本語入力モードを切り替えるキー）
-#   emacs日本語入力モードは、以下の操作で終了する。
+#      （Emacsキーバインド用のキーではないが、Emacs日本語入力モードを切り替えるキー）
+#   Emacs日本語入力モードは、以下の操作で終了する。
 #   ・Enter、C-m または C-g が押された場合
 #   ・[半角／全角] キー、A-` キーが押された場合
 #   ・BS、C-h 押下直後に toggle_input_method_key 変数で指定したキーが押された場合
 #     （間違って日本語入力をしてしまった時のキー操作を想定しての対策）
 #   ・toggle_emacs_ime_mode_key 変数で指定したキーが押された場合
-# ・emacs日本語入力モードの使用を有効にした際、emacs_ime_mode_balloon_message 変数の
+# ・Emacs日本語入力モードの使用を有効にした際、emacs_ime_mode_balloon_message 変数の
 #   設定でバルーンメッセージとして表示する文字列を指定できる。
-# ・use_emacs_shift_mode 変数の設定により、emacsシフトモードを使うかどうかを指定できる。
-#   emacsシフトモードを使う場合は以下の動きとなる。
+# ・use_emacs_shift_mode 変数の設定により、Emacsシフトモードを使うかどうかを指定できる。
+#   Emacsシフトモードを使う場合は以下の動きとなる。
 #   ・C-[a-z]キーを Shiftキーと一緒に押した時は、Shiftキーをとったキー（C-[a-z]）が
 #     Windows に入力される。
 #   ・A-[a-z]キーを Shiftキーと一緒に押した時は、Shiftキーをとったキー（A-[a-z]）が
 #     Windows に入力される。
 #
-# ＜emacsキーバインド設定を有効にしたアプリケーションソフトでの動き＞
+# ＜Emacsキーバインド設定を有効にしたアプリケーションソフトでの動き＞
 # ・use_ctrl_i_as_tab 変数の設定により、C-iキーを Tabキーとして使うかどうかを指定できる。
 # ・use_esc_as_meta 変数の設定より、Escキーを Metaキーとして使うかどうかを指定できる。
 #   use_esc_as_meta 変数が True（Metaキーとして使う）に設定されている場合、ESC の
@@ -92,12 +92,12 @@
 # ・other_window_key 変数に設定したキーにより、表示しているウィンドウの中で、一番最近
 #   までフォーカスがあったウィンドウに移動する。NTEmacs の機能やランチャーの機能から
 #   Windows アプリケーションソフトを起動した際に、起動元のアプリケーションソフトに戻る
-#   のに便利。この機能は Ctl-x o にも割り当てているが、こちらは emacs のキーバインドを
+#   のに便利。この機能は Ctl-x o にも割り当てているが、こちらは Emacs のキーバインドを
 #   適用したアプリケーションソフトのみで有効となる。
 # ・clipboardList_key 変数に設定したキーにより、クリップボードリストが起動する。
 #   （C-f、C-b でリストの変更、C-n、C-p でリスト内を移動し、Enter で確定する。
 #     C-s、C-r で検索も可能。migemo 辞書を登録してあれば、検索文字を大文字で始める
-#     ことで migemo 検索も可能。emacs キーバインドを適用しないアプリケーションソフト
+#     ことで migemo 検索も可能。Emacsキーバインドを適用しないアプリケーションソフト
 #     でもクリップボードリストは起動し、選択した項目を Enter で確定することで、
 #     クリップボードへの格納（テキストの貼り付けではない）が行われる。）
 # ・lancherList_key 変数に設定したキーにより、ランチャーリストが起動する。
@@ -132,10 +132,10 @@ def configure(keymap):
     ## カスタマイズの設定
     ####################################################################################################
 
-    # emacs のキーバインドにするウィンドウのクラスネームを指定する（全ての設定に優先する）
+    # Emacs のキーバインドにするウィンドウのクラスネームを指定する（全ての設定に優先する）
     emacs_target_class   = ["Edit"]                # テキスト入力フィールドなどが該当
 
-    # emacs のキーバインドに“したくない”アプリケーションソフトを指定する
+    # Emacs のキーバインドに“したくない”アプリケーションソフトを指定する
     # （Keyhac のメニューから「内部ログ」を ON にすると processname や classname を確認することができます）
     not_emacs_target     = ["bash.exe",            # WSL
                             "ubuntu.exe",          # WSL
@@ -206,18 +206,18 @@ def configure(keymap):
     # （リージョンを解除する機能は、リージョンをキーボードで指定した場合のみ利用可能です）
     use_region_reset = True
 
-    # emacs日本語入力モードを使うかどうかを指定する（True: 使う、False: 使わない）
+    # Emacs日本語入力モードを使うかどうかを指定する（True: 使う、False: 使わない）
     use_emacs_ime_mode = True
 
-    # emacs日本語入力モードを切り替える（トグルする）キーを指定する
+    # Emacs日本語入力モードを切り替える（トグルする）キーを指定する
     # toggle_emacs_ime_mode_key = None
     toggle_emacs_ime_mode_key = "C-t"
 
-    # emacs日本語入力モードが有効なときに表示するバルーンメッセージを指定する
+    # Emacs日本語入力モードが有効なときに表示するバルーンメッセージを指定する
     # emacs_ime_mode_balloon_message = None
     emacs_ime_mode_balloon_message = "▲"
 
-    # emacsシフトモードを使うかどうかを指定する（True: 使う、False: 使わない）
+    # Emacsシフトモードを使うかどうかを指定する（True: 使う、False: 使わない）
     use_emacs_shift_mode = False
 
     # IME を切り替えるキーを指定する（複数指定可）
@@ -1056,7 +1056,7 @@ def configure(keymap):
         define_key(keymap_emacs, "C-q A-"   + s_vkey, reset_search(reset_undo(reset_counter(reset_mark(self_insert_command("A-"   + s_vkey))))))
         define_key(keymap_emacs, "C-q A-S-" + s_vkey, reset_search(reset_undo(reset_counter(reset_mark(self_insert_command("A-S-" + s_vkey))))))
 
-    ## C-S-[a-z] -> C-[a-z]、A-S-[a-z] -> A-[a-z] の置き換え設定（emacsシフトモードの設定）
+    ## C-S-[a-z] -> C-[a-z]、A-S-[a-z] -> A-[a-z] の置き換え設定（Emacsシフトモードの設定）
     if use_emacs_shift_mode:
         for vkey in range(VK_A, VK_Z + 1):
             s_vkey = "(" + str(vkey) + ")"
@@ -1204,7 +1204,7 @@ def configure(keymap):
 
 
     ####################################################################################################
-    ## emacs日本語入力モードの設定
+    ## Emacs日本語入力モードの設定
     ####################################################################################################
     if use_emacs_ime_mode:
 
@@ -1225,11 +1225,11 @@ def configure(keymap):
         # IME の状態を格納する
         fakeymacs.ei_ime_status = False
 
-        # emacs日本語入力モードが開始されたときのウィンドウオブジェクトを格納する変数を初期化する
+        # Emacs日本語入力モードが開始されたときのウィンドウオブジェクトを格納する変数を初期化する
         fakeymacs.ei_last_window = None
 
         ##################################################
-        ## emacs日本語入力モード の切り替え
+        ## Emacs日本語入力モード の切り替え
         ##################################################
 
         def enable_emacs_ime_mode(update=True, toggle=False):
@@ -1252,7 +1252,7 @@ def configure(keymap):
                 enable_emacs_ime_mode(toggle=True)
 
         ##################################################
-        ## IME の切り替え（emacs日本語入力モード用）
+        ## IME の切り替え（Emacs日本語入力モード用）
         ##################################################
 
         def ei_toggle_input_method():
@@ -1268,7 +1268,7 @@ def configure(keymap):
             return _func
 
         ##################################################
-        ## その他（emacs日本語入力モード用）
+        ## その他（Emacs日本語入力モード用）
         ##################################################
 
         def ei_esc():
@@ -1283,7 +1283,7 @@ def configure(keymap):
             disable_emacs_ime_mode()
 
         ##################################################
-        ## 共通関数（emacs日本語入力モード用）
+        ## 共通関数（Emacs日本語入力モード用）
         ##################################################
 
         def ei_record_func(func):
@@ -1314,7 +1314,7 @@ def configure(keymap):
                 keymap.delayedCall(keymap.updateKeymap, 0)
 
         ##################################################
-        ## キーバインド（emacs日本語入力モード用）
+        ## キーバインド（Emacs日本語入力モード用）
         ##################################################
 
         ## 全てキーパターンの設定（ei_record_func 関数を通すための設定）
@@ -1327,7 +1327,7 @@ def configure(keymap):
             define_key(keymap_ei, "A-"   + s_vkey, ei_record_func(self_insert_command("A-"   + s_vkey)))
             define_key(keymap_ei, "A-S-" + s_vkey, ei_record_func(self_insert_command("A-S-" + s_vkey)))
 
-        ## C-S-[a-z] -> C-[a-z]、A-S-[a-z] -> A-[a-z] の置き換え設定（emacsシフトモードの設定）
+        ## C-S-[a-z] -> C-[a-z]、A-S-[a-z] -> A-[a-z] の置き換え設定（Emacsシフトモードの設定）
         if use_emacs_shift_mode:
             for vkey in range(VK_A, VK_Z + 1):
                 s_vkey = "(" + str(vkey) + ")"
@@ -1382,7 +1382,7 @@ def configure(keymap):
             define_key(keymap_ei, scroll_key[0] and scroll_key[0].replace("M-", "A-"), ei_record_func(scroll_up))
             define_key(keymap_ei, scroll_key[1] and scroll_key[1].replace("M-", "A-"), ei_record_func(scroll_down))
 
-        ## emacs日本語入力モードを切り替える（トグルする）
+        ## Emacs日本語入力モードを切り替える（トグルする）
         define_key(keymap_emacs, toggle_emacs_ime_mode_key, toggle_emacs_ime_mode)
         define_key(keymap_ime,   toggle_emacs_ime_mode_key, toggle_emacs_ime_mode)
         define_key(keymap_ei,    toggle_emacs_ime_mode_key, toggle_emacs_ime_mode)
@@ -1546,15 +1546,15 @@ def configure(keymap):
     ####################################################################################################
 
     # リストウィンドウはクリップボードリストで利用していますが、クリップボードリストの機能を
-    # emacsキーバインドを適用していないアプリケーションソフトでも利用できるようにするため、
+    # Emacsキーバインドを適用していないアプリケーションソフトでも利用できるようにするため、
     # クリップボードリストで Enter を押下した際の挙動を、以下のとおりに切り分けています。
     #
-    # １）emacsキーバインドを適用しているアプリケーションソフトからクリップボードリストを起動
+    # １）Emacsキーバインドを適用しているアプリケーションソフトからクリップボードリストを起動
     # 　　→   Enter（テキストの貼り付け）
-    # ２）emacsキーバインドを適用していないアプリケーションソフトからクリップボードリストを起動
+    # ２）Emacsキーバインドを適用していないアプリケーションソフトからクリップボードリストを起動
     # 　　→ S-Enter（テキストをクリップボードに格納）
     #
-    # （emacsキーバインドを適用しないアプリケーションソフトには、キーの入出力の方式が特殊な
+    # （Emacsキーバインドを適用しないアプリケーションソフトには、キーの入出力の方式が特殊な
     # 　ものが多く指定されているため、テキストの貼り付けがうまく機能しないものがあります。
     # 　このため、アプリケーションソフトにペーストする場合は、そのアプリケーションソフトの
     # 　ペースト操作で行うことを前提とし、上記のとおりの仕様としてます。もし、どうしても
@@ -1834,9 +1834,9 @@ def configure(keymap):
     ## Emacs の場合、IME 切り替え用のキーを C-\ に置き換える（オプション）
     ####################################################################################################
     if 0:
-        # emacs で mozc を利用する際に Windows の IME の切換えキーを mozc の切り替えキーとして
+        # Emacs で mozc を利用する際に Windows の IME の切換えキーを mozc の切り替えキーとして
         # 機能させるための設定です。初期設定では NTEmacs（gnupack 含む）と Windows の Xサーバで動く
-        # emacs を指定しています。
+        # Emacs を指定しています。
 
         def is_real_emacs(window):
             if (window.getClassName() == "Emacs" or
@@ -1846,7 +1846,7 @@ def configure(keymap):
                                              "vcxsrv.exe")     # VcXsrv
                  and
                  # ウィンドウのタイトルを検索する正規表現を指定する
-                 # emacs を起動しているウィンドウを検索できるように、emacs の frame-title-format 変数を
+                 # Emacs を起動しているウィンドウを検索できるように、emacs の frame-title-format 変数を
                  # 次のように設定するなどして、識別できるようにする
                  # (setq frame-title-format (format "emacs-%s - %%b" emacs-version))
                  re.search(r"^emacs-", window.getText()))):
