@@ -1846,7 +1846,7 @@ def configure(keymap):
                                              "vcxsrv.exe")     # VcXsrv
                  and
                  # ウィンドウのタイトルを検索する正規表現を指定する
-                 # Emacs を起動しているウィンドウを検索できるように、emacs の frame-title-format 変数を
+                 # Emacs を起動しているウィンドウを検索できるように、Emacs の frame-title-format 変数を
                  # 次のように設定するなどして、識別できるようにする
                  # (setq frame-title-format (format "emacs-%s - %%b" emacs-version))
                  re.search(r"^emacs-", window.getText()))):
