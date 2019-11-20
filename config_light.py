@@ -515,7 +515,7 @@ def configure(keymap):
                 self_insert_command("C-y")()
 
     def set_mark_command():
-        if fakeymacs.is_marked:
+        if fakeymacs.is_marked or fakeymacs.forward_direction:
             reset_region()
             fakeymacs.is_marked = False
             fakeymacs.forward_direction = None
