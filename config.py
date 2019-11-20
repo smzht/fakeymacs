@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20190920_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20191120_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -259,7 +259,8 @@ def configure(keymap):
     # （other_window_key に割り当てている A-o との連係した利用を想定し、A-S-o も割り当てています）
     # （デフォルトキーは、["W-S-Left", "W-S-Right"]）
     # window_movement_key = None # Single display
-    window_movement_key = [["A-S-b", "A-S-f"], ["A-S-Left", "A-S-Right"], [None, "A-S-o"]] # Multi-display
+    # window_movement_key = [["A-S-b", "A-S-f"], ["A-S-Left", "A-S-Right"], [None, "A-S-o"]] # Multi-display
+    window_movement_key = [["W-S-b", "W-S-f"], [None, "W-S-o"]] # Multi-display
 
     # ウィンドウを最小化、リストアするキーの組み合わせ（リストア、最小化 の順）を指定する（複数指定可）
     # window_minimize_key = None
@@ -268,7 +269,8 @@ def configure(keymap):
     # 仮想デスクトップを切り替えるキーの組み合わせ（前、後 の順）を指定する（複数指定可）
     # （デフォルトキーは、["W-C-Left", "W-C-Right"]）
     # desktop_switching_key = None # for Windows 7 or 8.1
-    desktop_switching_key = [["A-C-b", "A-C-f"], ["A-C-Left", "A-C-Right"]] # for Windows 10
+    # desktop_switching_key = [["A-C-b", "A-C-f"], ["A-C-Left", "A-C-Right"]] # for Windows 10
+    desktop_switching_key = [["W-C-b", "W-C-f"]] # for Windows 10
 
     # IME の「単語登録」プログラムを起動するキーを指定する
     # word_register_key = None
@@ -553,7 +555,7 @@ def configure(keymap):
         if checkWindow("cmd.exe", "ConsoleWindowClass"): # Cmd
             copy()
 
-            if fakeymacs.is_marked and fakeymacs.forward_direction is not None:
+            if fakeymacs.forward_direction is not None:
                 if fakeymacs.forward_direction:
                     key = "Delete"
                 else:
@@ -880,7 +882,7 @@ def configure(keymap):
         return _func
 
     def reset_region():
-        if use_region_reset and fakeymacs.is_marked and fakeymacs.forward_direction is not None:
+        if use_region_reset and fakeymacs.forward_direction is not None:
 
             if checkWindow(None, "Edit"): # Edit クラス
                 # 選択されているリージョンのハイライトを解除するためにカーソルキーを発行する
@@ -923,7 +925,15 @@ def configure(keymap):
                 if fakeymacs.forward_direction is None:
                     fakeymacs.forward_direction = forward_direction
             else:
+                fakeymacs.forward_direction = None
                 func()
+        return _func
+
+    def mark2(func, forward_direction):
+        def _func():
+            fakeymacs.is_marked = True
+            mark(func, forward_direction)()
+            fakeymacs.is_marked = False
         return _func
 
     def reset_mark(func):
@@ -1103,6 +1113,15 @@ def configure(keymap):
     define_key(keymap_emacs, "M-S-Period", reset_search(reset_undo(reset_counter(mark(end_of_buffer, True)))))
     define_key(keymap_emacs, "C-l",        reset_search(reset_undo(reset_counter(recenter))))
 
+    define_key(keymap_emacs, "C-S-b", reset_search(reset_undo(reset_counter(mark2(repeat(backward_char), False)))))
+    define_key(keymap_emacs, "C-S-f", reset_search(reset_undo(reset_counter(mark2(repeat(forward_char), True)))))
+    define_key(keymap_emacs, "M-S-b", reset_search(reset_undo(reset_counter(mark2(repeat(backward_word), False)))))
+    define_key(keymap_emacs, "M-S-f", reset_search(reset_undo(reset_counter(mark2(repeat(forward_word), True)))))
+    define_key(keymap_emacs, "C-S-p", reset_search(reset_undo(reset_counter(mark2(repeat(previous_line), False)))))
+    define_key(keymap_emacs, "C-S-n", reset_search(reset_undo(reset_counter(mark2(repeat(next_line), True)))))
+    define_key(keymap_emacs, "C-S-a", reset_search(reset_undo(reset_counter(mark2(move_beginning_of_line, False)))))
+    define_key(keymap_emacs, "C-S-e", reset_search(reset_undo(reset_counter(mark2(move_end_of_line, True)))))
+
     define_key(keymap_emacs, "Left",     reset_search(reset_undo(reset_counter(mark(repeat(backward_char), False)))))
     define_key(keymap_emacs, "Right",    reset_search(reset_undo(reset_counter(mark(repeat(forward_char), True)))))
     define_key(keymap_emacs, "C-Left",   reset_search(reset_undo(reset_counter(mark(repeat(backward_word), False)))))
@@ -1115,6 +1134,19 @@ def configure(keymap):
     define_key(keymap_emacs, "C-End",    reset_search(reset_undo(reset_counter(mark(end_of_buffer, True)))))
     define_key(keymap_emacs, "PageUP",   reset_search(reset_undo(reset_counter(mark(scroll_up, False)))))
     define_key(keymap_emacs, "PageDown", reset_search(reset_undo(reset_counter(mark(scroll_down, True)))))
+
+    define_key(keymap_emacs, "S-Left",     reset_search(reset_undo(reset_counter(mark2(repeat(backward_char), False)))))
+    define_key(keymap_emacs, "S-Right",    reset_search(reset_undo(reset_counter(mark2(repeat(forward_char), True)))))
+    define_key(keymap_emacs, "C-S-Left",   reset_search(reset_undo(reset_counter(mark2(repeat(backward_word), False)))))
+    define_key(keymap_emacs, "C-S-Right",  reset_search(reset_undo(reset_counter(mark2(repeat(forward_word), True)))))
+    define_key(keymap_emacs, "S-Up",       reset_search(reset_undo(reset_counter(mark2(repeat(previous_line), False)))))
+    define_key(keymap_emacs, "S-Down",     reset_search(reset_undo(reset_counter(mark2(repeat(next_line), True)))))
+    define_key(keymap_emacs, "S-Home",     reset_search(reset_undo(reset_counter(mark2(move_beginning_of_line, False)))))
+    define_key(keymap_emacs, "S-End",      reset_search(reset_undo(reset_counter(mark2(move_end_of_line, True)))))
+    define_key(keymap_emacs, "C-S-Home",   reset_search(reset_undo(reset_counter(mark2(beginning_of_buffer, False)))))
+    define_key(keymap_emacs, "C-S-End",    reset_search(reset_undo(reset_counter(mark2(end_of_buffer, True)))))
+    define_key(keymap_emacs, "S-PageUP",   reset_search(reset_undo(reset_counter(mark2(scroll_up, False)))))
+    define_key(keymap_emacs, "S-PageDown", reset_search(reset_undo(reset_counter(mark2(scroll_down, True)))))
 
     ## 「カット / コピー / 削除 / アンドゥ」のキー設定
     define_key(keymap_emacs, "C-h",      reset_search(reset_undo(reset_counter(reset_mark(repeat2(delete_backward_char))))))
