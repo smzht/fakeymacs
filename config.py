@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20191121_02
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20191121_03
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -931,6 +931,9 @@ def configure(keymap):
 
     def mark2(func, forward_direction):
         def _func():
+            if fakeymacs.is_marked:
+                reset_region()
+                fakeymacs.forward_direction = None
             fakeymacs.is_marked = True
             mark(func, forward_direction)()
             fakeymacs.is_marked = False
