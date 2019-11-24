@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20191121_02
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20191124_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -171,10 +171,6 @@ def configure(keymap):
 
     # 左右どちらの Altキーを使うかを指定する（"L": 左、"R": 右）
     side_of_alt_key = "L"
-
-    # リージョンのコピー後にリージョンを解除する機能を使うかどうかを指定する（True: 使う、False: 使わない）
-    # （リージョンを解除する機能は、リージョンをキーボードで指定した場合のみ利用可能です）
-    use_region_reset = True
 
     # Emacs日本語入力モードを使うかどうかを指定する（True: 使う、False: 使わない）
     use_emacs_ime_mode = True
@@ -791,7 +787,7 @@ def configure(keymap):
         return _func
 
     def reset_region():
-        if use_region_reset and fakeymacs.forward_direction is not None:
+        if fakeymacs.forward_direction is not None:
 
             if checkWindow(None, "Edit"): # Edit クラス
                 # 選択されているリージョンのハイライトを解除するためにカーソルキーを発行する
