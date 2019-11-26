@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20191124_02
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20191124_03
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -255,18 +255,18 @@ def configure(keymap):
     # （other_window_key に割り当てている A-o との連係した利用を想定し、A-S-o も割り当てています）
     # （デフォルトキーは、["W-S-Left", "W-S-Right"]）
     # window_movement_key = None # Single display
-    # window_movement_key = [["A-S-b", "A-S-f"], ["A-S-Left", "A-S-Right"], [None, "A-S-o"]] # Multi-display
-    window_movement_key = [["W-S-b", "W-S-f"], [None, "W-S-o"]] # Multi-display
+    # window_movement_key = [["A-S-b", "A-S-f"], ["A-S-Left", "A-S-Right"]] # Multi-display
+    window_movement_key = [[None, "A-S-o"]] # Multi-display
 
     # ウィンドウを最小化、リストアするキーの組み合わせ（リストア、最小化 の順）を指定する（複数指定可）
     # window_minimize_key = None
-    window_minimize_key = [["A-r", "A-m"]]
+    # window_minimize_key = [["A-r", "A-m"]]
+    window_minimize_key = [["A-S-m", "A-m"]]
 
     # 仮想デスクトップを切り替えるキーの組み合わせ（前、後 の順）を指定する（複数指定可）
     # （デフォルトキーは、["W-C-Left", "W-C-Right"]）
     # desktop_switching_key = None # for Windows 7 or 8.1
-    # desktop_switching_key = [["A-C-b", "A-C-f"], ["A-C-Left", "A-C-Right"]] # for Windows 10
-    desktop_switching_key = [["W-C-b", "W-C-f"]] # for Windows 10
+    desktop_switching_key = [["A-C-b", "A-C-f"], ["A-C-Left", "A-C-Right"]] # for Windows 10
 
     # IME の「単語登録」プログラムを起動するキーを指定する
     # word_register_key = None
@@ -1534,8 +1534,8 @@ def configure(keymap):
     # アクティブウィンドウのディスプレイ間移動
     if window_movement_key:
         for previous_key, next_key in window_movement_key:
-            define_key(keymap_global, previous_key, reset_search(reset_undo(reset_counter(reset_mark(previous_display)))))
-            define_key(keymap_global, next_key,     reset_search(reset_undo(reset_counter(reset_mark(next_display)))))
+            define_key(keymap_global, previous_key, previous_display)
+            define_key(keymap_global, next_key,     next_display)
 
     # ウィンドウの最小化、リストア
     if window_minimize_key:
