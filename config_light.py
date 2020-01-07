@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20191124_02
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200107_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -115,6 +115,7 @@ def configure(keymap):
                             "openSUSE-42.exe",     # WSL
                             "debian.exe",          # WSL
                             "kali.exe",            # WSL
+                            "mstsc.exe",           # Remote Desktop
                             "WindowsTerminal.exe", # Windows Terminal
                             "mintty.exe",          # mintty
                             "Cmder.exe",           # Cmder
