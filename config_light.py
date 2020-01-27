@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200109_01
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200127_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -103,7 +103,7 @@ def configure(keymap):
     ####################################################################################################
 
     # Emacs のキーバインドにするウィンドウのクラスネームを指定する（全ての設定に優先する）
-    emacs_target_class   = ["Edit"]                # テキスト入力フィールドなどが該当
+    emacs_target_class   = ["Edit"]                   # テキスト入力フィールドなどが該当
 
     # Emacs のキーバインドに“したくない”アプリケーションソフトを指定する
     # （Keyhac のメニューから「内部ログ」を ON にすると processname や classname を確認することができます）
@@ -138,7 +138,8 @@ def configure(keymap):
                             "ttermpro.exe",           # TeraTerm
                             "MobaXterm.exe",          # MobaXterm
                             "TurboVNC.exe",           # TurboVNC
-                            "vncviewer.exe"]          # UltraVNC
+                            "vncviewer.exe",          # UltraVNC
+                            "vncviewer64.exe"]        # UltraVNC
 
     # IME の切り替え“のみをしたい”アプリケーションソフトを指定する
     # （指定できるアプリケーションソフトは、not_emacs_target で（除外）指定したものからのみとなります）
