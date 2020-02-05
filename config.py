@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200127_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200205_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -525,7 +525,7 @@ def configure(keymap):
                 checkWindow("powershell.exe", "ConsoleWindowClass")): # PowerShell
                 kill_region()
 
-            elif checkWindow("Hidemaru.exe", "HM32CLIENT"): # Hidemaru Editor
+            elif checkWindow(None, "HM32CLIENT"): # Hidemaru Software
                 kill_region()
                 delay()
                 if getClipboardText() == "":
@@ -664,7 +664,7 @@ def configure(keymap):
     def query_replace():
         if (checkWindow("sakura.exe", "EditorClient") or  # Sakura Editor
             checkWindow("sakura.exe", "SakuraView166") or # Sakura Editor
-            checkWindow("Hidemaru.exe", "HM32CLIENT")):   # Hidemaru Editor
+            checkWindow(None, "HM32CLIENT")):             # Hidemaru Software
             self_insert_command("C-r")()
         else:
             self_insert_command("C-h")()
