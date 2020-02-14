@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200205_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200214_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -169,7 +169,8 @@ def configure(keymap):
                             "MobaXterm.exe",          # MobaXterm
                             "TurboVNC.exe",           # TurboVNC
                             "vncviewer.exe",          # UltraVNC
-                            "vncviewer64.exe"]        # UltraVNC
+                            "vncviewer64.exe",        # UltraVNC
+                           ]
 
     # IME の切り替え“のみをしたい”アプリケーションソフトを指定する
     # （指定できるアプリケーションソフトは、not_emacs_target で（除外）指定したものからのみとなります）
@@ -192,7 +193,8 @@ def configure(keymap):
                             "xyzzy.exe",              # xyzzy
                             "putty.exe",              # PuTTY
                             "ttermpro.exe",           # TeraTerm
-                            "MobaXterm.exe"]          # MobaXterm
+                            "MobaXterm.exe",          # MobaXterm
+                           ]
 
     # clipboard 監視の対象外とするアプリケーションソフトを指定する
     not_clipboard_target = ["EXCEL.EXE"]              # Excel
@@ -1794,13 +1796,13 @@ def configure(keymap):
 
                 # アプリケーションソフト
                 application_items = [
-                    ["notepad",     keymap.ShellExecuteCommand(None, r"notepad.exe", "", "")],
-                    ["sakura",      keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\sakura\sakura.exe", "", "")],
-                    ["explorer",    keymap.ShellExecuteCommand(None, r"explorer.exe", "", "")],
-                    ["cmd",         keymap.ShellExecuteCommand(None, r"cmd.exe", "", "")],
-                    ["chrome",      keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", "", "")],
-                    ["firefox",     keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\Mozilla Firefox\firefox.exe", "", "")],
-                    ["thunderbird", keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\Mozilla Thunderbird\thunderbird.exe", "", "")],
+                    ["Notepad",     keymap.ShellExecuteCommand(None, r"notepad.exe", "", "")],
+                    ["Explorer",    keymap.ShellExecuteCommand(None, r"explorer.exe", "", "")],
+                    ["Cmd",         keymap.ShellExecuteCommand(None, r"cmd.exe", "", "")],
+                    ["MSEdge",      keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe", "", "")],
+                    ["Chrome",      keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", "", "")],
+                    ["Firefox",     keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\Mozilla Firefox\firefox.exe", "", "")],
+                    ["Thunderbird", keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\Mozilla Thunderbird\thunderbird.exe", "", "")],
                 ]
                 application_items[0][0] = list_formatter.format(application_items[0][0])
 
@@ -1811,7 +1813,7 @@ def configure(keymap):
                     ["Twitter",         keymap.ShellExecuteCommand(None, r"https://twitter.com/", "", "")],
                     ["Keyhac",          keymap.ShellExecuteCommand(None, r"https://sites.google.com/site/craftware/keyhac-ja", "", "")],
                     ["Fakeymacs",       keymap.ShellExecuteCommand(None, r"https://github.com/smzht/fakeymacs", "", "")],
-                    ["NTEmacs＠ウィキ", keymap.ShellExecuteCommand(None, r"http://www49.atwiki.jp/ntemacs/", "", "")],
+                    ["NTEmacs＠ウィキ", keymap.ShellExecuteCommand(None, r"http://w.atwiki.jp/ntemacs/", "", "")],
                 ]
                 website_items[0][0] = list_formatter.format(website_items[0][0])
 
