@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200313_01
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200316_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -394,6 +394,7 @@ def configure(keymap):
     def move_end_of_line():
         self_insert_command("End")()
         if (checkWindow("WINWORD.EXE", "_WwG") or                             # Microsoft Word
+            checkWindow("POWERPNT.EXE", "mdiClass") or                        # Microsoft PowerPoint
             (checkWindow("EXCEL.EXE", "EXCEL*") and is_Excel_2019_or_later)): # Microsoft Excel 2019 or later
             if fakeymacs.is_marked:
                 self_insert_command("Left")()
