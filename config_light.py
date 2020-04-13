@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200317_01
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200413_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -33,7 +33,8 @@
 #   ・(999) : 仮想キーコード指定
 #
 # ＜Emacsキーバインド設定と IME の切り替え設定を有効にしたアプリケーションソフトでの動き＞
-# ・toggle_input_method_key 変数の設定により、IME を切り替えるキーを指定できる。
+# ・toggle_input_method_key 変数と set_input_method_key 変数の設定により、IME を切り替える
+#   キーを指定できる。
 # ・use_emacs_ime_mode 変数の設定により、Emacs日本語入力モードを使うかどうかを指定
 #   できる。Emacs日本語入力モードは、IME が ON の時に文字（英数字かスペースを除く
 #   特殊文字）を入力すると起動する。
@@ -55,7 +56,8 @@
 #   Emacs日本語入力モードは、次の操作で終了する。
 #   ・Enter、C-m または C-g が押された場合
 #   ・[半角／全角] キー、A-` キーが押された場合
-#   ・BS、C-h 押下直後に toggle_input_method_key 変数で指定したキーが押された場合
+#   ・BS、C-h 押下直後に toggle_input_method_key 変数や set_input_method_key 変数の
+#     disable で指定したキーが押された場合
 #     （間違って日本語入力をしてしまった時のキー操作を想定しての対策）
 #   ・toggle_emacs_ime_mode_key 変数で指定したキーが押された場合
 # ・Emacs日本語入力モードの使用を有効にした際、emacs_ime_mode_balloon_message 変数の
@@ -192,6 +194,16 @@ def configure(keymap):
     # IME を切り替えるキーを指定する（複数指定可）
     # toggle_input_method_key = ["C-Yen"]
     toggle_input_method_key = ["C-Yen", "C-o"]
+
+    # IME を切り替えるキーの組み合わせ（disable、enable の順）を指定する（複数指定可）
+    # （toggle_input_method_key のキー設定より優先します）
+    set_input_method_key  = []
+    ## 日本語キーボードを利用している場合、[無変換] キーで英数入力、[変換] キーで日本語入力となる
+    set_input_method_key += [["(29)", "(28)"]]
+    ## C-j や C-j C-j で 英数入力となる（toggle_input_method_key の設定と併せ、C-j C-o で日本語入力となる）
+    # set_input_method_key += [["C-j", None]]
+    ## C-j で 英数入力、C-o で日本語入力となる（toggle_input_method_key の設定より優先）
+    # set_input_method_key += [["C-j", "C-o"]]
 
     # C-iキーを Tabキーとして使うかどうかを指定する（True: 使う、False: 使わない）
     use_ctrl_i_as_tab = True
@@ -333,13 +345,24 @@ def configure(keymap):
     ##################################################
 
     def toggle_input_method():
-        self_insert_command("A-(25)")()
-        delay(0.1)
-
-        # IME の状態を格納する
         ime_status = keymap.getWindow().getImeStatus()
-        if use_emacs_ime_mode:
-            fakeymacs.ei_ime_status = ime_status
+        ime_status ^= 1 # 0 と 1 を反転する
+        setImeStatus(ime_status)
+
+    def enable_input_method():
+        setImeStatus(1)
+
+    def disable_input_method():
+        setImeStatus(0)
+
+    def setImeStatus(ime_status):
+        if keymap.getWindow().getImeStatus() != ime_status:
+            # IME を 切り替える
+            # （ keymap.getWindow().setImeStatus(ime_status) を使わないのは、キーボードマクロの再生時に影響がでるため）
+            self_insert_command("A-(25)")()
+            delay(0.1)
+            if use_emacs_ime_mode:
+                fakeymacs.ei_ime_status = ime_status
 
         if not fakeymacs.is_playing_kmacro:
             if ime_status:
@@ -1136,6 +1159,13 @@ def configure(keymap):
             define_key(keymap_emacs, key, toggle_input_method)
             define_key(keymap_ime,   key, toggle_input_method)
 
+    if set_input_method_key:
+        for disable_key, enable_key in set_input_method_key:
+            define_key(keymap_emacs, disable_key, disable_input_method)
+            define_key(keymap_emacs, enable_key,  enable_input_method)
+            define_key(keymap_ime,   disable_key, disable_input_method)
+            define_key(keymap_ime,   enable_key,  enable_input_method)
+
     ## 「スクロール」のキー設定（上書きされないように最後に設定する）
     if scroll_key:
         define_key(keymap_emacs, scroll_key[0], reset_search(reset_undo(reset_counter(mark(scroll_up, False)))))
@@ -1202,10 +1232,20 @@ def configure(keymap):
             disable_emacs_ime_mode()
             toggle_input_method()
 
-        def ei_toggle_input_method2(key):
+        def ei_enable_input_method(key):
             def _func():
                 if fakeymacs.ei_last_func == delete_backward_char:
-                    ei_toggle_input_method()
+                    # IME の状態のバルーンヘルプを表示するために敢えてコールする
+                    enable_input_method()
+                else:
+                    ei_record_func(self_insert_command(key)())
+            return _func
+
+        def ei_disable_input_method(key):
+            def _func():
+                if fakeymacs.ei_last_func == delete_backward_char:
+                    disable_emacs_ime_mode()
+                    disable_input_method()
                 else:
                     ei_record_func(self_insert_command(key)())
             return _func
@@ -1311,7 +1351,12 @@ def configure(keymap):
         ## 「IME の切り替え」のキー設定（上書きされないように最後に設定する）
         if toggle_input_method_key:
             for key in toggle_input_method_key:
-                define_key(keymap_ei, key, ei_toggle_input_method2(key))
+                define_key(keymap_ei, key, ei_disable_input_method(key))
+
+        if set_input_method_key:
+            for disable_key, enable_key in set_input_method_key:
+                define_key(keymap_ei, disable_key, ei_disable_input_method(disable_key))
+                define_key(keymap_ei, enable_key,  ei_enable_input_method(enable_key))
 
         ## 「スクロール」のキー設定（上書きされないように最後に設定する）
         if scroll_key:
