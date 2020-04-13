@@ -430,7 +430,7 @@ def configure(keymap):
             # IME を 切り替える
             # （ keymap.getWindow().setImeStatus(ime_status) を使わないのは、キーボードマクロの再生時に影響がでるため）
             self_insert_command("A-(25)")()
-            delay(0.1)
+            delay(0.2)
             if use_emacs_ime_mode:
                 fakeymacs.ei_ime_status = ime_status
 
@@ -442,8 +442,6 @@ def configure(keymap):
 
             # IME の状態をバルーンヘルプで表示する
             keymap.popBalloon("ime_status", message, 500)
-
-        delay(0.1)
 
     ##################################################
     ## ファイル操作
