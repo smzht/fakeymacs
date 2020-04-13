@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200413_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200414_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -1944,9 +1944,10 @@ def configure(keymap):
 
         keymap_real_emacs = keymap.defineWindowKeymap(check_func=is_real_emacs)
 
-        # IME 切り替え用のキーを C-\ に置き換える
-        # keymap_real_emacs["(28)"]   = keymap.InputKeyCommand("C-Yen") # [変換] キー
-        # keymap_real_emacs["(29)"]   = keymap.InputKeyCommand("C-Yen") # [無変換] キー
+        # IME 切り替え用のキーの置き換え
+        keymap_real_emacs["(28)"]   = keymap.InputKeyCommand("C-o") # [変換] キー
+        keymap_real_emacs["(29)"]   = keymap.InputKeyCommand("C-o") # [無変換] キー
+        # keymap_real_emacs["(29)"]   = keymap.InputKeyCommand("C-j") # [無変換] キー
         keymap_real_emacs["(240)"]  = keymap.InputKeyCommand("C-Yen") # [英数] キー
         keymap_real_emacs["(242)"]  = keymap.InputKeyCommand("C-Yen") # [カタカナ・ひらがな] キー
         keymap_real_emacs["(243)"]  = keymap.InputKeyCommand("C-Yen") # [半角／全角] キー
