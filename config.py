@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200418_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200418_02
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -1325,27 +1325,29 @@ def configure(keymap):
         ## IME の切り替え（Emacs日本語入力モード用）
         ##################################################
 
-        def ei_enable_input_method(key):
-            def _func():
-                if fakeymacs.ei_last_func == delete_backward_char:
-                    # IME の状態のバルーンヘルプを表示するために敢えてコールする
-                    enable_input_method()
-                else:
-                    ei_record_func(self_insert_command(key)())
-            return _func
+        def ei_enable_input_method():
+            # IME の状態のバルーンヘルプを表示するために敢えてコールする
+            enable_input_method()
 
-        def ei_disable_input_method(key):
-            def _func():
-                if fakeymacs.ei_last_func == delete_backward_char:
-                    disable_emacs_ime_mode()
-                    disable_input_method()
-                else:
-                    ei_record_func(self_insert_command(key)())
-            return _func
-
-        def ei_toggle_input_method():
+        def ei_disable_input_method():
             disable_emacs_ime_mode()
-            toggle_input_method()
+            disable_input_method()
+
+        def ei_enable_input_method2(key):
+            def _func():
+                if fakeymacs.ei_last_func == delete_backward_char:
+                    ei_enable_input_method()
+                else:
+                    ei_record_func(self_insert_command(key)())
+            return _func
+
+        def ei_disable_input_method2(key):
+            def _func():
+                if fakeymacs.ei_last_func == delete_backward_char:
+                    ei_disable_input_method()
+                else:
+                    ei_record_func(self_insert_command(key)())
+            return _func
 
         ##################################################
         ## その他（Emacs日本語入力モード用）
@@ -1415,9 +1417,9 @@ def configure(keymap):
                 define_key(keymap_ei, "A-S-" + s_vkey, ei_record_func(self_insert_command("A-" + s_vkey)))
 
         ## 「IME の切り替え」のキー設定
-        define_key(keymap_ei, "(243)",  ei_toggle_input_method)
-        define_key(keymap_ei, "(244)",  ei_toggle_input_method)
-        define_key(keymap_ei, "A-(25)", ei_toggle_input_method)
+        define_key(keymap_ei, "(243)",  ei_disable_input_method)
+        define_key(keymap_ei, "(244)",  ei_disable_input_method)
+        define_key(keymap_ei, "A-(25)", ei_disable_input_method)
 
         ## Escキーの設定
         define_key(keymap_ei, "Esc",           ei_record_func(ei_esc))
@@ -1455,12 +1457,12 @@ def configure(keymap):
         ## 「IME の切り替え」のキー設定（上書きされないように最後に設定する）
         if toggle_input_method_key:
             for key in toggle_input_method_key:
-                define_key(keymap_ei, key, ei_disable_input_method(key))
+                define_key(keymap_ei, key, ei_disable_input_method2(key))
 
         if set_input_method_key:
             for disable_key, enable_key in set_input_method_key:
-                define_key(keymap_ei, disable_key, ei_disable_input_method(disable_key))
-                define_key(keymap_ei, enable_key,  ei_enable_input_method(enable_key))
+                define_key(keymap_ei, disable_key, ei_disable_input_method2(disable_key))
+                define_key(keymap_ei, enable_key,  ei_enable_input_method2(enable_key))
 
         ## 「スクロール」のキー設定（上書きされないように最後に設定する）
         if scroll_key:
