@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200417_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200418_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -414,16 +414,14 @@ def configure(keymap):
     ## IME の切り替え
     ##################################################
 
-    def toggle_input_method():
-        ime_status = keymap.getWindow().getImeStatus()
-        ime_status ^= 1 # 0 と 1 を反転する
-        setImeStatus(ime_status)
-
     def enable_input_method():
         setImeStatus(1)
 
     def disable_input_method():
         setImeStatus(0)
+
+    def toggle_input_method():
+        setImeStatus(keymap.getWindow().getImeStatus() ^ 1)
 
     def setImeStatus(ime_status):
         if keymap.getWindow().getImeStatus() != ime_status:
@@ -1327,10 +1325,6 @@ def configure(keymap):
         ## IME の切り替え（Emacs日本語入力モード用）
         ##################################################
 
-        def ei_toggle_input_method():
-            disable_emacs_ime_mode()
-            toggle_input_method()
-
         def ei_enable_input_method(key):
             def _func():
                 if fakeymacs.ei_last_func == delete_backward_char:
@@ -1348,6 +1342,10 @@ def configure(keymap):
                 else:
                     ei_record_func(self_insert_command(key)())
             return _func
+
+        def ei_toggle_input_method():
+            disable_emacs_ime_mode()
+            toggle_input_method()
 
         ##################################################
         ## その他（Emacs日本語入力モード用）
