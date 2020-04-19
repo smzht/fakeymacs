@@ -657,6 +657,7 @@ def configure(keymap):
 
     def kmacro_end_and_call_macro():
         def callKmacro():
+            # キーボードマクロの最初が IME ON の場合、この delay が必要
             delay(0.2)
             fakeymacs.is_playing_kmacro = True
             disable_input_method()
