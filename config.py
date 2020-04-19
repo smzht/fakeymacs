@@ -1952,6 +1952,8 @@ def configure(keymap):
         keymap_real_emacs = keymap.defineWindowKeymap(check_func=is_real_emacs)
 
         # IME 切り替え用のキーの置き換え
+        # （Emacs 側での C-F1 と C-F2 の設定については、次のページを参照してください。
+        #   https://w.atwiki.jp/ntemacs/pages/48.html ）
         define_key(keymap_real_emacs, "(243)",  self_insert_command("C-Yen"))
         define_key(keymap_real_emacs, "(244)",  self_insert_command("C-Yen"))
         define_key(keymap_real_emacs, "A-(25)", self_insert_command("C-Yen"))
