@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200419_01
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200419_02
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -200,9 +200,11 @@ def configure(keymap):
     set_input_method_key  = []
     ## 日本語キーボードを利用している場合、[無変換] キーで英数入力、[変換] キーで日本語入力となる
     set_input_method_key += [["(29)", "(28)"]]
+    ## LAlt のワンショットモディファイアで英数入力、RAlt のワンショットモディファイアで日本語入力となる
+    # set_input_method_key += [["O-LAlt", "O-RAlt"]]
     ## C-j や C-j C-j で 英数入力となる（toggle_input_method_key の設定と併せ、C-j C-o で日本語入力となる）
     # set_input_method_key += [["C-j", None]]
-    ## C-j で 英数入力、C-o で日本語入力となる（toggle_input_method_key の設定より優先）
+    ## C-j で英数入力、C-o で日本語入力となる（toggle_input_method_key の設定より優先）
     # set_input_method_key += [["C-j", "C-o"]]
 
     # C-iキーを Tabキーとして使うかどうかを指定する（True: 使う、False: 使わない）
@@ -363,6 +365,10 @@ def configure(keymap):
 
             if fakeymacs.is_playing_kmacro:
                 delay(0.2)
+        else:
+            # Alt キーによるワンショットモディファイアを使った際にカーソルがメニューへ移動するのを解除する
+            # https://www.haijin-boys.com/discussions/4583
+            self_insert_command("A-(7)")()
 
         if not fakeymacs.is_playing_kmacro:
             if ime_status:
