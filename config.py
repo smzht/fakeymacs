@@ -1958,7 +1958,7 @@ def configure(keymap):
         keymap_real_emacs["(244)"]  = keymap.InputKeyCommand("C-Yen") # [半角／全角] キー
         keymap_real_emacs["A-(25)"] = keymap.InputKeyCommand("C-Yen") # Alt-` キー
 
-        keymap_real_emacs["(29)"]   = keymap.InputKeyCommand("C-F1") # [無変換] キー
-        keymap_real_emacs["(28)"]   = keymap.InputKeyCommand("C-F2") # [変換] キー
-        # keymap_real_emacs["O-LAlt"] = keymap.InputKeyCommand("C-F1") # 左 Alt キーのワンショットモディファイア
-        # keymap_real_emacs["O-RAlt"] = keymap.InputKeyCommand("C-F2") # 右 Alt キーのワンショットモディファイア
+        keymap_real_emacs["(29)"]   = keymap.InputKeyCommand("C-F1")  # [無変換] キー
+        keymap_real_emacs["(28)"]   = keymap.InputKeyCommand("C-F2")  # [変換] キー
+        # keymap_real_emacs["O-LAlt"] = keymap.InputKeyCommand("C-F1")  # 左 Alt キーのワンショットモディファイア
+        # keymap_real_emacs["O-RAlt"] = keymap.InputKeyCommand("C-F2")  # 右 Alt キーのワンショットモディファイア
