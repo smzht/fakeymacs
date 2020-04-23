@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200420_01
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200423_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -51,15 +51,12 @@
 #     ・C-m
 #     ・C-g
 #     ・scroll_key 変数で指定したスクロールキー
-#     ・toggle_emacs_ime_mode_key 変数で指定したキー
-#      （Emacsキーバインド用のキーではないが、Emacs日本語入力モードを切り替えるキー）
 #   Emacs日本語入力モードは、次の操作で終了する。
 #   ・Enter、C-m または C-g が押された場合
 #   ・[半角／全角] キー、A-` キーが押された場合
 #   ・BS、C-h 押下直後に toggle_input_method_key 変数や set_input_method_key 変数の
 #     disable で指定したキーが押された場合
 #     （間違って日本語入力をしてしまった時のキー操作を想定しての対策）
-#   ・toggle_emacs_ime_mode_key 変数で指定したキーが押された場合
 # ・Emacs日本語入力モードの使用を有効にした際、emacs_ime_mode_balloon_message 変数の
 #   設定でバルーンメッセージとして表示する文字列を指定できる。
 #
@@ -182,10 +179,6 @@ def configure(keymap):
 
     # Emacs日本語入力モードを使うかどうかを指定する（True: 使う、False: 使わない）
     use_emacs_ime_mode = True
-
-    # Emacs日本語入力モードを切り替える（トグルする）キーを指定する
-    # toggle_emacs_ime_mode_key = None
-    toggle_emacs_ime_mode_key = "C-t"
 
     # Emacs日本語入力モードが有効なときに表示するバルーンメッセージを指定する
     # emacs_ime_mode_balloon_message = None
@@ -1202,24 +1195,18 @@ def configure(keymap):
         ## Emacs日本語入力モード の切り替え
         ##################################################
 
-        def enable_emacs_ime_mode(update=True, toggle=False):
+        def enable_emacs_ime_mode(update=True):
             fakeymacs.ei_last_window = keymap.getWindow()
             fakeymacs.ei_last_func = None
-            ei_popBalloon(toggle)
+            ei_popBalloon()
             if update:
                 ei_updateKeymap()
 
-        def disable_emacs_ime_mode(update=True, toggle=False):
+        def disable_emacs_ime_mode(update=True):
             fakeymacs.ei_last_window = None
-            ei_popBalloon(toggle)
+            ei_popBalloon()
             if update:
                 ei_updateKeymap()
-
-        def toggle_emacs_ime_mode():
-            if fakeymacs.ei_last_window:
-                disable_emacs_ime_mode(toggle=True)
-            else:
-                enable_emacs_ime_mode(toggle=True)
 
         ##################################################
         ## IME の切り替え（Emacs日本語入力モード用）
@@ -1274,20 +1261,13 @@ def configure(keymap):
                 fakeymacs.ei_last_func = func
             return _func
 
-        def ei_popBalloon(toggle):
+        def ei_popBalloon():
             if not fakeymacs.is_playing_kmacro:
                 if emacs_ime_mode_balloon_message:
                     if fakeymacs.ei_last_window:
                         keymap.popBalloon("emacs_ime_mode", emacs_ime_mode_balloon_message)
                     else:
                         keymap.closeBalloon("emacs_ime_mode")
-                else:
-                    if toggle:
-                        if fakeymacs.ei_last_window:
-                            message = "[IME]"
-                        else:
-                            message = "[main]"
-                        keymap.popBalloon("emacs_ime_mode", message, 500)
 
         def ei_updateKeymap():
             if fakeymacs.is_playing_kmacro:
@@ -1361,11 +1341,6 @@ def configure(keymap):
         if scroll_key:
             define_key(keymap_ei, scroll_key[0] and scroll_key[0].replace("M-", "A-"), ei_record_func(scroll_up))
             define_key(keymap_ei, scroll_key[1] and scroll_key[1].replace("M-", "A-"), ei_record_func(scroll_down))
-
-        ## Emacs日本語入力モードを切り替える（トグルする）
-        define_key(keymap_emacs, toggle_emacs_ime_mode_key, toggle_emacs_ime_mode)
-        define_key(keymap_ime,   toggle_emacs_ime_mode_key, toggle_emacs_ime_mode)
-        define_key(keymap_ei,    toggle_emacs_ime_mode_key, toggle_emacs_ime_mode)
 
 
     ####################################################################################################
