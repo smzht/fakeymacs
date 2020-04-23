@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200423_03
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200423_04
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -1153,11 +1153,11 @@ def configure(keymap):
 
             # Alt キーによるワンショットモディファイアを使った際にカーソルがメニューへ移動するのを解除する
             # https://www.haijin-boys.com/discussions/4583
-            if re.match(key, "O-LAlt", re.IGNORECASE):
+            if re.match(key, r"O-LAlt$", re.IGNORECASE):
                 define_key(keymap_emacs, "D-LAlt", self_insert_command("D-LAlt", "(7)"))
                 define_key(keymap_ime,   "D-LAlt", self_insert_command("D-LAlt", "(7)"))
 
-            if re.match(key, "O-RAlt", re.IGNORECASE):
+            if re.match(key, r"O-RAlt$", re.IGNORECASE):
                 define_key(keymap_emacs, "D-RAlt", self_insert_command("D-RAlt", "(7)"))
                 define_key(keymap_ime,   "D-RAlt", self_insert_command("D-RAlt", "(7)"))
 
@@ -1170,13 +1170,13 @@ def configure(keymap):
 
             # Alt キーによるワンショットモディファイアを使った際にカーソルがメニューへ移動するのを解除する
             # https://www.haijin-boys.com/discussions/4583
-            if ((disable_key and re.match(disable_key, "O-LAlt", re.IGNORECASE)) or
-                (enable_key  and re.match(enable_key,  "O-LAlt", re.IGNORECASE))):
+            if ((disable_key and re.match(disable_key, r"O-LAlt$", re.IGNORECASE)) or
+                (enable_key  and re.match(enable_key,  r"O-LAlt$", re.IGNORECASE))):
                 define_key(keymap_emacs, "D-LAlt", self_insert_command("D-LAlt", "(7)"))
                 define_key(keymap_ime,   "D-LAlt", self_insert_command("D-LAlt", "(7)"))
 
-            if ((disable_key and re.match(disable_key, "O-RAlt", re.IGNORECASE)) or
-                (enable_key  and re.match(enable_key,  "O-RAlt", re.IGNORECASE))):
+            if ((disable_key and re.match(disable_key, r"O-RAlt$", re.IGNORECASE)) or
+                (enable_key  and re.match(enable_key,  r"O-RAlt$", re.IGNORECASE))):
                 define_key(keymap_emacs, "D-RAlt", self_insert_command("D-RAlt", "(7)"))
                 define_key(keymap_ime,   "D-RAlt", self_insert_command("D-RAlt", "(7)"))
 
@@ -1355,10 +1355,10 @@ def configure(keymap):
 
                 # Alt キーによるワンショットモディファイアを使った際にカーソルがメニューへ移動するのを解除する
                 # https://www.haijin-boys.com/discussions/4583
-                if re.match(key, "O-LAlt", re.IGNORECASE):
+                if re.match(key, r"O-LAlt$", re.IGNORECASE):
                     define_key(keymap_ei, "D-LAlt", self_insert_command("D-LAlt", "(7)"))
 
-                if re.match(key, "O-RAlt", re.IGNORECASE):
+                if re.match(key, r"O-RAlt$", re.IGNORECASE):
                     define_key(keymap_ei, "D-RAlt", self_insert_command("D-RAlt", "(7)"))
 
         if set_input_method_key:
@@ -1368,12 +1368,12 @@ def configure(keymap):
 
                 # Alt キーによるワンショットモディファイアを使った際にカーソルがメニューへ移動するのを解除する
                 # https://www.haijin-boys.com/discussions/4583
-                if ((disable_key and re.match(disable_key, "O-LAlt", re.IGNORECASE)) or
-                    (enable_key  and re.match(enable_key,  "O-LAlt", re.IGNORECASE))):
+                if ((disable_key and re.match(disable_key, r"O-LAlt$", re.IGNORECASE)) or
+                    (enable_key  and re.match(enable_key,  r"O-LAlt$", re.IGNORECASE))):
                     define_key(keymap_ei, "D-LAlt", self_insert_command("D-LAlt", "(7)"))
 
-                if ((disable_key and re.match(disable_key, "O-RAlt", re.IGNORECASE)) or
-                    (enable_key  and re.match(enable_key,  "O-RAlt", re.IGNORECASE))):
+                if ((disable_key and re.match(disable_key, r"O-RAlt$", re.IGNORECASE)) or
+                    (enable_key  and re.match(enable_key,  r"O-RAlt$", re.IGNORECASE))):
                     define_key(keymap_ei, "D-RAlt", self_insert_command("D-RAlt", "(7)"))
 
         ## 「スクロール」のキー設定（上書きされないように最後に設定する）
