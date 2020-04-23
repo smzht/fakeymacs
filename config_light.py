@@ -186,7 +186,7 @@ def configure(keymap):
 
     # IME を切り替えるキーを指定する（複数指定可）
     toggle_input_method_key  = []
-    toggle_input_method_key  = ["C-Yen"]
+    toggle_input_method_key += ["C-Yen"]
     toggle_input_method_key += ["C-o"]
     # toggle_input_method_key += ["O-LAlt", "O-RAlt"]
 
