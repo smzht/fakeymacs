@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200423_04
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200424_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -1299,13 +1299,12 @@ def configure(keymap):
     if use_emacs_ime_mode:
 
         def is_emacs_ime_mode(window):
-            if fakeymacs.ei_last_window:
-                if fakeymacs.ei_last_window == window:
-                    return True
-                else:
-                    disable_emacs_ime_mode(update=False)
-                    return False
+            if fakeymacs.ei_last_window == window:
+                ei_popBalloon(1)
+                return True
             else:
+                fakeymacs.ei_last_window = None
+                ei_popBalloon(0)
                 return False
 
         keymap_ei = keymap.defineWindowKeymap(check_func=is_emacs_ime_mode)
@@ -1317,18 +1316,14 @@ def configure(keymap):
         ## Emacs日本語入力モード の切り替え
         ##################################################
 
-        def enable_emacs_ime_mode(update=True):
+        def enable_emacs_ime_mode():
             fakeymacs.ei_last_window = keymap.getWindow()
             fakeymacs.ei_last_func = None
-            ei_popBalloon()
-            if update:
-                ei_updateKeymap()
+            ei_updateKeymap()
 
-        def disable_emacs_ime_mode(update=True):
+        def disable_emacs_ime_mode():
             fakeymacs.ei_last_window = None
-            ei_popBalloon()
-            if update:
-                ei_updateKeymap()
+            ei_updateKeymap()
 
         ##################################################
         ## IME の切り替え（Emacs日本語入力モード用）
@@ -1385,10 +1380,10 @@ def configure(keymap):
                 fakeymacs.ei_last_func = func
             return _func
 
-        def ei_popBalloon():
+        def ei_popBalloon(ime_mode_status):
             if not fakeymacs.is_playing_kmacro:
                 if emacs_ime_mode_balloon_message:
-                    if fakeymacs.ei_last_window:
+                    if ime_mode_status:
                         keymap.popBalloon("emacs_ime_mode", emacs_ime_mode_balloon_message)
                     else:
                         keymap.closeBalloon("emacs_ime_mode")
