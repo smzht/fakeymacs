@@ -221,7 +221,7 @@ def configure(keymap):
     toggle_input_method_key  = []
     toggle_input_method_key += ["C-Yen"]
     toggle_input_method_key += ["C-o"]
-    # toggle_input_method_key += ["O-LAlt", "O-RAlt"]
+    # toggle_input_method_key += ["O-LAlt"]
 
     # IME を切り替えるキーの組み合わせ（disable、enable の順）を指定する（複数指定可）
     # （toggle_input_method_key のキー設定より優先します）
