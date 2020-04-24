@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200424_01
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200424_02
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -110,6 +110,7 @@ def configure(keymap):
                             "ubuntu.exe",             # WSL
                             "ubuntu1604.exe",         # WSL
                             "ubuntu1804.exe",         # WSL
+                            "ubuntu2004.exe",         # WSL
                             "debian.exe",             # WSL
                             "kali.exe",               # WSL
                             "SLES-12.exe",            # WSL
@@ -147,6 +148,7 @@ def configure(keymap):
                             "ubuntu.exe",             # WSL
                             "ubuntu1604.exe",         # WSL
                             "ubuntu1804.exe",         # WSL
+                            "ubuntu2004.exe",         # WSL
                             "debian.exe",             # WSL
                             "kali.exe",               # WSL
                             "SLES-12.exe",            # WSL
