@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200426_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200426_02
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -90,6 +90,10 @@
 #   などに利用可。
 #
 # ＜全てのアプリケーションソフトで共通の動き＞
+# ・use_alt_digit_key_for_f1_to_f12 の設定により、F1 から F12 を Alt+数字キー列として
+#   使うかを指定できる。
+# ・use_alt_shift_digit_key_for_f13_to_f24 の設定により、F13 から F24 を Alt+Shift+数字
+#   キー列として使うかを指定できる。
 # ・other_window_key 変数に設定したキーにより、表示しているウィンドウの中で、一番最近
 #   までフォーカスがあったウィンドウに移動する。NTEmacs の機能やランチャーの機能から
 #   Windows アプリケーションソフトを起動した際に、起動元のアプリケーションソフトに戻る
@@ -256,6 +260,12 @@ def configure(keymap):
     # 数引数の指定に Ctrl+数字キーを使うかを指定する（True: 使う、False: 使わない）
     # （False に指定しても、C-u 数字キーで数引数を指定することができます）
     use_ctrl_digit_key = False
+
+    # F1 から F12 を Alt+数字キー列として使うかを指定する（True: 使う、False: 使わない）
+    use_alt_digit_key_for_f1_to_f12 = True
+
+    # F13 から F24 を Alt-Shift+数字キー列として使うかを指定する（True: 使う、False: 使わない）
+    use_alt_shift_digit_key_for_f13_to_f24 = False
 
     # 表示しているウィンドウの中で、一番最近までフォーカスがあったウィンドウに移動するキーを指定する
     other_window_key = "A-o"
@@ -1593,6 +1603,40 @@ def configure(keymap):
             if wnd.isMinimized():
                 wnd.restore()
                 break
+
+    ##################################################
+    ## キーバインド（ファンクション用）
+    ##################################################
+
+    ## Alt+数字キー列の設定
+    if use_alt_digit_key_for_f1_to_f12:
+        for i in range(10):
+            s_vkey = "(" + str(VK_F1 + i) + ")"
+            define_key(keymap_global, "A-" + str(i + 1), self_insert_command(s_vkey))
+
+        define_key(keymap_global, "A-0", self_insert_command("(" + str(VK_F10) + ")"))
+
+        if is_japanese_keyboard:
+            define_key(keymap_global, "A-Minus", self_insert_command("(" + str(VK_F11) + ")"))
+            define_key(keymap_global, "A-Caret", self_insert_command("(" + str(VK_F12) + ")"))
+        else:
+            define_key(keymap_global, "A-Minus", self_insert_command("(" + str(VK_F11) + ")"))
+            define_key(keymap_global, "A-Plus",  self_insert_command("(" + str(VK_F12) + ")"))
+
+    ## Alt+Shift+数字キー列の設定
+    if use_alt_shift_digit_key_for_f13_to_f24:
+        for i in range(10):
+            s_vkey = "(" + str(VK_F1 + 12 + i) + ")"
+            define_key(keymap_global, "A-S-" + str(i + 1), self_insert_command(s_vkey))
+
+        define_key(keymap_global, "A-S-0", self_insert_command("(" + str(VK_F10 + 12) + ")"))
+
+        if is_japanese_keyboard:
+            define_key(keymap_global, "A-S-Minus", self_insert_command("(" + str(VK_F11 + 12) + ")"))
+            define_key(keymap_global, "A-S-Caret", self_insert_command("(" + str(VK_F12 + 12) + ")"))
+        else:
+            define_key(keymap_global, "A-S-Minus", self_insert_command("(" + str(VK_F11 + 12) + ")"))
+            define_key(keymap_global, "A-S-Plus",  self_insert_command("(" + str(VK_F12 + 12) + ")"))
 
     ##################################################
     ## キーバインド（デスクトップ用）
