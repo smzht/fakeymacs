@@ -4,7 +4,7 @@
 
 Windows の操作を Emacs のキーバインドで行うための設定です。
 
-Keyhac for Windows ver 1.75 以上で動作する設定となっています。
+Keyhac for Windows ver 1.82 以上のバージョンでご利用ください。
 
 - https://sites.google.com/site/craftware/keyhac-ja
 
