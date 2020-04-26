@@ -1611,8 +1611,7 @@ def configure(keymap):
     ## Alt+数字キー列の設定
     if use_alt_digit_key_for_f1_to_f12:
         for i in range(10):
-            s_vkey = "(" + str(VK_F1 + i) + ")"
-            define_key(keymap_global, "A-" + str(i + 1), self_insert_command(s_vkey))
+            define_key(keymap_global, "A-" + str(i + 1), self_insert_command("(" + str(VK_F1 + i) + ")"))
 
         define_key(keymap_global, "A-0", self_insert_command("(" + str(VK_F10) + ")"))
 
@@ -1626,8 +1625,7 @@ def configure(keymap):
     ## Alt+Shift+数字キー列の設定
     if use_alt_shift_digit_key_for_f13_to_f24:
         for i in range(10):
-            s_vkey = "(" + str(VK_F1 + 12 + i) + ")"
-            define_key(keymap_global, "A-S-" + str(i + 1), self_insert_command(s_vkey))
+            define_key(keymap_global, "A-S-" + str(i + 1), self_insert_command("(" + str(VK_F1 + 12 + i) + ")"))
 
         define_key(keymap_global, "A-S-0", self_insert_command("(" + str(VK_F10 + 12) + ")"))
 
