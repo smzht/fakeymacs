@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200426_02
 ##
 
-# このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
+# このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
 # スクリプトですので、使いやすいようにカスタマイズしてご利用ください。
 #
