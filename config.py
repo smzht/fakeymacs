@@ -259,7 +259,7 @@ def configure(keymap):
 
     # 数引数の指定に Ctrl+数字キーを使うかを指定する（True: 使う、False: 使わない）
     # （False に指定しても、C-u 数字キーで数引数を指定することができます）
-    use_ctrl_digit_key = False
+    use_ctrl_digit_key = True
 
     # F1 から F12 を Alt+数字キー列として使うかを指定する（True: 使う、False: 使わない）
     use_alt_digit_key_for_f1_to_f12 = True
