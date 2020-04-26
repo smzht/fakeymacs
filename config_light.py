@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200425_01
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200426_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.75 以降で動作します。
@@ -67,6 +67,8 @@
 #   二回押下で ESC が入力される。
 # ・ctl_x_prefix_key 変数の設定により、Ctl-xプレフィックスキーに使うキーを指定できる。
 # ・scroll_key 変数の設定により、スクロールに使うキーを指定できる。
+# ・use_ctrl_digit_key 変数の設定により、数引数の指定に Ctrl+数字キーを使うかを指定
+#   できる。
 # ・C-c、C-z は、Windows の「コピー」、「取り消し」が機能するようにしている。
 #   ctl_x_prefix_key 変数が C-x 以外に設定されている場合には、C-x が Windows の
 #   「カット」として機能するようにしている。
@@ -217,6 +219,10 @@ def configure(keymap):
     # スクロールに使うキーの組み合わせ（Up、Down の順）を指定する
     # scroll_key = None # PageUp、PageDownキーのみを利用する
     scroll_key = ["M-v", "C-v"]
+
+    # 数引数の指定に Ctrl+数字キーを使うかを指定する（True: 使う、False: 使わない）
+    # （False に指定しても、C-u 数字キーで数引数を指定することができます）
+    use_ctrl_digit_key = False
 
     # アクティブウィンドウを切り替えるキーの組み合わせ（前、後 の順）を指定する（複数指定可）
     # （内部で A-Tab による切り替えを行っているため、設定するキーは Altキーとの組み合わせとしてください）
@@ -962,8 +968,9 @@ def configure(keymap):
     ## 数字キーの設定
     for key in range(10):
         s_key = str(key)
-        define_key(keymap_emacs,        s_key, digit(key))
-        define_key(keymap_emacs, "C-" + s_key, digit2(key))
+        define_key(keymap_emacs, s_key, digit(key))
+        if use_ctrl_digit_key:
+            define_key(keymap_emacs, "C-" + s_key, digit2(key))
         define_key(keymap_emacs, "M-" + s_key, digit2(key))
         define_key(keymap_emacs, "S-" + s_key, reset_undo(reset_counter(reset_mark(repeat(self_insert_command2("S-" + s_key))))))
         define_key(keymap_ime,          s_key, self_insert_command2(       s_key))
