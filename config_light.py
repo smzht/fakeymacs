@@ -967,6 +967,7 @@ def configure(keymap):
     # https://github.com/crftwr/pyauto/blob/master/pyauto_const.py
     # http://www.yoshidastyle.net/2007/10/windowswin32api.html
     # http://www.azaelia.net/factory/vk.html
+    # http://www3.airnet.ne.jp/saka/hardware/keyboard/109scode.html
 
     ## マルチストロークキーの設定
     define_key(keymap_emacs, "Ctl-x",         keymap.defineMultiStrokeKeymap(ctl_x_prefix_key))
