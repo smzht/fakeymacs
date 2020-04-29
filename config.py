@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200429_02
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200430_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -147,6 +147,7 @@ def configure(keymap):
     # keymap.replaceKey("RWin", "RCtrl") # RAlt の位置のキーを RCtrl キーにする
 
     # OS の設定を英語キーボードにして日本語キーボードを利用する場合のお勧め設定
+    # （is_japanese_keyboard 変数の設定は False としてご利用ください）
     # keymap.replaceKey(193, "RShift") # [＼] キーを RShift キーにする
     # keymap.replaceKey(235, 29) # [無変換] キーのコードを OS が認識可能なコードに置き換え
     # keymap.replaceKey(255, 28) # [変換] キーのコードを OS が認識可能なコードに置き換え
@@ -225,7 +226,7 @@ def configure(keymap):
     # clipboard 監視の対象外とするアプリケーションソフトを指定する
     not_clipboard_target = ["EXCEL.EXE"]              # Excel
 
-    # 日本語キーボードかどうかを指定する（True: 日本語キーボード、False: 英語キーボード）
+    # キーボードを日本語キーボードとして使うかどうかを指定する（True: 日本語キーボード、False: 英語キーボード）
     is_japanese_keyboard = True
 
     # 左右どちらの Ctrlキーを使うかを指定する（"L": 左、"R": 右）
