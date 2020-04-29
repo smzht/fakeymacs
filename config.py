@@ -144,7 +144,7 @@ def configure(keymap):
     # keymap.replaceKey(255, "RAlt") # 右◇キーを RAlt キーにする
 
     # HHKB Pro2 の Lite拡張モードで DIP SW 4 を OFF、DIP SW 5 を ON にした場合のお勧め設定
-    # keymap.replaceKey("RWin", "RCtrl") # RAlt の位置のキーを LAlt キーにする
+    # keymap.replaceKey("RWin", "RCtrl") # RAlt の位置のキーを RCtrl キーにする
 
     # OS の設定を英語キーボードにして日本語キーボードを利用する場合のお勧め設定
     # keymap.replaceKey(193, "RShift") # [＼] キーを RShift キーにする
