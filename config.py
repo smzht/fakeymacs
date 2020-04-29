@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200427_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200429_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -231,17 +231,27 @@ def configure(keymap):
     toggle_input_method_key += ["C-o"]
     # toggle_input_method_key += ["O-LAlt"]
 
+    #---------------------------------------------------------------------------------------------------
     # IME を切り替えるキーの組み合わせ（disable、enable の順）を指定する（複数指定可）
     # （toggle_input_method_key のキー設定より優先します）
     set_input_method_key  = []
+
     ## 日本語キーボードを利用している場合、[無変換] キーで英数入力、[変換] キーで日本語入力となる
     set_input_method_key += [["(29)", "(28)"]]
+
+    ## OS の設定を英語キーボードにして日本語キーボードを利用している場合、[無変換] キーで英数入力、
+    ## [変換] キー、[カタカナひらがな] キー、[￥] キーで日本語入力となる
+    # set_input_method_key += [["(235)", "(255)"]]
+
     ## LAlt のワンショットモディファイアで英数入力、RAlt のワンショットモディファイアで日本語入力となる
     # set_input_method_key += [["O-LAlt", "O-RAlt"]]
+
     ## C-j や C-j C-j で 英数入力となる（toggle_input_method_key の設定と併せ、C-j C-o で日本語入力となる）
     # set_input_method_key += [["C-j", None]]
+
     ## C-j で英数入力、C-o で日本語入力となる（toggle_input_method_key の設定より優先）
     # set_input_method_key += [["C-j", "C-o"]]
+    #---------------------------------------------------------------------------------------------------
 
     # C-iキーを Tabキーとして使うかどうかを指定する（True: 使う、False: 使わない）
     use_ctrl_i_as_tab = True
