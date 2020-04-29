@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200429_01
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200429_02
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -102,6 +102,25 @@ import keyhac_keymap
 from keyhac import *
 
 def configure(keymap):
+
+    ####################################################################################################
+    ## キーの置き換え（KeySwap を使わない場合。ただし、CapsLock の置き換えは KeySwap で行う必要あり。）
+    ####################################################################################################
+
+    # 初代 HHKB で Mode SW を 3 にした場合のお勧め設定
+    # keymap.replaceKey("LAlt", "LWin")
+    # keymap.replaceKey("RAlt", "RCtrl")
+    # keymap.replaceKey(235, "LAlt") # 左◇キーを LAlt キーにする
+    # keymap.replaceKey(255, "RAlt") # 右◇キーを RAlt キーにする
+
+    # HHKB Pro2 の Lite拡張モードで DIP SW 4 を OFF、DIP SW 5 を ON にした場合のお勧め設定
+    # keymap.replaceKey("RWin", "RCtrl") # RAlt の位置のキーを LAlt キーにする
+
+    # OS の設定を英語キーボードにして日本語キーボードを利用する場合のお勧め設定
+    # keymap.replaceKey(193, "RShift") # [＼] キーを RShift キーにする
+    # keymap.replaceKey(235, 29) # [無変換] キーのコードを OS が認識可能なコードに置き換え
+    # keymap.replaceKey(255, 28) # [変換] キーのコードを OS が認識可能なコードに置き換え
+    #                            # [カタカナひらがな] キー、[￥] キーのコードも同一となる
 
     ####################################################################################################
     ## カスタマイズの設定
@@ -205,10 +224,6 @@ def configure(keymap):
 
     ## 日本語キーボードを利用している場合、[無変換] キーで英数入力、[変換] キーで日本語入力となる
     set_input_method_key += [["(29)", "(28)"]]
-
-    ## OS の設定を英語キーボードにして日本語キーボードを利用している場合、[無変換] キーで英数入力、
-    ## [変換] キー、[カタカナひらがな] キー、[￥] キーで日本語入力となる
-    # set_input_method_key += [["(235)", "(255)"]]
 
     ## LAlt のワンショットモディファイアで英数入力、RAlt のワンショットモディファイアで日本語入力となる
     # set_input_method_key += [["O-LAlt", "O-RAlt"]]
