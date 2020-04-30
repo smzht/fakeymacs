@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200430_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200430_02
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -1385,18 +1385,20 @@ def configure(keymap):
 
         def ei_enable_input_method2(key):
             def _func():
-                if (key.startswith("O-") or
-                    fakeymacs.ei_last_func == delete_backward_char):
+                if fakeymacs.ei_last_func == delete_backward_char:
                     ei_enable_input_method()
+                elif key.startswith("O-"):
+                    ei_record_func(self_insert_command("28")()) # [変換]キー 発行
                 else:
                     ei_record_func(self_insert_command(key)())
             return _func
 
         def ei_disable_input_method2(key):
             def _func():
-                if (key.startswith("O-") or
-                    fakeymacs.ei_last_func == delete_backward_char):
+                if fakeymacs.ei_last_func == delete_backward_char:
                     ei_disable_input_method()
+                elif key.startswith("O-"):
+                    ei_record_func(self_insert_command("29")()) # [無変換]キー 発行
                 else:
                     ei_record_func(self_insert_command(key)())
             return _func
