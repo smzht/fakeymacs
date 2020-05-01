@@ -138,7 +138,9 @@ def configure(keymap):
     ####################################################################################################
 
     # # 初代 HHKB で Mode SW を 3 にした場合のお勧め設定
-    # keymap.replaceKey("LAlt", "LWin") # Win+L が効かないようなので、Ctrl+Alt+Del -> ロックで
+    # # （Ctrl+Alt+Del は置き換える前のキーの配置で押下する必要があるようです）
+    # # （Win+L も効かなくなるようですので、Ctrl+Win(元Alt)+Del -> ロック をご利用ください）
+    # keymap.replaceKey("LAlt", "LWin")
     # keymap.replaceKey("RAlt", "RCtrl")
     # keymap.replaceKey(235, "LAlt") # 左◇キーを LAlt キーにする
     # keymap.replaceKey(255, "RAlt") # 右◇キーを RAlt キーにする
