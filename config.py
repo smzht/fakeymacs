@@ -155,8 +155,8 @@ def configure(keymap):
     #                                  # [カタカナひらがな] キー、[￥] キーのコードも同一となる
     # keymap.replaceKey(193, "RShift") # [＼] キーを RShift キーにする
     #
-    # # 上記の最終行の代わりに以下の設定もお勧めです。リモートデスクトップ利用時など Keyhac の設定が
-    # # 効かなくなる際には、多少混乱するかもしれません。
+    # # 上記の最終行の代わりに以下の設定もお勧めです。リモートデスクトップ利用時など、Keyhac の設定が
+    # # 効かなくなる際には多少混乱するかもしれません。
     # keymap.replaceKey("BackSlash", "Return") # [ ]] キーを Enter キーにする
     # keymap.replaceKey(193, "BackSlash")      # [＼] キーを BackSlash キーにする
 
