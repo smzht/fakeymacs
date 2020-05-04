@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200501_01
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200504_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -117,19 +117,6 @@ def configure(keymap):
 
     # # HHKB Pro2 の Lite拡張モードで DIP SW 4 を OFF、DIP SW 5 を ON にした場合のお勧め設定
     # keymap.replaceKey("RWin", "RCtrl") # RAlt の位置のキーを RCtrl キーにする
-
-    # # OS の設定を英語キーボードにして日本語キーボードを利用する場合のお勧め設定
-    # # （is_japanese_keyboard 変数の設定は False としてご利用ください）
-    # keymap.replaceKey(235, 29)       # [無変換] キーのコードを OS が認識可能なコードに置き換える
-    # keymap.replaceKey(255, 28)       # [変換] キーのコードを OS が認識可能なコードに置き換える
-    #                                  # [カタカナひらがな] キー、[￥] キーのコードも同一となる
-    # keymap.replaceKey(193, "RShift") # [＼] キーを RShift キーにする
-
-    # # さらに、Change Key を使って、[￥] キーにスキャンコード 0x56 割り当てる（仮想キーコード 226
-    # # （VK_OEM_102）を発行するキーとなる）と [￥] キーを別の仮想キーコードで利用できるようになる
-    # # ため、[ ]] キーを Enter キーに置き換えて利用することが可能となります。
-    # # （英語キーボードと日本語キーボードの併用が不要の場合にお勧めする設定となります。）
-    # keymap.replaceKey("BackSlash", "Return") # [ ]] キーを Enter キーにする
 
 
     ####################################################################################################
