@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200501_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200504_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -158,8 +158,9 @@ def configure(keymap):
     # # さらに、Change Key を使って、[￥] キーにスキャンコード 0x56 割り当てる（仮想キーコード 226
     # # （VK_OEM_102）を発行するキーとなる）と [￥] キーを別の仮想キーコードで利用できるようになる
     # # ため、[ ]] キーを Enter キーに置き換えて利用することが可能となります。
-    # # （英語キーボードと日本語キーボードの併用が不要の場合にお勧めする設定となります。）
     # keymap.replaceKey("BackSlash", "Return") # [ ]] キーを Enter キーにする
+    # # ただし、英語キーボードと日本語キーボードを混在して利用する場合には、使うキーボードによって
+    # # 設定の切替えが必要となるため、この設定を本設定の最後に「（オプション）」として紹介しています。
 
 
     ####################################################################################################
@@ -2054,3 +2055,41 @@ def configure(keymap):
         keymap_real_emacs["(28)"]   = keymap.InputKeyCommand("C-F2")  # [変換] キー
         # keymap_real_emacs["O-LAlt"] = keymap.InputKeyCommand("C-F1")  # 左 Alt キーのワンショットモディファイア
         # keymap_real_emacs["O-RAlt"] = keymap.InputKeyCommand("C-F2")  # 右 Alt キーのワンショットモディファイア
+
+
+    ####################################################################################################
+    ## 英語キーボード設定をした OS 上で、日本語キーボードを混在して利用する場合の切替えを行う（オプション）
+    ####################################################################################################
+    if 0:
+        fakeymacs.keyboard_status = "US"
+
+        def change_keyboard():
+            if fakeymacs.keyboard_status == "US":
+                # 日本語キーボードの利用に切り替える
+
+                keymap.replaceKey("BackSlash", "Return") # [ ]] キーを Enter キーにする
+
+                ## 初代 HHKB を利用している場合は次の４行をアンコメント化する
+                # keymap.replaceKey("LAlt", "LAlt")
+                # keymap.replaceKey("RAlt", "RAlt")
+                # keymap.replaceKey(235, 29)
+                # keymap.replaceKey(255, 28)
+
+                keymap.popBalloon("keyswap", "[JP Keyboard]", 1000)
+                fakeymacs.keyboard_status = "JP"
+
+            else:
+                # 英語キーボードの利用に切り替える
+
+                keymap.replaceKey("BackSlash", "BackSlash") # [ ]] キーを BackSlash キーにする
+
+                ## 初代 HHKB を利用している場合は次の４行をアンコメント化する
+                # keymap.replaceKey("LAlt", "LWin")
+                # keymap.replaceKey("RAlt", "RCtrl")
+                # keymap.replaceKey(235, "LAlt")
+                # keymap.replaceKey(255, "RAlt")
+
+                keymap.popBalloon("keyswap", "[US Keyboard]", 1000)
+                fakeymacs.keyboard_status = "US"
+
+        keymap_global["C-t"]  = change_keyboard
