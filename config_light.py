@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200504_01
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200505_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -98,6 +98,7 @@ import os.path
 import re
 import fnmatch
 
+import ctypes
 import keyhac_keymap
 from keyhac import *
 
@@ -207,8 +208,13 @@ def configure(keymap):
     # clipboard 監視の対象外とするアプリケーションソフトを指定する
     not_clipboard_target = ["EXCEL.EXE"]              # Excel
 
-    # キーボードを日本語キーボードとして使うかどうかを指定する（True: 日本語キーボード、False: 英語キーボード）
-    is_japanese_keyboard = True
+    # OS に設定しているキーボードタイプが日本語キーボードかどうかを指定する
+    # （True: 日本語キーボード、False: 英語キーボード）
+    # （ http://tokovalue.jp/function/GetKeyboardType.htm ）
+    if ctypes.windll.user32.GetKeyboardType(0) == 7:
+        is_japanese_keyboard = True
+    else:
+        is_japanese_keyboard = False
 
     # 左右どちらの Ctrlキーを使うかを指定する（"L": 左、"R": 右）
     side_of_ctrl_key = "L"
