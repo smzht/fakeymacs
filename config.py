@@ -2096,4 +2096,4 @@ def configure(keymap):
                 keymap.popBalloon("keyswap", "[US Keyboard]", 1000)
                 fakeymacs.keyboard_status = "US"
 
-        keymap_global["C-t"]  = change_keyboard
+        define_key(keymap_global, "C-t", change_keyboard)
