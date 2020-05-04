@@ -137,6 +137,8 @@ def configure(keymap):
     ## キーの置き換え（KeySwap を使わない場合。ただし、CapsLock の置き換えは KeySwap で行う必要あり。）
     ####################################################################################################
 
+    # https://w.atwiki.jp/ntemacs/pages/90.html
+
     # # 初代 HHKB で Mode SW を 3 にした場合のお勧め設定
     # # （Ctrl+Alt+Del は置き換える前のキーの配置で押下する必要があるようです）
     # # （Win+L も効かなくなるようですので、Ctrl+Win(元Alt)+Del -> ロック をご利用ください）
@@ -2063,6 +2065,8 @@ def configure(keymap):
     ## 英語キーボード設定をした OS 上で、日本語キーボードを混在して利用する場合の切替えを行う（オプション）
     ####################################################################################################
     if 0:
+        # https://w.atwiki.jp/ntemacs/pages/90.html
+
         fakeymacs.keyboard_status = "US"
 
         def change_keyboard():
