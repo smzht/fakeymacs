@@ -241,14 +241,6 @@ def configure(keymap):
     # clipboard 監視の対象外とするアプリケーションソフトを指定する
     not_clipboard_target = ["EXCEL.EXE"]              # Excel
 
-    # OS に設定しているキーボードタイプが日本語キーボードかどうかを指定する
-    # （True: 日本語キーボード、False: 英語キーボード）
-    # （ http://tokovalue.jp/function/GetKeyboardType.htm ）
-    if ctypes.windll.user32.GetKeyboardType(0) == 7:
-        is_japanese_keyboard = True
-    else:
-        is_japanese_keyboard = False
-
     # 左右どちらの Ctrlキーを使うかを指定する（"L": 左、"R": 右）
     side_of_ctrl_key = "L"
 
@@ -452,6 +444,14 @@ def configure(keymap):
 
     # undo のモードの時 True になる（redo のモードの時 False になる）
     fakeymacs.is_undo_mode = True
+
+    # OS に設定しているキーボードタイプが日本語キーボードかどうかを設定する
+    # （True: 日本語キーボード、False: 英語キーボード）
+    # （ http://tokovalue.jp/function/GetKeyboardType.htm ）
+    if ctypes.windll.user32.GetKeyboardType(0) == 7:
+        is_japanese_keyboard = True
+    else:
+        is_japanese_keyboard = False
 
     # Ctl-xプレフィックスキーを構成するキーの仮想キーコードを設定する
     if ctl_x_prefix_key:
