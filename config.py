@@ -2067,9 +2067,10 @@ def configure(keymap):
             if fakeymacs.keyboard_status == "US":
                 # 日本語キーボードの利用に切り替える
 
-                keymap.replaceKey("BackSlash", "Return") # [ ]] キーを Enter キーにする
+                # 日本語キーボードの [ ]] キーを Enter キーにする
+                keymap.replaceKey("BackSlash", "Return")
 
-                ## 初代 HHKB を利用している場合は次の４行をアンコメント化する
+                # 初代 HHKB を利用している場合は次の４行をアンコメント化する
                 # keymap.replaceKey("LAlt", "LAlt")
                 # keymap.replaceKey("RAlt", "RAlt")
                 # keymap.replaceKey(235, 29)
@@ -2081,9 +2082,10 @@ def configure(keymap):
             else:
                 # 英語キーボードの利用に切り替える
 
-                keymap.replaceKey("BackSlash", "BackSlash") # [ ]] キーを BackSlash キーにする
+                # 日本語キーボードの [ ]] キーを BackSlash キーにする
+                keymap.replaceKey("BackSlash", "BackSlash")
 
-                ## 初代 HHKB を利用している場合は次の４行をアンコメント化する
+                # 初代 HHKB を利用している場合は次の４行をアンコメント化する
                 # keymap.replaceKey("LAlt", "LWin")
                 # keymap.replaceKey("RAlt", "RCtrl")
                 # keymap.replaceKey(235, "LAlt")
