@@ -107,6 +107,8 @@ def configure(keymap):
     ## キーの置き換え（KeySwap を使わない場合。ただし、CapsLock の置き換えは KeySwap で行う必要あり。）
     ####################################################################################################
 
+    # https://w.atwiki.jp/ntemacs/pages/90.html
+
     # # 初代 HHKB で Mode SW を 3 にした場合のお勧め設定
     # # （Ctrl+Alt+Del は置き換える前のキーの配置で押下する必要があるようです）
     # # （Win+L も効かなくなるようですので、Ctrl+Win(元Alt)+Del -> ロック をご利用ください）
@@ -117,6 +119,19 @@ def configure(keymap):
 
     # # HHKB Pro2 の Lite拡張モードで DIP SW 4 を OFF、DIP SW 5 を ON にした場合のお勧め設定
     # keymap.replaceKey("RWin", "RCtrl") # RAlt の位置のキーを RCtrl キーにする
+
+    # # OS の設定を英語キーボードにして日本語キーボードを利用する場合のお勧め設定
+    # # （is_japanese_keyboard 変数の設定は False としてご利用ください）
+    # keymap.replaceKey(235, 29)       # [無変換] キーのコードを OS が認識可能なコードに置き換える
+    # keymap.replaceKey(255, 28)       # [変換] キーのコードを OS が認識可能なコードに置き換える
+    #                                  # [カタカナひらがな] キー、[￥] キーのコードも同一となる
+    # keymap.replaceKey(193, "RShift") # [＼] キーを RShift キーにする
+
+    # # さらに、Change Key を使って、[￥] キーにスキャンコード 0x56 を割り当てる（仮想キーコード
+    # # 226（VK_OEM_102）を発行するキーとなる）と [￥] キーが [ ]] キーとは別の仮想キーコードを
+    # # 発行する BackSlash キーとして利用できるようになるため、[ ]] キーを Enter キーに置き換えて
+    # # 利用することが可能となります。
+    # keymap.replaceKey("BackSlash", "Return") # [ ]] キーを Enter キーにする
 
 
     ####################################################################################################
