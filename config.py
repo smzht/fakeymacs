@@ -151,7 +151,6 @@ def configure(keymap):
     # keymap.replaceKey("RWin", "RCtrl") # RAlt の位置のキーを RCtrl キーにする
 
     # # OS の設定を英語キーボードにして日本語キーボードを利用する場合のお勧め設定
-    # # （is_japanese_keyboard 変数の設定は False としてご利用ください）
     # keymap.replaceKey(235, 29)       # [無変換] キーのコードを OS が認識可能なコードに置き換える
     # keymap.replaceKey(255, 28)       # [変換] キーのコードを OS が認識可能なコードに置き換える
     #                                  # [カタカナひらがな] キー、[￥] キーのコードも同一となる
