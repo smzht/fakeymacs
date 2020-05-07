@@ -159,7 +159,7 @@ def configure(keymap):
     # # さらに、Change Key を使って、[￥] キーにスキャンコード 0x7F を割り当てる（仮想キーコード
     # # 236（VK_OEM_PA2）を発行するキーとなる）と、[￥] キーを [ ]] キーの入替え用のキーとして利用
     # # できるため、[ ]] キーを Enter キーに置き換えて利用することが可能となります。
-    # keymap.replaceKey(236, "BackSlash")      # [￥] キーを [ ]] キーにする
+    # keymap.replaceKey(236, "BackSlash")      # [￥] キーを BackSlash キーにする
     # keymap.replaceKey("BackSlash", "Return") # [ ]] キーを Enter キーにする
     # # ただし、英語キーボードと日本語キーボードを混在して利用する場合には、使うキーボードによって
     # # 設定の切替えが必要となるため、そのための設定を本設定の最後に「（オプション）」として紹介
@@ -2074,7 +2074,7 @@ def configure(keymap):
         # 日本語キーボードの [＼] キーを RShift キーにする
         keymap.replaceKey(193, "RShift")
 
-        # 日本語キーボードの [￥] キーを [ ]] キーにする
+        # 日本語キーボードの [￥] キーを BackSlash キーにする
         keymap.replaceKey(236, "BackSlash")
 
         def change_keyboard():

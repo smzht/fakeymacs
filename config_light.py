@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200505_01
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200505_02
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -126,10 +126,10 @@ def configure(keymap):
     #                                  # [カタカナひらがな] キー、[￥] キーのコードも同一となる
     # keymap.replaceKey(193, "RShift") # [＼] キーを RShift キーにする
 
-    # # さらに、Change Key を使って、[￥] キーにスキャンコード 0x56 を割り当てる（仮想キーコード
-    # # 226（VK_OEM_102）を発行するキーとなる）と [￥] キーが [ ]] キーとは別の仮想キーコードを
-    # # 発行する BackSlash キーとして利用できるようになるため、[ ]] キーを Enter キーに置き換えて
-    # # 利用することが可能となる。
+    # # さらに、Change Key を使って、[￥] キーにスキャンコード 0x7F を割り当てる（仮想キーコード
+    # # 236（VK_OEM_PA2）を発行するキーとなる）と、[￥] キーを [ ]] キーの入替え用のキーとして利用
+    # # できるため、[ ]] キーを Enter キーに置き換えて利用することが可能となります。
+    # keymap.replaceKey(236, "BackSlash")      # [￥] キーを BackSlash キーにする
     # keymap.replaceKey("BackSlash", "Return") # [ ]] キーを Enter キーにする
 
 
