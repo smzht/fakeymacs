@@ -139,31 +139,31 @@ def configure(keymap):
 
     # https://w.atwiki.jp/ntemacs/pages/90.html
 
-    # # 初代 HHKB で Mode SW を 3 にした場合のお勧め設定
-    # # （Ctrl+Alt+Del は置き換える前のキーの配置で押下する必要があるようです）
-    # # （Win+L も効かなくなるようですので、Ctrl+Win(元Alt)+Del -> ロック をご利用ください）
-    # keymap.replaceKey("LAlt", "LWin")
-    # keymap.replaceKey("RAlt", "RCtrl")
-    # keymap.replaceKey(235, "LAlt") # 左◇キーを LAlt キーにする
-    # keymap.replaceKey(255, "RAlt") # 右◇キーを RAlt キーにする
+    # 初代 HHKB で Mode SW を 3 にした場合のお勧め設定
+    # （Ctrl+Alt+Del は置き換える前のキーの配置で押下する必要があるようです）
+    # （Win+L も効かなくなるようですので、Ctrl+Win(元Alt)+Del -> ロック をご利用ください）
+    if 0:
+        keymap.replaceKey("LAlt", "LWin")
+        keymap.replaceKey("RAlt", "RCtrl")
+        keymap.replaceKey(235, "LAlt")           # 左◇キーを LAlt キーにする
+        keymap.replaceKey(255, "RAlt")           # 右◇キーを RAlt キーにする
 
-    # # HHKB Pro2 の Lite拡張モードで DIP SW 4 を OFF、DIP SW 5 を ON にした場合のお勧め設定
-    # keymap.replaceKey("RWin", "RCtrl") # RAlt の位置のキーを RCtrl キーにする
+    # HHKB Pro2 の Lite拡張モードで DIP SW 4 を OFF、DIP SW 5 を ON にした場合のお勧め設定
+    if 0:
+        keymap.replaceKey("RWin", "RCtrl")       # RAlt の位置のキーを RCtrl キーにする
 
-    # # OS の設定を英語キーボードにして日本語キーボードを利用する場合のお勧め設定
-    # keymap.replaceKey(235, 29)       # [無変換] キーのコードを OS が認識可能なコードに置き換える
-    # keymap.replaceKey(255, 28)       # [変換] キーのコードを OS が認識可能なコードに置き換える
-    #                                  # [カタカナひらがな] キー、[￥] キーのコードも同一となる
-    # keymap.replaceKey(193, "RShift") # [＼] キーを RShift キーにする
+    # OS の設定を英語キーボードにして日本語キーボードを利用する場合のお勧め設定
+    # （Change Key を使って、[￥] キーにスキャンコード 0x7F を割り当ててから、以下の設定を有効
+    # 　にしてください）
+    if 0:
+        keymap.replaceKey(235, 29)               # [無変換] キーのコードを OS が認識可能なキーにする
+        keymap.replaceKey(255, 28)               # [変換] キーのコードを OS が認識可能なキーにする
+        keymap.replaceKey(193, "RShift")         # [＼] キーを RShift キーにする
+        keymap.replaceKey(236, "BackSlash")      # [￥] キーを BackSlash キーにする
+        keymap.replaceKey("BackSlash", "Return") # [ ]] キーを Enter キーにする
 
-    # # さらに、Change Key を使って、[￥] キーにスキャンコード 0x7F を割り当てる（仮想キーコード
-    # # 236（VK_OEM_PA2）を発行するキーとなる）と、[￥] キーを [ ]] キーの入替え用のキーとして利用
-    # # できるため、[ ]] キーを Enter キーに置き換えて利用することが可能となります。
-    # keymap.replaceKey(236, "BackSlash")      # [￥] キーを BackSlash キーにする
-    # keymap.replaceKey("BackSlash", "Return") # [ ]] キーを Enter キーにする
-    # # ただし、英語キーボードと日本語キーボードを混在して利用する場合には、使うキーボードによって
-    # # 設定の切替えが必要となるため、そのための設定を本設定の最後に「（オプション）」として紹介
-    # # している。
+    # （英語キーボードと日本語キーボードを混在して利用する場合には、使うキーボードによって、設定
+    # 　の切替えが必要となるため、本設定の最後にある「（オプション）」の設定をご利用ください。）
 
 
     ####################################################################################################
@@ -2071,12 +2071,6 @@ def configure(keymap):
     if 0:
         # https://w.atwiki.jp/ntemacs/pages/90.html
 
-        # 日本語キーボードの [＼] キーを RShift キーにする
-        keymap.replaceKey(193, "RShift")
-
-        # 日本語キーボードの [￥] キーを BackSlash キーにする
-        keymap.replaceKey(236, "BackSlash")
-
         def change_keyboard():
             if fakeymacs.keyboard_status == "US":
                 # 日本語キーボードの利用に切り替える
@@ -2084,7 +2078,7 @@ def configure(keymap):
                 # 日本語キーボードの [ ]] キーを Enter キーにする
                 keymap.replaceKey("BackSlash", "Return")
 
-                # 初代 HHKB を利用している場合は次の４行をアンコメント化する
+                # 初代 HHKB を利用している場合は次の４行のコメントを解除する
                 # keymap.replaceKey("LAlt", "LAlt")
                 # keymap.replaceKey("RAlt", "RAlt")
                 # keymap.replaceKey(235, 29)
@@ -2099,7 +2093,7 @@ def configure(keymap):
                 # 日本語キーボードの [ ]] キーを元の設定に戻す
                 keymap.replaceKey("BackSlash", "BackSlash")
 
-                # 初代 HHKB を利用している場合は次の４行をアンコメント化する
+                # 初代 HHKB を利用している場合は次の４行のコメントを解除する
                 # keymap.replaceKey("LAlt", "LWin")
                 # keymap.replaceKey("RAlt", "RCtrl")
                 # keymap.replaceKey(235, "LAlt")
