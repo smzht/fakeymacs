@@ -2105,4 +2105,4 @@ def configure(keymap):
         fakeymacs.keyboard_status = "JP"
         change_keyboard()
 
-        define_key(keymap_global, "C-S-t", change_keyboard)
+        define_key(keymap_global, "C-S-c", change_keyboard)
