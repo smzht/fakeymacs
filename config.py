@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200505_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200507_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -2071,11 +2071,12 @@ def configure(keymap):
     if 0:
         # https://w.atwiki.jp/ntemacs/pages/90.html
 
-        fakeymacs.keyboard_status = "US"
-
         def change_keyboard():
             if fakeymacs.keyboard_status == "US":
                 # 日本語キーボードの利用に切り替える
+
+                # 日本語キーボードの [＼] キーを RShift キーにする
+                keymap.replaceKey(193, "RShift")
 
                 # 日本語キーボードの [ ]] キーを Enter キーにする
                 keymap.replaceKey("BackSlash", "Return")
@@ -2092,7 +2093,12 @@ def configure(keymap):
             else:
                 # 英語キーボードの利用に切り替える
 
-                # 日本語キーボードの [ ]] キーを BackSlash キーにする
+                # 日本語キーボードの [＼] キーを元の設定に戻す
+                # （元に戻したい場合にアンコメント化する。英語キーボードでは使っていない
+                # 　仮想キーコードなので、コメントしたままでも問題ない。）
+                # keymap.replaceKey(193, 193)
+
+                # 日本語キーボードの [ ]] キーを元の設定に戻す
                 keymap.replaceKey("BackSlash", "BackSlash")
 
                 # 初代 HHKB を利用している場合は次の４行をアンコメント化する
@@ -2103,5 +2109,8 @@ def configure(keymap):
 
                 keymap.popBalloon("keyswap", "[US Keyboard]", 1000)
                 fakeymacs.keyboard_status = "US"
+
+        fakeymacs.keyboard_status = "JP"
+        change_keyboard()
 
         define_key(keymap_global, "C-t", change_keyboard)
