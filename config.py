@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200507_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200507_02
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -156,10 +156,10 @@ def configure(keymap):
     #                                  # [カタカナひらがな] キー、[￥] キーのコードも同一となる
     # keymap.replaceKey(193, "RShift") # [＼] キーを RShift キーにする
 
-    # # さらに、Change Key を使って、[￥] キーにスキャンコード 0x56 を割り当てる（仮想キーコード
-    # # 226（VK_OEM_102）を発行するキーとなる）と [￥] キーが [ ]] キーとは別の仮想キーコードを
-    # # 発行する BackSlash キーとして利用できるようになるため、[ ]] キーを Enter キーに置き換えて
-    # # 利用することが可能となる。
+    # # さらに、Change Key を使って、[￥] キーにスキャンコード 0x7F を割り当てる（仮想キーコード
+    # # 236（VK_OEM_PA2）を発行するキーとなる）と、[￥] キーを [ ]] キーの入替え用のキーとして利用
+    # # できるため、[ ]] キーを Enter キーに置き換えて利用することが可能となります。
+    # keymap.replaceKey(236, "BackSlash")      # [￥] キーを [ ]] キーにする
     # keymap.replaceKey("BackSlash", "Return") # [ ]] キーを Enter キーにする
     # # ただし、英語キーボードと日本語キーボードを混在して利用する場合には、使うキーボードによって
     # # 設定の切替えが必要となるため、そのための設定を本設定の最後に「（オプション）」として紹介
@@ -2073,6 +2073,9 @@ def configure(keymap):
 
         # 日本語キーボードの [＼] キーを RShift キーにする
         keymap.replaceKey(193, "RShift")
+
+        # 日本語キーボードの [￥] キーを [ ]] キーにする
+        keymap.replaceKey(236, "BackSlash")
 
         def change_keyboard():
             if fakeymacs.keyboard_status == "US":
