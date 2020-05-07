@@ -2071,12 +2071,12 @@ def configure(keymap):
     if 0:
         # https://w.atwiki.jp/ntemacs/pages/90.html
 
+        # 日本語キーボードの [＼] キーを RShift キーにする
+        keymap.replaceKey(193, "RShift")
+
         def change_keyboard():
             if fakeymacs.keyboard_status == "US":
                 # 日本語キーボードの利用に切り替える
-
-                # 日本語キーボードの [＼] キーを RShift キーにする
-                keymap.replaceKey(193, "RShift")
 
                 # 日本語キーボードの [ ]] キーを Enter キーにする
                 keymap.replaceKey("BackSlash", "Return")
@@ -2092,11 +2092,6 @@ def configure(keymap):
 
             else:
                 # 英語キーボードの利用に切り替える
-
-                # 日本語キーボードの [＼] キーを元の設定に戻す
-                # （元に戻したい場合にアンコメント化する。英語キーボードでは使っていない
-                # 　仮想キーコードなので、コメントしたままでも問題ない。）
-                # keymap.replaceKey(193, 193)
 
                 # 日本語キーボードの [ ]] キーを元の設定に戻す
                 keymap.replaceKey("BackSlash", "BackSlash")
