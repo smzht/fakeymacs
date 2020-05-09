@@ -293,24 +293,21 @@ def configure(keymap):
     # （コメント箇所は、Microsoft IME で Google日本語入力の「ことえり」のキー設定に似せたキー設定に
     # 　する設定例です。本設定例は、Google日本語入力を利用の際に有効となっていても問題ありません。）
     emacs_ime_mode_key = None
-    # if is_japanese_keyboard:
-    #     emacs_ime_mode_key = [["C-i", "S-Left"],     # 文節を縮める
-    #                           ["C-o", "S-Right"],    # 文節を伸ばす
-    #                           ["C-j", "F6"],         # ひらがなに変換
-    #                           ["C-k", "F7"],         # 全角カタカナに変換
-    #                           ["C-l", "F9"],         # 全角英数に表示切替
-    #                           ["C-Semicolon", "F8"], # 半角に変換
-    #                           ["C-Colon", "F10"],    # 半角英数に表示切替
-    #                          ]
-    # else:
-    #     emacs_ime_mode_key = [["C-i", "S-Left"],     # 文節を縮める
-    #                           ["C-o", "S-Right"],    # 文節を伸ばす
-    #                           ["C-j", "F6"],         # ひらがなに変換
-    #                           ["C-k", "F7"],         # 全角カタカナに変換
-    #                           ["C-l", "F9"],         # 全角英数に表示切替
-    #                           ["C-Semicolon", "F8"], # 半角に変換
-    #                           ["C-Quote", "F10"],    # 半角英数に表示切替
-    #                          ]
+    if 0:
+        emacs_ime_mode_key = [["C-i", "S-Left"],       # 文節を縮める
+                              ["C-o", "S-Right"],      # 文節を伸ばす
+                              ["C-j", "F6"],           # ひらがなに変換
+                              ["C-k", "F7"],           # 全角カタカナに変換
+                              ["C-l", "F9"],           # 全角英数に表示切替
+                              ["C-Semicolon", "F8"],   # 半角に変換
+                             ]
+
+        if is_japanese_keyboard:
+            emacs_ime_mode_key += [["C-Colon", "F10"], # 半角英数に表示切替
+                                  ]
+        else:
+            emacs_ime_mode_key += [["C-Quote", "F10"], # 半角英数に表示切替
+                                  ]
 
     # C-iキーを Tabキーとして使うかどうかを指定する（True: 使う、False: 使わない）
     use_ctrl_i_as_tab = True
