@@ -1300,9 +1300,9 @@ def configure(keymap):
                 if fakeymacs.ei_last_func == delete_backward_char:
                     ei_enable_input_method()
                 elif key.startswith("O-"):
-                    ei_record_func(self_insert_command("(28)")()) # [変換]キー 発行
+                    ei_record_func(self_insert_command("(28)")) # [変換]キー 発行
                 else:
-                    ei_record_func(self_insert_command(key)())
+                    ei_record_func(self_insert_command(key))
             return _func
 
         def ei_disable_input_method2(key):
@@ -1310,9 +1310,9 @@ def configure(keymap):
                 if fakeymacs.ei_last_func == delete_backward_char:
                     ei_disable_input_method()
                 elif key.startswith("O-"):
-                    ei_record_func(self_insert_command("(29)")()) # [無変換]キー 発行
+                    ei_record_func(self_insert_command("(29)")) # [無変換]キー 発行
                 else:
-                    ei_record_func(self_insert_command(key)())
+                    ei_record_func(self_insert_command(key))
             return _func
 
         ##################################################
