@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200507_02
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200510_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -37,9 +37,8 @@
 # ・use_emacs_ime_mode 変数の設定により、Emacs日本語入力モードを使うかどうかを指定
 #   できる。Emacs日本語入力モードは、IME が ON の時に文字（英数字かスペースを除く
 #   特殊文字）を入力すると起動する。
-#   Emacs日本語入力モードでは、次のキーのみが Emacsキーバインドとして利用でき、
-#   その他のキーは Windows にそのまま渡されるようになるため、IME のショートカットキー
-#   として利用することができる。
+#   Emacs日本語入力モードでは、次のキーと emacs_ime_mode_key に設定したキーのみが Emacs
+#   キーバインドとして利用でき、その他のキーは Windows にそのまま渡されるようになる。
 #   ・Emacs日本語入力モードで使える Emacsキーバインドキー
 #     ・C-[
 #     ・C-b、C-f
@@ -171,6 +170,14 @@ def configure(keymap):
     ## カスタマイズの設定
     ####################################################################################################
 
+    # OS に設定しているキーボードタイプが日本語キーボードかどうかを設定する（自動設定）
+    # （True: 日本語キーボード、False: 英語キーボード）
+    # （ http://tokovalue.jp/function/GetKeyboardType.htm ）
+    if ctypes.windll.user32.GetKeyboardType(0) == 7:
+        is_japanese_keyboard = True
+    else:
+        is_japanese_keyboard = False
+
     # Emacs のキーバインドにするウィンドウのクラスネームを指定する（全ての設定に優先する）
     emacs_target_class   = ["Edit"]                   # テキスト入力フィールドなどが該当
 
@@ -279,6 +286,30 @@ def configure(keymap):
     ## C-j で英数入力、C-o で日本語入力となる（toggle_input_method_key の設定より優先）
     # set_input_method_key += [["C-j", "C-o"]]
     #---------------------------------------------------------------------------------------------------
+
+    # Emacs日本語入力モードを利用する際に、IME のショートカットを置き換えるキーの組み合わせ
+    # （置き換え先、置き換え元）を指定する
+    # （コメント箇所は、Microsoft IME で Google日本語入力の「ことえり」のキー設定に似せたキー設定に
+    # 　する設定例です。本設定例は、Google日本語入力を利用の際に有効となっていても問題ありません。）
+    emacs_ime_mode_key = None
+    # if is_japanese_keyboard:
+    #     emacs_ime_mode_key = [["C-i", "S-Left"],     # 文節を縮める
+    #                           ["C-o", "S-Right"],    # 文節を伸ばす
+    #                           ["C-j", "F6"],         # ひらがなに変換
+    #                           ["C-k", "F7"],         # 全角カタカナに変換
+    #                           ["C-l", "F9"],         # 全角英数に表示切替
+    #                           ["C-Semicolon", "F8"], # 半角に変換
+    #                           ["C-Colon", "F10"],    # 半角英数に表示切替
+    #                          ]
+    # else:
+    #     emacs_ime_mode_key = [["C-i", "S-Left"],     # 文節を縮める
+    #                           ["C-o", "S-Right"],    # 文節を伸ばす
+    #                           ["C-j", "F6"],         # ひらがなに変換
+    #                           ["C-k", "F7"],         # 全角カタカナに変換
+    #                           ["C-l", "F9"],         # 全角英数に表示切替
+    #                           ["C-Semicolon", "F8"], # 半角に変換
+    #                           ["C-Quote", "F10"],    # 半角英数に表示切替
+    #                          ]
 
     # C-iキーを Tabキーとして使うかどうかを指定する（True: 使う、False: 使わない）
     use_ctrl_i_as_tab = True
@@ -443,14 +474,6 @@ def configure(keymap):
 
     # undo のモードの時 True になる（redo のモードの時 False になる）
     fakeymacs.is_undo_mode = True
-
-    # OS に設定しているキーボードタイプが日本語キーボードかどうかを設定する
-    # （True: 日本語キーボード、False: 英語キーボード）
-    # （ http://tokovalue.jp/function/GetKeyboardType.htm ）
-    if ctypes.windll.user32.GetKeyboardType(0) == 7:
-        is_japanese_keyboard = True
-    else:
-        is_japanese_keyboard = False
 
     # Ctl-xプレフィックスキーを構成するキーの仮想キーコードを設定する
     if ctl_x_prefix_key:
@@ -1329,6 +1352,7 @@ def configure(keymap):
                 keymap_emacs["D-RAlt"] = "D-RAlt", "(7)"
                 keymap_ime["D-RAlt"]   = "D-RAlt", "(7)"
 
+    ## 「IME の切り替え」のキー設定（上書きされないように最後に設定する）
     if set_input_method_key:
         for disable_key, enable_key in set_input_method_key:
             define_key(keymap_emacs, disable_key, disable_input_method)
@@ -1403,24 +1427,38 @@ def configure(keymap):
             disable_input_method()
 
         def ei_enable_input_method2(key):
-            def _func():
-                if fakeymacs.ei_last_func == delete_backward_char:
-                    ei_enable_input_method()
-                elif key.startswith("O-"):
-                    ei_record_func(self_insert_command("(28)")) # [変換]キー 発行
+            if key:
+                keyConditon = keyhac_keymap.KeyCondition.fromString(key)
+                if keyConditon in keymap_ei.keymap:
+                    func = keymap_ei[key]
                 else:
-                    ei_record_func(self_insert_command(key))
-            return _func
+                    func = ei_record_func(self_insert_command(key))
+
+                def _func():
+                    if fakeymacs.ei_last_func == delete_backward_char:
+                        ei_enable_input_method()
+                    elif key.startswith("O-"):
+                        ei_record_func(self_insert_command("(28)")) # [変換]キー 発行
+                    else:
+                        func()
+                return _func
 
         def ei_disable_input_method2(key):
-            def _func():
-                if fakeymacs.ei_last_func == delete_backward_char:
-                    ei_disable_input_method()
-                elif key.startswith("O-"):
-                    ei_record_func(self_insert_command("(29)")) # [無変換]キー 発行
+            if key:
+                keyConditon = keyhac_keymap.KeyCondition.fromString(key)
+                if keyConditon in keymap_ei.keymap:
+                    func = keymap_ei[key]
                 else:
-                    ei_record_func(self_insert_command(key))
-            return _func
+                    func = ei_record_func(self_insert_command(key))
+
+                def _func():
+                    if fakeymacs.ei_last_func == delete_backward_char:
+                        ei_disable_input_method()
+                    elif key.startswith("O-"):
+                        ei_record_func(self_insert_command("(29)")) # [無変換]キー 発行
+                    else:
+                        func()
+                return _func
 
         ##################################################
         ## その他（Emacs日本語入力モード用）
@@ -1520,6 +1558,11 @@ def configure(keymap):
         define_key(keymap_ei, "Tab",   ei_record_func(indent_for_tab_command))
         define_key(keymap_ei, "C-g",   ei_keyboard_quit)
 
+        # 「IME のショートカットの置き換え」のキー設定
+        if emacs_ime_mode_key:
+            for replace_key, original_key in emacs_ime_mode_key:
+                define_key(keymap_ei, replace_key, ei_record_func(self_insert_command(original_key)))
+
         ## 「IME の切り替え」のキー設定（上書きされないように最後に設定する）
         if toggle_input_method_key:
             for key in toggle_input_method_key:
@@ -1533,6 +1576,7 @@ def configure(keymap):
                 if re.match(key, r"O-RAlt$", re.IGNORECASE):
                     keymap_ei["D-RAlt"] = "D-RAlt", "(7)"
 
+        ## 「IME の切り替え」のキー設定（上書きされないように最後に設定する）
         if set_input_method_key:
             for disable_key, enable_key in set_input_method_key:
                 define_key(keymap_ei, disable_key, ei_disable_input_method2(disable_key))
