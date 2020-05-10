@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200510_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200510_02
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -1353,22 +1353,33 @@ def configure(keymap):
     ## 「IME の切り替え」のキー設定（上書きされないように最後に設定する）
     if set_input_method_key:
         for disable_key, enable_key in set_input_method_key:
-            define_key(keymap_emacs, disable_key, disable_input_method)
-            define_key(keymap_emacs, enable_key,  enable_input_method)
-            define_key(keymap_ime,   disable_key, disable_input_method)
-            define_key(keymap_ime,   enable_key,  enable_input_method)
+            if disable_key:
+                define_key(keymap_emacs, disable_key, disable_input_method)
+                define_key(keymap_ime,   disable_key, disable_input_method)
 
-            # Alt キーによるワンショットモディファイアを使った際にカーソルがメニューへ移動するのを解除する
-            # https://www.haijin-boys.com/discussions/4583
-            if ((disable_key and re.match(disable_key, r"O-LAlt$", re.IGNORECASE)) or
-                (enable_key  and re.match(enable_key,  r"O-LAlt$", re.IGNORECASE))):
-                keymap_emacs["D-LAlt"] = "D-LAlt", "(7)"
-                keymap_ime["D-LAlt"]   = "D-LAlt", "(7)"
+                # Alt キーによるワンショットモディファイアを使った際にカーソルがメニューへ移動するのを解除する
+                # https://www.haijin-boys.com/discussions/4583
+                if re.match(disable_key, r"O-LAlt$", re.IGNORECASE):
+                    keymap_emacs["D-LAlt"] = "D-LAlt", "(7)"
+                    keymap_ime["D-LAlt"]   = "D-LAlt", "(7)"
 
-            if ((disable_key and re.match(disable_key, r"O-RAlt$", re.IGNORECASE)) or
-                (enable_key  and re.match(enable_key,  r"O-RAlt$", re.IGNORECASE))):
-                keymap_emacs["D-RAlt"] = "D-RAlt", "(7)"
-                keymap_ime["D-RAlt"]   = "D-RAlt", "(7)"
+                if re.match(disable_key, r"O-RAlt$", re.IGNORECASE):
+                    keymap_emacs["D-RAlt"] = "D-RAlt", "(7)"
+                    keymap_ime["D-RAlt"]   = "D-RAlt", "(7)"
+
+            if enable_key:
+                define_key(keymap_emacs, enable_key, enable_input_method)
+                define_key(keymap_ime,   enable_key, enable_input_method)
+
+                # Alt キーによるワンショットモディファイアを使った際にカーソルがメニューへ移動するのを解除する
+                # https://www.haijin-boys.com/discussions/4583
+                if re.match(enable_key, r"O-LAlt$", re.IGNORECASE):
+                    keymap_emacs["D-LAlt"] = "D-LAlt", "(7)"
+                    keymap_ime["D-LAlt"]   = "D-LAlt", "(7)"
+
+                if re.match(enable_key, r"O-RAlt$", re.IGNORECASE):
+                    keymap_emacs["D-RAlt"] = "D-RAlt", "(7)"
+                    keymap_ime["D-RAlt"]   = "D-RAlt", "(7)"
 
     ## 「スクロール」のキー設定（上書きされないように最後に設定する）
     if scroll_key:
@@ -1425,38 +1436,36 @@ def configure(keymap):
             disable_input_method()
 
         def ei_enable_input_method2(key):
-            if key:
-                keyConditon = keyhac_keymap.KeyCondition.fromString(key)
-                if keyConditon in keymap_ei.keymap:
-                    func = keymap_ei[key]
-                else:
-                    func = ei_record_func(self_insert_command(key))
+            keyConditon = keyhac_keymap.KeyCondition.fromString(key)
+            if keyConditon in keymap_ei.keymap:
+                func = keymap_ei[key]
+            else:
+                func = ei_record_func(self_insert_command(key))
 
-                def _func():
-                    if fakeymacs.ei_last_func == delete_backward_char:
-                        ei_enable_input_method()
-                    elif key.startswith("O-"):
-                        ei_record_func(self_insert_command("(28)")) # [変換]キー 発行
-                    else:
-                        func()
-                return _func
+            def _func():
+                if fakeymacs.ei_last_func == delete_backward_char:
+                    ei_enable_input_method()
+                elif key.startswith("O-"):
+                    ei_record_func(self_insert_command("(28)")) # [変換]キー 発行
+                else:
+                    func()
+            return _func
 
         def ei_disable_input_method2(key):
-            if key:
-                keyConditon = keyhac_keymap.KeyCondition.fromString(key)
-                if keyConditon in keymap_ei.keymap:
-                    func = keymap_ei[key]
-                else:
-                    func = ei_record_func(self_insert_command(key))
+            keyConditon = keyhac_keymap.KeyCondition.fromString(key)
+            if keyConditon in keymap_ei.keymap:
+                func = keymap_ei[key]
+            else:
+                func = ei_record_func(self_insert_command(key))
 
-                def _func():
-                    if fakeymacs.ei_last_func == delete_backward_char:
-                        ei_disable_input_method()
-                    elif key.startswith("O-"):
-                        ei_record_func(self_insert_command("(29)")) # [無変換]キー 発行
-                    else:
-                        func()
-                return _func
+            def _func():
+                if fakeymacs.ei_last_func == delete_backward_char:
+                    ei_disable_input_method()
+                elif key.startswith("O-"):
+                    ei_record_func(self_insert_command("(29)")) # [無変換]キー 発行
+                else:
+                    func()
+            return _func
 
         ##################################################
         ## その他（Emacs日本語入力モード用）
@@ -1577,23 +1586,34 @@ def configure(keymap):
         ## 「IME の切り替え」のキー設定（上書きされないように最後に設定する）
         if set_input_method_key:
             for disable_key, enable_key in set_input_method_key:
-                define_key(keymap_ei, disable_key, ei_disable_input_method2(disable_key))
-                define_key(keymap_ei, enable_key,  ei_enable_input_method2(enable_key))
+                if disable_key:
+                    define_key(keymap_ei, disable_key, ei_disable_input_method2(disable_key))
 
-                # Alt キーによるワンショットモディファイアを使った際にカーソルがメニューへ移動するのを解除する
-                # https://www.haijin-boys.com/discussions/4583
-                if ((disable_key and re.match(disable_key, r"O-LAlt$", re.IGNORECASE)) or
-                    (enable_key  and re.match(enable_key,  r"O-LAlt$", re.IGNORECASE))):
-                    keymap_ei["D-LAlt"] = "D-LAlt", "(7)"
+                    # Alt キーによるワンショットモディファイアを使った際にカーソルがメニューへ移動するのを解除する
+                    # https://www.haijin-boys.com/discussions/4583
+                    if re.match(disable_key, r"O-LAlt$", re.IGNORECASE):
+                        keymap_ei["D-LAlt"] = "D-LAlt", "(7)"
 
-                if ((disable_key and re.match(disable_key, r"O-RAlt$", re.IGNORECASE)) or
-                    (enable_key  and re.match(enable_key,  r"O-RAlt$", re.IGNORECASE))):
-                    keymap_ei["D-RAlt"] = "D-RAlt", "(7)"
+                    if re.match(disable_key, r"O-RAlt$", re.IGNORECASE):
+                        keymap_ei["D-RAlt"] = "D-RAlt", "(7)"
+
+                if enable_key:
+                    define_key(keymap_ei, enable_key, ei_enable_input_method2(enable_key))
+
+                    # Alt キーによるワンショットモディファイアを使った際にカーソルがメニューへ移動するのを解除する
+                    # https://www.haijin-boys.com/discussions/4583
+                    if re.match(enable_key, r"O-LAlt$", re.IGNORECASE):
+                        keymap_ei["D-LAlt"] = "D-LAlt", "(7)"
+
+                    if re.match(enable_key, r"O-RAlt$", re.IGNORECASE):
+                        keymap_ei["D-RAlt"] = "D-RAlt", "(7)"
 
         ## 「スクロール」のキー設定（上書きされないように最後に設定する）
         if scroll_key:
-            define_key(keymap_ei, scroll_key[0] and scroll_key[0].replace("M-", "A-"), ei_record_func(scroll_up))
-            define_key(keymap_ei, scroll_key[1] and scroll_key[1].replace("M-", "A-"), ei_record_func(scroll_down))
+            if scroll_key[0]:
+                define_key(keymap_ei, scroll_key[0].replace("M-", "A-"), ei_record_func(scroll_up))
+            if scroll_key[1]:
+                define_key(keymap_ei, scroll_key[1].replace("M-", "A-"), ei_record_func(scroll_down))
 
 
     ####################################################################################################
@@ -1882,8 +1902,10 @@ def configure(keymap):
     define_key(keymap_lw, "A-n", next_line)
 
     if scroll_key:
-        define_key(keymap_lw, scroll_key[0] and scroll_key[0].replace("M-", "A-"), scroll_up)
-        define_key(keymap_lw, scroll_key[1] and scroll_key[1].replace("M-", "A-"), scroll_down)
+        if scroll_key[0]:
+            define_key(keymap_lw, scroll_key[0].replace("M-", "A-"), scroll_up)
+        if scroll_key[1]:
+            define_key(keymap_lw, scroll_key[1].replace("M-", "A-"), scroll_down)
 
     ## 「カット / コピー / 削除 / アンドゥ」のキー設定
     define_key(keymap_lw, "C-h", delete_backward_char)
