@@ -126,6 +126,7 @@ import sys
 import os.path
 import re
 import fnmatch
+import copy
 
 import ctypes
 import keyhac_keymap
@@ -600,7 +601,7 @@ def configure(keymap):
         self_insert_command("Delete")()
 
     def backward_kill_word(repeat=1):
-        reset_region()
+        resetRegion()
         fakeymacs.is_marked = True
 
         def move_beginning_of_region():
@@ -612,7 +613,7 @@ def configure(keymap):
         kill_region()
 
     def kill_word(repeat=1):
-        reset_region()
+        resetRegion()
         fakeymacs.is_marked = True
 
         def move_end_of_region():
@@ -624,7 +625,7 @@ def configure(keymap):
         kill_region()
 
     def kill_line(repeat=1):
-        reset_region()
+        resetRegion()
         fakeymacs.is_marked = True
 
         if repeat == 1:
@@ -642,7 +643,7 @@ def configure(keymap):
                     self_insert_command("Delete")()
             else:
                 # 改行を消せるようにするため Cut にはしていない
-                copy()
+                copyRegion()
                 self_insert_command("Delete")()
         else:
             def move_end_of_region():
@@ -663,7 +664,7 @@ def configure(keymap):
     def kill_region():
         # コマンドプロンプトには Cut に対応するショートカットがない。その対策。
         if checkWindow("cmd.exe", "ConsoleWindowClass"): # Cmd
-            copy()
+            copyRegion()
 
             if fakeymacs.forward_direction is not None:
                 if fakeymacs.forward_direction:
@@ -675,11 +676,11 @@ def configure(keymap):
                 for i in range(len(getClipboardText())):
                     self_insert_command(key)()
         else:
-            cut()
+            cutRegion()
 
     def kill_ring_save():
-        copy()
-        reset_region()
+        copyRegion()
+        resetRegion()
 
     def yank():
         self_insert_command("C-v")()
@@ -696,7 +697,7 @@ def configure(keymap):
 
     def set_mark_command():
         if fakeymacs.is_marked or fakeymacs.forward_direction is not None:
-            reset_region()
+            resetRegion()
             fakeymacs.is_marked = False
             fakeymacs.forward_direction = None
         else:
@@ -836,7 +837,7 @@ def configure(keymap):
         self_insert_command("Tab")()
 
     def keyboard_quit():
-        reset_region()
+        resetRegion()
 
         # Esc を発行して問題ないアプリケーションソフトには Esc を発行する
         if not (checkWindow("cmd.exe", "ConsoleWindowClass") or        # Cmd
@@ -896,11 +897,11 @@ def configure(keymap):
     def delay(sec=0.02):
         time.sleep(sec)
 
-    def copy():
+    def copyRegion():
         self_insert_command("C-c")()
         pushToClipboardList()
 
-    def cut():
+    def cutRegion():
         self_insert_command("C-x")()
         pushToClipboardList()
 
@@ -990,7 +991,7 @@ def configure(keymap):
             digit_argument(number)
         return _func
 
-    def reset_region():
+    def resetRegion():
         if fakeymacs.forward_direction is not None:
 
             if checkWindow(None, "Edit"): # Edit クラス
@@ -1041,7 +1042,7 @@ def configure(keymap):
     def mark2(func, forward_direction):
         def _func():
             if fakeymacs.is_marked:
-                reset_region()
+                resetRegion()
                 fakeymacs.forward_direction = None
             fakeymacs.is_marked = True
             mark(func, forward_direction)()
@@ -1435,9 +1436,9 @@ def configure(keymap):
             disable_emacs_ime_mode()
             disable_input_method()
 
-        def ei_enable_input_method2(key):
+        def ei_enable_input_method2(key, ei_keymap):
             keyConditon = keyhac_keymap.KeyCondition.fromString(key)
-            if keyConditon in keymap_ei.keymap:
+            if keyConditon in ei_keymap:
                 func = keymap_ei[key]
             else:
                 func = ei_record_func(self_insert_command(key))
@@ -1451,9 +1452,9 @@ def configure(keymap):
                     func()
             return _func
 
-        def ei_disable_input_method2(key):
+        def ei_disable_input_method2(key, ei_keymap):
             keyConditon = keyhac_keymap.KeyCondition.fromString(key)
-            if keyConditon in keymap_ei.keymap:
+            if keyConditon in ei_keymap:
                 func = keymap_ei[key]
             else:
                 func = ei_record_func(self_insert_command(key))
@@ -1570,10 +1571,13 @@ def configure(keymap):
             for replace_key, original_key in emacs_ime_mode_key:
                 define_key(keymap_ei, replace_key, ei_record_func(self_insert_command(original_key)))
 
+        # この時点の keymap_ie のキーマップをコピーする
+        ei_keymap =  copy.copy(keymap_ei.keymap)
+
         ## 「IME の切り替え」のキー設定（上書きされないように最後に設定する）
         if toggle_input_method_key:
             for key in toggle_input_method_key:
-                define_key(keymap_ei, key, ei_disable_input_method2(key))
+                define_key(keymap_ei, key, ei_disable_input_method2(key, ei_keymap))
 
                 # Alt キーによるワンショットモディファイアを使った際にカーソルがメニューへ移動するのを解除する
                 # https://www.haijin-boys.com/discussions/4583
@@ -1587,7 +1591,7 @@ def configure(keymap):
         if set_input_method_key:
             for disable_key, enable_key in set_input_method_key:
                 if disable_key:
-                    define_key(keymap_ei, disable_key, ei_disable_input_method2(disable_key))
+                    define_key(keymap_ei, disable_key, ei_disable_input_method2(disable_key, ei_keymap))
 
                     # Alt キーによるワンショットモディファイアを使った際にカーソルがメニューへ移動するのを解除する
                     # https://www.haijin-boys.com/discussions/4583
@@ -1598,7 +1602,7 @@ def configure(keymap):
                         keymap_ei["D-RAlt"] = "D-RAlt", "(7)"
 
                 if enable_key:
-                    define_key(keymap_ei, enable_key, ei_enable_input_method2(enable_key))
+                    define_key(keymap_ei, enable_key, ei_enable_input_method2(enable_key, ei_keymap))
 
                     # Alt キーによるワンショットモディファイアを使った際にカーソルがメニューへ移動するのを解除する
                     # https://www.haijin-boys.com/discussions/4583
