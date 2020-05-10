@@ -255,6 +255,20 @@ def configure(keymap):
     # 左右どちらの Altキーを使うかを指定する（"L": 左、"R": 右）
     side_of_alt_key = "L"
 
+    # C-iキーを Tabキーとして使うかどうかを指定する（True: 使う、False: 使わない）
+    use_ctrl_i_as_tab = True
+
+    # Escキーを Metaキーとして使うかどうかを指定する（True: 使う、False: 使わない）
+    use_esc_as_meta = True
+
+    # Ctl-xプレフィックスキーに使うキーを指定する
+    # （Ctl-xプレフィックスキーのモディファイアキーは、Ctrl または Alt のいずれかから指定してください）
+    ctl_x_prefix_key = "C-x"
+
+    # スクロールに使うキーの組み合わせ（Up、Down の順）を指定する
+    # scroll_key = None # PageUp、PageDownキーのみを利用する
+    scroll_key = ["M-v", "C-v"]
+
     # Emacs日本語入力モードを使うかどうかを指定する（True: 使う、False: 使わない）
     use_emacs_ime_mode = True
 
@@ -309,20 +323,6 @@ def configure(keymap):
         else:
             emacs_ime_mode_key += [["C-Quote", "F10"], # 半角英数に表示切替
                                   ]
-
-    # C-iキーを Tabキーとして使うかどうかを指定する（True: 使う、False: 使わない）
-    use_ctrl_i_as_tab = True
-
-    # Escキーを Metaキーとして使うかどうかを指定する（True: 使う、False: 使わない）
-    use_esc_as_meta = True
-
-    # Ctl-xプレフィックスキーに使うキーを指定する
-    # （Ctl-xプレフィックスキーのモディファイアキーは、Ctrl または Alt のいずれかから指定してください）
-    ctl_x_prefix_key = "C-x"
-
-    # スクロールに使うキーの組み合わせ（Up、Down の順）を指定する
-    # scroll_key = None # PageUp、PageDownキーのみを利用する
-    scroll_key = ["M-v", "C-v"]
 
     # 数引数の指定に Ctrl+数字キーを使うかを指定する（True: 使う、False: 使わない）
     # （False に指定しても、C-u 数字キーで数引数を指定することができます）
@@ -1335,6 +1335,15 @@ def configure(keymap):
     if use_ctrl_i_as_tab:
         define_key(keymap_emacs, "C-i", reset_undo(reset_counter(reset_mark(repeat(indent_for_tab_command)))))
 
+    ## 「スクロール」のキー設定（上書きされないように最後に設定する）
+    if scroll_key:
+        define_key(keymap_emacs, scroll_key[0], reset_search(reset_undo(reset_counter(mark(scroll_up, False)))))
+        define_key(keymap_emacs, scroll_key[1], reset_search(reset_undo(reset_counter(mark(scroll_down, True)))))
+
+    ## 「カット」のキー設定（上書きされないように最後に設定する）
+    if ctl_x_prefix_key != "C-x":
+        define_key(keymap_emacs, "C-x", reset_search(reset_undo(reset_counter(reset_mark(kill_region)))))
+
     ## 「IME の切り替え」のキー設定（上書きされないように最後に設定する）
     if toggle_input_method_key:
         for key in toggle_input_method_key:
@@ -1381,15 +1390,6 @@ def configure(keymap):
                 if re.match(enable_key, r"O-RAlt$", re.IGNORECASE):
                     keymap_emacs["D-RAlt"] = "D-RAlt", "(7)"
                     keymap_ime["D-RAlt"]   = "D-RAlt", "(7)"
-
-    ## 「スクロール」のキー設定（上書きされないように最後に設定する）
-    if scroll_key:
-        define_key(keymap_emacs, scroll_key[0], reset_search(reset_undo(reset_counter(mark(scroll_up, False)))))
-        define_key(keymap_emacs, scroll_key[1], reset_search(reset_undo(reset_counter(mark(scroll_down, True)))))
-
-    ## 「カット」のキー設定（上書きされないように最後に設定する）
-    if ctl_x_prefix_key != "C-x":
-        define_key(keymap_emacs, "C-x", reset_search(reset_undo(reset_counter(reset_mark(kill_region)))))
 
 
     ####################################################################################################
@@ -1566,6 +1566,13 @@ def configure(keymap):
         define_key(keymap_ei, "Tab",   ei_record_func(indent_for_tab_command))
         define_key(keymap_ei, "C-g",   ei_keyboard_quit)
 
+        ## 「スクロール」のキー設定
+        if scroll_key:
+            if scroll_key[0]:
+                define_key(keymap_ei, scroll_key[0].replace("M-", "A-"), ei_record_func(scroll_up))
+            if scroll_key[1]:
+                define_key(keymap_ei, scroll_key[1].replace("M-", "A-"), ei_record_func(scroll_down))
+
         # 「IME のショートカットの置き換え」のキー設定
         if emacs_ime_mode_key:
             for replace_key, original_key in emacs_ime_mode_key:
@@ -1611,13 +1618,6 @@ def configure(keymap):
 
                     if re.match(enable_key, r"O-RAlt$", re.IGNORECASE):
                         keymap_ei["D-RAlt"] = "D-RAlt", "(7)"
-
-        ## 「スクロール」のキー設定（上書きされないように最後に設定する）
-        if scroll_key:
-            if scroll_key[0]:
-                define_key(keymap_ei, scroll_key[0].replace("M-", "A-"), ei_record_func(scroll_up))
-            if scroll_key[1]:
-                define_key(keymap_ei, scroll_key[1].replace("M-", "A-"), ei_record_func(scroll_down))
 
 
     ####################################################################################################
