@@ -314,15 +314,12 @@ def configure(keymap):
                                ["C-j", "F6"],          # ひらがなに変換
                                ["C-k", "F7"],          # 全角カタカナに変換
                                ["C-l", "F9"],          # 全角英数に表示切替
-                               ["C-Semicolon", "F8"],  # 半角に変換
-                              ]
+                               ["C-Semicolon", "F8"]]  # 半角に変換
 
         if is_japanese_keyboard:
-            emacs_ime_mode_key += [["C-Colon", "F10"], # 半角英数に表示切替
-                                  ]
+            emacs_ime_mode_key += [["C-Colon", "F10"]] # 半角英数に表示切替
         else:
-            emacs_ime_mode_key += [["C-Quote", "F10"], # 半角英数に表示切替
-                                  ]
+            emacs_ime_mode_key += [["C-Quote", "F10"]] # 半角英数に表示切替
 
     # 数引数の指定に Ctrl+数字キーを使うかを指定する（True: 使う、False: 使わない）
     # （False に指定しても、C-u 数字キーで数引数を指定することができます）
