@@ -105,36 +105,6 @@ from keyhac import *
 def configure(keymap):
 
     ####################################################################################################
-    ## キーの置き換え（KeySwap を使わない場合。ただし、CapsLock の置き換えは KeySwap で行う必要あり。）
-    ####################################################################################################
-
-    # https://w.atwiki.jp/ntemacs/pages/90.html
-
-    # 初代 HHKB で Mode SW を 3 にした場合のお勧め設定
-    # （Ctrl+Alt+Del は置き換える前のキーの配置で押下する必要があるようです）
-    # （Win+L も効かなくなるようですので、Ctrl+Win(元Alt)+Del -> ロック をご利用ください）
-    if 0:
-        keymap.replaceKey("LAlt", "LWin")
-        keymap.replaceKey("RAlt", "RCtrl")
-        keymap.replaceKey(235, "LAlt")           # 左◇キーを LAlt キーにする
-        keymap.replaceKey(255, "RAlt")           # 右◇キーを RAlt キーにする
-
-    # HHKB Pro2 の Lite拡張モードで DIP SW 4 を OFF、DIP SW 5 を ON にした場合のお勧め設定
-    if 0:
-        keymap.replaceKey("RWin", "RCtrl")       # RAlt の位置のキーを RCtrl キーにする
-
-    # OS の設定を英語キーボードにして日本語キーボードを利用する場合のお勧め設定
-    # （Change Key を使って、[￥] キーにスキャンコード 0x7F を割り当ててから、以下の設定を有効
-    # 　にしてください）
-    if 0:
-        keymap.replaceKey(235, 29)               # [無変換] キーのコードを OS が認識可能なキーにする
-        keymap.replaceKey(255, 28)               # [変換] キーのコードを OS が認識可能なキーにする
-        keymap.replaceKey(193, "RShift")         # [＼] キーを RShift キーにする
-        keymap.replaceKey(236, "BackSlash")      # [￥] キーを BackSlash キーにする
-        keymap.replaceKey("BackSlash", "Return") # [ ]] キーを Enter キーにする
-
-
-    ####################################################################################################
     ## カスタマイズの設定
     ####################################################################################################
 
