@@ -305,8 +305,8 @@ def configure(keymap):
 
     # Emacs日本語入力モードを利用する際に、IME のショートカットを置き換えるキーの組み合わせ
     # （置き換え先、置き換え元）を指定する
-    # （if 文箇所は、Microsoft IME で Google日本語入力の「ことえり」のキー設定に似せたキー設定に
-    # 　する設定例です。本設定例は、Google日本語入力を利用の際に有効となっていても問題ありません。）
+    # （if 文箇所は、Microsoft IME で Google日本語入力の「ことえり」のキーバインドを利用するための
+    # 　設定例です。この設定例は、Google日本語入力を利用の際に有効となっていても問題ありません。）
     emacs_ime_mode_key = None
     if 0:
         emacs_ime_mode_key = [["C-i", "S-Left"],       # 文節を縮める
