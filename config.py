@@ -127,8 +127,8 @@ import os.path
 import re
 import fnmatch
 import copy
-
 import ctypes
+
 import keyhac_keymap
 from keyhac import *
 
@@ -307,15 +307,15 @@ def configure(keymap):
     # （置き換え先、置き換え元）を指定する
     # （if 文箇所は、Microsoft IME で Google日本語入力の「ことえり」のキーバインドを利用するための
     # 　設定例です。この設定例は、Google日本語入力を利用の際に有効となっていても問題ありません。）
-    emacs_ime_mode_key = None
+    emacs_ime_mode_key = []
     if 0:
-        emacs_ime_mode_key = [["C-i", "S-Left"],       # 文節を縮める
-                              ["C-o", "S-Right"],      # 文節を伸ばす
-                              ["C-j", "F6"],           # ひらがなに変換
-                              ["C-k", "F7"],           # 全角カタカナに変換
-                              ["C-l", "F9"],           # 全角英数に表示切替
-                              ["C-Semicolon", "F8"],   # 半角に変換
-                             ]
+        emacs_ime_mode_key += [["C-i", "S-Left"],      # 文節を縮める
+                               ["C-o", "S-Right"],     # 文節を伸ばす
+                               ["C-j", "F6"],          # ひらがなに変換
+                               ["C-k", "F7"],          # 全角カタカナに変換
+                               ["C-l", "F9"],          # 全角英数に表示切替
+                               ["C-Semicolon", "F8"],  # 半角に変換
+                              ]
 
         if is_japanese_keyboard:
             emacs_ime_mode_key += [["C-Colon", "F10"], # 半角英数に表示切替
