@@ -1334,16 +1334,16 @@ def configure(keymap):
     if use_ctrl_i_as_tab:
         define_key(keymap_emacs, "C-i", reset_undo(reset_counter(reset_mark(repeat(indent_for_tab_command)))))
 
-    ## 「スクロール」のキー設定（上書きされないように最後に設定する）
+    ## 「スクロール」のキー設定
     if scroll_key:
         define_key(keymap_emacs, scroll_key[0], reset_search(reset_undo(reset_counter(mark(scroll_up, False)))))
         define_key(keymap_emacs, scroll_key[1], reset_search(reset_undo(reset_counter(mark(scroll_down, True)))))
 
-    ## 「カット」のキー設定（上書きされないように最後に設定する）
+    ## 「カット」のキー設定
     if ctl_x_prefix_key != "C-x":
         define_key(keymap_emacs, "C-x", reset_search(reset_undo(reset_counter(reset_mark(kill_region)))))
 
-    ## 「IME の切り替え」のキー設定（上書きされないように最後に設定する）
+    ## 「IME の切り替え」のキー設定
     if toggle_input_method_key:
         for key in toggle_input_method_key:
             define_key(keymap_emacs, key, toggle_input_method)
@@ -1359,7 +1359,7 @@ def configure(keymap):
                 keymap_emacs["D-RAlt"] = "D-RAlt", "(7)"
                 keymap_ime["D-RAlt"]   = "D-RAlt", "(7)"
 
-    ## 「IME の切り替え」のキー設定（上書きされないように最後に設定する）
+    ## 「IME の切り替え」のキー設定
     if set_input_method_key:
         for disable_key, enable_key in set_input_method_key:
             if disable_key:
@@ -1580,7 +1580,7 @@ def configure(keymap):
         # この時点の keymap_ie のキーマップをコピーする
         ei_keymap =  copy.copy(keymap_ei.keymap)
 
-        ## 「IME の切り替え」のキー設定（上書きされないように最後に設定する）
+        ## 「IME の切り替え」のキー設定
         if toggle_input_method_key:
             for key in toggle_input_method_key:
                 define_key(keymap_ei, key, ei_disable_input_method2(key, ei_keymap))
@@ -1593,7 +1593,7 @@ def configure(keymap):
                 if re.match(key, r"O-RAlt$", re.IGNORECASE):
                     keymap_ei["D-RAlt"] = "D-RAlt", "(7)"
 
-        ## 「IME の切り替え」のキー設定（上書きされないように最後に設定する）
+        ## 「IME の切り替え」のキー設定
         if set_input_method_key:
             for disable_key, enable_key in set_input_method_key:
                 if disable_key:
