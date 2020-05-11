@@ -2149,7 +2149,7 @@ def configure(keymap):
                 # keymap.replaceKey(235, 29)
                 # keymap.replaceKey(255, 28)
 
-                keymap.popBalloon("keyswap", "[JP Keyboard]", 1000)
+                keymap.popBalloon("keyboard", "[JP Keyboard]", 1000)
                 fakeymacs.keyboard_status = "JP"
 
             else:
@@ -2164,7 +2164,7 @@ def configure(keymap):
                 # keymap.replaceKey(235, "LAlt")
                 # keymap.replaceKey(255, "RAlt")
 
-                keymap.popBalloon("keyswap", "[US Keyboard]", 1000)
+                keymap.popBalloon("keyboard", "[US Keyboard]", 1000)
                 fakeymacs.keyboard_status = "US"
 
         fakeymacs.keyboard_status = "JP"
