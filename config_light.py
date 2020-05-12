@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200510_02
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200513_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -1435,7 +1435,7 @@ def configure(keymap):
                 define_key(keymap_ei, replace_key, ei_record_func(self_insert_command(original_key)))
 
         # この時点の keymap_ie のキーマップをコピーする
-        ei_keymap =  copy.copy(keymap_ei.keymap)
+        ei_keymap = copy.copy(keymap_ei.keymap)
 
         ## 「IME の切り替え」のキー設定
         if toggle_input_method_key:
@@ -1477,20 +1477,10 @@ def configure(keymap):
 
 
     ####################################################################################################
-    ## デスクトップの設定
+    ## ファンクションの設定
     ####################################################################################################
 
     keymap_global = keymap.defineWindowKeymap()
-
-    ##################################################
-    ## ウィンドウ操作（デスクトップ用）
-    ##################################################
-
-    def previous_window():
-        self_insert_command("A-S-Tab")()
-
-    def next_window():
-        self_insert_command("A-Tab")()
 
     ##################################################
     ## キーバインド（ファンクション用）
@@ -1523,6 +1513,21 @@ def configure(keymap):
         else:
             define_key(keymap_global, "A-S-Minus", self_insert_command("(" + str(VK_F11 + 12) + ")"))
             define_key(keymap_global, "A-S-Plus",  self_insert_command("(" + str(VK_F12 + 12) + ")"))
+
+
+    ####################################################################################################
+    ## デスクトップの設定
+    ####################################################################################################
+
+    ##################################################
+    ## ウィンドウ操作（デスクトップ用）
+    ##################################################
+
+    def previous_window():
+        self_insert_command("A-S-Tab")()
+
+    def next_window():
+        self_insert_command("A-Tab")()
 
     ##################################################
     ## キーバインド（デスクトップ用）

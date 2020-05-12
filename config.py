@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200510_02
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200513_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -1575,7 +1575,7 @@ def configure(keymap):
                 define_key(keymap_ei, replace_key, ei_record_func(self_insert_command(original_key)))
 
         # この時点の keymap_ie のキーマップをコピーする
-        ei_keymap =  copy.copy(keymap_ei.keymap)
+        ei_keymap = copy.copy(keymap_ei.keymap)
 
         ## 「IME の切り替え」のキー設定
         if toggle_input_method_key:
@@ -1617,10 +1617,47 @@ def configure(keymap):
 
 
     ####################################################################################################
-    ## デスクトップの設定
+    ## ファンクションの設定
     ####################################################################################################
 
     keymap_global = keymap.defineWindowKeymap()
+
+    ##################################################
+    ## キーバインド（ファンクション用）
+    ##################################################
+
+    ## Alt+数字キー列の設定
+    if use_alt_digit_key_for_f1_to_f12:
+        for i in range(10):
+            define_key(keymap_global, "A-" + str(i + 1), self_insert_command("(" + str(VK_F1 + i) + ")"))
+
+        define_key(keymap_global, "A-0", self_insert_command("(" + str(VK_F10) + ")"))
+
+        if is_japanese_keyboard:
+            define_key(keymap_global, "A-Minus", self_insert_command("(" + str(VK_F11) + ")"))
+            define_key(keymap_global, "A-Caret", self_insert_command("(" + str(VK_F12) + ")"))
+        else:
+            define_key(keymap_global, "A-Minus", self_insert_command("(" + str(VK_F11) + ")"))
+            define_key(keymap_global, "A-Plus",  self_insert_command("(" + str(VK_F12) + ")"))
+
+    ## Alt+Shift+数字キー列の設定
+    if use_alt_shift_digit_key_for_f13_to_f24:
+        for i in range(10):
+            define_key(keymap_global, "A-S-" + str(i + 1), self_insert_command("(" + str(VK_F1 + 12 + i) + ")"))
+
+        define_key(keymap_global, "A-S-0", self_insert_command("(" + str(VK_F10 + 12) + ")"))
+
+        if is_japanese_keyboard:
+            define_key(keymap_global, "A-S-Minus", self_insert_command("(" + str(VK_F11 + 12) + ")"))
+            define_key(keymap_global, "A-S-Caret", self_insert_command("(" + str(VK_F12 + 12) + ")"))
+        else:
+            define_key(keymap_global, "A-S-Minus", self_insert_command("(" + str(VK_F11 + 12) + ")"))
+            define_key(keymap_global, "A-S-Plus",  self_insert_command("(" + str(VK_F12 + 12) + ")"))
+
+
+    ####################################################################################################
+    ## デスクトップの設定
+    ####################################################################################################
 
     ##################################################
     ## ウィンドウ操作（デスクトップ用）
@@ -1713,38 +1750,6 @@ def configure(keymap):
             if wnd.isMinimized():
                 wnd.restore()
                 break
-
-    ##################################################
-    ## キーバインド（ファンクション用）
-    ##################################################
-
-    ## Alt+数字キー列の設定
-    if use_alt_digit_key_for_f1_to_f12:
-        for i in range(10):
-            define_key(keymap_global, "A-" + str(i + 1), self_insert_command("(" + str(VK_F1 + i) + ")"))
-
-        define_key(keymap_global, "A-0", self_insert_command("(" + str(VK_F10) + ")"))
-
-        if is_japanese_keyboard:
-            define_key(keymap_global, "A-Minus", self_insert_command("(" + str(VK_F11) + ")"))
-            define_key(keymap_global, "A-Caret", self_insert_command("(" + str(VK_F12) + ")"))
-        else:
-            define_key(keymap_global, "A-Minus", self_insert_command("(" + str(VK_F11) + ")"))
-            define_key(keymap_global, "A-Plus",  self_insert_command("(" + str(VK_F12) + ")"))
-
-    ## Alt+Shift+数字キー列の設定
-    if use_alt_shift_digit_key_for_f13_to_f24:
-        for i in range(10):
-            define_key(keymap_global, "A-S-" + str(i + 1), self_insert_command("(" + str(VK_F1 + 12 + i) + ")"))
-
-        define_key(keymap_global, "A-S-0", self_insert_command("(" + str(VK_F10 + 12) + ")"))
-
-        if is_japanese_keyboard:
-            define_key(keymap_global, "A-S-Minus", self_insert_command("(" + str(VK_F11 + 12) + ")"))
-            define_key(keymap_global, "A-S-Caret", self_insert_command("(" + str(VK_F12 + 12) + ")"))
-        else:
-            define_key(keymap_global, "A-S-Minus", self_insert_command("(" + str(VK_F11 + 12) + ")"))
-            define_key(keymap_global, "A-S-Plus",  self_insert_command("(" + str(VK_F12 + 12) + ")"))
 
     ##################################################
     ## キーバインド（デスクトップ用）
