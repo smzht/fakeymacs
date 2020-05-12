@@ -2143,11 +2143,12 @@ def configure(keymap):
                 # 日本語キーボードの [ ]] キーを Enter キーにする
                 keymap.replaceKey("BackSlash", "Return")
 
-                # 初代 HHKB を利用している場合は次の４行のコメントを解除する
-                # keymap.replaceKey("LAlt", "LAlt")
-                # keymap.replaceKey("RAlt", "RAlt")
-                # keymap.replaceKey(235, 29)
-                # keymap.replaceKey(255, 28)
+                # 初代 HHKB を利用している場合は、次の if 文を有効にする
+                if 0:
+                    keymap.replaceKey("LAlt", "LAlt")
+                    keymap.replaceKey("RAlt", "RAlt")
+                    keymap.replaceKey(235, 29)
+                    keymap.replaceKey(255, 28)
 
                 keymap.popBalloon("keyboard", "[JP Keyboard]", 1000)
                 fakeymacs.keyboard_status = "JP"
@@ -2158,11 +2159,12 @@ def configure(keymap):
                 # 日本語キーボードの [ ]] キーを元の設定に戻す
                 keymap.replaceKey("BackSlash", "BackSlash")
 
-                # 初代 HHKB を利用している場合は次の４行のコメントを解除する
-                # keymap.replaceKey("LAlt", "LWin")
-                # keymap.replaceKey("RAlt", "RCtrl")
-                # keymap.replaceKey(235, "LAlt")
-                # keymap.replaceKey(255, "RAlt")
+                # 初代 HHKB を利用している場合は、次の if 文を有効にする
+                if 0:
+                    keymap.replaceKey("LAlt", "LWin")
+                    keymap.replaceKey("RAlt", "RCtrl")
+                    keymap.replaceKey(235, "LAlt")
+                    keymap.replaceKey(255, "RAlt")
 
                 keymap.popBalloon("keyboard", "[US Keyboard]", 1000)
                 fakeymacs.keyboard_status = "US"
