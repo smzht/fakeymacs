@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200514_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200516_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -259,7 +259,7 @@ def configure(keymap):
     use_ctrl_i_as_tab = True
 
     # Escキーを Metaキーとして使うかどうかを指定する（True: 使う、False: 使わない）
-    use_esc_as_meta = True
+    use_esc_as_meta = False
 
     # Ctl-xプレフィックスキーに使うキーを指定する
     # （Ctl-xプレフィックスキーのモディファイアキーは、Ctrl または Alt のいずれかから指定してください）
@@ -323,7 +323,7 @@ def configure(keymap):
 
     # 数引数の指定に Ctrl+数字キーを使うかを指定する（True: 使う、False: 使わない）
     # （False に指定しても、C-u 数字キーで数引数を指定することができます）
-    use_ctrl_digit_key_for_digit_argument = True
+    use_ctrl_digit_key_for_digit_argument = False
 
     # F1 から F12 を Alt+数字キー列として使うかを指定する（True: 使う、False: 使わない）
     use_alt_digit_key_for_f1_to_f12 = True
