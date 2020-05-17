@@ -244,7 +244,7 @@ def configure(keymap):
     # （IME 設定で、[変換] キーにの機能を IME の切り替えなどに変更している場合は、元の設定（再変換）
     # 　に戻してください。IME の切り替えの設定は、set_input_method_key 変数で対応可能です。）
 
-    ## IME の再変換のために利用するキーを設定する（複数指定可）
+    # IME の再変換のために利用するキーを設定する（複数指定可）
     reconversion_key  = []
     reconversion_key += ["C-t"]
     # reconversion_key += ["(28)"] # [変換] キーを利用する場合でも、Emacs日本語入力モードを使うためには定義が必要
