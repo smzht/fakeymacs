@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200517_01
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200517_02
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -83,6 +83,7 @@
 #   などに利用可。
 # ・use_ctrl_digit_key_for_digit_argument 変数の設定により、数引数の指定に Ctrl+数字
 #   キーを使うかを指定できる。
+# ・reconversion_key 変数の設定により、IME の再変換を行うキーを指定できる。
 #
 # ＜全てのアプリケーションソフトで共通の動き＞
 # ・use_alt_digit_key_for_f1_to_f12 の設定により、F1 から F12 を Alt+数字キー列として
@@ -239,12 +240,56 @@ def configure(keymap):
     #---------------------------------------------------------------------------------------------------
 
     #---------------------------------------------------------------------------------------------------
+    # IME の再変換を行うキーを指定する
+    # （IME 設定で、[変換] キーにの機能を IME の切り替えなどに変更している場合は、元の設定（再変換）
+    # 　に戻してください。IME の切り替えの設定は、set_input_method_key 変数で対応可能です。）
+
+    ## IME の再変換のために利用するキーを設定する（複数指定可）
+    reconversion_key  = []
+    reconversion_key += ["C-t"]
+    # reconversion_key += ["(28)"] # [変換] キーを利用する場合でも、Emacs日本語入力モードを使うためには定義が必要
+
+    # IME に設定してある [再変換]、[確定取り消し] を行うキーを指定する
+
+    ## Windows 10 1909 以前の Microsoft IME または Google日本語入力の「MS-IME」のキー設定の場合
+    ## （Windows 10 1909 以前の Microsoft IME の場合、C-t を押下して確定の取り消しの状態に入った後、
+    ## 　Ctrl キーを押したままで C-n による選択メニューの移動を行おうとすると正常に動作しません。
+    ## 　一度 Ctrl キーを離す、メニューの移動に Space キーを利用する、reconversion_key に設定する
+    ## 　キーを Ctrl キーと組み合わせない、ime_cancel_key に "(28)" を設定して再変換の機能として
+    ## 　利用するなど、いくつかの回避方法があります。お試しください。）
+    if 1:
+        ime_reconv_key = "(28)"    # [再変換] キー
+        ime_cancel_key = "C-Back"  # [確定の取り消し] キー
+        ime_reconv_region = False  # 再変換の時にリージョンの選択が必要かどうかを指定する
+
+    ## Windows 10 2004 以降の 新しい Microsoft IME の場合
+    ## （新しい Microsoft IME には、確定取り消し（C-Backspace）の設定が無いようなので再変換（[変換] キー）
+    ## 　としている）
+    if 0:
+        ime_reconv_key = "(28)"    # [再変換] キー
+        ime_cancel_key = "(28)"    # [確定の取り消し] キー
+        ime_reconv_region = False  # 再変換の時にリージョンの選択が必要かどうかを指定する
+
+    ## Google日本語入力の「MS-IME」のキー設定の場合
+    if 0:
+        ime_reconv_key = "(28)"    # [再変換] キー
+        ime_cancel_key = "C-Back"  # [確定の取り消し] キー
+        ime_reconv_region = True   # 再変換の時にリージョンの選択が必要かどうかを指定する
+
+    ## Google日本語入力の「ことえり」のキー設定の場合
+    if 0:
+        ime_reconv_key = "C-S-r"   # [再変換] キー
+        ime_cancel_key = "C-Back"  # [確定の取り消し] キー
+        ime_reconv_region = True   # 再変換の時にリージョンの選択が必要かどうかを指定する
+    #---------------------------------------------------------------------------------------------------
+
+    #---------------------------------------------------------------------------------------------------
     # Emacs日本語入力モードを利用する際に、IME のショートカットを置き換えるキーの組み合わせ
     # （置き換え先、置き換え元）を指定する
     # （if 文箇所は、Microsoft IME で「ことえり」のキーバインドを利用するための設定例です。
     # 　この設定例は、Google日本語入力を利用の際に有効となっていても問題ありません。）
     emacs_ime_mode_key = []
-    if 0:
+    if 1:
         emacs_ime_mode_key += [["C-i", "S-Left"],      # 文節を縮める
                                ["C-o", "S-Right"],     # 文節を伸ばす
                                ["C-j", "F6"],          # ひらがなに変換
@@ -308,6 +353,7 @@ def configure(keymap):
     fakeymacs = Fakeymacs()
 
     fakeymacs.last_window = None
+    fakeymacs.ime_cancel = False
 
     def is_emacs_target(window):
         if window != fakeymacs.last_window:
@@ -319,6 +365,7 @@ def configure(keymap):
                 keymap.clipboard_history.enableHook(True)
 
             fakeymacs.last_window = window
+            fakeymacs.ime_cancel = False
 
         if is_task_switching_window(window):
             return False
@@ -422,6 +469,33 @@ def configure(keymap):
 
             # IME の状態をバルーンヘルプで表示する
             keymap.popBalloon("ime_status", message, 500)
+
+    def reconversion(reconv_key, cancel_key):
+        if use_emacs_ime_mode:
+            def _func():
+                if fakeymacs.ime_cancel:
+                    self_insert_command(cancel_key)()
+                    enable_emacs_ime_mode()
+                else:
+                    if ime_reconv_region:
+                        if fakeymacs.forward_direction is not None:
+                            self_insert_command(reconv_key)()
+                            enable_emacs_ime_mode()
+                    else:
+                        self_insert_command(reconv_key)()
+                        enable_emacs_ime_mode()
+            return _func
+        else:
+            def _func():
+                if fakeymacs.ime_cancel:
+                    self_insert_command(cancel_key)()
+                else:
+                    if ime_reconv_region:
+                        if fakeymacs.forward_direction is not None:
+                            self_insert_command(reconv_key)()
+                    else:
+                        self_insert_command(reconv_key)()
+            return _func
 
     ##################################################
     ## ファイル操作
@@ -722,6 +796,8 @@ def configure(keymap):
 
     def newline():
         self_insert_command("Enter")()
+        if not use_emacs_ime_mode:
+            fakeymacs.ime_cancel = True
 
     def newline_and_indent():
         self_insert_command("Enter", "Tab")()
@@ -842,7 +918,10 @@ def configure(keymap):
                 keymap[keys_list[0]][keys_list[1]] = command
 
     def self_insert_command(*keys):
-        return keymap.InputKeyCommand(*list(map(addSideOfModifierKey, keys)))
+        def _func():
+            keymap.InputKeyCommand(*list(map(addSideOfModifierKey, keys)))()
+            fakeymacs.ime_cancel = False
+        return _func
 
     if use_emacs_ime_mode:
         def self_insert_command2(*keys):
@@ -1258,6 +1337,11 @@ def configure(keymap):
                     keymap_emacs["D-RAlt"] = "D-RAlt", "(7)"
                     keymap_ime["D-RAlt"]   = "D-RAlt", "(7)"
 
+    ## 「再変換」、「確定取り消し」のキー設定
+    if reconversion_key:
+        for key in reconversion_key:
+            define_key(keymap_emacs, key, reset_undo(reset_counter(reset_mark(reconversion(ime_reconv_key, ime_cancel_key)))))
+
 
     ####################################################################################################
     ## Emacs日本語入力モードの設定
@@ -1344,6 +1428,7 @@ def configure(keymap):
 
         def ei_newline():
             self_insert_command("Enter")()
+            fakeymacs.ime_cancel = True
             disable_emacs_ime_mode()
 
         def ei_keyboard_quit():
