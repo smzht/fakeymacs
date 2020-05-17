@@ -314,7 +314,7 @@ def configure(keymap):
     # IME の再変換のために利用するキーを設定する（複数指定可）
     reconversion_key  = []
     reconversion_key += ["C-t"]
-    # reconversion_key += ["(28)"] # [変換] キーを利用する場合でも、Emacs日本語入力モードを使うためには定義が必要
+    # reconversion_key += ["(28)"] # [変換] キーを利用する場合でも、本機能を全て使うためには設定が必要
 
     # IME に設定してある [再変換]、[確定取り消し] を行うキーを指定する
 
