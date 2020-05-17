@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200516_01
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200517_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -65,9 +65,9 @@
 #   use_esc_as_meta 変数が True（Metaキーとして使う）に設定されている場合、ESC の
 #   二回押下で ESC が入力される。
 # ・ctl_x_prefix_key 変数の設定により、Ctl-xプレフィックスキーに使うキーを指定できる。
-# ・scroll_key 変数の設定により、スクロールに使うキーを指定できる。
-# ・use_ctrl_digit_key_for_digit_argument 変数の設定により、数引数の指定に Ctrl+数字
-#   キーを使うかを指定できる。
+# ・scroll_key 変数の設定により、スクロールに使うキーを指定できる。scroll_key 変数を
+#   None に設定するなどして C-v の指定を外すと、C-v が Windows の 「ペースト」として
+#   機能するようになる。
 # ・C-c、C-z は、Windows の「コピー」、「取り消し」が機能するようにしている。
 #   ctl_x_prefix_key 変数が C-x 以外に設定されている場合には、C-x が Windows の
 #   「カット」として機能するようにしている。
@@ -81,6 +81,8 @@
 #   キーボードマクロの記録と再生の開始時に IME を強制的に OFF にするようにしている。
 # ・kill-buffer に Ctl-x k とは別に M-k も割り当てている。プラウザのタブを削除する際
 #   などに利用可。
+# ・use_ctrl_digit_key_for_digit_argument 変数の設定により、数引数の指定に Ctrl+数字
+#   キーを使うかを指定できる。
 #
 # ＜全てのアプリケーションソフトで共通の動き＞
 # ・use_alt_digit_key_for_f1_to_f12 の設定により、F1 から F12 を Alt+数字キー列として
@@ -236,6 +238,7 @@ def configure(keymap):
     # set_input_method_key += [["C-j", "C-o"]]
     #---------------------------------------------------------------------------------------------------
 
+    #---------------------------------------------------------------------------------------------------
     # Emacs日本語入力モードを利用する際に、IME のショートカットを置き換えるキーの組み合わせ
     # （置き換え先、置き換え元）を指定する
     # （if 文箇所は、Microsoft IME で「ことえり」のキーバインドを利用するための設定例です。
@@ -253,6 +256,7 @@ def configure(keymap):
             emacs_ime_mode_key += [["C-Colon", "F10"]] # 半角英数に表示切替
         else:
             emacs_ime_mode_key += [["C-Quote", "F10"]] # 半角英数に表示切替
+    #---------------------------------------------------------------------------------------------------
 
     # 数引数の指定に Ctrl+数字キーを使うかを指定する（True: 使う、False: 使わない）
     # （False に指定しても、C-u 数字キーで数引数を指定することができます）
@@ -389,7 +393,7 @@ def configure(keymap):
             print("Ctl-xプレフィックスキーのモディファイアキーは、Ctrl または Alt のいずれかから指定してください")
 
     ##################################################
-    ## IME の切り替え
+    ## IME の操作
     ##################################################
 
     def enable_input_method():
@@ -802,8 +806,8 @@ def configure(keymap):
         return vkeys
 
     def addSideOfModifierKey(key):
-        key = key.replace("C-", side_of_ctrl_key + "C-")
-        key = key.replace("A-", side_of_alt_key + "A-")
+        key = re.sub(r'(^|-)(C-)', r'\1' + side_of_ctrl_key + r'\2', key)
+        key = re.sub(r'(^|-)(A-)', r'\1' + side_of_alt_key  + r'\2', key)
         return key
 
     def kbd(keys):
