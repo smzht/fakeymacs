@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200517_02
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200518_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -314,7 +314,8 @@ def configure(keymap):
     # IME の再変換のために利用するキーを設定する（複数指定可）
     reconversion_key  = []
     reconversion_key += ["C-t"]
-    # reconversion_key += ["(28)"] # [変換] キーを利用する場合でも、本機能を全て使うためには設定が必要
+    # reconversion_key += ["(28)"]   # [変換] キーを利用する場合でも、本機能を全て使うためには設定が必要
+    # reconversion_key += ["O-RAlt"] # ワンショットモディファイアの指定も可能
 
     # IME に設定してある [再変換]、[確定取り消し] を行うキーを指定する
 
@@ -1035,6 +1036,14 @@ def configure(keymap):
         for keys_list in kbd(keys):
             if len(keys_list) == 1:
                 keymap[keys_list[0]] = command
+
+                # Alt キーによるワンショットモディファイアを使った際にカーソルがメニューへ移動するのを解除する
+                # https://www.haijin-boys.com/discussions/4583
+                if re.match(keys_list[0], r"O-LAlt$", re.IGNORECASE):
+                    keymap["D-LAlt"] = "D-LAlt", "(7)"
+
+                if re.match(keys_list[0], r"O-RAlt$", re.IGNORECASE):
+                    keymap["D-RAlt"] = "D-RAlt", "(7)"
             else:
                 keymap[keys_list[0]][keys_list[1]] = command
 
@@ -1429,46 +1438,15 @@ def configure(keymap):
             define_key(keymap_emacs, key, toggle_input_method)
             define_key(keymap_ime,   key, toggle_input_method)
 
-            # Alt キーによるワンショットモディファイアを使った際にカーソルがメニューへ移動するのを解除する
-            # https://www.haijin-boys.com/discussions/4583
-            if re.match(key, r"O-LAlt$", re.IGNORECASE):
-                keymap_emacs["D-LAlt"] = "D-LAlt", "(7)"
-                keymap_ime["D-LAlt"]   = "D-LAlt", "(7)"
-
-            if re.match(key, r"O-RAlt$", re.IGNORECASE):
-                keymap_emacs["D-RAlt"] = "D-RAlt", "(7)"
-                keymap_ime["D-RAlt"]   = "D-RAlt", "(7)"
-
     ## 「IME の切り替え」のキー設定
     if set_input_method_key:
         for disable_key, enable_key in set_input_method_key:
             if disable_key:
                 define_key(keymap_emacs, disable_key, disable_input_method)
                 define_key(keymap_ime,   disable_key, disable_input_method)
-
-                # Alt キーによるワンショットモディファイアを使った際にカーソルがメニューへ移動するのを解除する
-                # https://www.haijin-boys.com/discussions/4583
-                if re.match(disable_key, r"O-LAlt$", re.IGNORECASE):
-                    keymap_emacs["D-LAlt"] = "D-LAlt", "(7)"
-                    keymap_ime["D-LAlt"]   = "D-LAlt", "(7)"
-
-                if re.match(disable_key, r"O-RAlt$", re.IGNORECASE):
-                    keymap_emacs["D-RAlt"] = "D-RAlt", "(7)"
-                    keymap_ime["D-RAlt"]   = "D-RAlt", "(7)"
-
             if enable_key:
                 define_key(keymap_emacs, enable_key, enable_input_method)
                 define_key(keymap_ime,   enable_key, enable_input_method)
-
-                # Alt キーによるワンショットモディファイアを使った際にカーソルがメニューへ移動するのを解除する
-                # https://www.haijin-boys.com/discussions/4583
-                if re.match(enable_key, r"O-LAlt$", re.IGNORECASE):
-                    keymap_emacs["D-LAlt"] = "D-LAlt", "(7)"
-                    keymap_ime["D-LAlt"]   = "D-LAlt", "(7)"
-
-                if re.match(enable_key, r"O-RAlt$", re.IGNORECASE):
-                    keymap_emacs["D-RAlt"] = "D-RAlt", "(7)"
-                    keymap_ime["D-RAlt"]   = "D-RAlt", "(7)"
 
     ## 「再変換」、「確定取り消し」のキー設定
     if reconversion_key:
@@ -1671,38 +1649,13 @@ def configure(keymap):
             for key in toggle_input_method_key:
                 define_key(keymap_ei, key, ei_disable_input_method2(key, ei_keymap))
 
-                # Alt キーによるワンショットモディファイアを使った際にカーソルがメニューへ移動するのを解除する
-                # https://www.haijin-boys.com/discussions/4583
-                if re.match(key, r"O-LAlt$", re.IGNORECASE):
-                    keymap_ei["D-LAlt"] = "D-LAlt", "(7)"
-
-                if re.match(key, r"O-RAlt$", re.IGNORECASE):
-                    keymap_ei["D-RAlt"] = "D-RAlt", "(7)"
-
         ## 「IME の切り替え」のキー設定
         if set_input_method_key:
             for disable_key, enable_key in set_input_method_key:
                 if disable_key:
                     define_key(keymap_ei, disable_key, ei_disable_input_method2(disable_key, ei_keymap))
-
-                    # Alt キーによるワンショットモディファイアを使った際にカーソルがメニューへ移動するのを解除する
-                    # https://www.haijin-boys.com/discussions/4583
-                    if re.match(disable_key, r"O-LAlt$", re.IGNORECASE):
-                        keymap_ei["D-LAlt"] = "D-LAlt", "(7)"
-
-                    if re.match(disable_key, r"O-RAlt$", re.IGNORECASE):
-                        keymap_ei["D-RAlt"] = "D-RAlt", "(7)"
-
                 if enable_key:
                     define_key(keymap_ei, enable_key, ei_enable_input_method2(enable_key, ei_keymap))
-
-                    # Alt キーによるワンショットモディファイアを使った際にカーソルがメニューへ移動するのを解除する
-                    # https://www.haijin-boys.com/discussions/4583
-                    if re.match(enable_key, r"O-LAlt$", re.IGNORECASE):
-                        keymap_ei["D-LAlt"] = "D-LAlt", "(7)"
-
-                    if re.match(enable_key, r"O-RAlt$", re.IGNORECASE):
-                        keymap_ei["D-RAlt"] = "D-RAlt", "(7)"
 
 
     ####################################################################################################
