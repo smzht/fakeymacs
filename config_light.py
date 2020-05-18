@@ -215,7 +215,7 @@ def configure(keymap):
     # emacs_ime_mode_balloon_message = None
     emacs_ime_mode_balloon_message = "▲"
 
-    # IME を切り替えるキーを指定する（複数指定可）
+    # IME をトグルで切り替えるキーを指定する（複数指定可）
     toggle_input_method_key  = []
     toggle_input_method_key += ["C-Yen"]
     toggle_input_method_key += ["C-o"]

@@ -282,7 +282,7 @@ def configure(keymap):
     # Emacsシフトモードを使うかどうかを指定する（True: 使う、False: 使わない）
     use_emacs_shift_mode = False
 
-    # IME を切り替えるキーを指定する（複数指定可）
+    # IME をトグルで切り替えるキーを指定する（複数指定可）
     toggle_input_method_key  = []
     toggle_input_method_key += ["C-Yen"]
     toggle_input_method_key += ["C-o"]
