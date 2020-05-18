@@ -318,7 +318,7 @@ def configure(keymap):
 
     # IME に設定してある [再変換]、[確定取り消し] を行うキーを指定する
 
-    ## Windows 10 1909 以前の Microsoft IME または Google日本語入力の「MS-IME」のキー設定の場合
+    ## Windows 10 1909 以前の Microsoft IME の場合
     ## （Windows 10 1909 以前の Microsoft IME の場合、C-t を押下して確定の取り消しの状態に入った後、
     ## 　Ctrl キーを押したままで C-n による選択メニューの移動を行おうとすると正常に動作しません。
     ## 　一度 Ctrl キーを離す、メニューの移動に Space キーを利用する、reconversion_key に設定する
