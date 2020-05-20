@@ -160,8 +160,8 @@ def configure(keymap):
     # （Change Key を使って、[￥] キーにスキャンコード 0x7F を割り当ててから、以下の設定を有効
     # 　にしてください）
     if 0:
-        keymap.replaceKey(235, 29)               # [無変換] キーのコードを OS が認識可能なキーにする
-        keymap.replaceKey(255, 28)               # [変換] キーのコードを OS が認識可能なキーにする
+        keymap.replaceKey(235, 29)               # [無変換] キーを OS が認識可能なキーにする
+        keymap.replaceKey(255, 28)               # [変換] キーを OS が認識可能なキーにする
         keymap.replaceKey(193, "RShift")         # [＼] キーを RShift キーにする
         keymap.replaceKey(236, "BackSlash")      # [￥] キーを BackSlash キーにする
         keymap.replaceKey("BackSlash", "Return") # [ ]] キーを Enter キーにする
