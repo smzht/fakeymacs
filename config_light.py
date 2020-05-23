@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200521_01
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200523_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -241,25 +241,23 @@ def configure(keymap):
 
     #---------------------------------------------------------------------------------------------------
     # IME の「再変換」を行うキーを指定する
-    # （IME 設定で、[変換] キーの機能を IME の切り替えなどに変更している場合は、元の設定（「再変換」）
-    # 　に戻してください。IME の切り替えの設定は、set_input_method_key 変数で対応可能です。）
 
-    # IME の「再変換」のために利用するキーを設定する（複数指定可）
+    ## IME の「再変換」のために利用するキーを設定する（複数指定可）
     reconversion_key  = []
     reconversion_key += ["C-t"]
     # reconversion_key += ["(28)"]   # [変換] キーを利用する場合でも、本機能を全て使うためには設定が必要
     # reconversion_key += ["O-RAlt"] # ワンショットモディファイアの指定も可能
 
-    # IME に設定してある「再変換」、「確定取り消し」を行うキーを指定する
+    ## IME に設定してある「再変換」、「確定取り消し」を行うキーを指定する
 
     ## Windows 10 1909 以前の Microsoft IME の場合
     ## （Windows 10 1909 以前の Microsoft IME の場合、C-t を押下して確定の取り消しの状態に入った後、
     ## 　Ctrl キーを押したままで C-n による選択メニューの移動を行おうとすると正常に動作しません。
     ## 　一度 Ctrl キーを離す、メニューの移動に Space キーを利用する、reconversion_key に設定する
-    ## 　キーを Ctrl キーと組み合わせない、ime_cancel_key に "(28)" を設定して「再変換」の機能として
-    ## 　利用するなど、いくつかの回避方法があります。お試しください。）
+    ## 　キーを Ctrl キーと組み合わせない、ime_cancel_key に "W-Slash" を設定して「再変換」の機能
+    ## 　として利用するなど、いくつかの回避方法があります。お試しください。）
     if 1:
-        ime_reconv_key = "(28)"    # 「再変換」キー
+        ime_reconv_key = "W-Slash" # 「再変換」キー
         ime_cancel_key = "C-Back"  # 「確定の取り消し」キー
         ime_reconv_region = False  # 「再変換」の時にリージョンの選択が必要かどうかを指定する
 
@@ -267,19 +265,19 @@ def configure(keymap):
     ## （新しい Microsoft IME には、確定取り消し（C-Backspace）の設定が無いようなので再変換（[変換] キー）
     ## 　としている）
     if 0:
-        ime_reconv_key = "(28)"    # 「再変換」キー
-        ime_cancel_key = "(28)"    # 「確定の取り消し」キー
+        ime_reconv_key = "W-Slash" # 「再変換」キー
+        ime_cancel_key = "W-Slash" # 「確定の取り消し」キー
         ime_reconv_region = False  # 「再変換」の時にリージョンの選択が必要かどうかを指定する
 
     ## Google日本語入力の「MS-IME」のキー設定の場合
     if 0:
-        ime_reconv_key = "(28)"    # 「再変換」キー
+        ime_reconv_key = "W-Slash" # 「再変換」キー
         ime_cancel_key = "C-Back"  # 「確定の取り消し」キー
         ime_reconv_region = True   # 「再変換」の時にリージョンの選択が必要かどうかを指定する
 
     ## Google日本語入力の「ことえり」のキー設定の場合
     if 0:
-        ime_reconv_key = "C-S-r"   # 「再変換」キー
+        ime_reconv_key = "W-Slash" # 「再変換」キー
         ime_cancel_key = "C-Back"  # 「確定の取り消し」キー
         ime_reconv_region = True   # 「再変換」の時にリージョンの選択が必要かどうかを指定する
     #---------------------------------------------------------------------------------------------------
@@ -326,13 +324,13 @@ def configure(keymap):
     # word_register_key = None
     word_register_key = "C-CloseBracket"
 
-    # IME の「単語登録」プログラムとそのパラメータを指定する（for Google日本語入力）
-    # word_register_name = r"C:\Program Files (x86)\Google\Google Japanese Input\GoogleIMEJaTool.exe"
-    # word_register_param = "--mode=word_register_dialog"
-
     # IME の「単語登録」プログラムとそのパラメータを指定する（for MS-IME）
     word_register_name = r"C:\Windows\System32\IME\IMEJP\IMJPDCT.EXE"
     word_register_param = ""
+
+    # IME の「単語登録」プログラムとそのパラメータを指定する（for Google日本語入力）
+    # word_register_name = r"C:\Program Files (x86)\Google\Google Japanese Input\GoogleIMEJaTool.exe"
+    # word_register_param = "--mode=word_register_dialog"
 
     # コマンドのリピート回数の最大値を指定する
     repeat_max = 1024
