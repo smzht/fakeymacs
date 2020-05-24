@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200523_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200524_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -258,6 +258,9 @@ def configure(keymap):
     # 左右どちらの Altキーを使うかを指定する（"L": 左、"R": 右）
     side_of_alt_key = "L"
 
+    # 左右どちらの Winキーを使うかを指定する（"L": 左、"R": 右）
+    side_of_win_key = "L"
+
     # C-iキーを Tabキーとして使うかどうかを指定する（True: 使う、False: 使わない）
     use_ctrl_i_as_tab = True
 
@@ -400,18 +403,16 @@ def configure(keymap):
     # （other_window_key に割り当てている A-o との連係した利用を想定し、A-S-o も割り当てています）
     # （デフォルトキーは、["W-S-Left", "W-S-Right"]）
     # window_movement_key = None # Single display
-    # window_movement_key = [["A-S-b", "A-S-f"], ["A-S-Left", "A-S-Right"]] # Multi-display
-    window_movement_key = [[None, "A-S-o"]] # Multi-display
+    window_movement_key = [[None, "W-o"]] # Multi-display
 
     # ウィンドウを最小化、リストアするキーの組み合わせ（リストア、最小化 の順）を指定する（複数指定可）
     # window_minimize_key = None
-    # window_minimize_key = [["A-r", "A-m"]]
     window_minimize_key = [["A-S-m", "A-m"]]
 
     # 仮想デスクトップを切り替えるキーの組み合わせ（前、後 の順）を指定する（複数指定可）
     # （デフォルトキーは、["W-C-Left", "W-C-Right"]）
     # desktop_switching_key = None # for Windows 7 or 8.1
-    desktop_switching_key = [["A-C-b", "A-C-f"], ["A-C-Left", "A-C-Right"]] # for Windows 10
+    desktop_switching_key = [["W-b", "W-f"]] # for Windows 10
 
     # IME の「単語登録」プログラムを起動するキーを指定する
     # word_register_key = None
@@ -1004,6 +1005,7 @@ def configure(keymap):
     def addSideOfModifierKey(key):
         key = re.sub(r'(^|-)(C-)', r'\1' + side_of_ctrl_key + r'\2', key)
         key = re.sub(r'(^|-)(A-)', r'\1' + side_of_alt_key  + r'\2', key)
+        key = re.sub(r'(^|-)(W-)', r'\1' + side_of_win_key  + r'\2', key)
         return key
 
     def kbd(keys):

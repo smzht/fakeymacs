@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200523_01
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200524_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -193,6 +193,9 @@ def configure(keymap):
 
     # 左右どちらの Altキーを使うかを指定する（"L": 左、"R": 右）
     side_of_alt_key = "L"
+
+    # 左右どちらの Winキーを使うかを指定する（"L": 左、"R": 右）
+    side_of_win_key = "L"
 
     # C-iキーを Tabキーとして使うかどうかを指定する（True: 使う、False: 使わない）
     use_ctrl_i_as_tab = True
@@ -883,6 +886,7 @@ def configure(keymap):
     def addSideOfModifierKey(key):
         key = re.sub(r'(^|-)(C-)', r'\1' + side_of_ctrl_key + r'\2', key)
         key = re.sub(r'(^|-)(A-)', r'\1' + side_of_alt_key  + r'\2', key)
+        key = re.sub(r'(^|-)(W-)', r'\1' + side_of_win_key  + r'\2', key)
         return key
 
     def kbd(keys):
