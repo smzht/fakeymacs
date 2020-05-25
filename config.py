@@ -409,6 +409,8 @@ def configure(keymap):
     window_minimize_key = [["A-S-m", "A-m"]]
 
     # 仮想デスクトップを切り替えるキーの組み合わせ（前、後 の順）を指定する（複数指定可）
+    # （仮想デスクトップを切り替えた際にフォーカスのあるウインドウを適切に処理するため、Winキーと
+    # 　組み合わせたキー設定としてください）
     # （デフォルトキーは、["W-C-Left", "W-C-Right"]）
     # desktop_switching_key = None # for Windows 7 or 8.1
     desktop_switching_key = [["W-b", "W-f"]] # for Windows 10
