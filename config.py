@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200524_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200527_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -393,7 +393,7 @@ def configure(keymap):
 
     # アクティブウィンドウを切り替えるキーの組み合わせ（前、後 の順）を指定する（複数指定可）
     # （内部で A-Tab による切り替えを行っているため、設定するキーは Altキーとの組み合わせとしてください）
-    # （切り替え画面が起動した後は、A-p、A-n でウィンドウを切り替えられるように設定している他、
+    # （切り替え画面が起動した後は、A-b、A-f、A-p、A-n でウィンドウを切り替えられるように設定している他、
     #   Alt + 矢印キーでもウィンドウを切り替えることができます。また、A-g もしくは A-Esc で切り替え画面の
     #   終了（キャンセル）となり、Altキーを離すか A-Enter で切り替えるウィンドウの確定となります。）
     # window_switching_key = [["A-p", "A-n"]]
@@ -1207,6 +1207,7 @@ def configure(keymap):
     # ・C-    : Ctrlキー
     # ・A-    : Altキー
     # ・M-    : Altキー と Esc、C-[ のプレフィックスキーを利用する３パターンを定義（emacs の Meta と同様）
+    # ・W-    : Winキー
     # ・Ctl-x : ctl_x_prefix_key 変数で定義されているプレフィックスキーに置換え
     # ・(999) : 仮想キーコード指定
 
@@ -1269,6 +1270,8 @@ def configure(keymap):
         define_key(keymap_emacs, "C-q C-S-" + s_vkey, reset_search(reset_undo(reset_counter(reset_mark(self_insert_command("C-S-" + s_vkey))))))
         define_key(keymap_emacs, "C-q A-"   + s_vkey, reset_search(reset_undo(reset_counter(reset_mark(self_insert_command("A-"   + s_vkey))))))
         define_key(keymap_emacs, "C-q A-S-" + s_vkey, reset_search(reset_undo(reset_counter(reset_mark(self_insert_command("A-S-" + s_vkey))))))
+        define_key(keymap_emacs, "C-q W-"   + s_vkey, reset_search(reset_undo(reset_counter(reset_mark(self_insert_command("W-"   + s_vkey))))))
+        define_key(keymap_emacs, "C-q W-S-" + s_vkey, reset_search(reset_undo(reset_counter(reset_mark(self_insert_command("W-S-" + s_vkey))))))
 
     ## C-S-[a-z] -> C-[a-z]、A-S-[a-z] -> A-[a-z] の置き換え設定（Emacsシフトモードの設定）
     if use_emacs_shift_mode:
@@ -1845,6 +1848,8 @@ def configure(keymap):
     ## キーバインド（タスク切り替え画面用）
     ##################################################
 
+    define_key(keymap_tsw, "A-b", previous_window)
+    define_key(keymap_tsw, "A-f", next_window)
     define_key(keymap_tsw, "A-p", previous_window)
     define_key(keymap_tsw, "A-n", next_window)
     define_key(keymap_tsw, "A-g", self_insert_command("A-Esc"))
