@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200527_01
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200528_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -320,8 +320,9 @@ def configure(keymap):
     # （切り替え画面が起動した後は、A-b、A-f、A-p、A-n でウィンドウを切り替えられるように設定している他、
     #   Alt + 矢印キーでもウィンドウを切り替えることができます。また、A-g もしくは A-Esc で切り替え画面の
     #   終了（キャンセル）となり、Altキーを離すか A-Enter で切り替えるウィンドウの確定となります。）
-    # window_switching_key = [["A-p", "A-n"]]
-    window_switching_key = None # A-S-Tab、A-Tabキーのみを利用する
+    # （デフォルトキーは、["A-S-Tab", "A-Tab"]）
+    window_switching_key = []
+    # window_switching_key += [["A-p", "A-n"]]
 
     # IME の「単語登録」プログラムを起動するキーを指定する
     # word_register_key = None

@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200527_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200528_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -112,8 +112,8 @@
 # ・クリップボードリストやランチャーリストのリストボックス内では、基本、Altキーを
 #   Ctrlキーと同じキーとして扱っている。（C-v と A-v の置き換えのみ行っていない。）
 # ・window_switching_key 変数に設定したキーにより、アクティブウィンドウの切り替えが行われる。
-# ・マルチディスプレイを利用している際に、window_movement_key 変数に設定したキーにより、
-#   アクティブウィンドウのディスプレイ間の移動が行われる。
+# ・マルチディスプレイを利用している際に、window_movement_key_for_displays 変数に設定した
+#   キーにより、アクティブウィンドウのディスプレイ間の移動が行われる。
 # ・window_minimize_key 変数に設定したキーにより、ウィンドウの最小化、リストアが行われる。
 # ・desktop_switching_key 変数に設定したキーにより、仮想デスクトップの切り替えが行われる。
 #   （仮想デスクトップの利用については、次のページを参照ください。
@@ -121,6 +121,9 @@
 #     ・http://pc-karuma.net/windows-10-virtual-desktop-show-all-window-app/
 #     仮想デスクトップ切替時のアニメーションを止める方法は次のページを参照ください。
 #     ・http://www.jw7.org/2015/11/03/windows10_virtualdesktop_animation_off/ ）
+# ・window_movement_key_for_desktops 変数に設定したキーにより、アクティブウィンドウの
+#   仮想デスクトップ間の移動が行われる。
+#   （本機能を利用する場合は、Microsoft Store から SylphyHorn をインストールしてください。）
 # ・word_register_key 変数に設定したキーにより、IME の「単語登録」プログラムの起動が
 #   行われる。
 
@@ -396,24 +399,32 @@ def configure(keymap):
     # （切り替え画面が起動した後は、A-b、A-f、A-p、A-n でウィンドウを切り替えられるように設定している他、
     #   Alt + 矢印キーでもウィンドウを切り替えることができます。また、A-g もしくは A-Esc で切り替え画面の
     #   終了（キャンセル）となり、Altキーを離すか A-Enter で切り替えるウィンドウの確定となります。）
-    # window_switching_key = [["A-p", "A-n"]]
-    window_switching_key = None # A-S-Tab、A-Tabキーのみを利用する
+    # （デフォルトキーは、["A-S-Tab", "A-Tab"]）
+    window_switching_key = []
+    # window_switching_key += [["A-p", "A-n"]]
 
     # アクティブウィンドウをディスプレイ間で移動するキーの組み合わせ（前、後 の順）を指定する（複数指定可）
     # （デフォルトキーは、["W-S-Left", "W-S-Right"]）
-    # window_movement_key = None # Single display
-    window_movement_key = [[None, "W-o"]] # Multi-display
+    window_movement_key_for_displays = []
+    window_movement_key_for_displays += [[None, "W-o"]]
 
     # ウィンドウを最小化、リストアするキーの組み合わせ（リストア、最小化 の順）を指定する（複数指定可）
-    # window_minimize_key = None
-    window_minimize_key = [["A-S-m", "A-m"]]
+    window_minimize_key = []
+    window_minimize_key += [["A-S-m", "A-m"]]
 
     # 仮想デスクトップを切り替えるキーの組み合わせ（前、後 の順）を指定する（複数指定可）
-    # （仮想デスクトップを切り替えた際にフォーカスのあるウインドウを適切に処理するため、設定するキーは
+    # （仮想デスクトップを切り替えた際にフォーカスのあるウィンドウを適切に処理するため、設定するキーは
     # 　Winキーとの組み合わせとしてください）
     # （デフォルトキーは、["W-C-Left", "W-C-Right"]）
-    # desktop_switching_key = None # for Windows 7 or 8.1
-    desktop_switching_key = [["W-b", "W-f"]] # for Windows 10
+    desktop_switching_key = []
+    desktop_switching_key += [["W-b", "W-f"]]
+    # desktop_switching_key += [["W-Left", "W-Right"]]
+
+    # アクティブウィンドウを仮想デスクトップ間で移動するキーの組み合わせ（前、後 の順）を指定する（複数指定可）
+    # （本機能を利用する場合は、Microsoft Store から SylphyHorn をインストールしてください）
+    # （デフォルトキーは、["W-C-A-Left", "W-C-A-Right"] です。この設定は変更しないでください）
+    window_movement_key_for_desktops = []
+    # window_movement_key_for_desktops += [["W-p", "W-n"]]
 
     # IME の「単語登録」プログラムを起動するキーを指定する
     # word_register_key = None
@@ -1763,22 +1774,16 @@ def configure(keymap):
 
         return window_list
 
-    def previous_desktop():
-        self_insert_command("W-C-Left")()
-
-    def next_desktop():
-        self_insert_command("W-C-Right")()
-
     def previous_window():
         self_insert_command("A-S-Tab")()
 
     def next_window():
         self_insert_command("A-Tab")()
 
-    def previous_display():
+    def move_window_to_previous_display():
         self_insert_command("W-S-Left")()
 
-    def next_display():
+    def move_window_to_next_display():
         self_insert_command("W-S-Right")()
 
     def minimize_window():
@@ -1798,6 +1803,18 @@ def configure(keymap):
                 wnd.restore()
                 break
 
+    def previous_desktop():
+        self_insert_command("W-C-Left")()
+
+    def next_desktop():
+        self_insert_command("W-C-Right")()
+
+    def move_window_to_previous_desktop():
+        self_insert_command("W-C-A-Left")()
+
+    def move_window_to_next_desktop():
+        self_insert_command("W-C-A-Right")()
+
     ##################################################
     ## キーバインド（デスクトップ用）
     ##################################################
@@ -1812,10 +1829,10 @@ def configure(keymap):
             define_key(keymap_global, next_key,     reset_search(reset_undo(reset_counter(reset_mark(next_window)))))
 
     # アクティブウィンドウのディスプレイ間移動
-    if window_movement_key:
-        for previous_key, next_key in window_movement_key:
-            define_key(keymap_global, previous_key, previous_display)
-            define_key(keymap_global, next_key,     next_display)
+    if window_movement_key_for_displays:
+        for previous_key, next_key in window_movement_key_for_displays:
+            define_key(keymap_global, previous_key, move_window_to_previous_display)
+            define_key(keymap_global, next_key,     move_window_to_next_display)
 
     # ウィンドウの最小化、リストア
     if window_minimize_key:
@@ -1828,6 +1845,12 @@ def configure(keymap):
         for previous_key, next_key in desktop_switching_key:
             define_key(keymap_global, previous_key, reset_search(reset_undo(reset_counter(reset_mark(previous_desktop)))))
             define_key(keymap_global, next_key,     reset_search(reset_undo(reset_counter(reset_mark(next_desktop)))))
+
+    # アクティブウィンドウ仮想デスクトップの切り替え
+    if window_movement_key_for_desktops:
+        for previous_key, next_key in window_movement_key_for_desktops:
+            define_key(keymap_global, previous_key, move_window_to_previous_desktop)
+            define_key(keymap_global, next_key,     move_window_to_next_desktop)
 
     # IME の「単語登録」プログラムの起動
     define_key(keymap_global, word_register_key, keymap.ShellExecuteCommand(None, word_register_name, word_register_param, ""))
