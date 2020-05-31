@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200528_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200531_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -2243,10 +2243,11 @@ def configure(keymap):
                     keymap.replaceKey(235, "LAlt")
                     keymap.replaceKey(255, "RAlt")
 
-                keymap.popBalloon("keyboard", "[US Keyboard]", 1000)
+                if fakeymacs.keyboard_status == "JP":
+                    keymap.popBalloon("keyboard", "[US Keyboard]", 1000)
                 fakeymacs.keyboard_status = "US"
 
-        fakeymacs.keyboard_status = "JP"
+        fakeymacs.keyboard_status = None
         change_keyboard()
 
         define_key(keymap_global, "C-S-c", change_keyboard)
