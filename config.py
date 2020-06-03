@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200603_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200603_02
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -289,7 +289,7 @@ def configure(keymap):
     use_emacs_shift_mode = False
 
     # IME をトグルで切り替えるキーを指定する（複数指定可）
-    toggle_input_method_key  = []
+    toggle_input_method_key = []
     toggle_input_method_key += ["C-Yen"]
     toggle_input_method_key += ["C-o"]
     # toggle_input_method_key += ["O-LAlt"]
@@ -297,7 +297,7 @@ def configure(keymap):
     #---------------------------------------------------------------------------------------------------
     # IME を切り替えるキーの組み合わせ（disable、enable の順）を指定する（複数指定可）
     # （toggle_input_method_key のキー設定より優先します）
-    set_input_method_key  = []
+    set_input_method_key = []
 
     ## 日本語キーボードを利用している場合、[無変換] キーで英数入力、[変換] キーで日本語入力となる
     set_input_method_key += [["(29)", "(28)"]]
@@ -316,7 +316,7 @@ def configure(keymap):
     # IME の「再変換」を行うキーを指定する
 
     ## IME の「再変換」のために利用するキーを設定する（複数指定可）
-    reconversion_key  = []
+    reconversion_key = []
     reconversion_key += ["C-t"]
     # reconversion_key += ["(28)"]   # [変換] キーを利用する場合でも、本機能を全て使うためには設定が必要
     # reconversion_key += ["O-RAlt"] # ワンショットモディファイアの指定も可能
@@ -333,6 +333,8 @@ def configure(keymap):
         ime_reconv_key = "W-Slash" # 「再変換」キー
         ime_cancel_key = "C-Back"  # 「確定の取り消し」キー
         ime_reconv_region = False  # 「再変換」の時にリージョンの選択が必要かどうかを指定する
+        ime_reconv_space  = True   # リージョンを選択した状態で Space キーを押下した際、「再変換」が働くか
+                                   # どうかを指定する
 
     ## Windows 10 2004 以降の 新しい Microsoft IME の場合
     ## （新しい Microsoft IME には、確定取り消し（C-Backspace）の設定が無いようなので再変換（[変換] キー）
@@ -341,18 +343,24 @@ def configure(keymap):
         ime_reconv_key = "W-Slash" # 「再変換」キー
         ime_cancel_key = "W-Slash" # 「確定の取り消し」キー
         ime_reconv_region = False  # 「再変換」の時にリージョンの選択が必要かどうかを指定する
+        ime_reconv_space  = False  # リージョンを選択した状態で Space キーを押下した際、「再変換」が働くか
+                                   # どうかを指定する
 
     ## Google日本語入力の「MS-IME」のキー設定の場合
     if 0:
         ime_reconv_key = "W-Slash" # 「再変換」キー
         ime_cancel_key = "C-Back"  # 「確定の取り消し」キー
         ime_reconv_region = True   # 「再変換」の時にリージョンの選択が必要かどうかを指定する
+        ime_reconv_space  = False  # リージョンを選択した状態で Space キーを押下した際、「再変換」が働くか
+                                   # どうかを指定する
 
     ## Google日本語入力の「ことえり」のキー設定の場合
     if 0:
         ime_reconv_key = "W-Slash" # 「再変換」キー
         ime_cancel_key = "C-Back"  # 「確定の取り消し」キー
         ime_reconv_region = True   # 「再変換」の時にリージョンの選択が必要かどうかを指定する
+        ime_reconv_space  = False  # リージョンを選択した状態で Space キーを押下した際、「再変換」が働くか
+                                   # どうかを指定する
     #---------------------------------------------------------------------------------------------------
 
     #---------------------------------------------------------------------------------------------------
@@ -880,7 +888,7 @@ def configure(keymap):
         keymap.command_RecordStop()
         # キーボードマクロの終了キー「Ctl-xプレフィックスキー + ")"」の Ctl-xプレフィックスキーがマクロに
         # 記録されてしまうのを対策する（キーボードマクロの終了キーの前提を「Ctl-xプレフィックスキー + ")"」
-        # としていることについては、とりえず了承ください。）
+        # としていることについては、とりあえず了承ください。）
         if ctl_x_prefix_key and len(keymap.record_seq) >= 4:
             if (((keymap.record_seq[len(keymap.record_seq) - 1] == (ctl_x_prefix_vkey[0], True) and
                   keymap.record_seq[len(keymap.record_seq) - 2] == (ctl_x_prefix_vkey[1], True)) or
@@ -914,6 +922,15 @@ def configure(keymap):
     ##################################################
     ## その他
     ##################################################
+
+    def space():
+        self_insert_command("Space")()
+
+        if use_emacs_ime_mode:
+            if ime_reconv_space:
+                if keymap.getWindow().getImeStatus():
+                    if fakeymacs.forward_direction is not None:
+                        enable_emacs_ime_mode()
 
     def newline():
         self_insert_command("Enter")()
@@ -1260,9 +1277,8 @@ def configure(keymap):
         define_key(keymap_ime,   "S-" + s_vkey, self_insert_command2("S-" + s_vkey))
 
     ## 特殊文字キーの設定
-    s_vkey = "(" + str(VK_SPACE) + ")"
-    define_key(keymap_emacs,        s_vkey, reset_undo(reset_counter(reset_mark(repeat(self_insert_command(       s_vkey))))))
-    define_key(keymap_emacs, "S-" + s_vkey, reset_undo(reset_counter(reset_mark(repeat(self_insert_command("S-" + s_vkey))))))
+    define_key(keymap_emacs, "Space"  , reset_undo(reset_counter(reset_mark(repeat(space)))))
+    define_key(keymap_emacs, "S-Space", reset_undo(reset_counter(reset_mark(repeat(self_insert_command("S-Space"))))))
 
     for vkey in [VK_OEM_MINUS, VK_OEM_PLUS, VK_OEM_COMMA, VK_OEM_PERIOD, VK_OEM_1, VK_OEM_2, VK_OEM_3, VK_OEM_4, VK_OEM_5, VK_OEM_6, VK_OEM_7, VK_OEM_102]:
         s_vkey = "(" + str(vkey) + ")"
@@ -1828,34 +1844,29 @@ def configure(keymap):
     define_key(keymap_global, other_window_key, reset_search(reset_undo(reset_counter(reset_mark(other_window)))))
 
     # アクティブウィンドウの切り替え
-    if window_switching_key:
-        for previous_key, next_key in window_switching_key:
-            define_key(keymap_global, previous_key, reset_search(reset_undo(reset_counter(reset_mark(previous_window)))))
-            define_key(keymap_global, next_key,     reset_search(reset_undo(reset_counter(reset_mark(next_window)))))
+    for previous_key, next_key in window_switching_key:
+        define_key(keymap_global, previous_key, reset_search(reset_undo(reset_counter(reset_mark(previous_window)))))
+        define_key(keymap_global, next_key,     reset_search(reset_undo(reset_counter(reset_mark(next_window)))))
 
     # アクティブウィンドウのディスプレイ間移動
-    if window_movement_key_for_displays:
-        for previous_key, next_key in window_movement_key_for_displays:
-            define_key(keymap_global, previous_key, move_window_to_previous_display)
-            define_key(keymap_global, next_key,     move_window_to_next_display)
+    for previous_key, next_key in window_movement_key_for_displays:
+        define_key(keymap_global, previous_key, move_window_to_previous_display)
+        define_key(keymap_global, next_key,     move_window_to_next_display)
 
     # ウィンドウの最小化、リストア
-    if window_minimize_key:
-        for restore_key, minimize_key in window_minimize_key:
-            define_key(keymap_global, restore_key,  reset_search(reset_undo(reset_counter(reset_mark(restore_window)))))
-            define_key(keymap_global, minimize_key, reset_search(reset_undo(reset_counter(reset_mark(minimize_window)))))
+    for restore_key, minimize_key in window_minimize_key:
+        define_key(keymap_global, restore_key,  reset_search(reset_undo(reset_counter(reset_mark(restore_window)))))
+        define_key(keymap_global, minimize_key, reset_search(reset_undo(reset_counter(reset_mark(minimize_window)))))
 
     # 仮想デスクトップの切り替え
-    if desktop_switching_key:
-        for previous_key, next_key in desktop_switching_key:
-            define_key(keymap_global, previous_key, reset_search(reset_undo(reset_counter(reset_mark(previous_desktop)))))
-            define_key(keymap_global, next_key,     reset_search(reset_undo(reset_counter(reset_mark(next_desktop)))))
+    for previous_key, next_key in desktop_switching_key:
+        define_key(keymap_global, previous_key, reset_search(reset_undo(reset_counter(reset_mark(previous_desktop)))))
+        define_key(keymap_global, next_key,     reset_search(reset_undo(reset_counter(reset_mark(next_desktop)))))
 
     # アクティブウィンドウ仮想デスクトップの切り替え
-    if window_movement_key_for_desktops:
-        for previous_key, next_key in window_movement_key_for_desktops:
-            define_key(keymap_global, previous_key, move_window_to_previous_desktop)
-            define_key(keymap_global, next_key,     move_window_to_next_desktop)
+    for previous_key, next_key in window_movement_key_for_desktops:
+        define_key(keymap_global, previous_key, move_window_to_previous_desktop)
+        define_key(keymap_global, next_key,     move_window_to_next_desktop)
 
     # IME の「単語登録」プログラムの起動
     define_key(keymap_global, word_register_key, keymap.ShellExecuteCommand(None, word_register_name, word_register_param, ""))
