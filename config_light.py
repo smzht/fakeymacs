@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200528_01
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200603_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -566,6 +566,11 @@ def configure(keymap):
         if (checkWindow("sakura.exe", "EditorClient") or # Sakura Editor
             checkWindow("sakura.exe", "SakuraView166")): # Sakura Editor
             self_insert_command("C-h")()
+        else:
+            # recenter の機能をサポートしていないアプリケーションソフトについては、C-l を発行する。
+            # これで chrome 等でのアドレスバーに移動する機能を実現できる。recenter の機能を呼ぶ
+            # キーバインドを C-l と決め打ちしていることについては、とりあえず了承ください。
+            self_insert_command("C-l")()
 
     ##################################################
     ## カット / コピー / 削除 / アンドゥ
@@ -759,7 +764,7 @@ def configure(keymap):
         keymap.command_RecordStop()
         # キーボードマクロの終了キー「Ctl-xプレフィックスキー + ")"」の Ctl-xプレフィックスキーがマクロに
         # 記録されてしまうのを対策する（キーボードマクロの終了キーの前提を「Ctl-xプレフィックスキー + ")"」
-        # としていることについては、とりえず了承ください。）
+        # としていることについては、とりあえず了承ください。）
         if ctl_x_prefix_key and len(keymap.record_seq) >= 4:
             if (((keymap.record_seq[len(keymap.record_seq) - 1] == (ctl_x_prefix_vkey[0], True) and
                   keymap.record_seq[len(keymap.record_seq) - 2] == (ctl_x_prefix_vkey[1], True)) or

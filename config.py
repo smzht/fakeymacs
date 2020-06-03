@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200531_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200603_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -675,6 +675,11 @@ def configure(keymap):
         if (checkWindow("sakura.exe", "EditorClient") or # Sakura Editor
             checkWindow("sakura.exe", "SakuraView166")): # Sakura Editor
             self_insert_command("C-h")()
+        else:
+            # recenter の機能をサポートしていないアプリケーションソフトについては、C-l を発行する。
+            # これで chrome 等でのアドレスバーに移動する機能を実現できる。recenter の機能を呼ぶ
+            # キーバインドを C-l と決め打ちしていることについては、とりあえず了承ください。
+            self_insert_command("C-l")()
 
     ##################################################
     ## カット / コピー / 削除 / アンドゥ
