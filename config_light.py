@@ -158,6 +158,7 @@ def configure(keymap):
                             "TurboVNC.exe",           # TurboVNC
                             "vncviewer.exe",          # UltraVNC
                             "vncviewer64.exe",        # UltraVNC
+                            "Xpra-Launcher.exe",      # Xpra
                            ]
 
     # IME の切り替え“のみをしたい”アプリケーションソフトを指定する
