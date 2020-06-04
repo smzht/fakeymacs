@@ -263,17 +263,17 @@ def configure(keymap):
         ime_reconv_key = "W-Slash" # 「再変換」キー
         ime_cancel_key = "C-Back"  # 「確定の取り消し」キー
         ime_reconv_region = False  # 「再変換」の時にリージョンの選択が必要かどうかを指定する
-        ime_reconv_space  = True   # リージョンを選択した状態で Space キーを押下した際、「再変換」が働くか
+        ime_reconv_space  = False  # リージョンを選択した状態で Space キーを押下した際、「再変換」が働くか
                                    # どうかを指定する
 
     ## Windows 10 2004 以降の 新しい Microsoft IME の場合
-    ## （新しい Microsoft IME には、確定取り消し（C-Backspace）の設定が無いようなので再変換（[変換] キー）
+    ## （新しい Microsoft IME には、確定取り消し（C-Backspace）の設定が無いようなので「再変換」のキー
     ## 　としている）
     if 0:
         ime_reconv_key = "W-Slash" # 「再変換」キー
         ime_cancel_key = "W-Slash" # 「確定の取り消し」キー
         ime_reconv_region = False  # 「再変換」の時にリージョンの選択が必要かどうかを指定する
-        ime_reconv_space  = False  # リージョンを選択した状態で Space キーを押下した際、「再変換」が働くか
+        ime_reconv_space  = True   # リージョンを選択した状態で Space キーを押下した際、「再変換」が働くか
                                    # どうかを指定する
 
     ## Google日本語入力の「MS-IME」のキー設定の場合
