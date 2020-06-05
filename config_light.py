@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200603_02
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200605_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -483,31 +483,22 @@ def configure(keymap):
             keymap.popBalloon("ime_status", message, 500)
 
     def reconversion(reconv_key, cancel_key):
-        if use_emacs_ime_mode:
-            def _func():
-                if fakeymacs.ime_cancel:
-                    self_insert_command(cancel_key)()
+        def _func():
+            if fakeymacs.ime_cancel:
+                self_insert_command(cancel_key)()
+                if use_emacs_ime_mode:
                     enable_emacs_ime_mode()
-                else:
-                    if ime_reconv_region:
-                        if fakeymacs.forward_direction is not None:
-                            self_insert_command(reconv_key)()
+            else:
+                if ime_reconv_region:
+                    if fakeymacs.forward_direction is not None:
+                        self_insert_command(reconv_key)()
+                        if use_emacs_ime_mode:
                             enable_emacs_ime_mode()
-                    else:
-                        self_insert_command(reconv_key)()
-                        enable_emacs_ime_mode()
-            return _func
-        else:
-            def _func():
-                if fakeymacs.ime_cancel:
-                    self_insert_command(cancel_key)()
                 else:
-                    if ime_reconv_region:
-                        if fakeymacs.forward_direction is not None:
-                            self_insert_command(reconv_key)()
-                    else:
-                        self_insert_command(reconv_key)()
-            return _func
+                    self_insert_command(reconv_key)()
+                    if use_emacs_ime_mode:
+                        enable_emacs_ime_mode()
+        return _func
 
     ##################################################
     ## ファイル操作
@@ -958,17 +949,13 @@ def configure(keymap):
             fakeymacs.ime_cancel = False
         return _func
 
-    if use_emacs_ime_mode:
-        def self_insert_command2(*keys):
-            func = self_insert_command(*keys)
-            def _func():
-                func()
+    def self_insert_command2(*keys):
+        def _func():
+            self_insert_command(*keys)()
+            if use_emacs_ime_mode:
                 if keymap.getWindow().getImeStatus():
                     enable_emacs_ime_mode()
-            return _func
-    else:
-        def self_insert_command2(*keys):
-            return self_insert_command(*keys)
+        return _func
 
     def digit(number):
         def _func():
