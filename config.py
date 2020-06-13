@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200605_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200613_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -927,7 +927,8 @@ def configure(keymap):
     def newline():
         self_insert_command("Enter")()
         if not use_emacs_ime_mode:
-            fakeymacs.ime_cancel = True
+            if keymap.getWindow().getImeStatus():
+                fakeymacs.ime_cancel = True
 
     def newline_and_indent():
         self_insert_command("Enter", "Tab")()
