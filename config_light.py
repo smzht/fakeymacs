@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200616_01
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200616_02
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -290,8 +290,8 @@ def configure(keymap):
     # Emacs日本語入力モードを利用する際に、IME のショートカットを置き換えるキーの組み合わせ
     # （置き換え先、置き換え元）を指定する
     # （if 文箇所は、Microsoft IME で「ことえり」のキーバインドを利用するための設定例です。
-    # 　この設定例は、Google日本語入力で「ことえり」のキー設定を利用する際に有効となっていても
-    # 　問題ありません。）
+    # 　この設定は、Google日本語入力で「ことえり」のキー設定になっている場合には不要ですが、
+    # 　設定を行っても問題はありません。）
     emacs_ime_mode_key = []
     if 1:
         emacs_ime_mode_key += [["C-i", "S-Left"],      # 文節を縮める
@@ -938,14 +938,16 @@ def configure(keymap):
                 keymap[keys_list[0]][keys_list[1]] = command
 
     def self_insert_command(*keys):
+        func = keymap.InputKeyCommand(*list(map(addSideOfModifierKey, keys)))
         def _func():
-            keymap.InputKeyCommand(*list(map(addSideOfModifierKey, keys)))()
+            func()
             fakeymacs.ime_cancel = False
         return _func
 
     def self_insert_command2(*keys):
+        func = self_insert_command(*keys)
         def _func():
-            self_insert_command(*keys)()
+            func()
             if use_emacs_ime_mode:
                 if keymap.getWindow().getImeStatus():
                     enable_emacs_ime_mode()
