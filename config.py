@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200613_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200616_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -347,15 +347,7 @@ def configure(keymap):
         ime_reconv_space  = True   # リージョンを選択した状態で Space キーを押下した際、「再変換」が働くか
                                    # どうかを指定する
 
-    ## Google日本語入力の「MS-IME」のキー設定の場合
-    if 0:
-        ime_reconv_key = "W-Slash" # 「再変換」キー
-        ime_cancel_key = "C-Back"  # 「確定の取り消し」キー
-        ime_reconv_region = True   # 「再変換」の時にリージョンの選択が必要かどうかを指定する
-        ime_reconv_space  = False  # リージョンを選択した状態で Space キーを押下した際、「再変換」が働くか
-                                   # どうかを指定する
-
-    ## Google日本語入力の「ことえり」のキー設定の場合
+    ## Google日本語入力 の場合
     if 0:
         ime_reconv_key = "W-Slash" # 「再変換」キー
         ime_cancel_key = "C-Back"  # 「確定の取り消し」キー
