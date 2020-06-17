@@ -597,6 +597,8 @@ def configure(keymap):
             if fakeymacs.ime_cancel:
                 self_insert_command(cancel_key)()
                 if use_emacs_ime_mode:
+                    # バルーンメッセージのマークがずれて表示されないようにディレイを追加
+                    delay()
                     enable_emacs_ime_mode()
             else:
                 if ime_reconv_region:
