@@ -319,6 +319,7 @@ def configure(keymap):
     ## IME の「再変換」のために利用するキーを設定する（複数指定可）
     reconversion_key = []
     reconversion_key += ["C-t"]
+    # reconversion_key += ["C-Back"] # C-t を Chrome のショートカットキーとして使いたい場合の代替え案
     # reconversion_key += ["(28)"]   # [変換] キーを利用する場合でも、本機能を全て使うためには設定が必要
     # reconversion_key += ["O-RAlt"] # ワンショットモディファイアの指定も可能
 
@@ -920,7 +921,6 @@ def configure(keymap):
 
     def space():
         self_insert_command("Space")()
-
         if use_emacs_ime_mode:
             if ime_reconv_space:
                 if keymap.getWindow().getImeStatus():
