@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200617_01
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200619_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -1350,14 +1350,20 @@ def configure(keymap):
 
         def is_emacs_ime_mode(window):
             if fakeymacs.ei_last_window == window:
-                ei_popBalloon(1)
                 return True
             else:
                 fakeymacs.ei_last_window = None
+                return False
+
+        def is_emacs_ime_mode2(window):
+            if is_emacs_ime_mode(window):
+                ei_popBalloon(1)
+                return True
+            else:
                 ei_popBalloon(0)
                 return False
 
-        keymap_ei = keymap.defineWindowKeymap(check_func=is_emacs_ime_mode)
+        keymap_ei = keymap.defineWindowKeymap(check_func=is_emacs_ime_mode2)
 
         # Emacs日本語入力モードが開始されたときのウィンドウオブジェクトを格納する変数を初期化する
         fakeymacs.ei_last_window = None
