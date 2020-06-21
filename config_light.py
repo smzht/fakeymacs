@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200621_02
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200622_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -1347,7 +1347,10 @@ def configure(keymap):
             # Google日本語入力を利用している時、ime_cancel_key に設定しているキーがキーバインドに
             # 定義されていると、「確定取り消し」が正常に動作しない場合がある。このため、そのキー
             # バインドの定義を削除する。
-            del keymap_emacs[addSideOfModifierKey(ime_cancel_key)]
+            try:
+                del keymap_emacs[addSideOfModifierKey(ime_cancel_key)]
+            except:
+                pass
 
         for key in reconversion_key:
             define_key(keymap_emacs, key, reset_undo(reset_counter(reset_mark(reconversion(ime_reconv_key, ime_cancel_key)))))
