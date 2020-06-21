@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200621_01
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200621_02
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -247,9 +247,11 @@ def configure(keymap):
     # IME の「再変換」を行うキーを指定する
 
     ## IME の「再変換」のために利用するキーを設定する（複数指定可）
+    ## （Google日本語入力を利用する場合、Ctrl キーと組み合わせたキーを設定しないと「確定取り消し」が
+    #    正常に動作しないアプリケーションソフト（Sakura Editor など）があるようです。また、そのような
+    ##   ソフトでは C-Back キーは利用できないようです。）
     reconversion_key = []
     reconversion_key += ["C-t"]
-    # reconversion_key += ["C-Back"] # C-t を Chrome のショートカットキーとして使いたい場合の代替え案
     # reconversion_key += ["(28)"]   # [変換] キーを利用する場合でも、本機能を全て使うためには設定が必要
     # reconversion_key += ["O-RAlt"] # ワンショットモディファイアの指定も可能
 
@@ -262,6 +264,7 @@ def configure(keymap):
     ## 　キーを Ctrl キーと組み合わせない、ime_cancel_key に "W-Slash" を設定して「再変換」の機能
     ## 　として利用するなど、いくつかの回避方法があります。お試しください。）
     if 1:
+        ime_type = "Microsoft"
         ime_reconv_key = "W-Slash" # 「再変換」キー
         ime_cancel_key = "C-Back"  # 「確定の取り消し」キー
         ime_reconv_region = False  # 「再変換」の時にリージョンの選択が必要かどうかを指定する
@@ -272,6 +275,7 @@ def configure(keymap):
     ## （新しい Microsoft IME には、確定取り消し（C-Backspace）の設定が無いようなので「再変換」のキー
     ## 　としている）
     if 0:
+        ime_type = "Microsoft"
         ime_reconv_key = "W-Slash" # 「再変換」キー
         ime_cancel_key = "W-Slash" # 「確定の取り消し」キー
         ime_reconv_region = False  # 「再変換」の時にリージョンの選択が必要かどうかを指定する
@@ -280,6 +284,7 @@ def configure(keymap):
 
     ## Google日本語入力の「MS-IME」のキー設定の場合
     if 0:
+        ime_type = "Google"
         ime_reconv_key = "(28)"    # 「再変換」キー
         ime_cancel_key = "C-Back"  # 「確定の取り消し」キー
         ime_reconv_region = True   # 「再変換」の時にリージョンの選択が必要かどうかを指定する
@@ -288,6 +293,7 @@ def configure(keymap):
 
     ## Google日本語入力の「ことえり」のキー設定の場合
     if 0:
+        ime_type = "Google"
         ime_reconv_key = "C-S-r"   # 「再変換」キー
         ime_cancel_key = "C-Back"  # 「確定の取り消し」キー
         ime_reconv_region = True   # 「再変換」の時にリージョンの選択が必要かどうかを指定する
@@ -489,8 +495,6 @@ def configure(keymap):
             if fakeymacs.ime_cancel:
                 self_insert_command(cancel_key)()
                 if use_emacs_ime_mode:
-                    # バルーンメッセージのマークがずれて表示されないようにディレイを追加
-                    delay()
                     enable_emacs_ime_mode()
             else:
                 if ime_reconv_region:
@@ -1339,6 +1343,12 @@ def configure(keymap):
 
     ## 「再変換」、「確定取り消し」のキー設定
     if reconversion_key:
+        if ime_type == "Google":
+            # Google日本語入力を利用している時、ime_cancel_key に設定しているキーがキーバインドに
+            # 定義されていると、「確定取り消し」が正常に動作しない場合がある。このため、そのキー
+            # バインドの定義を削除する。
+            del keymap_emacs[addSideOfModifierKey(ime_cancel_key)]
+
         for key in reconversion_key:
             define_key(keymap_emacs, key, reset_undo(reset_counter(reset_mark(reconversion(ime_reconv_key, ime_cancel_key)))))
 
@@ -1463,7 +1473,7 @@ def configure(keymap):
             if fakeymacs.is_playing_kmacro:
                 keymap.updateKeymap()
             else:
-                keymap.delayedCall(keymap.updateKeymap, 0)
+                keymap.delayedCall(keymap.updateKeymap, 100)
 
         ##################################################
         ## キーバインド（Emacs日本語入力モード用）
