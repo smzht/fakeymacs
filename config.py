@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200619_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200621_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -677,7 +677,7 @@ def configure(keymap):
 
     def recenter():
         if (checkWindow("sakura.exe", "EditorClient") or # Sakura Editor
-            checkWindow("sakura.exe", "SakuraView166")): # Sakura Editor
+            checkWindow("sakura.exe", "SakuraView*")):   # Sakura Editor
             self_insert_command("C-h")()
         else:
             # recenter の機能をサポートしていないアプリケーションソフトについては、C-l を発行する。
@@ -866,7 +866,7 @@ def configure(keymap):
 
     def query_replace():
         if (checkWindow("sakura.exe", "EditorClient") or  # Sakura Editor
-            checkWindow("sakura.exe", "SakuraView166") or # Sakura Editor
+            checkWindow("sakura.exe", "SakuraView*")  or  # Sakura Editor
             checkWindow(None, "HM32CLIENT")):             # Hidemaru Software
             self_insert_command("C-r")()
         else:
