@@ -317,9 +317,9 @@ def configure(keymap):
     # IME の「再変換」を行うキーを指定する
 
     ## IME の「再変換」のために利用するキーを設定する（複数指定可）
-    ## （Google日本語入力を利用する場合、Ctrl キーと組み合わせたキーを設定しないと「確定取り消し」が
-    #    正常に動作しないアプリケーションソフト（Sakura Editor など）があるようです。また、そのような
-    ##   ソフトでは C-Back キーは利用できないようです。）
+    ## （Google日本語入力を利用する場合、Ctrl キーと組み合わせたキーを設定してください。「確定取り消し」
+    ##   が正常に動作しないアプリケーションソフト（Microsoft Excel、Sakura Editor など）があります。
+    ##   ただし、C-Back キーは設定しないでください。）
     reconversion_key = []
     reconversion_key += ["C-t"]
     # reconversion_key += ["(28)"]   # [変換] キーを利用する場合でも、本機能を全て使うためには設定が必要
@@ -352,19 +352,10 @@ def configure(keymap):
         ime_reconv_space  = True   # リージョンを選択した状態で Space キーを押下した際、「再変換」が働くか
                                    # どうかを指定する
 
-    ## Google日本語入力の「MS-IME」のキー設定の場合
+    ## Google日本語入力の場合
     if 0:
         ime_type = "Google"
-        ime_reconv_key = "(28)"    # 「再変換」キー
-        ime_cancel_key = "C-Back"  # 「確定の取り消し」キー
-        ime_reconv_region = True   # 「再変換」の時にリージョンの選択が必要かどうかを指定する
-        ime_reconv_space  = False  # リージョンを選択した状態で Space キーを押下した際、「再変換」が働くか
-                                   # どうかを指定する
-
-    ## Google日本語入力の「ことえり」のキー設定の場合
-    if 0:
-        ime_type = "Google"
-        ime_reconv_key = "C-S-r"   # 「再変換」キー
+        ime_reconv_key = "W-Slash" # 「再変換」キー
         ime_cancel_key = "C-Back"  # 「確定の取り消し」キー
         ime_reconv_region = True   # 「再変換」の時にリージョンの選択が必要かどうかを指定する
         ime_reconv_space  = False  # リージョンを選択した状態で Space キーを押下した際、「再変換」が働くか
