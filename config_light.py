@@ -260,9 +260,8 @@ def configure(keymap):
     ## Windows 10 1909 以前の Microsoft IME の場合
     ## （Windows 10 1909 以前の Microsoft IME の場合、C-t を押下して確定の取り消しの状態に入った後、
     ## 　Ctrl キーを押したままで C-n による選択メニューの移動を行おうとすると正常に動作しません。
-    ## 　一度 Ctrl キーを離す、メニューの移動に Space キーを利用する、reconversion_key に設定する
-    ## 　キーを Ctrl キーと組み合わせない、ime_cancel_key に "W-Slash" を設定して「再変換」の機能
-    ## 　として利用するなど、いくつかの回避方法があります。お試しください。）
+    ## 　一度 Ctrl キーを離す、メニューの移動に Space キーを利用する、ime_cancel_key に "W-Slash" を
+    ## 　設定して「再変換」の機能として利用するなど、いくつかの回避方法があります。お試しください。）
     if 1:
         ime_type = "Microsoft"
         ime_reconv_key = "W-Slash" # 「再変換」キー
