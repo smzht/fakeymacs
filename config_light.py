@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200622_01
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200628_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -1397,33 +1397,35 @@ def configure(keymap):
             disable_input_method()
 
         def ei_enable_input_method2(key, ei_keymap):
-            keyConditon = keyhac_keymap.KeyCondition.fromString(key)
-            if keyConditon in ei_keymap:
-                func = keymap_ei[key]
+            keyCondition = keyhac_keymap.KeyCondition.fromString(key)
+            if keyCondition in ei_keymap:
+                func = ei_keymap[keyCondition]
             else:
-                func = ei_record_func(self_insert_command(key))
+                if key.startswith("O-"):
+                    func = ei_record_func(self_insert_command("(28)")) # [変換]キー 発行
+                else:
+                    func = ei_record_func(self_insert_command(key))
 
             def _func():
                 if fakeymacs.ei_last_func == delete_backward_char:
                     ei_enable_input_method()
-                elif key.startswith("O-"):
-                    ei_record_func(self_insert_command("(28)")) # [変換]キー 発行
                 else:
                     func()
             return _func
 
         def ei_disable_input_method2(key, ei_keymap):
-            keyConditon = keyhac_keymap.KeyCondition.fromString(key)
-            if keyConditon in ei_keymap:
-                func = keymap_ei[key]
+            keyCondition = keyhac_keymap.KeyCondition.fromString(key)
+            if keyCondition in ei_keymap:
+                func = ei_keymap[keyCondition]
             else:
-                func = ei_record_func(self_insert_command(key))
+                if key.startswith("O-"):
+                    func = ei_record_func(self_insert_command("(29)")) # [無変換]キー 発行
+                else:
+                    func = ei_record_func(self_insert_command(key))
 
             def _func():
                 if fakeymacs.ei_last_func == delete_backward_char:
                     ei_disable_input_method()
-                elif key.startswith("O-"):
-                    ei_record_func(self_insert_command("(29)")) # [無変換]キー 発行
                 else:
                     func()
             return _func
