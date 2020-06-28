@@ -259,9 +259,9 @@ def configure(keymap):
 
     ## Windows 10 1909 以前の Microsoft IME の場合
     ## （Windows 10 1909 以前の Microsoft IME の場合、C-t を押下して確定の取り消しの状態に入った後、
-    ## 　Ctrl キーを押したままで C-n による選択メニューの移動を行おうとすると正常に動作しません。
-    ## 　一度 Ctrl キーを離す、メニューの移動に Space キーを利用する、ime_cancel_key に "W-Slash" を
-    ## 　設定して「再変換」の機能として利用するなど、いくつかの回避方法があります。お試しください。）
+    ##   Ctrl キーを押したままで C-n による選択メニューの移動を行おうとすると正常に動作しません。
+    ##   一度 Ctrl キーを離す、メニューの移動に Space キーを利用する、ime_cancel_key に "W-Slash" を
+    ##   設定して「再変換」の機能として利用するなど、いくつかの回避方法があります。お試しください。）
     if 1:
         ime_type = "Microsoft"
         ime_reconv_key = "W-Slash" # 「再変換」キー
@@ -272,7 +272,7 @@ def configure(keymap):
 
     ## Windows 10 2004 以降の 新しい Microsoft IME の場合
     ## （新しい Microsoft IME には、確定取り消し（C-Backspace）の設定が無いようなので「再変換」のキー
-    ## 　としている）
+    ##   としています）
     if 0:
         ime_type = "Microsoft"
         ime_reconv_key = "W-Slash" # 「再変換」キー
@@ -295,8 +295,8 @@ def configure(keymap):
     # Emacs日本語入力モードを利用する際に、IME のショートカットを置き換えるキーの組み合わせ
     # （置き換え先、置き換え元）を指定する
     # （if 文箇所は、Microsoft IME で「ことえり」のキーバインドを利用するための設定例です。
-    # 　この設定は、Google日本語入力で「ことえり」のキー設定になっている場合には不要ですが、
-    # 　設定を行っても問題はありません。）
+    #   この設定は、Google日本語入力で「ことえり」のキー設定になっている場合には不要ですが、
+    #   設定を行っても問題はありません。）
     emacs_ime_mode_key = []
     if 1:
         emacs_ime_mode_key += [["C-i", "S-Left"],      # 文節を縮める
