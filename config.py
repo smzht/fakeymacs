@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200628_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200629_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -1539,7 +1539,7 @@ def configure(keymap):
             disable_input_method()
 
         def ei_enable_input_method2(key, ei_keymap):
-            keyCondition = keyhac_keymap.KeyCondition.fromString(key)
+            keyCondition = keyhac_keymap.KeyCondition.fromString(addSideOfModifierKey(key))
             if keyCondition in ei_keymap:
                 func = ei_keymap[keyCondition]
             else:
@@ -1556,7 +1556,7 @@ def configure(keymap):
             return _func
 
         def ei_disable_input_method2(key, ei_keymap):
-            keyCondition = keyhac_keymap.KeyCondition.fromString(key)
+            keyCondition = keyhac_keymap.KeyCondition.fromString(addSideOfModifierKey(key))
             if keyCondition in ei_keymap:
                 func = ei_keymap[keyCondition]
             else:
