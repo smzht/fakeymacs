@@ -271,8 +271,8 @@ def configure(keymap):
                                    # どうかを指定する
 
     ## Windows 10 2004 以降の 新しい Microsoft IME の場合
-    ## （新しい Microsoft IME には、確定取り消し（C-Backspace）の設定が無いようなので「再変換」のキー
-    ##   としています）
+    ## （新しい Microsoft IME には確定取り消し（C-Backspace）の設定が無いようなので、「再変換」のキー
+    ##   を設定しています）
     if 0:
         ime_type = "Microsoft"
         ime_reconv_key = "W-Slash" # 「再変換」キー
