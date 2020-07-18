@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200629_01
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200718_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -335,13 +335,15 @@ def configure(keymap):
     # word_register_key = None
     word_register_key = "C-CloseBracket"
 
-    # IME の「単語登録」プログラムとそのパラメータを指定する（for MS-IME）
-    word_register_name = r"C:\Windows\System32\IME\IMEJP\IMJPDCT.EXE"
-    word_register_param = ""
+    if ime_type == "Microsoft":
+        # IME の「単語登録」プログラムとそのパラメータを指定する（for MS-IME）
+        word_register_name = r"C:\Windows\System32\IME\IMEJP\IMJPDCT.EXE"
+        word_register_param = ""
 
-    # IME の「単語登録」プログラムとそのパラメータを指定する（for Google日本語入力）
-    # word_register_name = r"C:\Program Files (x86)\Google\Google Japanese Input\GoogleIMEJaTool.exe"
-    # word_register_param = "--mode=word_register_dialog"
+    if ime_type == "Google":
+        # IME の「単語登録」プログラムとそのパラメータを指定する（for Google日本語入力）
+        word_register_name = r"C:\Program Files (x86)\Google\Google Japanese Input\GoogleIMEJaTool.exe"
+        word_register_param = "--mode=word_register_dialog"
 
     # コマンドのリピート回数の最大値を指定する
     repeat_max = 1024
