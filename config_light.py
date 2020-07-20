@@ -1462,7 +1462,7 @@ def configure(keymap):
             if not fakeymacs.is_playing_kmacro:
                 if emacs_ime_mode_balloon_message:
                     # LINE は入力文字にバルーンヘルプが被るので、対象外とする
-                    if not checkWindow("LINEAPP.EXE", "Qt5QWindowIcon"): # LINE
+                    if not checkWindow("LINE*.EXE", "Qt5QWindowIcon"): # LINE
                         if ime_mode_status:
                             keymap.popBalloon("emacs_ime_mode", emacs_ime_mode_balloon_message)
                         else:
