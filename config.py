@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200718_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200720_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -1603,10 +1603,12 @@ def configure(keymap):
         def ei_popBalloon(ime_mode_status):
             if not fakeymacs.is_playing_kmacro:
                 if emacs_ime_mode_balloon_message:
-                    if ime_mode_status:
-                        keymap.popBalloon("emacs_ime_mode", emacs_ime_mode_balloon_message)
-                    else:
-                        keymap.closeBalloon("emacs_ime_mode")
+                    # LINE は入力文字にバルーンヘルプが被るので、対象外とする
+                    if not checkWindow("LINEAPP.EXE", "Qt5QWindowIcon"): # LINE
+                        if ime_mode_status:
+                            keymap.popBalloon("emacs_ime_mode", emacs_ime_mode_balloon_message)
+                        else:
+                            keymap.closeBalloon("emacs_ime_mode")
 
         def ei_updateKeymap():
             if fakeymacs.is_playing_kmacro:
