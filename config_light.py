@@ -335,13 +335,13 @@ def configure(keymap):
     # word_register_key = None
     word_register_key = "C-CloseBracket"
 
+    # IME の「単語登録」プログラムとそのパラメータを指定する（for MS-IME）
     if ime_type == "Microsoft":
-        # IME の「単語登録」プログラムとそのパラメータを指定する（for MS-IME）
         word_register_name = r"C:\Windows\System32\IME\IMEJP\IMJPDCT.EXE"
         word_register_param = ""
 
+    # IME の「単語登録」プログラムとそのパラメータを指定する（for Google日本語入力）
     if ime_type == "Google":
-        # IME の「単語登録」プログラムとそのパラメータを指定する（for Google日本語入力）
         word_register_name = r"C:\Program Files (x86)\Google\Google Japanese Input\GoogleIMEJaTool.exe"
         word_register_param = "--mode=word_register_dialog"
 
