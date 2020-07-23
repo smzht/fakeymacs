@@ -187,7 +187,9 @@ def configure(keymap):
                            ]
 
     # clipboard 監視の対象外とするアプリケーションソフトを指定する
-    not_clipboard_target = ["EXCEL.EXE"]              # Excel
+    not_clipboard_target = []
+    ## Microsoft Excel 2019 以降の Excel では、次の設定は不要のようです
+    not_clipboard_target += ["EXCEL.EXE"]             # Excel
 
     # 左右どちらの Ctrlキーを使うかを指定する（"L": 左、"R": 右）
     side_of_ctrl_key = "L"

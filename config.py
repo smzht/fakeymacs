@@ -254,7 +254,9 @@ def configure(keymap):
                            ]
 
     # clipboard 監視の対象外とするアプリケーションソフトを指定する
-    not_clipboard_target = ["EXCEL.EXE"]              # Excel
+    not_clipboard_target = []
+    ## Microsoft Excel 2019 以降の Excel では、次の設定は不要のようです
+    not_clipboard_target += ["EXCEL.EXE"]             # Excel
 
     # 左右どちらの Ctrlキーを使うかを指定する（"L": 左、"R": 右）
     side_of_ctrl_key = "L"
@@ -430,6 +432,8 @@ def configure(keymap):
     # アクティブウィンドウを仮想デスクトップ間で移動するキーの組み合わせ（前、後 の順）を指定する（複数指定可）
     # （本機能を利用する場合は、Microsoft Store から SylphyHorn をインストールしてください）
     # （デフォルトキーは、["W-C-A-Left", "W-C-A-Right"] です。この設定は変更しないでください）
+    # （仮想デスクトップ切り替え時の通知を ON にすると処理が重くなります。代わりに、トレイアイコンに
+    #   デスクトップ番号を表示する機能を ON にすると良いようです。）
     window_movement_key_for_desktops = []
     # window_movement_key_for_desktops += [["W-p", "W-n"]]
     # window_movement_key_for_desktops += [["W-Up", "W-Down"]]
