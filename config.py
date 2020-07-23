@@ -432,6 +432,7 @@ def configure(keymap):
     # （デフォルトキーは、["W-C-A-Left", "W-C-A-Right"] です。この設定は変更しないでください）
     window_movement_key_for_desktops = []
     # window_movement_key_for_desktops += [["W-p", "W-n"]]
+    # window_movement_key_for_desktops += [["W-Up", "W-Down"]]
 
     # IME の「単語登録」プログラムを起動するキーを指定する
     # word_register_key = None
