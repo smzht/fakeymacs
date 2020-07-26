@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200720_01
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200726_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -319,7 +319,7 @@ def configure(keymap):
     use_ctrl_digit_key_for_digit_argument = False
 
     # F1 から F12 を Alt+数字キー列として使うかを指定する（True: 使う、False: 使わない）
-    use_alt_digit_key_for_f1_to_f12 = True
+    use_alt_digit_key_for_f1_to_f12 = False
 
     # F13 から F24 を Alt-Shift+数字キー列として使うかを指定する（True: 使う、False: 使わない）
     use_alt_shift_digit_key_for_f13_to_f24 = False
