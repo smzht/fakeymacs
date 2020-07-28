@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200726_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200728_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -442,15 +442,19 @@ def configure(keymap):
     # word_register_key = None
     word_register_key = "C-CloseBracket"
 
-    # IME の「単語登録」プログラムとそのパラメータを指定する（for MS-IME）
+    #---------------------------------------------------------------------------------------------------
+    # IME の「単語登録」プログラムとそのパラメータを指定する
+
+    ## Microsoft IME の場合
     if ime_type == "Microsoft":
         word_register_name = r"C:\Windows\System32\IME\IMEJP\IMJPDCT.EXE"
         word_register_param = ""
 
-    # IME の「単語登録」プログラムとそのパラメータを指定する（for Google日本語入力）
+    ## Google日本語入力の場合
     if ime_type == "Google":
         word_register_name = r"C:\Program Files (x86)\Google\Google Japanese Input\GoogleIMEJaTool.exe"
         word_register_param = "--mode=word_register_dialog"
+    #---------------------------------------------------------------------------------------------------
 
     # shell_command 関数で起動するアプリケーションソフトを指定する
     # （パスが通っていない場所にあるコマンドは、絶対パスで指定してください）
@@ -473,13 +477,11 @@ def configure(keymap):
     class Fakeymacs:
         pass
 
-    fakeymacs = Fakeymacs()
-
-    fakeymacs.last_window = None
-    fakeymacs.ime_cancel = False
+    Fakeymacs.last_window = None
+    Fakeymacs.ime_cancel = False
 
     def is_emacs_target(window):
-        if window != fakeymacs.last_window:
+        if window != Fakeymacs.last_window:
             if window.getProcessName() in not_clipboard_target:
                 # クリップボードの監視用のフックを無効にする
                 keymap.clipboard_history.enableHook(False)
@@ -487,8 +489,8 @@ def configure(keymap):
                 # クリップボードの監視用のフックを有効にする
                 keymap.clipboard_history.enableHook(True)
 
-            fakeymacs.last_window = window
-            fakeymacs.ime_cancel = False
+            Fakeymacs.last_window = window
+            Fakeymacs.ime_cancel = False
 
         if is_task_switching_window(window):
             return False
@@ -497,14 +499,14 @@ def configure(keymap):
             return False
 
         if window.getClassName() in emacs_target_class:
-            fakeymacs.keybind = "emacs"
+            Fakeymacs.keybind = "emacs"
             return True
 
         if window.getProcessName() in not_emacs_target:
-            fakeymacs.keybind = "not_emacs"
+            Fakeymacs.keybind = "not_emacs"
             return False
 
-        fakeymacs.keybind = "emacs"
+        Fakeymacs.keybind = "emacs"
         return True
 
     def is_ime_target(window):
@@ -524,28 +526,28 @@ def configure(keymap):
         keymap_ime   = keymap.defineWindowKeymap(check_func=is_ime_target)
 
     # mark がセットされると True になる
-    fakeymacs.is_marked = False
+    Fakeymacs.is_marked = False
 
     # リージョンを拡張する際に、順方向に拡張すると True、逆方向に拡張すると False になる
-    fakeymacs.forward_direction = None
+    Fakeymacs.forward_direction = None
 
     # 検索が開始されると True になる
-    fakeymacs.is_searching = False
+    Fakeymacs.is_searching = False
 
     # キーボードマクロの play 中 は True になる
-    fakeymacs.is_playing_kmacro = False
+    Fakeymacs.is_playing_kmacro = False
 
     # universal-argument コマンドが実行されると True になる
-    fakeymacs.is_universal_argument = False
+    Fakeymacs.is_universal_argument = False
 
     # digit-argument コマンドが実行されると True になる
-    fakeymacs.is_digit_argument = False
+    Fakeymacs.is_digit_argument = False
 
     # コマンドのリピート回数を設定する
-    fakeymacs.repeat_counter = 1
+    Fakeymacs.repeat_counter = 1
 
     # undo のモードの時 True になる（redo のモードの時 False になる）
-    fakeymacs.is_undo_mode = True
+    Fakeymacs.is_undo_mode = True
 
     # Ctl-xプレフィックスキーを構成するキーの仮想キーコードを設定する
     if ctl_x_prefix_key:
@@ -584,10 +586,10 @@ def configure(keymap):
             # （ keymap.getWindow().setImeStatus(ime_status) を使わないのは、キーボードマクロの再生時に影響がでるため）
             self_insert_command("A-(25)")()
 
-            if fakeymacs.is_playing_kmacro:
+            if Fakeymacs.is_playing_kmacro:
                 delay(0.2)
 
-        if not fakeymacs.is_playing_kmacro:
+        if not Fakeymacs.is_playing_kmacro:
             if ime_status:
                 message = "[あ]"
             else:
@@ -598,13 +600,13 @@ def configure(keymap):
 
     def reconversion(reconv_key, cancel_key):
         def _func():
-            if fakeymacs.ime_cancel:
+            if Fakeymacs.ime_cancel:
                 self_insert_command(cancel_key)()
                 if use_emacs_ime_mode:
                     enable_emacs_ime_mode()
             else:
                 if ime_reconv_region:
-                    if fakeymacs.forward_direction is not None:
+                    if Fakeymacs.forward_direction is not None:
                         self_insert_command(reconv_key)()
                         if use_emacs_ime_mode:
                             enable_emacs_ime_mode()
@@ -661,7 +663,7 @@ def configure(keymap):
             checkWindow("POWERPNT.EXE", "mdiClass") or # Microsoft PowerPoint
             (checkWindow("EXCEL.EXE", "EXCEL*") and    # Microsoft Excel
              is_newline_selectable_in_Excel)):
-            if fakeymacs.is_marked:
+            if Fakeymacs.is_marked:
                 self_insert_command("Left")()
 
     def beginning_of_buffer():
@@ -698,7 +700,7 @@ def configure(keymap):
 
     def backward_kill_word(repeat=1):
         resetRegion()
-        fakeymacs.is_marked = True
+        Fakeymacs.is_marked = True
 
         def move_beginning_of_region():
             for i in range(repeat):
@@ -710,7 +712,7 @@ def configure(keymap):
 
     def kill_word(repeat=1):
         resetRegion()
-        fakeymacs.is_marked = True
+        Fakeymacs.is_marked = True
 
         def move_end_of_region():
             for i in range(repeat):
@@ -722,7 +724,7 @@ def configure(keymap):
 
     def kill_line(repeat=1):
         resetRegion()
-        fakeymacs.is_marked = True
+        Fakeymacs.is_marked = True
 
         if repeat == 1:
             mark(move_end_of_line, True)()
@@ -762,8 +764,8 @@ def configure(keymap):
         if checkWindow("cmd.exe", "ConsoleWindowClass"): # Cmd
             copyRegion()
 
-            if fakeymacs.forward_direction is not None:
-                if fakeymacs.forward_direction:
+            if Fakeymacs.forward_direction is not None:
+                if Fakeymacs.forward_direction:
                     key = "Delete"
                 else:
                     key = "Back"
@@ -786,38 +788,38 @@ def configure(keymap):
         if checkWindow("notepad.exe", "Edit"): # NotePad
             self_insert_command("C-z")()
         else:
-            if fakeymacs.is_undo_mode:
+            if Fakeymacs.is_undo_mode:
                 self_insert_command("C-z")()
             else:
                 self_insert_command("C-y")()
 
     def set_mark_command():
-        if fakeymacs.is_marked or fakeymacs.forward_direction is not None:
+        if Fakeymacs.is_marked or Fakeymacs.forward_direction is not None:
             resetRegion()
-            fakeymacs.is_marked = False
-            fakeymacs.forward_direction = None
+            Fakeymacs.is_marked = False
+            Fakeymacs.forward_direction = None
         else:
-            fakeymacs.is_marked = True
+            Fakeymacs.is_marked = True
 
     def mark_whole_buffer():
         if checkWindow("cmd.exe", "ConsoleWindowClass"): # Cmd
             # "Home", "C-a" では上手く動かない場合がある
             self_insert_command("Home", "S-End")()
-            fakeymacs.forward_direction = True # 逆の設定にする
+            Fakeymacs.forward_direction = True # 逆の設定にする
 
         elif checkWindow("powershell.exe", "ConsoleWindowClass"): # PowerShell
             self_insert_command("End", "S-Home")()
-            fakeymacs.forward_direction = False
+            Fakeymacs.forward_direction = False
 
         elif (checkWindow("EXCEL.EXE", "EXCEL*") or # Microsoft Excel
               checkWindow(None, "Edit")):           # Edit クラス
             self_insert_command("C-End", "C-S-Home")()
-            fakeymacs.forward_direction = False
+            Fakeymacs.forward_direction = False
         else:
             self_insert_command("C-Home", "C-a")()
-            fakeymacs.forward_direction = False
+            Fakeymacs.forward_direction = False
 
-        fakeymacs.is_marked = True
+        Fakeymacs.is_marked = True
 
     def mark_page():
         mark_whole_buffer()
@@ -847,7 +849,7 @@ def configure(keymap):
         if checkWindow("powershell.exe", "ConsoleWindowClass"): # PowerShell
             self_insert_command({"backward":"C-r", "forward":"C-s"}[direction])()
         else:
-            if fakeymacs.is_searching:
+            if Fakeymacs.is_searching:
                 if checkWindow("EXCEL.EXE", None): # Microsoft Excel
                     if checkWindow(None, "EDTBX"): # 検索ウィンドウ
                         self_insert_command({"backward":"A-S-f", "forward":"A-f"}[direction])()
@@ -857,7 +859,7 @@ def configure(keymap):
                     self_insert_command({"backward":"S-F3", "forward":"F3"}[direction])()
             else:
                 self_insert_command("C-f")()
-                fakeymacs.is_searching = True
+                Fakeymacs.is_searching = True
 
     def isearch_backward():
         isearch("backward")
@@ -909,10 +911,10 @@ def configure(keymap):
         def callKmacro():
             # キーボードマクロの最初が IME ON の場合、この delay が必要
             delay(0.2)
-            fakeymacs.is_playing_kmacro = True
+            Fakeymacs.is_playing_kmacro = True
             disable_input_method()
             keymap.command_RecordPlay()
-            fakeymacs.is_playing_kmacro = False
+            Fakeymacs.is_playing_kmacro = False
 
         keymap.delayedCall(callKmacro, 0)
 
@@ -925,14 +927,14 @@ def configure(keymap):
         if use_emacs_ime_mode:
             if ime_reconv_space:
                 if keymap.getWindow().getImeStatus():
-                    if fakeymacs.forward_direction is not None:
+                    if Fakeymacs.forward_direction is not None:
                         enable_emacs_ime_mode()
 
     def newline():
         self_insert_command("Enter")()
         if not use_emacs_ime_mode:
             if keymap.getWindow().getImeStatus():
-                fakeymacs.ime_cancel = True
+                Fakeymacs.ime_cancel = True
 
     def newline_and_indent():
         self_insert_command("Enter", "Tab")()
@@ -955,10 +957,10 @@ def configure(keymap):
 
         keymap.command_RecordStop()
 
-        if fakeymacs.is_undo_mode:
-            fakeymacs.is_undo_mode = False
+        if Fakeymacs.is_undo_mode:
+            Fakeymacs.is_undo_mode = False
         else:
-            fakeymacs.is_undo_mode = True
+            Fakeymacs.is_undo_mode = True
 
     def kill_emacs():
         # Excel のファイルを開いた直後一回目、kill_emacs が正常に動作しない。その対策。
@@ -967,34 +969,34 @@ def configure(keymap):
         self_insert_command("U-Alt")()
 
     def universal_argument():
-        if fakeymacs.is_universal_argument:
-            if fakeymacs.is_digit_argument:
-                fakeymacs.is_universal_argument = False
+        if Fakeymacs.is_universal_argument:
+            if Fakeymacs.is_digit_argument:
+                Fakeymacs.is_universal_argument = False
             else:
-                fakeymacs.repeat_counter *= 4
+                Fakeymacs.repeat_counter *= 4
         else:
-            fakeymacs.is_universal_argument = True
-            fakeymacs.repeat_counter *= 4
+            Fakeymacs.is_universal_argument = True
+            Fakeymacs.repeat_counter *= 4
 
     def digit_argument(number):
-        if fakeymacs.is_digit_argument:
-            fakeymacs.repeat_counter = fakeymacs.repeat_counter * 10 + number
+        if Fakeymacs.is_digit_argument:
+            Fakeymacs.repeat_counter = Fakeymacs.repeat_counter * 10 + number
         else:
-            fakeymacs.repeat_counter = number
-            fakeymacs.is_digit_argument = True
+            Fakeymacs.repeat_counter = number
+            Fakeymacs.is_digit_argument = True
 
     def shell_command():
         def popCommandWindow(wnd, command):
             if wnd.isVisible() and not wnd.getOwner() and wnd.getProcessName() == command:
                 popWindow(wnd)()
-                fakeymacs.is_executing_command = True
+                Fakeymacs.is_executing_command = True
                 return False
             return True
 
-        fakeymacs.is_executing_command = False
+        Fakeymacs.is_executing_command = False
         Window.enum(popCommandWindow, os.path.basename(command_name))
 
-        if not fakeymacs.is_executing_command:
+        if not Fakeymacs.is_executing_command:
             keymap.ShellExecuteCommand(None, command_name, "", "")()
 
     ##################################################
@@ -1082,7 +1084,7 @@ def configure(keymap):
         func = keymap.InputKeyCommand(*list(map(addSideOfModifierKey, keys)))
         def _func():
             func()
-            fakeymacs.ime_cancel = False
+            Fakeymacs.ime_cancel = False
         return _func
 
     def self_insert_command2(*keys):
@@ -1096,7 +1098,7 @@ def configure(keymap):
 
     def digit(number):
         def _func():
-            if fakeymacs.is_universal_argument:
+            if Fakeymacs.is_universal_argument:
                 digit_argument(number)
             else:
                 reset_undo(reset_counter(reset_mark(repeat(self_insert_command2(str(number))))))()
@@ -1104,23 +1106,23 @@ def configure(keymap):
 
     def digit2(number):
         def _func():
-            fakeymacs.is_universal_argument = True
+            Fakeymacs.is_universal_argument = True
             digit_argument(number)
         return _func
 
     def resetRegion():
-        if fakeymacs.forward_direction is not None:
+        if Fakeymacs.forward_direction is not None:
 
             if checkWindow(None, "Edit"): # Edit クラス
                 # 選択されているリージョンのハイライトを解除するためにカーソルキーを発行する
-                if fakeymacs.forward_direction:
+                if Fakeymacs.forward_direction:
                     self_insert_command("Right")()
                 else:
                     self_insert_command("Left")()
 
             elif checkWindow("cmd.exe", "ConsoleWindowClass"): # Cmd
                 # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
-                if fakeymacs.forward_direction:
+                if Fakeymacs.forward_direction:
                     self_insert_command("Right", "Left")()
                 else:
                     self_insert_command("Left", "Right")()
@@ -1128,81 +1130,81 @@ def configure(keymap):
             elif (checkWindow("powershell.exe", "ConsoleWindowClass") or # PowerShell
                   checkWindow("EXCEL.EXE", None)):                       # Microsoft Excel
                 # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
-                if fakeymacs.forward_direction:
+                if Fakeymacs.forward_direction:
                     self_insert_command("Left", "Right")()
                 else:
                     self_insert_command("Right", "Left")()
             else:
                 # 選択されているリージョンのハイライトを解除するためにカーソルキーを発行する
-                if fakeymacs.forward_direction:
+                if Fakeymacs.forward_direction:
                     self_insert_command("Right")()
                 else:
                     self_insert_command("Left")()
 
     def mark(func, forward_direction):
         def _func():
-            if fakeymacs.is_marked:
+            if Fakeymacs.is_marked:
                 # D-Shift だと、M-< や M-> 押下時に、D-Shift が解除されてしまう。その対策。
                 self_insert_command("D-LShift", "D-RShift")()
                 delay()
                 func()
                 self_insert_command("U-LShift", "U-RShift")()
 
-                # fakeymacs.forward_direction が未設定の場合、設定する
-                if fakeymacs.forward_direction is None:
-                    fakeymacs.forward_direction = forward_direction
+                # Fakeymacs.forward_direction が未設定の場合、設定する
+                if Fakeymacs.forward_direction is None:
+                    Fakeymacs.forward_direction = forward_direction
             else:
-                fakeymacs.forward_direction = None
+                Fakeymacs.forward_direction = None
                 func()
         return _func
 
     def mark2(func, forward_direction):
         def _func():
-            if fakeymacs.is_marked:
+            if Fakeymacs.is_marked:
                 resetRegion()
-                fakeymacs.forward_direction = None
-            fakeymacs.is_marked = True
+                Fakeymacs.forward_direction = None
+            Fakeymacs.is_marked = True
             mark(func, forward_direction)()
-            fakeymacs.is_marked = False
+            Fakeymacs.is_marked = False
         return _func
 
     def reset_mark(func):
         def _func():
             func()
-            fakeymacs.is_marked = False
-            fakeymacs.forward_direction = None
+            Fakeymacs.is_marked = False
+            Fakeymacs.forward_direction = None
         return _func
 
     def reset_counter(func):
         def _func():
             func()
-            fakeymacs.is_universal_argument = False
-            fakeymacs.is_digit_argument = False
-            fakeymacs.repeat_counter = 1
+            Fakeymacs.is_universal_argument = False
+            Fakeymacs.is_digit_argument = False
+            Fakeymacs.repeat_counter = 1
         return _func
 
     def reset_undo(func):
         def _func():
             func()
-            fakeymacs.is_undo_mode = True
+            Fakeymacs.is_undo_mode = True
         return _func
 
     def reset_search(func):
         def _func():
             func()
-            fakeymacs.is_searching = False
+            Fakeymacs.is_searching = False
         return _func
 
     def repeat(func):
         def _func():
-            if fakeymacs.repeat_counter > repeat_max:
+            if Fakeymacs.repeat_counter > repeat_max:
                 print("コマンドのリピート回数の最大値を超えています")
                 repeat_counter = repeat_max
             else:
-                repeat_counter = fakeymacs.repeat_counter
+                repeat_counter = Fakeymacs.repeat_counter
 
             # キーボードマクロの繰り返し実行を可能とするために初期化する
-            fakeymacs.repeat_counter = 1
+            Fakeymacs.repeat_counter = 1
 
             for i in range(repeat_counter):
                 func()
@@ -1210,18 +1212,18 @@ def configure(keymap):
 
     def repeat2(func):
         def _func():
-            if fakeymacs.is_marked:
-                fakeymacs.repeat_counter = 1
+            if Fakeymacs.is_marked:
+                Fakeymacs.repeat_counter = 1
             repeat(func)()
         return _func
 
     def repeat3(func):
         def _func():
-            if fakeymacs.repeat_counter > repeat_max:
+            if Fakeymacs.repeat_counter > repeat_max:
                 print("コマンドのリピート回数の最大値を超えています")
                 repeat_counter = repeat_max
             else:
-                repeat_counter = fakeymacs.repeat_counter
+                repeat_counter = Fakeymacs.repeat_counter
 
             func(repeat_counter)
         return _func
@@ -1501,10 +1503,10 @@ def configure(keymap):
     if use_emacs_ime_mode:
 
         def is_emacs_ime_mode(window):
-            if fakeymacs.ei_last_window == window:
+            if Fakeymacs.ei_last_window == window:
                 return True
             else:
-                fakeymacs.ei_last_window = None
+                Fakeymacs.ei_last_window = None
                 return False
 
         def is_emacs_ime_mode2(window):
@@ -1518,19 +1520,19 @@ def configure(keymap):
         keymap_ei = keymap.defineWindowKeymap(check_func=is_emacs_ime_mode2)
 
         # Emacs日本語入力モードが開始されたときのウィンドウオブジェクトを格納する変数を初期化する
-        fakeymacs.ei_last_window = None
+        Fakeymacs.ei_last_window = None
 
         ##################################################
         ## Emacs日本語入力モード の切り替え
         ##################################################
 
         def enable_emacs_ime_mode():
-            fakeymacs.ei_last_window = keymap.getWindow()
-            fakeymacs.ei_last_func = None
+            Fakeymacs.ei_last_window = keymap.getWindow()
+            Fakeymacs.ei_last_func = None
             ei_updateKeymap()
 
         def disable_emacs_ime_mode():
-            fakeymacs.ei_last_window = None
+            Fakeymacs.ei_last_window = None
             ei_updateKeymap()
 
         ##################################################
@@ -1556,7 +1558,7 @@ def configure(keymap):
                     func = ei_record_func(self_insert_command(key))
 
             def _func():
-                if fakeymacs.ei_last_func == delete_backward_char:
+                if Fakeymacs.ei_last_func == delete_backward_char:
                     ei_enable_input_method()
                 else:
                     func()
@@ -1573,7 +1575,7 @@ def configure(keymap):
                     func = ei_record_func(self_insert_command(key))
 
             def _func():
-                if fakeymacs.ei_last_func == delete_backward_char:
+                if Fakeymacs.ei_last_func == delete_backward_char:
                     ei_disable_input_method()
                 else:
                     func()
@@ -1588,7 +1590,7 @@ def configure(keymap):
 
         def ei_newline():
             self_insert_command("Enter")()
-            fakeymacs.ime_cancel = True
+            Fakeymacs.ime_cancel = True
             disable_emacs_ime_mode()
 
         def ei_keyboard_quit():
@@ -1602,11 +1604,11 @@ def configure(keymap):
         def ei_record_func(func):
             def _func():
                 func()
-                fakeymacs.ei_last_func = func
+                Fakeymacs.ei_last_func = func
             return _func
 
         def ei_popBalloon(ime_mode_status):
-            if not fakeymacs.is_playing_kmacro:
+            if not Fakeymacs.is_playing_kmacro:
                 if emacs_ime_mode_balloon_message:
                     # LINE は入力文字にバルーンヘルプが被るので、対象外とする
                     if not checkWindow("LINE*.EXE", "Qt5QWindowIcon"): # LINE
@@ -1616,7 +1618,7 @@ def configure(keymap):
                             keymap.closeBalloon("emacs_ime_mode")
 
         def ei_updateKeymap():
-            if fakeymacs.is_playing_kmacro:
+            if Fakeymacs.is_playing_kmacro:
                 keymap.updateKeymap()
             else:
                 keymap.delayedCall(keymap.updateKeymap, 100)
@@ -1938,18 +1940,18 @@ def configure(keymap):
     keymap_lw = keymap.defineWindowKeymap(check_func=is_list_window)
 
     # リストウィンドウで検索が開始されると True になる
-    fakeymacs.lw_is_searching = False
+    Fakeymacs.lw_is_searching = False
 
     ##################################################
     ## 文字列検索 / 置換（リストウィンドウ用）
     ##################################################
 
     def lw_isearch(direction):
-        if fakeymacs.lw_is_searching:
+        if Fakeymacs.lw_is_searching:
             self_insert_command({"backward":"Up", "forward":"Down"}[direction])()
         else:
             self_insert_command("f")()
-            fakeymacs.lw_is_searching = True
+            Fakeymacs.lw_is_searching = True
 
     def lw_isearch_backward():
         lw_isearch("backward")
@@ -1969,14 +1971,14 @@ def configure(keymap):
     ##################################################
 
     def lw_newline():
-        if fakeymacs.keybind == "emacs":
+        if Fakeymacs.keybind == "emacs":
             self_insert_command("Enter")()
         else:
             self_insert_command("S-Enter")()
 
     def lw_exit_search(func):
         def _func():
-            if fakeymacs.lw_is_searching:
+            if Fakeymacs.lw_is_searching:
                 self_insert_command("Enter")()
             func()
         return _func
@@ -1984,7 +1986,7 @@ def configure(keymap):
     def lw_reset_search(func):
         def _func():
             func()
-            fakeymacs.lw_is_searching = False
+            Fakeymacs.lw_is_searching = False
         return _func
 
     ##################################################
@@ -2245,7 +2247,7 @@ def configure(keymap):
         # https://w.atwiki.jp/ntemacs/pages/90.html
 
         def change_keyboard():
-            if fakeymacs.keyboard_status == "US":
+            if Fakeymacs.keyboard_status == "US":
                 # 日本語キーボードの利用に切り替える
 
                 # 日本語キーボードの [ ]] キーを Enter キーにする
@@ -2259,7 +2261,7 @@ def configure(keymap):
                     keymap.replaceKey(255, 28)
 
                 keymap.popBalloon("keyboard", "[JP Keyboard]", 1000)
-                fakeymacs.keyboard_status = "JP"
+                Fakeymacs.keyboard_status = "JP"
 
             else:
                 # 英語キーボードの利用に切り替える
@@ -2274,11 +2276,11 @@ def configure(keymap):
                     keymap.replaceKey(235, "LAlt")
                     keymap.replaceKey(255, "RAlt")
 
-                if fakeymacs.keyboard_status == "JP":
+                if Fakeymacs.keyboard_status == "JP":
                     keymap.popBalloon("keyboard", "[US Keyboard]", 1000)
-                fakeymacs.keyboard_status = "US"
+                Fakeymacs.keyboard_status = "US"
 
-        fakeymacs.keyboard_status = None
+        Fakeymacs.keyboard_status = None
         change_keyboard()
 
         define_key(keymap_global, "C-S-c", change_keyboard)
