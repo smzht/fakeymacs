@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200730_02
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200730_03
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -1136,7 +1136,7 @@ def configure(keymap):
 
     ## アルファベットキーの設定
     for vkey in range(VK_A, VK_Z + 1):
-        s_vkey = "(" + str(vkey) + ")"
+        s_vkey = "({})".format(vkey)
         define_key(keymap_emacs,        s_vkey, reset_undo(reset_counter(reset_mark(repeat(self_insert_command2(       s_vkey))))))
         define_key(keymap_emacs, "S-" + s_vkey, reset_undo(reset_counter(reset_mark(repeat(self_insert_command2("S-" + s_vkey))))))
         define_key(keymap_ime,          s_vkey, self_insert_command2(       s_vkey))
@@ -1147,7 +1147,7 @@ def configure(keymap):
     define_key(keymap_emacs, "S-Space", reset_undo(reset_counter(reset_mark(repeat(self_insert_command("S-Space"))))))
 
     for vkey in [VK_OEM_MINUS, VK_OEM_PLUS, VK_OEM_COMMA, VK_OEM_PERIOD, VK_OEM_1, VK_OEM_2, VK_OEM_3, VK_OEM_4, VK_OEM_5, VK_OEM_6, VK_OEM_7, VK_OEM_102]:
-        s_vkey = "(" + str(vkey) + ")"
+        s_vkey = "({})".format(vkey)
         define_key(keymap_emacs,        s_vkey, reset_undo(reset_counter(reset_mark(repeat(self_insert_command2(       s_vkey))))))
         define_key(keymap_emacs, "S-" + s_vkey, reset_undo(reset_counter(reset_mark(repeat(self_insert_command2("S-" + s_vkey))))))
         define_key(keymap_ime,          s_vkey, self_insert_command2(       s_vkey))
@@ -1155,13 +1155,13 @@ def configure(keymap):
 
     ## 10key の特殊文字キーの設定
     for vkey in [VK_MULTIPLY, VK_ADD, VK_SUBTRACT, VK_DECIMAL, VK_DIVIDE]:
-        s_vkey = "(" + str(vkey) + ")"
+        s_vkey = "({})".format(vkey)
         define_key(keymap_emacs, s_vkey, reset_undo(reset_counter(reset_mark(repeat(self_insert_command2(s_vkey))))))
         define_key(keymap_ime,   s_vkey, self_insert_command2(s_vkey))
 
     ## quoted-insertキーの設定
     for vkey in vkeys():
-        s_vkey = "(" + str(vkey) + ")"
+        s_vkey = "({})".format(vkey)
         define_key(keymap_emacs, "C-q "     + s_vkey, reset_search(reset_undo(reset_counter(reset_mark(self_insert_command(         s_vkey))))))
         define_key(keymap_emacs, "C-q S-"   + s_vkey, reset_search(reset_undo(reset_counter(reset_mark(self_insert_command("S-"   + s_vkey))))))
         define_key(keymap_emacs, "C-q C-"   + s_vkey, reset_search(reset_undo(reset_counter(reset_mark(self_insert_command("C-"   + s_vkey))))))
@@ -1486,7 +1486,7 @@ def configure(keymap):
 
         ## 全てキーパターンの設定（ei_record_func 関数を通すための設定）
         for vkey in vkeys():
-            s_vkey = "(" + str(vkey) + ")"
+            s_vkey = "({})".format(vkey)
             define_key(keymap_ei,          s_vkey, ei_record_func(self_insert_command(         s_vkey)))
             define_key(keymap_ei, "S-"   + s_vkey, ei_record_func(self_insert_command("S-"   + s_vkey)))
             define_key(keymap_ei, "C-"   + s_vkey, ei_record_func(self_insert_command("C-"   + s_vkey)))
@@ -1574,26 +1574,26 @@ def configure(keymap):
     ## Alt+数字キー列の設定
     if use_alt_digit_key_for_f1_to_f12:
         for i in range(10):
-            define_key(keymap_global, "A-" + str((i + 1) % 10), self_insert_command("(" + str(VK_F1 + i) + ")"))
+            define_key(keymap_global, "A-{}".format((i + 1) % 10), self_insert_command("({})".format(VK_F1 + i)))
+
+        define_key(keymap_global, "A-Minus", self_insert_command("({})".format(VK_F11 + i)))
 
         if is_japanese_keyboard:
-            define_key(keymap_global, "A-Minus", self_insert_command("(" + str(VK_F11) + ")"))
-            define_key(keymap_global, "A-Caret", self_insert_command("(" + str(VK_F12) + ")"))
+            define_key(keymap_global, "A-Caret", self_insert_command("({})".format(VK_F12 + i)))
         else:
-            define_key(keymap_global, "A-Minus", self_insert_command("(" + str(VK_F11) + ")"))
-            define_key(keymap_global, "A-Plus",  self_insert_command("(" + str(VK_F12) + ")"))
+            define_key(keymap_global, "A-Plus",  self_insert_command("({})".format(VK_F12 + i)))
 
     ## Alt+Shift+数字キー列の設定
     if use_alt_shift_digit_key_for_f13_to_f24:
         for i in range(10):
-            define_key(keymap_global, "A-S-" + str((i + 1) % 10), self_insert_command("(" + str(VK_F13 + i) + ")"))
+            define_key(keymap_global, "A-S-{}".format((i + 1) % 10), self_insert_command("({})".format(VK_F13 + i)))
+
+        define_key(keymap_global, "A-S-Minus", self_insert_command("({})".format(VK_F23 + i)))
 
         if is_japanese_keyboard:
-            define_key(keymap_global, "A-S-Minus", self_insert_command("(" + str(VK_F23) + ")"))
-            define_key(keymap_global, "A-S-Caret", self_insert_command("(" + str(VK_F24) + ")"))
+            define_key(keymap_global, "A-S-Caret", self_insert_command("({})".format(VK_F24 + i)))
         else:
-            define_key(keymap_global, "A-S-Minus", self_insert_command("(" + str(VK_F23) + ")"))
-            define_key(keymap_global, "A-S-Plus",  self_insert_command("(" + str(VK_F24) + ")"))
+            define_key(keymap_global, "A-S-Plus",  self_insert_command("({})".format(VK_F24 + i)))
 
 
     ####################################################################################################
