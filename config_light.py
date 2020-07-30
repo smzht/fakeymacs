@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200730_01
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200730_02
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -1574,9 +1574,7 @@ def configure(keymap):
     ## Alt+数字キー列の設定
     if use_alt_digit_key_for_f1_to_f12:
         for i in range(10):
-            define_key(keymap_global, "A-" + str(i + 1), self_insert_command("(" + str(VK_F1 + i) + ")"))
-
-        define_key(keymap_global, "A-0", self_insert_command("(" + str(VK_F10) + ")"))
+            define_key(keymap_global, "A-" + str((i + 1) % 10), self_insert_command("(" + str(VK_F1 + i) + ")"))
 
         if is_japanese_keyboard:
             define_key(keymap_global, "A-Minus", self_insert_command("(" + str(VK_F11) + ")"))
@@ -1588,16 +1586,14 @@ def configure(keymap):
     ## Alt+Shift+数字キー列の設定
     if use_alt_shift_digit_key_for_f13_to_f24:
         for i in range(10):
-            define_key(keymap_global, "A-S-" + str(i + 1), self_insert_command("(" + str(VK_F1 + 12 + i) + ")"))
-
-        define_key(keymap_global, "A-S-0", self_insert_command("(" + str(VK_F10 + 12) + ")"))
+            define_key(keymap_global, "A-S-" + str((i + 1) % 10), self_insert_command("(" + str(VK_F13 + i) + ")"))
 
         if is_japanese_keyboard:
-            define_key(keymap_global, "A-S-Minus", self_insert_command("(" + str(VK_F11 + 12) + ")"))
-            define_key(keymap_global, "A-S-Caret", self_insert_command("(" + str(VK_F12 + 12) + ")"))
+            define_key(keymap_global, "A-S-Minus", self_insert_command("(" + str(VK_F23) + ")"))
+            define_key(keymap_global, "A-S-Caret", self_insert_command("(" + str(VK_F24) + ")"))
         else:
-            define_key(keymap_global, "A-S-Minus", self_insert_command("(" + str(VK_F11 + 12) + ")"))
-            define_key(keymap_global, "A-S-Plus",  self_insert_command("(" + str(VK_F12 + 12) + ")"))
+            define_key(keymap_global, "A-S-Minus", self_insert_command("(" + str(VK_F23) + ")"))
+            define_key(keymap_global, "A-S-Plus",  self_insert_command("(" + str(VK_F24) + ")"))
 
 
     ####################################################################################################
