@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200728_01
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200730_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -314,6 +314,26 @@ def configure(keymap):
             emacs_ime_mode_key += [["C-Quote", "F10"]] # 半角英数に表示切替
     #---------------------------------------------------------------------------------------------------
 
+    #---------------------------------------------------------------------------------------------------
+    ## IME の「単語登録」プログラムを利用するための設定を行う
+
+    ## IME の「単語登録」プログラムを起動するキーを指定する
+    # word_register_key = None
+    word_register_key = "C-CloseBracket"
+
+    ## IME の「単語登録」プログラムとそのパラメータを指定する
+
+    ## Microsoft IME の場合
+    if ime_type == "Microsoft":
+        word_register_name = r"C:\Windows\System32\IME\IMEJP\IMJPDCT.EXE"
+        word_register_param = ""
+
+    ## Google日本語入力の場合
+    if ime_type == "Google":
+        word_register_name = r"C:\Program Files (x86)\Google\Google Japanese Input\GoogleIMEJaTool.exe"
+        word_register_param = "--mode=word_register_dialog"
+    #---------------------------------------------------------------------------------------------------
+
     # 数引数の指定に Ctrl+数字キーを使うかを指定する（True: 使う、False: 使わない）
     # （False に指定しても、C-u 数字キーで数引数を指定することができます）
     use_ctrl_digit_key_for_digit_argument = False
@@ -332,24 +352,6 @@ def configure(keymap):
     # （デフォルトキーは、["A-S-Tab", "A-Tab"]）
     window_switching_key = []
     # window_switching_key += [["A-p", "A-n"]]
-
-    # IME の「単語登録」プログラムを起動するキーを指定する
-    # word_register_key = None
-    word_register_key = "C-CloseBracket"
-
-    #---------------------------------------------------------------------------------------------------
-    # IME の「単語登録」プログラムとそのパラメータを指定する
-
-    ## Microsoft IME の場合
-    if ime_type == "Microsoft":
-        word_register_name = r"C:\Windows\System32\IME\IMEJP\IMJPDCT.EXE"
-        word_register_param = ""
-
-    ## Google日本語入力の場合
-    if ime_type == "Google":
-        word_register_name = r"C:\Program Files (x86)\Google\Google Japanese Input\GoogleIMEJaTool.exe"
-        word_register_param = "--mode=word_register_dialog"
-    #---------------------------------------------------------------------------------------------------
 
     # コマンドのリピート回数の最大値を指定する
     repeat_max = 1024
