@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200730_03
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200731_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -1728,24 +1728,24 @@ def configure(keymap):
         for i in range(10):
             define_key(keymap_global, "A-{}".format((i + 1) % 10), self_insert_command("({})".format(VK_F1 + i)))
 
-        define_key(keymap_global, "A-Minus", self_insert_command("({})".format(VK_F11 + i)))
+        define_key(keymap_global, "A-Minus", self_insert_command("({})".format(VK_F11)))
 
         if is_japanese_keyboard:
-            define_key(keymap_global, "A-Caret", self_insert_command("({})".format(VK_F12 + i)))
+            define_key(keymap_global, "A-Caret", self_insert_command("({})".format(VK_F12)))
         else:
-            define_key(keymap_global, "A-Plus",  self_insert_command("({})".format(VK_F12 + i)))
+            define_key(keymap_global, "A-Plus",  self_insert_command("({})".format(VK_F12)))
 
     ## Alt+Shift+数字キー列の設定
     if use_alt_shift_digit_key_for_f13_to_f24:
         for i in range(10):
             define_key(keymap_global, "A-S-{}".format((i + 1) % 10), self_insert_command("({})".format(VK_F13 + i)))
 
-        define_key(keymap_global, "A-S-Minus", self_insert_command("({})".format(VK_F23 + i)))
+        define_key(keymap_global, "A-S-Minus", self_insert_command("({})".format(VK_F23)))
 
         if is_japanese_keyboard:
-            define_key(keymap_global, "A-S-Caret", self_insert_command("({})".format(VK_F24 + i)))
+            define_key(keymap_global, "A-S-Caret", self_insert_command("({})".format(VK_F24)))
         else:
-            define_key(keymap_global, "A-S-Plus",  self_insert_command("({})".format(VK_F24 + i)))
+            define_key(keymap_global, "A-S-Plus",  self_insert_command("({})".format(VK_F24)))
 
 
     ####################################################################################################
