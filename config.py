@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200731_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200802_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -1761,6 +1761,7 @@ def configure(keymap):
             try:
                 if wnd.isMinimized():
                     wnd.restore()
+                delay() # ウィンドウフォーカスが適切に移動しない場合があることの対策
                 wnd.getLastActivePopup().setForeground()
             except:
                 print("選択したウィンドウは存在しませんでした")
