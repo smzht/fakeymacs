@@ -159,6 +159,9 @@ def configure(keymap):
     if 0:
         keymap.replaceKey("RWin", "RCtrl")       # RAlt の位置のキーを RCtrl キーにする
 
+        # Windows ショートカットの利用頻度が高い場合、上記の代わりに次の設定の方が良いかも
+        # keymap.replaceKey("LWin", "RCtrl")       # LAlt の位置のキーを RCtrl キーにする
+
     # OS の設定を英語キーボードにして日本語キーボードを利用する場合のお勧め設定
     # （Change Key を使って、[￥] キーにスキャンコード 0x7F を割り当ててから、以下の設定を有効
     #   にしてください）
