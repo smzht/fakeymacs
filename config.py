@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200802_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200807_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -141,26 +141,10 @@ from keyhac import *
 def configure(keymap):
 
     ####################################################################################################
-    ## キーの置き換え（KeySwap を使わない場合。ただし、CapsLock の置き換えは KeySwap で行う必要あり。）
+    ## キーの置き換え（CapsLock の置き換えは KeySwap で行う必要あり）
     ####################################################################################################
 
     # https://w.atwiki.jp/ntemacs/pages/90.html
-
-    # 初代 HHKB で Mode SW を 3 にした場合のお勧め設定
-    # （Ctrl+Alt+Del は置き換える前のキーの配置で押下する必要があるようです）
-    # （Win+L も効かなくなるようですので、Ctrl+Win(元Alt)+Del -> ロック をご利用ください）
-    if 0:
-        keymap.replaceKey("LAlt", "LWin")
-        keymap.replaceKey("RAlt", "RCtrl")
-        keymap.replaceKey(235, "LAlt")           # 左◇キーを LAlt キーにする
-        keymap.replaceKey(255, "RAlt")           # 右◇キーを RAlt キーにする
-
-    # HHKB Pro2/HYBRID-US で DIP SW を SW1:ON、SW2:OFF、SW4:OFF、SW5:ON にした場合のお勧め設定
-    if 0:
-        keymap.replaceKey("RWin", "RCtrl")       # RAlt の位置のキーを RCtrl キーにする
-
-        # Windows ショートカットの利用頻度が高い場合、上記の代わりに次の設定の方が良いかも
-        # keymap.replaceKey("LWin", "RCtrl")       # LAlt の位置のキーを RCtrl キーにする
 
     # OS の設定を英語キーボードにして日本語キーボードを利用する場合のお勧め設定
     # （Change Key を使って、[￥] キーにスキャンコード 0x7F を割り当ててから、以下の設定を有効
@@ -2255,13 +2239,6 @@ def configure(keymap):
                 # 日本語キーボードの [ ]] キーを Enter キーにする
                 keymap.replaceKey("BackSlash", "Return")
 
-                # 初代 HHKB を利用している場合は、次の if 文を有効にする
-                if 0:
-                    keymap.replaceKey("LAlt", "LAlt")
-                    keymap.replaceKey("RAlt", "RAlt")
-                    keymap.replaceKey(235, 29)
-                    keymap.replaceKey(255, 28)
-
                 keymap.popBalloon("keyboard", "[JP Keyboard]", 1000)
                 Fakeymacs.keyboard_status = "JP"
 
@@ -2270,13 +2247,6 @@ def configure(keymap):
 
                 # 日本語キーボードの [ ]] キーを元の設定に戻す
                 keymap.replaceKey("BackSlash", "BackSlash")
-
-                # 初代 HHKB を利用している場合は、次の if 文を有効にする
-                if 0:
-                    keymap.replaceKey("LAlt", "LWin")
-                    keymap.replaceKey("RAlt", "RCtrl")
-                    keymap.replaceKey(235, "LAlt")
-                    keymap.replaceKey(255, "RAlt")
 
                 if Fakeymacs.keyboard_status == "JP":
                     keymap.popBalloon("keyboard", "[US Keyboard]", 1000)
