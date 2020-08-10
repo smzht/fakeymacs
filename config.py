@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200807_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200810_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -17,6 +17,7 @@
 # ＜共通の仕様＞
 # ・emacs_tareget_class 変数、not_emacs_target 変数、ime_target 変数で、Emacsキーバインドや
 #   IME の切り替えキーバインドの対象とするアプリケーションソフトを指定できる。
+# ・emacs_exclusion_key 変数で、Emacs キーバインドから除外するキーを指定できる。
 # ・not_clipboard_target 変数で、clipboard 監視の対象外とするアプリケーションソフトを指定
 #   できる。
 # ・左右どちらの Ctrlキーを使うかを side_of_ctrl_key 変数で指定できる。
@@ -35,7 +36,7 @@
 # ・toggle_input_method_key 変数と set_input_method_key 変数の設定により、IME を切り替える
 #   キーを指定できる。
 # ・use_emacs_ime_mode 変数の設定により、Emacs日本語入力モードを使うかどうかを指定
-#   できる。Emacs日本語入力モードは、IME が ON の時に文字（英数字かスペースを除く
+#   できる。Emacs日本語入力モードは、IME が ON の時に文字（英数字か、スペースを除く
 #   特殊文字）を入力すると起動する。
 #   Emacs日本語入力モードでは、次のキーのみが Emacsキーバインドとして利用でき、
 #   その他のキーは emacs_ime_mode_key 変数に設定したキーにより置き換えがされた後、
@@ -134,6 +135,7 @@ import re
 import fnmatch
 import copy
 import ctypes
+import types
 
 import keyhac_keymap
 from keyhac import *
@@ -239,6 +241,13 @@ def configure(keymap):
                             "ttermpro.exe",           # TeraTerm
                             "MobaXterm.exe",          # MobaXterm
                            ]
+
+    # Emacs のキーバインドにするアプリケーションソフトで、Emacs キーバインドから除外するキーを指定する
+    # （ここで指定しなくとも、左右のモディファイアキーを使い分けることで入力することは可能です）
+    emacs_exclusion_key  = {"chrome.exe"  : ["C-l", "C-t"],
+                            "msedge.exe"  : ["C-l", "C-t"],
+                            "firefox.exe" : ["C-l", "C-t"],
+                           }
 
     # clipboard 監視の対象外とするアプリケーションソフトを指定する
     not_clipboard_target = []
@@ -478,6 +487,12 @@ def configure(keymap):
                 # クリップボードの監視用のフックを有効にする
                 keymap.clipboard_history.enableHook(True)
 
+            if window.getProcessName() in emacs_exclusion_key.keys():
+                Fakeymacs.exclution_key = list(map(addSideOfModifierKey,
+                                                   emacs_exclusion_key[window.getProcessName()]))
+            else:
+                Fakeymacs.exclution_key = []
+
             Fakeymacs.last_window = window
             Fakeymacs.ime_cancel = False
 
@@ -671,11 +686,6 @@ def configure(keymap):
         if (checkWindow("sakura.exe", "EditorClient") or # Sakura Editor
             checkWindow("sakura.exe", "SakuraView*")):   # Sakura Editor
             self_insert_command("C-h")()
-        else:
-            # recenter の機能をサポートしていないアプリケーションソフトについては、C-l を発行する。
-            # これで chrome 等でのアドレスバーに移動する機能を実現できる。recenter の機能を呼ぶ
-            # キーバインドを C-l と決め打ちしていることについては、とりあえず了承ください。
-            self_insert_command("C-l")()
 
     ##################################################
     ## カット / コピー / 削除 / アンドゥ
@@ -1054,20 +1064,31 @@ def configure(keymap):
 
         return keys_lists
 
-    def define_key(keymap, keys, command):
+    def define_key(window_keymap, keys, command):
+        def keyCommand(key):
+            if type(command) is types.FunctionType:
+                def _command():
+                    if key in Fakeymacs.exclution_key:
+                        keymap.InputKeyCommand(key)()
+                    else:
+                        command()
+                return _command
+            else:
+                return command
+
         for keys_list in kbd(keys):
             if len(keys_list) == 1:
-                keymap[keys_list[0]] = command
+                window_keymap[keys_list[0]] = keyCommand(keys_list[0])
 
-                # Alt キーによるワンショットモディファイアを使った際にカーソルがメニューへ移動するのを解除する
+                # Alt キーを単押しした際に、カーソルがメニューへ移動しないようにする
                 # https://www.haijin-boys.com/discussions/4583
                 if re.match(keys_list[0], r"O-LAlt$", re.IGNORECASE):
-                    keymap["D-LAlt"] = "D-LAlt", "(7)"
+                    window_keymap["D-LAlt"] = "D-LAlt", "(7)"
 
                 if re.match(keys_list[0], r"O-RAlt$", re.IGNORECASE):
-                    keymap["D-RAlt"] = "D-RAlt", "(7)"
+                    window_keymap["D-RAlt"] = "D-RAlt", "(7)"
             else:
-                keymap[keys_list[0]][keys_list[1]] = command
+                window_keymap[keys_list[0]][keys_list[1]] = keyCommand(None)
 
     def self_insert_command(*keys):
         func = keymap.InputKeyCommand(*list(map(addSideOfModifierKey, keys)))
