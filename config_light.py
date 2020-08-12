@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200810_01
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200812_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -946,7 +946,8 @@ def configure(keymap):
 
     def define_key(window_keymap, keys, command):
         def keyCommand(key):
-            if type(command) is types.FunctionType:
+            if (window_keymap == keymap_emacs and
+                type(command) is types.FunctionType):
                 def _command():
                     if key in Fakeymacs.exclution_key:
                         keymap.InputKeyCommand(key)()
