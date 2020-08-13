@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200812_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200813_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -242,11 +242,25 @@ def configure(keymap):
                             "MobaXterm.exe",          # MobaXterm
                            ]
 
+    # キーマップ毎にキー設定をスキップするキーを指定する
+    # （リストに指定するキーは、define_key の第二引数に指定する記法のキーとしてください。"A-v" や "C-v"
+    #   のような指定の他に、"M-f" や "Ctl-x d" などの指定も可能です。）
+    skip_settings_key    = {"keymap_global"    : [],
+                            "keymap_emacs"     : [],
+                            "keymap_ime"       : [],
+                            "keymap_ei"        : [],
+                            "keymap_tsw"       : [],
+                            "keymap_lw"        : [],
+                            "keymap_edit_mode" : [],
+                           }
+
     # Emacs のキーバインドにするアプリケーションソフトで、Emacs キーバインドから除外するキーを指定する
+    # （リストに指定するキーは、Keyhac で指定可能なマルチストロークではないキーとしてください。
+    #   Fakeymacs の記法の "M-f" や "Ctl-x d" などの指定はできません。"A-v"、"C-v" などが指定可能です。）
     # （ここで指定しなくとも、左右のモディファイアキーを使い分けることで入力することは可能です）
-    emacs_exclusion_key  = {"chrome.exe"  : ["C-l", "C-t"],
-                            "msedge.exe"  : ["C-l", "C-t"],
-                            "firefox.exe" : ["C-l", "C-t"],
+    emacs_exclusion_key  = {"chrome.exe"       : ["C-l", "C-t"],
+                            "msedge.exe"       : ["C-l", "C-t"],
+                            "firefox.exe"      : ["C-l", "C-t"],
                            }
 
     # clipboard 監視の対象外とするアプリケーションソフトを指定する
@@ -381,7 +395,7 @@ def configure(keymap):
     #---------------------------------------------------------------------------------------------------
 
     #---------------------------------------------------------------------------------------------------
-    ## IME の「単語登録」プログラムを利用するための設定を行う
+    # IME の「単語登録」プログラムを利用するための設定を行う
 
     ## IME の「単語登録」プログラムを起動するキーを指定する
     # word_register_key = None
@@ -1064,9 +1078,36 @@ def configure(keymap):
 
         return keys_lists
 
-    def define_key(window_keymap, keys, command):
+    def define_key(window_keymap, keys, command, skip_check=True):
+        if skip_check:
+            # local スコープで参照できるようにする
+            try:
+                keymap_global
+                keymap_emacs
+                keymap_ime
+                keymap_ei
+                keymap_tsw
+                keymap_lw
+                keymap_edit_mode
+            except:
+                pass
+
+            # 設定をスキップするキーの処理を行う
+            for keymap_name in skip_settings_key.keys():
+                if (keymap_name in locals().keys() and
+                    window_keymap == locals()[keymap_name]):
+                    if keys in skip_settings_key[keymap_name]:
+                        print("skip settings key : [" + keymap_name + "] " + keys)
+                        return
+
         def keyCommand(key):
-            if (window_keymap == keymap_emacs and
+            try:
+                keymap_emacs
+            except:
+                pass
+
+            if ("keymap_emacs" in locals().keys() and
+                window_keymap == locals()["keymap_emacs"] and
                 type(command) is types.FunctionType):
                 def _command():
                     if key in Fakeymacs.exclution_key:
@@ -1090,6 +1131,9 @@ def configure(keymap):
                     window_keymap["D-RAlt"] = "D-RAlt", "(7)"
             else:
                 window_keymap[keys_list[0]][keys_list[1]] = keyCommand(None)
+
+    def define_key2(window_keymap, keys, command):
+        define_key(window_keymap, keys, command, skip_check=False)
 
     def self_insert_command(*keys):
         func = keymap.InputKeyCommand(*list(map(addSideOfModifierKey, keys)))
