@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200813_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200813_02
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -136,6 +136,7 @@ import fnmatch
 import copy
 import ctypes
 import types
+import datetime
 
 import keyhac_keymap
 from keyhac import *
@@ -2115,8 +2116,7 @@ def configure(keymap):
             ["電話番号",       "99-999-9999"],
         ]
         fixed_items[0][0] = list_formatter.format(fixed_items[0][0])
-
-        import datetime
+        keymap.cblisters.append(["定型文", cblister_FixedPhrase(fixed_items)])
 
         # 日時をペーストする機能
         def dateAndTime(fmt):
@@ -2134,11 +2134,7 @@ def configure(keymap):
             ["HHMMSS",              dateAndTime("%H%M%S")],
         ]
         datetime_items[0][0] = list_formatter.format(datetime_items[0][0])
-
-        keymap.cblisters += [
-            ["定型文",  cblister_FixedPhrase(fixed_items)],
-            ["日時",    cblister_FixedPhrase(datetime_items)],
-        ]
+        keymap.cblisters.append(["日時", cblister_FixedPhrase(datetime_items)])
 
         def lw_clipboardList():
             keymap.command_ClipboardList()
@@ -2156,11 +2152,47 @@ def configure(keymap):
         # キーを入力することで画面を切り替えることができます。
         # （参考：https://github.com/crftwr/keyhac/blob/master/_config.py）
 
+        # リストウィンドウのフォーマッタを定義する
+        list_formatter = "{:30}"
+
+        lclisters = []
+
+        # アプリケーションソフト
+        application_items = [
+            ["Notepad",     keymap.ShellExecuteCommand(None, r"notepad.exe", "", "")],
+            ["Explorer",    keymap.ShellExecuteCommand(None, r"explorer.exe", "", "")],
+            ["Cmd",         keymap.ShellExecuteCommand(None, r"cmd.exe", "", "")],
+            ["MSEdge",      keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe", "", "")],
+            ["Chrome",      keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", "", "")],
+            ["Firefox",     keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\Mozilla Firefox\firefox.exe", "", "")],
+            ["Thunderbird", keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\Mozilla Thunderbird\thunderbird.exe", "", "")],
+        ]
+        application_items[0][0] = list_formatter.format(application_items[0][0])
+        lclisters.append(["App", cblister_FixedPhrase(application_items)])
+
+        # ウェブサイト
+        website_items = [
+            ["Analytics",       keymap.ShellExecuteCommand(None, r"https://www.google.com/analytics/web/?hl=ja&pli=1#report/content-overview/a40267130w69408738p71513965/%3F_u.date00%3D" + dateAndTime("%Y%m%d")() + r"%26_u.date01%3D" + dateAndTime("%Y%m%d")() + r"%26overview-dimensionSummary.selectedGroup%3Dsitecontent%26overview-dimensionSummary.selectedDimension%3Danalytics.pageTitle%26overview-graphOptions.selected%3Danalytics.nthHour/", "", "")],
+            ["Google",          keymap.ShellExecuteCommand(None, r"https://www.google.co.jp/", "", "")],
+            ["Facebook",        keymap.ShellExecuteCommand(None, r"https://www.facebook.com/", "", "")],
+            ["Twitter",         keymap.ShellExecuteCommand(None, r"https://twitter.com/", "", "")],
+            ["Keyhac",          keymap.ShellExecuteCommand(None, r"https://sites.google.com/site/craftware/keyhac-ja", "", "")],
+            ["Fakeymacs",       keymap.ShellExecuteCommand(None, r"https://github.com/smzht/fakeymacs", "", "")],
+            ["NTEmacs＠ウィキ", keymap.ShellExecuteCommand(None, r"http://w.atwiki.jp/ntemacs/", "", "")],
+        ]
+        website_items[0][0] = list_formatter.format(website_items[0][0])
+        lclisters.append(["Website", cblister_FixedPhrase(website_items)])
+
+        # その他
+        other_items = [
+            ["Edit   config.py", keymap.command_EditConfig],
+            ["Reload config.py", keymap.command_ReloadConfig],
+        ]
+        other_items[0][0] = list_formatter.format(other_items[0][0])
+        lclisters.append(["Other", cblister_FixedPhrase(other_items)])
+
         def lw_lancherList():
             def popLancherList():
-
-                # リストウィンドウのフォーマッタを定義する
-                list_formatter = "{:30}"
 
                 # 既にリストが開いていたら閉じるだけ
                 if keymap.isListWindowOpened():
@@ -2175,46 +2207,10 @@ def configure(keymap):
 
                     formatter = "{0:" + str(processName_length) + "} | {1}"
                     for wnd in window_list:
-                        window_items.append((formatter.format(wnd.getProcessName(), wnd.getText()), popWindow(wnd)))
+                        window_items.append([formatter.format(wnd.getProcessName(), wnd.getText()), popWindow(wnd)])
 
-                window_items.append((list_formatter.format("<Desktop>"), keymap.ShellExecuteCommand(None, r"shell:::{3080F90D-D7AD-11D9-BD98-0000947B0257}", "", "")))
-
-                # アプリケーションソフト
-                application_items = [
-                    ["Notepad",     keymap.ShellExecuteCommand(None, r"notepad.exe", "", "")],
-                    ["Explorer",    keymap.ShellExecuteCommand(None, r"explorer.exe", "", "")],
-                    ["Cmd",         keymap.ShellExecuteCommand(None, r"cmd.exe", "", "")],
-                    ["MSEdge",      keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe", "", "")],
-                    ["Chrome",      keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", "", "")],
-                    ["Firefox",     keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\Mozilla Firefox\firefox.exe", "", "")],
-                    ["Thunderbird", keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\Mozilla Thunderbird\thunderbird.exe", "", "")],
-                ]
-                application_items[0][0] = list_formatter.format(application_items[0][0])
-
-                # ウェブサイト
-                website_items = [
-                    ["Google",          keymap.ShellExecuteCommand(None, r"https://www.google.co.jp/", "", "")],
-                    ["Facebook",        keymap.ShellExecuteCommand(None, r"https://www.facebook.com/", "", "")],
-                    ["Twitter",         keymap.ShellExecuteCommand(None, r"https://twitter.com/", "", "")],
-                    ["Keyhac",          keymap.ShellExecuteCommand(None, r"https://sites.google.com/site/craftware/keyhac-ja", "", "")],
-                    ["Fakeymacs",       keymap.ShellExecuteCommand(None, r"https://github.com/smzht/fakeymacs", "", "")],
-                    ["NTEmacs＠ウィキ", keymap.ShellExecuteCommand(None, r"http://w.atwiki.jp/ntemacs/", "", "")],
-                ]
-                website_items[0][0] = list_formatter.format(website_items[0][0])
-
-                # その他
-                other_items = [
-                    ["Edit   config.py", keymap.command_EditConfig],
-                    ["Reload config.py", keymap.command_ReloadConfig],
-                ]
-                other_items[0][0] = list_formatter.format(other_items[0][0])
-
-                listers = [
-                    ["Window",  cblister_FixedPhrase(window_items)],
-                    ["App",     cblister_FixedPhrase(application_items)],
-                    ["Website", cblister_FixedPhrase(website_items)],
-                    ["Other",   cblister_FixedPhrase(other_items)],
-                ]
+                window_items.append([list_formatter.format("<Desktop>"), keymap.ShellExecuteCommand(None, r"shell:::{3080F90D-D7AD-11D9-BD98-0000947B0257}", "", "")])
+                listers = [["Window", cblister_FixedPhrase(window_items)]] + lclisters
 
                 try:
                     select_item = keymap.popListWindow(listers)
