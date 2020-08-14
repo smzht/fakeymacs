@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200814_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200815_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -379,32 +379,29 @@ def configure(keymap):
     ##   一度 Ctrl キーを離す、メニューの移動に Space キーを利用する、ime_cancel_key に "W-Slash" を
     ##   設定して「再変換」の機能として利用するなど、いくつかの回避方法があります。お試しください。）
     if P.use_old_Microsoft_IME:
-        ime_type = "Microsoft"
-        ime_reconv_key = "W-Slash" # 「再変換」キー
-        ime_cancel_key = "C-Back"  # 「確定の取り消し」キー
-        ime_reconv_region = False  # 「再変換」の時にリージョンの選択が必要かどうかを指定する
-        ime_reconv_space  = False  # リージョンを選択した状態で Space キーを押下した際、「再変換」が働くか
-                                   # どうかを指定する
+        P.ime_reconv_key = "W-Slash" # 「再変換」キー
+        P.ime_cancel_key = "C-Back"  # 「確定の取り消し」キー
+        P.ime_reconv_region = False  # 「再変換」の時にリージョンの選択が必要かどうかを指定する
+        P.ime_reconv_space  = False  # リージョンを選択した状態で Space キーを押下した際、「再変換」が働くか
+                                     # どうかを指定する
 
     ## Windows 10 2004 以降の 新しい Microsoft IME の場合
     ## （新しい Microsoft IME には確定取り消し（C-Backspace）の設定が無いようなので、「再変換」のキー
     ##   を設定しています）
     if P.use_new_Microsoft_IME:
-        ime_type = "Microsoft"
-        ime_reconv_key = "W-Slash" # 「再変換」キー
-        ime_cancel_key = "W-Slash" # 「確定の取り消し」キー
-        ime_reconv_region = False  # 「再変換」の時にリージョンの選択が必要かどうかを指定する
-        ime_reconv_space  = True   # リージョンを選択した状態で Space キーを押下した際、「再変換」が働くか
-                                   # どうかを指定する
+        P.ime_reconv_key = "W-Slash" # 「再変換」キー
+        P.ime_cancel_key = "W-Slash" # 「確定の取り消し」キー
+        P.ime_reconv_region = False  # 「再変換」の時にリージョンの選択が必要かどうかを指定する
+        P.ime_reconv_space  = True   # リージョンを選択した状態で Space キーを押下した際、「再変換」が働くか
+                                     # どうかを指定する
 
     ## Google日本語入力の場合
     if P.use_Google_IME:
-        ime_type = "Google"
-        ime_reconv_key = "W-Slash" # 「再変換」キー
-        ime_cancel_key = "C-Back"  # 「確定の取り消し」キー
-        ime_reconv_region = True   # 「再変換」の時にリージョンの選択が必要かどうかを指定する
-        ime_reconv_space  = False  # リージョンを選択した状態で Space キーを押下した際、「再変換」が働くか
-                                   # どうかを指定する
+        P.ime_reconv_key = "W-Slash" # 「再変換」キー
+        P.ime_cancel_key = "C-Back"  # 「確定の取り消し」キー
+        P.ime_reconv_region = True   # 「再変換」の時にリージョンの選択が必要かどうかを指定する
+        P.ime_reconv_space  = False  # リージョンを選択した状態で Space キーを押下した際、「再変換」が働くか
+                                     # どうかを指定する
     #---------------------------------------------------------------------------------------------------
 
     #---------------------------------------------------------------------------------------------------
@@ -437,14 +434,14 @@ def configure(keymap):
     ## IME の「単語登録」プログラムとそのパラメータを指定する
 
     ## Microsoft IME の場合
-    if ime_type == "Microsoft":
-        word_register_name = r"C:\Windows\System32\IME\IMEJP\IMJPDCT.EXE"
-        word_register_param = ""
+    if P.use_old_Microsoft_IME or P.use_new_Microsoft_IME:
+        P.word_register_name = r"C:\Windows\System32\IME\IMEJP\IMJPDCT.EXE"
+        P.word_register_param = ""
 
     ## Google日本語入力の場合
-    if ime_type == "Google":
-        word_register_name = r"C:\Program Files (x86)\Google\Google Japanese Input\GoogleIMEJaTool.exe"
-        word_register_param = "--mode=word_register_dialog"
+    if P.use_Google_IME:
+        P.word_register_name = r"C:\Program Files (x86)\Google\Google Japanese Input\GoogleIMEJaTool.exe"
+        P.word_register_param = "--mode=word_register_dialog"
     #---------------------------------------------------------------------------------------------------
 
     # 数引数の指定に Ctrl+数字キーを使うかを指定する（True: 使う、False: 使わない）
@@ -659,7 +656,7 @@ def configure(keymap):
                 if P.use_emacs_ime_mode:
                     enable_emacs_ime_mode()
             else:
-                if ime_reconv_region:
+                if P.ime_reconv_region:
                     if Fakeymacs.forward_direction is not None:
                         self_insert_command(reconv_key)()
                         if P.use_emacs_ime_mode:
@@ -974,7 +971,7 @@ def configure(keymap):
     def space():
         self_insert_command("Space")()
         if P.use_emacs_ime_mode:
-            if ime_reconv_space:
+            if P.ime_reconv_space:
                 if keymap.getWindow().getImeStatus():
                     if Fakeymacs.forward_direction is not None:
                         enable_emacs_ime_mode()
@@ -1575,17 +1572,17 @@ def configure(keymap):
 
     ## 「再変換」、「確定取り消し」のキー設定
     if P.reconversion_key:
-        if ime_type == "Google":
+        if P.use_Google_IME:
             # Google日本語入力を利用している時、ime_cancel_key に設定しているキーがキーバインドに
             # 定義されていると、「確定取り消し」が正常に動作しない場合がある。このため、そのキー
             # バインドの定義を削除する。
             try:
-                del keymap_emacs[addSideOfModifierKey(ime_cancel_key)]
+                del keymap_emacs[addSideOfModifierKey(P.ime_cancel_key)]
             except:
                 pass
 
         for key in P.reconversion_key:
-            define_key(keymap_emacs, key, reset_undo(reset_counter(reset_mark(reconversion(ime_reconv_key, ime_cancel_key)))))
+            define_key(keymap_emacs, key, reset_undo(reset_counter(reset_mark(reconversion(P.ime_reconv_key, P.ime_cancel_key)))))
 
 
     ###########################################################################
@@ -1973,7 +1970,7 @@ def configure(keymap):
         define_key(keymap_global, next_key,     move_window_to_next_desktop)
 
     # IME の「単語登録」プログラムの起動
-    define_key(keymap_global, P.word_register_key, keymap.ShellExecuteCommand(None, word_register_name, word_register_param, ""))
+    define_key(keymap_global, P.word_register_key, keymap.ShellExecuteCommand(None, P.word_register_name, P.word_register_param, ""))
 
 
     ###########################################################################
