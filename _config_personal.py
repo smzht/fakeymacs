@@ -29,6 +29,10 @@ P.ime_target          += [
                          ]
 
 # キーマップ毎にキー設定をスキップするキーを指定する
+# （リストに指定するキーは、define_key の第二引数に指定する記法のキーとしてください。"A-v" や "C-v"
+#   のような指定の他に、"M-f" や "Ctl-x d" などの指定も可能です。）
+# （ここで指定したキーに新たに別のキー設定をしたいときには、「-2」が付くセクション内で define_key2
+#   関数を利用して定義してください）
 P.skip_settings_key    = {"keymap_global"    : [],
                           "keymap_emacs"     : [],
                           "keymap_ime"       : [],
@@ -39,6 +43,8 @@ P.skip_settings_key    = {"keymap_global"    : [],
                          }
 
 # Emacs のキーバインドにするアプリケーションソフトで、Emacs キーバインドから除外するキーを指定する
+# （リストに指定するキーは、Keyhac で指定可能なマルチストロークではないキーとしてください。
+#   Fakeymacs の記法の "M-f" や "Ctl-x d" などの指定はできません。"A-v"、"C-v" などが指定可能です。）
 P.emacs_exclusion_key  = {"chrome.exe"       : ["C-l", "C-t"],
                           "msedge.exe"       : ["C-l", "C-t"],
                           "firefox.exe"      : ["C-l", "C-t"],

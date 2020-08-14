@@ -278,6 +278,7 @@ def configure(keymap):
     # キーマップ毎にキー設定をスキップするキーを指定する
     # （リストに指定するキーは、define_key の第二引数に指定する記法のキーとしてください。"A-v" や "C-v"
     #   のような指定の他に、"M-f" や "Ctl-x d" などの指定も可能です。）
+    # （ここで指定したキーに新たに別のキー設定をしたいときには、define_key2 関数を利用してください）
     P.skip_settings_key    = {"keymap_global"    : [],
                               "keymap_emacs"     : [],
                               "keymap_ime"       : [],
