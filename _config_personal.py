@@ -65,16 +65,18 @@ emacsclient_key = "C-Period"
 emacsclient_name = r"<Windows パス>\wslclient-n.exe"
 
 # emacsclient プログラムの起動
-def emacsclient():
-    clipboard_text = getClipboardText()
-    if clipboard_text:
-        path = re.sub("\n|\r", "", clipboard_text.strip())
-        path = re.sub(r'(\\+)"', r'\1\1"', path)
-        path = re.sub('"', r'\"', path)
-        path = re.sub('^', '"', path)
-        keymap.ShellExecuteCommand(None, emacsclient_name, path, "")()
+def emacsclient(keymap):
+    def _func():
+        clipboard_text = getClipboardText()
+        if clipboard_text:
+            path = re.sub("\n|\r", "", clipboard_text.strip())
+            path = re.sub(r'(\\+)"', r'\1\1"', path)
+            path = re.sub('"', r'\"', path)
+            path = re.sub('^', '"', path)
+            keymap.ShellExecuteCommand(None, emacsclient_name, path, "")()
+    return _func
 
-define_key(keymap_emacs, emacsclient_key, emacsclient)
+define_key(keymap_emacs, emacsclient_key, emacsclient(keymap))
 
 ####################################################################################################
 ## クリップボードリストの設定
