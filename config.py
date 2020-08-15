@@ -167,6 +167,7 @@ def configure(keymap):
         with open(dataPath() + "\config_personal.py", "r", encoding="utf-8") as f:
             config_personal = f.read()
     except:
+        print("個人設定ファイル config_personal.py は存在しないため、読み込みしていません")
         config_personal = ""
 
     def read_config_personal(section):
@@ -178,7 +179,7 @@ def configure(keymap):
                 config_section = re.sub(r"^##.*", r"", config_section, flags=re.MULTILINE)
             except:
                 config_section = ""
-                print("個人設定のファイルのセクション {} の読み込みに失敗しました".format(section))
+                print("個人設定ファイルのセクション {} の読み込みに失敗しました".format(section))
         else:
             config_section = ""
 
