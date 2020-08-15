@@ -156,6 +156,7 @@ def configure(keymap):
     P.use_new_Microsoft_IME = False
     P.use_Google_IME = False
 
+    # 個人設定ファイルのセクション [section-options] を読み込む
     exec(read_config_personal("[section-options]"))
 
 

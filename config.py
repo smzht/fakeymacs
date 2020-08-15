@@ -197,6 +197,7 @@ def configure(keymap):
     P.use_real_emacs = False
     P.use_change_keyboard = False
 
+    # 個人設定ファイルのセクション [section-options] を読み込む
     exec(read_config_personal("[section-options]"))
 
 
