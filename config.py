@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200815_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200815_02
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -498,6 +498,18 @@ def configure(keymap):
     P.window_movement_key_for_desktops = []
     # P.window_movement_key_for_desktops += [["W-p", "W-n"]]
     # P.window_movement_key_for_desktops += [["W-Up", "W-Down"]]
+
+    # ウィンドウ操作（other_window、restore_window など）の対象としたくないアプリケーションソフトの
+    # “クラス名称”を指定する
+    # （re.match 関数（先頭からのマッチ）の正規表現に「|」を使って繋げて指定してください。
+    #   完全マッチとするためには $ の指定が必要です。）
+    P.window_operation_exclusion_class = r"Progman$"
+
+    # ウィンドウ操作（other_window、restore_window など）の対象としたくないアプリケーションソフトの
+    # “プロセス名称”を指定する
+    # （re.match 関数（先頭からのマッチ）の正規表現に「|」を使って繋げて指定してください。
+    #   完全マッチとするためには $ の指定が必要です。）
+    P.window_operation_exclusion_process = r"RocketDock\.exe$"  # サンプルとして RocketDock.exe を登録
 
     # shell_command 関数で起動するアプリケーションソフトを指定する
     # （パスが通っていない場所にあるコマンドは、絶対パスで指定してください）
@@ -1862,19 +1874,9 @@ def configure(keymap):
                 title = wnd.getText()
 
                 if class_name == "Emacs" or title != "":
-
-                    # 操作の対象としたくないアプリケーションソフトの“クラス名称”を、re.match 関数
-                    # （先頭からのマッチ）の正規表現に「|」を使って繋げて指定してください。
-                    # （完全マッチとするためには $ の指定が必要です。）
-                    if not re.match(r"Progman$", class_name):
-
+                    if not re.match(P.window_operation_exclusion_class, class_name):
                         process_name = wnd.getProcessName()
-
-                        # 操作の対象としたくないアプリケーションソフトの“プロセス名称”を、re.match 関数
-                        # （先頭からのマッチ）の正規表現に「|」を使って繋げて指定してください。
-                        # （完全マッチとするためには $ の指定が必要です。）
-                        if not re.match(r"RocketDock\.exe$", process_name): # サンプルとして RocketDock.exe を登録
-
+                        if not re.match(P.window_operation_exclusion_process, process_name):
                             # 表示されていないストアアプリ（「設定」等）が window_list に登録されるのを抑制する
                             if class_name == "Windows.UI.Core.CoreWindow":
                                 if title in window_dict:
@@ -2152,7 +2154,6 @@ def configure(keymap):
             ["電話番号",       "99-999-9999"],
         ]
         fixed_items[0][0] = list_formatter.format(fixed_items[0][0])
-        keymap.cblisters.append(["定型文", cblister_FixedPhrase(fixed_items)])
 
         # 日時をペーストする機能
         def dateAndTime(fmt):
@@ -2170,7 +2171,11 @@ def configure(keymap):
             ["HHMMSS",              dateAndTime("%H%M%S")],
         ]
         datetime_items[0][0] = list_formatter.format(datetime_items[0][0])
-        keymap.cblisters.append(["日時", cblister_FixedPhrase(datetime_items)])
+
+        keymap.cblisters += [
+            ["定型文", cblister_FixedPhrase(fixed_items)],
+            ["日時",   cblister_FixedPhrase(datetime_items)],
+        ]
 
         # 個人設定ファイルのセクション [section-clipboardList-1] を読み込む
         exec(read_config_personal("[section-clipboardList-1]"))
@@ -2210,7 +2215,6 @@ def configure(keymap):
             ["Thunderbird", keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\Mozilla Thunderbird\thunderbird.exe", "", "")],
         ]
         application_items[0][0] = list_formatter.format(application_items[0][0])
-        lclisters.append(["App", cblister_FixedPhrase(application_items)])
 
         # ウェブサイト
         website_items = [
@@ -2223,7 +2227,6 @@ def configure(keymap):
             ["NTEmacs＠ウィキ", keymap.ShellExecuteCommand(None, r"http://w.atwiki.jp/ntemacs/", "", "")],
         ]
         website_items[0][0] = list_formatter.format(website_items[0][0])
-        lclisters.append(["Website", cblister_FixedPhrase(website_items)])
 
         # その他
         other_items = [
@@ -2231,7 +2234,12 @@ def configure(keymap):
             ["Reload config.py", keymap.command_ReloadConfig],
         ]
         other_items[0][0] = list_formatter.format(other_items[0][0])
-        lclisters.append(["Other", cblister_FixedPhrase(other_items)])
+
+        lclisters = [
+            ["App",     cblister_FixedPhrase(application_items)],
+            ["Website", cblister_FixedPhrase(website_items)],
+            ["Other",   cblister_FixedPhrase(other_items)],
+        ]
 
         # 個人設定ファイルのセクション [section-lancherList-1] を読み込む
         exec(read_config_personal("[section-lancherList-1]"))
