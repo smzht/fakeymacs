@@ -59,10 +59,10 @@ P.set_input_method_key += [["C-j", None]]
 # [section-base-2] ---------------------------------------------------------------------------------
 
 # emacsclient プログラムを起動するキーを指定する
-P.emacsclient_key = "C-Period"
+emacsclient_key = "C-Period"
 
 # emacsclient プログラムを指定する
-P.emacsclient_name = r"<Windows パス>\wslclient-n.exe"
+emacsclient_name = r"<Windows パス>\wslclient-n.exe"
 
 # emacsclient プログラムの起動
 def emacsclient():
@@ -72,9 +72,9 @@ def emacsclient():
         path = re.sub(r'(\\+)"', r'\1\1"', path)
         path = re.sub('"', r'\"', path)
         path = re.sub('^', '"', path)
-        keymap.ShellExecuteCommand(None, P.emacsclient_name, path, "")()
+        keymap.ShellExecuteCommand(None, emacsclient_name, path, "")()
 
-define_key(keymap_emacs, P.emacsclient_key, emacsclient)
+define_key(keymap_emacs, emacsclient_key, emacsclient)
 
 ####################################################################################################
 ## クリップボードリストの設定
