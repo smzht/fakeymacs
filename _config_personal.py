@@ -90,12 +90,75 @@ define_key(keymap_emacs, emacsclient_key, emacsclient(keymap, emacsclient_name))
 ## クリップボードリストの設定
 ####################################################################################################
 # [section-clipboardList-1] ------------------------------------------------------------------------
+
+# 定型文
+P.fixed_items = [
+    ["---------+ x 8", "---------+" * 8],
+    ["メールアドレス", "user_name@domain_name"],
+    ["住所",           "〒999-9999 ＮＮＮＮＮＮＮＮＮＮ"],
+    ["電話番号",       "99-999-9999"],
+]
+P.fixed_items[0][0] = list_formatter.format(P.fixed_items[0][0])
+
+# 日時
+P.datetime_items = [
+    ["YYYY/MM/DD HH:MM:SS", dateAndTime("%Y/%m/%d %H:%M:%S")],
+    ["YYYY/MM/DD",          dateAndTime("%Y/%m/%d")],
+    ["HH:MM:SS",            dateAndTime("%H:%M:%S")],
+    ["YYYYMMDD_HHMMSS",     dateAndTime("%Y%m%d_%H%M%S")],
+    ["YYYYMMDD",            dateAndTime("%Y%m%d")],
+    ["HHMMSS",              dateAndTime("%H%M%S")],
+]
+P.datetime_items[0][0] = list_formatter.format(P.datetime_items[0][0])
+
+P.cblisters = [
+    ["定型文", cblister_FixedPhrase(P.fixed_items)],
+    ["日時",   cblister_FixedPhrase(P.datetime_items)],
+]
+
 # [section-clipboardList-2] ------------------------------------------------------------------------
 
 ####################################################################################################
 ## ランチャーリストの設定
 ####################################################################################################
 # [section-lancherList-1] --------------------------------------------------------------------------
+
+# アプリケーションソフト
+P.application_items = [
+    ["Notepad",     keymap.ShellExecuteCommand(None, r"notepad.exe", "", "")],
+    ["Explorer",    keymap.ShellExecuteCommand(None, r"explorer.exe", "", "")],
+    ["Cmd",         keymap.ShellExecuteCommand(None, r"cmd.exe", "", "")],
+    ["MSEdge",      keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe", "", "")],
+    ["Chrome",      keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", "", "")],
+    ["Firefox",     keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\Mozilla Firefox\firefox.exe", "", "")],
+    ["Thunderbird", keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\Mozilla Thunderbird\thunderbird.exe", "", "")],
+]
+P.application_items[0][0] = list_formatter.format(P.application_items[0][0])
+
+# ウェブサイト
+P.website_items = [
+    ["Google",          keymap.ShellExecuteCommand(None, r"https://www.google.co.jp/", "", "")],
+    ["Facebook",        keymap.ShellExecuteCommand(None, r"https://www.facebook.com/", "", "")],
+    ["Twitter",         keymap.ShellExecuteCommand(None, r"https://twitter.com/", "", "")],
+    ["Keyhac",          keymap.ShellExecuteCommand(None, r"https://sites.google.com/site/craftware/keyhac-ja", "", "")],
+    ["Fakeymacs",       keymap.ShellExecuteCommand(None, r"https://github.com/smzht/fakeymacs", "", "")],
+    ["NTEmacs＠ウィキ", keymap.ShellExecuteCommand(None, r"http://w.atwiki.jp/ntemacs/", "", "")],
+]
+P.website_items[0][0] = list_formatter.format(P.website_items[0][0])
+
+# その他
+P.other_items = [
+    ["Edit   config.py", keymap.command_EditConfig],
+    ["Reload config.py", keymap.command_ReloadConfig],
+]
+P.other_items[0][0] = list_formatter.format(P.other_items[0][0])
+
+P.lclisters = [
+    ["App",     cblister_FixedPhrase(P.application_items)],
+    ["Website", cblister_FixedPhrase(P.website_items)],
+    ["Other",   cblister_FixedPhrase(P.other_items)],
+]
+
 # [section-lancherList-2] --------------------------------------------------------------------------
 
 ####################################################################################################

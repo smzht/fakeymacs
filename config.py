@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200816_02
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200816_04
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -2131,13 +2131,13 @@ def configure(keymap):
         list_formatter = "{:30}"
 
         # 定型文
-        fixed_items = [
+        P.fixed_items = [
             ["---------+ x 8", "---------+" * 8],
             ["メールアドレス", "user_name@domain_name"],
             ["住所",           "〒999-9999 ＮＮＮＮＮＮＮＮＮＮ"],
             ["電話番号",       "99-999-9999"],
         ]
-        fixed_items[0][0] = list_formatter.format(fixed_items[0][0])
+        P.fixed_items[0][0] = list_formatter.format(P.fixed_items[0][0])
 
         # 日時をペーストする機能
         def dateAndTime(fmt):
@@ -2146,7 +2146,7 @@ def configure(keymap):
             return _func
 
         # 日時
-        datetime_items = [
+        P.datetime_items = [
             ["YYYY/MM/DD HH:MM:SS", dateAndTime("%Y/%m/%d %H:%M:%S")],
             ["YYYY/MM/DD",          dateAndTime("%Y/%m/%d")],
             ["HH:MM:SS",            dateAndTime("%H:%M:%S")],
@@ -2154,15 +2154,17 @@ def configure(keymap):
             ["YYYYMMDD",            dateAndTime("%Y%m%d")],
             ["HHMMSS",              dateAndTime("%H%M%S")],
         ]
-        datetime_items[0][0] = list_formatter.format(datetime_items[0][0])
+        P.datetime_items[0][0] = list_formatter.format(P.datetime_items[0][0])
 
-        keymap.cblisters += [
-            ["定型文", cblister_FixedPhrase(fixed_items)],
-            ["日時",   cblister_FixedPhrase(datetime_items)],
+        P.cblisters = [
+            ["定型文", cblister_FixedPhrase(P.fixed_items)],
+            ["日時",   cblister_FixedPhrase(P.datetime_items)],
         ]
 
         # 個人設定ファイルのセクション [section-clipboardList-1] を読み込む
         exec(read_config_personal("[section-clipboardList-1]"))
+
+        keymap.cblisters = [keymap.cblisters[0]] + P.cblisters
 
         def lw_clipboardList():
             keymap.command_ClipboardList()
@@ -2186,10 +2188,8 @@ def configure(keymap):
         # リストウィンドウのフォーマッタを定義する
         list_formatter = "{:30}"
 
-        lclisters = []
-
         # アプリケーションソフト
-        application_items = [
+        P.application_items = [
             ["Notepad",     keymap.ShellExecuteCommand(None, r"notepad.exe", "", "")],
             ["Explorer",    keymap.ShellExecuteCommand(None, r"explorer.exe", "", "")],
             ["Cmd",         keymap.ShellExecuteCommand(None, r"cmd.exe", "", "")],
@@ -2198,10 +2198,10 @@ def configure(keymap):
             ["Firefox",     keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\Mozilla Firefox\firefox.exe", "", "")],
             ["Thunderbird", keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\Mozilla Thunderbird\thunderbird.exe", "", "")],
         ]
-        application_items[0][0] = list_formatter.format(application_items[0][0])
+        P.application_items[0][0] = list_formatter.format(P.application_items[0][0])
 
         # ウェブサイト
-        website_items = [
+        P.website_items = [
             ["Analytics",       keymap.ShellExecuteCommand(None, r"https://www.google.com/analytics/web/?hl=ja&pli=1#report/content-overview/a40267130w69408738p71513965/%3F_u.date00%3D" + dateAndTime("%Y%m%d")() + r"%26_u.date01%3D" + dateAndTime("%Y%m%d")() + r"%26overview-dimensionSummary.selectedGroup%3Dsitecontent%26overview-dimensionSummary.selectedDimension%3Danalytics.pageTitle%26overview-graphOptions.selected%3Danalytics.nthHour/", "", "")],
             ["Google",          keymap.ShellExecuteCommand(None, r"https://www.google.co.jp/", "", "")],
             ["Facebook",        keymap.ShellExecuteCommand(None, r"https://www.facebook.com/", "", "")],
@@ -2210,19 +2210,19 @@ def configure(keymap):
             ["Fakeymacs",       keymap.ShellExecuteCommand(None, r"https://github.com/smzht/fakeymacs", "", "")],
             ["NTEmacs＠ウィキ", keymap.ShellExecuteCommand(None, r"http://w.atwiki.jp/ntemacs/", "", "")],
         ]
-        website_items[0][0] = list_formatter.format(website_items[0][0])
+        P.website_items[0][0] = list_formatter.format(P.website_items[0][0])
 
         # その他
-        other_items = [
+        P.other_items = [
             ["Edit   config.py", keymap.command_EditConfig],
             ["Reload config.py", keymap.command_ReloadConfig],
         ]
-        other_items[0][0] = list_formatter.format(other_items[0][0])
+        P.other_items[0][0] = list_formatter.format(P.other_items[0][0])
 
-        lclisters = [
-            ["App",     cblister_FixedPhrase(application_items)],
-            ["Website", cblister_FixedPhrase(website_items)],
-            ["Other",   cblister_FixedPhrase(other_items)],
+        P.lclisters = [
+            ["App",     cblister_FixedPhrase(P.application_items)],
+            ["Website", cblister_FixedPhrase(P.website_items)],
+            ["Other",   cblister_FixedPhrase(P.other_items)],
         ]
 
         # 個人設定ファイルのセクション [section-lancherList-1] を読み込む
@@ -2247,7 +2247,7 @@ def configure(keymap):
                         window_items.append([formatter.format(wnd.getProcessName(), wnd.getText()), popWindow(wnd)])
 
                 window_items.append([list_formatter.format("<Desktop>"), keymap.ShellExecuteCommand(None, r"shell:::{3080F90D-D7AD-11D9-BD98-0000947B0257}", "", "")])
-                listers = [["Window", cblister_FixedPhrase(window_items)]] + lclisters
+                listers = [["Window", cblister_FixedPhrase(window_items)]] + P.lclisters
 
                 try:
                     select_item = keymap.popListWindow(listers)
