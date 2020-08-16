@@ -2202,7 +2202,6 @@ def configure(keymap):
 
         # ウェブサイト
         P.website_items = [
-            ["Analytics",       keymap.ShellExecuteCommand(None, r"https://www.google.com/analytics/web/?hl=ja&pli=1#report/content-overview/a40267130w69408738p71513965/%3F_u.date00%3D" + dateAndTime("%Y%m%d")() + r"%26_u.date01%3D" + dateAndTime("%Y%m%d")() + r"%26overview-dimensionSummary.selectedGroup%3Dsitecontent%26overview-dimensionSummary.selectedDimension%3Danalytics.pageTitle%26overview-graphOptions.selected%3Danalytics.nthHour/", "", "")],
             ["Google",          keymap.ShellExecuteCommand(None, r"https://www.google.co.jp/", "", "")],
             ["Facebook",        keymap.ShellExecuteCommand(None, r"https://www.facebook.com/", "", "")],
             ["Twitter",         keymap.ShellExecuteCommand(None, r"https://twitter.com/", "", "")],
