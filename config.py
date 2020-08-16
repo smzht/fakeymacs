@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200816_04
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200816_05
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -2274,14 +2274,14 @@ def configure(keymap):
     ## C-Enter に F2（編集モード移行）を割り当てる（オプション）
     ####################################################################################################
     if P.use_edit_mode:
-        edit_mode_target = [["EXCEL.EXE",    "EXCEL*"],
-                            ["explorer.exe", "DirectUIHWND"]]
+        P.edit_mode_target = [["EXCEL.EXE",    "EXCEL*"],
+                              ["explorer.exe", "DirectUIHWND"]]
 
         # 個人設定ファイルのセクション [section-edit_mode-1] を読み込む
         exec(read_config_personal("[section-edit_mode-1]"))
 
         def is_edit_mode_target(window):
-            for processName, className in edit_mode_target:
+            for processName, className in P.edit_mode_target:
                 if checkWindow(processName, className, window):
                     return True
             return False
