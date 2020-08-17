@@ -203,7 +203,7 @@ def configure(keymap):
     P.use_real_emacs = False
     P.use_change_keyboard = False
 
-    # 個人設定ファイルのセクション [section-options] を読み込む
+    # 個人設定ファイルのセクション [section-options] を読み込んで実行する
     exec(compile(read_config_personal("[section-options]"), "<string>", "exec"))
 
 
@@ -529,7 +529,7 @@ def configure(keymap):
     #   ください。）
     P.is_newline_selectable_in_Excel = False
 
-    # 個人設定ファイルのセクション [section-base-1] を読み込む
+    # 個人設定ファイルのセクション [section-base-1] を読み込んで実行する
     exec(compile(read_config_personal("[section-base-1]"), "<string>", "exec"))
 
 
@@ -2115,7 +2115,7 @@ def configure(keymap):
     define_key(keymap_lw, "C-Enter", lw_exit_search(self_insert_command("C-Enter")))
     define_key(keymap_lw, "A-Enter", lw_exit_search(self_insert_command("C-Enter")))
 
-    # 個人設定ファイルのセクション [section-base-2] を読み込む
+    # 個人設定ファイルのセクション [section-base-2] を読み込んで実行する
     exec(compile(read_config_personal("[section-base-2]"), "<string>", "exec"))
 
 
@@ -2162,7 +2162,7 @@ def configure(keymap):
             ["日時",   cblister_FixedPhrase(P.datetime_items)],
         ]
 
-        # 個人設定ファイルのセクション [section-clipboardList-1] を読み込む
+        # 個人設定ファイルのセクション [section-clipboardList-1] を読み込んで実行する
         exec(compile(read_config_personal("[section-clipboardList-1]"), "<string>", "exec"))
 
         keymap.cblisters = [keymap.cblisters[0]] + P.cblisters
@@ -2173,7 +2173,7 @@ def configure(keymap):
         # クリップボードリストを起動する
         define_key(keymap_global, P.clipboardList_key, lw_reset_search(reset_search(reset_undo(reset_counter(reset_mark(lw_clipboardList))))))
 
-        # 個人設定ファイルのセクション [section-clipboardList-2] を読み込む
+        # 個人設定ファイルのセクション [section-clipboardList-2] を読み込んで実行する
         exec(compile(read_config_personal("[section-clipboardList-2]"), "<string>", "exec"))
 
 
@@ -2225,7 +2225,7 @@ def configure(keymap):
             ["Other",   cblister_FixedPhrase(P.other_items)],
         ]
 
-        # 個人設定ファイルのセクション [section-lancherList-1] を読み込む
+        # 個人設定ファイルのセクション [section-lancherList-1] を読み込んで実行する
         exec(compile(read_config_personal("[section-lancherList-1]"), "<string>", "exec"))
 
         def lw_lancherList():
@@ -2267,7 +2267,7 @@ def configure(keymap):
         # ランチャーリストを起動する
         define_key(keymap_global, P.lancherList_key, lw_reset_search(reset_search(reset_undo(reset_counter(reset_mark(lw_lancherList))))))
 
-        # 個人設定ファイルのセクション [section-lancherList-2] を読み込む
+        # 個人設定ファイルのセクション [section-lancherList-2] を読み込んで実行する
         exec(compile(read_config_personal("[section-lancherList-2]"), "<string>", "exec"))
 
 
@@ -2278,7 +2278,7 @@ def configure(keymap):
         P.edit_mode_target = [["EXCEL.EXE",    "EXCEL*"],
                               ["explorer.exe", "DirectUIHWND"]]
 
-        # 個人設定ファイルのセクション [section-edit_mode-1] を読み込む
+        # 個人設定ファイルのセクション [section-edit_mode-1] を読み込んで実行する
         exec(compile(read_config_personal("[section-edit_mode-1]"), "<string>", "exec"))
 
         def is_edit_mode_target(window):
@@ -2291,7 +2291,7 @@ def configure(keymap):
 
         define_key(keymap_edit_mode, "C-Enter", reset_search(reset_undo(reset_counter(reset_mark(self_insert_command("F2"))))))
 
-        # 個人設定ファイルのセクション [section-edit_mode-2] を読み込む
+        # 個人設定ファイルのセクション [section-edit_mode-2] を読み込んで実行する
         exec(compile(read_config_personal("[section-edit_mode-2]"), "<string>", "exec"))
 
 
@@ -2310,7 +2310,7 @@ def configure(keymap):
                            "Xpra-Launcher.exe", # Xpra
                           ]
 
-        # 個人設定ファイルのセクション [section-real_emacs-1] を読み込む
+        # 個人設定ファイルのセクション [section-real_emacs-1] を読み込んで実行する
         exec(compile(read_config_personal("[section-real_emacs-1]"), "<string>", "exec"))
 
         def is_real_emacs(window):
@@ -2338,7 +2338,7 @@ def configure(keymap):
         # keymap_real_emacs["O-LAlt"] = keymap.InputKeyCommand("C-F1")  # 左 Alt キーの単押し
         # keymap_real_emacs["O-RAlt"] = keymap.InputKeyCommand("C-F2")  # 右 Alt キーの単押し
 
-        # 個人設定ファイルのセクション [section-real_emacs-2] を読み込む
+        # 個人設定ファイルのセクション [section-real_emacs-2] を読み込んで実行する
         exec(compile(read_config_personal("[section-real_emacs-2]"), "<string>", "exec"))
 
 
@@ -2357,7 +2357,7 @@ def configure(keymap):
         keymap.replaceKey(236, "BackSlash")      # [￥] キーを BackSlash キーにする
         keymap.replaceKey("BackSlash", "Return") # [ ]] キーを Enter キーにする
 
-        # 個人設定ファイルのセクション [section-change_keyboard-1] を読み込む
+        # 個人設定ファイルのセクション [section-change_keyboard-1] を読み込んで実行する
         exec(compile(read_config_personal("[section-change_keyboard-1]"), "<string>", "exec"))
 
         # リモートデスクトップで接続する場合など、一つの OS を英語キーボードと日本語キーボード
@@ -2388,5 +2388,5 @@ def configure(keymap):
 
         define_key(keymap_global, "C-S-c", change_keyboard)
 
-        # 個人設定ファイルのセクション [section-change_keyboard-2] を読み込む
+        # 個人設定ファイルのセクション [section-change_keyboard-2] を読み込んで実行する
         exec(compile(read_config_personal("[section-change_keyboard-2]"), "<string>", "exec"))

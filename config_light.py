@@ -162,7 +162,7 @@ def configure(keymap):
     P.use_new_Microsoft_IME = False
     P.use_Google_IME = False
 
-    # 個人設定ファイルのセクション [section-options] を読み込む
+    # 個人設定ファイルのセクション [section-options] を読み込んで実行する
     exec(compile(read_config_personal("[section-options]"), "<string>", "exec"))
 
 
@@ -434,7 +434,7 @@ def configure(keymap):
     #   ください。）
     P.is_newline_selectable_in_Excel = False
 
-    # 個人設定ファイルのセクション [section-base-1] を読み込む
+    # 個人設定ファイルのセクション [section-base-1] を読み込んで実行する
     exec(compile(read_config_personal("[section-base-1]"), "<string>", "exec"))
 
 
@@ -1742,5 +1742,5 @@ def configure(keymap):
     define_key(keymap_tsw, "A-n", next_window)
     define_key(keymap_tsw, "A-g", self_insert_command("A-Esc"))
 
-    # 個人設定ファイルのセクション [section-base-2] を読み込む
+    # 個人設定ファイルのセクション [section-base-2] を読み込んで実行する
     exec(compile(read_config_personal("[section-base-2]"), "<string>", "exec"))
