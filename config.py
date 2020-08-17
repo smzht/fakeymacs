@@ -17,6 +17,7 @@
 # ＜共通の仕様＞
 # ・emacs_target_class 変数、not_emacs_target 変数、ime_target 変数で、Emacsキーバインドや
 #   IME の切り替えキーバインドの対象とするアプリケーションソフトを指定できる。
+# ・skip_settings_key 変数で、キーマップ毎にキー設定をスキップするキーを指定できる。
 # ・emacs_exclusion_key 変数で、Emacs キーバインドから除外するキーを指定できる。
 # ・not_clipboard_target 変数で、clipboard 監視の対象外とするアプリケーションソフトを指定
 #   できる。
