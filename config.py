@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200818_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200818_02
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -204,7 +204,7 @@ def configure(keymap):
     P.use_change_keyboard = False
 
     # 個人設定ファイルのセクション [section-options] を読み込んで実行する
-    exec(compile(read_config_personal("[section-options]"), "<string>", "exec"))
+    exec(read_config_personal("[section-options]"))
 
 
     ####################################################################################################
@@ -530,7 +530,7 @@ def configure(keymap):
     P.is_newline_selectable_in_Excel = False
 
     # 個人設定ファイルのセクション [section-base-1] を読み込んで実行する
-    exec(compile(read_config_personal("[section-base-1]"), "<string>", "exec"))
+    exec(read_config_personal("[section-base-1]"))
 
 
     ###########################################################################
@@ -2116,7 +2116,7 @@ def configure(keymap):
     define_key(keymap_lw, "A-Enter", lw_exit_search(self_insert_command("C-Enter")))
 
     # 個人設定ファイルのセクション [section-base-2] を読み込んで実行する
-    exec(compile(read_config_personal("[section-base-2]"), "<string>", "exec"))
+    exec(read_config_personal("[section-base-2]"))
 
 
     ####################################################################################################
@@ -2163,7 +2163,7 @@ def configure(keymap):
         ]
 
         # 個人設定ファイルのセクション [section-clipboardList-1] を読み込んで実行する
-        exec(compile(read_config_personal("[section-clipboardList-1]"), "<string>", "exec"))
+        exec(read_config_personal("[section-clipboardList-1]"))
 
         keymap.cblisters = [keymap.cblisters[0]] + P.cblisters
 
@@ -2174,7 +2174,7 @@ def configure(keymap):
         define_key(keymap_global, P.clipboardList_key, lw_reset_search(reset_search(reset_undo(reset_counter(reset_mark(lw_clipboardList))))))
 
         # 個人設定ファイルのセクション [section-clipboardList-2] を読み込んで実行する
-        exec(compile(read_config_personal("[section-clipboardList-2]"), "<string>", "exec"))
+        exec(read_config_personal("[section-clipboardList-2]"))
 
 
     ####################################################################################################
@@ -2226,7 +2226,7 @@ def configure(keymap):
         ]
 
         # 個人設定ファイルのセクション [section-lancherList-1] を読み込んで実行する
-        exec(compile(read_config_personal("[section-lancherList-1]"), "<string>", "exec"))
+        exec(read_config_personal("[section-lancherList-1]"))
 
         def lw_lancherList():
             def popLancherList():
@@ -2268,7 +2268,7 @@ def configure(keymap):
         define_key(keymap_global, P.lancherList_key, lw_reset_search(reset_search(reset_undo(reset_counter(reset_mark(lw_lancherList))))))
 
         # 個人設定ファイルのセクション [section-lancherList-2] を読み込んで実行する
-        exec(compile(read_config_personal("[section-lancherList-2]"), "<string>", "exec"))
+        exec(read_config_personal("[section-lancherList-2]"))
 
 
     ####################################################################################################
@@ -2279,7 +2279,7 @@ def configure(keymap):
                               ["explorer.exe", "DirectUIHWND"]]
 
         # 個人設定ファイルのセクション [section-edit_mode-1] を読み込んで実行する
-        exec(compile(read_config_personal("[section-edit_mode-1]"), "<string>", "exec"))
+        exec(read_config_personal("[section-edit_mode-1]"))
 
         def is_edit_mode_target(window):
             for processName, className in P.edit_mode_target:
@@ -2292,7 +2292,7 @@ def configure(keymap):
         define_key(keymap_edit_mode, "C-Enter", reset_search(reset_undo(reset_counter(reset_mark(self_insert_command("F2"))))))
 
         # 個人設定ファイルのセクション [section-edit_mode-2] を読み込んで実行する
-        exec(compile(read_config_personal("[section-edit_mode-2]"), "<string>", "exec"))
+        exec(read_config_personal("[section-edit_mode-2]"))
 
 
     ####################################################################################################
@@ -2311,7 +2311,7 @@ def configure(keymap):
                           ]
 
         # 個人設定ファイルのセクション [section-real_emacs-1] を読み込んで実行する
-        exec(compile(read_config_personal("[section-real_emacs-1]"), "<string>", "exec"))
+        exec(read_config_personal("[section-real_emacs-1]"))
 
         def is_real_emacs(window):
             if (window.getClassName() == "Emacs" or
@@ -2339,7 +2339,7 @@ def configure(keymap):
         # keymap_real_emacs["O-RAlt"] = keymap.InputKeyCommand("C-F2")  # 右 Alt キーの単押し
 
         # 個人設定ファイルのセクション [section-real_emacs-2] を読み込んで実行する
-        exec(compile(read_config_personal("[section-real_emacs-2]"), "<string>", "exec"))
+        exec(read_config_personal("[section-real_emacs-2]"))
 
 
     ####################################################################################################
@@ -2358,7 +2358,7 @@ def configure(keymap):
         keymap.replaceKey("BackSlash", "Return") # [ ]] キーを Enter キーにする
 
         # 個人設定ファイルのセクション [section-change_keyboard-1] を読み込んで実行する
-        exec(compile(read_config_personal("[section-change_keyboard-1]"), "<string>", "exec"))
+        exec(read_config_personal("[section-change_keyboard-1]"))
 
         # リモートデスクトップで接続する場合など、一つの OS を英語キーボードと日本語キーボード
         # とで混在して利用する場合の切り替えの設定
@@ -2389,4 +2389,4 @@ def configure(keymap):
         define_key(keymap_global, "C-S-c", change_keyboard)
 
         # 個人設定ファイルのセクション [section-change_keyboard-2] を読み込んで実行する
-        exec(compile(read_config_personal("[section-change_keyboard-2]"), "<string>", "exec"))
+        exec(read_config_personal("[section-change_keyboard-2]"))

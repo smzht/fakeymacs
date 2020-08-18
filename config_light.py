@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200818_01
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200818_02
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -163,7 +163,7 @@ def configure(keymap):
     P.use_Google_IME = False
 
     # 個人設定ファイルのセクション [section-options] を読み込んで実行する
-    exec(compile(read_config_personal("[section-options]"), "<string>", "exec"))
+    exec(read_config_personal("[section-options]"))
 
 
     ####################################################################################################
@@ -435,7 +435,7 @@ def configure(keymap):
     P.is_newline_selectable_in_Excel = False
 
     # 個人設定ファイルのセクション [section-base-1] を読み込んで実行する
-    exec(compile(read_config_personal("[section-base-1]"), "<string>", "exec"))
+    exec(read_config_personal("[section-base-1]"))
 
 
     ###########################################################################
@@ -1743,4 +1743,4 @@ def configure(keymap):
     define_key(keymap_tsw, "A-g", self_insert_command("A-Esc"))
 
     # 個人設定ファイルのセクション [section-base-2] を読み込んで実行する
-    exec(compile(read_config_personal("[section-base-2]"), "<string>", "exec"))
+    exec(read_config_personal("[section-base-2]"))
