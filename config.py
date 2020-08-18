@@ -2208,7 +2208,7 @@ def configure(keymap):
             ["Twitter",         keymap.ShellExecuteCommand(None, r"https://twitter.com/", "", "")],
             ["Keyhac",          keymap.ShellExecuteCommand(None, r"https://sites.google.com/site/craftware/keyhac-ja", "", "")],
             ["Fakeymacs",       keymap.ShellExecuteCommand(None, r"https://github.com/smzht/fakeymacs", "", "")],
-            ["NTEmacs＠ウィキ", keymap.ShellExecuteCommand(None, r"http://w.atwiki.jp/ntemacs/", "", "")],
+            ["NTEmacs＠ウィキ", keymap.ShellExecuteCommand(None, r"https://w.atwiki.jp/ntemacs/", "", "")],
         ]
         P.website_items[0][0] = list_formatter.format(P.website_items[0][0])
 
