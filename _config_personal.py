@@ -71,7 +71,8 @@ P.set_input_method_key += [["C-j", None]]
 # https://w.atwiki.jp/ntemacs/pages/75.html
 
 # emacsclient プログラムを起動するキーを指定する
-emacsclient_key = "C-Period"
+emacsclient_key = None
+# emacsclient_key = "C-Period"
 
 # emacsclient プログラムを指定する
 emacsclient_name = r"<Windows パス>\wslclient-n.exe"
