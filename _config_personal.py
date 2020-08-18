@@ -64,11 +64,19 @@ P.emacs_exclusion_key  = {"chrome.exe"       : ["C-l", "C-t"],
                           "firefox.exe"      : ["C-l", "C-t"],
                          }
 
+# 左右どちらの Ctrlキーを使うかを指定する（"L": 左、"R": 右）
 P.side_of_ctrl_key = "R"
-P.set_input_method_key += [["C-j", None]]
-# P.desktop_switching_key += [["W-Left", "W-Right"]]
-# P.window_movement_key_for_desktops += [["W-p", "W-n"]]
-# P.window_movement_key_for_desktops += [["W-Up", "W-Down"]]
+
+# IME を切り替えるキーの組み合わせ（disable、enable の順）を指定する（複数指定可）
+
+## LAlt の単押しで英数入力、RAlt の単押しで日本語入力となる
+# P.set_input_method_key += [["O-LAlt", "O-RAlt"]]
+
+## C-j や C-j C-j で 英数入力となる（toggle_input_method_key の設定と併せ、C-j C-o で日本語入力となる）
+# P.set_input_method_key += [["C-j", None]]
+
+## C-j で英数入力、C-o で日本語入力となる（toggle_input_method_key の設定より優先）
+# P.set_input_method_key += [["C-j", "C-o"]]
 
 # [section-base-2] ---------------------------------------------------------------------------------
 
