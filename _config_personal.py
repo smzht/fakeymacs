@@ -12,14 +12,16 @@
 # [section-options] --------------------------------------------------------------------------------
 
 # IMEの設定（３つの設定のいずれか一つを True にする）
-P.use_old_Microsoft_IME = False
+P.use_old_Microsoft_IME = True
 P.use_new_Microsoft_IME = False
-P.use_Google_IME = True
+P.use_Google_IME = False
 
 # 追加機能のオプションの設定
-P.use_edit_mode = True
-P.use_real_emacs = True
-P.use_change_keyboard = True
+P.use_clipboardList = True
+P.use_lancherList = True
+P.use_edit_mode = False
+P.use_real_emacs = False
+P.use_change_keyboard = False
 
 ####################################################################################################
 ## 基本設定
@@ -27,10 +29,12 @@ P.use_change_keyboard = True
 # [section-base-1] ---------------------------------------------------------------------------------
 
 # Emacs のキーバインドに“したくない”アプリケーションソフトを指定する
+# P.not_emacs_target.remove("Code.exe")
 P.not_emacs_target    += [
                          ]
 
 # IME の切り替え“のみをしたい”アプリケーションソフトを指定する
+# P.ime_target.remove("Code.exe")
 P.ime_target          += [
                          ]
 
