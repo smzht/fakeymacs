@@ -156,6 +156,9 @@ def configure(keymap):
     ## 初期設定
     ####################################################################################################
 
+    keymap.editor = r"notepad.exe"
+    keymap.setFont("ＭＳ ゴシック", 12)
+
     # OS に設定しているキーボードタイプが日本語キーボードかどうかを設定する（自動設定）
     # （True: 日本語キーボード、False: 英語キーボード）
     # （ http://tokovalue.jp/function/GetKeyboardType.htm ）
@@ -2002,8 +2005,6 @@ def configure(keymap):
     #   ペースト操作で行うことを前提とし、上記のとおりの仕様としてます。もし、どうしても
     #   Enter（テキストの貼り付け）の入力を行いたい場合には、C-m の押下により対応できます。
     #   なお、C-Enter（引用記号付で貼り付け）の置き換えは、対応が複雑となるため行っておりません。）
-
-    keymap.setFont("ＭＳ ゴシック", 12)
 
     def is_list_window(window):
         if window.getClassName() == "KeyhacWindowClass" and window.getText() != "Keyhac":

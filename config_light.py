@@ -122,6 +122,9 @@ def configure(keymap):
     ## 初期設定
     ####################################################################################################
 
+    keymap.editor = r"notepad.exe"
+    keymap.setFont("ＭＳ ゴシック", 12)
+
     # OS に設定しているキーボードタイプが日本語キーボードかどうかを設定する（自動設定）
     # （True: 日本語キーボード、False: 英語キーボード）
     # （ http://tokovalue.jp/function/GetKeyboardType.htm ）
