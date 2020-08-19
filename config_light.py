@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200818_02
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200819_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -154,6 +154,9 @@ def configure(keymap):
             config_section = ""
 
         return config_section
+
+    # 個人設定ファイルのセクション [section-init] を読み込んで実行する
+    exec(read_config_personal("[section-init]"))
 
 
     ####################################################################################################
