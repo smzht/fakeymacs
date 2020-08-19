@@ -146,7 +146,7 @@ from keyhac import *
 class FakeymacsConfig:
     pass
 
-fc = fakeymacs_config = FakeymacsConfig()
+P = fc = fakeymacs_config = FakeymacsConfig()
 
 # Fakeymacs を制御する変数を格納するクラスを定義する
 class Fakeymacs:
