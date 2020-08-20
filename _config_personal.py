@@ -1,14 +1,12 @@
 ﻿# -*- mode: python; coding: utf-8-with-signature-dos -*-
 
+# https://stackoverflow.com/questions/2904274/globals-and-locals-in-python-exec
+# https://docs.python.org/3/library/functions.html?highlight=exec%20global#exec
+
 # 本ファイルは、config_personal.py というファイル名にすることで個人設定用ファイルとして機能します。
 # 本ファイルの設定には [] で括られたセクション名が定義されており、その単位で config.py の中に設定が
 # 取り込まれ、exec 関数により実行されます。config.py ファイル内の exec 関数をコールしているところを
 # 検索すると、何のセクションがどこで読み込まれるかが分かると思います。
-
-# このファイル内で関数を定義した場合、その関数内では上位のローカルスコープで定義している変数や関数
-# を利用できません。（python の仕様だと思います。）このため、このファイル内で定義する関数内で上位の
-# ローカルスコープの変数や関数を利用したい場合には、引数を使って明示的に引き渡すようにしてください。
-# （emacsclient 関数の実装例を参考としてください。）
 
 # 本ファイルはサンプルファイルです。本ファイルに記載のない設定でも、config.py から設定を取り込み、
 # カスタマイズしてご利用ください。
@@ -103,18 +101,16 @@ emacsclient_key = None
 emacsclient_name = r"<Windows パス>\wslclient-n.exe"
 
 # emacsclient プログラムの起動
-def emacsclient(keymap, emacsclient_name):
-    def _func():
-        clipboard_text = getClipboardText()
-        if clipboard_text:
-            path = re.sub("\n|\r", "", clipboard_text.strip())
-            path = re.sub(r'(\\+)"', r'\1\1"', path)
-            path = re.sub('"', r'\"', path)
-            path = re.sub('^', '"', path)
-            keymap.ShellExecuteCommand(None, emacsclient_name, path, "")()
-    return _func
+def emacsclient():
+    clipboard_text = getClipboardText()
+    if clipboard_text:
+        path = re.sub("\n|\r", "", clipboard_text.strip())
+        path = re.sub(r'(\\+)"', r'\1\1"', path)
+        path = re.sub('"', r'\"', path)
+        path = re.sub('^', '"', path)
+        keymap.ShellExecuteCommand(None, emacsclient_name, path, "")()
 
-define_key(keymap_emacs, emacsclient_key, emacsclient(keymap, emacsclient_name))
+define_key(keymap_emacs, emacsclient_key, emacsclient)
 
 ####################################################################################################
 ## クリップボードリストの設定

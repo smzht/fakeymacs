@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200819_02
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200820_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -108,18 +108,6 @@ import ctypes
 import keyhac_keymap
 from keyhac import *
 
-# カスタマイズパラメータを格納するクラスを定義する
-class FakeymacsConfig:
-    pass
-
-P = fc = fakeymacs_config = FakeymacsConfig()
-
-# Fakeymacs を制御する変数を格納するクラスを定義する
-class Fakeymacs:
-    pass
-
-fakeymacs = Fakeymacs()
-
 def configure(keymap):
 
     ####################################################################################################
@@ -128,6 +116,19 @@ def configure(keymap):
 
     keymap.editor = r"notepad.exe"
     keymap.setFont("ＭＳ ゴシック", 12)
+
+    # カスタマイズパラメータを格納するクラスを定義する
+    class FakeymacsConfig:
+        pass
+
+    fc = fakeymacs_config = FakeymacsConfig()
+    P = fc # 移行をスムースに行うため、当面残す
+
+    # Fakeymacs を制御する変数を格納するクラスを定義する
+    class Fakeymacs:
+        pass
+
+    fakeymacs = Fakeymacs()
 
     # OS に設定しているキーボードタイプが日本語キーボードかどうかを設定する（自動設定）
     # （True: 日本語キーボード、False: 英語キーボード）
@@ -160,7 +161,7 @@ def configure(keymap):
         return config_section
 
     # 個人設定ファイルのセクション [section-init] を読み込んで実行する
-    exec(read_config_personal("[section-init]"))
+    exec(read_config_personal("[section-init]"), dict(globals(), **locals()))
 
 
     ####################################################################################################
@@ -173,7 +174,7 @@ def configure(keymap):
     fc.use_Google_IME = False
 
     # 個人設定ファイルのセクション [section-options] を読み込んで実行する
-    exec(read_config_personal("[section-options]"))
+    exec(read_config_personal("[section-options]"), dict(globals(), **locals()))
 
 
     ####################################################################################################
@@ -445,7 +446,7 @@ def configure(keymap):
     fc.is_newline_selectable_in_Excel = False
 
     # 個人設定ファイルのセクション [section-base-1] を読み込んで実行する
-    exec(read_config_personal("[section-base-1]"))
+    exec(read_config_personal("[section-base-1]"), dict(globals(), **locals()))
 
 
     ###########################################################################
