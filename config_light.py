@@ -228,7 +228,7 @@ def configure(keymap):
                               ]
 
     # IME の切り替え“のみをしたい”アプリケーションソフトを指定する
-    # （指定できるアプリケーションソフトは、fc.not_emacs_target で（除外）指定したものからのみとなります）
+    # （指定できるアプリケーションソフトは、not_emacs_target で（除外）指定したものからのみとなります）
     fc.ime_target           = ["bash.exe",               # WSL
                                "ubuntu.exe",             # WSL
                                "ubuntu1604.exe",         # WSL
