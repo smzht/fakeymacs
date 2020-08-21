@@ -42,11 +42,13 @@ fc.use_change_keyboard = False
 # [section-base-1] ---------------------------------------------------------------------------------
 
 # Emacs のキーバインドに“したくない”アプリケーションソフトを指定する
+# （Keyhac のメニューから「内部ログ」を ON にすると processname や classname を確認することができます）
 # fc.not_emacs_target.remove("Code.exe")
 fc.not_emacs_target    += [
                           ]
 
 # IME の切り替え“のみをしたい”アプリケーションソフトを指定する
+# （指定できるアプリケーションソフトは、not_emacs_target で（除外）指定したものからのみとなります）
 # fc.ime_target.remove("Code.exe")
 fc.ime_target          += [
                           ]
