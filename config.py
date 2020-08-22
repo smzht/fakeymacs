@@ -2285,7 +2285,7 @@ def configure(keymap):
     ####################################################################################################
     if fc.use_edit_mode:
         fc.edit_mode_target = [["EXCEL.EXE",    "EXCEL*"],
-                              ["explorer.exe", "DirectUIHWND"]]
+                               ["explorer.exe", "DirectUIHWND"]]
 
         # 個人設定ファイルのセクション [section-edit_mode-1] を読み込んで実行する
         exec(read_config_personal("[section-edit_mode-1]"), dict(globals(), **locals()))
@@ -2313,11 +2313,11 @@ def configure(keymap):
         # Emacs を指定しています。
 
         fc.x_window_apps = ["XWin.exe",          # Cygwin/X
-                           "XWin_MobaX.exe",    # MobaXterm/X
-                           "Xming.exe",         # Xming
-                           "vcxsrv.exe",        # VcXsrv
-                           "Xpra-Launcher.exe", # Xpra
-                          ]
+                            "XWin_MobaX.exe",    # MobaXterm/X
+                            "Xming.exe",         # Xming
+                            "vcxsrv.exe",        # VcXsrv
+                            "Xpra-Launcher.exe", # Xpra
+                           ]
 
         # 個人設定ファイルのセクション [section-real_emacs-1] を読み込んで実行する
         exec(read_config_personal("[section-real_emacs-1]"), dict(globals(), **locals()))
