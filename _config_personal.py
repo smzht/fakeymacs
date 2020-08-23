@@ -29,7 +29,7 @@ fc.use_old_Microsoft_IME = True
 fc.use_new_Microsoft_IME = False
 fc.use_Google_IME = False
 
-# 追加機能のオプションの設定
+# 追加機能オプションの設定
 fc.use_clipboardList = True
 fc.use_lancherList = True
 fc.use_edit_mode = False
