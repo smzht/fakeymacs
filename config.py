@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200820_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200826_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -1137,19 +1137,37 @@ def configure(keymap):
 
         return keys_lists
 
-    def define_key(window_keymap, keys, command, skip_check=True, _locals=locals()):
+    def define_key(window_keymap, keys, command, skip_check=True):
         if skip_check:
+            # local スコープで参照できるようにする
+            try:
+                keymap_global
+                keymap_emacs
+                keymap_ime
+                keymap_ei
+                keymap_tsw
+                keymap_lw
+                keymap_edit_mode
+            except:
+                pass
+
             # 設定をスキップするキーの処理を行う
             for keymap_name in fc.skip_settings_key.keys():
-                if (keymap_name in _locals.keys() and
-                    window_keymap == _locals[keymap_name]):
+                if (keymap_name in locals().keys() and
+                    window_keymap == locals()[keymap_name]):
                     if keys in fc.skip_settings_key[keymap_name]:
                         print("skip settings key : [" + keymap_name + "] " + keys)
                         return
 
         def keyCommand(key):
-            if ("keymap_emacs" in _locals.keys() and
-                window_keymap == _locals["keymap_emacs"] and
+            # local スコープで参照できるようにする
+            try:
+                keymap_emacs
+            except:
+                pass
+
+            if ("keymap_emacs" in locals().keys() and
+                window_keymap == locals()["keymap_emacs"] and
                 type(command) is types.FunctionType):
                 def _command():
                     if key in fakeymacs.exclution_key:
@@ -1174,8 +1192,8 @@ def configure(keymap):
             else:
                 window_keymap[keys_list[0]][keys_list[1]] = keyCommand(None)
 
-    def define_key2(window_keymap, keys, command, skip_check=False, _locals=locals()):
-        define_key(window_keymap, keys, command, skip_check, _locals)
+    def define_key2(window_keymap, keys, command):
+        define_key(window_keymap, keys, command, skip_check=False)
 
     def self_insert_command(*keys):
         func = keymap.InputKeyCommand(*list(map(addSideOfModifierKey, keys)))
