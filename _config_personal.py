@@ -73,6 +73,7 @@ fc.skip_settings_key    = {"keymap_global"    : [],
 fc.emacs_exclusion_key  = {"chrome.exe"       : ["C-l", "C-t"],
                            "msedge.exe"       : ["C-l", "C-t"],
                            "firefox.exe"      : ["C-l", "C-t"],
+                           # "Code.exe"         : ["C-S-b", "C-S-f", "C-S-p", "C-S-n", "C-S-a", "C-S-e"],
                           }
 
 # 左右どちらの Ctrlキーを使うかを指定する（"L": 左、"R": 右）
