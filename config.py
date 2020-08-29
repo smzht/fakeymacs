@@ -256,16 +256,18 @@ def configure(keymap):
                                "VirtualBox.exe",         # VirtualBox
                                "XWin.exe",               # Cygwin/X
                                "XWin_MobaX.exe",         # MobaXterm/X
+                               "XWin_Cygwin_1.14.5.exe", # MobaXterm/X
+                               "XWin_Cygwin_1.16.3.exe", # MobaXterm/X
                                "Xming.exe",              # Xming
                                "vcxsrv.exe",             # VcXsrv
                                "X410.exe",               # X410
+                               "Xpra-Launcher.exe",      # Xpra
                                "putty.exe",              # PuTTY
                                "ttermpro.exe",           # TeraTerm
                                "MobaXterm.exe",          # MobaXterm
                                "TurboVNC.exe",           # TurboVNC
                                "vncviewer.exe",          # UltraVNC
                                "vncviewer64.exe",        # UltraVNC
-                               "Xpra-Launcher.exe",      # Xpra
                               ]
 
     # IME の切り替え“のみをしたい”アプリケーションソフトを指定する
@@ -2329,12 +2331,14 @@ def configure(keymap):
         # 機能させるための設定です。初期設定では NTEmacs（gnupack 含む）と Windows の Xサーバで動く
         # Emacs を指定しています。
 
-        fc.x_window_apps = ["XWin.exe",          # Cygwin/X
-                            "XWin_MobaX.exe",    # MobaXterm/X
-                            "Xming.exe",         # Xming
-                            "vcxsrv.exe",        # VcXsrv
-                            "X410.exe",          # X410
-                            "Xpra-Launcher.exe", # Xpra
+        fc.x_window_apps = ["XWin.exe",               # Cygwin/X
+                            "XWin_MobaX.exe",         # MobaXterm/X
+                            "XWin_Cygwin_1.14.5.exe", # MobaXterm/X
+                            "XWin_Cygwin_1.16.3.exe", # MobaXterm/X
+                            "Xming.exe",              # Xming
+                            "vcxsrv.exe",             # VcXsrv
+                            "X410.exe",               # X410
+                            "Xpra-Launcher.exe",      # Xpra
                            ]
 
         # 個人設定ファイルのセクション [section-real_emacs-1] を読み込んで実行する

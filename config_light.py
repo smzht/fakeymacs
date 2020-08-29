@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200826_01
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200829_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -215,16 +215,18 @@ def configure(keymap):
                                "VirtualBox.exe",         # VirtualBox
                                "XWin.exe",               # Cygwin/X
                                "XWin_MobaX.exe",         # MobaXterm/X
+                               "XWin_Cygwin_1.14.5.exe", # MobaXterm/X
+                               "XWin_Cygwin_1.16.3.exe", # MobaXterm/X
                                "Xming.exe",              # Xming
                                "vcxsrv.exe",             # VcXsrv
                                "X410.exe",               # X410
+                               "Xpra-Launcher.exe",      # Xpra
                                "putty.exe",              # PuTTY
                                "ttermpro.exe",           # TeraTerm
                                "MobaXterm.exe",          # MobaXterm
                                "TurboVNC.exe",           # TurboVNC
                                "vncviewer.exe",          # UltraVNC
                                "vncviewer64.exe",        # UltraVNC
-                               "Xpra-Launcher.exe",      # Xpra
                               ]
 
     # IME の切り替え“のみをしたい”アプリケーションソフトを指定する
