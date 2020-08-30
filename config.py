@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200829_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200830_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -1950,10 +1950,10 @@ def configure(keymap):
         self_insert_command("W-C-Right")()
 
     def move_window_to_previous_desktop():
-        self_insert_command("W-C-A-Left")()
+        self_insert_command("LW-LC-LA-Left")()
 
     def move_window_to_next_desktop():
-        self_insert_command("W-C-A-Right")()
+        self_insert_command("LW-LC-LA-Right")()
 
     ##################################################
     ## キーバインド（デスクトップ用）
