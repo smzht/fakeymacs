@@ -4,6 +4,9 @@
 ##
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200830_01
 ##
+fakeymacs_version = '''Fakeymacs ver.20200830_01
+  https://github.com/smzht/fakeymacs'''
+
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -2421,3 +2424,7 @@ def configure(keymap):
 
         # 個人設定ファイルのセクション [section-change_keyboard-2] を読み込んで実行する
         exec(read_config_personal("[section-change_keyboard-2]"), dict(globals(), **locals()))
+
+
+    print( fakeymacs_version )
+

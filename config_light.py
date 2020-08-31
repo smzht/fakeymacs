@@ -4,6 +4,8 @@
 ##
 ## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200829_01
 ##
+fakeymacs_version = '''Fakeymacs Light ver.20200829_01
+  https://github.com/smzht/fakeymacs'''
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
