@@ -1776,3 +1776,6 @@ def configure(keymap):
 
     # 個人設定ファイルのセクション [section-base-2] を読み込んで実行する
     exec(read_config_personal("[section-base-2]"))
+
+    print( fakeymacs_version )
+
