@@ -2,7 +2,7 @@
 
 ##                               nickname: Fakeymacs
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200830_01
+## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）ver.20200902_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -549,8 +549,8 @@ def configure(keymap):
     ## 基本機能の設定
     ###########################################################################
 
-    fakeymacs.last_window = None
     fakeymacs.ime_cancel = False
+    fakeymacs.last_window = None
 
     def is_emacs_target(window):
         if window != fakeymacs.last_window:
@@ -567,8 +567,9 @@ def configure(keymap):
             else:
                 fakeymacs.exclution_key = []
 
-            fakeymacs.last_window = window
+            reset_undo(reset_counter(reset_mark(lambda: None)))()
             fakeymacs.ime_cancel = False
+            fakeymacs.last_window = window
 
         if is_task_switching_window(window):
             return False
@@ -1960,12 +1961,12 @@ def configure(keymap):
     ##################################################
 
     # 表示しているウィンドウの中で、一番最近までフォーカスがあったウィンドウに移動
-    define_key(keymap_global, fc.other_window_key, reset_search(reset_undo(reset_counter(reset_mark(other_window)))))
+    define_key(keymap_global, fc.other_window_key, other_window)
 
     # アクティブウィンドウの切り替え
     for previous_key, next_key in fc.window_switching_key:
-        define_key(keymap_global, previous_key, reset_search(reset_undo(reset_counter(reset_mark(previous_window)))))
-        define_key(keymap_global, next_key,     reset_search(reset_undo(reset_counter(reset_mark(next_window)))))
+        define_key(keymap_global, previous_key, previous_window)
+        define_key(keymap_global, next_key,     next_window)
 
     # アクティブウィンドウのディスプレイ間移動
     for previous_key, next_key in fc.window_movement_key_for_displays:
@@ -1974,13 +1975,13 @@ def configure(keymap):
 
     # ウィンドウの最小化、リストア
     for restore_key, minimize_key in fc.window_minimize_key:
-        define_key(keymap_global, restore_key,  reset_search(reset_undo(reset_counter(reset_mark(restore_window)))))
-        define_key(keymap_global, minimize_key, reset_search(reset_undo(reset_counter(reset_mark(minimize_window)))))
+        define_key(keymap_global, restore_key,  restore_window)
+        define_key(keymap_global, minimize_key, minimize_window)
 
     # 仮想デスクトップの切り替え
     for previous_key, next_key in fc.desktop_switching_key:
-        define_key(keymap_global, previous_key, reset_search(reset_undo(reset_counter(reset_mark(previous_desktop)))))
-        define_key(keymap_global, next_key,     reset_search(reset_undo(reset_counter(reset_mark(next_desktop)))))
+        define_key(keymap_global, previous_key, previous_desktop)
+        define_key(keymap_global, next_key,     next_desktop)
 
     # アクティブウィンドウ仮想デスクトップの切り替え
     for previous_key, next_key in fc.window_movement_key_for_desktops:
@@ -2035,6 +2036,7 @@ def configure(keymap):
 
     def is_list_window(window):
         if window.getClassName() == "KeyhacWindowClass" and window.getText() != "Keyhac":
+            fakeymacs.lw_is_searching = False
             return True
         return False
 
@@ -2199,7 +2201,7 @@ def configure(keymap):
             keymap.command_ClipboardList()
 
         # クリップボードリストを起動する
-        define_key(keymap_global, fc.clipboardList_key, lw_reset_search(reset_search(reset_undo(reset_counter(reset_mark(lw_clipboardList))))))
+        define_key(keymap_global, fc.clipboardList_key, lw_clipboardList)
 
         # 個人設定ファイルのセクション [section-clipboardList-2] を読み込んで実行する
         exec(read_config_personal("[section-clipboardList-2]"), dict(globals(), **locals()))
@@ -2293,7 +2295,7 @@ def configure(keymap):
             keymap.delayedCall(popLancherList, 0)
 
         # ランチャーリストを起動する
-        define_key(keymap_global, fc.lancherList_key, lw_reset_search(reset_search(reset_undo(reset_counter(reset_mark(lw_lancherList))))))
+        define_key(keymap_global, fc.lancherList_key, lw_lancherList)
 
         # 個人設定ファイルのセクション [section-lancherList-2] を読み込んで実行する
         exec(read_config_personal("[section-lancherList-2]"), dict(globals(), **locals()))

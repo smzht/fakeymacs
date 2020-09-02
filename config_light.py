@@ -2,7 +2,7 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200829_01
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200902_01
 ##
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
@@ -454,8 +454,8 @@ def configure(keymap):
     ## 基本機能の設定
     ###########################################################################
 
-    fakeymacs.last_window = None
     fakeymacs.ime_cancel = False
+    fakeymacs.last_window = None
 
     def is_emacs_target(window):
         if window != fakeymacs.last_window:
@@ -472,8 +472,9 @@ def configure(keymap):
             else:
                 fakeymacs.exclution_key = []
 
-            fakeymacs.last_window = window
+            reset_undo(reset_counter(reset_mark(lambda: None)))()
             fakeymacs.ime_cancel = False
+            fakeymacs.last_window = window
 
         if is_task_switching_window(window):
             return False
@@ -1744,8 +1745,8 @@ def configure(keymap):
 
     # アクティブウィンドウの切り替え
     for previous_key, next_key in fc.window_switching_key:
-        define_key(keymap_global, previous_key, reset_search(reset_undo(reset_counter(reset_mark(previous_window)))))
-        define_key(keymap_global, next_key,     reset_search(reset_undo(reset_counter(reset_mark(next_window)))))
+        define_key(keymap_global, previous_key, previous_window)
+        define_key(keymap_global, next_key,     next_window)
 
     # IME の「単語登録」プログラムの起動
     define_key(keymap_global, fc.word_register_key, keymap.ShellExecuteCommand(None, fc.word_register_name, fc.word_register_param, ""))
