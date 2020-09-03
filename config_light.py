@@ -2,8 +2,11 @@
 
 ##                             nickname: Fakeymacs Light
 ##
-## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）ver.20200902_01
+## Windows の操作を Emacs のキーバインドで行うための設定 Light（Keyhac版）
 ##
+
+fakeymacs_cfgname = "Fakeymacs Light"
+fakeymacs_version = "20200902_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -159,6 +162,10 @@ def configure(keymap):
             config_section = ""
 
         return config_section
+
+    def startupString():
+        startup_string_formatter = "{} version {}:\n  https://github.com/smzht/fakeymacs\n"
+        return startup_string_formatter.format(fakeymacs_cfgname, fakeymacs_version)
 
     # 個人設定ファイルのセクション [section-init] を読み込んで実行する
     exec(read_config_personal("[section-init]"), dict(globals(), **locals()))
