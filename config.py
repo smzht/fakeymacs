@@ -26,6 +26,7 @@ fakeymacs_version = "20200902_01"
 #   できる。
 # ・左右どちらの Ctrlキーを使うかを side_of_ctrl_key 変数で指定できる。
 # ・左右どちらの Altキーを使うかを side_of_alt_key 変数で指定できる。
+# ・左右どちらの Winキーを使うかを side_of_win_key 変数で指定できる。
 # ・キーバインドの定義では次の表記が利用できる。
 #   ・S-    : Shiftキー
 #   ・C-    : Ctrlキー
