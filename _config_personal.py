@@ -45,13 +45,11 @@ fc.use_change_keyboard = False
 
 # Emacs のキーバインドに“したくない”アプリケーションソフトを指定する
 # （Keyhac のメニューから「内部ログ」を ON にすると processname や classname を確認することができます）
-# fc.not_emacs_target.remove("Code.exe")
 fc.not_emacs_target    += [
                           ]
 
 # IME の切り替え“のみをしたい”アプリケーションソフトを指定する
 # （指定できるアプリケーションソフトは、not_emacs_target で（除外）指定したものからのみとなります）
-# fc.ime_target.remove("Code.exe")
 fc.ime_target          += [
                           ]
 
@@ -75,8 +73,13 @@ fc.skip_settings_key    = {"keymap_global"    : [],
 fc.emacs_exclusion_key  = {"chrome.exe"       : ["C-l", "C-t"],
                            "msedge.exe"       : ["C-l", "C-t"],
                            "firefox.exe"      : ["C-l", "C-t"],
-                           # "Code.exe"         : ["C-S-b", "C-S-f", "C-S-p", "C-S-n", "C-S-a", "C-S-e"],
                           }
+
+# Code.exe で Fakeymacs の Emacs キーバインドを使う
+# （デフォルト設定では、Awesome Emacs Keymap を使うことを想定して除外しています）
+# fc.not_emacs_target.remove("Code.exe")
+# fc.ime_target.remove("Code.exe")
+# fc.emacs_exclusion_key += {"Code.exe" : ["C-S-b", "C-S-f", "C-S-p", "C-S-n", "C-S-a", "C-S-e"]}
 
 # 左右どちらの Ctrlキーを使うかを指定する（"L": 左、"R": 右）
 fc.side_of_ctrl_key = "L"
