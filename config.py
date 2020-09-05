@@ -2427,7 +2427,7 @@ def configure(keymap):
         fakeymacs.keyboard_status = None
         change_keyboard()
 
-        define_key(keymap_global, "C-S-c", change_keyboard)
+        define_key(keymap_global, "C-A-S-Space", change_keyboard)
 
         # 個人設定ファイルのセクション [section-change_keyboard-2] を読み込んで実行する
         exec(read_config_personal("[section-change_keyboard-2]"), dict(globals(), **locals()))
