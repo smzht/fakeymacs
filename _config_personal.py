@@ -101,26 +101,17 @@ fc.set_input_method_key += [["(29)", "(28)"]]
 
 # [section-base-2] ---------------------------------------------------------------------------------
 
-# https://w.atwiki.jp/ntemacs/pages/75.html
+# Everything プログラムを起動するキーを指定する
+everything_key = None
+# everything_key = "C-A-e"
 
-# emacsclient プログラムを起動するキーを指定する
-emacsclient_key = None
-# emacsclient_key = "C-Period"
+# Everything プログラムを指定する
+everything_name = r"C:\Program Files\Everything\everything.exe"
 
-# emacsclient プログラムを指定する
-emacsclient_name = r"<Windows パス>\wslclient-n.exe"
+def everything():
+    keymap.ShellExecuteCommand(None, everything_name, "", "")()
 
-# emacsclient プログラムの起動
-def emacsclient():
-    clipboard_text = getClipboardText()
-    if clipboard_text:
-        path = re.sub("\n|\r", "", clipboard_text.strip())
-        path = re.sub(r'(\\+)"', r'\1\1"', path)
-        path = re.sub('"', r'\"', path)
-        path = re.sub('^', '"', path)
-        keymap.ShellExecuteCommand(None, emacsclient_name, path, "")()
-
-define_key(keymap_emacs, emacsclient_key, emacsclient)
+define_key(keymap_global, everything_key, everything)
 
 ####################################################################################################
 ## クリップボードリストの設定
