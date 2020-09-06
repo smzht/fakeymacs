@@ -106,7 +106,7 @@ fc.set_input_method_key += [["(29)", "(28)"]]
 
 # アプリケーションキーを利用するキーを設定する
 # （Alt など使えない修飾キーもあるようです）
-# define_key(keymap_emacs, "C-m", self_insert_command("Apps"))
+# define_key(keymap_global, "C-m", self_insert_command("Apps"))
 
 # Everything プログラムを起動するキーを指定する
 everything_key = None
