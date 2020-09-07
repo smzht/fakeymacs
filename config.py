@@ -474,7 +474,7 @@ def configure(keymap):
     # アプリケーションキーとして利用するキーを指定する
     # （修飾キーに Alt は使えないようです）
     fc.application_key = None
-    # fc.application_key = "C-m"
+    # fc.application_key = "O-RCtrl"
     # fc.application_key = "W-m"
 
     # 数引数の指定に Ctrl+数字キーを使うかを指定する（True: 使う、False: 使わない）

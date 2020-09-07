@@ -104,9 +104,9 @@ fc.set_input_method_key += [["(29)", "(28)"]]
 
 # アプリケーションキーとして利用するキーを指定する
 # （修飾キーに Alt は使えないようです）
-application_key = None
-# application_key = "C-m"
-# application_key = "W-m"
+fc.application_key = None
+# fc.application_key = "O-RCtrl"
+# fc.application_key = "W-m"
 
 # [section-base-2] ---------------------------------------------------------------------------------
 
