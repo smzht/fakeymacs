@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs Light"
-fakeymacs_version = "20200902_01"
+fakeymacs_version = "20200907_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -426,6 +426,12 @@ def configure(keymap):
         fc.word_register_name = r"C:\Program Files (x86)\Google\Google Japanese Input\GoogleIMEJaTool.exe"
         fc.word_register_param = "--mode=word_register_dialog"
     #---------------------------------------------------------------------------------------------------
+
+    # アプリケーションキーとして利用するキーを指定する
+    # （修飾キーに Alt は使えないようです）
+    fc.application_key = None
+    # fc.application_key = "C-m"
+    # fc.application_key = "W-m"
 
     # 数引数の指定に Ctrl+数字キーを使うかを指定する（True: 使う、False: 使わない）
     # （False に指定しても、C-u 数字キーで数引数を指定することができます）
@@ -1699,14 +1705,17 @@ def configure(keymap):
 
 
     ###########################################################################
-    ## ファンクションの設定
+    ## アプリケーションキーの設定
     ###########################################################################
 
     keymap_global = keymap.defineWindowKeymap()
 
-    ##################################################
-    ## キーバインド（ファンクション用）
-    ##################################################
+    # アプリケーションキーの設定
+    define_key(keymap_global, fc.application_key, self_insert_command("Apps"))
+
+    ###########################################################################
+    ## ファンクションキーの設定
+    ###########################################################################
 
     ## Alt+数字キー列の設定
     if fc.use_alt_digit_key_for_f1_to_f12:
