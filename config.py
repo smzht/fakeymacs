@@ -98,6 +98,7 @@ fakeymacs_version = "20200907_01"
 # ・reconversion_key 変数の設定により、IME の「再変換」を行うキーを指定できる。
 #
 # ＜全てのアプリケーションソフトで共通の動き＞
+# ・application_key の設定により、アプリケーションキーとして利用するキーを指定できる。
 # ・use_alt_digit_key_for_f1_to_f12 の設定により、F1 から F12 を Alt+数字キー列として
 #   使うかを指定できる。
 # ・use_alt_shift_digit_key_for_f13_to_f24 の設定により、F13 から F24 を Alt+Shift+数字
