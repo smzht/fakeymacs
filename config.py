@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs"
-fakeymacs_version = "20200907_01"
+fakeymacs_version = "20200911_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -183,7 +183,7 @@ def configure(keymap):
         print("個人設定ファイル config_personal.py は存在しないため、読み込みしていません")
         config_personal = ""
 
-    def read_config_personal(section):
+    def readConfigPersonal(section):
         if config_personal:
             m = re.match(r".*(#\s{}.*?((?=#\s\[section-)|$)).*".format(re.escape(section)), config_personal,
                          flags=re.DOTALL)
@@ -203,7 +203,7 @@ def configure(keymap):
         return startup_string_formatter.format(fakeymacs_cfgname, fakeymacs_version)
 
     # 個人設定ファイルのセクション [section-init] を読み込んで実行する
-    exec(read_config_personal("[section-init]"), dict(globals(), **locals()))
+    exec(readConfigPersonal("[section-init]"), dict(globals(), **locals()))
 
 
     ####################################################################################################
@@ -223,7 +223,7 @@ def configure(keymap):
     fc.use_change_keyboard = False
 
     # 個人設定ファイルのセクション [section-options] を読み込んで実行する
-    exec(read_config_personal("[section-options]"), dict(globals(), **locals()))
+    exec(readConfigPersonal("[section-options]"), dict(globals(), **locals()))
 
 
     ####################################################################################################
@@ -556,7 +556,7 @@ def configure(keymap):
     fc.is_newline_selectable_in_Excel = False
 
     # 個人設定ファイルのセクション [section-base-1] を読み込んで実行する
-    exec(read_config_personal("[section-base-1]"), dict(globals(), **locals()))
+    exec(readConfigPersonal("[section-base-1]"), dict(globals(), **locals()))
 
 
     ###########################################################################
@@ -2163,7 +2163,7 @@ def configure(keymap):
     define_key(keymap_lw, "A-Enter", lw_exit_search(self_insert_command("C-Enter")))
 
     # 個人設定ファイルのセクション [section-base-2] を読み込んで実行する
-    exec(read_config_personal("[section-base-2]"), dict(globals(), **locals()))
+    exec(readConfigPersonal("[section-base-2]"), dict(globals(), **locals()))
 
 
     ####################################################################################################
@@ -2210,7 +2210,7 @@ def configure(keymap):
         ]
 
         # 個人設定ファイルのセクション [section-clipboardList-1] を読み込んで実行する
-        exec(read_config_personal("[section-clipboardList-1]"), dict(globals(), **locals()))
+        exec(readConfigPersonal("[section-clipboardList-1]"), dict(globals(), **locals()))
 
         keymap.cblisters = [keymap.cblisters[0]] + fc.cblisters
 
@@ -2221,7 +2221,7 @@ def configure(keymap):
         define_key(keymap_global, fc.clipboardList_key, lw_clipboardList)
 
         # 個人設定ファイルのセクション [section-clipboardList-2] を読み込んで実行する
-        exec(read_config_personal("[section-clipboardList-2]"), dict(globals(), **locals()))
+        exec(readConfigPersonal("[section-clipboardList-2]"), dict(globals(), **locals()))
 
 
     ####################################################################################################
@@ -2273,7 +2273,7 @@ def configure(keymap):
         ]
 
         # 個人設定ファイルのセクション [section-lancherList-1] を読み込んで実行する
-        exec(read_config_personal("[section-lancherList-1]"), dict(globals(), **locals()))
+        exec(readConfigPersonal("[section-lancherList-1]"), dict(globals(), **locals()))
 
         def lw_lancherList():
             def popLancherList():
@@ -2315,7 +2315,7 @@ def configure(keymap):
         define_key(keymap_global, fc.lancherList_key, lw_lancherList)
 
         # 個人設定ファイルのセクション [section-lancherList-2] を読み込んで実行する
-        exec(read_config_personal("[section-lancherList-2]"), dict(globals(), **locals()))
+        exec(readConfigPersonal("[section-lancherList-2]"), dict(globals(), **locals()))
 
 
     ####################################################################################################
@@ -2326,7 +2326,7 @@ def configure(keymap):
                                ["explorer.exe", "DirectUIHWND"]]
 
         # 個人設定ファイルのセクション [section-edit_mode-1] を読み込んで実行する
-        exec(read_config_personal("[section-edit_mode-1]"), dict(globals(), **locals()))
+        exec(readConfigPersonal("[section-edit_mode-1]"), dict(globals(), **locals()))
 
         def is_edit_mode_target(window):
             for processName, className in fc.edit_mode_target:
@@ -2339,7 +2339,7 @@ def configure(keymap):
         define_key(keymap_edit_mode, "C-Enter", reset_search(reset_undo(reset_counter(reset_mark(self_insert_command("F2"))))))
 
         # 個人設定ファイルのセクション [section-edit_mode-2] を読み込んで実行する
-        exec(read_config_personal("[section-edit_mode-2]"), dict(globals(), **locals()))
+        exec(readConfigPersonal("[section-edit_mode-2]"), dict(globals(), **locals()))
 
 
     ####################################################################################################
@@ -2361,7 +2361,7 @@ def configure(keymap):
                            ]
 
         # 個人設定ファイルのセクション [section-real_emacs-1] を読み込んで実行する
-        exec(read_config_personal("[section-real_emacs-1]"), dict(globals(), **locals()))
+        exec(readConfigPersonal("[section-real_emacs-1]"), dict(globals(), **locals()))
 
         def is_real_emacs(window):
             if (window.getClassName() == "Emacs" or
@@ -2389,7 +2389,7 @@ def configure(keymap):
         # keymap_real_emacs["O-RAlt"] = keymap.InputKeyCommand("C-F2")  # 右 Alt キーの単押し
 
         # 個人設定ファイルのセクション [section-real_emacs-2] を読み込んで実行する
-        exec(read_config_personal("[section-real_emacs-2]"), dict(globals(), **locals()))
+        exec(readConfigPersonal("[section-real_emacs-2]"), dict(globals(), **locals()))
 
 
     ####################################################################################################
@@ -2408,7 +2408,7 @@ def configure(keymap):
         keymap.replaceKey("BackSlash", "Return") # [ ]] キーを Enter キーにする
 
         # 個人設定ファイルのセクション [section-change_keyboard-1] を読み込んで実行する
-        exec(read_config_personal("[section-change_keyboard-1]"), dict(globals(), **locals()))
+        exec(readConfigPersonal("[section-change_keyboard-1]"), dict(globals(), **locals()))
 
         # リモートデスクトップで接続する場合など、一つの OS を英語キーボードと日本語キーボード
         # とで混在して利用する場合の切り替えの設定
@@ -2439,4 +2439,4 @@ def configure(keymap):
         define_key(keymap_global, "C-A-S-Space", change_keyboard)
 
         # 個人設定ファイルのセクション [section-change_keyboard-2] を読み込んで実行する
-        exec(read_config_personal("[section-change_keyboard-2]"), dict(globals(), **locals()))
+        exec(readConfigPersonal("[section-change_keyboard-2]"), dict(globals(), **locals()))

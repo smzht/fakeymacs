@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs Light"
-fakeymacs_version = "20200907_01"
+fakeymacs_version = "20200911_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -149,7 +149,7 @@ def configure(keymap):
         print("個人設定ファイル config_personal.py は存在しないため、読み込みしていません")
         config_personal = ""
 
-    def read_config_personal(section):
+    def readConfigPersonal(section):
         if config_personal:
             m = re.match(r".*(#\s{}.*?((?=#\s\[section-)|$)).*".format(re.escape(section)), config_personal,
                          flags=re.DOTALL)
@@ -169,7 +169,7 @@ def configure(keymap):
         return startup_string_formatter.format(fakeymacs_cfgname, fakeymacs_version)
 
     # 個人設定ファイルのセクション [section-init] を読み込んで実行する
-    exec(read_config_personal("[section-init]"), dict(globals(), **locals()))
+    exec(readConfigPersonal("[section-init]"), dict(globals(), **locals()))
 
 
     ####################################################################################################
@@ -182,7 +182,7 @@ def configure(keymap):
     fc.use_Google_IME = False
 
     # 個人設定ファイルのセクション [section-options] を読み込んで実行する
-    exec(read_config_personal("[section-options]"), dict(globals(), **locals()))
+    exec(readConfigPersonal("[section-options]"), dict(globals(), **locals()))
 
 
     ####################################################################################################
@@ -461,7 +461,7 @@ def configure(keymap):
     fc.is_newline_selectable_in_Excel = False
 
     # 個人設定ファイルのセクション [section-base-1] を読み込んで実行する
-    exec(read_config_personal("[section-base-1]"), dict(globals(), **locals()))
+    exec(readConfigPersonal("[section-base-1]"), dict(globals(), **locals()))
 
 
     ###########################################################################
@@ -1791,4 +1791,4 @@ def configure(keymap):
     define_key(keymap_tsw, "A-g", self_insert_command("A-Esc"))
 
     # 個人設定ファイルのセクション [section-base-2] を読み込んで実行する
-    exec(read_config_personal("[section-base-2]"))
+    exec(readConfigPersonal("[section-base-2]"))
