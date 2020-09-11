@@ -127,7 +127,6 @@ def configure(keymap):
         pass
 
     fc = fakeymacs_config = FakeymacsConfig()
-    P = fc # 移行をスムースに行うため、当面残す
 
     # Fakeymacs を制御する変数を格納するクラスを定義する
     class Fakeymacs:
