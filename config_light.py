@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs Light"
-fakeymacs_version = "20200911_01"
+fakeymacs_version = "20200913_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -493,25 +493,20 @@ def configure(keymap):
         if is_task_switching_window(window):
             return False
 
-        if window.getClassName() in fc.emacs_target_class:
+        if (window.getClassName() not in fc.emacs_target_class and
+            window.getProcessName() in fc.not_emacs_target):
+            fakeymacs.keybind = "not_emacs"
+            return False
+        else:
             fakeymacs.keybind = "emacs"
             return True
 
-        if window.getProcessName() in fc.not_emacs_target:
-            fakeymacs.keybind = "not_emacs"
-            return False
-
-        fakeymacs.keybind = "emacs"
-        return True
-
     def is_ime_target(window):
-        if window.getClassName() in fc.emacs_target_class:
-            return False
-
-        if window.getProcessName() in fc.ime_target:
+        if (window.getClassName() not in fc.emacs_target_class and
+            window.getProcessName() in fc.ime_target):
             return True
-
-        return False
+        else:
+            return False
 
     if fc.use_emacs_ime_mode:
         keymap_emacs = keymap.defineWindowKeymap(check_func=lambda wnd: is_emacs_target(wnd) and not is_emacs_ime_mode(wnd))
@@ -1713,6 +1708,7 @@ def configure(keymap):
     # アプリケーションキーの設定
     define_key(keymap_global, fc.application_key, self_insert_command("Apps"))
 
+
     ###########################################################################
     ## ファンクションキーの設定
     ###########################################################################
@@ -1776,7 +1772,8 @@ def configure(keymap):
     def is_task_switching_window(window):
         if window.getClassName() in ("MultitaskingViewFrame", "TaskSwitcherWnd"):
             return True
-        return False
+        else:
+            return False
 
     keymap_tsw = keymap.defineWindowKeymap(check_func=is_task_switching_window)
 
