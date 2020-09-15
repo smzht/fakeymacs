@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs"
-fakeymacs_version = "20200915_04"
+fakeymacs_version = "20200915_05"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -750,7 +750,11 @@ def configure(keymap):
         self_insert_command("A-f", "A-a")()
 
     def dired():
-        keymap.ShellExecuteCommand(None, r"explorer.exe", "", "")()
+        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
+            # VSCode に vscode-dired Extension のインストールが必要です
+            vscodeExecuteCommand("O-d-b") # Open dired buffer
+        else:
+            keymap.ShellExecuteCommand(None, r"explorer.exe", "", "")()
 
     ##################################################
     ## カーソル移動
@@ -804,7 +808,7 @@ def configure(keymap):
             self_insert_command("C-h")()
 
         elif checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
-            # Center Editor Window Extension のインストールが必要です
+            # VSCode に Center Editor Window Extension のインストールが必要です
             self_insert_command("C-l")()
 
     def unmark_next_like_this():
