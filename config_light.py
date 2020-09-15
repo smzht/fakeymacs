@@ -92,10 +92,10 @@ fakeymacs_version = "20200913_01"
 # ・reconversion_key 変数の設定により、IME の「再変換」を行うキーを指定できる。
 #
 # ＜全てのアプリケーションソフトで共通の動き＞
-# ・application_key の設定により、アプリケーションキーとして利用するキーを指定できる。
-# ・use_alt_digit_key_for_f1_to_f12 の設定により、F1 から F12 を Alt+数字キー列として
+# ・application_key 変数の設定により、アプリケーションキーとして利用するキーを指定できる。
+# ・use_alt_digit_key_for_f1_to_f12 変数の設定により、F1 から F12 を Alt+数字キー列として
 #   使うかを指定できる。
-# ・use_alt_shift_digit_key_for_f13_to_f24 の設定により、F13 から F24 を Alt+Shift+数字
+# ・use_alt_shift_digit_key_for_f13_to_f24 変数の設定により、F13 から F24 を Alt+Shift+数字
 #   キー列として使うかを指定できる。
 # ・window_switching_key 変数に設定したキーにより、アクティブウィンドウの切り替えが行われる。
 # ・word_register_key 変数に設定したキーにより、IME の「単語登録」プログラムの起動が
@@ -302,6 +302,7 @@ def configure(keymap):
     fc.use_ctrl_i_as_tab = True
 
     # Escキーを Metaキーとして使うかどうかを指定する（True: 使う、False: 使わない）
+    # （True（Metaキーとして使う）に設定されている場合、ESC の二回押下で ESC が入力されます）
     fc.use_esc_as_meta = False
 
     # Ctl-xプレフィックスキーに使うキーを指定する
