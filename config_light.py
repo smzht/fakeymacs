@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs Light"
-fakeymacs_version = "20200913_01"
+fakeymacs_version = "20200915_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -92,6 +92,8 @@ fakeymacs_version = "20200913_01"
 # ・reconversion_key 変数の設定により、IME の「再変換」を行うキーを指定できる。
 #
 # ＜全てのアプリケーションソフトで共通の動き＞
+# ・toggle_emacs_keybind_key 変数の設定により、emacs キーバインドを利用する設定をした
+#   アプリケーションソフトの Emacs キーバインドの利用を切り替えることができる。
 # ・application_key 変数の設定により、アプリケーションキーとして利用するキーを指定できる。
 # ・use_alt_digit_key_for_f1_to_f12 変数の設定により、F1 から F12 を Alt+数字キー列として
 #   使うかを指定できる。
@@ -428,6 +430,14 @@ def configure(keymap):
         fc.word_register_param = "--mode=word_register_dialog"
     #---------------------------------------------------------------------------------------------------
 
+    # Emacs キーバインドを切り替えるキーを指定する
+    # （Emacs キーバインドを利用するアプリケーションでかつフォーカスが当たっているアプリケーションソフト
+    #   に対して切り替えが機能します。また、Emacs キーバインドを OFF にしても、IME の切り替えは img_target
+    #   に登録したアプリケーションソフトと同様に機能するようにしています。）
+    # （emacs_target_class 変数に指定したクラス（初期値：Edit）に該当するアプリケーションソフト（NotePad
+    #   など）は、Emacs キーバインドを切り替えの対象となりません（常に Emacs キーバインドとなります）。）
+    fc.toggle_emacs_keybind_key = "C-S-Space"
+
     # アプリケーションキーとして利用するキーを指定する
     # （修飾キーに Alt は使えないようです）
     fc.application_key = None
@@ -469,6 +479,7 @@ def configure(keymap):
     ## 基本機能の設定
     ###########################################################################
 
+    fakeymacs.not_emacs_keybind = []
     fakeymacs.ime_cancel = False
     fakeymacs.last_window = None
 
@@ -495,7 +506,8 @@ def configure(keymap):
             return False
 
         if (window.getClassName() not in fc.emacs_target_class and
-            window.getProcessName() in fc.not_emacs_target):
+            (window.getProcessName() in fakeymacs.not_emacs_keybind or
+             window.getProcessName() in fc.not_emacs_target)):
             fakeymacs.keybind = "not_emacs"
             return False
         else:
@@ -504,7 +516,8 @@ def configure(keymap):
 
     def is_ime_target(window):
         if (window.getClassName() not in fc.emacs_target_class and
-            window.getProcessName() in fc.ime_target):
+            (window.getProcessName() in fakeymacs.not_emacs_keybind or
+             window.getProcessName() in fc.ime_target)):
             return True
         else:
             return False
@@ -557,6 +570,25 @@ def configure(keymap):
                 ctl_x_prefix_vkey = [VK_RMENU, keyCondition.vk]
         else:
             print("Ctl-xプレフィックスキーのモディファイアキーは、Ctrl または Alt のいずれかから指定してください")
+
+    ##################################################
+    ## Emacs キーバインドの切り替え
+    ##################################################
+
+    def toggle_emacs_keybind():
+        className   = keymap.getWindow().getClassName()
+        processName = keymap.getWindow().getProcessName()
+
+        if (className not in fc.emacs_target_class and
+            processName not in fc.not_emacs_target):
+            if processName in fakeymacs.not_emacs_keybind:
+                fakeymacs.not_emacs_keybind.remove(processName)
+                keymap.popBalloon("Keybind", "[Emacs Keybind]", 1000)
+            else:
+                fakeymacs.not_emacs_keybind.append(processName)
+                keymap.popBalloon("Keybind", "[not Emacs Keybind]", 1000)
+
+            keymap.updateKeymap()
 
     ##################################################
     ## IME の操作
@@ -1701,10 +1733,17 @@ def configure(keymap):
 
 
     ###########################################################################
-    ## アプリケーションキーの設定
+    ## Emacs キーバインドの切り替えのキー設定
     ###########################################################################
 
     keymap_global = keymap.defineWindowKeymap()
+
+    define_key(keymap_global, fc.toggle_emacs_keybind_key, toggle_emacs_keybind)
+
+
+    ###########################################################################
+    ## アプリケーションキーの設定
+    ###########################################################################
 
     # アプリケーションキーの設定
     define_key(keymap_global, fc.application_key, self_insert_command("Apps"))
