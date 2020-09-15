@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs"
-fakeymacs_version = "20200915_03"
+fakeymacs_version = "20200915_04"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1428,11 +1428,16 @@ def configure(keymap):
         return _func
 
     def vscodeExecuteCommand(command):
-        disable_input_method()
+        imeStatus = keymap.getWindow().getImeStatus()
+        if imeStatus:
+            disable_input_method()
+
         self_insert_command("f1")()
         keymap.InputTextCommand(command)()
         self_insert_command("Enter")()
-        enable_input_method()
+
+        if imeStatus:
+            enable_input_method()
 
     ##################################################
     ## キーバインド
