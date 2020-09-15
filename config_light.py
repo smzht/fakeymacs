@@ -653,10 +653,11 @@ def configure(keymap):
 
     def dired():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
-            # VSCode に vscode-dired Extension のインストールが必要です
+            # VSCode Command : Open dired buffer
+            # （VSCode に vscode-dired Extension のインストールが必要です）
             # （Ctrl+x f に設定されているキーバインドは、Ctrl+x（Cut）の機能とバッティングするので、
             #   削除してください（Open Keybord Shortcuts コマンドで削除可能です）)
-            vscodeExecuteCommand("O-d-b") # Open dired buffer
+            vscodeExecuteCommand("O-d-b")
         else:
             keymap.ShellExecuteCommand(None, r"explorer.exe", "", "")()
 
@@ -712,15 +713,18 @@ def configure(keymap):
             self_insert_command("C-h")()
 
         elif checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
-            # VSCode に Center Editor Window Extension のインストールが必要です
+            # VSCode Command : Center Editor Window
+            # （VSCode に Center Editor Window Extension のインストールが必要です）
             self_insert_command("C-l")()
 
     def unmark_next_like_this():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
+            # VSCode Command : Cursor Undo
             self_insert_command("C-u")()
 
     def mark_next_like_this():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
+            # VSCode Command : Add Cursor Below
             self_insert_command("C-A-Down")()
 
     ##################################################
@@ -871,23 +875,28 @@ def configure(keymap):
 
     def other_window2():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
-            vscodeExecuteCommand("N-B-E-G") # Navigate Between Editor Groups
+            # VSCode Command : Navigate Between Editor Groups
+            vscodeExecuteCommand("N-B-E-G")
 
     def delete_window():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
-            vscodeExecuteCommand("C-A-E-i-G") # Close All Editors in Group
+            # VSCode Command : Close All Editors in Group
+            vscodeExecuteCommand("C-A-E-i-G")
 
     def delete_other_windows():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
-            vscodeExecuteCommand("C-E-i-O-G") # Close Editors in Other Groups
+            # VSCode Command : Close Editors in Other Groups
+            vscodeExecuteCommand("C-E-i-O-G")
 
     def split_window_below():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
-            self_insert_command("C-k", "C-Yen")() # Split Editor Orthogonal
+            # VSCode Command : Split Editor Orthogonal
+            self_insert_command("C-k", "C-Yen")()
 
     def split_window_right():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
-            self_insert_command("C-Yen")() # Split Editor
+            # VSCode Command : Split Editor
+            self_insert_command("C-Yen")()
 
     ##################################################
     ## 文字列検索 / 置換
@@ -1036,11 +1045,13 @@ def configure(keymap):
     def execute_extended_command():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             disable_input_method()
+            # VSCode Command : Show All Commands
             self_insert_command("f1")()
 
     def comment_dwim():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
-            self_insert_command("C-Slash")() # Toggle Line Comment
+            # VSCode Command : Toggle Line Comment
+            self_insert_command("C-Slash")()
 
     ##################################################
     ## 共通関数
