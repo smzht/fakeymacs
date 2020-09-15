@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs"
-fakeymacs_version = "20200915_01"
+fakeymacs_version = "20200915_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -261,7 +261,6 @@ def configure(keymap):
                                "emacs-X11.exe",          # Emacs
                                "emacs-w32.exe",          # Emacs
                                "gvim.exe",               # GVim
-                               "Code.exe",               # VSCode
                                "xyzzy.exe",              # xyzzy
                                "VirtualBox.exe",         # VirtualBox
                                "XWin.exe",               # Cygwin/X
@@ -298,7 +297,6 @@ def configure(keymap):
                                "ConEmu.exe",             # ConEmu
                                "ConEmu64.exe",           # ConEmu
                                "gvim.exe",               # GVim
-                               "Code.exe",               # VSCode
                                "xyzzy.exe",              # xyzzy
                                "putty.exe",              # PuTTY
                                "ttermpro.exe",           # TeraTerm
@@ -325,6 +323,7 @@ def configure(keymap):
     fc.emacs_exclusion_key  = {"chrome.exe"       : ["C-l", "C-t"],
                                "msedge.exe"       : ["C-l", "C-t"],
                                "firefox.exe"      : ["C-l", "C-t"],
+                               "Code.exe"         : ["C-S-b", "C-S-f", "C-S-p", "C-S-n", "C-S-a", "C-S-e"],
                               }
 
     # clipboard 監視の対象外とするアプリケーションソフトを指定する
@@ -804,6 +803,10 @@ def configure(keymap):
             checkWindow("sakura.exe", "SakuraView*")):   # Sakura Editor
             self_insert_command("C-h")()
 
+        elif checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
+            # Center Editor Window Extension のインストールが必要です
+            self_insert_command("C-l")()
+
     ##################################################
     ## カット / コピー / 削除 / アンドゥ
     ##################################################
@@ -956,6 +959,26 @@ def configure(keymap):
             if not wnd.isMinimized():
                 wnd.getLastActivePopup().setForeground()
                 break
+
+    def other_window2():
+        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
+            vscodeExecuteCommand("N-B-E-G") # Navigate Between Editor Groups
+
+    def delete_window():
+        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
+            vscodeExecuteCommand("C-A-E-i-G") # Close All Editors in Group
+
+    def delete_other_windows():
+        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
+            vscodeExecuteCommand("C-E-i-O-G") # Close Editors in Other Groups
+
+    def split_window_below():
+        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
+            self_insert_command("C-k", "C-Yen")() # Split Editor Orthogonal
+
+    def split_window_right():
+        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
+            self_insert_command("C-Yen")() # Split Editor
 
     ##################################################
     ## 文字列検索 / 置換
@@ -1114,6 +1137,15 @@ def configure(keymap):
 
         if not fakeymacs.is_executing_command:
             keymap.ShellExecuteCommand(None, fc.command_name, "", "")()
+
+    def execute_extended_command():
+        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
+            disable_input_method()
+            self_insert_command("f1")()
+
+    def comment_dwim():
+        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
+            self_insert_command("C-Slash")() # Toggle Line Comment
 
     ##################################################
     ## 共通関数
@@ -1387,6 +1419,13 @@ def configure(keymap):
             func(repeat_counter)
         return _func
 
+    def vscodeExecuteCommand(command):
+        disable_input_method()
+        self_insert_command("f1")()
+        keymap.InputTextCommand(command)()
+        self_insert_command("Enter")()
+        enable_input_method()
+
     ##################################################
     ## キーバインド
     ##################################################
@@ -1584,9 +1623,13 @@ def configure(keymap):
 
     ## 「バッファ / ウィンドウ操作」のキー設定
     define_key(keymap_emacs, "Ctl-x k", reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
-    define_key(keymap_emacs, "Ctl-x b", reset_search(reset_undo(reset_counter(reset_mark(switch_to_buffer)))))
-    define_key(keymap_emacs, "Ctl-x o", reset_search(reset_undo(reset_counter(reset_mark(other_window)))))
     define_key(keymap_emacs, "M-k",     reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
+    define_key(keymap_emacs, "Ctl-x b", reset_search(reset_undo(reset_counter(reset_mark(switch_to_buffer)))))
+    define_key(keymap_emacs, "Ctl-x o", reset_search(reset_undo(reset_counter(reset_mark(other_window2)))))
+    define_key(keymap_emacs, "Ctl-x 0", reset_search(reset_undo(reset_counter(reset_mark(delete_window)))))
+    define_key(keymap_emacs, "Ctl-x 1", reset_search(reset_undo(reset_counter(reset_mark(delete_other_windows)))))
+    define_key(keymap_emacs, "Ctl-x 2", reset_search(reset_undo(reset_counter(reset_mark(split_window_below)))))
+    define_key(keymap_emacs, "Ctl-x 3", reset_search(reset_undo(reset_counter(reset_mark(split_window_right)))))
 
     ## 「文字列検索 / 置換」のキー設定
     define_key(keymap_emacs, "C-r",   reset_undo(reset_counter(reset_mark(isearch_backward))))
@@ -1604,14 +1647,16 @@ def configure(keymap):
     define_key(keymap_emacs, "Ctl-x e", reset_search(reset_undo(reset_counter(repeat(kmacro_end_and_call_macro)))))
 
     ## 「その他」のキー設定
-    define_key(keymap_emacs, "Enter",     reset_undo(reset_counter(reset_mark(repeat(newline)))))
-    define_key(keymap_emacs, "C-m",       reset_undo(reset_counter(reset_mark(repeat(newline)))))
-    define_key(keymap_emacs, "C-j",       reset_undo(reset_counter(reset_mark(newline_and_indent))))
-    define_key(keymap_emacs, "C-o",       reset_undo(reset_counter(reset_mark(repeat(open_line)))))
-    define_key(keymap_emacs, "Tab",       reset_undo(reset_counter(reset_mark(repeat(indent_for_tab_command)))))
-    define_key(keymap_emacs, "C-g",       reset_search(reset_counter(reset_mark(keyboard_quit))))
-    define_key(keymap_emacs, "Ctl-x C-c", reset_search(reset_undo(reset_counter(reset_mark(kill_emacs)))))
-    define_key(keymap_emacs, "M-S-1",     reset_search(reset_undo(reset_counter(reset_mark(shell_command)))))
+    define_key(keymap_emacs, "Enter",       reset_undo(reset_counter(reset_mark(repeat(newline)))))
+    define_key(keymap_emacs, "C-m",         reset_undo(reset_counter(reset_mark(repeat(newline)))))
+    define_key(keymap_emacs, "C-j",         reset_undo(reset_counter(reset_mark(newline_and_indent))))
+    define_key(keymap_emacs, "C-o",         reset_undo(reset_counter(reset_mark(repeat(open_line)))))
+    define_key(keymap_emacs, "Tab",         reset_undo(reset_counter(reset_mark(repeat(indent_for_tab_command)))))
+    define_key(keymap_emacs, "C-g",         reset_search(reset_counter(reset_mark(keyboard_quit))))
+    define_key(keymap_emacs, "Ctl-x C-c",   reset_search(reset_undo(reset_counter(reset_mark(kill_emacs)))))
+    define_key(keymap_emacs, "M-S-1",       reset_search(reset_undo(reset_counter(reset_mark(shell_command)))))
+    define_key(keymap_emacs, "M-x",         reset_search(reset_undo(reset_counter(reset_mark(execute_extended_command)))))
+    define_key(keymap_emacs, "M-Semicolon", reset_search(reset_undo(reset_counter(comment_dwim))))
 
     if fc.use_ctrl_i_as_tab:
         define_key(keymap_emacs, "C-i", reset_undo(reset_counter(reset_mark(repeat(indent_for_tab_command)))))
