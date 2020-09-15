@@ -654,6 +654,8 @@ def configure(keymap):
     def dired():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             # VSCode に vscode-dired Extension のインストールが必要です
+            # （Ctrl+x f に設定されているキーバインドは、Ctrl+x（Cut）の機能とバッティングするので、
+            #   削除してください（Open Keybord Shortcuts コマンドで削除可能です）)
             vscodeExecuteCommand("O-d-b") # Open dired buffer
         else:
             keymap.ShellExecuteCommand(None, r"explorer.exe", "", "")()
