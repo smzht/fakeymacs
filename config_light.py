@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs Light"
-fakeymacs_version = "20200915_02"
+fakeymacs_version = "20200915_03"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -708,6 +708,14 @@ def configure(keymap):
         elif checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             # Center Editor Window Extension のインストールが必要です
             self_insert_command("C-l")()
+
+    def unmark_next_like_this():
+        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
+            self_insert_command("C-u")()
+
+    def mark_next_like_this():
+        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
+            self_insert_command("C-A-Down")()
 
     ##################################################
     ## カット / コピー / 削除 / アンドゥ
@@ -1418,6 +1426,8 @@ def configure(keymap):
     define_key(keymap_emacs, "M-S-Comma",  reset_search(reset_undo(reset_counter(mark(beginning_of_buffer, False)))))
     define_key(keymap_emacs, "M-S-Period", reset_search(reset_undo(reset_counter(mark(end_of_buffer, True)))))
     define_key(keymap_emacs, "C-l",        reset_search(reset_undo(reset_counter(recenter))))
+    define_key(keymap_emacs, "C-A-p",      reset_search(reset_undo(reset_counter(unmark_next_like_this))))
+    define_key(keymap_emacs, "C-A-n",      reset_search(reset_undo(reset_counter(mark_next_like_this))))
 
     define_key(keymap_emacs, "C-S-b", reset_search(reset_undo(reset_counter(mark2(repeat(backward_char), False)))))
     define_key(keymap_emacs, "C-S-f", reset_search(reset_undo(reset_counter(mark2(repeat(forward_char), True)))))
