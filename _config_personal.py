@@ -76,7 +76,7 @@ fc.emacs_exclusion_key  = {"chrome.exe"       : ["C-l", "C-t"],
                           }
 
 # 左右どちらの Ctrlキーを使うかを指定する（"L": 左、"R": 右）
-fc.side_of_ctrl_key = "L"
+# fc.side_of_ctrl_key = "R"
 
 # Escキーを Metaキーとして使うかどうかを指定する（True: 使う、False: 使わない）
 # （True（Metaキーとして使う）に設定されている場合、ESC の二回押下で ESC が入力されます）
@@ -105,7 +105,6 @@ fc.set_input_method_key += [["(29)", "(28)"]]
 
 # アプリケーションキーとして利用するキーを指定する
 # （修飾キーに Alt は使えないようです）
-fc.application_key = None
 # fc.application_key = "O-RCtrl"
 # fc.application_key = "W-m"
 
