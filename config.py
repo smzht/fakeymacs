@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs"
-fakeymacs_version = "20200916_02"
+fakeymacs_version = "20200916_03"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -866,8 +866,8 @@ def configure(keymap):
         kill_region()
 
     def kill_line(repeat=1):
-        if (checkWindow("Code.exe", "Chrome_WidgetWin_1") and # VSCode
-            fc.use_vscode_wsl_key_conversion and
+        if (fc.use_vscode_wsl_key_conversion and
+            checkWindow("Code.exe", "Chrome_WidgetWin_1") and # VSCode
             fakeymacs.vscode_focus == "terminal"):
             self_insert_command("C-k")()
         else:
@@ -929,8 +929,8 @@ def configure(keymap):
         resetRegion()
 
     def yank():
-        if (checkWindow("Code.exe", "Chrome_WidgetWin_1") and # VSCode
-            fc.use_vscode_wsl_key_conversion and
+        if (fc.use_vscode_wsl_key_conversion and
+            checkWindow("Code.exe", "Chrome_WidgetWin_1") and # VSCode
             fakeymacs.vscode_focus == "terminal"):
             self_insert_command("C-y")()
         else:
@@ -1045,8 +1045,8 @@ def configure(keymap):
 
     def isearch(direction):
         if (checkWindow("powershell.exe", "ConsoleWindowClass") or # PowerShell
-            (checkWindow("Code.exe", "Chrome_WidgetWin_1") and     # VSCode
-             fc.use_vscode_wsl_key_conversion and
+            (fc.use_vscode_wsl_key_conversion and
+             checkWindow("Code.exe", "Chrome_WidgetWin_1") and     # VSCode
              fakeymacs.vscode_focus == "terminal")):
             self_insert_command({"backward":"C-r", "forward":"C-s"}[direction])()
         else:
