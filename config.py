@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs"
-fakeymacs_version = "20200915_05"
+fakeymacs_version = "20200916_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -575,6 +575,7 @@ def configure(keymap):
 
     fakeymacs.not_emacs_keybind = []
     fakeymacs.ime_cancel = False
+    fakeymacs.vscode_focus = "not_terminal"
     fakeymacs.last_window = None
 
     def is_emacs_target(window):
@@ -700,7 +701,7 @@ def configure(keymap):
     def toggle_input_method():
         setImeStatus(keymap.getWindow().getImeStatus() ^ 1)
 
-    def setImeStatus(ime_status):
+    def setImeStatus(ime_status, popBalloon=True):
         if keymap.getWindow().getImeStatus() != ime_status:
             # IME を 切り替える
             # （ keymap.getWindow().setImeStatus(ime_status) を使わないのは、キーボードマクロの再生時に影響がでるため）
@@ -709,7 +710,7 @@ def configure(keymap):
             if fakeymacs.is_playing_kmacro:
                 delay(0.2)
 
-        if not fakeymacs.is_playing_kmacro:
+        if popBalloon and not fakeymacs.is_playing_kmacro:
             if ime_status:
                 message = "[あ]"
             else:
@@ -755,7 +756,7 @@ def configure(keymap):
             # （VSCode に vscode-dired Extension のインストールが必要です）
             # （Ctrl+x f に設定されているキーバインドは、Ctrl+x（Cut）の機能とバッティングするので、
             #   削除してください（Open Keybord Shortcuts コマンドで削除可能です）)
-            vscodeExecuteCommand("O-d-b")
+            vscodeExecuteCommand("Op-di-bu")
         else:
             keymap.ShellExecuteCommand(None, r"explorer.exe", "", "")()
 
@@ -860,41 +861,45 @@ def configure(keymap):
         kill_region()
 
     def kill_line(repeat=1):
-        resetRegion()
-        fakeymacs.is_marked = True
+        if (checkWindow("Code.exe", "Chrome_WidgetWin_1") and # VSCode
+            fakeymacs.vscode_focus == "terminal"):
+            self_insert_command("C-k")()
+        else:
+            resetRegion()
+            fakeymacs.is_marked = True
 
-        if repeat == 1:
-            mark(move_end_of_line, True)()
-            delay()
-
-            if (checkWindow("cmd.exe", "ConsoleWindowClass") or       # Cmd
-                checkWindow("powershell.exe", "ConsoleWindowClass")): # PowerShell
-                kill_region()
-
-            elif checkWindow(None, "HM32CLIENT"): # Hidemaru Software
-                kill_region()
+            if repeat == 1:
+                mark(move_end_of_line, True)()
                 delay()
-                if getClipboardText() == "":
+
+                if (checkWindow("cmd.exe", "ConsoleWindowClass") or       # Cmd
+                    checkWindow("powershell.exe", "ConsoleWindowClass")): # PowerShell
+                    kill_region()
+
+                elif checkWindow(None, "HM32CLIENT"): # Hidemaru Software
+                    kill_region()
+                    delay()
+                    if getClipboardText() == "":
+                        self_insert_command("Delete")()
+                else:
+                    # 改行を消せるようにするため Cut にはしていない
+                    copyRegion()
                     self_insert_command("Delete")()
             else:
-                # 改行を消せるようにするため Cut にはしていない
-                copyRegion()
-                self_insert_command("Delete")()
-        else:
-            def move_end_of_region():
-                if checkWindow("WINWORD.EXE", "_WwG"): # Microsoft Word
-                    for i in range(repeat):
-                        next_line()
-                    move_beginning_of_line()
-                else:
-                    for i in range(repeat - 1):
-                        next_line()
-                    move_end_of_line()
-                    forward_char()
+                def move_end_of_region():
+                    if checkWindow("WINWORD.EXE", "_WwG"): # Microsoft Word
+                        for i in range(repeat):
+                            next_line()
+                        move_beginning_of_line()
+                    else:
+                        for i in range(repeat - 1):
+                            next_line()
+                        move_end_of_line()
+                        forward_char()
 
-            mark(move_end_of_region, True)()
-            delay()
-            kill_region()
+                mark(move_end_of_region, True)()
+                delay()
+                kill_region()
 
     def kill_region():
         # コマンドプロンプトには Cut に対応するショートカットがない。その対策。
@@ -918,7 +923,11 @@ def configure(keymap):
         resetRegion()
 
     def yank():
-        self_insert_command("C-v")()
+        if (checkWindow("Code.exe", "Chrome_WidgetWin_1") and # VSCode
+            fakeymacs.vscode_focus == "terminal"):
+            self_insert_command("C-y")()
+        else:
+            self_insert_command("C-v")()
 
     def undo():
         # redo（C-y）の機能を持っていないアプリケーションソフトは常に undo とする
@@ -978,20 +987,40 @@ def configure(keymap):
                 wnd.getLastActivePopup().setForeground()
                 break
 
+    def toggle_terminal():
+        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
+            if fakeymacs.vscode_focus == "not_terminal":
+                # VSCode Command : Focus on Terminal View
+                vscodeExecuteCommand("Fo-on-Te-Vi")
+                fakeymacs.vscode_focus = "terminal"
+            else:
+                # VSCode Command : Close Panel
+                vscodeExecuteCommand("Cl-Pa")
+                fakeymacs.vscode_focus = "not_terminal"
+
+    def switch_focus(number):
+        def _func():
+            if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
+                # VSCode Command : Focus n-th Editor Group
+                self_insert_command("C-{}".format(number))()
+                fakeymacs.vscode_focus = "not_terminal"
+        return _func
+
     def other_window2():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             # VSCode Command : Navigate Between Editor Groups
-            vscodeExecuteCommand("N-B-E-G")
+            vscodeExecuteCommand("Na-Be-Ed-Gr")
+            fakeymacs.vscode_focus = "not_terminal"
 
     def delete_window():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             # VSCode Command : Close All Editors in Group
-            vscodeExecuteCommand("C-A-E-i-G")
+            vscodeExecuteCommand("Cl-Al-Ed-in-Gr")
 
     def delete_other_windows():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             # VSCode Command : Close Editors in Other Groups
-            vscodeExecuteCommand("C-E-i-O-G")
+            vscodeExecuteCommand("Cl-Ed-in-Ot-Gr")
 
     def split_window_below():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
@@ -1008,7 +1037,9 @@ def configure(keymap):
     ##################################################
 
     def isearch(direction):
-        if checkWindow("powershell.exe", "ConsoleWindowClass"): # PowerShell
+        if (checkWindow("powershell.exe", "ConsoleWindowClass") or # PowerShell
+            (checkWindow("Code.exe", "Chrome_WidgetWin_1") and     # VSCode
+             fakeymacs.vscode_focus == "terminal")):
             self_insert_command({"backward":"C-r", "forward":"C-s"}[direction])()
         else:
             if fakeymacs.is_searching:
@@ -1447,14 +1478,14 @@ def configure(keymap):
     def vscodeExecuteCommand(command):
         imeStatus = keymap.getWindow().getImeStatus()
         if imeStatus:
-            disable_input_method()
+            setImeStatus(0, False)
 
         self_insert_command("f1")()
         keymap.InputTextCommand(command)()
         self_insert_command("Enter")()
 
         if imeStatus:
-            enable_input_method()
+            setImeStatus(1, False)
 
     ##################################################
     ## キーバインド
@@ -1654,14 +1685,20 @@ def configure(keymap):
     define_key(keymap_emacs, "Ctl-x C-p", reset_search(reset_undo(reset_counter(mark_page))))
 
     ## 「バッファ / ウィンドウ操作」のキー設定
-    define_key(keymap_emacs, "Ctl-x k", reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
-    define_key(keymap_emacs, "M-k",     reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
-    define_key(keymap_emacs, "Ctl-x b", reset_search(reset_undo(reset_counter(reset_mark(switch_to_buffer)))))
-    define_key(keymap_emacs, "Ctl-x o", reset_search(reset_undo(reset_counter(reset_mark(other_window2)))))
-    define_key(keymap_emacs, "Ctl-x 0", reset_search(reset_undo(reset_counter(reset_mark(delete_window)))))
-    define_key(keymap_emacs, "Ctl-x 1", reset_search(reset_undo(reset_counter(reset_mark(delete_other_windows)))))
-    define_key(keymap_emacs, "Ctl-x 2", reset_search(reset_undo(reset_counter(reset_mark(split_window_below)))))
-    define_key(keymap_emacs, "Ctl-x 3", reset_search(reset_undo(reset_counter(reset_mark(split_window_right)))))
+    define_key(keymap_emacs, "Ctl-x k",     reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
+    define_key(keymap_emacs, "M-k",         reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
+    define_key(keymap_emacs, "Ctl-x b",     reset_search(reset_undo(reset_counter(reset_mark(switch_to_buffer)))))
+    define_key(keymap_emacs, "Ctl-x o",     reset_search(reset_undo(reset_counter(reset_mark(other_window2)))))
+    define_key(keymap_emacs, "Ctl-x 0",     reset_search(reset_undo(reset_counter(reset_mark(delete_window)))))
+    define_key(keymap_emacs, "Ctl-x 1",     reset_search(reset_undo(reset_counter(reset_mark(delete_other_windows)))))
+    define_key(keymap_emacs, "Ctl-x 2",     reset_search(reset_undo(reset_counter(reset_mark(split_window_below)))))
+    define_key(keymap_emacs, "Ctl-x 3",     reset_search(reset_undo(reset_counter(reset_mark(split_window_right)))))
+    define_key(keymap_emacs, "C-BackSlash", reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
+    define_key(keymap_emacs, "C-(243)",     reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
+    define_key(keymap_emacs, "C-(244)",     reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
+
+    for key in range(10):
+        define_key(keymap_emacs, "C-{}".format(key), reset_search(reset_undo(reset_counter(reset_mark(switch_focus(key))))))
 
     ## 「文字列検索 / 置換」のキー設定
     define_key(keymap_emacs, "C-r",   reset_undo(reset_counter(reset_mark(isearch_backward))))
