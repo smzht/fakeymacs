@@ -78,6 +78,10 @@ fc.emacs_exclusion_key  = {"chrome.exe"       : ["C-l", "C-t"],
 # 左右どちらの Ctrlキーを使うかを指定する（"L": 左、"R": 右）
 fc.side_of_ctrl_key = "L"
 
+# Escキーを Metaキーとして使うかどうかを指定する（True: 使う、False: 使わない）
+# （True（Metaキーとして使う）に設定されている場合、ESC の二回押下で ESC が入力されます）
+# fc.use_esc_as_meta = True
+
 #---------------------------------------------------------------------------------------------------
 # IME を切り替えるキーの組み合わせ（disable、enable の順）を指定する（複数指定可）
 # （toggle_input_method_key のキー設定より優先します）
