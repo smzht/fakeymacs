@@ -96,6 +96,9 @@ fc.set_input_method_key += [["(29)", "(28)"]]
 # fc.set_input_method_key += [["C-j", "C-o"]]
 #---------------------------------------------------------------------------------------------------
 
+# VSCode の Terminal で WSL 用のキー変換を行うかどうかを指定する（True: 使う、False: 使わない）
+# fc.use_vscode_wsl_key_conversion = True
+
 # アプリケーションキーとして利用するキーを指定する
 # （修飾キーに Alt は使えないようです）
 fc.application_key = None
