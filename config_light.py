@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs Light"
-fakeymacs_version = "20200916_03"
+fakeymacs_version = "20200917_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1572,7 +1572,7 @@ def configure(keymap):
     define_key(keymap_emacs, "Ctl-x 1",     reset_search(reset_undo(reset_counter(reset_mark(delete_other_windows)))))
     define_key(keymap_emacs, "Ctl-x 2",     reset_search(reset_undo(reset_counter(reset_mark(split_window_below)))))
     define_key(keymap_emacs, "Ctl-x 3",     reset_search(reset_undo(reset_counter(reset_mark(split_window_right)))))
-    define_key(keymap_emacs, "C-BackSlash", reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
+    define_key(keymap_emacs, "C-BackQuote", reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
     define_key(keymap_emacs, "C-(243)",     reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
     define_key(keymap_emacs, "C-(244)",     reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
 
