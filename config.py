@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs"
-fakeymacs_version = "20200917_02"
+fakeymacs_version = "20200918_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -93,6 +93,8 @@ fakeymacs_version = "20200917_02"
 #   キーボードマクロの記録と再生の開始時に IME を強制的に OFF にするようにしている。
 # ・kill-buffer に Ctl-x k とは別に M-k も割り当てている。プラウザのタブを削除する際
 #   などに利用可。
+# ・.use_ctrl_atmark_for_mark 変数の設定により、日本語キーボードで C-@ をマーク用の
+#   キーとして使うかどうかを指定できる。
 # ・use_vscode_wsl_key_conversion 変数の設定により、VSCode の Terminal で WSL 用の
 #   キー変換を行うかどうかを指定できる。
 # ・use_ctrl_digit_key_for_digit_argument 変数の設定により、数引数の指定に Ctrl+数字
