@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs Light"
-fakeymacs_version = "20200917_01"
+fakeymacs_version = "20200917_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -430,6 +430,11 @@ def configure(keymap):
         fc.word_register_name = r"C:\Program Files (x86)\Google\Google Japanese Input\GoogleIMEJaTool.exe"
         fc.word_register_param = "--mode=word_register_dialog"
     #---------------------------------------------------------------------------------------------------
+
+    # 日本語キーボードで C-@ をマーク用のキーとして使うかどうかを指定する（True: 使う、False: 使わない）
+    # （VSCode で C-@ を Toggle Integrated Terminal 用のキーとして使えるようにするために設けた設定です。
+    #   True に設定した場合でも、Toggle Integrated Terminal 用のキーとしえて  C-[半角/全角] が使えます。）
+    fc.use_ctrl_atmark_for_mark = False
 
     # VSCode の Terminal で WSL 用のキー変換を行うかどうかを指定する（True: 使う、False: 使わない）
     fc.use_vscode_wsl_key_conversion = False
@@ -888,6 +893,16 @@ def configure(keymap):
 
     def switch_to_buffer():
         self_insert_command("C-Tab")()
+
+    def new_terminal():
+        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
+            if is_japanese_keyboard:
+                self_insert_command("C-S-Atmark")()
+            else:
+                # VSCode Command : Create New Integrated Terminal
+                # （C-S-BackQuote としていないのは、RShift を利用したときに動作しないようなのでその対策）
+                self_insert_command("C-LS-RS-BackQuote")()
+            fakeymacs.vscode_focus = "terminal"
 
     def toggle_terminal():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
@@ -1551,12 +1566,11 @@ def configure(keymap):
     else:
         define_key(keymap_emacs, "C-S-Minus", reset_search(reset_undo(reset_counter(reset_mark(undo)))))
 
+    # C-Atmark を機能させるための設定
     if is_japanese_keyboard:
-        # C-Atmark だとうまく動かない方が居るようなので C-(192) としている
-        # （http://bhby39.blogspot.jp/2015/02/windows-emacs.html）
-        define_key(keymap_emacs, "C-(192)", reset_search(reset_undo(reset_counter(set_mark_command))))
+        if fc.use_ctrl_atmark_for_mark:
+            define_key(keymap_emacs, "C-Atmark", reset_search(reset_undo(reset_counter(set_mark_command))))
     else:
-        # C-S-2 は有効とならないが、一応設定は行っておく（C-S-3 などは有効となる。なぜだろう？）
         define_key(keymap_emacs, "C-S-2", reset_search(reset_undo(reset_counter(set_mark_command))))
 
     define_key(keymap_emacs, "C-Space",   reset_search(reset_undo(reset_counter(set_mark_command))))
@@ -1564,17 +1578,26 @@ def configure(keymap):
     define_key(keymap_emacs, "Ctl-x C-p", reset_search(reset_undo(reset_counter(mark_page))))
 
     ## 「バッファ / ウィンドウ操作」のキー設定
-    define_key(keymap_emacs, "Ctl-x k",     reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
-    define_key(keymap_emacs, "M-k",         reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
-    define_key(keymap_emacs, "Ctl-x b",     reset_search(reset_undo(reset_counter(reset_mark(switch_to_buffer)))))
-    define_key(keymap_emacs, "Ctl-x o",     reset_search(reset_undo(reset_counter(reset_mark(other_window2)))))
-    define_key(keymap_emacs, "Ctl-x 0",     reset_search(reset_undo(reset_counter(reset_mark(delete_window)))))
-    define_key(keymap_emacs, "Ctl-x 1",     reset_search(reset_undo(reset_counter(reset_mark(delete_other_windows)))))
-    define_key(keymap_emacs, "Ctl-x 2",     reset_search(reset_undo(reset_counter(reset_mark(split_window_below)))))
-    define_key(keymap_emacs, "Ctl-x 3",     reset_search(reset_undo(reset_counter(reset_mark(split_window_right)))))
-    define_key(keymap_emacs, "C-BackQuote", reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
-    define_key(keymap_emacs, "C-(243)",     reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
-    define_key(keymap_emacs, "C-(244)",     reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
+    define_key(keymap_emacs, "Ctl-x k",       reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
+    define_key(keymap_emacs, "M-k",           reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
+    define_key(keymap_emacs, "Ctl-x b",       reset_search(reset_undo(reset_counter(reset_mark(switch_to_buffer)))))
+    define_key(keymap_emacs, "Ctl-x o",       reset_search(reset_undo(reset_counter(reset_mark(other_window2)))))
+    define_key(keymap_emacs, "Ctl-x 0",       reset_search(reset_undo(reset_counter(reset_mark(delete_window)))))
+    define_key(keymap_emacs, "Ctl-x 1",       reset_search(reset_undo(reset_counter(reset_mark(delete_other_windows)))))
+    define_key(keymap_emacs, "Ctl-x 2",       reset_search(reset_undo(reset_counter(reset_mark(split_window_below)))))
+    define_key(keymap_emacs, "Ctl-x 3",       reset_search(reset_undo(reset_counter(reset_mark(split_window_right)))))
+
+    define_key(keymap_emacs, "C-S-BackQuote", reset_search(reset_undo(reset_counter(reset_mark(new_terminal)))))
+    define_key(keymap_emacs, "C-S-(243)",     reset_search(reset_undo(reset_counter(reset_mark(new_terminal)))))
+    define_key(keymap_emacs, "C-S-(244)",     reset_search(reset_undo(reset_counter(reset_mark(new_terminal)))))
+    define_key(keymap_emacs, "C-BackQuote",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
+    define_key(keymap_emacs, "C-(243)",       reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
+    define_key(keymap_emacs, "C-(244)",       reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
+
+    if is_japanese_keyboard:
+        define_key(keymap_emacs, "C-S-Atmark", reset_search(reset_undo(reset_counter(reset_mark(new_terminal)))))
+        if not fc.use_ctrl_atmark_for_mark:
+            define_key(keymap_emacs, "C-Atmark", reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
 
     for key in range(10):
         define_key(keymap_emacs, "C-{}".format(key), reset_search(reset_undo(reset_counter(reset_mark(switch_focus(key))))))
