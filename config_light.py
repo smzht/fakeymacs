@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs Light"
-fakeymacs_version = "20200918_01"
+fakeymacs_version = "20200918_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -665,14 +665,7 @@ def configure(keymap):
         self_insert_command("A-f", "A-a")()
 
     def dired():
-        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
-            # VSCode Command : Open dired buffer
-            # （VSCode に vscode-dired Extension のインストールが必要です）
-            # （Ctrl+x f に設定されているキーバインドは、Ctrl+x（Cut）の機能とバッティングするので、
-            #   削除してください（Open Keybord Shortcuts コマンドで削除可能です）)
-            vscodeExecuteCommand("Op-di-bu")
-        else:
-            keymap.ShellExecuteCommand(None, r"explorer.exe", "", "")()
+        keymap.ShellExecuteCommand(None, r"explorer.exe", "", "")()
 
     ##################################################
     ## カーソル移動
@@ -724,11 +717,6 @@ def configure(keymap):
         if (checkWindow("sakura.exe", "EditorClient") or # Sakura Editor
             checkWindow("sakura.exe", "SakuraView*")):   # Sakura Editor
             self_insert_command("C-h")()
-
-        elif checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
-            # VSCode Command : Center Editor Window
-            # （VSCode に Center Editor Window Extension のインストールが必要です）
-            self_insert_command("C-l")()
 
     def unmark_next_like_this():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode

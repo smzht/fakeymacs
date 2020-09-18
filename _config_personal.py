@@ -112,6 +112,32 @@ fc.set_input_method_key += [["(29)", "(28)"]]
 # [section-base-2] ---------------------------------------------------------------------------------
 
 #---------------------------------------------------------------------------------------------------
+# VSCode で Extention のインストールが必要な機能は個人設定用ファイルで再定義する
+
+# def dired(func=dired):
+#     if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
+#         # VSCode Command : Open dired buffer
+#         # （VSCode に vscode-dired Extension のインストールが必要です）
+#         # （Ctrl+x f に設定されているキーバインドは、Ctrl+x（Cut）の機能とバッティングするので、
+#         #   削除してください（Open Keybord Shortcuts コマンドで削除可能です）)
+#         vscodeExecuteCommand("Op-di-bu")
+#     else:
+#         func()
+
+# define_key(keymap_emacs, "Ctl-x d", reset_search(reset_undo(reset_counter(reset_mark(dired)))))
+
+# def recenter(func=recenter):
+#     if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
+#         # VSCode Command : Center Editor Window
+#         # （VSCode に Center Editor Window Extension のインストールが必要です）
+#         self_insert_command("C-l")()
+#     else:
+#         func()
+
+# define_key(keymap_emacs, "C-l", reset_search(reset_undo(reset_counter(recenter))))
+#---------------------------------------------------------------------------------------------------
+
+#---------------------------------------------------------------------------------------------------
 # Everything プログラムを起動するキーを指定する
 everything_key = None
 # everything_key = "C-A-e"
