@@ -47,12 +47,71 @@ IME のショートカットキーが利用できるようになります。
 するためのキーは、デフォルトキーの A-S-Tab、A-Tab となります。起動後は A-p、A-n で
 アクティブウィンドウの切り替え、A-g で切り替え画面の終了（キャンセル）が利用できます。
 
-** その他
+** VSCode の強化ポイント
 
-上記で紹介している wiki のページに詳しく書いておりますが、本設定は IME を 「Google 日本語入力」
-とし、プロパティの「キー設定」を「ことえり」にしたときに最適に動作するように調整しています。
-「Google 日本語入力」は、mozc_emacs_helper.exe を利用することで NTEmacs や WSL の Emacs とも
-連携可能な IME となっておりますので、利用されていない方は是非お試しください。
+VSCode については、一般的な Emacs キーバインドの他に次のキーバインドを利用できるようにしています。
 
-⇒ （2020/05/10 追記） emacs_ime_mode_key 変数の追加により、Micorosoft IME でも「ことえり」と
-同様なキーバインドを設定できるようになりました。
+|-------------+--------------------------+--------------------------------|
+| Key-binding | Fakeymacs Function Name  | VSCode Command Name            |
+|-------------+--------------------------+--------------------------------|
+| Meta+x      | execute_extended_command | Show All Commands              |
+| Ctl+x o     | other_window2            | Navigate Between Editor Groups |
+| Ctl+x 0     | delete_window            | Close All Editors in Group     |
+| Ctl+x 1     | delete_other_windows     | Close Editors in Other Groups  |
+| Ctl+x 2     | split_window_below       | Split Editor Orthogonal        |
+| Ctl+x 3     | split_window_right       | Split Editor                   |
+| Meta+;      | comment_dwim             | Toggle Line Comment            |
+| Ctrl+Alt+p  | unmark_next_like_this    | Cursor Undo                    |
+| Ctrl+Alt+n  | mark_next_like_this      | Add Cursor Below               |
+|-------------+--------------------------+--------------------------------|
+
+VSCode に Center Editor Window Extension と vcode-dired Extension をインストールすることにより、
+次のキーバインドも利用が可能となります。利用するための設定は _config_personal.py の中に書かれて
+あります。
+
+|-------------+-------------------------+----------------------|
+| Key-binding | Fakeymacs Function Name | VSCode Command Name  |
+|-------------+-------------------------+----------------------|
+| Ctrl+l      | recenter                | Center Editor Window |
+| Ctrl+x d    | dired                   | Open dired buffer    |
+|-------------+-------------------------+----------------------|
+
+use_vscode_wsl_key_conversion 変数を True にしている場合には、次のキーを押下して Treminal に
+移行するようにしてください。Terminal 内で Ctrl+k、Ctrl+r、Ctrl+s、Ctrl+y の４つのキーが利用
+できるようになります。
+
+※ Ctrl+s は、bash で stty stop undef の設定をすると使えます。この設定をしないでこのキーを押下
+すると stop から戻れなくなりますのでご注意ください。
+
+use_vscode_wsl_key_conversion 変数が False（初期値）の場合には、 Ctrl+q を前置することで
+Terminal 内で ４つのキーを利用することができます。
+
+|------------------------------+-------------------------+--------------------------------------------------------|
+| Key-binding                  | Fakeymacs Function Name | VSCode Command Name                                    |
+|------------------------------+-------------------------+--------------------------------------------------------|
+| Ctrl+BackQuote（US）         | toggle_terminal         | Toggle Integrated Terminal（のように振る舞うコマンド） |
+| Ctrl+[半角/全角]（JP）       | toggle_terminal         | Toggle Integrated Terminal（のように振る舞うコマンド） |
+| Ctrl+Atmark（JP）            | toggle_terminal         | Toggle Integrated Terminal（のように振る舞うコマンド） |
+|------------------------------+-------------------------+--------------------------------------------------------|
+| Ctrl+Shift+BackQuote（US）   | new_terminal            | Create New Integrated Terminal                         |
+| Ctrl+Shift+[半角/全角]（JP） | new_terminal            | Create New Integrated Terminal                         |
+| Ctrl+Shift+Atmark（JP）      | new_terminal            | Create New Integrated Terminal                         |
+|------------------------------+-------------------------+--------------------------------------------------------|
+
+Terminal から抜ける場合は次のキーを利用するようにしてください。先の４つのキーが VSCode の
+ショートカットキーの認識に戻ります。
+
+|------------------------+-------------------------+--------------------------------------------------------|
+| Key-binding            | Fakeymacs Function Name | VSCode Command Name                                    |
+|------------------------+-------------------------+--------------------------------------------------------|
+| Ctrl+BackQuote（US）   | toggle_terminal         | Toggle Integrated Terminal（のように振る舞うコマンド） |
+| Ctrl+[半角/全角]（JP） | toggle_terminal         | Toggle Integrated Terminal（のように振る舞うコマンド） |
+| Ctrl+Atmark（JP）      | toggle_terminal         | Toggle Integrated Terminal（のように振る舞うコマンド） |
+|------------------------+-------------------------+--------------------------------------------------------|
+| Ctrl+数字キー          | switch_focus            | Focus n-th Editor Group                                |
+| Ctl+x o                | other_window2           | Navigate Between Editor Groups                         |
+|------------------------+-------------------------+--------------------------------------------------------|
+
+なお、マウスのクリックでカーソル位置の変更を行うと、この状態の認識に齟齬が発生することがあります。
+この場合は、上記の３種類のキーを押下することにより、Fakeymacs に現在の状態を再認識させるようにして
+ください。
