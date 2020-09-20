@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs Light"
-fakeymacs_version = "20200918_02"
+fakeymacs_version = "20200920_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -89,7 +89,7 @@ fakeymacs_version = "20200918_02"
 #   などに利用可。
 # ・.use_ctrl_atmark_for_mark 変数の設定により、日本語キーボードで C-@ をマーク用の
 #   キーとして使うかどうかを指定できる。
-# ・use_vscode_wsl_key_conversion 変数の設定により、VSCode の Terminal で WSL 用の
+# ・use_vscode_terminal_direct_key_input 変数の設定により、VSCode の Terminal で WSL 用の
 #   キー変換を行うかどうかを指定できる。
 # ・use_ctrl_digit_key_for_digit_argument 変数の設定により、数引数の指定に Ctrl+数字
 #   キーを使うかを指定できる。
@@ -439,7 +439,7 @@ def configure(keymap):
     fc.use_ctrl_atmark_for_mark = False
 
     # VSCode の Terminal で WSL 用のキー変換を行うかどうかを指定する（True: 使う、False: 使わない）
-    fc.use_vscode_wsl_key_conversion = False
+    fc.use_vscode_terminal_direct_key_input = False
 
     # Emacs キーバインドを切り替えるキーを指定する
     # （Emacs キーバインドを利用するアプリケーションでかつフォーカスが当たっているアプリケーションソフト
@@ -763,7 +763,7 @@ def configure(keymap):
         kill_region()
 
     def kill_line(repeat=1):
-        if (fc.use_vscode_wsl_key_conversion and
+        if (fc.use_vscode_terminal_direct_key_input and
             checkWindow("Code.exe", "Chrome_WidgetWin_1") and # VSCode
             fakeymacs.vscode_focus == "terminal"):
             self_insert_command("C-k")()
@@ -826,7 +826,7 @@ def configure(keymap):
         resetRegion()
 
     def yank():
-        if (fc.use_vscode_wsl_key_conversion and
+        if (fc.use_vscode_terminal_direct_key_input and
             checkWindow("Code.exe", "Chrome_WidgetWin_1") and # VSCode
             fakeymacs.vscode_focus == "terminal"):
             self_insert_command("C-y")()
@@ -945,7 +945,7 @@ def configure(keymap):
 
     def isearch(direction):
         if (checkWindow("powershell.exe", "ConsoleWindowClass") or # PowerShell
-            (fc.use_vscode_wsl_key_conversion and
+            (fc.use_vscode_terminal_direct_key_input and
              checkWindow("Code.exe", "Chrome_WidgetWin_1") and     # VSCode
              fakeymacs.vscode_focus == "terminal")):
             self_insert_command({"backward":"C-r", "forward":"C-s"}[direction])()
