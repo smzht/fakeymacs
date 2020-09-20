@@ -97,13 +97,13 @@ VSCode に Center Editor Window Extension と vcode-dired Extension をインス
 何度も表示される症状が発生するようです。このため、ポップアップを非表示にする設定にしてご利用
 ください。（https://memotora.com/2014/10/05/google-ime-pop-up-setting/）
 
-*** ● use_vscode_terminal_direct_key_input 変数
+*** ● use_vscode_terminal_key_direct_input 変数
 
 VSCode の WSL Terminal内 で Ctrl+k、Ctrl+r、Ctrl+s、Ctrl+y の４つのキーをダイレクト入力できる
 ようにするため、この変数を導入しています。初期値を False（使わない）とし、仕様を理解した方のみ
 使う機能としています。
 
-use_vscode_terminal_direct_key_input 変数を True にしている場合には、次のキーを押下して
+use_vscode_terminal_key_direct_input 変数を True にしている場合には、次のキーを押下して
 Terminal に移行するようにしてください。Terminal 内で上記の４つのキーの入力ができるようになります。
 
 ※ この機能を利用する場合には、VSCode の 設定で terminal.integrated.allowChords を false
@@ -143,7 +143,7 @@ Terminal から抜ける場合は次のキーを利用するようにしてく�
 その場合は、上記のいずれかのキーを押下することにより、Fakeymacs に現在の状態を再認識させる
 ようにしてください。
 
-※ use_vscode_terminal_direct_key_input 変数が False（初期値）の場合には、 Ctrl+q を前置する
+※ use_vscode_terminal_key_direct_input 変数が False（初期値）の場合には、 Ctrl+q を前置する
 ことで４つのキーを利用することができます。
 
 ※ この機能をサポートするために use_ctrl_atmark_for_mark 変数を導入し、日本語キーボードで C-@
