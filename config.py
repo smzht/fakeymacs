@@ -95,8 +95,9 @@ fakeymacs_version = "20200920_01"
 #   などに利用可。
 # ・.use_ctrl_atmark_for_mark 変数の設定により、日本語キーボードで C-@ をマーク用の
 #   キーとして使うかどうかを指定できる。
-# ・use_vscode_terminal_direct_key_input 変数の設定により、VSCode の Terminal で WSL 用の
-#   キー変換を行うかどうかを指定できる。
+# ・use_vscode_terminal_direct_key_input 変数の設定により、VSCode の Terminal内 で
+#   ４つのキー（Ctrl+k、Ctrl+r、Ctrl+s、Ctrl+y）のダイレクト入力機能を使うかどうかを
+#   指定できる。
 # ・use_ctrl_digit_key_for_digit_argument 変数の設定により、数引数の指定に Ctrl+数字
 #   キーを使うかを指定できる。
 # ・reconversion_key 変数の設定により、IME の「再変換」を行うキーを指定できる。
@@ -482,7 +483,8 @@ def configure(keymap):
     #   True に設定した場合でも、Toggle Integrated Terminal 用のキーとしえて  C-[半角/全角] が使えます。）
     fc.use_ctrl_atmark_for_mark = False
 
-    # VSCode の Terminal で WSL 用のキー変換を行うかどうかを指定する（True: 使う、False: 使わない）
+    # VSCode の Terminal内 で ４つのキー（Ctrl+k、Ctrl+r、Ctrl+s、Ctrl+y）のダイレクト入力機能を使うか
+    # どうかを指定する（True: 使う、False: 使わない）
     fc.use_vscode_terminal_direct_key_input = False
 
     # Emacs キーバインドを切り替えるキーを指定する
