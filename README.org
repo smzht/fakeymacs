@@ -97,6 +97,9 @@ VSCode に Center Editor Window Extension と vcode-dired Extension をインス
 何度も表示される症状が発生するようです。このため、ポップアップを非表示にする設定にしてご利用
 ください。（https://memotora.com/2014/10/05/google-ime-pop-up-setting/）
 
+※ VSCode の 設定で terminal.integrated.allowChords を false にしてご利用ください。
+- https://code.visualstudio.com/docs/editor/integrated-terminal#_chord-keybindings-in-the-terminal
+
 *** ● use_vscode_terminal_direct_key_input 変数
 
 VSCode の WSL Terminal内 で Ctrl+k、Ctrl+r、Ctrl+s、Ctrl+y の４つのキーをダイレクト入力できる
