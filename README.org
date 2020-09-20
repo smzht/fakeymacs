@@ -47,6 +47,19 @@ IME のショートカットキーが利用できるようになります。
 するためのキーは、デフォルトキーの A-S-Tab、A-Tab となります。起動後は A-p、A-n で
 アクティブウィンドウの切り替え、A-g で切り替え画面の終了（キャンセル）が利用できます。
 
+** 個人設定用ファイル（config_personal.py）
+
+_config_personal.py とうファイルを config_personal.py というファイル名にすることで個人設定用
+ファイルとして機能します。本ファイルの設定には [] で括られたセクション名が定義されており、
+その単位で config.py の中に設定が取り込まれ、exec 関数により実行されます。
+
+config.py や config_light.py で設定を変更したい内容は、config_personal.py に記載して管理する
+ことで、config.py や config_light.py のバージョンアップに容易に対応できるようになりますので、
+ご利用ください。
+
+なお、config.py ファイル内の exec 関数をコールしているところを検索すると、何のセクションが
+どこで読み込まれるかが分かると思います。
+
 ** VSCode の強化ポイント
 
 VSCode については、一般的な Emacs キーバインドの他に次のキーバインドを利用できるようにしています。
@@ -75,6 +88,15 @@ VSCode に Center Editor Window Extension と vcode-dired Extension をインス
 | Ctrl+l      | recenter           | Center Editor Window |
 | Ctrl+x d    | dired              | Open dired buffer    |
 |-------------+--------------------+----------------------|
+
+※ これらの機能を実現するにあたり、vscodeExecuteCommand 関数を作成しています。この関数を使う
+ことにより、ショートカットキーが割り当てられていない VSCode のコマンドでも、Fakeymacs から
+実行できるようにしています。
+
+※ vscodeExecuteCommand 関数内では日本語入力モードの切り替えを行っているのですが、Google 
+日本語入力を利用して入力モードのポップアップを表示する設定にしている場合、このポップアップが
+何度も表示される症状が発生するようです。このため、ポップアップを非表示にする設定にしてご利用
+ください。（https://memotora.com/2014/10/05/google-ime-pop-up-setting/）
 
 *** ● use_vscode_terminal_direct_key_input 変数
 
@@ -122,4 +144,4 @@ Terminal から抜ける場合は次のキーを利用するようにしてく�
 ことで４つのキーを利用することができます。
 
 ※ この機能をサポートするために use_ctrl_atmark_for_mark 変数を導入し、日本語キーボードで C-@
- をマーク用のキーとして使うかどうかを指定できるようにしました。初期値は False（使わない）です。
+をマーク用のキーとして使うかどうかを指定できるようにしました。初期値は False（使わない）です。
