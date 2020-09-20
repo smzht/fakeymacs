@@ -51,7 +51,7 @@ IME のショートカットキーが利用できるようになります。
 
 _config_personal.py とうファイルを config_personal.py というファイル名にすることで個人設定用
 ファイルとして機能します。本ファイルの設定には [] で括られたセクション名が定義されており、
-その単位で config.py の中に設定が取り込まれ、exec 関数により実行されます。
+その単位で config.py や config_light.py の中に設定が取り込まれ、exec 関数により実行されます。
 
 config.py や config_light.py で設定を変更したい内容は、config_personal.py に記載して管理する
 ことで、config.py や config_light.py のバージョンアップに容易に対応できるようになりますので、
