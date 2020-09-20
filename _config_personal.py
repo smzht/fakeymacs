@@ -102,8 +102,9 @@ fc.set_input_method_key += [["(29)", "(28)"]]
 # fc.set_input_method_key += [["C-j", "C-o"]]
 #---------------------------------------------------------------------------------------------------
 
-# VSCode の Terminal で WSL 用のキー変換を行うかどうかを指定する（True: 使う、False: 使わない）
-# fc.use_vscode_wsl_key_conversion = True
+# VSCode の Terminal内 で ４つのキー（Ctrl+k、Ctrl+r、Ctrl+s、Ctrl+y）のダイレクト入力機能を使うか
+# どうかを指定する（True: 使う、False: 使わない）
+# fc.use_vscode_terminal_key_direct_input = True
 
 # アプリケーションキーとして利用するキーを指定する
 # （修飾キーに Alt は使えないようです）
