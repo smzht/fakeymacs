@@ -88,31 +88,31 @@ Terminal に移行するようにしてください。Terminal 内で上記の�
 ※ Ctrl+s は、bash で stty stop undef の設定をすると使えます。この設定をしないでこのキーを押下
 すると stop から戻れなくなりますのでご注意ください。
 
-|------------------------------+--------------------+--------------------------------------|
-| Key-binding                  | Fakeymacs Function | VSCode Command                       |
-|------------------------------+--------------------+--------------------------------------|
-| Ctrl+BackQuote（US）         | toggle_terminal    | Focus on Terminal View / Close Panel |
-| Ctrl+[半角/全角]（JP）       | toggle_terminal    | Focus on Terminal View / Close Panel |
-| Ctrl+Atmark（JP）            | toggle_terminal    | Focus on Terminal View / Close Panel |
-|------------------------------+--------------------+--------------------------------------|
-| Ctrl+Shift+BackQuote（US）   | new_terminal       | Create New Integrated Terminal       |
-| Ctrl+Shift+[半角/全角]（JP） | new_terminal       | Create New Integrated Terminal       |
-| Ctrl+Shift+Atmark（JP）      | new_terminal       | Create New Integrated Terminal       |
-|------------------------------+--------------------+--------------------------------------|
+|------------------------------+--------------------+----------------------------------|
+| Key-binding                  | Fakeymacs Function | VSCode Command                   |
+|------------------------------+--------------------+----------------------------------|
+| Ctrl+BackQuote（US）         | toggle_terminal    | Toggle Integrated Terminal -like |
+| Ctrl+[半角/全角]（JP）       | toggle_terminal    | Toggle Integrated Terminal -like |
+| Ctrl+Atmark（JP）            | toggle_terminal    | Toggle Integrated Terminal -like |
+|------------------------------+--------------------+----------------------------------|
+| Ctrl+Shift+BackQuote（US）   | new_terminal       | Create New Integrated Terminal   |
+| Ctrl+Shift+[半角/全角]（JP） | new_terminal       | Create New Integrated Terminal   |
+| Ctrl+Shift+Atmark（JP）      | new_terminal       | Create New Integrated Terminal   |
+|------------------------------+--------------------+----------------------------------|
 
 Terminal から抜ける場合は次のキーを利用するようにしてください。先の４つのキーが VSCode の
 ショートカットキーとして認識されるように戻ります。
 
-|------------------------+--------------------+--------------------------------------|
-| Key-binding            | Fakeymacs Function | VSCode Command                       |
-|------------------------+--------------------+--------------------------------------|
-| Ctrl+BackQuote（US）   | toggle_terminal    | Focus on Terminal View / Close Panel |
-| Ctrl+[半角/全角]（JP） | toggle_terminal    | Focus on Terminal View / Close Panel |
-| Ctrl+Atmark（JP）      | toggle_terminal    | Focus on Terminal View / Close Panel |
-|------------------------+--------------------+--------------------------------------|
-| Ctrl+[数字キー]        | switch_focus       | Focus n-th Editor Group              |
-| Ctl+x o                | other_window2      | Navigate Between Editor Groups       |
-|------------------------+--------------------+--------------------------------------|
+|------------------------+--------------------+----------------------------------|
+| Key-binding            | Fakeymacs Function | VSCode Command                   |
+|------------------------+--------------------+----------------------------------|
+| Ctrl+BackQuote（US）   | toggle_terminal    | Toggle Integrated Terminal -like |
+| Ctrl+[半角/全角]（JP） | toggle_terminal    | Toggle Integrated Terminal -like |
+| Ctrl+Atmark（JP）      | toggle_terminal    | Toggle Integrated Terminal -like |
+|------------------------+--------------------+----------------------------------|
+| Ctrl+[数字キー]        | switch_focus       | Focus n-th Editor Group          |
+| Ctl+x o                | other_window2      | Navigate Between Editor Groups   |
+|------------------------+--------------------+----------------------------------|
 
 マウスのクリックでカーソル位置の変更を行うと、この状態の認識に齟齬が発生することがあります。
 その場合は、上記のいずれかのキーを押下することにより、Fakeymacs に現在の状態を再認識させる
