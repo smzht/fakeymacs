@@ -88,6 +88,8 @@ VSCode に Center Editor Window Extension と vcode-dired Extension をインス
 | Ctrl+x d    | dired              | Open dired buffer    |
 |-------------+--------------------+----------------------|
 
+※ Meta で Esc を利用したい場合には、use_esc_as_meta 変数を True にしてください。
+
 ※ これらの機能を実現するにあたり、vscodeExecuteCommand 関数を作成しています。この関数を使う
 ことにより、ショートカットキーが割り当てられていない VSCode のコマンドでも、Fakeymacs から
 実行できるようにしています。
@@ -104,14 +106,7 @@ VSCode の WSL Terminal内 で Ctrl+k、Ctrl+r、Ctrl+s、Ctrl+y の４つのキ
 使う機能としています。
 
 use_vscode_terminal_key_direct_input 変数を True にしている場合には、次のキーを押下して
-Terminal に移行するようにしてください。Terminal 内で上記の４つのキーの入力ができるようになります。
-
-※ この機能を利用する場合には、VSCode の 設定で terminal.integrated.allowChords を false
-にしてご利用ください。
-（https://code.visualstudio.com/docs/editor/integrated-terminal#_chord-keybindings-in-the-terminal）
-
-※ Ctrl+s は、bash で stty stop undef の設定をすると使えます。この設定をしないでこのキーを押下
-すると stop から戻れなくなりますのでご注意ください。
+Terminal に移行すことで、上記の４つのキーの入力ができるようになります。
 
 |------------------------------+--------------------+----------------------------------|
 | Key-binding                  | Fakeymacs Function | VSCode Command                   |
@@ -124,6 +119,14 @@ Terminal に移行するようにしてください。Terminal 内で上記の�
 | Ctrl+Shift+[半角/全角]（JP） | new_terminal       | Create New Integrated Terminal   |
 | Ctrl+Shift+Atmark（JP）      | new_terminal       | Create New Integrated Terminal   |
 |------------------------------+--------------------+----------------------------------|
+
+※ この機能を利用する場合には、VSCode の 設定で terminal.integrated.allowChords を false
+にしてご利用ください。
+（https://code.visualstudio.com/docs/editor/integrated-terminal#_chord-keybindings-in-the-terminal）
+
+※ Ctrl+s は、bash で stty stop undef の設定をすると使えます。この設定をしないでこのキーを押下
+すると stop から戻れなくなりますのでご注意ください。
+
 
 Terminal から抜ける場合は次のキーを利用するようにしてください。先の４つのキーが VSCode の
 ショートカットキーとして認識されるように戻ります。
