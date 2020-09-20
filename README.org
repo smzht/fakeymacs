@@ -54,8 +54,7 @@ _config_personal.py とうファイルを config_personal.py というファイ�
 その単位で config.py や config_light.py の中に設定が取り込まれ、exec 関数により実行されます。
 
 config.py や config_light.py で設定を変更したい内容は、config_personal.py に記載して管理する
-ことで、config.py や config_light.py のバージョンアップに容易に対応できるようになりますので、
-ご利用ください。
+ことで、config.py や config_light.py のバージョンアップに容易に対応できるようになると思います。
 
 なお、config.py ファイル内の exec 関数をコールしているところを検索すると、何のセクションが
 どこで読み込まれるかが分かると思います。
@@ -100,9 +99,9 @@ VSCode に Center Editor Window Extension と vcode-dired Extension をインス
 
 *** ● use_vscode_terminal_direct_key_input 変数
 
-VSCode の WSL Terminal内 で Ctrl+k、Ctrl+r、Ctrl+s、Ctrl+y の４つのキーを利用できるようにする
-ため、この変数を導入しています。初期値を False（使わない）とし、仕様を理解した方のみ使う機能
-としています。
+VSCode の WSL Terminal内 で Ctrl+k、Ctrl+r、Ctrl+s、Ctrl+y の４つのキーをダイレクト入力できる
+ようにするため、この変数を導入しています。初期値を False（使わない）とし、仕様を理解した方のみ
+使う機能としています。
 
 use_vscode_terminal_direct_key_input 変数を True にしている場合には、次のキーを押下して
 Terminal に移行するようにしてください。Terminal 内で上記の４つのキーの入力ができるようになります。
