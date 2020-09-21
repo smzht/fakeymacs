@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs Light"
-fakeymacs_version = "20200920_01"
+fakeymacs_version = "20200921_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -891,32 +891,39 @@ def configure(keymap):
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             # VSCode Command : Create New Integrated Terminal
             vscodeExecuteCommand("Cr-Ne-In-Te")
-            fakeymacs.vscode_focus = "terminal"
+            if fc.use_vscode_terminal_key_direct_input:
+                fakeymacs.vscode_focus = "terminal"
 
     def toggle_terminal():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
-            if fakeymacs.vscode_focus == "not_terminal":
-                # VSCode Command : Focus on Terminal View
-                vscodeExecuteCommand("Fo-on-Te-Vi")
-                fakeymacs.vscode_focus = "terminal"
+            if fc.use_vscode_terminal_key_direct_input:
+                if fakeymacs.vscode_focus == "not_terminal":
+                    # VSCode Command : Focus on Terminal View
+                    vscodeExecuteCommand("Fo-on-Te-Vi")
+                    fakeymacs.vscode_focus = "terminal"
+                else:
+                    # VSCode Command : Close Panel
+                    vscodeExecuteCommand("Cl-Pa")
+                    fakeymacs.vscode_focus = "not_terminal"
             else:
-                # VSCode Command : Close Panel
-                vscodeExecuteCommand("Cl-Pa")
-                fakeymacs.vscode_focus = "not_terminal"
+                # VSCode Command : Toggle Integrated Terminal
+                vscodeExecuteCommand("To-In-Te")
 
     def switch_focus(number):
         def _func():
             if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
                 # VSCode Command : Focus n-th Editor Group
                 self_insert_command("C-{}".format(number))()
-                fakeymacs.vscode_focus = "not_terminal"
+                if fc.use_vscode_terminal_key_direct_input:
+                    fakeymacs.vscode_focus = "not_terminal"
         return _func
 
     def other_window2():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             # VSCode Command : Navigate Between Editor Groups
             vscodeExecuteCommand("Na-Be-Ed-Gr")
-            fakeymacs.vscode_focus = "not_terminal"
+            if fc.use_vscode_terminal_key_direct_input:
+                fakeymacs.vscode_focus = "not_terminal"
 
     def delete_window():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
