@@ -56,8 +56,8 @@ _config_personal.py とうファイルを config_personal.py というファイ�
 config.py や config_light.py で設定を変更したい内容は、config_personal.py に記載して管理する
 ことで、config.py や config_light.py のバージョンアップに容易に対応できるようになると思います。
 
-なお、config.py ファイル内の exec 関数をコールしているところを検索すると、何のセクションが
-どこで読み込まれるかが分かると思います。
+何のセクションがどこで読み込まれるかについては、config.py や config_light.py ファイル内の
+exec 関数をコールしているところを検索して確認ください。
 
 ** VSCode の強化ポイント
 
