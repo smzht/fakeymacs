@@ -88,7 +88,8 @@ VSCode に Center Editor Window Extension と vcode-dired Extension をインス
 | Ctrl+x d    | dired              | Open dired buffer    |
 |-------------+--------------------+----------------------|
 
-※ Meta で Esc を利用したい場合には、use_esc_as_meta 変数を True にしてください。
+※ Meta で Esc を利用したい場合には、use_esc_as_meta 変数を True にしてください。True にした
+場合に Esc を入力するには、Esc を二回押下してください。
 
 ※ これらの機能を実現するにあたり、vscodeExecuteCommand 関数を作成しています。この関数を使う
 ことにより、ショートカットキーが割り当てられていない VSCode のコマンドでも、Fakeymacs から
