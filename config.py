@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs"
-fakeymacs_version = "20200921_01"
+fakeymacs_version = "20200921_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -992,7 +992,7 @@ def configure(keymap):
                 wnd.getLastActivePopup().setForeground()
                 break
 
-    def new_terminal():
+    def create_terminal():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             # VSCode Command : Create New Integrated Terminal
             vscodeExecuteCommand("Cr-Ne-In-Te")
@@ -1023,29 +1023,29 @@ def configure(keymap):
                     fakeymacs.vscode_focus = "not_terminal"
         return _func
 
-    def other_window2():
+    def other_group():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             # VSCode Command : Navigate Between Editor Groups
             vscodeExecuteCommand("Na-Be-Ed-Gr")
             if fc.use_vscode_terminal_key_direct_input:
                 fakeymacs.vscode_focus = "not_terminal"
 
-    def delete_window():
+    def delete_group():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             # VSCode Command : Close All Editors in Group
             vscodeExecuteCommand("Cl-Al-Ed-in-Gr")
 
-    def delete_other_windows():
+    def delete_other_groups():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             # VSCode Command : Close Editors in Other Groups
             vscodeExecuteCommand("Cl-Ed-in-Ot-Gr")
 
-    def split_window_below():
+    def split_editor_below():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             # VSCode Command : Split Editor Orthogonal
             self_insert_command("C-k", "C-Yen")()
 
-    def split_window_right():
+    def split_editor_right():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             # VSCode Command : Split Editor
             self_insert_command("C-Yen")()
@@ -1706,21 +1706,21 @@ def configure(keymap):
     define_key(keymap_emacs, "Ctl-x k",       reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
     define_key(keymap_emacs, "M-k",           reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
     define_key(keymap_emacs, "Ctl-x b",       reset_search(reset_undo(reset_counter(reset_mark(switch_to_buffer)))))
-    define_key(keymap_emacs, "Ctl-x o",       reset_search(reset_undo(reset_counter(reset_mark(other_window2)))))
-    define_key(keymap_emacs, "Ctl-x 0",       reset_search(reset_undo(reset_counter(reset_mark(delete_window)))))
-    define_key(keymap_emacs, "Ctl-x 1",       reset_search(reset_undo(reset_counter(reset_mark(delete_other_windows)))))
-    define_key(keymap_emacs, "Ctl-x 2",       reset_search(reset_undo(reset_counter(reset_mark(split_window_below)))))
-    define_key(keymap_emacs, "Ctl-x 3",       reset_search(reset_undo(reset_counter(reset_mark(split_window_right)))))
+    define_key(keymap_emacs, "Ctl-x o",       reset_search(reset_undo(reset_counter(reset_mark(other_group)))))
+    define_key(keymap_emacs, "Ctl-x 0",       reset_search(reset_undo(reset_counter(reset_mark(delete_group)))))
+    define_key(keymap_emacs, "Ctl-x 1",       reset_search(reset_undo(reset_counter(reset_mark(delete_other_groups)))))
+    define_key(keymap_emacs, "Ctl-x 2",       reset_search(reset_undo(reset_counter(reset_mark(split_editor_below)))))
+    define_key(keymap_emacs, "Ctl-x 3",       reset_search(reset_undo(reset_counter(reset_mark(split_editor_right)))))
 
-    define_key(keymap_emacs, "C-S-BackQuote", reset_search(reset_undo(reset_counter(reset_mark(new_terminal)))))
-    define_key(keymap_emacs, "C-S-(243)",     reset_search(reset_undo(reset_counter(reset_mark(new_terminal)))))
-    define_key(keymap_emacs, "C-S-(244)",     reset_search(reset_undo(reset_counter(reset_mark(new_terminal)))))
+    define_key(keymap_emacs, "C-S-BackQuote", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
+    define_key(keymap_emacs, "C-S-(243)",     reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
+    define_key(keymap_emacs, "C-S-(244)",     reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
     define_key(keymap_emacs, "C-BackQuote",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
     define_key(keymap_emacs, "C-(243)",       reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
     define_key(keymap_emacs, "C-(244)",       reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
 
     if is_japanese_keyboard:
-        define_key(keymap_emacs, "C-S-Atmark", reset_search(reset_undo(reset_counter(reset_mark(new_terminal)))))
+        define_key(keymap_emacs, "C-S-Atmark", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
         if not fc.use_ctrl_atmark_for_mark:
             define_key(keymap_emacs, "C-Atmark", reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
 

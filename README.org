@@ -67,11 +67,11 @@ VSCode については、一般的な Emacs キーバインドの他に次のキ
 | Key-binding | Fakeymacs Function       | VSCode Command                 |
 |-------------+--------------------------+--------------------------------|
 | Meta+x      | execute_extended_command | Show All Commands              |
-| Ctl+x o     | other_window2            | Navigate Between Editor Groups |
-| Ctl+x 0     | delete_window            | Close All Editors in Group     |
-| Ctl+x 1     | delete_other_windows     | Close Editors in Other Groups  |
-| Ctl+x 2     | split_window_below       | Split Editor Orthogonal        |
-| Ctl+x 3     | split_window_right       | Split Editor                   |
+| Ctl+x o     | other_group              | Navigate Between Editor Groups |
+| Ctl+x 0     | delete_group             | Close All Editors in Group     |
+| Ctl+x 1     | delete_other_groups      | Close Editors in Other Groups  |
+| Ctl+x 2     | split_editor_below       | Split Editor Orthogonal        |
+| Ctl+x 3     | split_editor_right       | Split Editor                   |
 | Meta+;      | comment_dwim             | Toggle Line Comment            |
 | Ctrl+Alt+p  | unmark_next_like_this    | Cursor Undo                    |
 | Ctrl+Alt+n  | mark_next_like_this      | Add Cursor Below               |
@@ -116,9 +116,9 @@ Terminal に移行すことで、上記の４つのキーの入力ができる�
 | Ctrl+[半角/全角]（JP）       | toggle_terminal    | Toggle Integrated Terminal -like |
 | Ctrl+Atmark（JP）            | toggle_terminal    | Toggle Integrated Terminal -like |
 |------------------------------+--------------------+----------------------------------|
-| Ctrl+Shift+BackQuote（US）   | new_terminal       | Create New Integrated Terminal   |
-| Ctrl+Shift+[半角/全角]（JP） | new_terminal       | Create New Integrated Terminal   |
-| Ctrl+Shift+Atmark（JP）      | new_terminal       | Create New Integrated Terminal   |
+| Ctrl+Shift+BackQuote（US）   | create_terminal    | Create New Integrated Terminal   |
+| Ctrl+Shift+[半角/全角]（JP） | create_terminal    | Create New Integrated Terminal   |
+| Ctrl+Shift+Atmark（JP）      | create_terminal    | Create New Integrated Terminal   |
 |------------------------------+--------------------+----------------------------------|
 
 ※ この機能を利用する場合には、VSCode の 設定で terminal.integrated.allowChords を false
@@ -140,7 +140,7 @@ Terminal から抜ける場合は次のキーを利用するようにしてく�
 | Ctrl+Atmark（JP）      | toggle_terminal    | Toggle Integrated Terminal -like |
 |------------------------+--------------------+----------------------------------|
 | Ctrl+[数字キー]        | switch_focus       | Focus n-th Editor Group          |
-| Ctl+x o                | other_window2      | Navigate Between Editor Groups   |
+| Ctl+x o                | other_group        | Navigate Between Editor Groups   |
 |------------------------+--------------------+----------------------------------|
 
 マウスのクリックでカーソル位置の変更を行うと、この状態の認識に齟齬が発生することがあります。
