@@ -270,6 +270,7 @@ def configure(keymap):
                                "VirtualBox.exe",         # VirtualBox
                                "XWin.exe",               # Cygwin/X
                                "XWin_MobaX.exe",         # MobaXterm/X
+                               "XWin_MobaX_1.16.3.exe",  # MobaXterm/X
                                "XWin_Cygwin_1.14.5.exe", # MobaXterm/X
                                "XWin_Cygwin_1.16.3.exe", # MobaXterm/X
                                "Xming.exe",              # Xming
