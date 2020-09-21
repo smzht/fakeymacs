@@ -993,12 +993,8 @@ def configure(keymap):
 
     def new_terminal():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
-            if is_japanese_keyboard:
-                self_insert_command("C-S-Atmark")()
-            else:
-                # VSCode Command : Create New Integrated Terminal
-                # （C-S-BackQuote としていないのは、RShift を利用したときに動作しないようなのでその対策）
-                self_insert_command("C-LS-RS-BackQuote")()
+            # VSCode Command : Create New Integrated Terminal
+            vscodeExecuteCommand("Cr-Ne-In-Te")
             fakeymacs.vscode_focus = "terminal"
 
     def toggle_terminal():
