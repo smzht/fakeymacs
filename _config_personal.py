@@ -127,6 +127,7 @@ if 0:
             vscodeExecuteCommand("Op-di-bu")
         else:
             func()
+
     define_key(keymap_emacs, "Ctl-x d", reset_search(reset_undo(reset_counter(reset_mark(dired)))))
 
 if 0:
