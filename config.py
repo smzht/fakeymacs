@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs"
-fakeymacs_version = "20200921_02"
+fakeymacs_version = "20200923_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -995,7 +995,7 @@ def configure(keymap):
     def create_terminal():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             # VSCode Command : Create New Integrated Terminal
-            vscodeExecuteCommand("Cr-Ne-In-Te")
+            vscodeExecuteCommand("Te:Cr-Ne-In-Te")
             if fc.use_vscode_terminal_key_direct_input:
                 fakeymacs.vscode_focus = "terminal"
 
@@ -1004,15 +1004,15 @@ def configure(keymap):
             if fc.use_vscode_terminal_key_direct_input:
                 if fakeymacs.vscode_focus == "not_terminal":
                     # VSCode Command : Focus on Terminal View
-                    vscodeExecuteCommand("Fo-on-Te-Vi")
+                    vscodeExecuteCommand("Te:Fo-on-Vi")
                     fakeymacs.vscode_focus = "terminal"
                 else:
                     # VSCode Command : Close Panel
-                    vscodeExecuteCommand("Cl-Pa")
+                    vscodeExecuteCommand("Vi:Cl-Pa")
                     fakeymacs.vscode_focus = "not_terminal"
             else:
                 # VSCode Command : Toggle Integrated Terminal
-                vscodeExecuteCommand("To-In-Te")
+                vscodeExecuteCommand("Vi:To-In-Te")
 
     def switch_focus(number):
         def _func():
@@ -1026,19 +1026,19 @@ def configure(keymap):
     def other_group():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             # VSCode Command : Navigate Between Editor Groups
-            vscodeExecuteCommand("Na-Be-Ed-Gr")
+            vscodeExecuteCommand("Vi:Na-Be-Ed-Gr")
             if fc.use_vscode_terminal_key_direct_input:
                 fakeymacs.vscode_focus = "not_terminal"
 
     def delete_group():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             # VSCode Command : Close All Editors in Group
-            vscodeExecuteCommand("Cl-Al-Ed-in-Gr")
+            vscodeExecuteCommand("Vi:Cl-Al-Ed-in-Gr")
 
     def delete_other_groups():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             # VSCode Command : Close Editors in Other Groups
-            vscodeExecuteCommand("Cl-Ed-in-Ot-Gr")
+            vscodeExecuteCommand("Vi:Cl-Ed-in-Ot-Gr")
 
     def split_editor_below():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
