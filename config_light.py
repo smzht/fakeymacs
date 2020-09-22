@@ -899,7 +899,7 @@ def configure(keymap):
             if fc.use_vscode_terminal_key_direct_input:
                 if fakeymacs.vscode_focus == "not_terminal":
                     # VSCode Command : Focus on Terminal View
-                    vscodeExecuteCommand("Te:Fo-on-Vi")
+                    vscodeExecuteCommand("Te:Fo-on--Vi")
                     fakeymacs.vscode_focus = "terminal"
                 else:
                     # VSCode Command : Close Panel
