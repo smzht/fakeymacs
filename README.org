@@ -121,12 +121,12 @@ Terminal に移行すことで、上記の４つのキーの入力ができる�
 | Ctrl+Shift+Atmark（JP）      | create_terminal    | Create New Integrated Terminal   |
 |------------------------------+--------------------+----------------------------------|
 
-※ この機能を利用する場合には、VSCode の 設定で terminal.integrated.allowChords を false
-にしてご利用ください。
+※ Ctrl+k を利用できるようにするには、VSCode の 設定で terminal.integrated.allowChords
+を false にする必要があります。
 （https://code.visualstudio.com/docs/editor/integrated-terminal#_chord-keybindings-in-the-terminal）
 
-※ Ctrl+s は、bash で stty stop undef の設定をすると使えます。この設定をしないでこのキーを押下
-すると stop から戻れなくなりますのでご注意ください。
+※ Ctrl+s を利用できるようにするには、bash で stty stop undef の設定をする必要があります。
+この設定をしないでこのキーを押下すると stop から戻れなくなりますのでご注意ください。
 
 
 Terminal から抜ける場合は次のキーを利用するようにしてください。先の４つのキーが VSCode の
