@@ -77,16 +77,17 @@ VSCode については、一般的な Emacs キーバインドの他に次のキ
 | Ctrl+Alt+n  | mark_next_like_this      | Add Cursor Below               |
 |-------------+--------------------------+--------------------------------|
 
-VSCode に Center Editor Window Extension と vcode-dired Extension をインストールすることにより、
-次のキーバインドも利用が可能となります。利用するための設定は _config_personal.py の中に記載して
-います。
+VSCode に Center Editor Window Extension、vcode-dired Extension、Search in Current File を
+インストールすることにより、次のキーバインドも利用が可能となります。利用するための設定は
+_config_personal.py の中に記載しています。
 
-|-------------+--------------------+----------------------|
-| Key-binding | Fakeymacs Function | VSCode Command       |
-|-------------+--------------------+----------------------|
-| Ctrl+l      | recenter           | Center Editor Window |
-| Ctrl+x d    | dired              | Open dired buffer    |
-|-------------+--------------------+----------------------|
+|--------------+--------------------+------------------------|
+| Key-binding  | Fakeymacs Function | VSCode Command         |
+|--------------+--------------------+------------------------|
+| Ctrl+l       | recenter           | Center Editor Window   |
+| Ctl+x d      | dired              | Open dired buffer      |
+| Ctl+x Ctrl+o | occor              | Search in Current File |
+|--------------+--------------------+------------------------|
 
 ※ Meta で Esc を利用したい場合には、use_esc_as_meta 変数を True にしてください。True にした
 場合に Esc を入力するには、Esc を二回押下してください。
