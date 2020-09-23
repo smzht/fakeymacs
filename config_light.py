@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs Light"
-fakeymacs_version = "20200923_03"
+fakeymacs_version = "20200923_04"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -898,8 +898,8 @@ def configure(keymap):
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             if fc.use_vscode_terminal_key_direct_input:
                 if fakeymacs.vscode_focus == "not_terminal":
-                    # VSCode Command : Focus on Terminal View
-                    vscodeExecuteCommand("Te:Fo-on--Vi")
+                    # VSCode Command : Focus Terminal
+                    vscodeExecuteCommand("Te:Fo-Te")
                     fakeymacs.vscode_focus = "terminal"
                 else:
                     # VSCode Command : Close Panel
