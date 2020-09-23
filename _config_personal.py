@@ -117,9 +117,9 @@ fc.set_input_method_key += [["(29)", "(28)"]]
 # VSCode で Extension のインストールが必要な機能は個人設定用ファイルで再定義する
 
 if 0:
-    # VSCode に vscode-dired Extension のインストールしてお使いください
+    # VSCode に vscode-dired Extension をインストールしてお使いください
     # （Ctrl+x f に設定されているキーバインドは、Ctrl+x（Cut）の機能とバッティングするので、削除して
-    #   ください（Open Keybord Shortcuts コマンドで削除可能です）)
+    #   ください（Open Keyboard Shortcuts コマンドで削除可能です）)
 
     def dired(func=dired):
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
@@ -131,7 +131,7 @@ if 0:
     define_key(keymap_emacs, "Ctl-x d", reset_search(reset_undo(reset_counter(reset_mark(dired)))))
 
 if 0:
-    # VSCode に Center Editor Window Extension のインストールしてお使いください
+    # VSCode に Center Editor Window Extension をインストールしてお使いください
 
     def recenter(func=recenter):
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
@@ -143,7 +143,7 @@ if 0:
     define_key(keymap_emacs, "C-l", reset_search(reset_undo(reset_counter(recenter))))
 
 if 0:
-    # VSCode に Search in Current File Extension のインストールしてお使いください
+    # VSCode に Search in Current File Extension をインストールしてお使いください
     # （検索をパネルで行う設定も併せて行うと使いやすくなります
     #   https://qiita.com/sosukeokubo/items/46436d30d967f9f5030b）
 
