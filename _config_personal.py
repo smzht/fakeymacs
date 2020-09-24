@@ -160,7 +160,7 @@ if 0:
 
 if 0
     # Everything を起動するキーを指定する
-    everything_key = "C-A-e"
+    everything_key = "C-A-v"
 
     # Everything プログラムを指定する
     everything_name = r"C:\Program Files\Everything\everything.exe"
