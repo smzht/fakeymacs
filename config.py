@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs"
-fakeymacs_version = "20200924_01"
+fakeymacs_version = "20200925_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -2536,6 +2536,7 @@ def configure(keymap):
 
         fc.x_window_apps = ["XWin.exe",               # Cygwin/X
                             "XWin_MobaX.exe",         # MobaXterm/X
+                            "XWin_MobaX_1.16.3.exe",  # MobaXterm/X
                             "XWin_Cygwin_1.14.5.exe", # MobaXterm/X
                             "XWin_Cygwin_1.16.3.exe", # MobaXterm/X
                             "Xming.exe",              # Xming
