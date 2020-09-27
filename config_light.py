@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs Light"
-fakeymacs_version = "20200927_02"
+fakeymacs_version = "20200927_03"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -721,15 +721,25 @@ def configure(keymap):
             checkWindow("sakura.exe", "SakuraView*")):   # Sakura Editor
             self_insert_command("C-h")()
 
-    def unmark_next_like_this():
+    def mark_up():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             # VSCode Command : cursorColumnSelectUp
             self_insert_command("C-S-A-Up")()
 
-    def mark_next_like_this():
+    def mark_down():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             # VSCode Command : cursorColumnSelectDown
             self_insert_command("C-S-A-Down")()
+
+    def mark_next_like_this():
+        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
+            # VSCode Command : Add Selection To Next Find Match
+            self_insert_command("C-d")()
+
+    def skip_to_next_like_this():
+        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
+            # VSCode Command : Move Last Selection To Next Find Match
+            self_insert_command("C-k", "C-d")()
 
     ##################################################
     ## カット / コピー / 削除 / アンドゥ
@@ -1497,12 +1507,14 @@ def configure(keymap):
     define_key(keymap_emacs, "M-S-Period", reset_search(reset_undo(reset_counter(mark(end_of_buffer, True)))))
     define_key(keymap_emacs, "C-l",        reset_search(reset_undo(reset_counter(recenter))))
 
-    define_key(keymap_emacs, "C-A-p",      reset_search(reset_undo(reset_counter(unmark_next_like_this))))
-    define_key(keymap_emacs, "C-A-n",      reset_search(reset_undo(reset_counter(mark_next_like_this))))
+    define_key(keymap_emacs, "C-A-p",      reset_search(reset_undo(reset_counter(mark_up))))
+    define_key(keymap_emacs, "C-A-n",      reset_search(reset_undo(reset_counter(mark_down))))
     define_key(keymap_emacs, "C-A-b",      reset_search(reset_undo(reset_counter(mark2(repeat(backward_char), False)))))
     define_key(keymap_emacs, "C-A-f",      reset_search(reset_undo(reset_counter(mark2(repeat(forward_char), True)))))
     define_key(keymap_emacs, "C-A-a",      reset_search(reset_undo(reset_counter(mark2(move_beginning_of_line, False)))))
     define_key(keymap_emacs, "C-A-e",      reset_search(reset_undo(reset_counter(mark2(move_end_of_line, True)))))
+    define_key(keymap_emacs, "C-A-d",      reset_search(reset_undo(reset_counter(mark_next_like_this))))
+    define_key(keymap_emacs, "C-A-s",      reset_search(reset_undo(reset_counter(skip_to_next_like_this))))
 
     define_key(keymap_emacs, "C-S-b", reset_search(reset_undo(reset_counter(mark2(repeat(backward_char), False)))))
     define_key(keymap_emacs, "C-S-f", reset_search(reset_undo(reset_counter(mark2(repeat(forward_char), True)))))
