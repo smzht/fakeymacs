@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs Light"
-fakeymacs_version = "20200924_01"
+fakeymacs_version = "20200927_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1452,14 +1452,12 @@ def configure(keymap):
     ## quoted-insertキーの設定
     for vkey in vkeys():
         s_vkey = "({})".format(vkey)
-        define_key(keymap_emacs, "C-q "     + s_vkey, reset_search(reset_undo(reset_counter(reset_mark(self_insert_command(         s_vkey))))))
-        define_key(keymap_emacs, "C-q S-"   + s_vkey, reset_search(reset_undo(reset_counter(reset_mark(self_insert_command("S-"   + s_vkey))))))
-        define_key(keymap_emacs, "C-q C-"   + s_vkey, reset_search(reset_undo(reset_counter(reset_mark(self_insert_command("C-"   + s_vkey))))))
-        define_key(keymap_emacs, "C-q C-S-" + s_vkey, reset_search(reset_undo(reset_counter(reset_mark(self_insert_command("C-S-" + s_vkey))))))
-        define_key(keymap_emacs, "C-q A-"   + s_vkey, reset_search(reset_undo(reset_counter(reset_mark(self_insert_command("A-"   + s_vkey))))))
-        define_key(keymap_emacs, "C-q A-S-" + s_vkey, reset_search(reset_undo(reset_counter(reset_mark(self_insert_command("A-S-" + s_vkey))))))
-        define_key(keymap_emacs, "C-q W-"   + s_vkey, reset_search(reset_undo(reset_counter(reset_mark(self_insert_command("W-"   + s_vkey))))))
-        define_key(keymap_emacs, "C-q W-S-" + s_vkey, reset_search(reset_undo(reset_counter(reset_mark(self_insert_command("W-S-" + s_vkey))))))
+        for mod1 in ["", "W-"]:
+            for mod2 in ["", "A-"]:
+                for mod3 in ["", "C-"]:
+                    for mod4 in ["", "S-"]:
+                        key = mod1 + mod2 + mod3 + mod4 + s_vkey
+                        define_key(keymap_emacs, "C-q " + key, reset_search(reset_undo(reset_counter(reset_mark(self_insert_command(key))))))
 
     ## Escキーの設定
     define_key(keymap_emacs, "C-OpenBracket C-OpenBracket", reset_undo(reset_counter(self_insert_command("Esc"))))
