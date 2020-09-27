@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs"
-fakeymacs_version = "20200927_01"
+fakeymacs_version = "20200927_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1545,47 +1545,47 @@ def configure(keymap):
 
     ## アルファベットキーの設定
     for vkey in range(VK_A, VK_Z + 1):
-        s_vkey = "({})".format(vkey)
-        define_key(keymap_emacs,        s_vkey, reset_undo(reset_counter(reset_mark(repeat(self_insert_command2(       s_vkey))))))
-        define_key(keymap_emacs, "S-" + s_vkey, reset_undo(reset_counter(reset_mark(repeat(self_insert_command2("S-" + s_vkey))))))
-        define_key(keymap_ime,          s_vkey, self_insert_command2(       s_vkey))
-        define_key(keymap_ime,   "S-" + s_vkey, self_insert_command2("S-" + s_vkey))
+        key = "({})".format(vkey)
+        define_key(keymap_emacs,        key, reset_undo(reset_counter(reset_mark(repeat(self_insert_command2(       key))))))
+        define_key(keymap_emacs, "S-" + key, reset_undo(reset_counter(reset_mark(repeat(self_insert_command2("S-" + key))))))
+        define_key(keymap_ime,          key, self_insert_command2(       key))
+        define_key(keymap_ime,   "S-" + key, self_insert_command2("S-" + key))
 
     ## 特殊文字キーの設定
     define_key(keymap_emacs, "Space"  , reset_undo(reset_counter(reset_mark(repeat(space)))))
     define_key(keymap_emacs, "S-Space", reset_undo(reset_counter(reset_mark(repeat(self_insert_command("S-Space"))))))
 
     for vkey in [VK_OEM_MINUS, VK_OEM_PLUS, VK_OEM_COMMA, VK_OEM_PERIOD, VK_OEM_1, VK_OEM_2, VK_OEM_3, VK_OEM_4, VK_OEM_5, VK_OEM_6, VK_OEM_7, VK_OEM_102]:
-        s_vkey = "({})".format(vkey)
-        define_key(keymap_emacs,        s_vkey, reset_undo(reset_counter(reset_mark(repeat(self_insert_command2(       s_vkey))))))
-        define_key(keymap_emacs, "S-" + s_vkey, reset_undo(reset_counter(reset_mark(repeat(self_insert_command2("S-" + s_vkey))))))
-        define_key(keymap_ime,          s_vkey, self_insert_command2(       s_vkey))
-        define_key(keymap_ime,   "S-" + s_vkey, self_insert_command2("S-" + s_vkey))
+        key = "({})".format(vkey)
+        define_key(keymap_emacs,        key, reset_undo(reset_counter(reset_mark(repeat(self_insert_command2(       key))))))
+        define_key(keymap_emacs, "S-" + key, reset_undo(reset_counter(reset_mark(repeat(self_insert_command2("S-" + key))))))
+        define_key(keymap_ime,          key, self_insert_command2(       key))
+        define_key(keymap_ime,   "S-" + key, self_insert_command2("S-" + key))
 
     ## 10key の特殊文字キーの設定
     for vkey in [VK_MULTIPLY, VK_ADD, VK_SUBTRACT, VK_DECIMAL, VK_DIVIDE]:
-        s_vkey = "({})".format(vkey)
-        define_key(keymap_emacs, s_vkey, reset_undo(reset_counter(reset_mark(repeat(self_insert_command2(s_vkey))))))
-        define_key(keymap_ime,   s_vkey, self_insert_command2(s_vkey))
+        key = "({})".format(vkey)
+        define_key(keymap_emacs, key, reset_undo(reset_counter(reset_mark(repeat(self_insert_command2(key))))))
+        define_key(keymap_ime,   key, self_insert_command2(key))
 
     ## quoted-insertキーの設定
     for vkey in vkeys():
-        s_vkey = "({})".format(vkey)
+        key = "({})".format(vkey)
         for mod1 in ["", "W-"]:
             for mod2 in ["", "A-"]:
                 for mod3 in ["", "C-"]:
                     for mod4 in ["", "S-"]:
-                        key = mod1 + mod2 + mod3 + mod4 + s_vkey
-                        define_key(keymap_emacs, "C-q " + key, reset_search(reset_undo(reset_counter(reset_mark(self_insert_command(key))))))
+                        mkey = mod1 + mod2 + mod3 + mod4 + key
+                        define_key(keymap_emacs, "C-q " + mkey, reset_search(reset_undo(reset_counter(reset_mark(self_insert_command(mkey))))))
 
     ## C-S-[a-z] -> C-[a-z]、A-S-[a-z] -> A-[a-z] の置き換え設定（Emacsシフトモードの設定）
     if fc.use_emacs_shift_mode:
         for vkey in range(VK_A, VK_Z + 1):
-            s_vkey = "({})".format(vkey)
-            define_key(keymap_emacs, "C-S-" + s_vkey, reset_search(reset_undo(reset_counter(reset_mark(self_insert_command("C-" + s_vkey))))))
-            define_key(keymap_emacs, "A-S-" + s_vkey, reset_search(reset_undo(reset_counter(reset_mark(self_insert_command("A-" + s_vkey))))))
-            define_key(keymap_ime,   "C-S-" + s_vkey, self_insert_command("C-" + s_vkey))
-            define_key(keymap_ime,   "A-S-" + s_vkey, self_insert_command("A-" + s_vkey))
+            key = "({})".format(vkey)
+            define_key(keymap_emacs, "C-S-" + key, reset_search(reset_undo(reset_counter(reset_mark(self_insert_command("C-" + key))))))
+            define_key(keymap_emacs, "A-S-" + key, reset_search(reset_undo(reset_counter(reset_mark(self_insert_command("A-" + key))))))
+            define_key(keymap_ime,   "C-S-" + key, self_insert_command("C-" + key))
+            define_key(keymap_ime,   "A-S-" + key, self_insert_command("A-" + key))
 
     ## Escキーの設定
     define_key(keymap_emacs, "C-OpenBracket C-OpenBracket", reset_undo(reset_counter(self_insert_command("Esc"))))
@@ -1932,20 +1932,20 @@ def configure(keymap):
 
         ## 全てキーパターンの設定（ei_record_func 関数を通すための設定）
         for vkey in vkeys():
-            s_vkey = "({})".format(vkey)
-            define_key(keymap_ei,          s_vkey, ei_record_func(self_insert_command(         s_vkey)))
-            define_key(keymap_ei, "S-"   + s_vkey, ei_record_func(self_insert_command("S-"   + s_vkey)))
-            define_key(keymap_ei, "C-"   + s_vkey, ei_record_func(self_insert_command("C-"   + s_vkey)))
-            define_key(keymap_ei, "C-S-" + s_vkey, ei_record_func(self_insert_command("C-S-" + s_vkey)))
-            define_key(keymap_ei, "A-"   + s_vkey, ei_record_func(self_insert_command("A-"   + s_vkey)))
-            define_key(keymap_ei, "A-S-" + s_vkey, ei_record_func(self_insert_command("A-S-" + s_vkey)))
+            key = "({})".format(vkey)
+            define_key(keymap_ei,          key, ei_record_func(self_insert_command(         key)))
+            define_key(keymap_ei, "S-"   + key, ei_record_func(self_insert_command("S-"   + key)))
+            define_key(keymap_ei, "C-"   + key, ei_record_func(self_insert_command("C-"   + key)))
+            define_key(keymap_ei, "C-S-" + key, ei_record_func(self_insert_command("C-S-" + key)))
+            define_key(keymap_ei, "A-"   + key, ei_record_func(self_insert_command("A-"   + key)))
+            define_key(keymap_ei, "A-S-" + key, ei_record_func(self_insert_command("A-S-" + key)))
 
         ## C-S-[a-z] -> C-[a-z]、A-S-[a-z] -> A-[a-z] の置き換え設定（Emacsシフトモードの設定）
         if fc.use_emacs_shift_mode:
             for vkey in range(VK_A, VK_Z + 1):
-                s_vkey = "({})".format(vkey)
-                define_key(keymap_ei, "C-S-" + s_vkey, ei_record_func(self_insert_command("C-" + s_vkey)))
-                define_key(keymap_ei, "A-S-" + s_vkey, ei_record_func(self_insert_command("A-" + s_vkey)))
+                key = "({})".format(vkey)
+                define_key(keymap_ei, "C-S-" + key, ei_record_func(self_insert_command("C-" + key)))
+                define_key(keymap_ei, "A-S-" + key, ei_record_func(self_insert_command("A-" + key)))
 
         ## 「IME の切り替え」のキー設定
         define_key(keymap_ei, "(243)",  ei_disable_input_method)
