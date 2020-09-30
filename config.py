@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs"
-fakeymacs_version = "20200927_03"
+fakeymacs_version = "20200930_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -603,8 +603,10 @@ def configure(keymap):
                 keymap.clipboard_history.enableHook(True)
 
             if window.getProcessName() in fc.emacs_exclusion_key.keys():
-                fakeymacs.exclution_key = list(map(addSideOfModifierKey,
-                                                   fc.emacs_exclusion_key[window.getProcessName()]))
+                fakeymacs.exclution_key = list(map(str,
+                                                   map(keyhac_keymap.KeyCondition.fromString,
+                                                       map(addSideOfModifierKey,
+                                                           fc.emacs_exclusion_key[window.getProcessName()]))))
             else:
                 fakeymacs.exclution_key = []
 
@@ -1321,6 +1323,9 @@ def configure(keymap):
                         return
 
         def keyCommand(key):
+            if key is None:
+                return command
+
             # local スコープで参照できるようにする
             try:
                 keymap_emacs
@@ -1330,8 +1335,10 @@ def configure(keymap):
             if ("keymap_emacs" in locals().keys() and
                 window_keymap == locals()["keymap_emacs"] and
                 type(command) is types.FunctionType):
+
+                ckey = str(keyhac_keymap.KeyCondition.fromString(key))
                 def _command():
-                    if key in fakeymacs.exclution_key:
+                    if ckey in fakeymacs.exclution_key:
                         keymap.InputKeyCommand(key)()
                     else:
                         command()
@@ -1543,15 +1550,15 @@ def configure(keymap):
         define_key(keymap_emacs, "Esc", keymap.defineMultiStrokeKeymap("Esc"))
 
     ## 数字キーの設定
-    for key in range(10):
-        s_key = str(key)
-        define_key(keymap_emacs, s_key, digit(key))
+    for n in range(10):
+        key = str(n)
+        define_key(keymap_emacs, key, digit(n))
         if fc.use_ctrl_digit_key_for_digit_argument:
-            define_key(keymap_emacs, "C-" + s_key, digit2(key))
-        define_key(keymap_emacs, "M-" + s_key, digit2(key))
-        define_key(keymap_emacs, "S-" + s_key, reset_undo(reset_counter(reset_mark(repeat(self_insert_command2("S-" + s_key))))))
-        define_key(keymap_ime,          s_key, self_insert_command2(       s_key))
-        define_key(keymap_ime,   "S-" + s_key, self_insert_command2("S-" + s_key))
+            define_key(keymap_emacs, "C-" + key, digit2(n))
+        define_key(keymap_emacs, "M-" + key, digit2(n))
+        define_key(keymap_emacs, "S-" + key, reset_undo(reset_counter(reset_mark(repeat(self_insert_command2("S-" + key))))))
+        define_key(keymap_ime,          key, self_insert_command2(       key))
+        define_key(keymap_ime,   "S-" + key, self_insert_command2("S-" + key))
 
     ## アルファベットキーの設定
     for vkey in range(VK_A, VK_Z + 1):
