@@ -164,8 +164,8 @@ def configure(keymap):
                 config_section = m.group(1)
                 config_section = re.sub(r"^##.*", r"", config_section, flags=re.MULTILINE)
             except:
-                config_section = ""
                 print("個人設定ファイルのセクション {} の読み込みに失敗しました".format(section))
+                config_section = ""
         else:
             config_section = ""
 
