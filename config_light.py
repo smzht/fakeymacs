@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs Light"
-fakeymacs_version = "20200930_01"
+fakeymacs_version = "20200930_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1204,16 +1204,14 @@ def configure(keymap):
                         return
 
         def keyCommand(key):
-            if key is None:
-                return command
-
             # local スコープで参照できるようにする
             try:
                 keymap_emacs
             except:
                 pass
 
-            if ("keymap_emacs" in locals().keys() and
+            if (key is not None and
+                "keymap_emacs" in locals().keys() and
                 window_keymap == locals()["keymap_emacs"] and
                 type(command) is types.FunctionType):
 
