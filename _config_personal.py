@@ -144,8 +144,8 @@ if 0:
 
 if 0:
     # VSCode に Search in Current File Extension をインストールしてお使いください
-    # （検索をパネルで行う設定も併せて行うと使いやすくなります
-    #   https://qiita.com/sosukeokubo/items/46436d30d967f9f5030b）
+    # （アクティビティバーの SEARCH アイコンをパネルのバーにドラッグで持っていくと、検索結果が
+    #   パネルに表示されるようになり、使いやすくなります）
 
     def occur():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
