@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs"
-fakeymacs_version = "20201004_02"
+fakeymacs_version = "20201004_03"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -64,12 +64,6 @@ fakeymacs_version = "20201004_02"
 #     （間違って日本語入力をしてしまった時のキー操作を想定しての対策）
 # ・Emacs日本語入力モードの使用を有効にした際、emacs_ime_mode_balloon_message 変数の
 #   設定でバルーンメッセージとして表示する文字列を指定できる。
-# ・use_emacs_shift_mode 変数の設定により、Emacsシフトモードを使うかどうかを指定できる。
-#   Emacsシフトモードを使う場合は次の動きとなる。
-#   ・C-[a-z]キーを Shiftキーと一緒に押した時は、Shiftキーをとったキー（C-[a-z]）が
-#     Windows に入力される。
-#   ・A-[a-z]キーを Shiftキーと一緒に押した時は、Shiftキーをとったキー（A-[a-z]）が
-#     Windows に入力される。
 #
 # ＜Emacsキーバインド設定を有効にしたアプリケーションソフトでの動き＞
 # ・use_ctrl_i_as_tab 変数の設定により、C-iキーを Tabキーとして使うかどうかを指定できる。
@@ -367,9 +361,6 @@ def configure(keymap):
     # Emacs日本語入力モードが有効なときに表示するバルーンメッセージを指定する
     # fc.emacs_ime_mode_balloon_message = None
     fc.emacs_ime_mode_balloon_message = "▲"
-
-    # Emacsシフトモードを使うかどうかを指定する（True: 使う、False: 使わない）
-    fc.use_emacs_shift_mode = False
 
     # IME をトグルで切り替えるキーを指定する（複数指定可）
     fc.toggle_input_method_key = []
@@ -1597,15 +1588,6 @@ def configure(keymap):
                         mkey = mod1 + mod2 + mod3 + mod4 + key
                         define_key(keymap_emacs, "C-q " + mkey, reset_search(reset_undo(reset_counter(reset_mark(self_insert_command(mkey))))))
 
-    ## C-S-[a-z] -> C-[a-z]、A-S-[a-z] -> A-[a-z] の置き換え設定（Emacsシフトモードの設定）
-    if fc.use_emacs_shift_mode:
-        for vkey in range(VK_A, VK_Z + 1):
-            key = "({})".format(vkey)
-            define_key(keymap_emacs, "C-S-" + key, reset_search(reset_undo(reset_counter(reset_mark(self_insert_command("C-" + key))))))
-            define_key(keymap_emacs, "A-S-" + key, reset_search(reset_undo(reset_counter(reset_mark(self_insert_command("A-" + key))))))
-            define_key(keymap_ime,   "C-S-" + key, self_insert_command("C-" + key))
-            define_key(keymap_ime,   "A-S-" + key, self_insert_command("A-" + key))
-
     ## Escキーの設定
     define_key(keymap_emacs, "C-OpenBracket C-OpenBracket", reset_undo(reset_counter(self_insert_command("Esc"))))
     if fc.use_esc_as_meta:
@@ -1644,15 +1626,14 @@ def configure(keymap):
     define_key(keymap_emacs, "M-S-Period", reset_search(reset_undo(reset_counter(mark(end_of_buffer, True)))))
     define_key(keymap_emacs, "C-l",        reset_search(reset_undo(reset_counter(recenter))))
 
-    if not fc.use_emacs_shift_mode:
-        define_key(keymap_emacs, "C-S-b", reset_search(reset_undo(reset_counter(mark2(repeat(backward_char), False)))))
-        define_key(keymap_emacs, "C-S-f", reset_search(reset_undo(reset_counter(mark2(repeat(forward_char), True)))))
-        define_key(keymap_emacs, "M-S-b", reset_search(reset_undo(reset_counter(mark2(repeat(backward_word), False)))))
-        define_key(keymap_emacs, "M-S-f", reset_search(reset_undo(reset_counter(mark2(repeat(forward_word), True)))))
-        define_key(keymap_emacs, "C-S-p", reset_search(reset_undo(reset_counter(mark2(repeat(previous_line), False)))))
-        define_key(keymap_emacs, "C-S-n", reset_search(reset_undo(reset_counter(mark2(repeat(next_line), True)))))
-        define_key(keymap_emacs, "C-S-a", reset_search(reset_undo(reset_counter(mark2(move_beginning_of_line, False)))))
-        define_key(keymap_emacs, "C-S-e", reset_search(reset_undo(reset_counter(mark2(move_end_of_line, True)))))
+    define_key(keymap_emacs, "C-S-b", reset_search(reset_undo(reset_counter(mark2(repeat(backward_char), False)))))
+    define_key(keymap_emacs, "C-S-f", reset_search(reset_undo(reset_counter(mark2(repeat(forward_char), True)))))
+    define_key(keymap_emacs, "M-S-b", reset_search(reset_undo(reset_counter(mark2(repeat(backward_word), False)))))
+    define_key(keymap_emacs, "M-S-f", reset_search(reset_undo(reset_counter(mark2(repeat(forward_word), True)))))
+    define_key(keymap_emacs, "C-S-p", reset_search(reset_undo(reset_counter(mark2(repeat(previous_line), False)))))
+    define_key(keymap_emacs, "C-S-n", reset_search(reset_undo(reset_counter(mark2(repeat(next_line), True)))))
+    define_key(keymap_emacs, "C-S-a", reset_search(reset_undo(reset_counter(mark2(move_beginning_of_line, False)))))
+    define_key(keymap_emacs, "C-S-e", reset_search(reset_undo(reset_counter(mark2(move_end_of_line, True)))))
 
     define_key(keymap_emacs, "Left",     reset_search(reset_undo(reset_counter(mark(repeat(backward_char), False)))))
     define_key(keymap_emacs, "Right",    reset_search(reset_undo(reset_counter(mark(repeat(forward_char), True)))))
@@ -1963,13 +1944,6 @@ def configure(keymap):
             define_key(keymap_ei, "C-S-" + key, ei_record_func(self_insert_command("C-S-" + key)))
             define_key(keymap_ei, "A-"   + key, ei_record_func(self_insert_command("A-"   + key)))
             define_key(keymap_ei, "A-S-" + key, ei_record_func(self_insert_command("A-S-" + key)))
-
-        ## C-S-[a-z] -> C-[a-z]、A-S-[a-z] -> A-[a-z] の置き換え設定（Emacsシフトモードの設定）
-        if fc.use_emacs_shift_mode:
-            for vkey in range(VK_A, VK_Z + 1):
-                key = "({})".format(vkey)
-                define_key(keymap_ei, "C-S-" + key, ei_record_func(self_insert_command("C-" + key)))
-                define_key(keymap_ei, "A-S-" + key, ei_record_func(self_insert_command("A-" + key)))
 
         ## 「IME の切り替え」のキー設定
         define_key(keymap_ei, "(243)",  ei_disable_input_method)
