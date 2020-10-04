@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs Light"
-fakeymacs_version = "20200930_02"
+fakeymacs_version = "20201004_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1594,26 +1594,28 @@ def configure(keymap):
     define_key(keymap_emacs, "Ctl-x C-p", reset_search(reset_undo(reset_counter(mark_page))))
 
     ## 「バッファ / ウィンドウ操作」のキー設定
-    define_key(keymap_emacs, "Ctl-x k",       reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
-    define_key(keymap_emacs, "M-k",           reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
-    define_key(keymap_emacs, "Ctl-x b",       reset_search(reset_undo(reset_counter(reset_mark(switch_to_buffer)))))
-    define_key(keymap_emacs, "Ctl-x o",       reset_search(reset_undo(reset_counter(reset_mark(other_group)))))
-    define_key(keymap_emacs, "Ctl-x 0",       reset_search(reset_undo(reset_counter(reset_mark(delete_group)))))
-    define_key(keymap_emacs, "Ctl-x 1",       reset_search(reset_undo(reset_counter(reset_mark(delete_other_groups)))))
-    define_key(keymap_emacs, "Ctl-x 2",       reset_search(reset_undo(reset_counter(reset_mark(split_editor_below)))))
-    define_key(keymap_emacs, "Ctl-x 3",       reset_search(reset_undo(reset_counter(reset_mark(split_editor_right)))))
+    define_key(keymap_emacs, "Ctl-x k",   reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
+    define_key(keymap_emacs, "M-k",       reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
+    define_key(keymap_emacs, "Ctl-x b",   reset_search(reset_undo(reset_counter(reset_mark(switch_to_buffer)))))
+    define_key(keymap_emacs, "Ctl-x o",   reset_search(reset_undo(reset_counter(reset_mark(other_group)))))
+    define_key(keymap_emacs, "Ctl-x 0",   reset_search(reset_undo(reset_counter(reset_mark(delete_group)))))
+    define_key(keymap_emacs, "Ctl-x 1",   reset_search(reset_undo(reset_counter(reset_mark(delete_other_groups)))))
+    define_key(keymap_emacs, "Ctl-x 2",   reset_search(reset_undo(reset_counter(reset_mark(split_editor_below)))))
+    define_key(keymap_emacs, "Ctl-x 3",   reset_search(reset_undo(reset_counter(reset_mark(split_editor_right)))))
 
-    define_key(keymap_emacs, "C-S-BackQuote", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
-    define_key(keymap_emacs, "C-S-(243)",     reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
-    define_key(keymap_emacs, "C-S-(244)",     reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
-    define_key(keymap_emacs, "C-BackQuote",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
-    define_key(keymap_emacs, "C-(243)",       reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
-    define_key(keymap_emacs, "C-(244)",       reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
+    define_key(keymap_emacs, "C-S-(243)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
+    define_key(keymap_emacs, "C-S-(244)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
+    define_key(keymap_emacs, "C-(243)",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
+    define_key(keymap_emacs, "C-(244)",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
 
     if is_japanese_keyboard:
         define_key(keymap_emacs, "C-S-Atmark", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
+
         if not fc.use_ctrl_atmark_for_mark:
             define_key(keymap_emacs, "C-Atmark", reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
+    else:
+        define_key(keymap_emacs, "C-S-BackQuote", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
+        define_key(keymap_emacs, "C-BackQuote",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
 
     for key in range(10):
         define_key(keymap_emacs, "C-{}".format(key), reset_search(reset_undo(reset_counter(reset_mark(switch_focus(key))))))
