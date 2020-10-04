@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs"
-fakeymacs_version = "20201004_01"
+fakeymacs_version = "20201004_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -820,6 +820,10 @@ def configure(keymap):
         if (checkWindow("sakura.exe", "EditorClient") or # Sakura Editor
             checkWindow("sakura.exe", "SakuraView*")):   # Sakura Editor
             self_insert_command("C-h")()
+
+    ##################################################
+    ## マルチカーソル
+    ##################################################
 
     def mark_up():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
@@ -1640,15 +1644,6 @@ def configure(keymap):
     define_key(keymap_emacs, "M-S-Period", reset_search(reset_undo(reset_counter(mark(end_of_buffer, True)))))
     define_key(keymap_emacs, "C-l",        reset_search(reset_undo(reset_counter(recenter))))
 
-    define_key(keymap_emacs, "C-A-p",      reset_search(reset_undo(reset_counter(mark_up))))
-    define_key(keymap_emacs, "C-A-n",      reset_search(reset_undo(reset_counter(mark_down))))
-    define_key(keymap_emacs, "C-A-b",      reset_search(reset_undo(reset_counter(mark2(repeat(backward_char), False)))))
-    define_key(keymap_emacs, "C-A-f",      reset_search(reset_undo(reset_counter(mark2(repeat(forward_char), True)))))
-    define_key(keymap_emacs, "C-A-a",      reset_search(reset_undo(reset_counter(mark2(move_beginning_of_line, False)))))
-    define_key(keymap_emacs, "C-A-e",      reset_search(reset_undo(reset_counter(mark2(move_end_of_line, True)))))
-    define_key(keymap_emacs, "C-A-d",      reset_search(reset_undo(reset_counter(mark_next_like_this))))
-    define_key(keymap_emacs, "C-A-s",      reset_search(reset_undo(reset_counter(skip_to_next_like_this))))
-
     if not fc.use_emacs_shift_mode:
         define_key(keymap_emacs, "C-S-b", reset_search(reset_undo(reset_counter(mark2(repeat(backward_char), False)))))
         define_key(keymap_emacs, "C-S-f", reset_search(reset_undo(reset_counter(mark2(repeat(forward_char), True)))))
@@ -1684,6 +1679,16 @@ def configure(keymap):
     define_key(keymap_emacs, "C-S-End",    reset_search(reset_undo(reset_counter(mark2(end_of_buffer, True)))))
     define_key(keymap_emacs, "S-PageUP",   reset_search(reset_undo(reset_counter(mark2(scroll_up, False)))))
     define_key(keymap_emacs, "S-PageDown", reset_search(reset_undo(reset_counter(mark2(scroll_down, True)))))
+
+    ## 「マルチカーソル」のキー設定
+    define_key(keymap_emacs, "C-A-p", reset_search(reset_undo(reset_counter(mark_up))))
+    define_key(keymap_emacs, "C-A-n", reset_search(reset_undo(reset_counter(mark_down))))
+    define_key(keymap_emacs, "C-A-b", reset_search(reset_undo(reset_counter(mark2(repeat(backward_char), False)))))
+    define_key(keymap_emacs, "C-A-f", reset_search(reset_undo(reset_counter(mark2(repeat(forward_char), True)))))
+    define_key(keymap_emacs, "C-A-a", reset_search(reset_undo(reset_counter(mark2(move_beginning_of_line, False)))))
+    define_key(keymap_emacs, "C-A-e", reset_search(reset_undo(reset_counter(mark2(move_end_of_line, True)))))
+    define_key(keymap_emacs, "C-A-d", reset_search(reset_undo(reset_counter(mark_next_like_this))))
+    define_key(keymap_emacs, "C-A-s", reset_search(reset_undo(reset_counter(skip_to_next_like_this))))
 
     ## 「カット / コピー / 削除 / アンドゥ」のキー設定
     define_key(keymap_emacs, "C-h",      reset_search(reset_undo(reset_counter(reset_mark(repeat2(delete_backward_char))))))
