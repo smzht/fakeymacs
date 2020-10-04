@@ -12,9 +12,9 @@ Keyhac for Windows ver 1.82 以上のバージョンでご利用ください。
 
 - [[https://www49.atwiki.jp/ntemacs/pages/25.html][Windows の操作を Emacs のキーバインドで行うための設定 （Keyhac版）]]
 
-** サポート機能
+** 本設定のキーバインドがサポートする機能
 
-下記の機能をサポートしています。
+下記の機能をサポートするためのキーバインドが設定されています。
 
 - Emacs標準キーバインド
 - Emacs日本語入力モード [1]
