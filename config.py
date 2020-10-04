@@ -560,7 +560,7 @@ def configure(keymap):
     fc.window_operation_exclusion_process = r"RocketDock\.exe$"  # サンプルとして RocketDock.exe を登録
 
     # shell_command 関数で起動するアプリケーションソフトを指定する
-    # （パスが通っていない場所にあるコマンドは、絶対パスで指定してください）
+    # （PATH が通っていない場所にあるコマンドは、絶対パスで指定してください）
     fc.command_name = r"cmd.exe"
 
     # コマンドのリピート回数の最大値を指定する
