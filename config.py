@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs"
-fakeymacs_version = "20201004_03"
+fakeymacs_version = "20201005_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1775,20 +1775,17 @@ def configure(keymap):
         define_key(keymap_emacs, "C-x", reset_search(reset_undo(reset_counter(reset_mark(kill_region)))))
 
     ## 「IME の切り替え」のキー設定
-    if fc.toggle_input_method_key:
-        for key in fc.toggle_input_method_key:
-            define_key(keymap_emacs, key, toggle_input_method)
-            define_key(keymap_ime,   key, toggle_input_method)
+    for key in fc.toggle_input_method_key:
+        define_key(keymap_emacs, key, toggle_input_method)
+        define_key(keymap_ime,   key, toggle_input_method)
 
-    ## 「IME の切り替え」のキー設定
-    if fc.set_input_method_key:
-        for disable_key, enable_key in fc.set_input_method_key:
-            if disable_key:
-                define_key(keymap_emacs, disable_key, disable_input_method)
-                define_key(keymap_ime,   disable_key, disable_input_method)
-            if enable_key:
-                define_key(keymap_emacs, enable_key, enable_input_method)
-                define_key(keymap_ime,   enable_key, enable_input_method)
+    for disable_key, enable_key in fc.set_input_method_key:
+        if disable_key:
+            define_key(keymap_emacs, disable_key, disable_input_method)
+            define_key(keymap_ime,   disable_key, disable_input_method)
+        if enable_key:
+            define_key(keymap_emacs, enable_key, enable_input_method)
+            define_key(keymap_ime,   enable_key, enable_input_method)
 
     ## 「再変換」、「確定取り消し」のキー設定
     if fc.reconversion_key:
@@ -1991,25 +1988,22 @@ def configure(keymap):
                 define_key(keymap_ei, fc.scroll_key[1].replace("M-", "A-"), ei_record_func(scroll_down))
 
         # 「IME のショートカットの置き換え」のキー設定
-        if fc.emacs_ime_mode_key:
-            for replace_key, original_key in fc.emacs_ime_mode_key:
-                define_key(keymap_ei, replace_key, ei_record_func(self_insert_command(original_key)))
+        for replace_key, original_key in fc.emacs_ime_mode_key:
+            define_key(keymap_ei, replace_key, ei_record_func(self_insert_command(original_key)))
 
         # この時点の keymap_ie のキーマップをコピーする
         ei_keymap = copy.copy(keymap_ei.keymap)
 
         ## 「IME の切り替え」のキー設定
-        if fc.toggle_input_method_key:
-            for key in fc.toggle_input_method_key:
-                define_key(keymap_ei, key, ei_disable_input_method2(key, ei_keymap))
+        for key in fc.toggle_input_method_key:
+            define_key(keymap_ei, key, ei_disable_input_method2(key, ei_keymap))
 
         ## 「IME の切り替え」のキー設定
-        if fc.set_input_method_key:
-            for disable_key, enable_key in fc.set_input_method_key:
-                if disable_key:
-                    define_key(keymap_ei, disable_key, ei_disable_input_method2(disable_key, ei_keymap))
-                if enable_key:
-                    define_key(keymap_ei, enable_key, ei_enable_input_method2(enable_key, ei_keymap))
+        for disable_key, enable_key in fc.set_input_method_key:
+            if disable_key:
+                define_key(keymap_ei, disable_key, ei_disable_input_method2(disable_key, ei_keymap))
+            if enable_key:
+                define_key(keymap_ei, enable_key, ei_enable_input_method2(enable_key, ei_keymap))
 
 
     ###########################################################################
@@ -2025,7 +2019,6 @@ def configure(keymap):
     ## アプリケーションキーの設定
     ###########################################################################
 
-    # アプリケーションキーの設定
     define_key(keymap_global, fc.application_key, self_insert_command("Apps"))
 
 
@@ -2350,6 +2343,7 @@ def configure(keymap):
     ## クリップボードリストの設定
     ####################################################################################################
     if fc.use_clipboardList:
+
         # クリップボードリストを利用するための設定です。クリップボードリストは clipboardList_key 変数で
         # 設定したキーの押下により起動します。クリップボードリストを開いた後、C-f（→）や C-b（←）
         # キーを入力することで画面を切り替えることができます。
@@ -2408,6 +2402,7 @@ def configure(keymap):
     ## ランチャーリストの設定
     ####################################################################################################
     if fc.use_lancherList:
+
         # ランチャー用のリストを利用するための設定です。ランチャーリストは lancherList_key 変数で
         # 設定したキーの押下により起動します。ランチャーリストを開いた後、C-f（→）や C-b（←）
         # キーを入力することで画面を切り替えることができます。
@@ -2502,6 +2497,7 @@ def configure(keymap):
     ## C-Enter に F2（編集モード移行）を割り当てる（オプション）
     ####################################################################################################
     if fc.use_edit_mode:
+
         fc.edit_mode_target = [["EXCEL.EXE",    "EXCEL*"],
                                ["explorer.exe", "DirectUIHWND"]]
 
@@ -2526,6 +2522,7 @@ def configure(keymap):
     ## Emacs の場合、IME 切り替え用のキーを C-\ に置き換える（オプション）
     ####################################################################################################
     if fc.use_real_emacs:
+
         # Emacs で mozc を利用する際に Windows の IME の切換えキーを mozc の切り替えキーとして
         # 機能させるための設定です。初期設定では NTEmacs（gnupack 含む）と Windows の Xサーバで動く
         # Emacs を指定しています。
@@ -2578,6 +2575,7 @@ def configure(keymap):
     ## 英語キーボード設定をした OS 上で、日本語キーボードを利用する場合の切り替えを行う（オプション）
     ####################################################################################################
     if fc.use_change_keyboard:
+
         # https://w.atwiki.jp/ntemacs/pages/90.html
 
         # OS の設定を英語キーボードにして日本語キーボードを利用する場合のお勧め設定
