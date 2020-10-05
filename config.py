@@ -1524,7 +1524,7 @@ def configure(keymap):
     # ・S-    : Shiftキー
     # ・C-    : Ctrlキー
     # ・A-    : Altキー
-    # ・M-    : Altキー と Esc、C-[ のプレフィックスキーを利用する３パターンを定義（emacs の Meta と同様）
+    # ・M-    : Altキー と Esc、C-[ のプレフィックスキーを利用する３パターンを定義（Emacs の Meta と同様）
     # ・W-    : Winキー
     # ・Ctl-x : ctl_x_prefix_key 変数で定義されているプレフィックスキーに置換え
     # ・(999) : 仮想キーコード指定
