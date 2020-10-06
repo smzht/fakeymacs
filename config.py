@@ -503,14 +503,14 @@ def configure(keymap):
     # F13 から F24 を Alt-Shift+数字キー列として使うかを指定する（True: 使う、False: 使わない）
     fc.use_alt_shift_digit_key_for_f13_to_f24 = False
 
-    # 表示しているウィンドウの中で、一番最近までフォーカスがあったウィンドウに移動するキーを指定する
-    fc.other_window_key = "A-o"
-
     # クリップボードリストを起動するキーを指定する
     fc.clipboardList_key = "A-y"
 
     # ランチャーリストを起動するキーを指定する
     fc.lancherList_key = "A-l"
+
+    # 表示しているウィンドウの中で、一番最近までフォーカスがあったウィンドウに移動するキーを指定する
+    fc.other_window_key = "A-o"
 
     # アクティブウィンドウを切り替えるキーの組み合わせ（前、後 の順）を指定する（複数指定可）
     # （内部で A-Tab による切り替えを行っているため、設定するキーは Altキーとの組み合わせとしてください）
