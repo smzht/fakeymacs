@@ -8,7 +8,11 @@ Keyhac for Windows ver 1.82 以上のバージョンでご利用ください。
 
 - https://sites.google.com/site/craftware/keyhac-ja
 
-詳しくは以下を参照してください。
+Manual は次のリンクを参照ください。
+
+- [[Manual.org][Manual]]
+
+次のページにも関連の情報があります。
 
 - [[https://www49.atwiki.jp/ntemacs/pages/25.html][Windows の操作を Emacs のキーバインドで行うための設定 （Keyhac版）]]
 
