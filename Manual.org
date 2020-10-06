@@ -45,11 +45,14 @@ Fakeymacs をカスタマイズするために、下記のパラメータを指�
 | window_minimize_key                    | ウィンドウを最小化、リストアするキーの組み合わせ（リストア、最小化 の順）を指定する（複数指定可）                                               |
 | desktop_switching_key                  | 仮想デスクトップを切り替えるキーの組み合わせ（前、後 の順）を指定する（複数指定可）                                                             |
 | window_movement_key_for_desktops       | アクティブウィンドウを仮想デスクトップ間で移動するキーの組み合わせ（前、後 の順）を指定する（複数指定可）                                       |
-| window_operation_exclusion_class       | ウィンドウ操作（other_window、restore_window など）の対象としたくないアプリケーションソフトの                                                   |
-| window_operation_exclusion_process     | ウィンドウ操作（other_window、restore_window など）の対象としたくないアプリケーションソフトの                                                   |
+| window_operation_exclusion_class       | ウィンドウ操作（other_window、restore_window など）の対象としたくないアプリケーションソフトの“クラス名称”を指定する                           |
+| window_operation_exclusion_process     | ウィンドウ操作（other_window、restore_window など）の対象としたくないアプリケーションソフトの プロセス名称”を指定する                          |
 | command_name                           | shell_command 関数で起動するアプリケーションソフトを指定する                                                                                    |
 | repeat_max                             | コマンドのリピート回数の最大値を指定する                                                                                                        |
 | is_newline_selectable_in_Excel         | Microsoft Excel のセル内で改行を選択可能かを指定する（True: 選択可、False: 選択不可）                                                           |
+| cblisters                              | クリップボードリストの利用アイテムを指定する                                                                                                    |
+| lclisters                              | ランチャーリストの利用アイテムを指定する                                                                                                        |
+| edit_mode_target                       | C-Enter に F2（編集モード移行）を割り当てるアプリケーションソフトを指定する                                                                     |
 |----------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------|
 
 ** ２．キーバインド
