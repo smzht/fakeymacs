@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs"
-fakeymacs_version = "20201005_01"
+fakeymacs_version = "20201007_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -813,7 +813,7 @@ def configure(keymap):
             self_insert_command("C-h")()
 
     ##################################################
-    ## マルチカーソル
+    ## マルチカーソル（VSCode 用）
     ##################################################
 
     def mark_up():
@@ -998,6 +998,10 @@ def configure(keymap):
             if not wnd.isMinimized():
                 wnd.getLastActivePopup().setForeground()
                 break
+
+    ##################################################
+    ## エディタ / ターミナル操作（VSCode 用）
+    ##################################################
 
     def create_terminal():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
@@ -1217,6 +1221,10 @@ def configure(keymap):
 
         if not fakeymacs.is_executing_command:
             keymap.ShellExecuteCommand(None, fc.command_name, "", "")()
+
+    ##################################################
+    ## その他（VSCode 用）
+    ##################################################
 
     def execute_extended_command():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
@@ -1661,7 +1669,7 @@ def configure(keymap):
     define_key(keymap_emacs, "S-PageUP",   reset_search(reset_undo(reset_counter(mark2(scroll_up, False)))))
     define_key(keymap_emacs, "S-PageDown", reset_search(reset_undo(reset_counter(mark2(scroll_down, True)))))
 
-    ## 「マルチカーソル」のキー設定
+    ## 「マルチカーソル」のキー設定（VSCode 用）
     define_key(keymap_emacs, "C-A-p", reset_search(reset_undo(reset_counter(mark_up))))
     define_key(keymap_emacs, "C-A-n", reset_search(reset_undo(reset_counter(mark_down))))
     define_key(keymap_emacs, "C-A-b", reset_search(reset_undo(reset_counter(mark2(repeat(backward_char), False)))))
@@ -1712,6 +1720,8 @@ def configure(keymap):
     define_key(keymap_emacs, "Ctl-x k",   reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
     define_key(keymap_emacs, "M-k",       reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
     define_key(keymap_emacs, "Ctl-x b",   reset_search(reset_undo(reset_counter(reset_mark(switch_to_buffer)))))
+
+    ## 「エディタ / ターミナル操作」のキー設定（VSCode 用）
     define_key(keymap_emacs, "Ctl-x o",   reset_search(reset_undo(reset_counter(reset_mark(other_group)))))
     define_key(keymap_emacs, "Ctl-x 0",   reset_search(reset_undo(reset_counter(reset_mark(delete_group)))))
     define_key(keymap_emacs, "Ctl-x 1",   reset_search(reset_undo(reset_counter(reset_mark(delete_other_groups)))))
@@ -1759,9 +1769,12 @@ def configure(keymap):
     define_key(keymap_emacs, "C-g",         reset_search(reset_counter(reset_mark(keyboard_quit))))
     define_key(keymap_emacs, "Ctl-x C-c",   reset_search(reset_undo(reset_counter(reset_mark(kill_emacs)))))
     define_key(keymap_emacs, "M-S-1",       reset_search(reset_undo(reset_counter(reset_mark(shell_command)))))
+
+    ## 「その他」のキー設定（VSCode 用）
     define_key(keymap_emacs, "M-x",         reset_search(reset_undo(reset_counter(reset_mark(execute_extended_command)))))
     define_key(keymap_emacs, "M-Semicolon", reset_search(reset_undo(reset_counter(comment_dwim))))
 
+    ## 「タブ」のキー設定
     if fc.use_ctrl_i_as_tab:
         define_key(keymap_emacs, "C-i", reset_undo(reset_counter(reset_mark(repeat(indent_for_tab_command)))))
 
