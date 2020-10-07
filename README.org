@@ -8,9 +8,9 @@ Keyhac for Windows ver 1.82 以上のバージョンでご利用ください。
 
 - https://sites.google.com/site/craftware/keyhac-ja
 
-Manual は次のリンクを参照ください。
+manual は次のリンクを参照ください。
 
-- [[Manual.org][Manual]]
+- [[manual.org][manual]]
 
 次のページにも関連の情報があります。
 
