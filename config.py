@@ -87,7 +87,7 @@ fakeymacs_version = "20201007_01"
 #   キーボードマクロの記録と再生の開始時に IME を強制的に OFF にするようにしている。
 # ・kill-buffer に Ctl-x k とは別に M-k も割り当てている。プラウザのタブを削除する際
 #   などに利用可。
-# ・.use_ctrl_atmark_for_mark 変数の設定により、日本語キーボードで C-@ をマーク用の
+# ・use_ctrl_atmark_for_mark 変数の設定により、日本語キーボードで C-@ をマーク用の
 #   キーとして使うかどうかを指定できる。
 # ・use_vscode_terminal_key_direct_input 変数の設定により、VSCode の Terminal内 で
 #   ４つのキー（Ctrl+k、Ctrl+r、Ctrl+s、Ctrl+y）のダイレクト入力機能を使うかどうかを
