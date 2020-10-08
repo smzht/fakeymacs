@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs"
-fakeymacs_version = "20201007_01"
+fakeymacs_version = "20201008_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1140,7 +1140,7 @@ def configure(keymap):
     ## VSCode 用
     ##################################################
 
-    ## マルチカーソル（VSCode 用）
+    ## マルチカーソル
     def mark_up():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             # VSCode Command : cursorColumnSelectUp
@@ -1162,7 +1162,7 @@ def configure(keymap):
             self_insert_command("C-k", "C-d")()
 
 
-    ## エディタ / ターミナル操作（VSCode 用）
+    ## エディタ / ターミナル操作
     def create_terminal():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             # VSCode Command : Create New Integrated Terminal
@@ -1221,7 +1221,7 @@ def configure(keymap):
             # VSCode Command : Split Editor
             self_insert_command("C-Yen")()
 
-    ## その他（VSCode 用）
+    ## その他
     def execute_extended_command():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             disable_input_method()
