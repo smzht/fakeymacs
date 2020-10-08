@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs"
-fakeymacs_version = "20201008_01"
+fakeymacs_version = "20201008_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -178,7 +178,7 @@ def configure(keymap):
         is_japanese_keyboard = False
 
     try:
-        with open(dataPath() + "\config_personal.py", "r", encoding="utf-8") as f:
+        with open(dataPath() + "\config_personal.py", "r", encoding="utf-8-sig") as f:
             config_personal = f.read()
     except:
         print("個人設定ファイル config_personal.py は存在しないため、読み込みしていません")
@@ -199,6 +199,16 @@ def configure(keymap):
 
         return config_section
 
+    def readConfigOption(config_file):
+        try:
+            with open(dataPath() + "\\" + config_file, "r", encoding="utf-8-sig") as f:
+                config_option = f.read()
+        except:
+            print("オプション設定ファイル " + config_file + " の読み込みに失敗しました")
+            config_option = ""
+
+        return config_option
+
     def startupString():
         startup_string_formatter = "{} version {}:\n  https://github.com/smzht/fakeymacs\n"
         return startup_string_formatter.format(fakeymacs_cfgname, fakeymacs_version)
@@ -208,32 +218,17 @@ def configure(keymap):
 
 
     ####################################################################################################
-    ## 機能オプションの選択
-    ####################################################################################################
-
-    # IMEの設定（３つの設定のいずれか一つを True にする）
-    fc.use_old_Microsoft_IME = True
-    fc.use_new_Microsoft_IME = False
-    fc.use_Google_IME = False
-
-    # 追加機能のオプションの設定
-    fc.use_clipboardList = True
-    fc.use_lancherList = True
-    fc.use_edit_mode = False
-    fc.use_real_emacs = False
-    fc.use_change_keyboard = False
-
-    # 個人設定ファイルのセクション [section-options] を読み込んで実行する
-    exec(readConfigPersonal("[section-options]"), dict(globals(), **locals()))
-
-
-    ####################################################################################################
     ## 基本設定
     ####################################################################################################
 
     ###########################################################################
     ## カスタマイズパラメータの設定
     ###########################################################################
+
+    # IMEの設定（３つの設定のいずれか一つを True にする）
+    fc.use_old_Microsoft_IME = True
+    fc.use_new_Microsoft_IME = False
+    fc.use_Google_IME = False
 
     # Emacs のキーバインドにするウィンドウのクラスネームを指定する（全ての設定に優先する）
     fc.emacs_target_class   = ["Edit"]                   # テキスト入力フィールドなどが該当
@@ -2351,281 +2346,158 @@ def configure(keymap):
     ####################################################################################################
     ## クリップボードリストの設定
     ####################################################################################################
-    if fc.use_clipboardList:
 
-        # クリップボードリストを利用するための設定です。クリップボードリストは clipboardList_key 変数で
-        # 設定したキーの押下により起動します。クリップボードリストを開いた後、C-f（→）や C-b（←）
-        # キーを入力することで画面を切り替えることができます。
-        # （参考：https://github.com/crftwr/keyhac/blob/master/_config.py）
+    # クリップボードリストを利用するための設定です。クリップボードリストは clipboardList_key 変数で
+    # 設定したキーの押下により起動します。クリップボードリストを開いた後、C-f（→）や C-b（←）
+    # キーを入力することで画面を切り替えることができます。
+    # （参考：https://github.com/crftwr/keyhac/blob/master/_config.py）
 
-        # リストウィンドウのフォーマッタを定義する
-        list_formatter = "{:30}"
+    # リストウィンドウのフォーマッタを定義する
+    list_formatter = "{:30}"
 
-        # 定型文
-        fc.fixed_items = [
-            ["---------+ x 8", "---------+" * 8],
-            ["メールアドレス", "user_name@domain_name"],
-            ["住所",           "〒999-9999 ＮＮＮＮＮＮＮＮＮＮ"],
-            ["電話番号",       "99-999-9999"],
-        ]
-        fc.fixed_items[0][0] = list_formatter.format(fc.fixed_items[0][0])
+    # 定型文
+    fc.fixed_items = [
+        ["---------+ x 8", "---------+" * 8],
+        ["メールアドレス", "user_name@domain_name"],
+        ["住所",           "〒999-9999 ＮＮＮＮＮＮＮＮＮＮ"],
+        ["電話番号",       "99-999-9999"],
+    ]
+    fc.fixed_items[0][0] = list_formatter.format(fc.fixed_items[0][0])
 
-        # 日時をペーストする機能
-        def dateAndTime(fmt):
-            def _func():
-                return datetime.datetime.now().strftime(fmt)
-            return _func
+    # 日時をペーストする機能
+    def dateAndTime(fmt):
+        def _func():
+            return datetime.datetime.now().strftime(fmt)
+        return _func
 
-        # 日時
-        fc.datetime_items = [
-            ["YYYY/MM/DD HH:MM:SS", dateAndTime("%Y/%m/%d %H:%M:%S")],
-            ["YYYY/MM/DD",          dateAndTime("%Y/%m/%d")],
-            ["HH:MM:SS",            dateAndTime("%H:%M:%S")],
-            ["YYYYMMDD_HHMMSS",     dateAndTime("%Y%m%d_%H%M%S")],
-            ["YYYYMMDD",            dateAndTime("%Y%m%d")],
-            ["HHMMSS",              dateAndTime("%H%M%S")],
-        ]
-        fc.datetime_items[0][0] = list_formatter.format(fc.datetime_items[0][0])
+    # 日時
+    fc.datetime_items = [
+        ["YYYY/MM/DD HH:MM:SS", dateAndTime("%Y/%m/%d %H:%M:%S")],
+        ["YYYY/MM/DD",          dateAndTime("%Y/%m/%d")],
+        ["HH:MM:SS",            dateAndTime("%H:%M:%S")],
+        ["YYYYMMDD_HHMMSS",     dateAndTime("%Y%m%d_%H%M%S")],
+        ["YYYYMMDD",            dateAndTime("%Y%m%d")],
+        ["HHMMSS",              dateAndTime("%H%M%S")],
+    ]
+    fc.datetime_items[0][0] = list_formatter.format(fc.datetime_items[0][0])
 
-        fc.cblisters = [
-            ["定型文", cblister_FixedPhrase(fc.fixed_items)],
-            ["日時",   cblister_FixedPhrase(fc.datetime_items)],
-        ]
+    fc.cblisters = [
+        ["定型文", cblister_FixedPhrase(fc.fixed_items)],
+        ["日時",   cblister_FixedPhrase(fc.datetime_items)],
+    ]
 
-        # 個人設定ファイルのセクション [section-clipboardList-1] を読み込んで実行する
-        exec(readConfigPersonal("[section-clipboardList-1]"), dict(globals(), **locals()))
+    # 個人設定ファイルのセクション [section-clipboardList-1] を読み込んで実行する
+    exec(readConfigPersonal("[section-clipboardList-1]"), dict(globals(), **locals()))
 
-        keymap.cblisters = [keymap.cblisters[0]] + fc.cblisters
+    keymap.cblisters = [keymap.cblisters[0]] + fc.cblisters
 
-        def lw_clipboardList():
-            keymap.command_ClipboardList()
+    def lw_clipboardList():
+        keymap.command_ClipboardList()
 
-        # クリップボードリストを起動する
-        define_key(keymap_global, fc.clipboardList_key, lw_clipboardList)
+    # クリップボードリストを起動する
+    define_key(keymap_global, fc.clipboardList_key, lw_clipboardList)
 
-        # 個人設定ファイルのセクション [section-clipboardList-2] を読み込んで実行する
-        exec(readConfigPersonal("[section-clipboardList-2]"), dict(globals(), **locals()))
+    # 個人設定ファイルのセクション [section-clipboardList-2] を読み込んで実行する
+    exec(readConfigPersonal("[section-clipboardList-2]"), dict(globals(), **locals()))
 
 
     ####################################################################################################
     ## ランチャーリストの設定
     ####################################################################################################
-    if fc.use_lancherList:
 
-        # ランチャー用のリストを利用するための設定です。ランチャーリストは lancherList_key 変数で
-        # 設定したキーの押下により起動します。ランチャーリストを開いた後、C-f（→）や C-b（←）
-        # キーを入力することで画面を切り替えることができます。
-        # （参考：https://github.com/crftwr/keyhac/blob/master/_config.py）
+    # ランチャー用のリストを利用するための設定です。ランチャーリストは lancherList_key 変数で
+    # 設定したキーの押下により起動します。ランチャーリストを開いた後、C-f（→）や C-b（←）
+    # キーを入力することで画面を切り替えることができます。
+    # （参考：https://github.com/crftwr/keyhac/blob/master/_config.py）
 
-        # リストウィンドウのフォーマッタを定義する
-        list_formatter = "{:30}"
+    # リストウィンドウのフォーマッタを定義する
+    list_formatter = "{:30}"
 
-        # アプリケーションソフト
-        fc.application_items = [
-            ["Notepad",     keymap.ShellExecuteCommand(None, r"notepad.exe", "", "")],
-            ["Explorer",    keymap.ShellExecuteCommand(None, r"explorer.exe", "", "")],
-            ["Cmd",         keymap.ShellExecuteCommand(None, r"cmd.exe", "", "")],
-            ["MSEdge",      keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe", "", "")],
-            ["Chrome",      keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", "", "")],
-            ["Firefox",     keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\Mozilla Firefox\firefox.exe", "", "")],
-            ["Thunderbird", keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\Mozilla Thunderbird\thunderbird.exe", "", "")],
-        ]
-        fc.application_items[0][0] = list_formatter.format(fc.application_items[0][0])
+    # アプリケーションソフト
+    fc.application_items = [
+        ["Notepad",     keymap.ShellExecuteCommand(None, r"notepad.exe", "", "")],
+        ["Explorer",    keymap.ShellExecuteCommand(None, r"explorer.exe", "", "")],
+        ["Cmd",         keymap.ShellExecuteCommand(None, r"cmd.exe", "", "")],
+        ["MSEdge",      keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe", "", "")],
+        ["Chrome",      keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", "", "")],
+        ["Firefox",     keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\Mozilla Firefox\firefox.exe", "", "")],
+        ["Thunderbird", keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\Mozilla Thunderbird\thunderbird.exe", "", "")],
+    ]
+    fc.application_items[0][0] = list_formatter.format(fc.application_items[0][0])
 
-        # ウェブサイト
-        fc.website_items = [
-            ["Google",          keymap.ShellExecuteCommand(None, r"https://www.google.co.jp/", "", "")],
-            ["Facebook",        keymap.ShellExecuteCommand(None, r"https://www.facebook.com/", "", "")],
-            ["Twitter",         keymap.ShellExecuteCommand(None, r"https://twitter.com/", "", "")],
-            ["Keyhac",          keymap.ShellExecuteCommand(None, r"https://sites.google.com/site/craftware/keyhac-ja", "", "")],
-            ["Fakeymacs",       keymap.ShellExecuteCommand(None, r"https://github.com/smzht/fakeymacs", "", "")],
-            ["NTEmacs＠ウィキ", keymap.ShellExecuteCommand(None, r"https://w.atwiki.jp/ntemacs/", "", "")],
-        ]
-        fc.website_items[0][0] = list_formatter.format(fc.website_items[0][0])
+    # ウェブサイト
+    fc.website_items = [
+        ["Google",          keymap.ShellExecuteCommand(None, r"https://www.google.co.jp/", "", "")],
+        ["Facebook",        keymap.ShellExecuteCommand(None, r"https://www.facebook.com/", "", "")],
+        ["Twitter",         keymap.ShellExecuteCommand(None, r"https://twitter.com/", "", "")],
+        ["Keyhac",          keymap.ShellExecuteCommand(None, r"https://sites.google.com/site/craftware/keyhac-ja", "", "")],
+        ["Fakeymacs",       keymap.ShellExecuteCommand(None, r"https://github.com/smzht/fakeymacs", "", "")],
+        ["NTEmacs＠ウィキ", keymap.ShellExecuteCommand(None, r"https://w.atwiki.jp/ntemacs/", "", "")],
+    ]
+    fc.website_items[0][0] = list_formatter.format(fc.website_items[0][0])
 
-        # その他
-        fc.other_items = [
-            ["Edit   config.py", keymap.command_EditConfig],
-            ["Reload config.py", keymap.command_ReloadConfig],
-        ]
-        fc.other_items[0][0] = list_formatter.format(fc.other_items[0][0])
+    # その他
+    fc.other_items = [
+        ["Edit   config.py", keymap.command_EditConfig],
+        ["Reload config.py", keymap.command_ReloadConfig],
+    ]
+    fc.other_items[0][0] = list_formatter.format(fc.other_items[0][0])
 
-        fc.lclisters = [
-            ["App",     cblister_FixedPhrase(fc.application_items)],
-            ["Website", cblister_FixedPhrase(fc.website_items)],
-            ["Other",   cblister_FixedPhrase(fc.other_items)],
-        ]
+    fc.lclisters = [
+        ["App",     cblister_FixedPhrase(fc.application_items)],
+        ["Website", cblister_FixedPhrase(fc.website_items)],
+        ["Other",   cblister_FixedPhrase(fc.other_items)],
+    ]
 
-        # 個人設定ファイルのセクション [section-lancherList-1] を読み込んで実行する
-        exec(readConfigPersonal("[section-lancherList-1]"), dict(globals(), **locals()))
+    # 個人設定ファイルのセクション [section-lancherList-1] を読み込んで実行する
+    exec(readConfigPersonal("[section-lancherList-1]"), dict(globals(), **locals()))
 
-        def lw_lancherList():
-            def popLancherList():
+    def lw_lancherList():
+        def popLancherList():
 
-                # 既にリストが開いていたら閉じるだけ
-                if keymap.isListWindowOpened():
-                    keymap.cancelListWindow()
-                    return
+            # 既にリストが開いていたら閉じるだけ
+            if keymap.isListWindowOpened():
+                keymap.cancelListWindow()
+                return
 
-                # ウィンドウ
-                window_list = getWindowList()
-                window_items = []
-                if window_list:
-                    processName_length = max(map(len, map(Window.getProcessName, window_list)))
+            # ウィンドウ
+            window_list = getWindowList()
+            window_items = []
+            if window_list:
+                processName_length = max(map(len, map(Window.getProcessName, window_list)))
 
-                    formatter = "{0:" + str(processName_length) + "} | {1}"
-                    for wnd in window_list:
-                        window_items.append([formatter.format(wnd.getProcessName(), wnd.getText()), popWindow(wnd)])
+                formatter = "{0:" + str(processName_length) + "} | {1}"
+                for wnd in window_list:
+                    window_items.append([formatter.format(wnd.getProcessName(), wnd.getText()), popWindow(wnd)])
 
-                window_items.append([list_formatter.format("<Desktop>"), keymap.ShellExecuteCommand(None, r"shell:::{3080F90D-D7AD-11D9-BD98-0000947B0257}", "", "")])
-                listers = [["Window", cblister_FixedPhrase(window_items)]] + fc.lclisters
+            window_items.append([list_formatter.format("<Desktop>"), keymap.ShellExecuteCommand(None, r"shell:::{3080F90D-D7AD-11D9-BD98-0000947B0257}", "", "")])
+            listers = [["Window", cblister_FixedPhrase(window_items)]] + fc.lclisters
 
-                try:
+            try:
+                select_item = keymap.popListWindow(listers)
+
+                if not select_item:
+                    Window.find("Progman", None).setForeground()
                     select_item = keymap.popListWindow(listers)
 
-                    if not select_item:
-                        Window.find("Progman", None).setForeground()
-                        select_item = keymap.popListWindow(listers)
+                if select_item and select_item[0] and select_item[0][1]:
+                    select_item[0][1]()
+            except:
+                print("エラーが発生しました")
 
-                    if select_item and select_item[0] and select_item[0][1]:
-                        select_item[0][1]()
-                except:
-                    print("エラーが発生しました")
+        # キーフックの中で時間のかかる処理を実行できないので、delayedCall() を使って遅延実行する
+        keymap.delayedCall(popLancherList, 0)
 
-            # キーフックの中で時間のかかる処理を実行できないので、delayedCall() を使って遅延実行する
-            keymap.delayedCall(popLancherList, 0)
+    # ランチャーリストを起動する
+    define_key(keymap_global, fc.lancherList_key, lw_lancherList)
 
-        # ランチャーリストを起動する
-        define_key(keymap_global, fc.lancherList_key, lw_lancherList)
-
-        # 個人設定ファイルのセクション [section-lancherList-2] を読み込んで実行する
-        exec(readConfigPersonal("[section-lancherList-2]"), dict(globals(), **locals()))
+    # 個人設定ファイルのセクション [section-lancherList-2] を読み込んで実行する
+    exec(readConfigPersonal("[section-lancherList-2]"), dict(globals(), **locals()))
 
 
     ####################################################################################################
-    ## C-Enter に F2（編集モード移行）を割り当てる
+    ## オプションの設定
     ####################################################################################################
-    if fc.use_edit_mode:
 
-        fc.edit_mode_target = [["EXCEL.EXE",    "EXCEL*"],
-                               ["explorer.exe", "DirectUIHWND"]]
-
-        # 個人設定ファイルのセクション [section-edit_mode-1] を読み込んで実行する
-        exec(readConfigPersonal("[section-edit_mode-1]"), dict(globals(), **locals()))
-
-        def is_edit_mode_target(window):
-            for processName, className in fc.edit_mode_target:
-                if checkWindow(processName, className, window):
-                    return True
-            return False
-
-        keymap_edit_mode = keymap.defineWindowKeymap(check_func=is_edit_mode_target)
-
-        define_key(keymap_edit_mode, "C-Enter", reset_search(reset_undo(reset_counter(reset_mark(self_insert_command("F2"))))))
-
-        # 個人設定ファイルのセクション [section-edit_mode-2] を読み込んで実行する
-        exec(readConfigPersonal("[section-edit_mode-2]"), dict(globals(), **locals()))
-
-
-    ####################################################################################################
-    ## Emacs の場合、IME 切り替え用のキーを C-\ に置き換える
-    ####################################################################################################
-    if fc.use_real_emacs:
-
-        # Emacs で mozc を利用する際に Windows の IME の切換えキーを mozc の切り替えキーとして
-        # 機能させるための設定です。初期設定では NTEmacs（gnupack 含む）と Windows の Xサーバで動く
-        # Emacs を指定しています。
-
-        fc.x_window_apps = ["XWin.exe",               # Cygwin/X
-                            "XWin_MobaX.exe",         # MobaXterm/X
-                            "XWin_MobaX_1.16.3.exe",  # MobaXterm/X
-                            "XWin_Cygwin_1.14.5.exe", # MobaXterm/X
-                            "XWin_Cygwin_1.16.3.exe", # MobaXterm/X
-                            "Xming.exe",              # Xming
-                            "vcxsrv.exe",             # VcXsrv
-                            "X410.exe",               # X410
-                            "Xpra-Launcher.exe",      # Xpra
-                           ]
-
-        # 個人設定ファイルのセクション [section-real_emacs-1] を読み込んで実行する
-        exec(readConfigPersonal("[section-real_emacs-1]"), dict(globals(), **locals()))
-
-        def is_real_emacs(window):
-            if (window.getClassName() == "Emacs" or
-                (window.getProcessName() in fc.x_window_apps and
-                 # ウィンドウのタイトルを検索する正規表現を指定する
-                 # Emacs を起動しているウィンドウを検索できるように、Emacs の frame-title-format 変数を
-                 # 次のように設定するなどして、識別できるようにする
-                 # (setq frame-title-format (format "emacs-%s - %%b" emacs-version))
-                 re.search(r"^emacs-", window.getText()))):
-                return True
-            else:
-                return False
-
-        keymap_real_emacs = keymap.defineWindowKeymap(check_func=is_real_emacs)
-
-        # IME 切り替え用のキーの置き換え
-        # （Emacs 側での C-F1 と C-F2 の設定については、次のページを参照してください。
-        #   https://w.atwiki.jp/ntemacs/pages/48.html ）
-        keymap_real_emacs["(243)"]  = keymap.InputKeyCommand("C-Yen") # [半角／全角] キー
-        keymap_real_emacs["(244)"]  = keymap.InputKeyCommand("C-Yen") # [半角／全角] キー
-        keymap_real_emacs["A-(25)"] = keymap.InputKeyCommand("C-Yen") # Alt-` キー
-
-        keymap_real_emacs["(29)"]   = keymap.InputKeyCommand("C-F1")  # [無変換] キー
-        keymap_real_emacs["(28)"]   = keymap.InputKeyCommand("C-F2")  # [変換] キー
-        # keymap_real_emacs["O-LAlt"] = keymap.InputKeyCommand("C-F1")  # 左 Alt キーの単押し
-        # keymap_real_emacs["O-RAlt"] = keymap.InputKeyCommand("C-F2")  # 右 Alt キーの単押し
-
-        # 個人設定ファイルのセクション [section-real_emacs-2] を読み込んで実行する
-        exec(readConfigPersonal("[section-real_emacs-2]"), dict(globals(), **locals()))
-
-
-    ####################################################################################################
-    ## 英語キーボード設定をした OS 上で、日本語キーボードを利用する場合の切り替えを行う
-    ####################################################################################################
-    if fc.use_change_keyboard:
-
-        # https://w.atwiki.jp/ntemacs/pages/90.html
-
-        # OS の設定を英語キーボードにして日本語キーボードを利用する場合のお勧め設定
-        # （予め、Change Key を使って、[￥] キーにスキャンコード 0x7F を割り当ててください）
-
-        keymap.replaceKey(235, 29)               # [無変換] キーを OS が認識可能なキーにする
-        keymap.replaceKey(255, 28)               # [変換] キーを OS が認識可能なキーにする
-        keymap.replaceKey(193, "RShift")         # [＼] キーを RShift キーにする
-        keymap.replaceKey(236, "BackSlash")      # [￥] キーを BackSlash キーにする
-        keymap.replaceKey("BackSlash", "Return") # [ ]] キーを Enter キーにする
-
-        # 個人設定ファイルのセクション [section-change_keyboard-1] を読み込んで実行する
-        exec(readConfigPersonal("[section-change_keyboard-1]"), dict(globals(), **locals()))
-
-        # リモートデスクトップで接続する場合など、一つの OS を英語キーボードと日本語キーボード
-        # とで混在して利用する場合の切り替えの設定
-
-        def change_keyboard():
-            if fakeymacs.keyboard_status == "US":
-                # 日本語キーボードの利用に切り替える
-
-                # 日本語キーボードの [ ]] キーを Enter キーにする
-                keymap.replaceKey("BackSlash", "Return")
-
-                keymap.popBalloon("keyboard", "[JP Keyboard]", 1000)
-                fakeymacs.keyboard_status = "JP"
-
-            else:
-                # 英語キーボードの利用に切り替える
-
-                # 日本語キーボードの [ ]] キーを元の設定に戻す
-                keymap.replaceKey("BackSlash", "BackSlash")
-
-                if fakeymacs.keyboard_status == "JP":
-                    keymap.popBalloon("keyboard", "[US Keyboard]", 1000)
-                fakeymacs.keyboard_status = "US"
-
-        fakeymacs.keyboard_status = None
-        change_keyboard()
-
-        define_key(keymap_global, "C-A-S-Space", change_keyboard)
-
-        # 個人設定ファイルのセクション [section-change_keyboard-2] を読み込んで実行する
-        exec(readConfigPersonal("[section-change_keyboard-2]"), dict(globals(), **locals()))
+    # 個人設定ファイルのセクション [section-config-option] を読み込んで実行する
+    exec(readConfigPersonal("[section-config-option]"), dict(globals(), **locals()))
