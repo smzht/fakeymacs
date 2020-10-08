@@ -115,7 +115,7 @@ not_emacs_target に登録されているアプリケーションソフトで有
 | C-u     | universal_argument |             |
 |---------+--------------------+-------------|
 
-**** ● 数引数の設定
+**** ● 数引数を指定するキーの設定
 
 |---------+----------------+-------------|
 | Keybind | Function       | Description |
@@ -123,7 +123,7 @@ not_emacs_target に登録されているアプリケーションソフトで有
 | M-[n]   | digit_argument |             |
 |---------+----------------+-------------|
 
-**** ● 数引数の設定（use_ctrl_digit_key_for_digit_argument が True の場合）
+**** ● 数引数を指定するキーの設定（use_ctrl_digit_key_for_digit_argument が True の場合）
 
 |---------+----------------+-------------|
 | Keybind | Function       | Description |
