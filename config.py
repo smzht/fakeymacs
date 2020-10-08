@@ -204,7 +204,7 @@ def configure(keymap):
             with open(dataPath() + "\\" + config_file, "r", encoding="utf-8-sig") as f:
                 config_option = f.read()
         except:
-            print("オプション設定ファイル " + config_file + " の読み込みに失敗しました")
+            print("オプション設定ファイル {} の読み込みに失敗しました".format(config_file))
             config_option = ""
 
         return config_option
