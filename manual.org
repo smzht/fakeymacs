@@ -129,21 +129,6 @@ not_emacs_target に登録されているアプリケーションソフトで有
 | C-S-e                  | mark + move_end_of_line       |             |
 |------------------------+-------------------------------+-------------|
 
-**** ● 「マルチカーソル」のキー設定（VSCode 用）
-
-|---------+-------------------------------+-------------|
-| Keybind | Function                      | Description |
-|---------+-------------------------------+-------------|
-| C-A-p   | mark_up                       |             |
-| C-A-n   | mark_down                     |             |
-| C-A-b   | mark + backward_char          |             |
-| C-A-f   | mark + forward_char           |             |
-| C-A-a   | mark + move_beginning_of_line |             |
-| C-A-e   | mark + move_end_of_line       |             |
-| C-A-d   | mark_next_like_this           |             |
-| C-A-s   | skip_to_next_like_this        |             |
-|---------+-------------------------------+-------------|
-
 **** ● 「カット / コピー / 削除 / アンドゥ」のキー設定
 
 |-----------+----------------------+-----------------------------------------|
@@ -180,25 +165,6 @@ not_emacs_target に登録されているアプリケーションソフトで有
 | Ctl-x b | switch_to_buffer |                          |
 |---------+------------------+--------------------------|
 
-**** ● 「エディタ / ターミナル操作」のキー設定（VSCode 用）
-
-|-----------------+---------------------+----------------------------------------------------------------|
-| Keybind         | Function            | Description                                                    |
-|-----------------+---------------------+----------------------------------------------------------------|
-| Ctl-x o         | other_group         |                                                                |
-| Ctl-x 0         | delete_group        |                                                                |
-| Ctl-x 1         | delete_other_groups |                                                                |
-| Ctl-x 2         | split_editor_below  |                                                                |
-| Ctl-x 3         | split_editor_right  |                                                                |
-| C-S-` (C-~)     | create_terminal     | US Keyboard の場合                                             |
-| C-S-@ (C-`)     | create_terminal     | JIS Keyboard の場合                                            |
-| C-S-[半角/全角] | create_terminal     | JIS Keyboard の場合                                            |
-| C-`             | toggle_terminal     | US Keyboard の場合                                             |
-| C-@             | toggle_terminal     | JIS Keyboard の場合 / use_ctrl_atmark_for_mark が False の場合 |
-| C-[半角/全角]   | toggle_terminal     | JIS Keyboard の場合                                            |
-| C-[数字キー]    | switch_focus        |                                                                |
-|-----------------+---------------------+----------------------------------------------------------------|
-
 **** ● 「文字列検索 / 置換」のキー設定
 
 |---------+------------------+-------------|
@@ -233,7 +199,43 @@ not_emacs_target に登録されているアプリケーションソフトで有
 | M-!       | shell_command          |                                                      |
 |-----------+------------------------+------------------------------------------------------|
 
-**** ● 「その他」のキー設定（VSCode 用）
+**** ● 「VSCode 用」のキー設定
+
+***** ・ 「マルチカーソル」のキー設定
+
+|---------+-------------------------------+-------------|
+| Keybind | Function                      | Description |
+|---------+-------------------------------+-------------|
+| C-A-p   | mark_up                       |             |
+| C-A-n   | mark_down                     |             |
+| C-A-b   | mark + backward_char          |             |
+| C-A-f   | mark + forward_char           |             |
+| C-A-a   | mark + move_beginning_of_line |             |
+| C-A-e   | mark + move_end_of_line       |             |
+| C-A-d   | mark_next_like_this           |             |
+| C-A-s   | skip_to_next_like_this        |             |
+|---------+-------------------------------+-------------|
+
+***** ・ 「エディタ / ターミナル操作」のキー設定
+
+|-----------------+---------------------+----------------------------------------------------------------|
+| Keybind         | Function            | Description                                                    |
+|-----------------+---------------------+----------------------------------------------------------------|
+| Ctl-x o         | other_group         |                                                                |
+| Ctl-x 0         | delete_group        |                                                                |
+| Ctl-x 1         | delete_other_groups |                                                                |
+| Ctl-x 2         | split_editor_below  |                                                                |
+| Ctl-x 3         | split_editor_right  |                                                                |
+| C-S-` (C-~)     | create_terminal     | US Keyboard の場合                                             |
+| C-S-@ (C-`)     | create_terminal     | JIS Keyboard の場合                                            |
+| C-S-[半角/全角] | create_terminal     | JIS Keyboard の場合                                            |
+| C-`             | toggle_terminal     | US Keyboard の場合                                             |
+| C-@             | toggle_terminal     | JIS Keyboard の場合 / use_ctrl_atmark_for_mark が False の場合 |
+| C-[半角/全角]   | toggle_terminal     | JIS Keyboard の場合                                            |
+| C-[数字キー]    | switch_focus        |                                                                |
+|-----------------+---------------------+----------------------------------------------------------------|
+
+***** ・ 「その他」のキー設定
 
 |---------+--------------------------+-------------|
 | Keybind | Function                 | Description |

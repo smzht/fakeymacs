@@ -813,30 +813,6 @@ def configure(keymap):
             self_insert_command("C-h")()
 
     ##################################################
-    ## マルチカーソル（VSCode 用）
-    ##################################################
-
-    def mark_up():
-        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
-            # VSCode Command : cursorColumnSelectUp
-            self_insert_command("C-S-A-Up")()
-
-    def mark_down():
-        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
-            # VSCode Command : cursorColumnSelectDown
-            self_insert_command("C-S-A-Down")()
-
-    def mark_next_like_this():
-        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
-            # VSCode Command : Add Selection To Next Find Match
-            self_insert_command("C-d")()
-
-    def skip_to_next_like_this():
-        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
-            # VSCode Command : Move Last Selection To Next Find Match
-            self_insert_command("C-k", "C-d")()
-
-    ##################################################
     ## カット / コピー / 削除 / アンドゥ
     ##################################################
 
@@ -1000,68 +976,6 @@ def configure(keymap):
                 break
 
     ##################################################
-    ## エディタ / ターミナル操作（VSCode 用）
-    ##################################################
-
-    def create_terminal():
-        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
-            # VSCode Command : Create New Integrated Terminal
-            vscodeExecuteCommand("Te:Cr-Ne-In-Te")
-            if fc.use_vscode_terminal_key_direct_input:
-                fakeymacs.vscode_focus = "terminal"
-
-    def toggle_terminal():
-        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
-            if fc.use_vscode_terminal_key_direct_input:
-                if fakeymacs.vscode_focus == "not_terminal":
-                    # VSCode Command : Focus Terminal
-                    vscodeExecuteCommand("Te:Fo-Te")
-                    fakeymacs.vscode_focus = "terminal"
-                else:
-                    # VSCode Command : Close Panel
-                    vscodeExecuteCommand("Vi:Cl-Pa")
-                    fakeymacs.vscode_focus = "not_terminal"
-            else:
-                # VSCode Command : Toggle Integrated Terminal
-                vscodeExecuteCommand("Vi:To-In-Te")
-
-    def switch_focus(number):
-        def _func():
-            if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
-                # VSCode Command : Focus n-th Editor Group
-                self_insert_command("C-{}".format(number))()
-                if fc.use_vscode_terminal_key_direct_input:
-                    fakeymacs.vscode_focus = "not_terminal"
-        return _func
-
-    def other_group():
-        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
-            # VSCode Command : Navigate Between Editor Groups
-            vscodeExecuteCommand("Vi:Na-Be-Ed-Gr")
-            if fc.use_vscode_terminal_key_direct_input:
-                fakeymacs.vscode_focus = "not_terminal"
-
-    def delete_group():
-        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
-            # VSCode Command : Close All Editors in Group
-            vscodeExecuteCommand("Vi:Cl-Al-Ed-in-Gr")
-
-    def delete_other_groups():
-        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
-            # VSCode Command : Close Editors in Other Groups
-            vscodeExecuteCommand("Vi:Cl-Ed-in-Ot-Gr")
-
-    def split_editor_below():
-        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
-            # VSCode Command : Split Editor Orthogonal
-            self_insert_command("C-k", "C-Yen")()
-
-    def split_editor_right():
-        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
-            # VSCode Command : Split Editor
-            self_insert_command("C-Yen")()
-
-    ##################################################
     ## 文字列検索 / 置換
     ##################################################
 
@@ -1223,9 +1137,91 @@ def configure(keymap):
             keymap.ShellExecuteCommand(None, fc.command_name, "", "")()
 
     ##################################################
-    ## その他（VSCode 用）
+    ## VSCode 用
     ##################################################
 
+    ## マルチカーソル（VSCode 用）
+    def mark_up():
+        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
+            # VSCode Command : cursorColumnSelectUp
+            self_insert_command("C-S-A-Up")()
+
+    def mark_down():
+        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
+            # VSCode Command : cursorColumnSelectDown
+            self_insert_command("C-S-A-Down")()
+
+    def mark_next_like_this():
+        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
+            # VSCode Command : Add Selection To Next Find Match
+            self_insert_command("C-d")()
+
+    def skip_to_next_like_this():
+        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
+            # VSCode Command : Move Last Selection To Next Find Match
+            self_insert_command("C-k", "C-d")()
+
+
+    ## エディタ / ターミナル操作（VSCode 用）
+    def create_terminal():
+        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
+            # VSCode Command : Create New Integrated Terminal
+            vscodeExecuteCommand("Te:Cr-Ne-In-Te")
+            if fc.use_vscode_terminal_key_direct_input:
+                fakeymacs.vscode_focus = "terminal"
+
+    def toggle_terminal():
+        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
+            if fc.use_vscode_terminal_key_direct_input:
+                if fakeymacs.vscode_focus == "not_terminal":
+                    # VSCode Command : Focus Terminal
+                    vscodeExecuteCommand("Te:Fo-Te")
+                    fakeymacs.vscode_focus = "terminal"
+                else:
+                    # VSCode Command : Close Panel
+                    vscodeExecuteCommand("Vi:Cl-Pa")
+                    fakeymacs.vscode_focus = "not_terminal"
+            else:
+                # VSCode Command : Toggle Integrated Terminal
+                vscodeExecuteCommand("Vi:To-In-Te")
+
+    def switch_focus(number):
+        def _func():
+            if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
+                # VSCode Command : Focus n-th Editor Group
+                self_insert_command("C-{}".format(number))()
+                if fc.use_vscode_terminal_key_direct_input:
+                    fakeymacs.vscode_focus = "not_terminal"
+        return _func
+
+    def other_group():
+        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
+            # VSCode Command : Navigate Between Editor Groups
+            vscodeExecuteCommand("Vi:Na-Be-Ed-Gr")
+            if fc.use_vscode_terminal_key_direct_input:
+                fakeymacs.vscode_focus = "not_terminal"
+
+    def delete_group():
+        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
+            # VSCode Command : Close All Editors in Group
+            vscodeExecuteCommand("Vi:Cl-Al-Ed-in-Gr")
+
+    def delete_other_groups():
+        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
+            # VSCode Command : Close Editors in Other Groups
+            vscodeExecuteCommand("Vi:Cl-Ed-in-Ot-Gr")
+
+    def split_editor_below():
+        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
+            # VSCode Command : Split Editor Orthogonal
+            self_insert_command("C-k", "C-Yen")()
+
+    def split_editor_right():
+        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
+            # VSCode Command : Split Editor
+            self_insert_command("C-Yen")()
+
+    ## その他（VSCode 用）
     def execute_extended_command():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             disable_input_method()
@@ -1669,16 +1665,6 @@ def configure(keymap):
     define_key(keymap_emacs, "S-PageUP",   reset_search(reset_undo(reset_counter(mark2(scroll_up, False)))))
     define_key(keymap_emacs, "S-PageDown", reset_search(reset_undo(reset_counter(mark2(scroll_down, True)))))
 
-    ## 「マルチカーソル」のキー設定（VSCode 用）
-    define_key(keymap_emacs, "C-A-p", reset_search(reset_undo(reset_counter(mark_up))))
-    define_key(keymap_emacs, "C-A-n", reset_search(reset_undo(reset_counter(mark_down))))
-    define_key(keymap_emacs, "C-A-b", reset_search(reset_undo(reset_counter(mark2(repeat(backward_char), False)))))
-    define_key(keymap_emacs, "C-A-f", reset_search(reset_undo(reset_counter(mark2(repeat(forward_char), True)))))
-    define_key(keymap_emacs, "C-A-a", reset_search(reset_undo(reset_counter(mark2(move_beginning_of_line, False)))))
-    define_key(keymap_emacs, "C-A-e", reset_search(reset_undo(reset_counter(mark2(move_end_of_line, True)))))
-    define_key(keymap_emacs, "C-A-d", reset_search(reset_undo(reset_counter(mark_next_like_this))))
-    define_key(keymap_emacs, "C-A-s", reset_search(reset_undo(reset_counter(skip_to_next_like_this))))
-
     ## 「カット / コピー / 削除 / アンドゥ」のキー設定
     define_key(keymap_emacs, "C-h",      reset_search(reset_undo(reset_counter(reset_mark(repeat2(delete_backward_char))))))
     define_key(keymap_emacs, "C-d",      reset_search(reset_undo(reset_counter(reset_mark(repeat2(delete_char))))))
@@ -1721,30 +1707,6 @@ def configure(keymap):
     define_key(keymap_emacs, "M-k",       reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
     define_key(keymap_emacs, "Ctl-x b",   reset_search(reset_undo(reset_counter(reset_mark(switch_to_buffer)))))
 
-    ## 「エディタ / ターミナル操作」のキー設定（VSCode 用）
-    define_key(keymap_emacs, "Ctl-x o",   reset_search(reset_undo(reset_counter(reset_mark(other_group)))))
-    define_key(keymap_emacs, "Ctl-x 0",   reset_search(reset_undo(reset_counter(reset_mark(delete_group)))))
-    define_key(keymap_emacs, "Ctl-x 1",   reset_search(reset_undo(reset_counter(reset_mark(delete_other_groups)))))
-    define_key(keymap_emacs, "Ctl-x 2",   reset_search(reset_undo(reset_counter(reset_mark(split_editor_below)))))
-    define_key(keymap_emacs, "Ctl-x 3",   reset_search(reset_undo(reset_counter(reset_mark(split_editor_right)))))
-
-    define_key(keymap_emacs, "C-S-(243)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
-    define_key(keymap_emacs, "C-S-(244)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
-    define_key(keymap_emacs, "C-(243)",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
-    define_key(keymap_emacs, "C-(244)",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
-
-    if is_japanese_keyboard:
-        define_key(keymap_emacs, "C-S-Atmark", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
-
-        if not fc.use_ctrl_atmark_for_mark:
-            define_key(keymap_emacs, "C-Atmark", reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
-    else:
-        define_key(keymap_emacs, "C-S-BackQuote", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
-        define_key(keymap_emacs, "C-BackQuote",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
-
-    for key in range(10):
-        define_key(keymap_emacs, "C-{}".format(key), reset_search(reset_undo(reset_counter(reset_mark(switch_focus(key))))))
-
     ## 「文字列検索 / 置換」のキー設定
     define_key(keymap_emacs, "C-r",   reset_undo(reset_counter(reset_mark(isearch_backward))))
     define_key(keymap_emacs, "C-s",   reset_undo(reset_counter(reset_mark(isearch_forward))))
@@ -1770,7 +1732,41 @@ def configure(keymap):
     define_key(keymap_emacs, "Ctl-x C-c",   reset_search(reset_undo(reset_counter(reset_mark(kill_emacs)))))
     define_key(keymap_emacs, "M-S-1",       reset_search(reset_undo(reset_counter(reset_mark(shell_command)))))
 
-    ## 「その他」のキー設定（VSCode 用）
+    ## 「VSCode 用」のキー設定（マルチカーソル）
+    define_key(keymap_emacs, "C-A-p", reset_search(reset_undo(reset_counter(mark_up))))
+    define_key(keymap_emacs, "C-A-n", reset_search(reset_undo(reset_counter(mark_down))))
+    define_key(keymap_emacs, "C-A-b", reset_search(reset_undo(reset_counter(mark2(repeat(backward_char), False)))))
+    define_key(keymap_emacs, "C-A-f", reset_search(reset_undo(reset_counter(mark2(repeat(forward_char), True)))))
+    define_key(keymap_emacs, "C-A-a", reset_search(reset_undo(reset_counter(mark2(move_beginning_of_line, False)))))
+    define_key(keymap_emacs, "C-A-e", reset_search(reset_undo(reset_counter(mark2(move_end_of_line, True)))))
+    define_key(keymap_emacs, "C-A-d", reset_search(reset_undo(reset_counter(mark_next_like_this))))
+    define_key(keymap_emacs, "C-A-s", reset_search(reset_undo(reset_counter(skip_to_next_like_this))))
+
+    ## 「VSCode 用」のキー設定（エディタ / ターミナル操作）
+    define_key(keymap_emacs, "Ctl-x o",   reset_search(reset_undo(reset_counter(reset_mark(other_group)))))
+    define_key(keymap_emacs, "Ctl-x 0",   reset_search(reset_undo(reset_counter(reset_mark(delete_group)))))
+    define_key(keymap_emacs, "Ctl-x 1",   reset_search(reset_undo(reset_counter(reset_mark(delete_other_groups)))))
+    define_key(keymap_emacs, "Ctl-x 2",   reset_search(reset_undo(reset_counter(reset_mark(split_editor_below)))))
+    define_key(keymap_emacs, "Ctl-x 3",   reset_search(reset_undo(reset_counter(reset_mark(split_editor_right)))))
+
+    define_key(keymap_emacs, "C-S-(243)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
+    define_key(keymap_emacs, "C-S-(244)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
+    define_key(keymap_emacs, "C-(243)",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
+    define_key(keymap_emacs, "C-(244)",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
+
+    if is_japanese_keyboard:
+        define_key(keymap_emacs, "C-S-Atmark", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
+
+        if not fc.use_ctrl_atmark_for_mark:
+            define_key(keymap_emacs, "C-Atmark", reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
+    else:
+        define_key(keymap_emacs, "C-S-BackQuote", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
+        define_key(keymap_emacs, "C-BackQuote",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
+
+    for key in range(10):
+        define_key(keymap_emacs, "C-{}".format(key), reset_search(reset_undo(reset_counter(reset_mark(switch_focus(key))))))
+
+    ## 「VSCode 用」のキー設定（その他）
     define_key(keymap_emacs, "M-x",         reset_search(reset_undo(reset_counter(reset_mark(execute_extended_command)))))
     define_key(keymap_emacs, "M-Semicolon", reset_search(reset_undo(reset_counter(comment_dwim))))
 
