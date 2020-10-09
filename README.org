@@ -46,18 +46,6 @@ IME のショートカットキーが利用できるようになります。
 するためのキーは、デフォルトキーの A-S-Tab、A-Tab となります。起動後は A-p、A-n で
 アクティブウィンドウの切り替え、A-g で切り替え画面の終了（キャンセル）が利用できます。
 
-** 個人設定用ファイル（config_personal.py）
-
-_config_personal.py とうファイルを config_personal.py というファイル名にすることで個人設定用
-ファイルとして機能します。本ファイルの設定には [ ] で括られたセクション名が定義されており、
-その単位で config.py や config_light.py の中に設定が取り込まれ、exec 関数により実行されます。
-
-config.py や config_light.py で設定を変更したい内容は、config_personal.py に記載して管理する
-ことで、config.py や config_light.py のバージョンアップに容易に対応できるようになると思います。
-
-何のセクションがどこで読み込まれるかについては、config.py や config_light.py ファイル内の
-exec 関数をコールしているところを検索して確認ください。
-
 ** VSCode の強化ポイント
 
 VSCode については、一般的な Emacs キーバインドの他に次のキーバインドを利用できるようにしています。
