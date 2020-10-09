@@ -178,7 +178,7 @@ def configure(keymap):
         is_japanese_keyboard = False
 
     try:
-        with open(dataPath() + "\config_personal.py", "r", encoding="utf-8-sig") as f:
+        with open(dataPath() + r"\config_personal.py", "r", encoding="utf-8-sig") as f:
             config_personal = f.read()
     except:
         print("個人設定ファイル config_personal.py は存在しないため、読み込みしていません")
