@@ -2499,5 +2499,5 @@ def configure(keymap):
     ## オプションの設定
     ####################################################################################################
 
-    # 個人設定ファイルのセクション [section-config-option] を読み込んで実行する
-    exec(readConfigPersonal("[section-config-option]"), dict(globals(), **locals()))
+    # 個人設定ファイルのセクション [section-option] を読み込んで実行する
+    exec(readConfigPersonal("[section-option]"), dict(globals(), **locals()))
