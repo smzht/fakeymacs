@@ -2381,7 +2381,7 @@ def configure(keymap):
     ]
     fc.datetime_items[0][0] = list_formatter.format(fc.datetime_items[0][0])
 
-    fc.cblisters = [
+    fc.clipboardList_listers = [
         ["定型文", cblister_FixedPhrase(fc.fixed_items)],
         ["日時",   cblister_FixedPhrase(fc.datetime_items)],
     ]
@@ -2389,7 +2389,7 @@ def configure(keymap):
     # 個人設定ファイルのセクション [section-clipboardList-1] を読み込んで実行する
     exec(readConfigPersonal("[section-clipboardList-1]"), dict(globals(), **locals()))
 
-    keymap.cblisters = [keymap.cblisters[0]] + fc.cblisters
+    keymap.cblisters = [keymap.cblisters[0]] + fc.clipboardList_listers
 
     def lw_clipboardList():
         keymap.command_ClipboardList()
@@ -2443,7 +2443,7 @@ def configure(keymap):
     ]
     fc.other_items[0][0] = list_formatter.format(fc.other_items[0][0])
 
-    fc.lclisters = [
+    fc.lancherList_listers = [
         ["App",     cblister_FixedPhrase(fc.application_items)],
         ["Website", cblister_FixedPhrase(fc.website_items)],
         ["Other",   cblister_FixedPhrase(fc.other_items)],
@@ -2471,7 +2471,7 @@ def configure(keymap):
                     window_items.append([formatter.format(wnd.getProcessName(), wnd.getText()), popWindow(wnd)])
 
             window_items.append([list_formatter.format("<Desktop>"), keymap.ShellExecuteCommand(None, r"shell:::{3080F90D-D7AD-11D9-BD98-0000947B0257}", "", "")])
-            listers = [["Window", cblister_FixedPhrase(window_items)]] + fc.lclisters
+            listers = [["Window", cblister_FixedPhrase(window_items)]] + fc.lancherList_listers
 
             try:
                 select_item = keymap.popListWindow(listers)

@@ -58,12 +58,12 @@ Fakeymacs をカスタマイズするために、下記のコンフィグレー�
 | window_operation_exclusion_class       | ウィンドウ操作（other_window、restore_window など）の対象としたくないアプリケーションソフトの“クラス名称”を指定する     |
 | window_operation_exclusion_process     | ウィンドウ操作（other_window、restore_window など）の対象としたくないアプリケーションソフトの プロセス名称”を指定する    |
 | clipboardList_key                      | クリップボードリストを起動するキーを指定する                                                                              |
+| clipboardList_listers                  | クリップボードリストの利用アイテムを指定する                                                                              |
 | lancherList_key                        | ランチャーリストを起動するキーを指定する                                                                                  |
+| lancherList_listers                    | ランチャーリストの利用アイテムを指定する                                                                                  |
 | command_name                           | shell_command 関数で起動するアプリケーションソフトを指定する                                                              |
 | repeat_max                             | コマンドのリピート回数の最大値を指定する                                                                                  |
 | is_newline_selectable_in_Excel         | Microsoft Excel のセル内で改行を選択可能かを指定する                                                                      |
-| cblisters                              | クリップボードリストの利用アイテムを指定する                                                                              |
-| lclisters                              | ランチャーリストの利用アイテムを指定する                                                                                  |
 |----------------------------------------+---------------------------------------------------------------------------------------------------------------------------|
 
 ** キーバインド

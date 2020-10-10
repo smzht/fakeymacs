@@ -183,7 +183,7 @@ fc.datetime_items = [
 ]
 fc.datetime_items[0][0] = list_formatter.format(fc.datetime_items[0][0])
 
-fc.cblisters = [
+fc.clipboardList_listers = [
     ["定型文", cblister_FixedPhrase(fc.fixed_items)],
     ["日時",   cblister_FixedPhrase(fc.datetime_items)],
 ]
@@ -225,7 +225,7 @@ fc.other_items = [
 ]
 fc.other_items[0][0] = list_formatter.format(fc.other_items[0][0])
 
-fc.lclisters = [
+fc.lancherList_listers = [
     ["App",     cblister_FixedPhrase(fc.application_items)],
     ["Website", cblister_FixedPhrase(fc.website_items)],
     ["Other",   cblister_FixedPhrase(fc.other_items)],
