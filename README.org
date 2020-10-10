@@ -11,7 +11,7 @@ Keyhac for Windows ver 1.82 以上のバージョンでご利用ください。
 manual は次のリンクを参照ください。
 
 - [[manual.org][manual]]
-- [[manual_option.org][manual (option)]]
+- [[manual_extensions.org][manual (extensions)]]
 
 次のページにも関連の情報があります。
 
@@ -32,7 +32,7 @@ manual は次のリンクを参照ください。
 - クリップボードリスト
 - ランチャーリスト
 
-オプションとして、下記の機能も利用可能です。
+オプションとして、下記の拡張機能も利用可能です。
 
 - C-Enter に F2（編集モード移行）を割り当てる
 - Emacs の場合、IME 切り替え用のキーを C-\ に置き換える

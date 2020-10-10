@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs"
-fakeymacs_version = "20201010_01"
+fakeymacs_version = "20201010_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -199,15 +199,15 @@ def configure(keymap):
 
         return config_section
 
-    def readConfigOption(config_file):
+    def readConfigExtension(config_file):
         try:
             with open(dataPath() + "\\" + config_file, "r", encoding="utf-8-sig") as f:
-                config_option = f.read()
+                config_extension = f.read()
         except:
             print("オプション設定ファイル {} の読み込みに失敗しました".format(config_file))
-            config_option = ""
+            config_extension = ""
 
-        return config_option
+        return config_extension
 
     def startupString():
         startup_string_formatter = "{} version {}:\n  https://github.com/smzht/fakeymacs\n"
@@ -218,17 +218,25 @@ def configure(keymap):
 
 
     ####################################################################################################
+    ## 機能オプションの選択
+    ####################################################################################################
+
+    # IMEの設定（３つの設定のいずれか一つを True にする）
+    fc.use_old_Microsoft_IME = True
+    fc.use_new_Microsoft_IME = False
+    fc.use_Google_IME = False
+
+    # 個人設定ファイルのセクション [section-options] を読み込んで実行する
+    exec(readConfigPersonal("[section-options]"), dict(globals(), **locals()))
+
+
+    ####################################################################################################
     ## 基本設定
     ####################################################################################################
 
     ###########################################################################
     ## カスタマイズパラメータの設定
     ###########################################################################
-
-    # IMEの設定（３つの設定のいずれか一つを True にする）
-    fc.use_old_Microsoft_IME = True
-    fc.use_new_Microsoft_IME = False
-    fc.use_Google_IME = False
 
     # Emacs のキーバインドにするウィンドウのクラスネームを指定する（全ての設定に優先する）
     fc.emacs_target_class   = ["Edit"]                   # テキスト入力フィールドなどが該当
@@ -2496,8 +2504,8 @@ def configure(keymap):
 
 
     ####################################################################################################
-    ## オプション機能の設定
+    ## 拡張機能の設定
     ####################################################################################################
 
-    # 個人設定ファイルのセクション [section-option] を読み込んで実行する
-    exec(readConfigPersonal("[section-option]"), dict(globals(), **locals()))
+    # 個人設定ファイルのセクション [section-extensions] を読み込んで実行する
+    exec(readConfigPersonal("[section-extensions]"), dict(globals(), **locals()))

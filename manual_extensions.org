@@ -1,23 +1,23 @@
 #+STARTUP: showall indent
 
-* Fakeymacs option manual
+* Fakeymacs extensions manual
 
-オプション機能は、個人設定用ファイル（config_personal.py）でオプションファイルの読み込みを有効にすることに
-より、利用可能となります。
+拡張機能は、個人設定用ファイル（config_personal.py）で拡張機能ファイルの読み込みを有効にすることにより、
+利用可能となります。
 
-同様のオプションファイルを作成し、個人設定用ファイル（config_personal.py）で読み込むことにより、容易に
-機能拡張が可能となります。
+同様の拡張機能ファイルを作成し、個人設定用ファイル（config_personal.py）で読み込むことにより、容易に
+機能を拡張できます。
 
-** オプション機能
+** Extensions
 
-*** ■ 「C-Enter に F2（編集モード移行）を割り当てる」機能
+*** ■ 「C-Enter に F2（編集モード移行）を割り当てる」拡張機能
 
 edit_mode_target に指定したアプリケーションソフトで C-Enter に F2（編集モード移行）を割り当てるための
-オプション機能です。
+拡張機能です。
 
 **** configファイルの名称
 
-- config_option-edit_mode.py
+- config_extension-edit_mode.py
 
 **** コンフィグレーションパラメータ
 
@@ -35,13 +35,13 @@ edit_mode_target に指定したアプリケーションソフトで C-Enter に
 | C-Enter | self_insert_command("F2") |             |
 |---------+---------------------------+-------------|
 
-*** ■ 「Emacs の場合、IME 切り替え用のキーを C-\ に置き換える」機能
+*** ■ 「Emacs の場合、IME 切り替え用のキーを C-\ に置き換える」拡張機能
 
-Emacs にフォーカスがあるときに IME 切り替え用のキーを C-\ に置き換えるためのオプション機能です。
+Emacs にフォーカスがあるときに IME 切り替え用のキーを C-\ に置き換えるための拡張機能です。
 
 **** configファイルの名称
 
-- config_option-real_emacs.py
+- config_extension-real_emacs.py
 
 **** キーバインド
 
@@ -57,13 +57,13 @@ Emacs にフォーカスがあるときに IME 切り替え用のキーを C-\ �
 ※ Emacs 側での C-F1 と C-F2 の設定については、次のページを参照してください。
 - https://w.atwiki.jp/ntemacs/pages/48.html
 
-*** ■ 「英語キーボード設定をした OS 上で、日本語キーボードを利用する場合の切り替えを行う」機能
+*** ■ 「英語キーボード設定をした OS 上で、日本語キーボードを利用する場合の切り替えを行う」拡張機能
 
-英語キーボード設定をした OS 上で、日本語キーボードを利用する場合の切り替えを行うためのオプション機能です。
+英語キーボード設定をした OS 上で、日本語キーボードを利用する場合の切り替えを行うための拡張機能です。
 
 **** configファイルの名称
 
-- config_option-change_keyboard.py
+- config_extension-change_keyboard.py
 
 **** キーバインド
 
