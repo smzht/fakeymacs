@@ -26,6 +26,11 @@ keymap.setFont("ＭＳ ゴシック", 12)
 ####################################################################################################
 # [section-base-1] ---------------------------------------------------------------------------------
 
+# IMEの設定（３つの設定のいずれか一つを True にする）
+fc.use_old_Microsoft_IME = True
+fc.use_new_Microsoft_IME = False
+fc.use_Google_IME = False
+
 # Emacs のキーバインドに“したくない”アプリケーションソフトを指定する
 # （Keyhac のメニューから「内部ログ」を ON にすると processname や classname を確認することができます）
 fc.not_emacs_target    += [
