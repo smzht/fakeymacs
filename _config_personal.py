@@ -243,11 +243,11 @@ fc.lancherList_listers = [
 ####################################################################################################
 # [section-extensions] -----------------------------------------------------------------------------
 
-# # 「C-Enter に F2（編集モード移行）を割り当てる」機能機能
+# C-Enter に F2（編集モード移行）を割り当てる」拡張機能
 # exec(readConfigExtension("config_extensions-edit_mode.py"), dict(globals(), **locals()))
 
-# # 「Emacs の場合、IME 切り替え用のキーを C-\ に置き換える」機能機能
+# # 「Emacs の場合、IME 切り替え用のキーを C-\ に置き換える」拡張機能
 # exec(readConfigExtension("config_extensions-read_emacs.py"), dict(globals(), **locals()))
 
-# # 「英語キーボード設定をした OS 上で、日本語キーボードを利用する場合の切り替えを行う」機能機能
+# # 「英語キーボード設定をした OS 上で、日本語キーボードを利用する場合の切り替えを行う」拡張機能
 # exec(readConfigExtension("config_extensions-change_keyboard.py"), dict(globals(), **locals()))
