@@ -8,20 +8,20 @@
 # 機能させるための設定です。初期設定では NTEmacs（gnupack 含む）と Windows の Xサーバで動く
 # Emacs を指定しています。
 
-fc.x_window_apps = ["XWin.exe",               # Cygwin/X
-                    "XWin_MobaX.exe",         # MobaXterm/X
-                    "XWin_MobaX_1.16.3.exe",  # MobaXterm/X
-                    "XWin_Cygwin_1.14.5.exe", # MobaXterm/X
-                    "XWin_Cygwin_1.16.3.exe", # MobaXterm/X
-                    "Xming.exe",              # Xming
-                    "vcxsrv.exe",             # VcXsrv
-                    "X410.exe",               # X410
-                    "Xpra-Launcher.exe",      # Xpra
-                   ]
+x_window_apps = ["XWin.exe",               # Cygwin/X
+                 "XWin_MobaX.exe",         # MobaXterm/X
+                 "XWin_MobaX_1.16.3.exe",  # MobaXterm/X
+                 "XWin_Cygwin_1.14.5.exe", # MobaXterm/X
+                 "XWin_Cygwin_1.16.3.exe", # MobaXterm/X
+                 "Xming.exe",              # Xming
+                 "vcxsrv.exe",             # VcXsrv
+                 "X410.exe",               # X410
+                 "Xpra-Launcher.exe",      # Xpra
+                ]
 
 def is_real_emacs(window):
     if (window.getClassName() == "Emacs" or
-        (window.getProcessName() in fc.x_window_apps and
+        (window.getProcessName() in x_window_apps and
          # ウィンドウのタイトルを検索する正規表現を指定する
          # Emacs を起動しているウィンドウを検索できるように、Emacs の frame-title-format 変数を
          # 次のように設定するなどして、識別できるようにする
