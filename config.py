@@ -6,7 +6,7 @@
 ##
 
 fakeymacs_cfgname = "Fakeymacs"
-fakeymacs_version = "20201008_02"
+fakeymacs_version = "20201010_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
