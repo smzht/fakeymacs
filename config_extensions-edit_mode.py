@@ -15,4 +15,4 @@ def is_edit_mode_target(window):
 
 keymap_edit_mode = keymap.defineWindowKeymap(check_func=is_edit_mode_target)
 
-define_key(keymap_edit_mode, "C-Enter", reset_search(reset_undo(reset_counter(reset_mark(self_insert_command("F2"))))))
+define_key(keymap_edit_mode, "C-Enter", self_insert_command("F2"))
