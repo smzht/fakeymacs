@@ -57,7 +57,6 @@ fc.skip_settings_key    = {"keymap_global"    : [],
                            "keymap_ei"        : [],
                            "keymap_tsw"       : [],
                            "keymap_lw"        : [],
-                           "keymap_edit_mode" : [],
                           }
 
 # Emacs のキーバインドにするアプリケーションソフトで、Emacs キーバインドから除外するキーを指定する

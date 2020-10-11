@@ -316,7 +316,6 @@ def configure(keymap):
                                "keymap_ei"        : [],
                                "keymap_tsw"       : [],
                                "keymap_lw"        : [],
-                               "keymap_edit_mode" : [],
                               }
 
     # Emacs のキーバインドにするアプリケーションソフトで、Emacs キーバインドから除外するキーを指定する
@@ -1343,7 +1342,6 @@ def configure(keymap):
                 keymap_ei
                 keymap_tsw
                 keymap_lw
-                keymap_edit_mode
             except:
                 pass
 
