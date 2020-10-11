@@ -1260,6 +1260,37 @@ def configure(keymap):
             if clipboard_text:
                 keymap.clipboard_history._push(clipboard_text)
 
+    def resetRegion():
+        if fakeymacs.forward_direction is not None:
+
+            if checkWindow(None, "Edit"): # Edit クラス
+                # 選択されているリージョンのハイライトを解除するためにカーソルキーを発行する
+                if fakeymacs.forward_direction:
+                    self_insert_command("Right")()
+                else:
+                    self_insert_command("Left")()
+
+            elif checkWindow("cmd.exe", "ConsoleWindowClass"): # Cmd
+                # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
+                if fakeymacs.forward_direction:
+                    self_insert_command("Right", "Left")()
+                else:
+                    self_insert_command("Left", "Right")()
+
+            elif (checkWindow("powershell.exe", "ConsoleWindowClass") or # PowerShell
+                  checkWindow("EXCEL.EXE", None)):                       # Microsoft Excel
+                # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
+                if fakeymacs.forward_direction:
+                    self_insert_command("Left", "Right")()
+                else:
+                    self_insert_command("Right", "Left")()
+            else:
+                # 選択されているリージョンのハイライトを解除するためにカーソルキーを発行する
+                if fakeymacs.forward_direction:
+                    self_insert_command("Right")()
+                else:
+                    self_insert_command("Left")()
+
     def checkWindow(processName, className, window=None):
         if window is None:
             window = keymap.getWindow()
@@ -1392,37 +1423,6 @@ def configure(keymap):
             fakeymacs.is_universal_argument = True
             digit_argument(number)
         return _func
-
-    def resetRegion():
-        if fakeymacs.forward_direction is not None:
-
-            if checkWindow(None, "Edit"): # Edit クラス
-                # 選択されているリージョンのハイライトを解除するためにカーソルキーを発行する
-                if fakeymacs.forward_direction:
-                    self_insert_command("Right")()
-                else:
-                    self_insert_command("Left")()
-
-            elif checkWindow("cmd.exe", "ConsoleWindowClass"): # Cmd
-                # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
-                if fakeymacs.forward_direction:
-                    self_insert_command("Right", "Left")()
-                else:
-                    self_insert_command("Left", "Right")()
-
-            elif (checkWindow("powershell.exe", "ConsoleWindowClass") or # PowerShell
-                  checkWindow("EXCEL.EXE", None)):                       # Microsoft Excel
-                # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
-                if fakeymacs.forward_direction:
-                    self_insert_command("Left", "Right")()
-                else:
-                    self_insert_command("Right", "Left")()
-            else:
-                # 選択されているリージョンのハイライトを解除するためにカーソルキーを発行する
-                if fakeymacs.forward_direction:
-                    self_insert_command("Right")()
-                else:
-                    self_insert_command("Left")()
 
     def mark(func, forward_direction):
         def _func():
