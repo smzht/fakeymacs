@@ -33,7 +33,7 @@ def checkWindow(processName, className, window=None):
 
 *** ■ define_key
 
-キーマップにキーを定義する（skip_settings_key に定義したキーの設定を行わない）
+キーマップにキーを定義する（skip_settings_key に定義したキーの設定を行わないバージョン）
 
 **** Function
 
@@ -57,7 +57,7 @@ def define_key(window_keymap, keys, command):
 
 *** ■ define_key2
 
-キーマップにキーを定義する（skip_settings_key に定義したキーであっても設定する）
+キーマップにキーを定義する（skip_settings_key に定義したキーであっても設定するバージョン）
 
 **** Function
 
