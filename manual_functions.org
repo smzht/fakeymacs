@@ -239,7 +239,7 @@ def reset_search(func):
 
 *** ■ repeat
 
-repeat の処理を施した新たな関数を返す
+数引数の値に従い、repeat の処理を施した新たな関数を返す
 
 **** Function
 
@@ -261,7 +261,8 @@ def repeat(func):
 
 *** ■ repeat2
 
-repeat の処理を施した新たな関数を返す（リーションが設定してある場合は、一回のみ処理を行うバージョン）
+数引数の値に従い、repeat の処理を施した新たな関数を返す
+（リーションが設定してある場合は、一回のみ処理を行うバージョン）
 
 **** Function
 
@@ -283,7 +284,8 @@ def repeat2(func):
 
 *** ■ repeat3
 
-repeat の処理を施した新たな関数を返す（repaet 回数を func の引数で渡すバージョン）
+数引数の値に従い、repeat の処理を施した新たな関数を返す
+（repaet 回数を func の引数で渡すバージョン）
 
 **** Function
 
