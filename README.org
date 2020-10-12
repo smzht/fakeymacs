@@ -12,6 +12,7 @@ manual は次のリンクを参照ください。
 
 - [[manual.org][manual]]
 - [[manual_extensions.org][manual (extensions)]]
+- [[manual_functions.org][manual (functions)]]
 
 次のページにも関連の情報があります。
 

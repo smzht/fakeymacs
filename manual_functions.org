@@ -1,0 +1,325 @@
+#+STARTUP: showall indent
+
+* Fakeymacs functions manual
+
+拡張機能（Extensions）を作成する際に利用する可能性がある関数の說明です。
+
+** Functions
+
+*** ■ checkWindow
+
+ウィンドウが指定した条件に該当するかチェックする
+
+**** Function
+
+#+BEGIN_EXAMPLE
+def checkWindow(processName, className, window=None):
+#+END_EXAMPLE
+
+**** Parameters
+
+|-------------+-------------------------------------------------------------------------------------------|
+| Parameters  | Description                                                                               |
+|-------------+-------------------------------------------------------------------------------------------|
+| processName | プロセス名称                                                                              |
+| className   | クラス名称                                                                                |
+| window      | pyauto.Windowオブジェクト（default 値の場合はキーボードフォーカスを持っているウインドウ） |
+|-------------+-------------------------------------------------------------------------------------------|
+
+**** Returns
+
+- True : 該当する
+- False : 該当しない
+
+*** ■ define_key
+
+キーマップにキーを定義する（skip_settings_key に定義したキーの設定を行わない）
+
+**** Function
+
+#+BEGIN_EXAMPLE
+def define_key(window_keymap, keys, command):
+#+END_EXAMPLE
+
+**** Parameters
+
+|---------------+--------------------------------------------------------|
+| Parameters    | Description                                            |
+|---------------+--------------------------------------------------------|
+| window_keymap | WindowKeymapオブジェクト                               |
+| keys          | キーの定義（マルチストロークのキーはスペースで区切る） |
+| command       | 実行するコマンド（関数）                               |
+|---------------+--------------------------------------------------------|
+
+**** Returns
+
+- 無し
+
+*** ■ define_key2
+
+キーマップにキーを定義する（skip_settings_key に定義したキーであっても設定する）
+
+**** Function
+
+#+BEGIN_EXAMPLE
+def define_key2(window_keymap, keys, command):
+#+END_EXAMPLE
+
+**** Parameters
+
+|---------------+--------------------------------------------------------|
+| Parameters    | Description                                            |
+|---------------+--------------------------------------------------------|
+| window_keymap | WindowKeymapオブジェクト                               |
+| keys          | キーの定義（マルチストロークのキーはスペースで区切る） |
+| command       | 実行するコマンド（関数）                               |
+|---------------+--------------------------------------------------------|
+
+**** Returns
+
+- 無し
+
+*** ■ self_insert_command
+
+キーを入力する関数を返す
+
+**** Function
+
+#+BEGIN_EXAMPLE
+def self_insert_command(*keys):
+#+END_EXAMPLE
+
+**** Parameters
+
+|------------+------------------------------------------------------------|
+| Parameters | Description                                                |
+|------------+------------------------------------------------------------|
+| *keys      | 入力するキーの羅列（キー文字列をカンマで区切って指定する） |
+|------------+------------------------------------------------------------|
+
+**** Returns
+
+- 引数で指定したキーを入力する関数
+
+*** ■ mark
+
+mark がセットされていれば、その mark から func で移動した場所までのリージョンを拡張する
+ための新たな関数を返す
+
+**** Function
+
+#+BEGIN_EXAMPLE
+def mark(func, forward_direction):
+#+END_EXAMPLE
+
+**** Parameters
+
+|-------------------+-------------------------------------------------------------------------------|
+| Parameters        | Description                                                                   |
+|-------------------+-------------------------------------------------------------------------------|
+| func              | 処理を施す関数                                                                |
+| forward_direction | func で指定した関数が前方に進む場合は True、そうでない場合は False を指定する |
+|-------------------+-------------------------------------------------------------------------------|
+
+**** Returns
+
+- 引数で指定した func に本関数の処理を施した新たな関数を返す
+
+*** ■ mark2
+
+func で移動した場所までをリージョンを拡張するための新たな関数を返す
+
+**** Function
+
+#+BEGIN_EXAMPLE
+def mark2(func, forward_direction):
+#+END_EXAMPLE
+
+**** Parameters
+
+|-------------------+-------------------------------------------------------------------------------|
+| Parameters        | Description                                                                   |
+|-------------------+-------------------------------------------------------------------------------|
+| func              | 処理を施す関数                                                                |
+| forward_direction | func で指定した関数が前方に進む場合は True、そうでない場合は False を指定する |
+|-------------------+-------------------------------------------------------------------------------|
+
+**** Returns
+
+- 引数で指定した func に本関数の処理を施した新たな関数を返す
+
+*** ■ reset_mark
+
+mark の状態を reset する新たな関数を返す
+
+**** Function
+
+#+BEGIN_EXAMPLE
+def reset_mark(func):
+#+END_EXAMPLE
+
+**** Parameters
+
+|------------+----------------|
+| Parameters | Description    |
+|------------+----------------|
+| func       | 処理を施す関数 |
+|------------+----------------|
+
+**** Returns
+
+- 引数で指定した func に本関数の処理を施した新たな関数を返す
+
+*** ■ reset_counter
+
+repeat counter の状態を reset する新たな関数を返す
+
+**** Function
+
+#+BEGIN_EXAMPLE
+def reset_counter(func):
+#+END_EXAMPLE
+
+**** Parameters
+
+|------------+----------------|
+| Parameters | Description    |
+|------------+----------------|
+| func       | 処理を施す関数 |
+|------------+----------------|
+
+**** Returns
+
+- 引数で指定した func に本関数の処理を施した新たな関数を返す
+
+*** ■ reset_undo
+
+undo/redo の状態を undo に reset する新たな関数を返す
+
+**** Function
+
+#+BEGIN_EXAMPLE
+def reset_undo(func):
+#+END_EXAMPLE
+
+**** Parameters
+
+|------------+----------------|
+| Parameters | Description    |
+|------------+----------------|
+| func       | 処理を施す関数 |
+|------------+----------------|
+
+**** Returns
+
+- 引数で指定した func に本関数の処理を施した新たな関数を返す
+
+*** ■ reset_search
+
+検索中の状態を reset する新たな関数を返す
+
+**** Function
+
+#+BEGIN_EXAMPLE
+def reset_search(func):
+#+END_EXAMPLE
+
+**** Parameters
+
+|------------+----------------|
+| Parameters | Description    |
+|------------+----------------|
+| func       | 処理を施す関数 |
+|------------+----------------|
+
+**** Returns
+
+- 引数で指定した func に本関数の処理を施した新たな関数を返す
+
+*** ■ repeat
+
+repeat の処理を施した新たな関数を返す
+
+**** Function
+
+#+BEGIN_EXAMPLE
+def repeat(func):
+#+END_EXAMPLE
+
+**** Parameters
+
+|------------+----------------|
+| Parameters | Description    |
+|------------+----------------|
+| func       | 処理を施す関数 |
+|------------+----------------|
+
+**** Returns
+
+- 引数で指定した func に本関数の処理を施した新たな関数を返す
+
+*** ■ repeat2
+
+repeat の処理を施した新たな関数を返す（リーションが設定してある場合は、一回のみ処理を行うバージョン）
+
+**** Function
+
+#+BEGIN_EXAMPLE
+def repeat2(func):
+#+END_EXAMPLE
+
+**** Parameters
+
+|------------+----------------|
+| Parameters | Description    |
+|------------+----------------|
+| func       | 処理を施す関数 |
+|------------+----------------|
+
+**** Returns
+
+- 引数で指定した func に本関数の処理を施した新たな関数を返す
+
+*** ■ repeat3
+
+repeat の処理を施した新たな関数を返す（repaet 回数を func の引数で渡すバージョン）
+
+**** Function
+
+#+BEGIN_EXAMPLE
+def repeat3(func):
+#+END_EXAMPLE
+
+**** Parameters
+
+|------------+----------------|
+| Parameters | Description    |
+|------------+----------------|
+| func       | 処理を施す関数 |
+|------------+----------------|
+
+**** Returns
+
+- 引数で指定した func に本関数の処理を施した新たな関数を返す
+
+*** ■ vscodeExecuteCommand
+
+VSCode のコマンドを実行する
+
+**** Function
+
+#+BEGIN_EXAMPLE
+def vscodeExecuteCommand(command):
+#+END_EXAMPLE
+
+**** Parameters
+
+|------------+----------------------------------------------------------------------------|
+| Parameters | Description                                                                |
+|------------+----------------------------------------------------------------------------|
+| command    | VSCode の Command Palette で実行するコマンドの文字列（短縮形の場合も有り） |
+|------------+----------------------------------------------------------------------------|
+
+**** Returns
+
+- 無し
