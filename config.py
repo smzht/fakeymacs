@@ -2084,22 +2084,22 @@ def configure(keymap):
         def makeWindowList(wnd, arg):
             if wnd.isVisible() and not wnd.getOwner():
 
-                class_name = wnd.getClassName()
+                className = wnd.getClassName()
                 title = wnd.getText()
 
-                if class_name == "Emacs" or title != "":
-                    if not re.match(fc.window_operation_exclusion_class, class_name):
-                        process_name = wnd.getProcessName()
-                        if not re.match(fc.window_operation_exclusion_process, process_name):
+                if className == "Emacs" or title != "":
+                    if not re.match(fc.window_operation_exclusion_class, className):
+                        processName = wnd.getProcessName()
+                        if not re.match(fc.window_operation_exclusion_process, processName):
                             # 表示されていないストアアプリ（「設定」等）が window_list に登録されるのを抑制する
-                            if class_name == "Windows.UI.Core.CoreWindow":
+                            if className == "Windows.UI.Core.CoreWindow":
                                 if title in window_dict:
                                     if window_dict[title] in window_list:
                                         window_list.remove(window_dict[title])
                                 else:
                                     window_dict[title] = wnd
 
-                            elif class_name == "ApplicationFrameWindow":
+                            elif className == "ApplicationFrameWindow":
                                 if title not in window_dict:
                                     window_dict[title] = wnd
                                     window_list.append(wnd)
