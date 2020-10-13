@@ -2231,7 +2231,6 @@ def configure(keymap):
     #    ことを前提としています。
     # ※ C-Enter（引用記号付で貼り付け）の置き換えは、対応が複雑となるため行っておりません。
 
-
     def is_list_window(window):
         if window.getClassName() == "KeyhacWindowClass" and window.getText() != "Keyhac":
             fakeymacs.lw_is_searching = False
