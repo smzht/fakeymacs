@@ -162,32 +162,32 @@ not_emacs_target に登録されているアプリケーションソフトで有
 
 **** ● 「カーソル移動」のキー設定
 
-|------------------------+-------------------------------+-------------|
-| Keybind                | Function                      | Description |
-|------------------------+-------------------------------+-------------|
-| C-b                    | backward_char                 |             |
-| C-f                    | forward_char                  |             |
-| M-b                    | backward_word                 |             |
-| M-f                    | forward_word                  |             |
-| C-p                    | previous_line                 |             |
-| C-n                    | next_line                     |             |
-| C-a                    | move_beginning_of_line        |             |
-| C-e                    | move_end_of_line              |             |
-| M-<                    | beginning_of_buffer           |             |
-| M->                    | end_of_buffer                 |             |
-| C-l                    | recenter                      |             |
-| scroll_key[0] の設定値 | scroll_up                     | 初期値：M-v |
-| scroll_key[1] の設定値 | scroll_down                   | 初期値：C-v |
-|------------------------+-------------------------------+-------------|
-| C-S-b                  | mark + backward_char          |             |
-| C-S-f                  | mark + forward_char           |             |
-| M-S-b                  | mark + backward_word          |             |
-| M-S-f                  | mark + forward_word           |             |
-| C-S-p                  | mark + previous_line          |             |
-| C-S-n                  | mark + next_line              |             |
-| C-S-a                  | mark + move_beginning_of_line |             |
-| C-S-e                  | mark + move_end_of_line       |             |
-|------------------------+-------------------------------+-------------|
+|------------------------+-------------------------------+--------------------------------------|
+| Keybind                | Function                      | Description                          |
+|------------------------+-------------------------------+--------------------------------------|
+| C-b                    | backward_char                 |                                      |
+| C-f                    | forward_char                  |                                      |
+| M-b                    | backward_word                 |                                      |
+| M-f                    | forward_word                  |                                      |
+| C-p                    | previous_line                 |                                      |
+| C-n                    | next_line                     |                                      |
+| C-a                    | move_beginning_of_line        |                                      |
+| C-e                    | move_end_of_line              |                                      |
+| M-<                    | beginning_of_buffer           |                                      |
+| M->                    | end_of_buffer                 |                                      |
+| C-l                    | recenter                      | 初期設定では、Sakura Editor のみ動作 |
+| scroll_key[0] の設定値 | scroll_up                     | 初期値：M-v                          |
+| scroll_key[1] の設定値 | scroll_down                   | 初期値：C-v                          |
+|------------------------+-------------------------------+--------------------------------------|
+| C-S-b                  | mark + backward_char          |                                      |
+| C-S-f                  | mark + forward_char           |                                      |
+| M-S-b                  | mark + backward_word          |                                      |
+| M-S-f                  | mark + forward_word           |                                      |
+| C-S-p                  | mark + previous_line          |                                      |
+| C-S-n                  | mark + next_line              |                                      |
+| C-S-a                  | mark + move_beginning_of_line |                                      |
+| C-S-e                  | mark + move_end_of_line       |                                      |
+|------------------------+-------------------------------+--------------------------------------|
 
 **** ● 「カット / コピー / 削除 / アンドゥ」のキー設定
 
@@ -245,8 +245,10 @@ not_emacs_target に登録されているアプリケーションソフトで有
 | Ctl-x e | kmacro_end_and_call_macro |             |
 |---------+---------------------------+-------------|
 
-※ キーボードマクロの再生時に IME の状態に依存した動作とならないようにするため、
-キーボードマクロの記録と再生の開始時に IME を強制的に OFF にするようにしています。
+※ Keyhac のキーボードマクロは、Emacs のキーボードマクロと異なり、IME の切り替えも含む
+キーの入力をそのまま記録し、そのまま再生します。このため、キーボードマクロの再生時に
+その時の IME の状態に依存した動作とならないようにするため、キーボードマクロの記録と再生の
+開始時に IME を強制的に OFF にするようにしています。
 
 **** ● 「その他」のキー設定
 
