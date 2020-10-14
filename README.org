@@ -79,9 +79,11 @@ Aキーの左横が Caps Lock のキーボードを使っている場合は、�
 
 - https://www.microsoft.com/ja-jp/download/details.aspx?id=53840
 
+※ Windows OS が x64版 でも、ランタイムパッケージは x86版 をインストールしてください。
+
 ※ 上記でインストールされるものは C:\Windows\SysWOW64\msvcp140.dll ですので、この dll を
-keyhac.exe と同じフォルダに置けば、「Visual Studio 2015 ランタイムパッケージ」を
-インストールしていない PC でも Keyhac を動かすことができるようになります。
+keyhac.exe と同じフォルダに置けば、ランタイムパッケージをインストールしていない PC でも
+Keyhac を動かすことができるようになります。
 
 *** 3) Keyhac を自動起動するようにする
 
