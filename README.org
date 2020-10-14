@@ -114,6 +114,9 @@ config.py の内容をみて、変更したいコンフィグレーションパ�
 | side_of_ctrl_key                                               | 左右どちらの Ctrlキーを使うかを指定する             |
 | use_esc_as_meta                                                | Escキーを Metaキーとして使うかどうかを指定する      |
 
+※ 1) で Caps Lock に右 Control キーを割り当てた場合には、side_of_ctrl_key を "R" に
+変更する必要があります。
+
 *** 7) keyhac.exe を起動する
 
 keyhac.exe を起動すると、タスクバー（＾アイコンの中）に Keyhac のアイコンが表示されます。
