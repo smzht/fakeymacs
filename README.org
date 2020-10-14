@@ -99,14 +99,15 @@ keyhac.exe と同じフォルダに置けば、「Visual Studio 2015 ランタ�
 ダウンロードした Fakeymacs の ZIPファイルから、必要なファイルを Keyhac のフォルダに複写
 します。次の２つのファイルは複写するようにしてください。
 
-| config.py           | Fakeymacs の本体です                                    |
-| _config_personal.py | 複写後、config_personal.py という名称に変更してください |
+| config.py           | Fakeymacs の本体です                                                                          |
+| _config_personal.py | 個人設定用ファイルです。config_personal.py という名称に変更することで機能するようになります。 |
 
 *** 6) コンフィグレーションパラメータをカスタマイズする
 
 config.py の内容をみて、変更したいコンフィグレーションパラメータをカスタマイズします。
-カスタマイズする際は、config.py を直接修正するのではなく、config_personal.py を修正
-するようにしてください。
+カスタマイズする際は、config.py を直接修正する方法の他、_config_personal.py ファイルを
+config_personal.py という名称に変更し、このファイルを修正する方法があります。
+後者の方法をとることにより、config.py のバージョンアップに容易に対応できるようになります。
 
 次のコンフィグレーションパラメータは、修正する必要性が高いパラメータです。
 
