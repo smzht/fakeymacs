@@ -50,6 +50,76 @@ IME のショートカットキーが利用できるようになります。
 するためのキーは、デフォルトキーの A-S-Tab、A-Tab となります。起動後は A-p、A-n で
 アクティブウィンドウの切り替え、A-g で切り替え画面の終了（キャンセル）が利用できます。
 
+** 使い方
+
+*** 1) キーボード配列の調整を行う
+
+Aキーの左横が Caps Lock のキーボードを使っている場合は、右 Contrl キーに置き換える
+ことをお勧めします。
+
+変更するためのツールには、KeySwap や Change Key というものがあります。Caps Lockの
+変更だけであれば、KeySwap の利用をお勧めします。
+
+- http://pasokatu.com/8460
+
+変更後、Windows の再ログインが必要です。
+
+※ Caps Lock のキーの置き換えは Keyhac ではできませんので、上記のツールで対応して
+ください。
+
+*** 2) Keyhac をインストールする
+
+次のサイトから Keyhac をインストールしてください。
+
+- https://sites.google.com/site/craftware/keyhac-ja
+
+起動時に dll load エラーが発生する場合は、「Visual Studio 2015 ランタイムパッケージ」を
+インストールする必要があります。上記のサイトにリンクしてあるものは少し古いバージョンなので、
+次のサイトから新しいものをダウンロードしてインストールしてください。
+
+- https://www.microsoft.com/ja-jp/download/details.aspx?id=53840
+
+※ 上記でインストールされるものは C:\Windows\SysWOW64\msvcp140.dll ですので、この dll を
+keyhac.exe と同じフォルダに置けば、「Visual Studio 2015 ランタイムパッケージ」を
+インストールしていない PC でも Keyhac を動かすことができるようになります。
+
+*** 3) Keyhac を自動起動するようにする
+
+エキスプローラーのアドレスバーに shell:startup を入力して Startup フォルダを開き、
+インストールした Keyhac フォルダ配下にある keyhac.exe のショートカットを Startup
+フォルダに配置してください。
+
+*** 4) Fakeymacs をダウンロードする
+
+本サイトの Code のボタン（緑色のボタン）から、Download ZIP を選択し、Fakeymacs 一式を
+ダウンロードしてください。（Git を使ってダウンロードすることでも構いません。）
+
+*** 5) 必要なファイルを Keyhac のフォルダに複写する
+
+ダウンロードした Fakeymacs の ZIPファイルから、必要なファイルを Keyhac のフォルダに複写
+します。次の２つのファイルは複写するようにしてください。
+
+| config.py           | Fakeymacs の本体です                                    |
+| _config_personal.py | 複写後、config_personal.py という名称に変更してください |
+
+*** 6) コンフィグレーションパラメータをカスタマイズする
+
+config.py の内容をみて、変更したいコンフィグレーションパラメータをカスタマイズします。
+カスタマイズする際は、config.py を直接修正するのではなく、config_personal.py を修正
+するようにしてください。
+
+次のコンフィグレーションパラメータは、修正する必要性が高いパラメータです。
+
+| use_old_Microsoft_IME / use_new_Microsoft_IME / use_Google_IME | IMEの設定（３つの設定のいずれか一つを True にする） |
+| side_of_ctrl_key                                               | 左右どちらの Ctrlキーを使うかを指定する             |
+| use_esc_as_meta                                                | Escキーを Metaキーとして使うかどうかを指定する      |
+
+*** 7) keyhac.exe を起動する
+
+keyhac.exe を起動すると、タスクバー（＾アイコンの中）に Keyhac のアイコンが表示されます。
+必要に応じて、通知領域に表示するようにしてください。
+このアイコンを左クリックするとコンソールが表示され、右クリックすると機能の一覧が表示されます。
+
 ** VSCode の強化ポイント
 
 VSCode については、一般的な Emacs キーバインドの他に次のキーバインドを利用できるようにしています。
