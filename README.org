@@ -3,7 +3,7 @@
 * Fakeymacs
 
 Fakeymacs は、Windows の操作を Emacs のキーバインドで行えるようにするための
-Keyhac 用の設定です。
+Keyhac の設定です。
 
 Keyhac for Windows ver 1.82 以上のバージョンでご利用ください。
 
