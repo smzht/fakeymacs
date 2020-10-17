@@ -58,15 +58,12 @@ IME のショートカットキーが利用できるようになります。
 Aキーの左横が Caps Lock のキーボードを使っている場合は、右 Control キーに置き換える
 ことをお勧めします。
 
-変更するためのツールには、KeySwap や Change Key というものがあります。Caps Lockの
-変更だけであれば、KeySwap の利用をお勧めします。
+Caps Lock のキーの置き換えは Keyhac ではできませんので、KeySwap や Change Key という
+ツールで対応ください。Caps Lock の変更だけであれば、KeySwap の利用をお勧めします。
 
 - http://pasokatu.com/8460
 
-変更後、Windows の再ログインが必要です。
-
-※ Caps Lock のキーの置き換えは Keyhac ではできませんので、上記のツールで対応して
-ください。
+変更後、Windows の再ログインを行ってください。
 
 *** 2) Keyhac をインストールする
 
