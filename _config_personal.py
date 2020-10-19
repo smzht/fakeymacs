@@ -80,7 +80,7 @@ fc.emacs_exclusion_key  = {"chrome.exe"       : ["C-l", "C-t"],
 # （toggle_input_method_key のキー設定より優先します）
 fc.set_input_method_key = []
 
-## 日本語キーボードを利用している場合、[無変換] キーで英数入力、[変換] キーで日本語入力となる
+## 日本語キーボードを利用している場合、<無変換> キーで英数入力、<変換> キーで日本語入力となる
 fc.set_input_method_key += [["(29)", "(28)"]]
 
 ## LAlt の単押しで英数入力、RAlt の単押しで日本語入力となる

@@ -49,9 +49,9 @@ Emacs にフォーカスがあるときに IME 切り替え用のキーを C-\ �
 | Keybind      | Function                        | Description |
 |--------------+---------------------------------+-------------|
 | A-`          | keymap.InputKeyCommand("C-Yen") |             |
-| [半角／全角] | keymap.InputKeyCommand("C-Yen") |             |
-| [無変換]     | keymap.InputKeyCommand("C-F1")  |             |
-| [変換]       | keymap.InputKeyCommand("C-F2")  |             |
+| <半角／全角> | keymap.InputKeyCommand("C-Yen") |             |
+| <無変換>     | keymap.InputKeyCommand("C-F1")  |             |
+| <変換>       | keymap.InputKeyCommand("C-F2")  |             |
 |--------------+---------------------------------+-------------|
 
 ※ Emacs 側での C-F1 と C-F2 の設定については、次のページを参照してください。

@@ -195,11 +195,11 @@ Terminal に移行すことで、上記の４つのキーの入力ができる�
 | Key-binding                  | Fakeymacs Function | VSCode Command                   |
 |------------------------------+--------------------+----------------------------------|
 | Ctrl+BackQuote（US）         | toggle_terminal    | Toggle Integrated Terminal -like |
-| Ctrl+[半角/全角]（JP）       | toggle_terminal    | Toggle Integrated Terminal -like |
+| Ctrl+<半角/全角>（JP）       | toggle_terminal    | Toggle Integrated Terminal -like |
 | Ctrl+Atmark（JP）            | toggle_terminal    | Toggle Integrated Terminal -like |
 |------------------------------+--------------------+----------------------------------|
 | Ctrl+Shift+BackQuote（US）   | create_terminal    | Create New Integrated Terminal   |
-| Ctrl+Shift+[半角/全角]（JP） | create_terminal    | Create New Integrated Terminal   |
+| Ctrl+Shift+<半角/全角>（JP） | create_terminal    | Create New Integrated Terminal   |
 | Ctrl+Shift+Atmark（JP）      | create_terminal    | Create New Integrated Terminal   |
 |------------------------------+--------------------+----------------------------------|
 
@@ -223,16 +223,16 @@ Pack 利用時にコマンド名称が変わるため、採用を見送りまし
 Terminal から抜ける場合は次のキーを利用するようにしてください。先の４つのキーが VSCode の
 ショートカットキーとして認識されるように戻ります。
 
-|------------------------+--------------------+-------------------------------------|
-| Key-binding            | Fakeymacs Function | VSCode Command                      |
-|------------------------+--------------------+-------------------------------------|
-| Ctrl+BackQuote（US）   | toggle_terminal    | Toggle Integrated Terminal -like    |
-| Ctrl+[半角/全角]（JP） | toggle_terminal    | Toggle Integrated Terminal -like    |
-| Ctrl+Atmark（JP）      | toggle_terminal    | Toggle Integrated Terminal -like    |
-|------------------------+--------------------+-------------------------------------|
-| Ctrl+[数字キー]        | switch_focus       | Focus Side Bar or n-th Editor Group |
-| Ctl+x o                | other_group        | Navigate Between Editor Groups      |
-|------------------------+--------------------+-------------------------------------|
+|------------------------+------------------------------+-------------------------------------|
+| Key-binding            | Fakeymacs Function           | VSCode Command                      |
+|------------------------+------------------------------+-------------------------------------|
+| Ctrl+BackQuote（US）   | toggle_terminal              | Toggle Integrated Terminal -like    |
+| Ctrl+<半角/全角>（JP） | toggle_terminal              | Toggle Integrated Terminal -like    |
+| Ctrl+Atmark（JP）      | toggle_terminal              | Toggle Integrated Terminal -like    |
+|------------------------+------------------------------+-------------------------------------|
+| Ctrl+<数字キー>]       | switch_focus(<数字キーの値>) | Focus Side Bar or n-th Editor Group |
+| Ctl+x o                | other_group                  | Navigate Between Editor Groups      |
+|------------------------+------------------------------+-------------------------------------|
 
 マウスのクリックでカーソル位置の変更を行うと、この状態の認識に齟齬が発生することがあります。
 その場合は、上記のいずれかのキーを押下することにより、Fakeymacs に現在の状態を再認識させる

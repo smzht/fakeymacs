@@ -57,7 +57,7 @@ fakeymacs_version = "20201016_01"
 #     ・scroll_key 変数で指定したスクロールキー
 #   Emacs日本語入力モードは、次の操作で終了する。
 #   ・Enter、C-m または C-g が押された場合
-#   ・[半角／全角] キー、A-` キーが押された場合
+#   ・<半角／全角> キー、A-` キーが押された場合
 #   ・BS、C-h 押下直後に toggle_input_method_key 変数や set_input_method_key 変数の
 #     disable で指定したキーが押された場合
 #     （間違って日本語入力をしてしまった時のキー操作を想定しての対策）
@@ -374,7 +374,7 @@ def configure(keymap):
     # （toggle_input_method_key のキー設定より優先します）
     fc.set_input_method_key = []
 
-    ## 日本語キーボードを利用している場合、[無変換] キーで英数入力、[変換] キーで日本語入力となる
+    ## 日本語キーボードを利用している場合、<無変換> キーで英数入力、<変換> キーで日本語入力となる
     fc.set_input_method_key += [["(29)", "(28)"]]
 
     ## LAlt の単押しで英数入力、RAlt の単押しで日本語入力となる
@@ -398,7 +398,7 @@ def configure(keymap):
     ##   ただし、C-Back キーは設定しないでください。）
     fc.reconversion_key = []
     fc.reconversion_key += ["C-t"]
-    # fc.reconversion_key += ["(28)"]   # [変換] キーを利用する場合でも、本機能を全て使うためには設定が必要
+    # fc.reconversion_key += ["(28)"]   # <変換> キーを利用する場合でも、本機能を全て使うためには設定が必要
     # fc.reconversion_key += ["O-RAlt"] # ワンショットモディファイアの指定も可能
 
     ## IME に設定してある「再変換」、「確定取り消し」を行うキーを指定する
@@ -475,7 +475,7 @@ def configure(keymap):
 
     # 日本語キーボードで C-@ をマーク用のキーとして使うかどうかを指定する（True: 使う、False: 使わない）
     # （VSCode で C-@ を Toggle Integrated Terminal 用のキーとして使えるようにするために設けた設定です。
-    #   True に設定した場合でも、Toggle Integrated Terminal 用のキーとしえて  C-[半角/全角] が使えます。）
+    #   True に設定した場合でも、Toggle Integrated Terminal 用のキーとしえて  C-<半角／全角> が使えます。）
     fc.use_ctrl_atmark_for_mark = False
 
     # VSCode の Terminal内 で ４つのキー（Ctrl+k、Ctrl+r、Ctrl+s、Ctrl+y）のダイレクト入力機能を使うか
@@ -1869,7 +1869,7 @@ def configure(keymap):
                 func = ei_keymap[keyCondition]
             else:
                 if key.startswith("O-"):
-                    func = ei_record_func(self_insert_command("(28)")) # [変換]キー 発行
+                    func = ei_record_func(self_insert_command("(28)")) # <変換> キーを発行
                 else:
                     func = ei_record_func(self_insert_command(key))
 
@@ -1886,7 +1886,7 @@ def configure(keymap):
                 func = ei_keymap[keyCondition]
             else:
                 if key.startswith("O-"):
-                    func = ei_record_func(self_insert_command("(29)")) # [無変換]キー 発行
+                    func = ei_record_func(self_insert_command("(29)")) # <無変換> キーを発行
                 else:
                     func = ei_record_func(self_insert_command(key))
 
