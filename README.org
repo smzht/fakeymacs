@@ -230,7 +230,7 @@ Terminal から抜ける場合は次のキーを利用するようにしてく�
 | Ctrl+<半角/全角>（JP） | toggle_terminal              | Toggle Integrated Terminal -like    |
 | Ctrl+Atmark（JP）      | toggle_terminal              | Toggle Integrated Terminal -like    |
 |------------------------+------------------------------+-------------------------------------|
-| Ctrl+<数字キー>]       | switch_focus(<数字キーの値>) | Focus Side Bar or n-th Editor Group |
+| Ctrl+<数字キー>        | switch_focus(<数字キーの値>) | Focus Side Bar or n-th Editor Group |
 | Ctl+x o                | other_group                  | Navigate Between Editor Groups      |
 |------------------------+------------------------------+-------------------------------------|
 
