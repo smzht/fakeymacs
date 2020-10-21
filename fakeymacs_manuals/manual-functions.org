@@ -2,9 +2,9 @@
 
 * Fakeymacs functions manual
 
-拡張機能（Extensions）を作成する際に利用する可能性がある関数の說明です。
+** 関数（Functions）
 
-** Functions
+拡張機能（Extensions）を作成する際に利用する可能性がある関数は以下のとおりです。
 
 *** ■ checkWindow
 

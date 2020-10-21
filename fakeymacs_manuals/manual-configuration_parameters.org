@@ -1,0 +1,57 @@
+#+STARTUP: showall indent
+
+* Fakeymacs configuration parameters manual
+
+** コンフィグレーションパラメータ（Configuration parameters）
+
+Fakeymacs をカスタマイズするために、下記のコンフィグレーションパラメータを指定できます。
+
+コンフィグレーションパラメータの初期値および詳細の説明は、config.py の内容を参照してください。
+
+|----------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------|
+| Configuration parameter                                        | Description                                                                                                               |
+|----------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------|
+| use_old_Microsoft_IME / use_new_Microsoft_IME / use_Google_IME | 利用している IME を設定する（３つの設定のいずれか一つを True にする）                                                     |
+| emacs_target_class                                             | Emacs のキーバインドにするウィンドウのクラスネームを指定する（全ての設定に優先する）                                      |
+| not_emacs_target                                               | Emacs のキーバインドに“したくない”アプリケーションソフトを指定する                                                      |
+| ime_target                                                     | IME の切り替え“のみをしたい”アプリケーションソフトを指定する                                                            |
+| skip_settings_key                                              | キーマップ毎にキー設定をスキップするキーを指定する                                                                        |
+| emacs_exclusion_key                                            | Emacs のキーバインドにするアプリケーションソフトで、Emacs キーバインドから除外するキーを指定する                          |
+| not_clipboard_target                                           | clipboard 監視の対象外とするアプリケーションソフトを指定する                                                              |
+| side_of_ctrl_key                                               | 左右どちらの Ctrlキーを使うかを指定する                                                                                   |
+| side_of_alt_key                                                | 左右どちらの Altキーを使うかを指定する                                                                                    |
+| side_of_win_key                                                | 左右どちらの Winキーを使うかを指定する                                                                                    |
+| use_ctrl_i_as_tab                                              | C-iキーを Tabキーとして使うかどうかを指定する                                                                             |
+| use_esc_as_meta                                                | Escキーを Metaキーとして使うかどうかを指定する                                                                            |
+| ctl_x_prefix_key                                               | Ctl-xプレフィックスキーに使うキーを指定する                                                                               |
+| scroll_key                                                     | スクロールに使うキーの組み合わせ（Up、Down の順）を指定する                                                               |
+| use_emacs_ime_mode                                             | Emacs日本語入力モードを使うかどうかを指定する                                                                             |
+| emacs_ime_mode_balloon_message                                 | Emacs日本語入力モードが有効なときに表示するバルーンメッセージを指定する                                                   |
+| toggle_input_method_key                                        | IME をトグルで切り替えるキーを指定する                                                                                    |
+| set_input_method_key                                           | IME を切り替えるキーの組み合わせ（disable、enable の順）を指定する                                                        |
+| reconversion_key                                               | IME の「再変換」を行うキーを指定する                                                                                      |
+| emacs_ime_mode_key                                             | Emacs日本語入力モードを利用する際に、IME のショートカットを置き換えるキーの組み合わせ（置き換え先、置き換え元）を指定する |
+| word_register_key                                              | IME の「単語登録」プログラムを起動するキーを指定する                                                                      |
+| use_ctrl_atmark_for_mark                                       | 日本語キーボードで C-@ をマーク用のキーとして使うかどうかを指定する                                                       |
+| use_vscode_terminal_key_direct_input                           | VSCode の Terminal内 で ４つのキー（Ctrl+k、Ctrl+r、Ctrl+s、Ctrl+y）のダイレクト入力機能を使うかどうかを指定する          |
+| toggle_emacs_keybind_key                                       | Emacs キーバインドを切り替えるキーを指定する                                                                              |
+| application_key                                                | アプリケーションキーとして利用するキーを指定する                                                                          |
+| use_ctrl_digit_key_for_digit_argument                          | 数引数の指定に Ctrl+数字キーを使うかを指定する                                                                            |
+| use_alt_digit_key_for_f1_to_f12                                | F1 から F12 を Alt+数字キー列として使うかを指定する                                                                       |
+| use_alt_shift_digit_key_for_f13_to_f24                         | F13 から F24 を Alt-Shift+数字キー列として使うかを指定する                                                                |
+| other_window_key                                               | 表示しているウィンドウの中で、一番最近までフォーカスがあったウィンドウに移動するキーを指定する                            |
+| window_switching_key                                           | アクティブウィンドウを切り替えるキーの組み合わせ（前、後 の順）を指定する                                                 |
+| window_movement_key_for_displays                               | アクティブウィンドウをディスプレイ間で移動するキーの組み合わせ（前、後 の順）を指定する                                   |
+| window_minimize_key                                            | ウィンドウを最小化、リストアするキーの組み合わせ（リストア、最小化 の順）を指定する                                       |
+| desktop_switching_key                                          | 仮想デスクトップを切り替えるキーの組み合わせ（前、後 の順）を指定する                                                     |
+| window_movement_key_for_desktops                               | アクティブウィンドウを仮想デスクトップ間で移動するキーの組み合わせ（前、後 の順）を指定する                               |
+| window_operation_exclusion_class                               | ウィンドウ操作（other_window、restore_window など）の対象としたくないアプリケーションソフトの“クラス名称”を指定する     |
+| window_operation_exclusion_process                             | ウィンドウ操作（other_window、restore_window など）の対象としたくないアプリケーションソフトの プロセス名称”を指定する    |
+| clipboardList_key                                              | クリップボードリストを起動するキーを指定する                                                                              |
+| clipboardList_listers                                          | クリップボードリストの利用アイテムを指定する                                                                              |
+| lancherList_key                                                | ランチャーリストを起動するキーを指定する                                                                                  |
+| lancherList_listers                                            | ランチャーリストの利用アイテムを指定する                                                                                  |
+| command_name                                                   | shell_command 関数で起動するアプリケーションソフトを指定する                                                              |
+| repeat_max                                                     | コマンドのリピート回数の最大値を指定する                                                                                  |
+| is_newline_selectable_in_Excel                                 | Microsoft Excel のセル内で改行を選択可能かを指定する                                                                      |
+|----------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------|

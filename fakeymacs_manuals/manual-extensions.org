@@ -2,13 +2,15 @@
 
 * Fakeymacs extensions manual
 
+** 拡張機能（Extensions）
+
+Fakeymacs には以下の３つの機能拡張を同梱しています。
+
 拡張機能は、個人設定用ファイル（config_personal.py）で拡張機能ファイルの読み込みを有効にすることにより、
 利用可能となります。
 
 同様の拡張機能ファイルを作成し、個人設定用ファイル（config_personal.py）で読み込むことにより、容易に
 機能を拡張できます。
-
-** 拡張機能（Extensions）
 
 *** ■ C-Enter に F2（編集モード移行）を割り当てる
 
@@ -17,7 +19,7 @@ edit_mode_target に指定したアプリケーションソフトで C-Enter に
 
 **** configファイルの名称
 
-- config_extensions-edit_mode.py
+- config_extensions/extension-edit_mode.py
 
 **** コンフィグレーションパラメータ
 
@@ -41,7 +43,7 @@ Emacs にフォーカスがあるときに IME 切り替え用のキーを C-\ �
 
 **** configファイルの名称
 
-- config_extensions-real_emacs.py
+- config_extensions/extension-real_emacs.py
 
 **** キーバインド
 
@@ -63,7 +65,7 @@ Emacs にフォーカスがあるときに IME 切り替え用のキーを C-\ �
 
 **** configファイルの名称
 
-- config_extensions-change_keyboard.py
+- config_extensions/extension-change_keyboard.py
 
 **** キーバインド
 

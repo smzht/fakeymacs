@@ -245,10 +245,10 @@ fc.lancherList_listers = [
 # [section-extensions] -----------------------------------------------------------------------------
 
 # C-Enter に F2（編集モード移行）を割り当てる
-# exec(readConfigExtension("config_extensions-edit_mode.py"), dict(globals(), **locals()))
+# exec(readConfigExtension("fakeymacs_extensions/extension-edit_mode.py"), dict(globals(), **locals()))
 
 # Emacs の場合、IME 切り替え用のキーを C-\ に置き換える
-# exec(readConfigExtension("config_extensions-real_emacs.py"), dict(globals(), **locals()))
+# exec(readConfigExtension("fakeymacs_extensions/extension-real_emacs.py"), dict(globals(), **locals()))
 
 # 英語キーボード設定をした OS 上で、日本語キーボードを利用する場合の切り替えを行う
-# exec(readConfigExtension("config_extensions-change_keyboard.py"), dict(globals(), **locals()))
+# exec(readConfigExtension("fakeymacs_extensions/extension-change_keyboard.py"), dict(globals(), **locals()))
