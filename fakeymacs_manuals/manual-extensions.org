@@ -19,7 +19,7 @@ edit_mode_target に指定したアプリケーションソフトで C-Enter に
 
 **** configファイルの名称
 
-- config_extensions/extension-edit_mode.py
+- fakeymacs_extensions/extension-edit_mode.py
 
 **** コンフィグレーションパラメータ
 
@@ -43,7 +43,7 @@ Emacs にフォーカスがあるときに IME 切り替え用のキーを C-\ �
 
 **** configファイルの名称
 
-- config_extensions/extension-real_emacs.py
+- fakeymacs_extensions/extension-real_emacs.py
 
 **** キーバインド
 
@@ -65,7 +65,7 @@ Emacs にフォーカスがあるときに IME 切り替え用のキーを C-\ �
 
 **** configファイルの名称
 
-- config_extensions/extension-change_keyboard.py
+- fakeymacs_extensions/extension-change_keyboard.py
 
 **** キーバインド
 
