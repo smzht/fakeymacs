@@ -13,8 +13,8 @@ manual は次のリンクを参照ください。
 
 1. [[fakeymacs_manuals/manual-configuration_parameters.org][Configuration parameters]]
 1. [[fakeymacs_manuals/manual-key_bindings.org][Key bindings]]
-1. [[fakeymacs_manuals/manual-functions.org][Functions]]
 1. [[fakeymacs_manuals/manual-extensions.org][Extensions]]
+1. [[fakeymacs_manuals/manual-functions.org][Functions]]
 
 次のページにも関連の情報があります。
 
