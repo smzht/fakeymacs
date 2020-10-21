@@ -4,11 +4,11 @@
 ## C-Enter に F2（編集モード移行）を割り当てる
 ####################################################################################################
 
-edit_mode_target = [["EXCEL.EXE",    "EXCEL*"],
-                    ["explorer.exe", "DirectUIHWND"]]
+fc.edit_mode_target = [["EXCEL.EXE",    "EXCEL*"],
+                       ["explorer.exe", "DirectUIHWND"]]
 
 def is_edit_mode_target(window):
-    for processName, className in edit_mode_target:
+    for processName, className in fc.edit_mode_target:
         if checkWindow(processName, className, window):
             return True
     return False
