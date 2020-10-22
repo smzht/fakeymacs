@@ -3,7 +3,7 @@
 # https://stackoverflow.com/questions/2904274/globals-and-locals-in-python-exec
 # https://docs.python.org/3/library/functions.html?highlight=exec%20global#exec
 
-# 本ファイルは、config_personal.py というファイル名にすることで個人設定用ファイルとして機能します。
+# 本ファイルは、config_personal.py というファイル名にすることで個人設定ファイルとして機能します。
 # 本ファイルの設定には [] で括られたセクション名が定義されており、その単位で config.py の中に設定
 # が取り込まれ、exec関数により実行されます。config.py ファイル内の exec関数をコールしているところ
 # を検索すると、何のセクションがどこで読み込まれるかが分かると思います。
@@ -107,7 +107,7 @@ fc.set_input_method_key += [["(29)", "(28)"]]
 # [section-base-2] ---------------------------------------------------------------------------------
 
 #---------------------------------------------------------------------------------------------------
-# VSCode で Extension のインストールが必要な機能は、個人設定用ファイルで設定する
+# VSCode で Extension のインストールが必要な機能は、個人設定ファイルで設定する
 
 if 0:
     # VSCode に vscode-dired Extension をインストールしてお使いください
