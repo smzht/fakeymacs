@@ -148,6 +148,13 @@ config.py でコンフィグレーションパラメータ等の設定を変更�
 何のセクションがどこで読み込まれるかについては、config.py ファイル内の exec 関数をコールしている
 ところを検索して確認してください。
 
+** クロージャについて
+
+Fakeymacs では、Python のクロージャの機能を多用しています。次のページを読むと、クロージャの理解が
+深まり、Fakeymacs の設定も読みやすくなると思います。
+
+- https://www.lifewithpython.com/2014/09/python-use-closures.html
+
 ** VSCode の強化ポイント
 
 VSCode については、一般的な Emacs キーバインドの他に次のキーバインドを利用できるようにしています。
