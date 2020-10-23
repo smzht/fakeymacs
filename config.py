@@ -1725,14 +1725,14 @@ def configure(keymap):
     define_key(keymap_emacs, "Ctl-x e", reset_search(reset_undo(reset_counter(repeat(kmacro_end_and_call_macro)))))
 
     ## 「その他」のキー設定
-    define_key(keymap_emacs, "Enter",       reset_undo(reset_counter(reset_mark(repeat(newline)))))
-    define_key(keymap_emacs, "C-m",         reset_undo(reset_counter(reset_mark(repeat(newline)))))
-    define_key(keymap_emacs, "C-j",         reset_undo(reset_counter(reset_mark(newline_and_indent))))
-    define_key(keymap_emacs, "C-o",         reset_undo(reset_counter(reset_mark(repeat(open_line)))))
-    define_key(keymap_emacs, "Tab",         reset_undo(reset_counter(reset_mark(repeat(indent_for_tab_command)))))
-    define_key(keymap_emacs, "C-g",         reset_search(reset_counter(reset_mark(keyboard_quit))))
-    define_key(keymap_emacs, "Ctl-x C-c",   reset_search(reset_undo(reset_counter(reset_mark(kill_emacs)))))
-    define_key(keymap_emacs, "M-S-1",       reset_search(reset_undo(reset_counter(reset_mark(shell_command)))))
+    define_key(keymap_emacs, "Enter",     reset_undo(reset_counter(reset_mark(repeat(newline)))))
+    define_key(keymap_emacs, "C-m",       reset_undo(reset_counter(reset_mark(repeat(newline)))))
+    define_key(keymap_emacs, "C-j",       reset_undo(reset_counter(reset_mark(newline_and_indent))))
+    define_key(keymap_emacs, "C-o",       reset_undo(reset_counter(reset_mark(repeat(open_line)))))
+    define_key(keymap_emacs, "Tab",       reset_undo(reset_counter(reset_mark(repeat(indent_for_tab_command)))))
+    define_key(keymap_emacs, "C-g",       reset_search(reset_counter(reset_mark(keyboard_quit))))
+    define_key(keymap_emacs, "Ctl-x C-c", reset_search(reset_undo(reset_counter(reset_mark(kill_emacs)))))
+    define_key(keymap_emacs, "M-S-1",     reset_search(reset_undo(reset_counter(reset_mark(shell_command)))))
 
     ## 「VSCode 用」のキー設定（マルチカーソル）
     define_key(keymap_emacs, "C-A-p", reset_search(reset_undo(reset_counter(mark_up))))
