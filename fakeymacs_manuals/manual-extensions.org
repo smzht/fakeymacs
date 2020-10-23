@@ -17,7 +17,7 @@ Fakeymacs には以下の３つの機能拡張を同梱しています。
 edit_mode_target に指定したアプリケーションソフトで C-Enter に F2（編集モード移行）を割り当てるための
 拡張機能です。
 
-**** extensionファイルの名称
+**** 拡張機能ファイルの名称
 
 - extension-edit_mode.py
 
@@ -41,7 +41,7 @@ edit_mode_target に指定したアプリケーションソフトで C-Enter に
 
 Emacs にフォーカスがあるときに IME 切り替え用のキーを C-\ に置き換えるための拡張機能です。
 
-**** extensionファイルの名称
+**** 拡張機能ファイルの名称
 
 - extension-real_emacs.py
 
@@ -63,7 +63,7 @@ Emacs にフォーカスがあるときに IME 切り替え用のキーを C-\ �
 
 英語キーボード設定をした OS 上で、日本語キーボードを利用する場合の切り替えを行うための拡張機能です。
 
-**** extensionファイルの名称
+**** 拡張機能ファイルの名称
 
 - extension-change_keyboard.py
 
