@@ -18,7 +18,6 @@ def shell_command_inputbox():
 def shell_command_on_region():
     def executeShellCommand():
         shell_command = getClipboardText()
-        print("$ cat region | " + shell_command)
 
         setClipboardText("")
         copyRegion()
@@ -28,16 +27,23 @@ def shell_command_on_region():
         command = [r"C:\WINDOWS\SysNative\wsl.exe", "bash", "-c"]
         command += [r" tr -d '\r' | " + shell_command]
 
-        proc = subprocess.run(command,
-                              input=clipboard_text,
-                              stdout=subprocess.PIPE,
-                              stderr=subprocess.STDOUT,
-                              creationflags=subprocess.CREATE_NO_WINDOW,
-                              encoding="utf8")
+        try:
+            proc = subprocess.run(command,
+                                  input=clipboard_text,
+                                  stdout=subprocess.PIPE,
+                                  stderr=subprocess.STDOUT,
+                                  creationflags=subprocess.CREATE_NO_WINDOW,
+                                  encoding="utf8",
+                                  timeout=5)
+        except:
+            print("プログラムがタイムアウトしました")
+            print("\n")
+            return
 
         stdout_text = proc.stdout
         stdout_list = stdout_text.splitlines()
 
+        print("$ cat region | " + shell_command)
         print("-" * 80)
         print("\n".join(stdout_list[0:10]))
         if len(stdout_list) > 10:
