@@ -37,7 +37,7 @@ def shell_command_on_region():
                                   timeout=5)
         except:
             print("プログラムがタイムアウトしました")
-            print("\n")
+            print("")
             return
 
         stdout_text = proc.stdout
@@ -49,7 +49,7 @@ def shell_command_on_region():
         if len(stdout_list) > 10:
             print("...")
         print("-" * 80)
-        print("\n")
+        print("")
 
         if proc.returncode == 0:
             setClipboardText(stdout_text)
