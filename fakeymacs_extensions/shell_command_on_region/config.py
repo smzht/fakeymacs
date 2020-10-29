@@ -22,7 +22,7 @@ def shell_command_on_region():
 
         setClipboardText("")
         copyRegion()
-        delay()
+        delay(0.5)
         clipboard_text = re.sub("\r", "", getClipboardText())
 
         command = [r"C:\WINDOWS\SysNative\wsl.exe", "bash", "-c"]
