@@ -31,9 +31,7 @@ def shell_command_on_region():
                               input=clipboard_text,
                               stdout=subprocess.PIPE,
                               stderr=subprocess.STDOUT,
-                              # 次を有効にすると黒い画面が一瞬開くのを回避できるが、タイミング問題が
-                              # 発生する（回避策を調査中！）
-                              # creationflags=subprocess.CREATE_NO_WINDOW,
+                              creationflags=subprocess.CREATE_NO_WINDOW,
                               encoding="utf8")
 
         stdout_text = proc.stdout
@@ -50,10 +48,10 @@ def shell_command_on_region():
             setClipboardText(stdout_text)
 
             if fakeymacs.replace_region:
-                keymap.delayedCall(yank, 100)
+                keymap.delayedCall(yank, 30)
 
     # キーフックの中で時間のかかる処理を実行できないので、delayedCall() を使って遅延実行する
-    keymap.delayedCall(executeShellCommand, 0)
+    keymap.delayedCall(executeShellCommand, 100)
 
-define_key(keymap_emacs, "M-S-BackSlash", shell_command_inputbox)
-define_key(keymap_emacs, "C-S-BackSlash", shell_command_on_region)
+define_key(keymap_emacs, "M-S-BackSlash", reset_search(reset_undo(reset_counter(reset_mark(shell_command_inputbox)))))
+define_key(keymap_emacs, "C-S-BackSlash", reset_search(reset_undo(reset_counter(reset_mark(shell_command_on_region)))))
