@@ -12,53 +12,57 @@ def shell_command_inputbox():
     else:
         fakeymacs.replace_region = False
 
-    # keymap.ShellExecuteCommand(None, r"fakeymacs_extensions\shell_command_on_region\inputbox.ahk", "", "")()
-    keymap.ShellExecuteCommand(None, r"fakeymacs_extensions\shell_command_on_region\inputbox.exe", "", "")()
+    # keymap.ShellExecuteCommand(None, dataPath() + r"\fakeymacs_extensions\shell_command_on_region\inputbox.ahk", "", "")()
+    keymap.ShellExecuteCommand(None, dataPath() + r"\fakeymacs_extensions\shell_command_on_region\inputbox.exe", "", "")()
 
 def shell_command_on_region():
     def executeShellCommand():
         shell_command = getClipboardText()
 
-        setClipboardText("")
-        copyRegion()
-        delay(0.5)
-        clipboard_text = re.sub("\r", "", getClipboardText())
+        if shell_command:
+            setClipboardText("")
+            copyRegion()
+            delay(0.5)
+            clipboard_text = re.sub("\r", "", getClipboardText())
 
-        command = [r"C:\WINDOWS\SysNative\wsl.exe", "bash", "-c"]
-        command += [r" tr -d '\r' | " + shell_command]
+            command = [r"C:\WINDOWS\SysNative\wsl.exe", "bash", "-c"]
+            command += [r" tr -d '\r' | " + shell_command]
 
-        try:
-            proc = subprocess.run(command,
-                                  input=clipboard_text,
-                                  stdout=subprocess.PIPE,
-                                  stderr=subprocess.STDOUT,
-                                  creationflags=subprocess.CREATE_NO_WINDOW,
-                                  encoding="utf8",
-                                  timeout=5)
-        except:
-            print("プログラムがタイムアウトしました")
+            try:
+                proc = subprocess.run(command,
+                                      input=clipboard_text,
+                                      stdout=subprocess.PIPE,
+                                      stderr=subprocess.STDOUT,
+                                      creationflags=subprocess.CREATE_NO_WINDOW,
+                                      encoding="utf8",
+                                      timeout=5)
+            except:
+                print("プログラムがタイムアウトしました")
+                print("")
+                return
+
+            stdout_text = proc.stdout
+            stdout_list = stdout_text.splitlines()
+
+            print("$ cat region | " + shell_command)
+            print("-" * 80)
+            print("\n".join(stdout_list[0:10]))
+            if len(stdout_list) > 10:
+                print("...")
+            print("-" * 80)
             print("")
-            return
 
-        stdout_text = proc.stdout
-        stdout_list = stdout_text.splitlines()
+            if proc.returncode == 0:
+                setClipboardText(stdout_text)
 
-        print("$ cat region | " + shell_command)
-        print("-" * 80)
-        print("\n".join(stdout_list[0:10]))
-        if len(stdout_list) > 10:
-            print("...")
-        print("-" * 80)
-        print("")
-
-        if proc.returncode == 0:
-            setClipboardText(stdout_text)
-
-            if fakeymacs.replace_region:
-                keymap.delayedCall(yank, 30)
+                if fakeymacs.replace_region:
+                    keymap.delayedCall(yank, 30)
+        else:
+            print("コマンドが指定されていません")
+            print("")
 
     # キーフックの中で時間のかかる処理を実行できないので、delayedCall() を使って遅延実行する
     keymap.delayedCall(executeShellCommand, 100)
 
 define_key(keymap_emacs, "M-S-BackSlash", reset_search(reset_undo(reset_counter(reset_mark(shell_command_inputbox)))))
-define_key(keymap_emacs, "C-S-BackSlash", reset_search(reset_undo(reset_counter(reset_mark(shell_command_on_region)))))
+define_key(keymap_emacs, "LC-S-BackSlash", reset_search(reset_undo(reset_counter(reset_mark(shell_command_on_region)))))
