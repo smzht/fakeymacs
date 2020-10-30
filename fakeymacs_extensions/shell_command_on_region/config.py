@@ -41,7 +41,7 @@ def shell_command_on_region():
                                       encoding="utf8",
                                       timeout=5)
             except:
-                print("プログラムがタイムアウトしました\n")
+                print("プログラムがエラー終了しました（タイムアウトによる終了含む）\n")
                 return
 
             stdout_text = proc.stdout
