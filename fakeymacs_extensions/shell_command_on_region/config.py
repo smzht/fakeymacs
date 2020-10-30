@@ -1,7 +1,7 @@
 ﻿# -*- mode: python; coding: utf-8-with-signature-dos -*-
 
 ####################################################################################################
-## shell-command-on-region の機能をサポートする
+## Emacs の shell-command-on-region の機能をサポートする
 ####################################################################################################
 
 import subprocess
@@ -41,8 +41,7 @@ def shell_command_on_region():
                                       encoding="utf8",
                                       timeout=5)
             except:
-                print("プログラムがタイムアウトしました")
-                print("")
+                print("プログラムがタイムアウトしました\n")
                 return
 
             stdout_text = proc.stdout
@@ -62,8 +61,7 @@ def shell_command_on_region():
                 if fakeymacs.replace_region:
                     keymap.delayedCall(yank, 30)
         else:
-            print("コマンドが指定されていません")
-            print("")
+            print("コマンドが指定されていません\n")
 
     # キーフックの中で時間のかかる処理を実行できないので、delayedCall() を使って遅延実行する
     keymap.delayedCall(executeShellCommand, 100)
