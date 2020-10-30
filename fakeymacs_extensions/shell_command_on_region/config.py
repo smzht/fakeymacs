@@ -12,12 +12,10 @@ def shell_command_inputbox():
     else:
         fakeymacs.replace_region = False
 
-    # keymap.ShellExecuteCommand(None,
-    #                            dataPath() + r"\fakeymacs_extensions\shell_command_on_region\inputbox.ahk",
-    #                            "", "")()
-    keymap.ShellExecuteCommand(None,
-                               dataPath() + r"\fakeymacs_extensions\shell_command_on_region\inputbox.exe",
-                               "", "")()
+    # inputbox_command = dataPath() + r"\fakeymacs_extensions\shell_command_on_region\inputbox.ahk"
+    inputbox_command = dataPath() + r"\fakeymacs_extensions\shell_command_on_region\inputbox.exe"
+
+    keymap.ShellExecuteCommand(None, inputbox_command, "", "")()
 
 def shell_command_on_region():
     def executeShellCommand():
