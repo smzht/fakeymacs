@@ -55,6 +55,8 @@ def shell_command_on_region():
 
             if proc.returncode == 0:
                 setClipboardText(stdout_text)
+                if keymap.getWindow().getProcessName() in fc.not_clipboard_target:
+                    keymap.clipboard_history._push(stdout_text)
 
                 if fakeymacs.replace_region:
                     keymap.delayedCall(yank, 30)
