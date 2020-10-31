@@ -16,6 +16,6 @@ InputBox, ShellCommand, Command dialog, Shell command on region:,, dialog_width,
 If ErrorLevel = 0
 {
         clipboard = %ShellCommand%
-        Sleep, 100
+        Sleep, 500
         Send, ^+\
 }
