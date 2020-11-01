@@ -53,13 +53,12 @@ def shell_command_on_region():
             print("-" * 80)
             print("")
 
-            if proc.returncode == 0:
-                setClipboardText(stdout_text)
-                if keymap.getWindow().getProcessName() in fc.not_clipboard_target:
-                    keymap.clipboard_history._push(stdout_text)
+            setClipboardText(stdout_text)
+            if keymap.getWindow().getProcessName() in fc.not_clipboard_target:
+                keymap.clipboard_history._push(stdout_text)
 
-                if fakeymacs.replace_region:
-                    keymap.delayedCall(yank, 30)
+            if fakeymacs.replace_region:
+                keymap.delayedCall(yank, 30)
         else:
             print("コマンドが指定されていません\n")
 
