@@ -27,8 +27,15 @@ def shell_command_on_region():
             delay(0.5)
             clipboard_text = re.sub("\r", "", getClipboardText())
 
-            command = [r"C:\WINDOWS\SysNative\wsl.exe", "bash", "-c"]
-            command += [r"tr -d '\r' | " + re.sub(r"(\$)", r"\\\1", shell_command)]
+            if 1: # for WSL
+                command = [r"C:\WINDOWS\SysNative\wsl.exe", "bash", "-c"]
+                command += [r"tr -d '\r' | " + re.sub(r"(\$)", r"\\\1", shell_command)]
+                encoding = "utf-8"
+
+            if 0: # for BusyBox
+                command = [dataPath() + r"\fakeymacs_extensions\shell_command_on_region\busybox.exe", "bash", "-c"]
+                command += [shell_command]
+                encoding = "cp932"
 
             try:
                 proc = subprocess.run(command,
@@ -36,7 +43,7 @@ def shell_command_on_region():
                                       stdout=subprocess.PIPE,
                                       stderr=subprocess.STDOUT,
                                       creationflags=subprocess.CREATE_NO_WINDOW,
-                                      encoding="utf8",
+                                      encoding=encoding,
                                       timeout=5)
             except:
                 print("プログラムがエラー終了しました（タイムアウトによる終了含む）\n")
