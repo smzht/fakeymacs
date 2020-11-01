@@ -28,7 +28,7 @@ def shell_command_on_region():
             clipboard_text = re.sub("\r", "", getClipboardText())
 
             command = [r"C:\WINDOWS\SysNative\wsl.exe", "bash", "-c"]
-            command += [r" tr -d '\r' | " + shell_command]
+            command += [r"tr -d '\r' | " + re.sub(r"(\$)", r"\\\1", shell_command)]
 
             try:
                 proc = subprocess.run(command,
