@@ -9,6 +9,12 @@
 # OS の設定を英語キーボードにして日本語キーボードを利用する場合のお勧め設定
 # （予め、Change Key を使って、<￥> キーにスキャンコード 0x7F を割り当ててください）
 
+try:
+    # 設定されているか？
+    fc.change_keyboard_key
+except:
+    fc.change_keyboard_key = "C-A-S-Space"
+
 keymap.replaceKey(235, 29)               # <無変換> キーを OS が認識可能なキーにする
 keymap.replaceKey(255, 28)               # <変換> キーを OS が認識可能なキーにする
 keymap.replaceKey(193, "RShift")         # <＼> キーを RShift キーにする
@@ -41,4 +47,4 @@ def change_keyboard():
 fakeymacs.keyboard_status = None
 change_keyboard()
 
-define_key(keymap_global, "C-A-S-Space", change_keyboard)
+define_key(keymap_global, fc.change_keyboard_key, change_keyboard)

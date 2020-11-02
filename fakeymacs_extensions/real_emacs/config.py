@@ -8,16 +8,20 @@
 # 機能させるための設定です。初期設定では NTEmacs（gnupack 含む）と Windows の Xサーバで動く
 # Emacs を指定しています。
 
-fc.x_window_apps = ["XWin.exe",               # Cygwin/X
-                    "XWin_MobaX.exe",         # MobaXterm/X
-                    "XWin_MobaX_1.16.3.exe",  # MobaXterm/X
-                    "XWin_Cygwin_1.14.5.exe", # MobaXterm/X
-                    "XWin_Cygwin_1.16.3.exe", # MobaXterm/X
-                    "Xming.exe",              # Xming
-                    "vcxsrv.exe",             # VcXsrv
-                    "X410.exe",               # X410
-                    "Xpra-Launcher.exe",      # Xpra
-                   ]
+try:
+    # 設定されているか？
+    fc.x_window_apps
+except:
+    fc.x_window_apps = ["XWin.exe",               # Cygwin/X
+                        "XWin_MobaX.exe",         # MobaXterm/X
+                        "XWin_MobaX_1.16.3.exe",  # MobaXterm/X
+                        "XWin_Cygwin_1.14.5.exe", # MobaXterm/X
+                        "XWin_Cygwin_1.16.3.exe", # MobaXterm/X
+                        "Xming.exe",              # Xming
+                        "vcxsrv.exe",             # VcXsrv
+                        "X410.exe",               # X410
+                        "Xpra-Launcher.exe",      # Xpra
+                       ]
 
 def is_real_emacs(window):
     if (window.getClassName() == "Emacs" or
