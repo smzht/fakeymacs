@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20201027_01"
+fakeymacs_version = "20201102_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -220,10 +220,10 @@ def configure(keymap):
     ## 機能オプションの選択
     ####################################################################################################
 
-    # IMEの設定（３つの設定のいずれか一つを True にする）
-    fc.use_old_Microsoft_IME = True
-    fc.use_new_Microsoft_IME = False
-    fc.use_Google_IME = False
+    # IMEの設定（次の設定のいずれかを有効にする）
+    fc.ime = "old_Microsoft_IME"
+    # fc.ime = "new_Microsoft_IME"
+    # fc.ime = "Google_IME"
 
     # 個人設定ファイルのセクション [section-options] を読み込んで実行する
     exec(readConfigPersonal("[section-options]"), dict(globals(), **locals()))
@@ -408,7 +408,7 @@ def configure(keymap):
     ##   Ctrl キーを押したままで C-n による選択メニューの移動を行おうとすると正常に動作しません。
     ##   一度 Ctrl キーを離す、メニューの移動に Space キーを利用する、ime_cancel_key に "W-Slash" を
     ##   設定して「再変換」の機能として利用するなど、いくつかの回避方法があります。お試しください。）
-    if fc.use_old_Microsoft_IME:
+    if fc.ime == "old_Microsoft_IME":
         fc.ime_reconv_key = "W-Slash" # 「再変換」キー
         fc.ime_cancel_key = "C-Back"  # 「確定の取り消し」キー
         fc.ime_reconv_region = False  # 「再変換」の時にリージョンの選択が必要かどうかを指定する
@@ -418,7 +418,7 @@ def configure(keymap):
     ## Windows 10 2004 以降の 新しい Microsoft IME の場合
     ## （新しい Microsoft IME には確定取り消し（C-Backspace）の設定が無いようなので、「再変換」のキー
     ##   を設定しています）
-    if fc.use_new_Microsoft_IME:
+    if fc.ime == "new_Microsoft_IME":
         fc.ime_reconv_key = "W-Slash" # 「再変換」キー
         fc.ime_cancel_key = "W-Slash" # 「確定の取り消し」キー
         fc.ime_reconv_region = False  # 「再変換」の時にリージョンの選択が必要かどうかを指定する
@@ -426,7 +426,7 @@ def configure(keymap):
                                       # どうかを指定する
 
     ## Google日本語入力の場合
-    if fc.use_Google_IME:
+    if fc.ime == "Google_IME":
         fc.ime_reconv_key = "W-Slash" # 「再変換」キー
         fc.ime_cancel_key = "C-Back"  # 「確定の取り消し」キー
         fc.ime_reconv_region = True   # 「再変換」の時にリージョンの選択が必要かどうかを指定する
@@ -463,12 +463,12 @@ def configure(keymap):
     ## IME の「単語登録」プログラムとそのパラメータを指定する
 
     ## Microsoft IME の場合
-    if fc.use_old_Microsoft_IME or fc.use_new_Microsoft_IME:
+    if fc.ime in ["old_Microsoft_IME", "new_Microsoft_IME"]:
         fc.word_register_name = r"C:\Windows\System32\IME\IMEJP\IMJPDCT.EXE"
         fc.word_register_param = ""
 
     ## Google日本語入力の場合
-    if fc.use_Google_IME:
+    if fc.ime == "Google_IME":
         fc.word_register_name = r"C:\Program Files (x86)\Google\Google Japanese Input\GoogleIMEJaTool.exe"
         fc.word_register_param = "--mode=word_register_dialog"
     #---------------------------------------------------------------------------------------------------
@@ -1800,7 +1800,7 @@ def configure(keymap):
 
     ## 「再変換」、「確定取り消し」のキー設定
     if fc.reconversion_key:
-        if fc.use_Google_IME:
+        if fc.ime == "Google_IME":
             # Google日本語入力を利用している時、ime_cancel_key に設定しているキーがキーバインドに
             # 定義されていると、「確定取り消し」が正常に動作しない場合がある。このため、そのキー
             # バインドの定義を削除する。
