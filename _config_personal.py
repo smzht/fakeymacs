@@ -244,6 +244,11 @@ fc.lancherList_listers = [
 ####################################################################################################
 # [section-extensions] -----------------------------------------------------------------------------
 
+# Emacs の shell-command-on-region の機能をサポートする
+# fc.Linux_tool = "BusyBox"
+# fc.Linux_tool = "WSL"
+# exec(readConfigExtension(r"shell_command_on_region\config.py"), dict(globals(), **locals()))
+
 # C-Enter に F2（編集モード移行）を割り当てる
 # exec(readConfigExtension(r"edit_mode\config.py"), dict(globals(), **locals()))
 
@@ -252,6 +257,3 @@ fc.lancherList_listers = [
 
 # 英語キーボード設定をした OS 上で、日本語キーボードを利用する場合の切り替えを行う
 # exec(readConfigExtension(r"change_keyboard\config.py"), dict(globals(), **locals()))
-
-# Emacs の shell-command-on-region の機能をサポートする
-# exec(readConfigExtension(r"shell_command_on_region\config.py"), dict(globals(), **locals()))
