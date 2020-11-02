@@ -9,7 +9,7 @@ try:
     fc.Linux_tool
 except:
     # 次の設定のいずれかを有効にする
-    fc.Linux_tool = "Busybox"
+    fc.Linux_tool = "BusyBox"
     # fc.Linux_tool = "WSL"
 
 import subprocess
@@ -35,7 +35,7 @@ def shell_command_on_region():
             delay(0.5)
             clipboard_text = re.sub("\r", "", getClipboardText())
 
-            if fc.Linux_tool == "Busybox":
+            if fc.Linux_tool == "BusyBox":
                 command = [dataPath() + r"\fakeymacs_extensions\shell_command_on_region\busybox64.exe",
                            "bash", "-c"]
                 command += [shell_command]
