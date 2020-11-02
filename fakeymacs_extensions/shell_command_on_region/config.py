@@ -38,12 +38,12 @@ def shell_command_on_region():
             if fc.Linux_tool == "BusyBox":
                 command = [dataPath() + r"\fakeymacs_extensions\shell_command_on_region\busybox64.exe",
                            "bash", "-c"]
-                command += [shell_command]
+                command += [r"cd;" + shell_command]
                 encoding = "cp932"
 
             if fc.Linux_tool == "WSL":
                 command = [r"C:\WINDOWS\SysNative\wsl.exe", "bash", "-c"]
-                command += [r"tr -d '\r' | " + re.sub(r"(\$)", r"\\\1", shell_command)]
+                command += [r"cd; tr -d '\r' | " + re.sub(r"(\$)", r"\\\1", shell_command)]
                 encoding = "utf-8"
 
             try:
