@@ -253,5 +253,5 @@ fc.lancherList_listers = [
 # 英語キーボード設定をした OS 上で、日本語キーボードを利用する場合の切り替えを行う
 # exec(readConfigExtension(r"change_keyboard\config.py"), dict(globals(), **locals()))
 
-# shell-command-on-region の機能をサポートする
+# Emacs の shell-command-on-region の機能をサポートする
 # exec(readConfigExtension(r"shell_command_on_region\config.py"), dict(globals(), **locals()))
