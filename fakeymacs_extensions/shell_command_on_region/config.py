@@ -4,6 +4,14 @@
 ## Emacs の shell-command-on-region の機能をサポートする
 ####################################################################################################
 
+try:
+    # 設定されているか？
+    fc.Linux_tool
+except:
+    # 次の設定のいずれかを有効にする
+    fc.Linux_tool = "Busybox"
+    # fc.Linux_tool = "WSL"
+
 import subprocess
 
 def shell_command_inputbox():
@@ -27,15 +35,16 @@ def shell_command_on_region():
             delay(0.5)
             clipboard_text = re.sub("\r", "", getClipboardText())
 
-            if 1: # for WSL
+            if fc.Linux_tool == "Busybox":
+                command = [dataPath() + r"\fakeymacs_extensions\shell_command_on_region\busybox64.exe",
+                           "bash", "-c"]
+                command += [shell_command]
+                encoding = "cp932"
+
+            if fc.Linux_tool == "WSL":
                 command = [r"C:\WINDOWS\SysNative\wsl.exe", "bash", "-c"]
                 command += [r"tr -d '\r' | " + re.sub(r"(\$)", r"\\\1", shell_command)]
                 encoding = "utf-8"
-
-            if 0: # for BusyBox
-                command = [dataPath() + r"\fakeymacs_extensions\shell_command_on_region\busybox.exe", "bash", "-c"]
-                command += [shell_command]
-                encoding = "cp932"
 
             try:
                 proc = subprocess.run(command,
