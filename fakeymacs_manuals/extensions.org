@@ -15,7 +15,6 @@ Fakeymacs には以下の３つの機能拡張を同梱しています。
 *** ■ Emacs の shell-command-on-region の機能をサポートする
 
 Emacs の shell-command-on-region の機能をサポートするための拡張機能です。
-WSL もしくは WSL2 と連携して動作しますので、事前に WSL もしくは WSL2 をインストールしてご利用ください。
 
 **** 拡張機能ファイルの名称
 
@@ -28,6 +27,21 @@ WSL もしくは WSL2 と連携して動作しますので、事前に WSL も�
 |---------+-------------------------+-------------|
 | M-\vert | shell_command_on_region |             |
 |---------+-------------------------+-------------|
+
+**** 環境設定
+
+BusyBox もしくは WSL/WSL2 で動作します。
+
+予め、BusyBox もしくは WSL/WSL2 をインストールしてください。
+
+BusyBox は以下のサイトを参考に busybox64.exe を shell_command_on_region の Extention フォルダの
+配下に格納してください。
+
+- https://qiita.com/tetsuy/items/22cba0bc2048967b270a
+
+WSL/WSL2 で利用したい場合は、WSL/WSL2 をインストールした後、shell_command_on_region/config.py の
+fc.Linux_tool 変数を "WSL" に設定してください。config_personal.py で 本拡張機能ファイルを読み込む前に
+変数の設定をすることもできます。
 
 **** 動作仕様
 
