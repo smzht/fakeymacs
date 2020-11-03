@@ -9,8 +9,22 @@ try:
     fc.Linux_tool
 except:
     # 次の設定のいずれかを有効にする
-    fc.Linux_tool = "BusyBox"
-    # fc.Linux_tool = "WSL"
+    fc.Linux_tool = "WSL"
+    # fc.Linux_tool = "MSYS2"
+    # fc.Linux_tool = "Cygwin"
+    # fc.Linux_tool = "BusyBox"
+
+try:
+    # 設定されているか？
+    fc.MSYS2_path
+except:
+    fc.MSYS2_path = r"C:\msys64"
+
+try:
+    # 設定されているか？
+    fc.Cygwin_path
+except:
+    fc.Cygwin_path = r"C:\cygwin64"
 
 import subprocess
 
@@ -35,25 +49,41 @@ def shell_command_on_region():
             delay(0.5)
             clipboard_text = re.sub("\r", "", getClipboardText())
 
-            if fc.Linux_tool == "BusyBox":
-                command = [dataPath() + r"\fakeymacs_extensions\shell_command_on_region\busybox64.exe",
-                           "bash", "-c"]
-                command += [r"cd;" + shell_command]
-                encoding = "cp932"
+            env = dict(os.environ)
 
-            elif fc.Linux_tool == "WSL":
+            if fc.Linux_tool == "WSL":
                 command = [r"C:\WINDOWS\SysNative\wsl.exe", "bash", "-c"]
                 command += [r"cd; tr -d '\r' | " + re.sub(r"(\$)", r"\\\1", shell_command)]
+                env["LANG"] = "ja_JP.UTF8"
                 encoding = "utf-8"
+
+            elif fc.Linux_tool == "MSYS2":
+                command = [fc.MSYS2_path + r"\usr\bin\bash.exe", "-l", "-c"]
+                command += [shell_command]
+                env["LANG"] = "ja_JP.UTF8"
+                encoding = "utf-8"
+
+            elif fc.Linux_tool == "Cygwin":
+                command = [fc.Cygwin_path + r"\bin\bash.exe", "-l", "-c"]
+                command += [r"tr -d '\r' | " + shell_command]
+                env["LANG"] = "ja_JP.UTF8"
+                encoding = "utf-8"
+
+            elif fc.Linux_tool == "BusyBox":
+                command = [dataPath() + r"\fakeymacs_extensions\shell_command_on_region\busybox64.exe",
+                           "bash", "-l", "-c"]
+                command += [shell_command]
+                encoding = "cp932"
 
             try:
                 proc = subprocess.run(command,
                                       input=clipboard_text,
                                       stdout=subprocess.PIPE,
                                       stderr=subprocess.STDOUT,
+                                      timeout=10,
                                       creationflags=subprocess.CREATE_NO_WINDOW,
                                       encoding=encoding,
-                                      timeout=10)
+                                      env=env)
             except:
                 print("プログラムがエラー終了しました（タイムアウトによる終了含む）\n")
                 return
