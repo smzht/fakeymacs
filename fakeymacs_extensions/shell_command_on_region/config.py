@@ -41,7 +41,7 @@ def shell_command_on_region():
                 command += [r"cd;" + shell_command]
                 encoding = "cp932"
 
-            if fc.Linux_tool == "WSL":
+            elif fc.Linux_tool == "WSL":
                 command = [r"C:\WINDOWS\SysNative\wsl.exe", "bash", "-c"]
                 command += [r"cd; tr -d '\r' | " + re.sub(r"(\$)", r"\\\1", shell_command)]
                 encoding = "utf-8"
@@ -53,7 +53,7 @@ def shell_command_on_region():
                                       stderr=subprocess.STDOUT,
                                       creationflags=subprocess.CREATE_NO_WINDOW,
                                       encoding=encoding,
-                                      timeout=5)
+                                      timeout=10)
             except:
                 print("プログラムがエラー終了しました（タイムアウトによる終了含む）\n")
                 return
@@ -74,7 +74,8 @@ def shell_command_on_region():
                 keymap.clipboard_history._push(stdout_text)
 
             if fakeymacs.replace_region:
-                keymap.delayedCall(yank, 30)
+                delay()
+                yank()
         else:
             print("コマンドが指定されていません\n")
 
