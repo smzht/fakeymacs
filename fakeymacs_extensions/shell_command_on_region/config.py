@@ -74,8 +74,8 @@ def shell_command_on_region():
                 keymap.clipboard_history._push(stdout_text)
 
             if fakeymacs.replace_region:
-                delay()
-                yank()
+                # delay() のコールでは yank に失敗することがあるため、delayedCall() 経由で実行する
+                keymap.delayedCall(yank, 30)
         else:
             print("コマンドが指定されていません\n")
 
