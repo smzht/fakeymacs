@@ -93,9 +93,13 @@ def shell_command_on_region():
 
             print("$ cat region | " + shell_command)
             print("-" * 80)
-            print("\n".join(stdout_list[0:10]))
+
+            # Keyhac コンソールにタブを出力すると出力結果が不正になる場合があるため、expandtabs() で
+            # スペースに変換してから出力する
+            print("\n".join(stdout_list[0:10]).expandtabs())
             if len(stdout_list) > 10:
                 print("...")
+
             print("-" * 80)
             print("")
 
