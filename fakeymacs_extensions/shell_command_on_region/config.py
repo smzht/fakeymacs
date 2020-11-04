@@ -55,7 +55,7 @@ def shell_command_on_region():
                 command = [r"C:\WINDOWS\SysNative\wsl.exe", "bash", "-l", "-c"]
                 command += [r"tr -d '\r' | " + re.sub(r"(\$)", r"\\\1", shell_command)]
 
-                # bash に -l オプションを付けることにより処理が遅くなる場合には、次の２行をお試しください
+                # bash に -l オプションを付けることにより処理が遅くなる場合には、次の設定をお試しください
                 # command = [r"C:\WINDOWS\SysNative\wsl.exe", "bash", "-c"]
                 # command += [r"cd; tr -d '\r' | " + re.sub(r"(\$)", r"\\\1", shell_command)]
 
@@ -90,7 +90,7 @@ def shell_command_on_region():
                                       encoding=encoding,
                                       env=env)
             except:
-                print("プログラムがエラー終了しました（タイムアウトによる終了含む）\n")
+                print("プログラムがエラー終了しました（タイムアウトによる終了も含む）\n")
                 return
 
             stdout_text = proc.stdout
