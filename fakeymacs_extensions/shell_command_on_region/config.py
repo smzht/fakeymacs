@@ -52,8 +52,13 @@ def shell_command_on_region():
             env = dict(os.environ)
 
             if fc.Linux_tool == "WSL":
-                command = [r"C:\WINDOWS\SysNative\wsl.exe", "bash", "-c"]
-                command += [r"cd; tr -d '\r' | " + re.sub(r"(\$)", r"\\\1", shell_command)]
+                command = [r"C:\WINDOWS\SysNative\wsl.exe", "bash", "-l", "-c"]
+                command += [r"tr -d '\r' | " + re.sub(r"(\$)", r"\\\1", shell_command)]
+
+                # bash に -l オプションを付けることにより処理が遅くなる場合には、次の２行をお試しください
+                # command = [r"C:\WINDOWS\SysNative\wsl.exe", "bash", "-c"]
+                # command += [r"cd; tr -d '\r' | " + re.sub(r"(\$)", r"\\\1", shell_command)]
+
                 env["LANG"] = "ja_JP.UTF8"
                 encoding = "utf-8"
 
