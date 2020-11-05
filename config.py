@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20201102_01"
+fakeymacs_version = "20201105_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -224,6 +224,7 @@ def configure(keymap):
     fc.ime = "old_Microsoft_IME"
     # fc.ime = "new_Microsoft_IME"
     # fc.ime = "Google_IME"
+    # fc.ime = None
 
     # 個人設定ファイルのセクション [section-options] を読み込んで実行する
     exec(readConfigPersonal("[section-options]"), dict(globals(), **locals()))
@@ -418,7 +419,7 @@ def configure(keymap):
     ## Windows 10 2004 以降の 新しい Microsoft IME の場合
     ## （新しい Microsoft IME には確定取り消し（C-Backspace）の設定が無いようなので、「再変換」のキー
     ##   を設定しています）
-    if fc.ime == "new_Microsoft_IME":
+    elif fc.ime == "new_Microsoft_IME":
         fc.ime_reconv_key = "W-Slash" # 「再変換」キー
         fc.ime_cancel_key = "W-Slash" # 「確定の取り消し」キー
         fc.ime_reconv_region = False  # 「再変換」の時にリージョンの選択が必要かどうかを指定する
@@ -426,12 +427,20 @@ def configure(keymap):
                                       # どうかを指定する
 
     ## Google日本語入力の場合
-    if fc.ime == "Google_IME":
+    elif fc.ime == "Google_IME":
         fc.ime_reconv_key = "W-Slash" # 「再変換」キー
         fc.ime_cancel_key = "C-Back"  # 「確定の取り消し」キー
         fc.ime_reconv_region = True   # 「再変換」の時にリージョンの選択が必要かどうかを指定する
         fc.ime_reconv_space  = False  # リージョンを選択した状態で Space キーを押下した際、「再変換」が働くか
                                       # どうかを指定する
+
+    ## 上記以外の場合の場合（機能を無効にする）
+    else:
+        fc.reconversion_key = []
+        fc.ime_reconv_key = None
+        fc.ime_cancel_key = None
+        fc.ime_reconv_region = False
+        fc.ime_reconv_space  = False
     #---------------------------------------------------------------------------------------------------
 
     #---------------------------------------------------------------------------------------------------
@@ -468,9 +477,15 @@ def configure(keymap):
         fc.word_register_param = ""
 
     ## Google日本語入力の場合
-    if fc.ime == "Google_IME":
+    elif fc.ime == "Google_IME":
         fc.word_register_name = r"C:\Program Files (x86)\Google\Google Japanese Input\GoogleIMEJaTool.exe"
         fc.word_register_param = "--mode=word_register_dialog"
+
+    ## 上記以外の場合の場合（機能を無効にする）
+    else:
+        fc.word_register_key = None
+        fc.word_register_name = None
+        fc.word_register_param = None
     #---------------------------------------------------------------------------------------------------
 
     # 日本語キーボードで C-@ をマーク用のキーとして使うかどうかを指定する（True: 使う、False: 使わない）

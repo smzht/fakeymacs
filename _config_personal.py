@@ -30,6 +30,7 @@ keymap.setFont("ＭＳ ゴシック", 12)
 fc.ime = "old_Microsoft_IME"
 # fc.ime = "new_Microsoft_IME"
 # fc.ime = "Google_IME"
+# fc.ime = None
 
 ####################################################################################################
 ## 基本設定
