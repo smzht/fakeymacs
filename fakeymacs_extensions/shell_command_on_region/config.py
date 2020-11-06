@@ -26,6 +26,13 @@ try:
 except:
     fc.Cygwin_path = r"C:\cygwin64"
 
+try:
+    # 設定されているか？
+    fc.BusyBox_path
+except:
+    fc.BusyBox_path = dataPath() + r"\fakeymacs_extensions\shell_command_on_region"
+    # fc.BusyBox_path = r"C:\busybox64"
+
 import subprocess
 
 def shell_command_inputbox():
@@ -78,8 +85,7 @@ def shell_command_on_region():
                 encoding = "utf-8"
 
             elif fc.Linux_tool == "BusyBox":
-                command = [dataPath() + r"\fakeymacs_extensions\shell_command_on_region\busybox64.exe",
-                           "bash", "-l", "-c"]
+                command = [fc.BusyBox_path + r"\busybox64.exe", "bash", "-l", "-c"]
                 command += [shell_command]
                 encoding = "cp932"
 

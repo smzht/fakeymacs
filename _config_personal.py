@@ -259,8 +259,6 @@ fc.lancherList_listers = [
 # fc.Linux_tool = "MSYS2"
 # fc.Linux_tool = "Cygwin"
 # fc.Linux_tool = "BusyBox"
-# fc.MSYS2_path = r"C:\msys64"
-# fc.Cygwin_path = r"C:\cygwin64"
 # exec(readConfigExtension(r"shell_command_on_region\config.py"), dict(globals(), **locals()))
 
 # C-Enter に F2（編集モード移行）を割り当てる
