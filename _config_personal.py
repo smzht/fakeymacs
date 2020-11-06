@@ -76,6 +76,15 @@ fc.emacs_exclusion_key  = {"chrome.exe"       : ["C-l", "C-t"],
 # （True（Metaキーとして使う）に設定されている場合、ESC の二回押下で ESC が入力されます）
 # fc.use_esc_as_meta = True
 
+# Emacs日本語入力モードを使うかどうかを指定する（True: 使う、False: 使わない）
+fc.use_emacs_ime_mode = True
+
+# IME をトグルで切り替えるキーを指定する（複数指定可）
+fc.toggle_input_method_key = []
+fc.toggle_input_method_key += ["C-Yen"]
+fc.toggle_input_method_key += ["C-o"]
+# fc.toggle_input_method_key += ["O-LAlt"]
+
 #---------------------------------------------------------------------------------------------------
 # IME を切り替えるキーの組み合わせ（disable、enable の順）を指定する（複数指定可）
 # （toggle_input_method_key のキー設定より優先します）
