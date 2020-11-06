@@ -51,15 +51,18 @@ def shell_command_on_region():
 
             env = dict(os.environ)
 
+            # 以降で実行するコマンドは、bash に -l オプションを付けその配下で実行するようにしています。
+            # このため、bash を起動する環境の .bash_profile に多くの設定を記入していると、コマンドの
+            # 実行が遅かったり、コマンドが正しくフィルタとして機能しなかったりする場合があります。
+            # このようなときに、次で設定する FAKEYMACS 環境変数を使って、.bash_profile 内の設定を
+            # コントロールするようにしてください。
+            env["FAKEYMACS"] = "1"
+
             if fc.Linux_tool == "WSL":
                 command = [r"C:\WINDOWS\SysNative\wsl.exe", "bash", "-l", "-c"]
                 command += [r"tr -d '\r' | " + re.sub(r"(\$)", r"\\\1", shell_command)]
-
-                # bash に -l オプションを付けることにより処理が遅くなる場合には、次の設定をお試しください
-                # command = [r"C:\WINDOWS\SysNative\wsl.exe", "bash", "-c"]
-                # command += [r"cd; tr -d '\r' | " + re.sub(r"(\$)", r"\\\1", shell_command)]
-
                 env["LANG"] = "ja_JP.UTF8"
+                env["WSLENV"] = "FAKEYMACS:LANG"
                 encoding = "utf-8"
 
             elif fc.Linux_tool == "MSYS2":
