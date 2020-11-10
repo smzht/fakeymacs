@@ -9,7 +9,7 @@ Keyhac for Windows ver 1.82 以上のバージョンでご利用ください。
 
 - https://sites.google.com/site/craftware/keyhac-ja
 
-manual は次のリンクを参照ください。
+manual は次のリンクを参照してください。
 
 1. [[fakeymacs_manuals/configuration_parameters.org][Configuration parameters]]
 1. [[fakeymacs_manuals/key_bindings.org][Key bindings]]
