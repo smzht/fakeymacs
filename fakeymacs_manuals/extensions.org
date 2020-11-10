@@ -45,13 +45,14 @@ WSL/WSL2、MSYS2、Cygwin、BusyBox で動作します。
 
 予め、いずれかのツールをインストールしてください。
 
-BusyBox を利用する場合は、以下のサイトを参考に busybox64.exe を shell_command_on_region の Extention
-フォルダの配下に格納してください。
+BusyBox を利用する場合は、次のサイトを参考に busybox64.exe を shell_command_on_region の Extention
+フォルダの配下にインストールしてください。既に別の場所に busybox64.exe をインストールしている場合には、
+そのインストールしている場所を BusyBox_path 変数に指定してください。
 
 - https://qiita.com/tetsuy/items/22cba0bc2048967b270a
 
-MSYS2、Cygwin を利用する場合は、ツールをインストールしたパスを MSYS2_path もしくは Cygwin_path 変数に
-指定してください。
+MSYS2、Cygwin を利用する場合でデフォルトのインストールパス以外の場所にツールをインストールする場合には、
+MSYS2_path もしくは Cygwin_path 変数を指定してください。
 
 最後に、Linux_tool 変数に、利用する Linux ツールの名称を指定してください。
 
