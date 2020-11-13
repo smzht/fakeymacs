@@ -74,6 +74,7 @@ MSYS2_path もしくは Cygwin_path 変数を指定してください。
 | M-\vert wc -l                 | リージョンの行数を数え、結果をクリップボードに格納する                       |
 | M-\vert grep 'foo'            | リージョンの foo を含む行を抽出し、結果をクリップボードに格納する            |
 | C-u M-\vert sort              | リージョンをソートした内容で置き換える                                       |
+| C-u M-\vert tac               | リージョンの行の並びを逆順にして置き換える                                   |
 | C-u M-\vert sed 's/foo/bar/g' | リージョンにある foo を bar に全て置き換える                                 |
 | C-u M-\vert nl -ba            | リージョンに行番号を付ける                                                   |
 | C-u M-\vert bash              | リージョンの内容をコマンドとしてシェルで実行し、リージョンを結果で置き換える |
