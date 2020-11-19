@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20201105_01"
+fakeymacs_version = "20201119_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -986,6 +986,11 @@ def configure(keymap):
     def switch_to_buffer():
         self_insert_command("C-Tab")()
 
+    def list_buffers():
+        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
+            # VSCode Command : Show All Editors By Most Recently Used
+            vscodeExecuteCommand("Sh-Al-Ed-By-Mo-Re-Us")
+
     def other_window():
         window_list = getWindowList()
         for wnd in window_list[1:]:
@@ -1525,17 +1530,18 @@ def configure(keymap):
             func(repeat_counter)
         return _func
 
-    def vscodeExecuteCommand(command):
+    def princ(str):
         imeStatus = keymap.getWindow().getImeStatus()
         if imeStatus:
             setImeStatus(0, False)
-
-        self_insert_command("f1")()
-        keymap.InputTextCommand(command)()
-        self_insert_command("Enter")()
-
+        keymap.InputTextCommand(str)()
         if imeStatus:
             setImeStatus(1, False)
+
+    def vscodeExecuteCommand(command):
+        self_insert_command("f1")()
+        princ(command)
+        self_insert_command("Enter")()
 
     ##################################################
     ## キーバインド
@@ -1723,6 +1729,7 @@ def configure(keymap):
     define_key(keymap_emacs, "Ctl-x k",   reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
     define_key(keymap_emacs, "M-k",       reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
     define_key(keymap_emacs, "Ctl-x b",   reset_search(reset_undo(reset_counter(reset_mark(switch_to_buffer)))))
+    define_key(keymap_emacs, "Ctl-x C-b", reset_search(reset_undo(reset_counter(reset_mark(list_buffers)))))
 
     ## 「文字列検索 / 置換」のキー設定
     define_key(keymap_emacs, "C-r",   reset_undo(reset_counter(reset_mark(isearch_backward))))
