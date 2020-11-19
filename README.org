@@ -37,6 +37,7 @@ manual は次のリンクを参照してください。
 
 オプションとして、下記の拡張機能も利用可能です。
 
+- ブラウザ向けのキー C-l、C-t を発行した際、IME を disable する処理を追加する
 - Emacs の shell-command-on-region の機能をサポートする
 - C-Enter に F2（編集モード移行）を割り当てる
 - Emacs の場合、IME 切り替え用のキーを C-\ に置き換える

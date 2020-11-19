@@ -254,6 +254,9 @@ fc.lancherList_listers = [
 ####################################################################################################
 # [section-extensions] -----------------------------------------------------------------------------
 
+# ブラウザ向けのキー C-l、C-t を発行した際、IME を disable する処理を追加する
+# exec(readConfigExtension(r"browser_key/config.py"), dict(globals(), **locals()))
+
 # Emacs の shell-command-on-region の機能をサポートする
 # fc.Linux_tool = "WSL"
 # fc.Linux_tool = "MSYS2"
