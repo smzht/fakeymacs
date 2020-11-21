@@ -1247,9 +1247,9 @@ def configure(keymap):
     ## その他
     def execute_extended_command():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
-            disable_input_method()
             # VSCode Command : Show All Commands
             self_insert_command("f1")()
+            disable_input_method()
 
     def comment_dwim():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
