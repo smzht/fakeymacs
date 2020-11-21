@@ -1184,7 +1184,6 @@ def configure(keymap):
             # VSCode Command : Move Last Selection To Next Find Match
             self_insert_command("C-k", "C-d")()
 
-
     ## エディタ / ターミナル操作
     def create_terminal():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
@@ -1427,6 +1426,13 @@ def configure(keymap):
             if fc.use_emacs_ime_mode:
                 if keymap.getWindow().getImeStatus():
                     enable_emacs_ime_mode()
+        return _func
+
+    def self_insert_command3(*keys):
+        func = self_insert_command(*keys)
+        def _func():
+            func()
+            disable_input_method()
         return _func
 
     def digit(number):

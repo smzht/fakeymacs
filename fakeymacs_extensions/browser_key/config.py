@@ -19,12 +19,5 @@ def is_browser(window):
 
 keymap_browser = keymap.defineWindowKeymap(check_func=is_browser)
 
-def self_insert_command3(*keys):
-    func = self_insert_command(*keys)
-    def _func():
-        func()
-        disable_input_method()
-    return _func
-
 define_key(keymap_browser, "C-l", self_insert_command3("C-l"))
 define_key(keymap_browser, "C-t", self_insert_command3("C-t"))
