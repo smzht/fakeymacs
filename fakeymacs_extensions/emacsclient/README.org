@@ -2,9 +2,9 @@
 
 * Fakeymacs extension
 
-** ■ emacsclient を起動するキーを指定する
+** ■ クリップボードに格納したファイルもしくはフォルダのパスを emacsclient で開く
 
-emacsclient を起動するキーを指定するための拡張機能です。
+クリップボードに格納したファイルもしくはフォルダのパスを emacsclient で開くための機能拡張です。
 
 WSL/WSL2 の emacsclient を Windows から利用するための設定は次のページを参照してください。
 
