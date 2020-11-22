@@ -17,6 +17,7 @@ Fakeymacs には以下の機能拡張を同梱しています。
 |-------------------------+--------------------------------------------------------------------------------------|
 | [[/fakeymacs_extensions/vscode_extensions][vscode_extensions]]       | VSCode で Extension のインストールが必要な機能の設定を行う                           |
 | [[/fakeymacs_extensions/everything][everything]]              | Everything を起動するキーを指定する                                                  |
+| [[/fakeymacs_extensions/emacsclient][emacsclient]]             | emacsclient を起動するキーを指定する                                                 |
 | [[/fakeymacs_extensions/browser_key][browser_key]]             | ブラウザ向けのキー C-l、C-t を入力した際、IME を disable する処理を追加する          |
 | [[/fakeymacs_extensions/chrome_quick_tabs][chrome_quick_tabs]]       | chrome 系ブラウザで Ctrl-x C-b を入力した際、chrome の機能拡張 quick tabs を起動する |
 | [[/fakeymacs_extensions/shell_command_on_region][shell_command_on_region]] | Emacs の shell-command-on-region の機能をサポートする                                |
