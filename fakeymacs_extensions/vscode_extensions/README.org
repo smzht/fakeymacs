@@ -1,0 +1,28 @@
+#+STARTUP: showall indent
+
+* Fakeymacs extension
+
+** ■ VSCode で Extension のインストールが必要な機能の設定を行う
+
+VSCode で Extension をインストールすることで Emacs のキーバインドを実現する機能の設定を行う
+機能拡張です。
+
+*** コンフィグレーションパラメータ
+
+|-------------------------+----------------------------------------------------------------|
+| Configuration parameter | Description                                                    |
+|-------------------------+----------------------------------------------------------------|
+| vscode_dired            | vscode-dired Extension を利用するかどうかを指定する            |
+| vscode_recenter         | Center Editor Window Extension を利用するかどうかを指定する    |
+| vscode_occur            | Search in Current File Extension  を利用するかどうかを指定する |
+|-------------------------+----------------------------------------------------------------|
+
+*** キーバインド
+
+|-----------+----------+-------------|
+| Keybind   | Function | Description |
+|-----------+----------+-------------|
+| Ctl-x d   | dired    |             |
+| C-l       | recenter |             |
+| Ctl-x C-o | occur    |             |
+|-----------+----------+-------------|
