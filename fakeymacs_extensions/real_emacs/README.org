@@ -1,6 +1,6 @@
 #+STARTUP: showall indent
 
-* Fakeymacs extensions manual
+* Fakeymacs extension
 
 ** ■ Emacs の場合、IME 切り替え用のキーを C-\ に置き換える
 

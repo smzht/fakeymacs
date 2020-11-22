@@ -1,6 +1,6 @@
 #+STARTUP: showall indent
 
-* Fakeymacs extensions manual
+* Fakeymacs extension
 
 ** ■ 英語キーボード設定をした OS 上で、日本語キーボードを利用する場合の切り替えを行う
 

@@ -1,6 +1,6 @@
 #+STARTUP: showall indent
 
-* Fakeymacs extensions manual
+* Fakeymacs extension
 
 ** ■ chrome 系ブラウザで Ctrl-x C-b を入力した際、chrome の機能拡張 quick tabs を起動する
 
