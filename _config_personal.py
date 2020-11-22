@@ -205,10 +205,6 @@ fc.lancherList_listers = [
 # Everything を起動するキーを指定する
 # exec(readConfigExtension(r"everything/config.py"), dict(globals(), **locals()))
 
-## emacsclient を起動するキーを指定する
-# fc.emacsclient_name = r"<emacsclient プログラムをインストールしている Windows のパス>\wslclient-n.exe"
-# exec(readConfigExtension(r"emacsclient/config.py"), dict(globals(), **locals()))
-
 # ブラウザ向けのキー C-l、C-t を入力した際、IME を disable する処理を追加する
 # exec(readConfigExtension(r"browser_key/config.py"), dict(globals(), **locals()))
 
@@ -230,3 +226,7 @@ fc.lancherList_listers = [
 
 # 英語キーボード設定をした OS 上で、日本語キーボードを利用する場合の切り替えを行う
 # exec(readConfigExtension(r"change_keyboard\config.py"), dict(globals(), **locals()))
+
+## クリップボードに格納したファイルもしくはフォルダのパスを emacsclient で開く
+# fc.emacsclient_name = r"<emacsclient プログラムをインストールしている Windows のパス>\wslclient-n.exe"
+# exec(readConfigExtension(r"emacsclient/config.py"), dict(globals(), **locals()))
