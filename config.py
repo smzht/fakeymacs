@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20201119_01"
+fakeymacs_version = "20201123_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1247,8 +1247,7 @@ def configure(keymap):
     def execute_extended_command():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             # VSCode Command : Show All Commands
-            self_insert_command("f1")()
-            disable_input_method()
+            self_insert_command3("f1")()
 
     def comment_dwim():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
@@ -1432,7 +1431,7 @@ def configure(keymap):
         func = self_insert_command(*keys)
         def _func():
             func()
-            disable_input_method()
+            setImeStatus(0, False)
         return _func
 
     def digit(number):
