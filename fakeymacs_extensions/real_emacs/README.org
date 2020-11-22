@@ -33,7 +33,8 @@ NTEmacs（gnupack 含む）と Windows の Xサーバで動く Emacs で動作�
 *** 注意事項
 
 X Windows 上で動作している Emacs を判別するためにウィンドウのタイトル名称を利用しています。
-このため、Emacs の frame-title-format 変数を次のように設定して識別できるようにしてください。
+このため、Emacs の frame-title-format 変数を次のように設定して、Emacs が動作しているウィンドウ
+であることを識別できるようにしてください。
 
 #+BEGIN_EXAMPLE
 (setq frame-title-format (format "emacs-%s - %%b" emacs-version))
