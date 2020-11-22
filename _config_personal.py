@@ -206,7 +206,7 @@ fc.lancherList_listers = [
 # exec(readConfigExtension(r"everything/config.py"), dict(globals(), **locals()))
 
 ## emacsclient を起動するキーを指定する
-# fc.emacsclient_name = r"<コマンドをインストールしている Windows のパス>\wslclient-n.exe"
+# fc.emacsclient_name = r"<emacsclient プログラムをインストールしている Windows のパス>\wslclient-n.exe"
 # exec(readConfigExtension(r"emacsclient/config.py"), dict(globals(), **locals()))
 
 # ブラウザ向けのキー C-l、C-t を入力した際、IME を disable する処理を追加する
