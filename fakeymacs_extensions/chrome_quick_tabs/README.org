@@ -9,7 +9,14 @@ Fakeymacs の機能拡張です。
 
 chrome の機能拡張 quick tabs については、次のページを参照してください。
 
-- https://www.atmarkit.co.jp/ait/articles/1509/02/news038.html
+- https://loumo.jp/archives/22355
+
+次の辺りの設定をすると、シンプルな表示になり、使い勝手もよくなります。
+
+- Display options: で Show URLs を OFF にする
+- Search type: で Perform RegEx Search を選択する
+- Search options: で Keep last searched string in search box を OFF にする
+- Custom CSS でサンプル設定に従い、表示する幅を 2000px くらいにする
 
 *** コンフィグレーションパラメータ
 
