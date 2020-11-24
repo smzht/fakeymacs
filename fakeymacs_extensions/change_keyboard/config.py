@@ -8,12 +8,14 @@ try:
     # 設定されているか？
     fc.change_keyboard_key
 except:
+    # 利用するキーボードを切り替えるキーを指定する
     fc.change_keyboard_key = "C-A-S-Space"
 
 try:
     # 設定されているか？
     fc.change_keyboard_startup
 except:
+    # Keyhac 起動時に利用するキーボードの種類を指定する
     fc.change_keyboard_startup = "US"
     # fc.change_keyboard_startup = "JP"
 

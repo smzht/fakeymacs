@@ -8,12 +8,14 @@ try:
     # 設定されているか？
     fc.edit_mode_key
 except:
+    # F2（編集モード移行）を割り当てるキーを指定する
     fc.edit_mode_key = "C-Enter"
 
 try:
     # 設定されているか？
     fc.edit_mode_target
 except:
+    # 本機能を割り当てるアプリケーションソフトを指定する
     fc.edit_mode_target = [["EXCEL.EXE",    "EXCEL*"],
                            ["explorer.exe", "DirectUIHWND"]]
 

@@ -8,6 +8,7 @@ try:
     # 設定されているか？
     fc.x_window_apps
 except:
+    # X Windows アプリケーションソフトのプログラム名称を指定する
     fc.x_window_apps = ["XWin.exe",               # Cygwin/X
                         "XWin_MobaX.exe",         # MobaXterm/X
                         "XWin_MobaX_1.16.3.exe",  # MobaXterm/X

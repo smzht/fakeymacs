@@ -8,18 +8,21 @@ try:
     # 設定されているか？
     fc.vscode_dired
 except:
+    # vscode-dired Extension を利用するかどうかを指定する
     fc.vscode_dired = False
 
 try:
     # 設定されているか？
     fc.fc.vscode_recenter
 except:
+    # Center Editor Window Extension を利用するかどうかを指定する
     fc.vscode_recenter = False
 
 try:
     # 設定されているか？
     fc.vscode_occur
 except:
+    # Search in Current File Extension  を利用するかどうかを指定する
     fc.vscode_occur = False
 
 if fc.vscode_dired:

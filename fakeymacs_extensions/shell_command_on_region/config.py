@@ -8,7 +8,7 @@ try:
     # 設定されているか？
     fc.Linux_tool
 except:
-    # 次の設定のいずれかを有効にする
+    # Linux コマンドを起動するために利用する Linux ツールを指定する
     fc.Linux_tool = "WSL"
     # fc.Linux_tool = "MSYS2"
     # fc.Linux_tool = "Cygwin"
@@ -18,18 +18,21 @@ try:
     # 設定されているか？
     fc.MSYS2_path
 except:
+    # MSYS2 をインストールしているパスを指定する
     fc.MSYS2_path = r"C:\msys64"
 
 try:
     # 設定されているか？
     fc.Cygwin_path
 except:
+    # Cygwin をインストールしているパスを指定する
     fc.Cygwin_path = r"C:\cygwin64"
 
 try:
     # 設定されているか？
     fc.BusyBox_path
 except:
+    # BusyBox をインストールしているパスを指定する
     fc.BusyBox_path = dataPath() + r"\fakeymacs_extensions\shell_command_on_region"
     # fc.BusyBox_path = r"C:\busybox64"
 
