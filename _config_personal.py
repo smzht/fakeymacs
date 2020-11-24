@@ -225,6 +225,8 @@ fc.lancherList_listers = [
 # exec(readConfigExtension(r"real_emacs\config.py"), dict(globals(), **locals()))
 
 # 英語キーボード設定をした OS 上で、日本語キーボードを利用する場合の切り替えを行う
+# fc.change_keyboard_startup = "US"
+# fc.change_keyboard_startup = "JP"
 # exec(readConfigExtension(r"change_keyboard\config.py"), dict(globals(), **locals()))
 
 # クリップボードに格納したファイルもしくはフォルダのパスを emacsclient で開く
