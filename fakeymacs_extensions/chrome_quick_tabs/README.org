@@ -10,6 +10,7 @@ Fakeymacs の機能拡張です。
 Chrome の機能拡張 Quick Tabs については、次のページを参照してください。
 
 - https://loumo.jp/archives/22355
+- https://nldot.info/quicktabs-chrome/
 
 次の辺りの設定をすると、シンプルな表示になり、使い勝手もよくなります。
 
