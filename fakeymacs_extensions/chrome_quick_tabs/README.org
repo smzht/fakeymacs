@@ -2,12 +2,12 @@
 
 * Fakeymacs extension
 
-** ■ Chrome 系ブラウザで Ctrl-x C-b を入力した際、Chrome の機能拡張 Quick Tabs を起動する
+** ■ Chrome 系ブラウザで Ctrl-x C-b を入力した際、Chrome の拡張機能 Quick Tabs を起動する
 
-Chrome 系ブラウザで Ctrl-x C-b を入力した時に、Chrome の機能拡張 Quick Tabs を起動する
-Fakeymacs の機能拡張です。
+Chrome 系ブラウザで Ctrl-x C-b を入力した時に、Chrome の拡張機能 Quick Tabs を起動する
+Fakeymacs の拡張機能です。
 
-Chrome の機能拡張 Quick Tabs については、次のページを参照してください。
+Chrome の拡張機能 Quick Tabs については、次のページを参照してください。
 
 - https://loumo.jp/archives/22355
 - https://nldot.info/quicktabs-chrome/
@@ -41,6 +41,6 @@ Chrome の機能拡張 Quick Tabs については、次のページを参照し�
 
 Quick Tabs を起動するためのショートカットキーの初期値は Ctrl+e なのですが、Quick Tabs
 をインストールしてもこのショートカットキーは有効にならないようです。
-機能拡張のキーボードショートカットの機能で再登録すると有効になるようですので、お試し
+拡張機能のキーボードショートカットの機能で再登録すると有効になるようですので、お試し
 ください。
 
