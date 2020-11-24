@@ -208,7 +208,7 @@ fc.lancherList_listers = [
 # ブラウザ向けのキー C-l、C-t を入力した際、IME を disable する処理を追加する
 # exec(readConfigExtension(r"browser_key/config.py"), dict(globals(), **locals()))
 
-# chrome 系ブラウザで Ctrl-x C-b を入力した際、chrome の機能拡張 quick tabs を起動する
+# Chrome 系ブラウザで Ctrl-x C-b を入力した際、Chrome の機能拡張 Quick Tabs を起動する
 # exec(readConfigExtension(r"chrome_quick_tabs/config.py"), dict(globals(), **locals()))
 
 # Emacs の shell-command-on-region の機能をサポートする
