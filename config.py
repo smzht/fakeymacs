@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20201125_01"
+fakeymacs_version = "20201126_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1188,7 +1188,7 @@ def configure(keymap):
     def create_terminal():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             # VSCode Command : Create New Integrated Terminal
-            vscodeExecuteCommand("Te:Cr-Ne-In-Te")
+            vscodeExecuteCommand2("Te:Cr-Ne-In-Te")
             if fc.use_vscode_terminal_key_direct_input:
                 fakeymacs.vscode_focus = "terminal"
 
@@ -1197,15 +1197,15 @@ def configure(keymap):
             if fc.use_vscode_terminal_key_direct_input:
                 if fakeymacs.vscode_focus == "not_terminal":
                     # VSCode Command : Focus Terminal
-                    vscodeExecuteCommand("Te:Fo-Te")
+                    vscodeExecuteCommand2("Te:Fo-Te")
                     fakeymacs.vscode_focus = "terminal"
                 else:
                     # VSCode Command : Close Panel
-                    vscodeExecuteCommand("Vi:Cl-Pa")
+                    vscodeExecuteCommand2("Vi:Cl-Pa")
                     fakeymacs.vscode_focus = "not_terminal"
             else:
                 # VSCode Command : Toggle Integrated Terminal
-                vscodeExecuteCommand("Vi:To-In-Te")
+                vscodeExecuteCommand2("Vi:To-In-Te")
 
     def switch_focus(number):
         def _func():
@@ -1540,15 +1540,19 @@ def configure(keymap):
     def princ(str):
         imeStatus = keymap.getWindow().getImeStatus()
         if imeStatus:
-            setImeStatus(0, False)
+            keymap.getWindow().setImeStatus(0)
         keymap.InputTextCommand(str)()
         if imeStatus:
-            setImeStatus(1, False)
+            keymap.getWindow().setImeStatus(1)
 
     def vscodeExecuteCommand(command):
         self_insert_command("f1")()
         princ(command)
         self_insert_command("Enter")()
+
+    def vscodeExecuteCommand2(command):
+        keymap.getWindow().setImeStatus(0)
+        vscodeExecuteCommand(command)
 
     ##################################################
     ## キーバインド
