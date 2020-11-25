@@ -17,6 +17,7 @@ Chrome の拡張機能 Quick Tabs については、次のページを参照し�
 - Display options: で Show URLs を OFF にする
 - Search type: で Perform RegEx Search を選択する
 - Search options: で Keep last searched string in search box を OFF にする
+- Search options: で Always search URLs (even when not shown) を ON にする
 - Custom CSS でサンプル設定に従い、表示する幅を 2000px くらいにする
 
 検索文字列の後にスペースを3つ入力することにより、履歴を検索することもできます。
