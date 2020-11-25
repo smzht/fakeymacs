@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20201123_01"
+fakeymacs_version = "20201125_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1431,7 +1431,9 @@ def configure(keymap):
         func = self_insert_command(*keys)
         def _func():
             func()
-            setImeStatus(0, False)
+            # disable_input_method（A-` の発行） ではうまく動作しないことがあるため、setImeStatus を
+            # 直接コールする
+            keymap.getWindow().setImeStatus(0)
         return _func
 
     def digit(number):
