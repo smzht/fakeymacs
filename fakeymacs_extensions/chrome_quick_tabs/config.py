@@ -13,8 +13,7 @@ except:
                       "msedge.exe"]
 
 def list_buffers(func=list_buffers):
-    if (checkWindow("chrome.exe", "Chrome_WidgetWin_1") or # Chrome
-        checkWindow("msedge.exe", "Chrome_WidgetWin_1")):  # MSEode
+    if keymap.getWindow().getProcessName() in fc.browser_list:
         self_insert_command3("C-e")()
     else:
         func()
