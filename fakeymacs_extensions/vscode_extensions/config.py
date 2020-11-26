@@ -26,10 +26,6 @@ except:
     fc.vscode_occur = False
 
 if fc.vscode_dired:
-    # VSCode に vscode-dired Extension をインストールしてお使いください
-    # （Ctrl+x f に設定されているキーバインドは、Ctrl+x（Cut）の機能とバッティングするので、削除して
-    #   ください（Open Keyboard Shortcuts コマンドで削除可能です）)
-
     def dired(func=dired):
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             # VSCode Command : Open dired buffer
@@ -40,8 +36,6 @@ if fc.vscode_dired:
     define_key(keymap_emacs, "Ctl-x d", reset_search(reset_undo(reset_counter(reset_mark(dired)))))
 
 if fc.vscode_recenter:
-    # VSCode に Center Editor Window Extension をインストールしてお使いください
-
     def recenter(func=recenter):
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             # VSCode Command : Center Editor Window
@@ -52,10 +46,6 @@ if fc.vscode_recenter:
     define_key(keymap_emacs, "C-l", reset_search(reset_undo(reset_counter(recenter))))
 
 if fc.vscode_occur:
-    # VSCode に Search in Current File Extension をインストールしてお使いください
-    # （アクティビティバーの SEARCH アイコンをパネルのバーにドラッグで持っていくと、検索結果が
-    #   パネルに表示されるようになり、使いやすくなります）
-
     def occur():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             # VSCode Command : Search in Current File
