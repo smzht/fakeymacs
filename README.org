@@ -180,15 +180,15 @@ VSCode については、一般的な Emacs キーバインドの他に次のキ
 | Ctrl+Alt+s  | skip_to_next_like_this        | Move Last Selection To Next Find Match |
 |-------------+-------------------------------+----------------------------------------|
 
-VSCode に Center Editor Window Extension、vcode-dired Extension、Search in Current File を
-インストールすることにより、次のキーバインドも利用が可能となります。利用するための設定は
-_config_personal.py の中に記載しています。
+VSCode に vcode-dired Extension、Center Editor Window Extension、Search in Current File を
+インストールし、Fakeymacs の vscode-extensions Extension を有効にすることにより、
+次のキーバインドも利用可能となります。
 
 |--------------+--------------------+------------------------|
 | Key-binding  | Fakeymacs Function | VSCode Command         |
 |--------------+--------------------+------------------------|
-| Ctrl+l       | recenter           | Center Editor Window   |
 | Ctl+x d      | dired              | Open dired buffer      |
+| Ctrl+l       | recenter           | Center Editor Window   |
 | Ctl+x Ctrl+o | occor              | Search in Current File |
 |--------------+--------------------+------------------------|
 
@@ -199,7 +199,7 @@ _config_personal.py の中に記載しています。
 ことにより、ショートカットキーが割り当てられていない VSCode のコマンドでも、Fakeymacs から
 実行できるようにしています。
 
-※ vscodeExecuteCommand 関数内では日本語入力モードの切り替えを行っているのですが、Google 
+※ vscodeExecuteCommand 関数内では日本語入力モードの切り替えを行っているのですが、Google
 日本語入力を利用して入力モードのポップアップを表示する設定にしている場合、このポップアップが
 何度も表示される症状が発生するようです。このため、ポップアップを非表示にする設定にしてご利用
 ください。（https://memotora.com/2014/10/05/google-ime-pop-up-setting/）
