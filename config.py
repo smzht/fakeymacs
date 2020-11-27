@@ -2046,7 +2046,7 @@ def configure(keymap):
             define_key(keymap_ei, replace_key, ei_record_func(self_insert_command(original_key)))
 
         # この時点の keymap_ie をコピーする
-        keymap_ei_dup = copy.copy(keymap_ei)
+        keymap_ei_dup = copy.deepcopy(keymap_ei)
 
         ## 「IME の切り替え」のキー設定
         for key in fc.toggle_input_method_key:
