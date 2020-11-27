@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20201127_01"
+fakeymacs_version = "20201128_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -727,7 +727,7 @@ def configure(keymap):
     def toggle_input_method():
         setImeStatus(keymap.getWindow().getImeStatus() ^ 1)
 
-    def setImeStatus(ime_status, popBalloon=True):
+    def setImeStatus(ime_status)
         if keymap.getWindow().getImeStatus() != ime_status:
             # IME を 切り替える
             # （ keymap.getWindow().setImeStatus(ime_status) を使わないのは、キーボードマクロの再生時に影響がでるため）
@@ -736,7 +736,7 @@ def configure(keymap):
             if fakeymacs.is_playing_kmacro:
                 delay(0.2)
 
-        if popBalloon and not fakeymacs.is_playing_kmacro:
+        if not fakeymacs.is_playing_kmacro:
             if ime_status:
                 message = "[あ]"
             else:
