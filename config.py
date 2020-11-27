@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20201126_02"
+fakeymacs_version = "20201127_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -989,7 +989,7 @@ def configure(keymap):
     def list_buffers():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             # VSCode Command : Show All Editors By Most Recently Used
-            vscodeExecuteCommand("Sh-Al-Ed-By-Mo-Re-Us")
+            vscodeExecuteCommand("Sh-Al-Ed-By-Mo-Re-Us")()
 
     def other_window():
         window_list = getWindowList()
@@ -1188,7 +1188,7 @@ def configure(keymap):
     def create_terminal():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             # VSCode Command : Create New Integrated Terminal
-            vscodeExecuteCommand2("Te:Cr-Ne-In-Te")
+            vscodeExecuteCommand2("Te:Cr-Ne-In-Te")()
             if fc.use_vscode_terminal_key_direct_input:
                 fakeymacs.vscode_focus = "terminal"
 
@@ -1197,15 +1197,15 @@ def configure(keymap):
             if fc.use_vscode_terminal_key_direct_input:
                 if fakeymacs.vscode_focus == "not_terminal":
                     # VSCode Command : Focus Terminal
-                    vscodeExecuteCommand2("Te:Fo-Te")
+                    vscodeExecuteCommand2("Te:Fo-Te")()
                     fakeymacs.vscode_focus = "terminal"
                 else:
                     # VSCode Command : Close Panel
-                    vscodeExecuteCommand2("Vi:Cl-Pa")
+                    vscodeExecuteCommand2("Vi:Cl-Pa")()
                     fakeymacs.vscode_focus = "not_terminal"
             else:
                 # VSCode Command : Toggle Integrated Terminal
-                vscodeExecuteCommand2("Vi:To-In-Te")
+                vscodeExecuteCommand2("Vi:To-In-Te")()
 
     def switch_focus(number):
         def _func():
@@ -1219,19 +1219,19 @@ def configure(keymap):
     def other_group():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             # VSCode Command : Navigate Between Editor Groups
-            vscodeExecuteCommand("Vi:Na-Be-Ed-Gr")
+            vscodeExecuteCommand("Vi:Na-Be-Ed-Gr")()
             if fc.use_vscode_terminal_key_direct_input:
                 fakeymacs.vscode_focus = "not_terminal"
 
     def delete_group():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             # VSCode Command : Close All Editors in Group
-            vscodeExecuteCommand("Vi:Cl-Al-Ed-in-Gr")
+            vscodeExecuteCommand("Vi:Cl-Al-Ed-in-Gr")()
 
     def delete_other_groups():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             # VSCode Command : Close Editors in Other Groups
-            vscodeExecuteCommand("Vi:Cl-Ed-in-Ot-Gr")
+            vscodeExecuteCommand("Vi:Cl-Ed-in-Ot-Gr")()
 
     def split_editor_below():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
@@ -1411,6 +1411,18 @@ def configure(keymap):
     def define_key2(window_keymap, keys, command):
         define_key(window_keymap, keys, command, skip_check=False)
 
+    def keyFunc(window_keymap, keys):
+        keys_list = kbd(keys)[0]
+        try:
+            if len(keys_list) == 1:
+                func = window_keymap[keys_list[0]]
+            else:
+                func = window_keymap[keys_list[0]][keys_list[1]]
+        except:
+            func = None
+
+        return func
+
     def self_insert_command(*keys):
         func = keymap.InputKeyCommand(*list(map(addSideOfModifierKey, keys)))
         def _func():
@@ -1544,13 +1556,17 @@ def configure(keymap):
             keymap.getWindow().setImeStatus(1)
 
     def vscodeExecuteCommand(command):
-        self_insert_command("f1")()
-        princ(command)
-        self_insert_command("Enter")()
+        def _func():
+            self_insert_command("f1")()
+            princ(command)
+            self_insert_command("Enter")()
+        return _func
 
     def vscodeExecuteCommand2(command):
-        keymap.getWindow().setImeStatus(0)
-        vscodeExecuteCommand(command)
+        def _func():
+            keymap.getWindow().setImeStatus(0)
+            vscodeExecuteCommand(command)()
+        return _func
 
     ##################################################
     ## キーバインド
@@ -1894,11 +1910,9 @@ def configure(keymap):
             disable_emacs_ime_mode()
             disable_input_method()
 
-        def ei_enable_input_method2(key, ei_keymap):
-            keyCondition = keyhac_keymap.KeyCondition.fromString(addSideOfModifierKey(key))
-            if keyCondition in ei_keymap:
-                func = ei_keymap[keyCondition]
-            else:
+        def ei_enable_input_method2(key, window_keymap):
+            func = keyFunc(window_keymap, key)
+            if func is None:
                 if key.startswith("O-"):
                     func = ei_record_func(self_insert_command("(28)")) # <変換> キーを発行
                 else:
@@ -1911,11 +1925,9 @@ def configure(keymap):
                     func()
             return _func
 
-        def ei_disable_input_method2(key, ei_keymap):
-            keyCondition = keyhac_keymap.KeyCondition.fromString(addSideOfModifierKey(key))
-            if keyCondition in ei_keymap:
-                func = ei_keymap[keyCondition]
-            else:
+        def ei_disable_input_method2(key, window_keymap):
+            func = keyFunc(window_keymap, key)
+            if func is None:
                 if key.startswith("O-"):
                     func = ei_record_func(self_insert_command("(29)")) # <無変換> キーを発行
                 else:
@@ -2033,19 +2045,19 @@ def configure(keymap):
         for replace_key, original_key in fc.emacs_ime_mode_key:
             define_key(keymap_ei, replace_key, ei_record_func(self_insert_command(original_key)))
 
-        # この時点の keymap_ie のキーマップをコピーする
-        ei_keymap = copy.copy(keymap_ei.keymap)
+        # この時点の keymap_ie をコピーする
+        keymap_ei_dup = copy.copy(keymap_ei)
 
         ## 「IME の切り替え」のキー設定
         for key in fc.toggle_input_method_key:
-            define_key(keymap_ei, key, ei_disable_input_method2(key, ei_keymap))
+            define_key(keymap_ei, key, ei_disable_input_method2(key, keymap_ei_dup))
 
         ## 「IME の切り替え」のキー設定
         for disable_key, enable_key in fc.set_input_method_key:
             if disable_key:
-                define_key(keymap_ei, disable_key, ei_disable_input_method2(disable_key, ei_keymap))
+                define_key(keymap_ei, disable_key, ei_disable_input_method2(disable_key, keymap_ei_dup))
             if enable_key:
-                define_key(keymap_ei, enable_key, ei_enable_input_method2(enable_key, ei_keymap))
+                define_key(keymap_ei, enable_key, ei_enable_input_method2(enable_key, keymap_ei_dup))
 
 
     ###########################################################################
