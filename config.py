@@ -1412,8 +1412,8 @@ def configure(keymap):
         define_key(window_keymap, keys, command, skip_check=False)
 
     def keyFunc(window_keymap, keys):
-        keys_list = kbd(keys)[0]
         try:
+            keys_list = kbd(keys)[0]
             if len(keys_list) == 1:
                 func = window_keymap[keys_list[0]]
             else:
