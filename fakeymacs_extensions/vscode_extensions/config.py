@@ -13,7 +13,7 @@ except:
 
 try:
     # 設定されているか？
-    fc.fc.vscode_recenter
+    fc.vscode_recenter
 except:
     # Center Editor Window Extension を利用するかどうかを指定する
     fc.vscode_recenter = False
