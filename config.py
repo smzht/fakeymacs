@@ -2045,7 +2045,7 @@ def configure(keymap):
         for replace_key, original_key in fc.emacs_ime_mode_key:
             define_key(keymap_ei, replace_key, ei_record_func(self_insert_command(original_key)))
 
-        # この時点の keymap_ie を複製する
+        # この時点の keymap_ei を複製する
         keymap_ei_dup = copy.deepcopy(keymap_ei)
 
         ## 「IME の切り替え」のキー設定
