@@ -6,16 +6,24 @@
 
 try:
     # 設定されているか？
-    fc.browser_list
+    fc.chrome_list
 except:
     # 本機能を適用するブラウザのプログラム名称を指定する
-    fc.browser_list= ["chrome.exe",
-                      "msedge.exe"]
+    fc.chrome_list= ["chrome.exe",
+                     "msedge.exe"]
 
-def list_buffers(func=list_buffers):
-    if keymap.getWindow().getProcessName() in fc.browser_list:
-        self_insert_command3("C-e")()
-    else:
-        func()
+def list_buffers(window_keymap, keys):
+    # 新規に実行する関数を定義する
+    func1 = reset_search(reset_undo(reset_counter(reset_mark(self_insert_command3("C-e")))))
 
-define_key(keymap_emacs, "Ctl-x C-b", reset_search(reset_undo(reset_counter(reset_mark(list_buffers)))))
+    # 以前に定義した関数を抽出する
+    func2 = keyFunc(window_keymap, keys)
+
+    def _func():
+        if keymap.getWindow().getProcessName() in fc.chrome_list:
+            func1()
+        else:
+            func2()
+    return _func
+
+define_key(keymap_emacs, "Ctl-x C-b", list_buffers(keymap_emacs, "Ctl-x C-b"))
