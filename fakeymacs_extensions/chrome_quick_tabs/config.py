@@ -6,11 +6,11 @@
 
 try:
     # 設定されているか？
-    fc.browser_list
+    fc.chrome_list
 except:
     # 本機能を適用するブラウザのプログラム名称を指定する
-    fc.browser_list= ["chrome.exe",
-                      "msedge.exe"]
+    fc.chrome_list= ["chrome.exe",
+                     "msedge.exe"]
 
 def list_buffers(window_keymap, keys):
     # 新規に実行する関数を定義する
@@ -20,7 +20,7 @@ def list_buffers(window_keymap, keys):
     func2 = keyFunc(window_keymap, keys)
 
     def _func():
-        if keymap.getWindow().getProcessName() in fc.browser_list:
+        if keymap.getWindow().getProcessName() in fc.chrome_list:
             func1()
         else:
             func2()
