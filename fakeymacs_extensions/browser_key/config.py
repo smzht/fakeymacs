@@ -10,7 +10,8 @@ try:
 except:
     # 本機能を適用するブラウザのプログラム名称を指定する
     fc.browser_list= ["chrome.exe",
-                      "msedge.exe"]
+                      "msedge.exe",
+                      "firefox.exe"]
 
 def is_browser(window):
     if keymap.getWindow().getProcessName() in fc.browser_list:
