@@ -329,7 +329,7 @@ def delay(sec=0.02):
 
 *** ■ vscodeExecuteCommand
 
-VSCode のコマンドを実行する
+VSCode のコマンドを実行する関数を返す
 
 **** Function
 
@@ -347,4 +347,4 @@ def vscodeExecuteCommand(command):
 
 **** Returns
 
-- 無し
+- 引数で指定したコマンドを実行する関数
