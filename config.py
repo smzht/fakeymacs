@@ -1413,7 +1413,7 @@ def configure(keymap):
 
     def keyFunc(window_keymap, keys):
         try:
-            keys_list = kbd(keys)[0]
+            keys_list = kbd(keys)[-1]
             if len(keys_list) == 1:
                 func = window_keymap[keys_list[0]]
             else:
