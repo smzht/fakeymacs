@@ -27,7 +27,6 @@ define_key(keymap_browser, "C-l", self_insert_command3("C-l"))
 define_key(keymap_browser, "C-t", self_insert_command3("C-t"))
 
 ## C-A-l、C-A-t を入力した際、ブラウザをポップアップしてから C-l、C-t の機能を実行する
-## （ブラウザは事前に起動しておいてください）
 
 def browser_popup(key):
     def _func():
