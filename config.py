@@ -727,7 +727,7 @@ def configure(keymap):
     def toggle_input_method():
         setImeStatus(keymap.getWindow().getImeStatus() ^ 1)
 
-    def setImeStatus(ime_status)
+    def setImeStatus(ime_status):
         if keymap.getWindow().getImeStatus() != ime_status:
             # IME を 切り替える
             # （ keymap.getWindow().setImeStatus(ime_status) を使わないのは、キーボードマクロの再生時に影響がでるため）
