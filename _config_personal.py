@@ -205,7 +205,7 @@ fc.lancherList_listers = [
 # Everything を起動するキーを指定する
 # exec(readConfigExtension(r"everything/config.py"), dict(globals(), **locals()))
 
-# ブラウザ向けのキー C-l、C-t を入力した際、IME を disable する処理を追加する
+# ブラウザ向けのキーの設定を行う
 # exec(readConfigExtension(r"browser_key/config.py"), dict(globals(), **locals()))
 
 # Chrome 系ブラウザで Ctrl-x C-b を入力した際、Chrome の拡張機能 Quick Tabs を起動する
