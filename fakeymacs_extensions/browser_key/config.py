@@ -36,7 +36,7 @@ def browser_popup(key):
                 keymap.delayedCall(self_insert_command3(key), 100)
                 return
 
-        # fc.browser_list に定義するブラウザが起動していない場合、fc.browser_listの最初
+        # fc.browser_list に定義するブラウザが起動していない場合、fc.browser_list の最初
         # に定義するブラウザを起動する
         keymap.ShellExecuteCommand(None, fc.browser_list[0], "", "")()
 
