@@ -18,6 +18,9 @@ except:
 for browser in fc.browser_list:
     try:
         fc.emacs_exclusion_key[browser].remove("C-l")
+    except:
+        pass
+    try:
         fc.emacs_exclusion_key[browser].remove("C-t")
     except:
         pass
