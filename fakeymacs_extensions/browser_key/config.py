@@ -30,7 +30,7 @@ def browser_ime_off(window_keymap, key):
     func2 = keyFunc(window_keymap, key)
 
     def _func():
-        if keymap.getWindow().getProcessName() in fc.chrome_list:
+        if keymap.getWindow().getProcessName() in fc.browser_list:
             func1()
         else:
             func2()
