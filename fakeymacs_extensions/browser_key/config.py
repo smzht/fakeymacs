@@ -15,16 +15,29 @@ except:
 
 ## ブラウザ向けのキー C-l、C-t を入力した際、IME を disable する処理を追加する
 
-def is_browser(window):
-    if keymap.getWindow().getProcessName() in fc.browser_list:
-        return True
-    else:
-        return False
+for browser in fc.browser_list:
+    try:
+        fc.emacs_exclusion_key[browser].remove("C-l")
+        fc.emacs_exclusion_key[browser].remove("C-t")
+    except:
+        pass
 
-keymap_browser = keymap.defineWindowKeymap(check_func=is_browser)
+def browser_ime_off(window_keymap, key):
+    # 新規に実行する関数を定義する
+    func1 = self_insert_command3(key)
 
-define_key(keymap_browser, "C-l", self_insert_command3("C-l"))
-define_key(keymap_browser, "C-t", self_insert_command3("C-t"))
+    # 以前に定義した関数を抽出する
+    func2 = keyFunc(window_keymap, key)
+
+    def _func():
+        if keymap.getWindow().getProcessName() in fc.chrome_list:
+            func1()
+        else:
+            func2()
+    return _func
+
+define_key(keymap_emacs, "C-l", browser_ime_off(keymap_emacs, "C-l"))
+define_key(keymap_emacs, "C-t", browser_ime_off(keymap_emacs, "C-t"))
 
 ## C-A-l、C-A-t を入力した際、ブラウザをポップアップしてから C-l、C-t の機能を実行する
 
