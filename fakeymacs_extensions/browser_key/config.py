@@ -25,7 +25,7 @@ for browser in fc.browser_list:
     except:
         pass
 
-def browser_ime_off(window_keymap, key):
+def browser_key(window_keymap, key):
     # 新規に実行する関数を定義する
     func1 = self_insert_command3(key)
 
@@ -39,8 +39,8 @@ def browser_ime_off(window_keymap, key):
             func2()
     return _func
 
-define_key(keymap_emacs, "C-l", browser_ime_off(keymap_emacs, "C-l"))
-define_key(keymap_emacs, "C-t", browser_ime_off(keymap_emacs, "C-t"))
+define_key(keymap_emacs, "C-l", browser_key(keymap_emacs, "C-l"))
+define_key(keymap_emacs, "C-t", browser_key(keymap_emacs, "C-t"))
 
 ## C-A-l、C-A-t を入力した際、ブラウザをポップアップしてから C-l、C-t の機能を実行する
 
