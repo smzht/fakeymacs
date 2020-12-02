@@ -249,7 +249,7 @@ not_emacs_target に登録されているアプリケーションソフトで有
 | Keybind | Function                 | Description |
 |---------+--------------------------+-------------|
 | M-x     | execute_extended_command |             |
-| M-;     | Description_dwim         |             |
+| M-;     | comment_dwim             |             |
 |---------+--------------------------+-------------|
 
 *** ■ IME の切り替えのみを使うアプリケーションソフトのためのキーバインド
