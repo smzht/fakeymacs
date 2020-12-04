@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20201128_01"
+fakeymacs_version = "20201204_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -611,7 +611,7 @@ def configure(keymap):
                 # クリップボードの監視用のフックを有効にする
                 keymap.clipboard_history.enableHook(True)
 
-            if window.getProcessName() in fc.emacs_exclusion_key.keys():
+            if window.getProcessName() in fc.emacs_exclusion_key:
                 fakeymacs.exclution_key = list(map(str,
                                                    map(keyhac_keymap.KeyCondition.fromString,
                                                        map(addSideOfModifierKey,
@@ -1316,7 +1316,7 @@ def configure(keymap):
                 (className is None or fnmatch.fnmatch(window.getClassName(), className)))
 
     def vkeys():
-        vkeys = list(keyCondition.vk_str_table.keys())
+        vkeys = list(keyCondition.vk_str_table)
         for vkey in [VK_MENU, VK_LMENU, VK_RMENU, VK_CONTROL, VK_LCONTROL, VK_RCONTROL, VK_SHIFT, VK_LSHIFT, VK_RSHIFT, VK_LWIN, VK_RWIN]:
             vkeys.remove(vkey)
         return vkeys
@@ -1365,8 +1365,8 @@ def configure(keymap):
                 pass
 
             # 設定をスキップするキーの処理を行う
-            for keymap_name in fc.skip_settings_key.keys():
-                if (keymap_name in locals().keys() and
+            for keymap_name in fc.skip_settings_key:
+                if (keymap_name in locals() and
                     window_keymap == locals()[keymap_name]):
                     if keys in fc.skip_settings_key[keymap_name]:
                         print("skip settings key : [" + keymap_name + "] " + keys)
@@ -1380,7 +1380,7 @@ def configure(keymap):
                 pass
 
             if (key is not None and
-                "keymap_emacs" in locals().keys() and
+                "keymap_emacs" in locals() and
                 window_keymap == locals()["keymap_emacs"] and
                 type(command) is types.FunctionType):
 
