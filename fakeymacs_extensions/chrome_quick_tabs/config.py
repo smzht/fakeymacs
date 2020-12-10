@@ -17,7 +17,7 @@ def list_buffers(window_keymap, keys):
     func1 = reset_search(reset_undo(reset_counter(reset_mark(self_insert_command3("C-e")))))
 
     # 以前に定義した関数を抽出する
-    func2 = keyFunc(window_keymap, keys)
+    func2 = getKeyCommand(window_keymap, keys)
 
     def _func():
         if keymap.getWindow().getProcessName() in fc.chrome_list:

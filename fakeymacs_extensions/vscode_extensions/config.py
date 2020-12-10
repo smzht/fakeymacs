@@ -31,7 +31,7 @@ if fc.vscode_dired:
         func1 = reset_search(reset_undo(reset_counter(reset_mark(vscodeExecuteCommand("Op-di-bu")))))
 
         # 以前に定義した関数を抽出する
-        func2 = keyFunc(window_keymap, key)
+        func2 = getKeyCommand(window_keymap, key)
 
         def _func():
             if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
@@ -48,7 +48,7 @@ if fc.vscode_recenter:
         func1 = reset_search(reset_undo(reset_counter(self_insert_command("C-l"))))
 
         # 以前に定義した関数を抽出する
-        func2 = keyFunc(window_keymap, key)
+        func2 = getKeyCommand(window_keymap, key)
 
         def _func():
             if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode

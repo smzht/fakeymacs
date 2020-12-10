@@ -30,7 +30,7 @@ def browser_key(window_keymap, key):
     func1 = self_insert_command3(key)
 
     # 以前に定義した関数を抽出する
-    func2 = keyFunc(window_keymap, key)
+    func2 = getKeyCommand(window_keymap, key)
 
     def _func():
         if keymap.getWindow().getProcessName() in fc.browser_list:
