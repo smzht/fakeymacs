@@ -224,7 +224,7 @@ fc.lancherList_listers = [
 # Emacs の場合、IME 切り替え用のキーを C-\ に置き換える
 # exec(readConfigExtension(r"real_emacs\config.py"), dict(globals(), **locals()))
 
-# 英語キーボード設定をした OS 上で、日本語キーボードを利用する場合の切り替えを行う
+# 英語キーボード設定をした OS 上で日本語キーボードを利用する場合の設定を行う
 # fc.change_keyboard_startup = "US"
 # fc.change_keyboard_startup = "JP"
 # exec(readConfigExtension(r"change_keyboard\config.py"), dict(globals(), **locals()))

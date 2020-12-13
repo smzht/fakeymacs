@@ -22,6 +22,6 @@ Fakeymacs には以下の機能拡張を同梱しています。
 | [[/fakeymacs_extensions/shell_command_on_region][shell_command_on_region]] | Emacs の shell-command-on-region の機能をサポートする                               |
 | [[/fakeymacs_extensions/edit_mode][edit_mode]]               | 指定したアプリケーションソフトに F2（編集モード移行）を割り当てるキーを設定する     |
 | [[/fakeymacs_extensions/real_emacs][real_emacs]]              | Emacs の場合、IME 切り替え用のキーを C-\ に置き換える                               |
-| [[/fakeymacs_extensions/change_keyboard][change_keyboard]]         | 英語キーボード設定をした OS 上で、日本語キーボードを利用する場合の切り替えを行う    |
+| [[/fakeymacs_extensions/change_keyboard][change_keyboard]]         | 英語キーボード設定をした OS 上で日本語キーボードを利用する場合の設定を行う          |
 | [[/fakeymacs_extensions/emacsclient][emacsclient]]             | クリップボードに格納したファイルもしくはフォルダのパスを emacsclient で開く         |
 |-------------------------+-------------------------------------------------------------------------------------|
