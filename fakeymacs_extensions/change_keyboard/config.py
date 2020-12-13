@@ -27,7 +27,7 @@ keymap.replaceKey(235, 29)               # <無変換> キーを OS が認識可
 keymap.replaceKey(255, 28)               # <変換> キーを OS が認識可能なキーにする
 keymap.replaceKey(193, "RShift")         # <＼> キーを RShift キーにする
 keymap.replaceKey(236, "BackSlash")      # <￥> キーを BackSlash キーにする
-keymap.replaceKey("BackSlash", "Return") # < ]> キーを Enter キーにする
+keymap.replaceKey("BackSlash", "Return") # <］> キーを Enter キーにする
 
 # リモートデスクトップで接続する場合など、一つの OS を英語キーボードと日本語キーボード
 # とで混在して利用する場合の切り替えの設定
