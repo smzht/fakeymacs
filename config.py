@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20201210_01"
+fakeymacs_version = "20201217_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -330,8 +330,7 @@ def configure(keymap):
 
     # clipboard 監視の対象外とするアプリケーションソフトを指定する
     fc.not_clipboard_target = []
-    ## Microsoft Excel 2019 以降の Excel では、次の設定は不要のようです
-    fc.not_clipboard_target += ["EXCEL.EXE"]             # Excel
+    fc.not_clipboard_target += ["EXCEL.EXE"] # Excel
 
     # 左右どちらの Ctrlキーを使うかを指定する（"L": 左、"R": 右）
     fc.side_of_ctrl_key = "L"
