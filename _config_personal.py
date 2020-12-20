@@ -209,6 +209,7 @@ fc.lancherList_listers = [
 # exec(readConfigExtension(r"browser_key/config.py"), dict(globals(), **locals()))
 
 # Chrome 系ブラウザで Ctl-x C-b を入力した際、Chrome の拡張機能 Quick Tabs を起動する
+# fc.quick_tabs_shortcut_key = "A-q"
 # exec(readConfigExtension(r"chrome_quick_tabs/config.py"), dict(globals(), **locals()))
 
 # Emacs の shell-command-on-region の機能をサポートする
