@@ -21,7 +21,8 @@ def browser_popup(key):
         for window in getWindowList():
             if window.getProcessName() in fc.browser_list:
                 popWindow(window)()
-                keymap.delayedCall(self_insert_command3(key), 100)
+                self_insert_command(key)()
+                keymap.delayedCall(lambda: keymap.getWindow().setImeStatus(0), 100)
                 return
 
         # fc.browser_list に定義するブラウザが起動していない場合、fc.browser_list の最初
