@@ -14,15 +14,15 @@ except:
                       "firefox.exe"]
 
 ## C-A-e、C-A-l、C-A-t を入力した際、ブラウザをポップアップしてから C-e、C-l、C-t の機能を実行する
-## また、アドレスバーに移動した際には IME を OFF にする
+## また、IME を指定した状態に変更します。
 
-def browser_popup(key):
+def browser_popup(key, ime_status):
     def _func():
         for window in getWindowList():
             if window.getProcessName() in fc.browser_list:
                 popWindow(window)()
                 self_insert_command(key)()
-                keymap.delayedCall(lambda: keymap.getWindow().setImeStatus(0), 100)
+                keymap.delayedCall(lambda: keymap.getWindow().setImeStatus(ime_status), 100)
                 return
 
         # fc.browser_list に定義するブラウザが起動していない場合、fc.browser_list の最初
@@ -31,6 +31,7 @@ def browser_popup(key):
 
     return _func
 
-define_key(keymap_global, "C-A-l", browser_popup("C-l"))
-define_key(keymap_global, "C-A-t", browser_popup("C-t"))
-define_key(keymap_global, "C-A-e", browser_popup("C-e"))
+define_key(keymap_global, "C-A-l", browser_popup("C-l", 0))
+define_key(keymap_global, "C-A-t", browser_popup("C-t", 0))
+define_key(keymap_global, "C-A-e", browser_popup("C-e", 0))
+define_key(keymap_global, "C-A-k", browser_popup("C-k", 1))
