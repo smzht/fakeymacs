@@ -16,13 +16,13 @@ except:
 ## C-A-l、C-A-t、C-A-k を入力した際、ブラウザをポップアップしてから C-l、C-t、C-k の機能を実行する
 ## また、IME を指定した状態に変更します。
 
-def browser_popup(key):
+def browser_popup(key, ime_status=0):
     def _func():
         for window in getWindowList():
             if window.getProcessName() in fc.browser_list:
                 popWindow(window)()
                 self_insert_command(key)()
-                keymap.delayedCall(lambda: keymap.getWindow().setImeStatus(0), 100)
+                keymap.delayedCall(lambda: keymap.getWindow().setImeStatus(ime_status), 100)
                 return
 
         # fc.browser_list に定義するブラウザが起動していない場合、fc.browser_list の最初
