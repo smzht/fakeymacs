@@ -13,8 +13,8 @@ except:
                       "msedge.exe",
                       "firefox.exe"]
 
-## C-A-l、C-A-t、C-A-k を入力した際、ブラウザをポップアップしてから C-l、C-t、C-k の機能を実行する
-## また、IME を指定した状態に変更します。
+# C-A-l、C-A-t、C-A-k を入力した際、ブラウザをポップアップしてから C-l、C-t、C-k の機能を
+# 実行する。また、アドレスバーに移動した際には IME を OFF にする。
 
 def browser_popup(key, ime_status=0):
     def _func():
