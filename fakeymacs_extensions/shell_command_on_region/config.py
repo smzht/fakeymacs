@@ -70,7 +70,7 @@ def shell_command_on_region():
 
             if fc.Linux_tool == "WSL":
                 command = [r"C:\WINDOWS\SysNative\wsl.exe", "bash", "-l", "-c"]
-                command += [r"tr -d '\r' | " + re.sub(r"(\$)", r"\\\1", shell_command)]
+                command += [r"cd; tr -d '\r' | " + re.sub(r"(\$)", r"\\\1", shell_command)]
                 env["LANG"] = "ja_JP.UTF8"
                 env["WSLENV"] = "FAKEYMACS:LANG"
                 encoding = "utf-8"
