@@ -5,7 +5,7 @@
 ** ■ Chrome 系ブラウザで Ctl-x C-b を入力した際、Chrome の拡張機能 Quick Tabs を起動する
 
 Chrome 系ブラウザで Ctrl-x C-b を入力した時に、Chrome の拡張機能 Quick Tabs を起動する
-Fakeymacs の拡張機能です。
+拡張機能です。
 
 Chrome の拡張機能 Quick Tabs については、次のページを参照してください。
 
