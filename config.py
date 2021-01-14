@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20201217_01"
+fakeymacs_version = "20210114_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -602,7 +602,9 @@ def configure(keymap):
     fakeymacs.last_window = None
 
     def is_emacs_target(window):
-        if window != fakeymacs.last_window:
+        last_window = fakeymacs.last_window
+
+        if window != last_window:
             if window.getProcessName() in fc.not_clipboard_target:
                 # クリップボードの監視用のフックを無効にする
                 keymap.clipboard_history.enableHook(False)
@@ -634,6 +636,8 @@ def configure(keymap):
             fakeymacs.keybind = "not_emacs"
             return False
         else:
+            if window != last_window:
+                popImeBalloon()
             fakeymacs.keybind = "emacs"
             return True
 
@@ -734,6 +738,12 @@ def configure(keymap):
 
             if fakeymacs.is_playing_kmacro:
                 delay(0.2)
+
+        popImeBalloon(ime_status)
+
+    def popImeBalloon(ime_status=None):
+        if ime_status is None:
+            ime_status = keymap.getWindow().getImeStatus()
 
         if not fakeymacs.is_playing_kmacro:
             if ime_status:
@@ -1843,6 +1853,11 @@ def configure(keymap):
         if enable_key:
             define_key(keymap_emacs, enable_key, enable_input_method)
             define_key(keymap_ime,   enable_key, enable_input_method)
+
+    ## IME の状態を表示するキーの設定
+    key = "O-" + fc.side_of_ctrl_key + "Ctrl"
+    define_key(keymap_emacs, key, lambda: popImeBalloon())
+    define_key(keymap_ime,   key, lambda: popImeBalloon())
 
     ## 「再変換」、「確定取り消し」のキー設定
     if fc.reconversion_key:
