@@ -235,7 +235,6 @@ fc.lancherList_listers = [
 # exec(readConfigExtension(r"emacsclient/config.py"), dict(globals(), **locals()))
 
 # 指定したキーを押下したときに IME の状態を表示する機能を追加する
-# fc.pop_ime_balloon_keys = ["C-Semicolon"]
-# fc.pop_ime_balloon_keys += ["C-l"]
+# fc.pop_ime_balloon_keys = ["C-l"]
 # fc.pop_ime_balloon_keys += ["O-" + fc.side_of_ctrl_key + "Ctrl"] # Ctrl キーの単押し
 # exec(readConfigExtension(r"pop_ime_balloon/config.py"), dict(globals(), **locals()))
