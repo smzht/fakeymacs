@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210114_01"
+fakeymacs_version = "20210114_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1853,11 +1853,6 @@ def configure(keymap):
         if enable_key:
             define_key(keymap_emacs, enable_key, enable_input_method)
             define_key(keymap_ime,   enable_key, enable_input_method)
-
-    ## IME の状態を表示するキーの設定
-    key = "O-" + fc.side_of_ctrl_key + "Ctrl"
-    define_key(keymap_emacs, key, lambda: popImeBalloon())
-    define_key(keymap_ime,   key, lambda: popImeBalloon())
 
     ## 「再変換」、「確定取り消し」のキー設定
     if fc.reconversion_key:
