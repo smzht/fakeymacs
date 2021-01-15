@@ -22,7 +22,6 @@ def pop_ime_balloon(window_keymap, key):
 
     def _func():
         func()
-
         # IME の状態を表示する
         popImeBalloon()
     return _func
