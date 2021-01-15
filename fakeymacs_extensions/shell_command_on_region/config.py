@@ -6,13 +6,20 @@
 
 try:
     # 設定されているか？
-    fc.Linux_tool
+    fc.linux_tool
 except:
     # Linux コマンドを起動するために利用する Linux ツールを指定する
-    fc.Linux_tool = "WSL"
-    # fc.Linux_tool = "MSYS2"
-    # fc.Linux_tool = "Cygwin"
-    # fc.Linux_tool = "BusyBox"
+    fc.linux_tool = "WSL"
+    # fc.linux_tool = "MSYS2"
+    # fc.linux_tool = "Cygwin"
+    # fc.linux_tool = "BusyBox"
+
+try:
+    # 設定されているか？
+    fc.bash_options
+except:
+    # Bash のオプション（-c 以外）を指定する
+    fc.bash_options = ["-l"]
 
 try:
     # 設定されているか？
@@ -61,34 +68,43 @@ def shell_command_on_region():
 
             env = dict(os.environ)
 
-            # 以降で実行するコマンドは、bash に -l オプションを付け、その配下で実行するようにしています。
-            # このため、bash を起動する環境の .bash_profile に多くの設定を記入していると、コマンドの
-            # 実行が遅かったり、コマンドが正しくフィルタとして機能しなかったりする場合があります。
+            # bash に -l オプションを付け実行する場合、bash を起動する環境の .bash_profile に多くの
+            # 設定を記入していると、コマンドの実行が遅かったり、コマンドが正しくフィルタとして機能
+            # しなかったりする場合があります。
             # このようなときに .bash_profile 内の設定をコントロール（スキップ）できるようにするため、
             # FAKEYMACS 環境変数を設定しています。
             env["FAKEYMACS"] = "1"
 
-            if fc.Linux_tool == "WSL":
-                command = [r"C:\WINDOWS\SysNative\wsl.exe", "bash", "-l", "-c"]
+            bash_options = []
+            if fc.bash_options:
+                bash_options += fc.bash_options
+            bash_options += ["-c"]
+
+            if fc.linux_tool == "WSL":
+                command = [r"C:\WINDOWS\SysNative\wsl.exe", "bash"]
+                command += bash_options
                 command += [r"cd; tr -d '\r' | " + re.sub(r"(\$)", r"\\\1", shell_command)]
                 env["LANG"] = "ja_JP.UTF8"
                 env["WSLENV"] = "FAKEYMACS:LANG"
                 encoding = "utf-8"
 
-            elif fc.Linux_tool == "MSYS2":
-                command = [fc.MSYS2_path + r"\usr\bin\bash.exe", "-l", "-c"]
+            elif fc.linux_tool == "MSYS2":
+                command = [fc.MSYS2_path + r"\usr\bin\bash.exe"]
+                command += bash_options
                 command += [shell_command]
                 env["LANG"] = "ja_JP.UTF8"
                 encoding = "utf-8"
 
-            elif fc.Linux_tool == "Cygwin":
-                command = [fc.Cygwin_path + r"\bin\bash.exe", "-l", "-c"]
+            elif fc.linux_tool == "Cygwin":
+                command = [fc.Cygwin_path + r"\bin\bash.exe"]
+                command += bash_options
                 command += [r"tr -d '\r' | " + shell_command]
                 env["LANG"] = "ja_JP.UTF8"
                 encoding = "utf-8"
 
-            elif fc.Linux_tool == "BusyBox":
-                command = [fc.BusyBox_path + r"\busybox64.exe", "bash", "-l", "-c"]
+            elif fc.linux_tool == "BusyBox":
+                command = [fc.BusyBox_path + r"\busybox64.exe", "bash"]
+                command += bash_options
                 command += [shell_command]
                 encoding = "cp932"
 
