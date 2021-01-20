@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210114_02"
+fakeymacs_version = "20210120_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -751,8 +751,11 @@ def configure(keymap):
             else:
                 message = "[A]"
 
-            # IME の状態をバルーンヘルプで表示する
-            keymap.popBalloon("ime_status", message, 500)
+            try:
+                # IME の状態をバルーンヘルプで表示する
+                keymap.popBalloon("ime_status", message, 500)
+            except:
+                pass
 
     def reconversion(reconv_key, cancel_key):
         def _func():
