@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210120_01"
+fakeymacs_version = "20210203_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -88,7 +88,7 @@ fakeymacs_version = "20210120_01"
 #   などに利用可。
 # ・use_ctrl_atmark_for_mark 変数の設定により、日本語キーボードで C-@ をマーク用の
 #   キーとして使うかどうかを指定できる。
-# ・use_vscode_terminal_key_direct_input 変数の設定により、VSCode の Terminal内 で
+# ・use_direct_input_in_vscode_terminal 変数の設定により、VSCode の Terminal内 で
 #   ４つのキー（Ctrl+k、Ctrl+r、Ctrl+s、Ctrl+y）のダイレクト入力機能を使うかどうかを
 #   指定できる。
 # ・use_ctrl_digit_key_for_digit_argument 変数の設定により、数引数の指定に Ctrl+数字
@@ -494,7 +494,7 @@ def configure(keymap):
 
     # VSCode の Terminal内 で ４つのキー（Ctrl+k、Ctrl+r、Ctrl+s、Ctrl+y）のダイレクト入力機能を使うか
     # どうかを指定する（True: 使う、False: 使わない）
-    fc.use_vscode_terminal_key_direct_input = False
+    fc.use_direct_input_in_vscode_terminal = False
 
     # Emacs キーバインドを切り替えるキーを指定する
     # （Emacs キーバインドを利用するアプリケーションでかつフォーカスが当たっているアプリケーションソフト
@@ -877,7 +877,7 @@ def configure(keymap):
         kill_region()
 
     def kill_line(repeat=1):
-        if (fc.use_vscode_terminal_key_direct_input and
+        if (fc.use_direct_input_in_vscode_terminal and
             checkWindow("Code.exe", "Chrome_WidgetWin_1") and # VSCode
             fakeymacs.vscode_focus == "terminal"):
             self_insert_command("C-k")()
@@ -940,7 +940,7 @@ def configure(keymap):
         resetRegion()
 
     def yank():
-        if (fc.use_vscode_terminal_key_direct_input and
+        if (fc.use_direct_input_in_vscode_terminal and
             checkWindow("Code.exe", "Chrome_WidgetWin_1") and # VSCode
             fakeymacs.vscode_focus == "terminal"):
             self_insert_command("C-y")()
@@ -1016,7 +1016,7 @@ def configure(keymap):
 
     def isearch(direction):
         if (checkWindow("powershell.exe", "ConsoleWindowClass") or # PowerShell
-            (fc.use_vscode_terminal_key_direct_input and
+            (fc.use_direct_input_in_vscode_terminal and
              checkWindow("Code.exe", "Chrome_WidgetWin_1") and     # VSCode
              fakeymacs.vscode_focus == "terminal")):
             self_insert_command({"backward":"C-r", "forward":"C-s"}[direction])()
@@ -1201,12 +1201,12 @@ def configure(keymap):
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             # VSCode Command : Create New Integrated Terminal
             vscodeExecuteCommand2("Te:Cr-Ne-In-Te")()
-            if fc.use_vscode_terminal_key_direct_input:
+            if fc.use_direct_input_in_vscode_terminal:
                 fakeymacs.vscode_focus = "terminal"
 
     def toggle_terminal():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
-            if fc.use_vscode_terminal_key_direct_input:
+            if fc.use_direct_input_in_vscode_terminal:
                 if fakeymacs.vscode_focus == "not_terminal":
                     # VSCode Command : Focus Terminal
                     vscodeExecuteCommand2("Te:Fo-Te")()
@@ -1224,7 +1224,7 @@ def configure(keymap):
             if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
                 # VSCode Command : Focus n-th Editor Group
                 self_insert_command("C-{}".format(number))()
-                if fc.use_vscode_terminal_key_direct_input:
+                if fc.use_direct_input_in_vscode_terminal:
                     fakeymacs.vscode_focus = "not_terminal"
         return _func
 
@@ -1232,7 +1232,7 @@ def configure(keymap):
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             # VSCode Command : Navigate Between Editor Groups
             vscodeExecuteCommand("Vi:Na-Be-Ed-Gr")()
-            if fc.use_vscode_terminal_key_direct_input:
+            if fc.use_direct_input_in_vscode_terminal:
                 fakeymacs.vscode_focus = "not_terminal"
 
     def delete_group():

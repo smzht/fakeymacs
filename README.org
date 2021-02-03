@@ -113,19 +113,19 @@ config_personal.py という名称に変更し、このファイルを修正す�
 
 次は、修正する必要性が高いと思われるコンフィグレーションパラメータです。
 
-|--------------------------------------+------------------------------------------------------------------------------------------------------------------|
-| Configuration Parameter              | Description                                                                                                      |
-|--------------------------------------+------------------------------------------------------------------------------------------------------------------|
-| ime                                  | 利用している IME を指定する                                                                                      |
-| not_emacs_target                     | Emacs のキーバインドに“したくない”アプリケーションソフトを指定する                                             |
-| ime_target                           | IME の切り替え“のみをしたい”アプリケーションソフトを指定する                                                   |
-| side_of_ctrl_key                     | 左右どちらの Ctrlキーを使うかを指定する                                                                          |
-| use_esc_as_meta                      | Escキーを Metaキーとして使うかどうかを指定する                                                                   |
-| use_emacs_ime_mode                   | Emacs日本語入力モードを使うかどうかを指定する                                                                    |
-| toggle_input_method_key              | IME をトグルで切り替えるキーを指定する                                                                           |
-| set_input_method_key                 | IME を切り替えるキーの組み合わせ（disable、enable の順）を指定する                                               |
-| use_vscode_terminal_key_direct_input | VSCode の Terminal内 で ４つのキー（Ctrl+k、Ctrl+r、Ctrl+s、Ctrl+y）のダイレクト入力機能を使うかどうかを指定する |
-|--------------------------------------+------------------------------------------------------------------------------------------------------------------|
+|-------------------------------------+------------------------------------------------------------------------------------------------------------------|
+| Configuration Parameter             | Description                                                                                                      |
+|-------------------------------------+------------------------------------------------------------------------------------------------------------------|
+| ime                                 | 利用している IME を指定する                                                                                      |
+| not_emacs_target                    | Emacs のキーバインドに“したくない”アプリケーションソフトを指定する                                             |
+| ime_target                          | IME の切り替え“のみをしたい”アプリケーションソフトを指定する                                                   |
+| side_of_ctrl_key                    | 左右どちらの Ctrlキーを使うかを指定する                                                                          |
+| use_esc_as_meta                     | Escキーを Metaキーとして使うかどうかを指定する                                                                   |
+| use_emacs_ime_mode                  | Emacs日本語入力モードを使うかどうかを指定する                                                                    |
+| toggle_input_method_key             | IME をトグルで切り替えるキーを指定する                                                                           |
+| set_input_method_key                | IME を切り替えるキーの組み合わせ（disable、enable の順）を指定する                                               |
+| use_direct_input_in_vscode_terminal | VSCode の Terminal内 で ４つのキー（Ctrl+k、Ctrl+r、Ctrl+s、Ctrl+y）のダイレクト入力機能を使うかどうかを指定する |
+|-------------------------------------+------------------------------------------------------------------------------------------------------------------|
 
 ※ 1) で Caps Lock に右 Control キーを割り当てた場合には、side_of_ctrl_key を "R" に
 変更する必要があります。この場合、左 Control キーは従来どおり Windows ショートカット用
@@ -204,13 +204,13 @@ VSCode に vcode-dired Extension、Center Editor Window Extension、Search in Cu
 何度も表示される症状が発生するようです。このため、ポップアップを非表示にする設定にしてご利用
 ください。（https://memotora.com/2014/10/05/google-ime-pop-up-setting/）
 
-*** ● use_vscode_terminal_key_direct_input 変数
+*** ● use_direct_input_in_vscode_terminal 変数
 
 VSCode の WSL Terminal内 で Ctrl+k、Ctrl+r、Ctrl+s、Ctrl+y の４つのキーをダイレクト入力できる
 ようにするため、この変数を導入しています。初期値を False（使わない）とし、仕様を理解した方のみ
 使う機能としています。
 
-use_vscode_terminal_key_direct_input 変数を True にしている場合には、次のキーを押下して
+use_direct_input_in_vscode_terminal 変数を True にしている場合には、次のキーを押下して
 Terminal に移行すことで、上記の４つのキーの入力ができるようになります。
 
 |------------------------------+--------------------+----------------------------------|
@@ -260,7 +260,7 @@ Terminal から抜ける場合は次のキーを利用するようにしてく�
 その場合は、上記のいずれかのキーを押下することにより、Fakeymacs に現在の状態を再認識させる
 ようにしてください。
 
-※ use_vscode_terminal_key_direct_input 変数が False（初期値）の場合には、 Ctrl+q を前置する
+※ use_direct_input_in_vscode_terminal 変数が False（初期値）の場合には、 Ctrl+q を前置する
 ことで４つのキーを利用することができます。
 
 ※ この機能をサポートするために use_ctrl_atmark_for_mark 変数を導入し、日本語キーボードで C-@
