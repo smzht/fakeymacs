@@ -9,7 +9,7 @@ try:
     fc.pop_ime_balloon_key
 except:
     # IME の状態を表示する機能を追加するキーを指定する
-    fc.pop_ime_balloon_key = ["C-l"]
+    fc.pop_ime_balloon_key = ["C-Semicolon"]
 
 def pop_ime_balloon(window_keymap, key):
     # 定義済みの関数を抽出する
