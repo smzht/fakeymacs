@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210218_02"
+fakeymacs_version = "20210219_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -308,8 +308,8 @@ def configure(keymap):
 
     # VSCode 用のキーバインドを利用するアプリケーションソフトを指定する
     # （ブラウザを指定した場合には、githubs1.com にアクセスして開く VSCode で利用可能となります）
-    fc.vscode_target        = ["Code.exe",
-                               "chrome.exe",
+    fc.vscode_target        = ["Code.exe"]
+    fc.vscode_target       += ["chrome.exe",
                                "msedge.exe",
                                "firefox.exe"
                               ]
