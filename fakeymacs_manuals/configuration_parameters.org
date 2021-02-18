@@ -15,6 +15,7 @@ Fakeymacs をカスタマイズするために、下記のコンフィグレー�
 | emacs_target_class                     | Emacs のキーバインドにするウィンドウのクラスネームを指定する（全ての設定に優先する）                                      |
 | not_emacs_target                       | Emacs のキーバインドに“したくない”アプリケーションソフトを指定する                                                      |
 | ime_target                             | IME の切り替え“のみをしたい”アプリケーションソフトを指定する                                                            |
+| vscode_target                          | VSCode 用のキーバインドを利用するアプリケーションソフトを指定する                                                         |
 | skip_settings_key                      | キーマップ毎にキー設定をスキップするキーを指定する                                                                        |
 | emacs_exclusion_key                    | Emacs のキーバインドにするアプリケーションソフトで、Emacs キーバインドから除外するキーを指定する                          |
 | not_clipboard_target                   | clipboard 監視の対象外とするアプリケーションソフトを指定する                                                              |
