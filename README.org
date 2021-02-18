@@ -132,6 +132,12 @@ config_personal.py という名称に変更し、このファイルを修正す�
 変更する必要があります。この場合、左 Control キーは従来どおり Windows ショートカット用
 のキーとして利用できます。
 
+※ vscode_target の初期設定値にはブラウザのアプリケーションソフトも複数指定しています。
+これは、ブラウザで github1s.com にアクセスしたときに VSCode 用のキーバインドを利用できる
+ようにするためです。github1s.com については、次の記事を参考としてください。
+
+- https://forest.watch.impress.co.jp/docs/serial/yajiuma/1306113.html
+
 *** 7) keyhac.exe を起動する
 
 keyhac.exe を起動すると、タスクバー（＾アイコンの中）に Keyhac のアイコンが表示されます。
