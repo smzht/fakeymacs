@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210203_01"
+fakeymacs_version = "20210218_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -710,10 +710,10 @@ def configure(keymap):
             processName not in fc.not_emacs_target):
             if processName in fakeymacs.not_emacs_keybind:
                 fakeymacs.not_emacs_keybind.remove(processName)
-                keymap.popBalloon("Keybind", "[Emacs Keybind]", 1000)
+                keymap.popBalloon("keybind", "[Enable Emacs keybind]", 1000)
             else:
                 fakeymacs.not_emacs_keybind.append(processName)
-                keymap.popBalloon("Keybind", "[not Emacs Keybind]", 1000)
+                keymap.popBalloon("keybind", "[Disable Emacs keybind]", 1000)
 
             keymap.updateKeymap()
 
