@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210219_01"
+fakeymacs_version = "20210219_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -886,7 +886,7 @@ def configure(keymap):
 
     def kill_line(repeat=1):
         if (fc.use_direct_input_in_vscode_terminal and
-            checkVscode() and
+            isVscodeTarget() and
             fakeymacs.vscode_focus == "terminal"):
             self_insert_command("C-k")()
         else:
@@ -949,7 +949,7 @@ def configure(keymap):
 
     def yank():
         if (fc.use_direct_input_in_vscode_terminal and
-            checkVscode() and
+            isVscodeTarget() and
             fakeymacs.vscode_focus == "terminal"):
             self_insert_command("C-y")()
         else:
@@ -1007,7 +1007,7 @@ def configure(keymap):
         self_insert_command("C-Tab")()
 
     def list_buffers():
-        if checkVscode():
+        if isVscodeTarget():
             # VSCode Command : Show All Editors By Most Recently Used
             vscodeExecuteCommand("Sh-Al-Ed-By-Mo-Re-Us")()
 
@@ -1025,7 +1025,7 @@ def configure(keymap):
     def isearch(direction):
         if (checkWindow("powershell.exe", "ConsoleWindowClass") or # PowerShell
             (fc.use_direct_input_in_vscode_terminal and
-             checkVscode() and
+             isVscodeTarget() and
              fakeymacs.vscode_focus == "terminal")):
             self_insert_command({"backward":"C-r", "forward":"C-s"}[direction])()
         else:
@@ -1183,7 +1183,7 @@ def configure(keymap):
     ## VSCode 用
     ##################################################
 
-    def checkVscode():
+    def isVscodeTarget():
         if keymap.getWindow().getProcessName() in fc.vscode_target:
             return True
         else:
@@ -1191,35 +1191,35 @@ def configure(keymap):
 
     ## マルチカーソル
     def mark_up():
-        if checkVscode():
+        if isVscodeTarget():
             # VSCode Command : cursorColumnSelectUp
             self_insert_command("C-S-A-Up")()
 
     def mark_down():
-        if checkVscode():
+        if isVscodeTarget():
             # VSCode Command : cursorColumnSelectDown
             self_insert_command("C-S-A-Down")()
 
     def mark_next_like_this():
-        if checkVscode():
+        if isVscodeTarget():
             # VSCode Command : Add Selection To Next Find Match
             self_insert_command("C-d")()
 
     def skip_to_next_like_this():
-        if checkVscode():
+        if isVscodeTarget():
             # VSCode Command : Move Last Selection To Next Find Match
             self_insert_command("C-k", "C-d")()
 
     ## エディタ / ターミナル操作
     def create_terminal():
-        if checkVscode():
+        if isVscodeTarget():
             # VSCode Command : Create New Integrated Terminal
             vscodeExecuteCommand2("Te:Cr-Ne-In-Te")()
             if fc.use_direct_input_in_vscode_terminal:
                 fakeymacs.vscode_focus = "terminal"
 
     def toggle_terminal():
-        if checkVscode():
+        if isVscodeTarget():
             if fc.use_direct_input_in_vscode_terminal:
                 if fakeymacs.vscode_focus == "not_terminal":
                     # VSCode Command : Focus Terminal
@@ -1235,7 +1235,7 @@ def configure(keymap):
 
     def switch_focus(number):
         def _func():
-            if checkVscode():
+            if isVscodeTarget():
                 # VSCode Command : Focus n-th Editor Group
                 self_insert_command("C-{}".format(number))()
                 if fc.use_direct_input_in_vscode_terminal:
@@ -1243,40 +1243,40 @@ def configure(keymap):
         return _func
 
     def other_group():
-        if checkVscode():
+        if isVscodeTarget():
             # VSCode Command : Navigate Between Editor Groups
             vscodeExecuteCommand("Vi:Na-Be-Ed-Gr")()
             if fc.use_direct_input_in_vscode_terminal:
                 fakeymacs.vscode_focus = "not_terminal"
 
     def delete_group():
-        if checkVscode():
+        if isVscodeTarget():
             # VSCode Command : Close All Editors in Group
             vscodeExecuteCommand("Vi:Cl-Al-Ed-in-Gr")()
 
     def delete_other_groups():
-        if checkVscode():
+        if isVscodeTarget():
             # VSCode Command : Close Editors in Other Groups
             vscodeExecuteCommand("Vi:Cl-Ed-in-Ot-Gr")()
 
     def split_editor_below():
-        if checkVscode():
+        if isVscodeTarget():
             # VSCode Command : Split Editor Orthogonal
             self_insert_command("C-k", "C-Yen")()
 
     def split_editor_right():
-        if checkVscode():
+        if isVscodeTarget():
             # VSCode Command : Split Editor
             self_insert_command("C-Yen")()
 
     ## その他
     def execute_extended_command():
-        if checkVscode():
+        if isVscodeTarget():
             # VSCode Command : Show All Commands
             self_insert_command3("f1")()
 
     def comment_dwim():
-        if checkVscode():
+        if isVscodeTarget():
             # VSCode Command : Toggle Line Comment
             self_insert_command("C-Slash")()
 
