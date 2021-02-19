@@ -48,7 +48,7 @@ fc.ime_target          += [
                           ]
 
 # VSCode 用のキーバインドを利用するアプリケーションソフトを指定する
-# （ブラウザを指定した場合には、githubs1.com にアクセスして開く VSCode で利用可能となります）
+# （ブラウザを指定した場合には、github1s.com にアクセスして開く VSCode で利用可能となります）
 fc.vscode_target        = ["Code.exe"]
 fc.vscode_target       += ["chrome.exe",
                            "msedge.exe",
