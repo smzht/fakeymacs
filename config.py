@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210220_01"
+fakeymacs_version = "20210220_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1003,6 +1003,13 @@ def configure(keymap):
     def kill_buffer():
         self_insert_command("C-F4")()
 
+    def kill_buffer2():
+        if isVscodeTarget():
+            # VSCode Command : Close Editor
+            vscodeExecuteCommand("workbench.action.closeActiveEditor")()
+        else:
+            self_insert_command("C-F4")()
+
     def switch_to_buffer():
         self_insert_command("C-Tab")()
 
@@ -1777,8 +1784,8 @@ def configure(keymap):
     define_key(keymap_emacs, "Ctl-x C-p", reset_search(reset_undo(reset_counter(mark_page))))
 
     ## 「バッファ / ウィンドウ操作」のキー設定
-    define_key(keymap_emacs, "Ctl-x k",   reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
     define_key(keymap_emacs, "M-k",       reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
+    define_key(keymap_emacs, "Ctl-x k",   reset_search(reset_undo(reset_counter(reset_mark(kill_buffer2)))))
     define_key(keymap_emacs, "Ctl-x b",   reset_search(reset_undo(reset_counter(reset_mark(switch_to_buffer)))))
     define_key(keymap_emacs, "Ctl-x C-b", reset_search(reset_undo(reset_counter(reset_mark(list_buffers)))))
 
