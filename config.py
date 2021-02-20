@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210219_02"
+fakeymacs_version = "20210220_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1009,7 +1009,7 @@ def configure(keymap):
     def list_buffers():
         if isVscodeTarget():
             # VSCode Command : Show All Editors By Most Recently Used
-            vscodeExecuteCommand("Sh-Al-Ed-By-Mo-Re-Us")()
+            vscodeExecuteCommand("workbench.action.showAllEditorsByMostRecentlyUsed")()
 
     def other_window():
         window_list = getWindowList()
@@ -1214,7 +1214,7 @@ def configure(keymap):
     def create_terminal():
         if isVscodeTarget():
             # VSCode Command : Create New Integrated Terminal
-            vscodeExecuteCommand2("Te:Cr-Ne-In-Te")()
+            vscodeExecuteCommand2("workbench.action.terminal.new")()
             if fc.use_direct_input_in_vscode_terminal:
                 fakeymacs.vscode_focus = "terminal"
 
@@ -1222,16 +1222,16 @@ def configure(keymap):
         if isVscodeTarget():
             if fc.use_direct_input_in_vscode_terminal:
                 if fakeymacs.vscode_focus == "not_terminal":
-                    # VSCode Command : Focus Terminal
-                    vscodeExecuteCommand2("Te:Fo-Te")()
+                    # VSCode Command : Focus on Terminal View
+                    vscodeExecuteCommand2("terminal.focus")()
                     fakeymacs.vscode_focus = "terminal"
                 else:
                     # VSCode Command : Close Panel
-                    vscodeExecuteCommand2("Vi:Cl-Pa")()
+                    vscodeExecuteCommand2("workbench.action.closePanel")()
                     fakeymacs.vscode_focus = "not_terminal"
             else:
                 # VSCode Command : Toggle Integrated Terminal
-                vscodeExecuteCommand2("Vi:To-In-Te")()
+                vscodeExecuteCommand2("workbench.action.terminal.toggleTerminal")()
 
     def switch_focus(number):
         def _func():
@@ -1245,19 +1245,19 @@ def configure(keymap):
     def other_group():
         if isVscodeTarget():
             # VSCode Command : Navigate Between Editor Groups
-            vscodeExecuteCommand("Vi:Na-Be-Ed-Gr")()
+            vscodeExecuteCommand("workbench.action.navigateEditorGroups")()
             if fc.use_direct_input_in_vscode_terminal:
                 fakeymacs.vscode_focus = "not_terminal"
 
     def delete_group():
         if isVscodeTarget():
             # VSCode Command : Close All Editors in Group
-            vscodeExecuteCommand("Vi:Cl-Al-Ed-in-Gr")()
+            vscodeExecuteCommand("workbench.action.closeEditorsInGroup")()
 
     def delete_other_groups():
         if isVscodeTarget():
             # VSCode Command : Close Editors in Other Groups
-            vscodeExecuteCommand("Vi:Cl-Ed-in-Ot-Gr")()
+            vscodeExecuteCommand("workbench.action.closeEditorsInOtherGroups")()
 
     def split_editor_below():
         if isVscodeTarget():

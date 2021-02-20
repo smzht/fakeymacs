@@ -239,16 +239,6 @@ Terminal に移行すことで、上記の４つのキーの入力ができる�
 ※ Ctrl+s を利用できるようにするには、bash で stty stop undef の設定をする必要があります。
 この設定をしないでこのキーを押下すると stop から戻れなくなりますのでご注意ください。
 
-※ toggle_terminal 関数内では、Terminal にフォーカスを移すために vscodeExecuteCommand("Te:Fo-Te")
-という関数を発行しています。これは Command Palette で Terminal: Focus Terminal という
-コマンドを起動することを期待しているものなのですが、"Te:Fo-Te" ではこのコマンドをユニークに
-特定できないため、コマンドリストで一番上に表示されるコマンド（一番最近起動したコマンド）が
-マッチして起動されます。
-このため、一度 Command Palette で Terminal: Focus Terminal を手動起動し、コマンドリストの
-一番上でこのコマンドがマッチするようにしてから利用するようにしてください。
-（Terminal: Focus on Terminal View というコマンドの利用も検討しましたが、Japanese Language
-Pack 利用時にコマンド名称が変わるため、採用を見送りました。）
-
 Terminal から抜ける場合は次のキーを利用するようにしてください。先の４つのキーが VSCode の
 ショートカットキーとして認識されるように戻ります。
 

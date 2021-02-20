@@ -28,7 +28,7 @@ except:
 if fc.vscode_dired:
     def dired(window_keymap, key):
         # 新規に実行する関数を定義する（VSCode Command : Open dired buffer）
-        func1 = reset_search(reset_undo(reset_counter(reset_mark(vscodeExecuteCommand("Op-di-bu")))))
+        func1 = reset_search(reset_undo(reset_counter(reset_mark(vscodeExecuteCommand("extension.dired.open")))))
 
         # 以前に定義した関数を抽出する
         func2 = getKeyCommand(window_keymap, key)
@@ -63,6 +63,6 @@ if fc.vscode_occur:
     def occur():
         if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
             # VSCode Command : Search in Current File
-            vscodeExecuteCommand("Se-in-Cu-Fi")()
+            vscodeExecuteCommand("search-in-current-file.searchInCurrentFile")()
 
     define_key(keymap_emacs, "Ctl-x C-o", reset_search(reset_undo(reset_counter(reset_mark(occur)))))
