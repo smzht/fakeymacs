@@ -158,11 +158,15 @@ not_emacs_target に登録されているアプリケーションソフトで有
 |-----------+------------------+---------------------------|
 | Keybind   | Function         | Description               |
 |-----------+------------------+---------------------------|
-| Ctl-x k   | kill_buffer      |                           |
 | M-k       | kill_buffer      | Fakeymacs オリジナル定義  |
+| Ctl-x k   | kill_buffer2     | github1s ではこちらを利用 |
 | Ctl-x b   | switch_to_buffer |                           |
 | Ctl-x C-b | list_buffers     | 現在は、VSCode のみで動作 |
 |-----------+------------------+---------------------------|
+
+※ github1s で起動する VSCode では、M-k で呼ばれる C-F4 がブラウザ側のキーとして
+認識されます。このため、github1s では Ctl-x k を入力した場合にコマンドパレットで
+Close Editor を実行するようにし、kill_buffer の機能を実現するようにしています。
 
 **** ● 「文字列検索 / 置換」のキー設定
 
