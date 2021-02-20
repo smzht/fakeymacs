@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210220_02"
+fakeymacs_version = "20210220_03"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1008,7 +1008,7 @@ def configure(keymap):
             # VSCode Command : Close Editor
             vscodeExecuteCommand("workbench.action.closeActiveEditor")()
         else:
-            self_insert_command("C-F4")()
+            kill_buffer()
 
     def switch_to_buffer():
         self_insert_command("C-Tab")()
