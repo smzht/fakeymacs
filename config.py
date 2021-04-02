@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210222_02"
+fakeymacs_version = "20210402_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1016,7 +1016,7 @@ def configure(keymap):
             # VSCode Command : Quick Open Privious Recently Used Editor in Group
             vscodeExecuteCommand("workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup")()
         else:
-            switch_to_buffer()
+            self_insert_command("C-Tab")()
 
     def list_buffers():
         if isVscodeTarget():
