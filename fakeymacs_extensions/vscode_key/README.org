@@ -16,7 +16,7 @@ VSCode 用のキーの設定については、README.org の次の項の内容�
 | Configuration parameter             | Description                                                                                                      |
 |-------------------------------------+------------------------------------------------------------------------------------------------------------------|
 | vscode_target                       | VSCode 用のキーバインドを利用するアプリケーションソフトを指定する                                                |
-| use_ctrl_atmark_for_mark            | 日本語キーボードで C-@ をマーク用のキーとして使うかどうかを指定する                                              |
+| use_ctrl_atmark_for_mark            | 日本語キーボードを利用する際、VSCode で  C-@ をマーク用のキーとして使うかどうかを指定する                        |
 | use_direct_input_in_vscode_terminal | VSCode の Terminal内 で ４つのキー（Ctrl+k、Ctrl+r、Ctrl+s、Ctrl+y）のダイレクト入力機能を使うかどうかを指定する |
 |-------------------------------------+------------------------------------------------------------------------------------------------------------------|
 
@@ -25,6 +25,10 @@ VSCode 用のキーの設定については、README.org の次の項の内容�
 ようにするためです。github1s.com については、次の記事を参考としてください。
 
 - https://forest.watch.impress.co.jp/docs/serial/yajiuma/1306113.html
+
+※ use_ctrl_atmark_for_mark は、VSCode で C-@ を Toggle Integrated Terminal 用のキーとして
+使えるようにするために設けた設定です。
+True に設定した場合でも、Toggle Integrated Terminal 用のキーとして  C-<半角／全角> が使えます。
 
 *** キーバインド
 
