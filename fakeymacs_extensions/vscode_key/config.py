@@ -44,6 +44,43 @@ def is_vscode_target(window):
 
 keymap_vscode = keymap.defineWindowKeymap(check_func=is_vscode_target)
 
+## 共通関数
+def isVscodeTarget():
+    return is_vscode_target(keymap.getWindow())
+
+def vscode_command(window_keymap, keys, command):
+    # 以前に定義した関数を抽出する
+    func = getKeyCommand(window_keymap, keys)
+    if func is None:
+        key_list = kbd(keys)[0]
+        if len(key_list) == 1:
+            func = keymap.InputKeyCommand(key_list[0])
+        else:
+            func = lambda: None
+
+    def _func():
+        if isVscodeTarget():
+            command()
+        else:
+            func()
+    return _func
+
+def define_key3(window_keymap, keys, command):
+    define_key(window_keymap, keys, vscode_command(window_keymap, keys, command))
+
+def vscodeExecuteCommand(command):
+    def _func():
+        self_insert_command("f1")()
+        princ(command)
+        self_insert_command("Enter")()
+    return _func
+
+def vscodeExecuteCommand2(command):
+    def _func():
+        keymap.getWindow().setImeStatus(0)
+        vscodeExecuteCommand(command)()
+    return _func
+
 ## カット / コピー / 削除 / アンドゥ
 def kill_line2(repeat=1):
     if (fc.use_direct_input_in_vscode_terminal and
@@ -163,43 +200,6 @@ def execute_extended_command():
 def comment_dwim():
     # VSCode Command : Toggle Line Comment
     self_insert_command("C-Slash")()
-
-## 共通関数
-def isVscodeTarget():
-    return is_vscode_target(keymap.getWindow())
-
-def vscode_command(window_keymap, keys, command):
-    # 以前に定義した関数を抽出する
-    func = getKeyCommand(window_keymap, keys)
-    if func is None:
-        key_list = kbd(keys)[0]
-        if len(key_list) == 1:
-            func = keymap.InputKeyCommand(key_list[0])
-        else:
-            func = lambda: None
-
-    def _func():
-        if isVscodeTarget():
-            command()
-        else:
-            func()
-    return _func
-
-def define_key3(window_keymap, keys, command):
-    define_key(window_keymap, keys, vscode_command(window_keymap, keys, command))
-
-def vscodeExecuteCommand(command):
-    def _func():
-        self_insert_command("f1")()
-        princ(command)
-        self_insert_command("Enter")()
-    return _func
-
-def vscodeExecuteCommand2(command):
-    def _func():
-        keymap.getWindow().setImeStatus(0)
-        vscodeExecuteCommand(command)()
-    return _func
 
 ## 「カット / コピー / 削除 / アンドゥ」のキー設定
 define_key3(keymap_emacs, "C-k", reset_search(reset_undo(reset_counter(reset_mark(repeat3(kill_line2))))))
