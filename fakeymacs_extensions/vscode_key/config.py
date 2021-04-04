@@ -186,11 +186,10 @@ def toggle_terminal():
 
 def switch_focus(number):
     def _func():
-        if isVscodeTarget():
-            # VSCode Command : Focus n-th Editor Group
-            self_insert_command("C-{}".format(number))()
-            if fc.use_direct_input_in_vscode_terminal:
-                fakeymacs.vscode_focus = "not_terminal"
+        # VSCode Command : Focus n-th Editor Group
+        self_insert_command("C-{}".format(number))()
+        if fc.use_direct_input_in_vscode_terminal:
+            fakeymacs.vscode_focus = "not_terminal"
     return _func
 
 ## その他
