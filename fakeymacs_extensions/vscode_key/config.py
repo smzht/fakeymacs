@@ -81,7 +81,7 @@ def vscodeExecuteCommand2(command):
         vscodeExecuteCommand(command)()
     return _func
 
-## カット / コピー / 削除 / アンドゥ
+## カット / コピー
 def kill_line2(repeat=1):
     if (fc.use_direct_input_in_vscode_terminal and
         fakeymacs.vscode_focus == "terminal"):
@@ -109,7 +109,7 @@ def list_buffers():
     # VSCode Command : Show All Editors By Most Recently Used
     vscodeExecuteCommand("workbench.action.showAllEditorsByMostRecentlyUsed")()
 
-## 文字列検索 / 置換
+## 文字列検索
 def isearch2(direction):
     if (fc.use_direct_input_in_vscode_terminal and
         fakeymacs.vscode_focus == "terminal"):
@@ -122,6 +122,29 @@ def isearch_backward():
 
 def isearch_forward():
     isearch2("forward")
+
+## エディタ操作
+def other_group():
+    # VSCode Command : Navigate Between Editor Groups
+    vscodeExecuteCommand("workbench.action.navigateEditorGroups")()
+    if fc.use_direct_input_in_vscode_terminal:
+        fakeymacs.vscode_focus = "not_terminal"
+
+def delete_group():
+    # VSCode Command : Close All Editors in Group
+    vscodeExecuteCommand("workbench.action.closeEditorsInGroup")()
+
+def delete_other_groups():
+    # VSCode Command : Close Editors in Other Groups
+    vscodeExecuteCommand("workbench.action.closeEditorsInOtherGroups")()
+
+def split_editor_below():
+    # VSCode Command : Split Editor Orthogonal
+    self_insert_command("C-k", "C-Yen")()
+
+def split_editor_right():
+    # VSCode Command : Split Editor
+    self_insert_command("C-Yen")()
 
 ## マルチカーソル
 def mark_up():
@@ -140,7 +163,7 @@ def skip_to_next_like_this():
     # VSCode Command : Move Last Selection To Next Find Match
     self_insert_command("C-k", "C-d")()
 
-## エディタ / ターミナル操作
+## ターミナル操作
 def create_terminal():
     # VSCode Command : Create New Integrated Terminal
     vscodeExecuteCommand2("workbench.action.terminal.new")()
@@ -170,28 +193,6 @@ def switch_focus(number):
                 fakeymacs.vscode_focus = "not_terminal"
     return _func
 
-def other_group():
-    # VSCode Command : Navigate Between Editor Groups
-    vscodeExecuteCommand("workbench.action.navigateEditorGroups")()
-    if fc.use_direct_input_in_vscode_terminal:
-        fakeymacs.vscode_focus = "not_terminal"
-
-def delete_group():
-    # VSCode Command : Close All Editors in Group
-    vscodeExecuteCommand("workbench.action.closeEditorsInGroup")()
-
-def delete_other_groups():
-    # VSCode Command : Close Editors in Other Groups
-    vscodeExecuteCommand("workbench.action.closeEditorsInOtherGroups")()
-
-def split_editor_below():
-    # VSCode Command : Split Editor Orthogonal
-    self_insert_command("C-k", "C-Yen")()
-
-def split_editor_right():
-    # VSCode Command : Split Editor
-    self_insert_command("C-Yen")()
-
 ## その他
 def execute_extended_command():
     # VSCode Command : Show All Commands
@@ -201,7 +202,7 @@ def comment_dwim():
     # VSCode Command : Toggle Line Comment
     self_insert_command("C-Slash")()
 
-## 「カット / コピー / 削除 / アンドゥ」のキー設定
+## 「カット / コピー」のキー設定
 define_key3(keymap_emacs, "C-k", reset_search(reset_undo(reset_counter(reset_mark(repeat3(kill_line2))))))
 define_key3(keymap_emacs, "C-y", reset_search(reset_undo(reset_counter(reset_mark(repeat(yank2))))))
 
@@ -210,7 +211,7 @@ define_key3(keymap_emacs, "Ctl-x k",   reset_search(reset_undo(reset_counter(res
 define_key3(keymap_emacs, "Ctl-x b",   reset_search(reset_undo(reset_counter(reset_mark(switch_to_buffer)))))
 define_key3(keymap_emacs, "Ctl-x C-b", reset_search(reset_undo(reset_counter(reset_mark(list_buffers)))))
 
-## 「文字列検索 / 置換」のキー設定
+## 「文字列検索」のキー設定
 define_key3(keymap_emacs, "C-r",   reset_undo(reset_counter(reset_mark(isearch_backward))))
 define_key3(keymap_emacs, "C-s",   reset_undo(reset_counter(reset_mark(isearch_forward))))
 
