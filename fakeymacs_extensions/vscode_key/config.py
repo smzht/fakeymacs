@@ -239,7 +239,6 @@ define_key(keymap_vscode, "C-(244)",   reset_search(reset_undo(reset_counter(res
 
 if is_japanese_keyboard:
     define_key(keymap_vscode, "C-S-Atmark", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
-
     if not fc.use_ctrl_atmark_for_mark:
         define_key(keymap_vscode, "C-Atmark", reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
 else:
