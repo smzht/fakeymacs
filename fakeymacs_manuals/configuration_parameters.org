@@ -15,7 +15,6 @@ Fakeymacs をカスタマイズするために、下記のコンフィグレー�
 | emacs_target_class                     | Emacs のキーバインドにするウィンドウのクラスネームを指定する（全ての設定に優先する）                                      |
 | not_emacs_target                       | Emacs のキーバインドに“したくない”アプリケーションソフトを指定する                                                      |
 | ime_target                             | IME の切り替え“のみをしたい”アプリケーションソフトを指定する                                                            |
-| vscode_target                          | VSCode 用のキーバインドを利用するアプリケーションソフトを指定する                                                         |
 | skip_settings_key                      | キーマップ毎にキー設定をスキップするキーを指定する                                                                        |
 | emacs_exclusion_key                    | Emacs のキーバインドにするアプリケーションソフトで、Emacs キーバインドから除外するキーを指定する                          |
 | not_clipboard_target                   | clipboard 監視の対象外とするアプリケーションソフトを指定する                                                              |
@@ -33,8 +32,6 @@ Fakeymacs をカスタマイズするために、下記のコンフィグレー�
 | reconversion_key                       | IME の「再変換」を行うキーを指定する                                                                                      |
 | emacs_ime_mode_key                     | Emacs日本語入力モードを利用する際に、IME のショートカットを置き換えるキーの組み合わせ（置き換え先、置き換え元）を指定する |
 | word_register_key                      | IME の「単語登録」プログラムを起動するキーを指定する                                                                      |
-| use_ctrl_atmark_for_mark               | 日本語キーボードで C-@ をマーク用のキーとして使うかどうかを指定する                                                       |
-| use_direct_input_in_vscode_terminal    | VSCode の Terminal内 で ４つのキー（Ctrl+k、Ctrl+r、Ctrl+s、Ctrl+y）のダイレクト入力機能を使うかどうかを指定する          |
 | toggle_emacs_keybind_key               | Emacs キーバインドを切り替えるキーを指定する                                                                              |
 | application_key                        | アプリケーションキーとして利用するキーを指定する                                                                          |
 | use_ctrl_digit_key_for_digit_argument  | 数引数の指定に Ctrl+数字キーを使うかを指定する                                                                            |

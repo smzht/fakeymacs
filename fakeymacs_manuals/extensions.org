@@ -15,9 +15,10 @@ Fakeymacs には以下の機能拡張を同梱しています。
 |-------------------------+-------------------------------------------------------------------------------------|
 | Extension name          | Description                                                                         |
 |-------------------------+-------------------------------------------------------------------------------------|
+| [[/fakeymacs_extensions/vscode_key][vscode_key]]              | VSCode 用のキーの設定を行う                                                         |
 | [[/fakeymacs_extensions/vscode_extensions][vscode_extensions]]       | VSCode で Extension のインストールが必要な機能の設定を行う                          |
 | [[/fakeymacs_extensions/everything][everything]]              | Everything を起動するキーを指定する                                                 |
-| [[/fakeymacs_extensions/browser_key][browser_key]]             | ブラウザ向けのキーの設定を行う                                                      |
+| [[/fakeymacs_extensions/browser_key][browser_key]]             | ブラウザ用のキーの設定を行う                                                       |
 | [[/fakeymacs_extensions/chrome_quick_tabs][chrome_quick_tabs]]       | Chrome 系ブラウザで Ctl-x C-b を入力した際、Chrome の拡張機能 Quick Tabs を起動する |
 | [[/fakeymacs_extensions/shell_command_on_region][shell_command_on_region]] | Emacs の shell-command-on-region の機能をサポートする                               |
 | [[/fakeymacs_extensions/edit_mode][edit_mode]]               | 指定したアプリケーションソフトに F2（編集モード移行）を割り当てるキーを設定する     |

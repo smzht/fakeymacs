@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210402_01"
+fakeymacs_version = "20210404_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -17,9 +17,8 @@ fakeymacs_version = "20210402_01"
 # 本設定を利用するための仕様は、以下を参照してください。
 #
 # ＜共通の仕様＞
-# ・emacs_target_class 変数、not_emacs_target 変数、ime_target 変数、vscode_target 変数で、
-#   Emacsキーバインドや IME の切り替えキーバインドの対象とするアプリケーションソフトを指定
-#   できる。
+# ・emacs_target_class 変数、not_emacs_target 変数、ime_target 変数で、Emacsキーバインドや
+#   IME の切り替えキーバインドの対象とするアプリケーションソフトを指定できる。
 # ・skip_settings_key 変数で、キーマップ毎にキー設定をスキップするキーを指定できる。
 # ・emacs_exclusion_key 変数で、Emacs キーバインドから除外するキーを指定できる。
 # ・not_clipboard_target 変数で、clipboard 監視の対象外とするアプリケーションソフトを指定
@@ -87,11 +86,6 @@ fakeymacs_version = "20210402_01"
 #   キーボードマクロの記録と再生の開始時に IME を強制的に OFF にするようにしている。
 # ・kill-buffer に Ctl-x k とは別に M-k も割り当てている。プラウザのタブを削除する際
 #   などに利用可。
-# ・use_ctrl_atmark_for_mark 変数の設定により、日本語キーボードで C-@ をマーク用の
-#   キーとして使うかどうかを指定できる。
-# ・use_direct_input_in_vscode_terminal 変数の設定により、VSCode の Terminal内 で
-#   ４つのキー（Ctrl+k、Ctrl+r、Ctrl+s、Ctrl+y）のダイレクト入力機能を使うかどうかを
-#   指定できる。
 # ・use_ctrl_digit_key_for_digit_argument 変数の設定により、数引数の指定に Ctrl+数字
 #   キーを使うかを指定できる。
 # ・reconversion_key 変数の設定により、IME の「再変換」を行うキーを指定できる。
@@ -307,14 +301,6 @@ def configure(keymap):
                                "MobaXterm.exe",          # MobaXterm
                               ]
 
-    # VSCode 用のキーバインドを利用するアプリケーションソフトを指定する
-    # （ブラウザを指定した場合には、github1s.com にアクセスして開く VSCode で利用可能となります）
-    fc.vscode_target        = ["Code.exe"]
-    fc.vscode_target       += ["chrome.exe",
-                               "msedge.exe",
-                               "firefox.exe"
-                              ]
-
     # キーマップ毎にキー設定をスキップするキーを指定する
     # （リストに指定するキーは、define_key の第二引数に指定する記法のキーとしてください。"A-v" や "C-v"
     #   のような指定の他に、"M-f" や "Ctl-x d" などの指定も可能です。）
@@ -496,15 +482,6 @@ def configure(keymap):
         fc.word_register_param = None
     #---------------------------------------------------------------------------------------------------
 
-    # 日本語キーボードで C-@ をマーク用のキーとして使うかどうかを指定する（True: 使う、False: 使わない）
-    # （VSCode で C-@ を Toggle Integrated Terminal 用のキーとして使えるようにするために設けた設定です。
-    #   True に設定した場合でも、Toggle Integrated Terminal 用のキーとしえて  C-<半角／全角> が使えます。）
-    fc.use_ctrl_atmark_for_mark = False
-
-    # VSCode の Terminal内 で ４つのキー（Ctrl+k、Ctrl+r、Ctrl+s、Ctrl+y）のダイレクト入力機能を使うか
-    # どうかを指定する（True: 使う、False: 使わない）
-    fc.use_direct_input_in_vscode_terminal = False
-
     # Emacs キーバインドを切り替えるキーを指定する
     # （Emacs キーバインドを利用するアプリケーションでかつフォーカスが当たっているアプリケーションソフト
     #   に対して切り替えが機能します。また、Emacs キーバインドを OFF にしても、IME の切り替えは img_target
@@ -607,7 +584,6 @@ def configure(keymap):
 
     fakeymacs.not_emacs_keybind = []
     fakeymacs.ime_cancel = False
-    fakeymacs.vscode_focus = "not_terminal"
     fakeymacs.last_window = None
 
     def is_emacs_target(window):
@@ -886,46 +862,41 @@ def configure(keymap):
         kill_region()
 
     def kill_line(repeat=1):
-        if (fc.use_direct_input_in_vscode_terminal and
-            isVscodeTarget() and
-            fakeymacs.vscode_focus == "terminal"):
-            self_insert_command("C-k")()
-        else:
-            resetRegion()
-            fakeymacs.is_marked = True
+        resetRegion()
+        fakeymacs.is_marked = True
 
-            if repeat == 1:
-                mark(move_end_of_line, True)()
+        if repeat == 1:
+            mark(move_end_of_line, True)()
+            delay()
+
+            if (checkWindow("cmd.exe", "ConsoleWindowClass") or       # Cmd
+                checkWindow("powershell.exe", "ConsoleWindowClass")): # PowerShell
+                kill_region()
+
+            elif checkWindow(None, "HM32CLIENT"): # Hidemaru Software
+                kill_region()
                 delay()
-
-                if (checkWindow("cmd.exe", "ConsoleWindowClass") or       # Cmd
-                    checkWindow("powershell.exe", "ConsoleWindowClass")): # PowerShell
-                    kill_region()
-
-                elif checkWindow(None, "HM32CLIENT"): # Hidemaru Software
-                    kill_region()
-                    delay()
-                    if getClipboardText() == "":
-                        self_insert_command("Delete")()
-                else:
-                    # 改行を消せるようにするため Cut にはしていない
-                    copyRegion()
+                if getClipboardText() == "":
                     self_insert_command("Delete")()
             else:
-                def move_end_of_region():
-                    if checkWindow("WINWORD.EXE", "_WwG"): # Microsoft Word
-                        for i in range(repeat):
-                            next_line()
-                        move_beginning_of_line()
-                    else:
-                        for i in range(repeat - 1):
-                            next_line()
-                        move_end_of_line()
-                        forward_char()
+                # 改行を消せるようにするため Cut にはしていない
+                copyRegion()
+                self_insert_command("Delete")()
+        else:
+            def move_end_of_region():
+                if checkWindow("WINWORD.EXE", "_WwG"): # Microsoft Word
+                    for i in range(repeat):
+                        next_line()
+                    move_beginning_of_line()
+                else:
+                    for i in range(repeat - 1):
+                        next_line()
+                    move_end_of_line()
+                    forward_char()
 
-                mark(move_end_of_region, True)()
-                delay()
-                kill_region()
+            mark(move_end_of_region, True)()
+            delay()
+            kill_region()
 
     def kill_region():
         # コマンドプロンプトには Cut に対応するショートカットがない。その対策。
@@ -949,12 +920,7 @@ def configure(keymap):
         resetRegion()
 
     def yank():
-        if (fc.use_direct_input_in_vscode_terminal and
-            isVscodeTarget() and
-            fakeymacs.vscode_focus == "terminal"):
-            self_insert_command("C-y")()
-        else:
-            self_insert_command("C-v")()
+        self_insert_command("C-v")()
 
     def undo():
         # redo（C-y）の機能を持っていないアプリケーションソフトは常に undo とする
@@ -1004,24 +970,8 @@ def configure(keymap):
     def kill_buffer():
         self_insert_command("C-F4")()
 
-    def kill_buffer2():
-        if isVscodeTarget():
-            # VSCode Command : Close Editor
-            vscodeExecuteCommand("workbench.action.closeActiveEditor")()
-        else:
-            kill_buffer()
-
     def switch_to_buffer():
-        if isVscodeTarget():
-            # VSCode Command : Quick Open Privious Recently Used Editor in Group
-            vscodeExecuteCommand("workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup")()
-        else:
-            self_insert_command("C-Tab")()
-
-    def list_buffers():
-        if isVscodeTarget():
-            # VSCode Command : Show All Editors By Most Recently Used
-            vscodeExecuteCommand("workbench.action.showAllEditorsByMostRecentlyUsed")()
+        self_insert_command("C-Tab")()
 
     def other_window():
         window_list = getWindowList()
@@ -1035,10 +985,7 @@ def configure(keymap):
     ##################################################
 
     def isearch(direction):
-        if (checkWindow("powershell.exe", "ConsoleWindowClass") or # PowerShell
-            (fc.use_direct_input_in_vscode_terminal and
-             isVscodeTarget() and
-             fakeymacs.vscode_focus == "terminal")):
+        if checkWindow("powershell.exe", "ConsoleWindowClass"): # PowerShell
             self_insert_command({"backward":"C-r", "forward":"C-s"}[direction])()
         else:
             if fakeymacs.is_searching:
@@ -1190,107 +1137,6 @@ def configure(keymap):
 
         if not fakeymacs.is_executing_command:
             keymap.ShellExecuteCommand(None, fc.command_name, "", "")()
-
-    ##################################################
-    ## VSCode 用
-    ##################################################
-
-    def isVscodeTarget():
-        if keymap.getWindow().getProcessName() in fc.vscode_target:
-            return True
-        else:
-            return False
-
-    ## マルチカーソル
-    def mark_up():
-        if isVscodeTarget():
-            # VSCode Command : cursorColumnSelectUp
-            self_insert_command("C-S-A-Up")()
-
-    def mark_down():
-        if isVscodeTarget():
-            # VSCode Command : cursorColumnSelectDown
-            self_insert_command("C-S-A-Down")()
-
-    def mark_next_like_this():
-        if isVscodeTarget():
-            # VSCode Command : Add Selection To Next Find Match
-            self_insert_command("C-d")()
-
-    def skip_to_next_like_this():
-        if isVscodeTarget():
-            # VSCode Command : Move Last Selection To Next Find Match
-            self_insert_command("C-k", "C-d")()
-
-    ## エディタ / ターミナル操作
-    def create_terminal():
-        if isVscodeTarget():
-            # VSCode Command : Create New Integrated Terminal
-            vscodeExecuteCommand2("workbench.action.terminal.new")()
-            if fc.use_direct_input_in_vscode_terminal:
-                fakeymacs.vscode_focus = "terminal"
-
-    def toggle_terminal():
-        if isVscodeTarget():
-            if fc.use_direct_input_in_vscode_terminal:
-                if fakeymacs.vscode_focus == "not_terminal":
-                    # VSCode Command : Focus on Terminal View
-                    vscodeExecuteCommand2("terminal.focus")()
-                    fakeymacs.vscode_focus = "terminal"
-                else:
-                    # VSCode Command : Close Panel
-                    vscodeExecuteCommand2("workbench.action.closePanel")()
-                    fakeymacs.vscode_focus = "not_terminal"
-            else:
-                # VSCode Command : Toggle Integrated Terminal
-                vscodeExecuteCommand2("workbench.action.terminal.toggleTerminal")()
-
-    def switch_focus(number):
-        def _func():
-            if isVscodeTarget():
-                # VSCode Command : Focus n-th Editor Group
-                self_insert_command("C-{}".format(number))()
-                if fc.use_direct_input_in_vscode_terminal:
-                    fakeymacs.vscode_focus = "not_terminal"
-        return _func
-
-    def other_group():
-        if isVscodeTarget():
-            # VSCode Command : Navigate Between Editor Groups
-            vscodeExecuteCommand("workbench.action.navigateEditorGroups")()
-            if fc.use_direct_input_in_vscode_terminal:
-                fakeymacs.vscode_focus = "not_terminal"
-
-    def delete_group():
-        if isVscodeTarget():
-            # VSCode Command : Close All Editors in Group
-            vscodeExecuteCommand("workbench.action.closeEditorsInGroup")()
-
-    def delete_other_groups():
-        if isVscodeTarget():
-            # VSCode Command : Close Editors in Other Groups
-            vscodeExecuteCommand("workbench.action.closeEditorsInOtherGroups")()
-
-    def split_editor_below():
-        if isVscodeTarget():
-            # VSCode Command : Split Editor Orthogonal
-            self_insert_command("C-k", "C-Yen")()
-
-    def split_editor_right():
-        if isVscodeTarget():
-            # VSCode Command : Split Editor
-            self_insert_command("C-Yen")()
-
-    ## その他
-    def execute_extended_command():
-        if isVscodeTarget():
-            # VSCode Command : Show All Commands
-            self_insert_command3("f1")()
-
-    def comment_dwim():
-        if isVscodeTarget():
-            # VSCode Command : Toggle Line Comment
-            self_insert_command("C-Slash")()
 
     ##################################################
     ## 共通関数
@@ -1593,19 +1439,6 @@ def configure(keymap):
         if imeStatus:
             keymap.getWindow().setImeStatus(1)
 
-    def vscodeExecuteCommand(command):
-        def _func():
-            self_insert_command("f1")()
-            princ(command)
-            self_insert_command("Enter")()
-        return _func
-
-    def vscodeExecuteCommand2(command):
-        def _func():
-            keymap.getWindow().setImeStatus(0)
-            vscodeExecuteCommand(command)()
-        return _func
-
     ##################################################
     ## キーバインド
     ##################################################
@@ -1779,8 +1612,7 @@ def configure(keymap):
 
     # C-Atmark を機能させるための設定
     if is_japanese_keyboard:
-        if fc.use_ctrl_atmark_for_mark:
-            define_key(keymap_emacs, "C-Atmark", reset_search(reset_undo(reset_counter(set_mark_command))))
+        define_key(keymap_emacs, "C-Atmark", reset_search(reset_undo(reset_counter(set_mark_command))))
     else:
         define_key(keymap_emacs, "C-S-2", reset_search(reset_undo(reset_counter(set_mark_command))))
 
@@ -1789,10 +1621,10 @@ def configure(keymap):
     define_key(keymap_emacs, "Ctl-x C-p", reset_search(reset_undo(reset_counter(mark_page))))
 
     ## 「バッファ / ウィンドウ操作」のキー設定
-    define_key(keymap_emacs, "M-k",       reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
-    define_key(keymap_emacs, "Ctl-x k",   reset_search(reset_undo(reset_counter(reset_mark(kill_buffer2)))))
-    define_key(keymap_emacs, "Ctl-x b",   reset_search(reset_undo(reset_counter(reset_mark(switch_to_buffer)))))
-    define_key(keymap_emacs, "Ctl-x C-b", reset_search(reset_undo(reset_counter(reset_mark(list_buffers)))))
+    define_key(keymap_emacs, "M-k",     reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
+    define_key(keymap_emacs, "Ctl-x k", reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
+    define_key(keymap_emacs, "Ctl-x b", reset_search(reset_undo(reset_counter(reset_mark(switch_to_buffer)))))
+    define_key(keymap_emacs, "Ctl-x o", reset_search(reset_undo(reset_counter(reset_mark(other_window)))))
 
     ## 「文字列検索 / 置換」のキー設定
     define_key(keymap_emacs, "C-r",   reset_undo(reset_counter(reset_mark(isearch_backward))))
@@ -1818,44 +1650,6 @@ def configure(keymap):
     define_key(keymap_emacs, "C-g",       reset_search(reset_counter(reset_mark(keyboard_quit))))
     define_key(keymap_emacs, "Ctl-x C-c", reset_search(reset_undo(reset_counter(reset_mark(kill_emacs)))))
     define_key(keymap_emacs, "M-S-1",     reset_search(reset_undo(reset_counter(reset_mark(shell_command)))))
-
-    ## 「VSCode 用」のキー設定（マルチカーソル）
-    define_key(keymap_emacs, "C-A-p", reset_search(reset_undo(reset_counter(mark_up))))
-    define_key(keymap_emacs, "C-A-n", reset_search(reset_undo(reset_counter(mark_down))))
-    define_key(keymap_emacs, "C-A-b", reset_search(reset_undo(reset_counter(mark2(repeat(backward_char), False)))))
-    define_key(keymap_emacs, "C-A-f", reset_search(reset_undo(reset_counter(mark2(repeat(forward_char), True)))))
-    define_key(keymap_emacs, "C-A-a", reset_search(reset_undo(reset_counter(mark2(move_beginning_of_line, False)))))
-    define_key(keymap_emacs, "C-A-e", reset_search(reset_undo(reset_counter(mark2(move_end_of_line, True)))))
-    define_key(keymap_emacs, "C-A-d", reset_search(reset_undo(reset_counter(mark_next_like_this))))
-    define_key(keymap_emacs, "C-A-s", reset_search(reset_undo(reset_counter(skip_to_next_like_this))))
-
-    ## 「VSCode 用」のキー設定（エディタ / ターミナル操作）
-    define_key(keymap_emacs, "Ctl-x o",   reset_search(reset_undo(reset_counter(reset_mark(other_group)))))
-    define_key(keymap_emacs, "Ctl-x 0",   reset_search(reset_undo(reset_counter(reset_mark(delete_group)))))
-    define_key(keymap_emacs, "Ctl-x 1",   reset_search(reset_undo(reset_counter(reset_mark(delete_other_groups)))))
-    define_key(keymap_emacs, "Ctl-x 2",   reset_search(reset_undo(reset_counter(reset_mark(split_editor_below)))))
-    define_key(keymap_emacs, "Ctl-x 3",   reset_search(reset_undo(reset_counter(reset_mark(split_editor_right)))))
-
-    define_key(keymap_emacs, "C-S-(243)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
-    define_key(keymap_emacs, "C-S-(244)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
-    define_key(keymap_emacs, "C-(243)",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
-    define_key(keymap_emacs, "C-(244)",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
-
-    if is_japanese_keyboard:
-        define_key(keymap_emacs, "C-S-Atmark", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
-
-        if not fc.use_ctrl_atmark_for_mark:
-            define_key(keymap_emacs, "C-Atmark", reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
-    else:
-        define_key(keymap_emacs, "C-S-BackQuote", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
-        define_key(keymap_emacs, "C-BackQuote",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
-
-    for key in range(10):
-        define_key(keymap_emacs, "C-{}".format(key), reset_search(reset_undo(reset_counter(reset_mark(switch_focus(key))))))
-
-    ## 「VSCode 用」のキー設定（その他）
-    define_key(keymap_emacs, "M-x",         reset_search(reset_undo(reset_counter(reset_mark(execute_extended_command)))))
-    define_key(keymap_emacs, "M-Semicolon", reset_search(reset_undo(reset_counter(comment_dwim))))
 
     ## 「タブ」のキー設定
     if fc.use_ctrl_i_as_tab:
