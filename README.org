@@ -157,9 +157,11 @@ Fakeymacs では、Python のクロージャの機能を多用しています。
 
 - https://www.lifewithpython.com/2014/09/python-use-closures.html
 
-** VSCode の強化ポイント（vscode_key 拡張機能で実現）
+** VSCode の強化ポイント
 
 VSCode については、一般的な Emacs キーバインドの他に次のキーバインドを利用できるようにしています。
+
+デフォルトで有効にしている拡張機能 vscode_key で実現しています。
 
 |-------------+-------------------------------+----------------------------------------|
 | Key-binding | Fakeymacs Function            | VSCode Command                         |
