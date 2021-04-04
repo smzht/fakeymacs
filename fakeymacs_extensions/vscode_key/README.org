@@ -120,7 +120,7 @@ def vscodeExecuteCommand(command):
 
 ※ ブラウザで github1s.com を指定した際に開く VSCode の画面では、M-k や Ctl-x k で
 発行している C-F4 がブラウザ側でキャッチされ、ブラウザのタブを閉じようとしてしまいます。
-このため、vscode_target 変数に指定したブラウザで github1s.com を開き、Ctl-x k を実行した
+このため、vscode_target 変数に指定したブラウザで github1s.com を開いて Ctl-x k を実行した
 場合には、コマンドパレットで Close Editor を実行するようにし、VSCode の機能が働くように
 しています。
 M-k は 従来どおり C-F4 を発行するのみの機能としていますので、github1s.com を利用する場合
@@ -130,7 +130,7 @@ M-k は 従来どおり C-F4 を発行するのみの機能としていますの
 
 ※ ブラウザで github1s.com を指定した際に開く VSCode の画面では、Ctl-x b で発行している
 C-Tab がブラウザ側でキャッチされ、ブラウザのタブを切り替えてしまいます。
-このため、vscode_target 変数に指定したブラウザで github1s.com を開き、Ctl-x b を実行した
+このため、vscode_target 変数に指定したブラウザで github1s.com を開いて Ctl-x b を実行した
 場合には、コマンドパレットで Quick Open Privious Recently Used Editor in Group を実行する
 ようにし、VSCode の機能が働くようにしています。
 C-Tab は 従来どおりブラウザで機能しますので、github1s.com を利用する場合には、C-Tab と
