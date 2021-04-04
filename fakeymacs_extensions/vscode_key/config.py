@@ -211,8 +211,8 @@ define_key3(keymap_emacs, "Ctl-x b",   reset_search(reset_undo(reset_counter(res
 define_key3(keymap_emacs, "Ctl-x C-b", reset_search(reset_undo(reset_counter(reset_mark(list_buffers)))))
 
 ## 「文字列検索」のキー設定
-define_key3(keymap_emacs, "C-r",   reset_undo(reset_counter(reset_mark(isearch_backward))))
-define_key3(keymap_emacs, "C-s",   reset_undo(reset_counter(reset_mark(isearch_forward))))
+define_key3(keymap_emacs, "C-r", reset_undo(reset_counter(reset_mark(isearch_backward))))
+define_key3(keymap_emacs, "C-s", reset_undo(reset_counter(reset_mark(isearch_forward))))
 
 ## 「エディタ操作」のキー設定
 define_key3(keymap_emacs, "Ctl-x o", reset_search(reset_undo(reset_counter(reset_mark(other_group)))))
