@@ -124,12 +124,6 @@ def isearch_forward():
     isearch2("forward")
 
 ## エディタ操作
-def other_group():
-    # VSCode Command : Navigate Between Editor Groups
-    vscodeExecuteCommand("workbench.action.navigateEditorGroups")()
-    if fc.use_direct_input_in_vscode_terminal:
-        fakeymacs.vscode_focus = "not_terminal"
-
 def delete_group():
     # VSCode Command : Close All Editors in Group
     vscodeExecuteCommand("workbench.action.closeEditorsInGroup")()
@@ -145,6 +139,12 @@ def split_editor_below():
 def split_editor_right():
     # VSCode Command : Split Editor
     self_insert_command("C-Yen")()
+
+def other_group():
+    # VSCode Command : Navigate Between Editor Groups
+    vscodeExecuteCommand("workbench.action.navigateEditorGroups")()
+    if fc.use_direct_input_in_vscode_terminal:
+        fakeymacs.vscode_focus = "not_terminal"
 
 def switch_focus(number):
     def _func():
@@ -215,11 +215,11 @@ define_key3(keymap_emacs, "C-r", reset_undo(reset_counter(reset_mark(isearch_bac
 define_key3(keymap_emacs, "C-s", reset_undo(reset_counter(reset_mark(isearch_forward))))
 
 ## 「エディタ操作」のキー設定
-define_key3(keymap_emacs, "Ctl-x o", reset_search(reset_undo(reset_counter(reset_mark(other_group)))))
 define_key3(keymap_emacs, "Ctl-x 0", reset_search(reset_undo(reset_counter(reset_mark(delete_group)))))
 define_key3(keymap_emacs, "Ctl-x 1", reset_search(reset_undo(reset_counter(reset_mark(delete_other_groups)))))
 define_key3(keymap_emacs, "Ctl-x 2", reset_search(reset_undo(reset_counter(reset_mark(split_editor_below)))))
 define_key3(keymap_emacs, "Ctl-x 3", reset_search(reset_undo(reset_counter(reset_mark(split_editor_right)))))
+define_key3(keymap_emacs, "Ctl-x o", reset_search(reset_undo(reset_counter(reset_mark(other_group)))))
 
 for n in range(10):
     define_key(keymap_vscode, "C-A-{}".format(n), reset_search(reset_undo(reset_counter(reset_mark(switch_focus(n))))))
