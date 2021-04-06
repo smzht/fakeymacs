@@ -145,7 +145,7 @@ not_emacs_target に登録されているアプリケーションソフトで有
 | C-/       | undo                 |                                         |
 | Ctl-x u   | undo                 |                                         |
 | C-_       | undo                 |                                         |
-| C-@       | set_mark_command     | use_ctrl_atmark_for_mark が True の場合 |
+| C-@       | set_mark_command     |                                         |
 | C-Space   | set_mark_command     |                                         |
 | Ctl-x h   | mark_whole_buffer    |                                         |
 | Ctl-x C-p | mark_page            |                                         |
@@ -155,34 +155,14 @@ not_emacs_target に登録されているアプリケーションソフトで有
 
 **** ● 「バッファ / ウィンドウ操作」のキー設定
 
-|-----------+------------------+---------------------------|
-| Keybind   | Function         | Description               |
-|-----------+------------------+---------------------------|
-| M-k       | kill_buffer      | Fakeymacs オリジナル定義  |
-| Ctl-x k   | kill_buffer2     | github1s ではこちらを利用 |
-| Ctl-x b   | switch_to_buffer |                           |
-| Ctl-x C-b | list_buffers     | 現在は、VSCode のみで動作 |
-|-----------+------------------+---------------------------|
-
-※ ブラウザで github1s.com を指定した際に開く VSCode の画面では、M-k や Ctl-x k で
-発行している C-F4 がブラウザ側でキャッチされ、ブラウザのタブを閉じようとしてしまいます。
-このため、vscode_target 変数に指定したブラウザで github1s.com を開き、Ctl-x k を実行した
-場合には、コマンドパレットで Close Editor を実行するようにし、VSCode の機能が働くように
-しています。
-M-k は 従来どおり C-F4 を発行するのみの機能としていますので、github1s.com を利用する場合
-には、M-k と Ctl-x k を使い分けるようにしてください。
-（この対応により、ブラウザで github1s.com を開いていない場合に Ctl-x k を発行すると、
-おかしな動き（F1 の実行により、ヘルプの画面が表示される）となります。ご留意ください。）
-
-※ ブラウザで github1s.com を指定した際に開く VSCode の画面では、Ctl-x b で発行している
-C-Tab がブラウザ側でキャッチされ、ブラウザのタブを切り替えてしまいます。
-このため、vscode_target 変数に指定したブラウザで github1s.com を開き、Ctl-x b を実行した
-場合には、コマンドパレットで Quick Open Privious Recently Used Editor in Group を実行する
-ようにし、VSCode の機能が働くようにしています。
-C-Tab は 従来どおりブラウザで機能しますので、github1s.com を利用する場合には、C-Tab と
-Ctl-x b を使い分けるようにしてください。
-（この対応により、ブラウザで github1s.com を開いていない場合に Ctl-x b を発行すると、
-おかしな動き（F1 の実行により、ヘルプの画面が表示される）となります。ご留意ください。）
+|---------+------------------+--------------------------|
+| Keybind | Function         | Description              |
+|---------+------------------+--------------------------|
+| M-k     | kill_buffer      | Fakeymacs オリジナル定義 |
+| Ctl-x k | kill_buffer      |                          |
+| Ctl-x b | switch_to_buffer |                          |
+| Ctl-x o | other_window     |                          |
+|---------+------------------+--------------------------|
 
 **** ● 「文字列検索 / 置換」のキー設定
 
@@ -222,55 +202,6 @@ Ctl-x b を使い分けるようにしてください。
 | Ctl-x C-c | kill_emacs             |                                                      |
 | M-!       | shell_command          |                                                      |
 |-----------+------------------------+------------------------------------------------------|
-
-**** ● 「VSCode 用」のキー設定
-
-「VSCode 用」のキー設定については、README.org の次の項の内容も参考としてください。
-
-- https://github.com/smzht/fakeymacs#vscode-%E3%81%AE%E5%BC%B7%E5%8C%96%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88
-
-***** ・ 「マルチカーソル」のキー設定
-
-|---------+-------------------------------+-------------|
-| Keybind | Function                      | Description |
-|---------+-------------------------------+-------------|
-| C-A-p   | mark_up                       |             |
-| C-A-n   | mark_down                     |             |
-| C-A-b   | mark + backward_char          |             |
-| C-A-f   | mark + forward_char           |             |
-| C-A-a   | mark + move_beginning_of_line |             |
-| C-A-e   | mark + move_end_of_line       |             |
-| C-A-d   | mark_next_like_this           |             |
-| C-A-s   | skip_to_next_like_this        |             |
-|---------+-------------------------------+-------------|
-
-***** ・ 「エディタ / ターミナル操作」のキー設定
-
-|-----------------+------------------------------+----------------------------------------------------------------|
-| Keybind         | Function                     | Description                                                    |
-|-----------------+------------------------------+----------------------------------------------------------------|
-| Ctl-x o         | other_group                  |                                                                |
-| Ctl-x 0         | delete_group                 |                                                                |
-| Ctl-x 1         | delete_other_groups          |                                                                |
-| Ctl-x 2         | split_editor_below           |                                                                |
-| Ctl-x 3         | split_editor_right           |                                                                |
-| C-S-` (C-~)     | create_terminal              | US Keyboard の場合                                             |
-| C-S-@ (C-`)     | create_terminal              | JIS Keyboard の場合                                            |
-| C-S-<半角/全角> | create_terminal              | JIS Keyboard の場合                                            |
-| C-`             | toggle_terminal              | US Keyboard の場合                                             |
-| C-@             | toggle_terminal              | JIS Keyboard の場合 / use_ctrl_atmark_for_mark が False の場合 |
-| C-<半角/全角>   | toggle_terminal              | JIS Keyboard の場合                                            |
-| C-<数字キー>    | switch_focus(<数字キーの値>) |                                                                |
-|-----------------+------------------------------+----------------------------------------------------------------|
-
-***** ・ 「その他」のキー設定
-
-|---------+--------------------------+-------------|
-| Keybind | Function                 | Description |
-|---------+--------------------------+-------------|
-| M-x     | execute_extended_command |             |
-| M-;     | comment_dwim             |             |
-|---------+--------------------------+-------------|
 
 *** ■ IME の切り替えのみを使うアプリケーションソフトのためのキーバインド
 

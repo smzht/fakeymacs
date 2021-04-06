@@ -25,6 +25,13 @@ except:
     # Search in Current File Extension  を利用するかどうかを指定する
     fc.vscode_occur = False
 
+def vscodeExecuteCommand(command):
+    def _func():
+        self_insert_command("f1")()
+        princ(command)
+        self_insert_command("Enter")()
+    return _func
+
 if fc.vscode_dired:
     def dired(window_keymap, key):
         # 新規に実行する関数を定義する（VSCode Command : Open dired buffer）

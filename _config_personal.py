@@ -47,14 +47,6 @@ fc.not_emacs_target    += [
 fc.ime_target          += [
                           ]
 
-# VSCode 用のキーバインドを利用するアプリケーションソフトを指定する
-# （ブラウザを指定した場合には、github1s.com にアクセスして開く VSCode で利用可能となります）
-fc.vscode_target        = ["Code.exe"]
-fc.vscode_target       += ["chrome.exe",
-                           "msedge.exe",
-                           "firefox.exe"
-                          ]
-
 # キーマップ毎にキー設定をスキップするキーを指定する
 # （リストに指定するキーは、define_key の第二引数に指定する記法のキーとしてください。"A-v" や "C-v"
 #   のような指定の他に、"M-f" や "Ctl-x d" などの指定も可能です。）
@@ -113,14 +105,14 @@ fc.set_input_method_key += [["(29)", "(28)"]]
 # fc.set_input_method_key += [["C-j", "C-o"]]
 #---------------------------------------------------------------------------------------------------
 
-# VSCode の Terminal内 で ４つのキー（Ctrl+k、Ctrl+r、Ctrl+s、Ctrl+y）のダイレクト入力機能を使うか
-# どうかを指定する（True: 使う、False: 使わない）
-# fc.use_direct_input_in_vscode_terminal = True
-
 # アプリケーションキーとして利用するキーを指定する
 # （修飾キーに Alt は使えないようです）
 # fc.application_key = "O-RCtrl"
 # fc.application_key = "W-m"
+
+# 数引数の指定に Ctrl+数字キーを使うかを指定する（True: 使う、False: 使わない）
+# （False に指定しても、C-u 数字キーで数引数を指定することができます）
+# fc.use_ctrl_digit_key_for_digit_argument = True
 
 # [section-base-2] ---------------------------------------------------------------------------------
 
@@ -203,6 +195,16 @@ fc.lancherList_listers = [
 ## 拡張機能の設定
 ####################################################################################################
 # [section-extensions] -----------------------------------------------------------------------------
+
+# VSCode 用のキーの設定を行う
+fc.vscode_target  = ["Code.exe"]
+fc.vscode_target += ["chrome.exe",
+                     "msedge.exe",
+                     "firefox.exe"
+                    ]
+fc.use_ctrl_atmark_for_mark = False
+fc.use_direct_input_in_vscode_terminal = False
+exec(readConfigExtension(r"vscode_key/config.py"), dict(globals(), **locals()))
 
 # VSCode で Extension のインストールが必要な機能の設定を行う
 # fc.vscode_dired = True
