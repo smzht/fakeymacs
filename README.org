@@ -191,7 +191,7 @@ VSCode については、一般的な Emacs キーバインドの他に次のキ
 |-------------+-------------------------------+----------------------------------------|
 
 VSCode に vcode-dired Extension、Center Editor Window Extension、Search in Current File を
-インストールし、Fakeymacs の vscode-extensions Extension を有効にすることにより、
+インストールし、Fakeymacs の 拡張機能 vscode-extensions を有効にすることにより、
 次のキーバインドも利用可能となります。
 
 |--------------+--------------------+------------------------|
