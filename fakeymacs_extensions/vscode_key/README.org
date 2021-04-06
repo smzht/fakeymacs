@@ -44,15 +44,16 @@ True に設定した場合でも、Toggle Integrated Terminal 用のキーとし
 
 ****  「エディタ操作」のキー設定
 
-|---------+---------------------+-------------|
-| Keybind | Function            | Description |
-|---------+---------------------+-------------|
-| Ctl-x o | other_group         |             |
-| Ctl-x 0 | delete_group        |             |
-| Ctl-x 1 | delete_other_groups |             |
-| Ctl-x 2 | split_editor_below  |             |
-| Ctl-x 3 | split_editor_right  |             |
-|---------+---------------------+-------------|
+|--------------+------------------------------+-------------|
+| Keybind      | Function                     | Description |
+|--------------+------------------------------+-------------|
+| Ctl-x o      | other_group                  |             |
+| Ctl-x 0      | delete_group                 |             |
+| Ctl-x 1      | delete_other_groups          |             |
+| Ctl-x 2      | split_editor_below           |             |
+| Ctl-x 3      | split_editor_right           |             |
+| C-<数字キー> | switch_focus(<数字キーの値>) |             |
+|--------------+------------------------------+-------------|
 
 ****  「マルチカーソル」のキー設定
 
@@ -80,7 +81,6 @@ True に設定した場合でも、Toggle Integrated Terminal 用のキーとし
 | C-`             | toggle_terminal              | US Keyboard の場合                                             |
 | C-@             | toggle_terminal              | JIS Keyboard の場合 / use_ctrl_atmark_for_mark が False の場合 |
 | C-<半角/全角>   | toggle_terminal              | JIS Keyboard の場合                                            |
-| C-<数字キー>    | switch_focus(<数字キーの値>) |                                                                |
 |-----------------+------------------------------+----------------------------------------------------------------|
 
 ****  「その他」のキー設定

@@ -146,6 +146,14 @@ def split_editor_right():
     # VSCode Command : Split Editor
     self_insert_command("C-Yen")()
 
+def switch_focus(number):
+    def _func():
+        # VSCode Command : Focus n-th Editor Group
+        self_insert_command("C-{}".format(number))()
+        if fc.use_direct_input_in_vscode_terminal:
+            fakeymacs.vscode_focus = "not_terminal"
+    return _func
+
 ## マルチカーソル
 def mark_up():
     # VSCode Command : cursorColumnSelectUp
@@ -184,14 +192,6 @@ def toggle_terminal():
         # VSCode Command : Toggle Integrated Terminal
         vscodeExecuteCommand2("workbench.action.terminal.toggleTerminal")()
 
-def switch_focus(number):
-    def _func():
-        # VSCode Command : Focus n-th Editor Group
-        self_insert_command("C-{}".format(number))()
-        if fc.use_direct_input_in_vscode_terminal:
-            fakeymacs.vscode_focus = "not_terminal"
-    return _func
-
 ## その他
 def execute_extended_command():
     # VSCode Command : Show All Commands
@@ -221,6 +221,9 @@ define_key3(keymap_emacs, "Ctl-x 1", reset_search(reset_undo(reset_counter(reset
 define_key3(keymap_emacs, "Ctl-x 2", reset_search(reset_undo(reset_counter(reset_mark(split_editor_below)))))
 define_key3(keymap_emacs, "Ctl-x 3", reset_search(reset_undo(reset_counter(reset_mark(split_editor_right)))))
 
+for key in range(10):
+    define_key(keymap_vscode, "C-{}".format(key), reset_search(reset_undo(reset_counter(reset_mark(switch_focus(key))))))
+
 ## 「マルチカーソル」のキー設定
 define_key(keymap_vscode, "C-A-p", reset_search(reset_undo(reset_counter(mark_up))))
 define_key(keymap_vscode, "C-A-n", reset_search(reset_undo(reset_counter(mark_down))))
@@ -244,9 +247,6 @@ if is_japanese_keyboard:
 else:
     define_key(keymap_vscode, "C-S-BackQuote", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
     define_key(keymap_vscode, "C-BackQuote",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
-
-for key in range(10):
-    define_key(keymap_vscode, "C-{}".format(key), reset_search(reset_undo(reset_counter(reset_mark(switch_focus(key))))))
 
 ## 「その他」のキー設定
 define_key3(keymap_emacs, "M-x",         reset_search(reset_undo(reset_counter(reset_mark(execute_extended_command)))))
