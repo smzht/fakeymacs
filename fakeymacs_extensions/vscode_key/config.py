@@ -222,7 +222,9 @@ define_key3(keymap_emacs, "Ctl-x 2", reset_search(reset_undo(reset_counter(reset
 define_key3(keymap_emacs, "Ctl-x 3", reset_search(reset_undo(reset_counter(reset_mark(split_editor_right)))))
 
 for key in range(10):
-    define_key(keymap_vscode, "C-{}".format(key), reset_search(reset_undo(reset_counter(reset_mark(switch_focus(key))))))
+    define_key(keymap_vscode, "C-A-{}".format(key), reset_search(reset_undo(reset_counter(reset_mark(switch_focus(key))))))
+    if not fc.use_ctrl_digit_key_for_digit_argument:
+        define_key(keymap_vscode, "C-{}".format(key), reset_search(reset_undo(reset_counter(reset_mark(switch_focus(key))))))
 
 ## 「マルチカーソル」のキー設定
 define_key(keymap_vscode, "C-A-p", reset_search(reset_undo(reset_counter(mark_up))))
