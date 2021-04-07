@@ -25,6 +25,10 @@ except:
     # Search in Current File Extension  を利用するかどうかを指定する
     fc.vscode_occur = False
 
+def define_key3(window_keymap, keys, command):
+    define_key(window_keymap, keys,
+               makeKeyCommand(window_keymap, keys, command, lambda: checkWindow("Code.exe", None)))
+
 def vscodeExecuteCommand(command):
     def _func():
         self_insert_command("f1")()
@@ -33,43 +37,22 @@ def vscodeExecuteCommand(command):
     return _func
 
 if fc.vscode_dired:
-    def dired(window_keymap, key):
-        # 新規に実行する関数を定義する（VSCode Command : Open dired buffer）
-        func1 = reset_search(reset_undo(reset_counter(reset_mark(vscodeExecuteCommand("extension.dired.open")))))
+    def dired():
+        # VSCode Command : Open dired buffer
+        reset_search(reset_undo(reset_counter(reset_mark(vscodeExecuteCommand("extension.dired.open")))))()
 
-        # 以前に定義した関数を抽出する
-        func2 = getKeyCommand(window_keymap, key)
-
-        def _func():
-            if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
-                func1()
-            else:
-                func2()
-        return _func
-
-    define_key(keymap_emacs, "Ctl-x d", dired(keymap_emacs, "Ctl-x d"))
+    define_key3(keymap_emacs, "Ctl-x d", dired)
 
 if fc.vscode_recenter:
-    def recenter(window_keymap, key):
-        # 新規に実行する関数を定義する（VSCode Command : Center Editor Window）
-        func1 = reset_search(reset_undo(reset_counter(self_insert_command("C-l"))))
+    def recenter():
+        # VSCode Command : Center Editor Window
+        reset_search(reset_undo(reset_counter(self_insert_command("C-l"))))()
 
-        # 以前に定義した関数を抽出する
-        func2 = getKeyCommand(window_keymap, key)
-
-        def _func():
-            if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
-                func1()
-            else:
-                func2()
-        return _func
-
-    define_key(keymap_emacs, "C-l", recenter(keymap_emacs, "C-l"))
+    define_key3(keymap_emacs, "C-l", recenter)
 
 if fc.vscode_occur:
     def occur():
-        if checkWindow("Code.exe", "Chrome_WidgetWin_1"): # VSCode
-            # VSCode Command : Search in Current File
-            vscodeExecuteCommand("search-in-current-file.searchInCurrentFile")()
+        # VSCode Command : Search in Current File
+        reset_search(reset_undo(reset_counter(reset_mark(vscodeExecuteCommand("search-in-current-file.searchInCurrentFile")))))()
 
-    define_key(keymap_emacs, "Ctl-x C-o", reset_search(reset_undo(reset_counter(reset_mark(occur)))))
+    define_key3(keymap_emacs, "Ctl-x C-o", occur)

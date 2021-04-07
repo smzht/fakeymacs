@@ -45,28 +45,9 @@ def is_vscode_target(window):
 keymap_vscode = keymap.defineWindowKeymap(check_func=is_vscode_target)
 
 ## 共通関数
-def isVscodeTarget():
-    return is_vscode_target(keymap.getWindow())
-
-def vscode_command(window_keymap, keys, command):
-    # 以前に定義した関数を抽出する
-    func = getKeyCommand(window_keymap, keys)
-    if func is None:
-        key_list = kbd(keys)[0]
-        if len(key_list) == 1:
-            func = keymap.InputKeyCommand(key_list[0])
-        else:
-            func = lambda: None
-
-    def _func():
-        if isVscodeTarget():
-            command()
-        else:
-            func()
-    return _func
-
 def define_key3(window_keymap, keys, command):
-    define_key(window_keymap, keys, vscode_command(window_keymap, keys, command))
+    define_key(window_keymap, keys,
+               makeKeyCommand(window_keymap, keys, command, lambda: is_vscode_target(keymap.getWindow())))
 
 def vscodeExecuteCommand(command):
     def _func():
