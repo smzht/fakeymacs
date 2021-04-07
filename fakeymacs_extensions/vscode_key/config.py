@@ -183,8 +183,8 @@ def comment_dwim():
     self_insert_command("C-Slash")()
 
 ## 「カット / コピー」のキー設定
-define_key3(keymap_emacs, "C-k", reset_search(reset_undo(reset_counter(reset_mark(repeat3(kill_line2))))))
-define_key3(keymap_emacs, "C-y", reset_search(reset_undo(reset_counter(reset_mark(repeat(yank2))))))
+define_key(keymap_vscode, "C-k", reset_search(reset_undo(reset_counter(reset_mark(repeat3(kill_line2))))))
+define_key(keymap_vscode, "C-y", reset_search(reset_undo(reset_counter(reset_mark(repeat(yank2))))))
 
 ## 「バッファ / ウィンドウ操作」のキー設定
 define_key3(keymap_emacs, "Ctl-x k",   reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
@@ -192,8 +192,8 @@ define_key3(keymap_emacs, "Ctl-x b",   reset_search(reset_undo(reset_counter(res
 define_key3(keymap_emacs, "Ctl-x C-b", reset_search(reset_undo(reset_counter(reset_mark(list_buffers)))))
 
 ## 「文字列検索」のキー設定
-define_key3(keymap_emacs, "C-r", reset_undo(reset_counter(reset_mark(isearch_backward))))
-define_key3(keymap_emacs, "C-s", reset_undo(reset_counter(reset_mark(isearch_forward))))
+define_key(keymap_vscode, "C-r", reset_undo(reset_counter(reset_mark(isearch_backward))))
+define_key(keymap_vscode, "C-s", reset_undo(reset_counter(reset_mark(isearch_forward))))
 
 ## 「エディタ操作」のキー設定
 define_key3(keymap_emacs, "Ctl-x 0", reset_search(reset_undo(reset_counter(reset_mark(delete_group)))))
