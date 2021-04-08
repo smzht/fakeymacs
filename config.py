@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210404_02"
+fakeymacs_version = "20210408_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1828,7 +1828,7 @@ def configure(keymap):
             if fakeymacs.is_playing_kmacro:
                 keymap.updateKeymap()
             else:
-                keymap.delayedCall(keymap.updateKeymap, 100)
+                keymap.delayedCall(keymap.updateKeymap, 0)
 
         ##################################################
         ## キーバインド（Emacs日本語入力モード用）
