@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210410_01"
+fakeymacs_version = "20210411_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -584,7 +584,6 @@ def configure(keymap):
 
     fakeymacs.not_emacs_keybind = []
     fakeymacs.ime_cancel = False
-    fakeymacs.ime_reconv = False
     fakeymacs.last_window = None
 
     def is_emacs_target(window):
@@ -748,9 +747,7 @@ def configure(keymap):
             if fakeymacs.ime_cancel:
                 self_insert_command(cancel_key)()
                 if fc.use_emacs_ime_mode:
-                    fakeymacs.ime_reconv = True
-                    enable_emacs_ime_mode()
-                    fakeymacs.ime_reconv = False
+                    enable_emacs_ime_mode(100)
             else:
                 if fc.ime_reconv_region:
                     if fakeymacs.forward_direction is not None:
@@ -1740,14 +1737,14 @@ def configure(keymap):
         ## Emacs日本語入力モード の切り替え
         ##################################################
 
-        def enable_emacs_ime_mode():
+        def enable_emacs_ime_mode(delay=0):
             fakeymacs.ei_last_window = keymap.getWindow()
             fakeymacs.ei_last_func = None
-            ei_updateKeymap()
+            ei_updateKeymap(delay)
 
         def disable_emacs_ime_mode():
             fakeymacs.ei_last_window = None
-            ei_updateKeymap()
+            ei_updateKeymap(0)
 
         ##################################################
         ## IME の切り替え（Emacs日本語入力モード用）
@@ -1827,14 +1824,11 @@ def configure(keymap):
                         else:
                             keymap.closeBalloon("emacs_ime_mode")
 
-        def ei_updateKeymap():
+        def ei_updateKeymap(delay):
             if fakeymacs.is_playing_kmacro:
                 keymap.updateKeymap()
             else:
-                if fakeymacs.ime_reconv:
-                    keymap.delayedCall(keymap.updateKeymap, 100)
-                else:
-                    keymap.delayedCall(keymap.updateKeymap, 0)
+                keymap.delayedCall(keymap.updateKeymap, delay)
 
         ##################################################
         ## キーバインド（Emacs日本語入力モード用）
