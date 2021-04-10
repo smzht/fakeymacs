@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210408_01"
+fakeymacs_version = "20210410_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -584,6 +584,7 @@ def configure(keymap):
 
     fakeymacs.not_emacs_keybind = []
     fakeymacs.ime_cancel = False
+    fakeymacs.ime_reconv = False
     fakeymacs.last_window = None
 
     def is_emacs_target(window):
@@ -747,7 +748,9 @@ def configure(keymap):
             if fakeymacs.ime_cancel:
                 self_insert_command(cancel_key)()
                 if fc.use_emacs_ime_mode:
+                    fakeymacs.ime_reconv = True
                     enable_emacs_ime_mode()
+                    fakeymacs.ime_reconv = False
             else:
                 if fc.ime_reconv_region:
                     if fakeymacs.forward_direction is not None:
@@ -1828,7 +1831,10 @@ def configure(keymap):
             if fakeymacs.is_playing_kmacro:
                 keymap.updateKeymap()
             else:
-                keymap.delayedCall(keymap.updateKeymap, 0)
+                if fakeymacs.ime_reconv:
+                    keymap.delayedCall(keymap.updateKeymap, 100)
+                else:
+                    keymap.delayedCall(keymap.updateKeymap, 0)
 
         ##################################################
         ## キーバインド（Emacs日本語入力モード用）
