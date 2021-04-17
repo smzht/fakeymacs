@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210417_03"
+fakeymacs_version = "20210417_04"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -590,6 +590,7 @@ def configure(keymap):
     fakeymacs.not_emacs_keybind = []
     fakeymacs.ime_cancel = False
     fakeymacs.last_window = None
+    fakeymacs.clipboard_hook = True
 
     def is_emacs_target(window):
         last_window  = fakeymacs.last_window
@@ -601,9 +602,11 @@ def configure(keymap):
                 any([checkWindow(None, c, window) for c in fc.not_clipboard_target_class])):
                 # クリップボードの監視用のフックを無効にする
                 keymap.clipboard_history.enableHook(False)
+                fakeymacs.clipboard_hook = False
             else:
                 # クリップボードの監視用のフックを有効にする
                 keymap.clipboard_history.enableHook(True)
+                fakeymacs.clipboard_hook = True
 
             if process_name in fc.emacs_exclusion_key:
                 fakeymacs.exclution_key = list(map(str,
@@ -1166,8 +1169,7 @@ def configure(keymap):
     def pushToClipboardList():
         # clipboard 監視の対象外とするアプリケーションソフトで copy / cut した場合でも
         # クリップボードの内容をクリップボードリストに登録する
-        if (keymap.getWindow().getProcessName() in fc.not_clipboard_target or
-            any([checkWindow(None, c) for c in fc.not_clipboard_target_class])):
+        if not fakeymacs.clipboard_hook:
             clipboard_text = getClipboardText()
             if clipboard_text:
                 keymap.clipboard_history._push(clipboard_text)
