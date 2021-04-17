@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210417_02"
+fakeymacs_version = "20210417_03"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1166,7 +1166,8 @@ def configure(keymap):
     def pushToClipboardList():
         # clipboard 監視の対象外とするアプリケーションソフトで copy / cut した場合でも
         # クリップボードの内容をクリップボードリストに登録する
-        if keymap.getWindow().getProcessName() in fc.not_clipboard_target:
+        if (keymap.getWindow().getProcessName() in fc.not_clipboard_target or
+            any([checkWindow(None, c) for c in fc.not_clipboard_target_class])):
             clipboard_text = getClipboardText()
             if clipboard_text:
                 keymap.clipboard_history._push(clipboard_text)
