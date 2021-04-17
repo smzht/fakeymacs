@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210417_05"
+fakeymacs_version = "20210417_06"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -233,8 +233,7 @@ def configure(keymap):
     ## カスタマイズパラメータの設定
     ###########################################################################
 
-    # Emacs のキーバインドにするウィンドウのクラスネームを指定する（ワイルドカードの指定可）
-    # （全ての設定に優先します）
+    # Emacs のキーバインドにするウィンドウのクラスネームを指定する（全ての設定に優先する）
     fc.emacs_target_class   = ["Edit"]                   # テキスト入力フィールドなどが該当
 
     # Emacs のキーバインドに“したくない”アプリケーションソフトを指定する
@@ -624,7 +623,7 @@ def configure(keymap):
         if is_list_window(window):
             return False
 
-        if (not any([checkWindow(None, c, window) for c in fc.emacs_target_class]) and
+        if (class_name not in fc.emacs_target_class and
             (process_name in fakeymacs.not_emacs_keybind or
              process_name in fc.not_emacs_target)):
             fakeymacs.keybind = "not_emacs"
@@ -636,7 +635,7 @@ def configure(keymap):
             return True
 
     def is_ime_target(window):
-        if (not any([checkWindow(None, c, window) for c in fc.emacs_target_class]) and
+        if (window.getClassName() not in fc.emacs_target_class and
             (window.getProcessName() in fakeymacs.not_emacs_keybind or
              window.getProcessName() in fc.ime_target)):
             return True
@@ -700,7 +699,7 @@ def configure(keymap):
         class_name   = keymap.getWindow().getClassName()
         process_name = keymap.getWindow().getProcessName()
 
-        if (not any([checkWindow(None, c) for c in fc.emacs_target_class]) and
+        if (class_name not in fc.emacs_target_class and
             process_name not in fc.not_emacs_target):
             if process_name in fakeymacs.not_emacs_keybind:
                 fakeymacs.not_emacs_keybind.remove(process_name)
