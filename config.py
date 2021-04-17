@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210411_01"
+fakeymacs_version = "20210417_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -688,16 +688,16 @@ def configure(keymap):
     ##################################################
 
     def toggle_emacs_keybind():
-        className   = keymap.getWindow().getClassName()
-        processName = keymap.getWindow().getProcessName()
+        class_name   = keymap.getWindow().getClassName()
+        process_name = keymap.getWindow().getProcessName()
 
-        if (className not in fc.emacs_target_class and
-            processName not in fc.not_emacs_target):
-            if processName in fakeymacs.not_emacs_keybind:
-                fakeymacs.not_emacs_keybind.remove(processName)
+        if (class_name not in fc.emacs_target_class and
+            process_name not in fc.not_emacs_target):
+            if process_name in fakeymacs.not_emacs_keybind:
+                fakeymacs.not_emacs_keybind.remove(process_name)
                 keymap.popBalloon("keybind", "[Enable Emacs keybind]", 1000)
             else:
-                fakeymacs.not_emacs_keybind.append(processName)
+                fakeymacs.not_emacs_keybind.append(process_name)
                 keymap.popBalloon("keybind", "[Disable Emacs keybind]", 1000)
 
             keymap.updateKeymap()
@@ -1193,11 +1193,11 @@ def configure(keymap):
                 else:
                     self_insert_command("Left")()
 
-    def checkWindow(processName, className, window=None):
+    def checkWindow(process_name, class_name, window=None):
         if window is None:
             window = keymap.getWindow()
-        return ((processName is None or fnmatch.fnmatch(window.getProcessName(), processName)) and
-                (className is None or fnmatch.fnmatch(window.getClassName(), className)))
+        return ((process_name is None or fnmatch.fnmatch(window.getProcessName(), process_name)) and
+                (class_name is None or fnmatch.fnmatch(window.getClassName(), class_name)))
 
     def vkeys():
         vkeys = list(keyCondition.vk_str_table)
@@ -1976,22 +1976,22 @@ def configure(keymap):
         def makeWindowList(wnd, arg):
             if wnd.isVisible() and not wnd.getOwner():
 
-                className = wnd.getClassName()
+                class_name = wnd.getClassName()
                 title = wnd.getText()
 
-                if className == "Emacs" or title != "":
-                    if not re.match(fc.window_operation_exclusion_class, className):
-                        processName = wnd.getProcessName()
-                        if not re.match(fc.window_operation_exclusion_process, processName):
+                if class_name == "Emacs" or title != "":
+                    if not re.match(fc.window_operation_exclusion_class, class_name):
+                        process_name = wnd.getProcessName()
+                        if not re.match(fc.window_operation_exclusion_process, process_name):
                             # 表示されていないストアアプリ（「設定」等）が window_list に登録されるのを抑制する
-                            if className == "Windows.UI.Core.CoreWindow":
+                            if class_name == "Windows.UI.Core.CoreWindow":
                                 if title in window_dict:
                                     if window_dict[title] in window_list:
                                         window_list.remove(window_dict[title])
                                 else:
                                     window_dict[title] = wnd
 
-                            elif className == "ApplicationFrameWindow":
+                            elif class_name == "ApplicationFrameWindow":
                                 if title not in window_dict:
                                     window_dict[title] = wnd
                                     window_list.append(wnd)
@@ -2360,9 +2360,9 @@ def configure(keymap):
             window_list = getWindowList()
             window_items = []
             if window_list:
-                processName_length = max(map(len, map(Window.getProcessName, window_list)))
+                process_name_length = max(map(len, map(Window.getProcessName, window_list)))
 
-                formatter = "{0:" + str(processName_length) + "} | {1}"
+                formatter = "{0:" + str(process_name_length) + "} | {1}"
                 for wnd in window_list:
                     window_items.append([formatter.format(wnd.getProcessName(), wnd.getText()), popWindow(wnd)])
 

@@ -20,8 +20,8 @@ except:
                            ["explorer.exe", "DirectUIHWND"]]
 
 def is_edit_mode_target(window):
-    for processName, className in fc.edit_mode_target:
-        if checkWindow(processName, className, window):
+    for process_name, class_name in fc.edit_mode_target:
+        if checkWindow(process_name, class_name, window):
             return True
     return False
 
