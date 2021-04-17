@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210417_01"
+fakeymacs_version = "20210417_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -233,7 +233,8 @@ def configure(keymap):
     ## カスタマイズパラメータの設定
     ###########################################################################
 
-    # Emacs のキーバインドにするウィンドウのクラスネームを指定する（全ての設定に優先する）
+    # Emacs のキーバインドにするウィンドウのクラスネームを指定する（ワイルドカードの指定可）
+    # （全ての設定に優先します）
     fc.emacs_target_class   = ["Edit"]                   # テキスト入力フィールドなどが該当
 
     # Emacs のキーバインドに“したくない”アプリケーションソフトを指定する
@@ -325,7 +326,11 @@ def configure(keymap):
 
     # clipboard 監視の対象外とするアプリケーションソフトを指定する
     fc.not_clipboard_target = []
-    fc.not_clipboard_target += ["EXCEL.EXE"] # Excel
+    fc.not_clipboard_target += ["EXCEL.EXE"] # Microsoft Excel
+
+    # clipboard 監視の対象外とするウィンドウのクラスネームを指定する（ワイルドカードの指定可）
+    fc.not_clipboard_target_class = []
+    fc.not_clipboard_target_class += ["HwndWrapper*"] # WPF アプリ
 
     # 左右どちらの Ctrlキーを使うかを指定する（"L": 左、"R": 右）
     fc.side_of_ctrl_key = "L"
@@ -587,21 +592,24 @@ def configure(keymap):
     fakeymacs.last_window = None
 
     def is_emacs_target(window):
-        last_window = fakeymacs.last_window
+        last_window  = fakeymacs.last_window
+        process_name = window.getProcessName()
+        class_name   = window.getClassName()
 
         if window != last_window:
-            if window.getProcessName() in fc.not_clipboard_target:
+            if (process_name in fc.not_clipboard_target or
+                any([checkWindow(None, c, window) for c in fc.not_clipboard_target_class])):
                 # クリップボードの監視用のフックを無効にする
                 keymap.clipboard_history.enableHook(False)
             else:
                 # クリップボードの監視用のフックを有効にする
                 keymap.clipboard_history.enableHook(True)
 
-            if window.getProcessName() in fc.emacs_exclusion_key:
+            if process_name in fc.emacs_exclusion_key:
                 fakeymacs.exclution_key = list(map(str,
                                                    map(keyhac_keymap.KeyCondition.fromString,
                                                        map(addSideOfModifierKey,
-                                                           fc.emacs_exclusion_key[window.getProcessName()]))))
+                                                           fc.emacs_exclusion_key[process_name]))))
             else:
                 fakeymacs.exclution_key = []
 
@@ -615,9 +623,9 @@ def configure(keymap):
         if is_list_window(window):
             return False
 
-        if (window.getClassName() not in fc.emacs_target_class and
-            (window.getProcessName() in fakeymacs.not_emacs_keybind or
-             window.getProcessName() in fc.not_emacs_target)):
+        if (not any([checkWindow(None, c, window) for c in fc.emacs_target_class]) and
+            (process_name in fakeymacs.not_emacs_keybind or
+             process_name in fc.not_emacs_target)):
             fakeymacs.keybind = "not_emacs"
             return False
         else:
@@ -627,7 +635,7 @@ def configure(keymap):
             return True
 
     def is_ime_target(window):
-        if (window.getClassName() not in fc.emacs_target_class and
+        if (not any([checkWindow(None, c, window) for c in fc.emacs_target_class]) and
             (window.getProcessName() in fakeymacs.not_emacs_keybind or
              window.getProcessName() in fc.ime_target)):
             return True
@@ -691,7 +699,7 @@ def configure(keymap):
         class_name   = keymap.getWindow().getClassName()
         process_name = keymap.getWindow().getProcessName()
 
-        if (class_name not in fc.emacs_target_class and
+        if (not any([checkWindow(None, c) for c in fc.emacs_target_class]) and
             process_name not in fc.not_emacs_target):
             if process_name in fakeymacs.not_emacs_keybind:
                 fakeymacs.not_emacs_keybind.remove(process_name)
@@ -1147,17 +1155,18 @@ def configure(keymap):
 
     def copyRegion():
         self_insert_command("C-c")()
-        pushToClipboardList()
+        # C-k (kill_line) したときに k 文字が混在することがあるための対策
+        keymap.delayedCall(pushToClipboardList, 100)
 
     def cutRegion():
         self_insert_command("C-x")()
-        pushToClipboardList()
+        # C-k (kill_line) したときに k 文字が混在することがあるための対策
+        keymap.delayedCall(pushToClipboardList, 100)
 
     def pushToClipboardList():
         # clipboard 監視の対象外とするアプリケーションソフトで copy / cut した場合でも
         # クリップボードの内容をクリップボードリストに登録する
         if keymap.getWindow().getProcessName() in fc.not_clipboard_target:
-            delay(0.1)
             clipboard_text = getClipboardText()
             if clipboard_text:
                 keymap.clipboard_history._push(clipboard_text)
