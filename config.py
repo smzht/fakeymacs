@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210417_04"
+fakeymacs_version = "20210417_05"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -609,10 +609,8 @@ def configure(keymap):
                 fakeymacs.clipboard_hook = True
 
             if process_name in fc.emacs_exclusion_key:
-                fakeymacs.exclution_key = list(map(str,
-                                                   map(keyhac_keymap.KeyCondition.fromString,
-                                                       map(addSideOfModifierKey,
-                                                           fc.emacs_exclusion_key[process_name]))))
+                fakeymacs.exclution_key = [str(keyhac_keymap.KeyCondition.fromString(addSideOfModifierKey(key)))
+                                           for key in fc.emacs_exclusion_key[process_name]]
             else:
                 fakeymacs.exclution_key = []
 
