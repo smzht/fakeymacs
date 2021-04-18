@@ -18,6 +18,7 @@ Fakeymacs をカスタマイズするために、下記のコンフィグレー�
 | skip_settings_key                      | キーマップ毎にキー設定をスキップするキーを指定する                                                                        |
 | emacs_exclusion_key                    | Emacs のキーバインドにするアプリケーションソフトで、Emacs キーバインドから除外するキーを指定する                          |
 | not_clipboard_target                   | clipboard 監視の対象外とするアプリケーションソフトを指定する                                                              |
+| not_clipboard_target_class             | clipboard 監視の対象外とするウィンドウのクラスネームを指定する（ワイルドカードの指定可）                                  |
 | side_of_ctrl_key                       | 左右どちらの Ctrlキーを使うかを指定する                                                                                   |
 | side_of_alt_key                        | 左右どちらの Altキーを使うかを指定する                                                                                    |
 | side_of_win_key                        | 左右どちらの Winキーを使うかを指定する                                                                                    |

@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210417_06"
+fakeymacs_version = "20210417_07"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -18,11 +18,11 @@ fakeymacs_version = "20210417_06"
 #
 # ＜共通の仕様＞
 # ・emacs_target_class 変数、not_emacs_target 変数、ime_target 変数で、Emacsキーバインドや
-#   IME の切り替えキーバインドの対象とするアプリケーションソフトを指定できる。
+#   IME の切り替えキーバインドの対象とするアプリケーションソフトやウィンドウを指定できる。
 # ・skip_settings_key 変数で、キーマップ毎にキー設定をスキップするキーを指定できる。
 # ・emacs_exclusion_key 変数で、Emacs キーバインドから除外するキーを指定できる。
-# ・not_clipboard_target 変数で、clipboard 監視の対象外とするアプリケーションソフトを指定
-#   できる。
+# ・not_clipboard_target 変数、not_clipboard_target_class 変数で、clipboard 監視の対象外と
+#   するアプリケーションソフトやウィンドウを指定できる。
 # ・左右どちらの Ctrlキーを使うかを side_of_ctrl_key 変数で指定できる。
 # ・左右どちらの Altキーを使うかを side_of_alt_key 変数で指定できる。
 # ・左右どちらの Winキーを使うかを side_of_win_key 変数で指定できる。
