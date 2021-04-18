@@ -45,7 +45,7 @@ Fakeymacs をカスタマイズするために、下記のコンフィグレー�
 | desktop_switching_key                  | 仮想デスクトップを切り替えるキーの組み合わせ（前、後 の順）を指定する                                                     |
 | window_movement_key_for_desktops       | アクティブウィンドウを仮想デスクトップ間で移動するキーの組み合わせ（前、後 の順）を指定する                               |
 | window_operation_exclusion_class       | ウィンドウ操作（other_window、restore_window など）の対象としたくないアプリケーションソフトの“クラス名称”を指定する     |
-| window_operation_exclusion_process     | ウィンドウ操作（other_window、restore_window など）の対象としたくないアプリケーションソフトの プロセス名称”を指定する    |
+| window_operation_exclusion_process     | ウィンドウ操作（other_window、restore_window など）の対象としたくないアプリケーションソフトの“プロセス名称”を指定する   |
 | clipboardList_key                      | クリップボードリストを起動するキーを指定する                                                                              |
 | clipboardList_listers                  | クリップボードリストの利用アイテムを指定する                                                                              |
 | lancherList_key                        | ランチャーリストを起動するキーを指定する                                                                                  |
