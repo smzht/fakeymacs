@@ -150,7 +150,7 @@ _config_personal.py というファイルを config_personal.py というファ�
 として機能します。本ファイルの設定には [ ] で括られたセクション名が定義されており、その単位で config.py
 の中に設定が取り込まれ、exec 関数により実行されます。
 
-config.py でコンフィグレーションパラメータ等の設定を変更したい内容は、config_personal.py に記載して
+config.py のコンフィグレーションパラメータ等の設定を変更したい内容は、config_personal.py に記載して
 管理することで、config.py のバージョンアップに容易に対応できるようになります。
 
 何のセクションがどこで読み込まれるかについては、config.py ファイル内の exec 関数をコールしている
