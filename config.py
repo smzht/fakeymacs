@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210504_02"
+fakeymacs_version = "20210505_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -827,9 +827,9 @@ def configure(keymap):
     def goto_line():
         if (checkWindow("sakura.exe", "EditorClient") or # Sakura Editor
             checkWindow("sakura.exe", "SakuraView*")):   # Sakura Editor
-            self_insert_command("C-j")()
+            self_insert_command3("C-j")()
         else:
-            self_insert_command("C-g")()
+            self_insert_command3("C-g")()
 
     def scroll_up():
         self_insert_command("PageUp")()
