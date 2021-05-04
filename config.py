@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210504_01"
+fakeymacs_version = "20210504_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1255,13 +1255,15 @@ def configure(keymap):
                     key_list1.append(key)
                     key_list2.append(key)
 
-            key_lists = [key_list0]
+            key_lists = []
+
+            if key_list0:
+                key_lists = [key_list0]
+
             if mata_flg:
                 key_lists.append(key_list1)
                 if fc.use_esc_as_meta:
                     key_lists.append(key_list2)
-
-            key_lists = [key_list for key_list in key_lists if key_list]
 
             for key_list in key_lists:
                 key_list[0] = addSideOfModifierKey(key_list[0])
