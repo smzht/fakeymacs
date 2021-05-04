@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210417_07"
+fakeymacs_version = "20210503_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1222,27 +1222,27 @@ def configure(keymap):
 
     def kbd(keys):
         if keys:
-            keys_lists = [keys.split()]
+            key_lists = [keys.split()]
 
-            if keys_lists[0][0] == "Ctl-x":
+            if key_lists[0][0] == "Ctl-x":
                 if fc.ctl_x_prefix_key:
-                    keys_lists[0][0] = fc.ctl_x_prefix_key
+                    key_lists[0][0] = fc.ctl_x_prefix_key
                 else:
-                    keys_lists = []
+                    key_lists = []
 
-            elif keys_lists[0][0].startswith("M-"):
-                key = re.sub("^M-", "", keys_lists[0][0])
-                keys_lists[0][0] = "A-" + key
-                keys_lists.append(["C-OpenBracket", key])
+            elif key_lists[0][0].startswith("M-"):
+                key = re.sub("^M-", "", key_lists[0][0])
+                key_lists[0][0] = "A-" + key
+                key_lists.append(["C-OpenBracket", key])
                 if fc.use_esc_as_meta:
-                    keys_lists.append(["Esc", key])
+                    key_lists.append(["Esc", key])
 
-            for keys_list in keys_lists:
-                keys_list[0] = addSideOfModifierKey(keys_list[0])
+            for key_list in key_lists:
+                key_list[0] = addSideOfModifierKey(key_list[0])
         else:
-            keys_lists = []
+            key_lists = []
 
-        return keys_lists
+        return key_lists
 
     def define_key(window_keymap, keys, command, skip_check=True):
         if skip_check:
@@ -1287,19 +1287,19 @@ def configure(keymap):
             else:
                 return command
 
-        for keys_list in kbd(keys):
-            if len(keys_list) == 1:
-                window_keymap[keys_list[0]] = keyCommand(keys_list[0])
+        for key_list in kbd(keys):
+            if len(key_list) == 1:
+                window_keymap[key_list[0]] = keyCommand(key_list[0])
 
                 # Alt キーを単押しした際に、カーソルがメニューへ移動しないようにする
                 # https://www.haijin-boys.com/discussions/4583
-                if re.match(keys_list[0], r"O-LAlt$", re.IGNORECASE):
+                if re.match(key_list[0], r"O-LAlt$", re.IGNORECASE):
                     window_keymap["D-LAlt"] = "D-LAlt", "(7)"
 
-                if re.match(keys_list[0], r"O-RAlt$", re.IGNORECASE):
+                if re.match(key_list[0], r"O-RAlt$", re.IGNORECASE):
                     window_keymap["D-RAlt"] = "D-RAlt", "(7)"
             else:
-                window_keymap[keys_list[0]][keys_list[1]] = keyCommand(None)
+                window_keymap[key_list[0]][key_list[1]] = keyCommand(None)
 
     def define_key2(window_keymap, keys, command):
         define_key(window_keymap, keys, command, skip_check=False)
@@ -1322,11 +1322,11 @@ def configure(keymap):
 
     def getKeyCommand(window_keymap, keys):
         try:
-            keys_list = kbd(keys)[-1]
-            if len(keys_list) == 1:
-                func = window_keymap[keys_list[0]]
+            key_list = kbd(keys)[-1]
+            if len(key_list) == 1:
+                func = window_keymap[key_list[0]]
             else:
-                func = window_keymap[keys_list[0]][keys_list[1]]
+                func = window_keymap[key_list[0]][key_list[1]]
         except:
             func = None
 
