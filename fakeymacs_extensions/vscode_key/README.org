@@ -39,15 +39,15 @@ True に設定した場合でも C-<半角／全角> が使えます。
 
 **** ● 「カーソル移動」のキー設定
 
-|---------+---------------------+-------------|
-| Keybind | Function            | Description |
-|---------+---------------------+-------------|
-| M-g p   | goto_previous_error |             |
-| M-g M-p | goto_previous_error |             |
-| M-g n   | goto_next_error     |             |
-| M-g M-n | goto_next_error     |             |
-| Ctl-x ` | goto_next_error     |             |
-|---------+---------------------+-------------|
+|---------+----------------+-------------|
+| Keybind | Function       | Description |
+|---------+----------------+-------------|
+| M-g p   | previous_error |             |
+| M-g M-p | previous_error |             |
+| M-g n   | next_error     |             |
+| M-g M-n | next_error     |             |
+| Ctl-x ` | next_error     |             |
+|---------+----------------+-------------|
 
 **** ● 「バッファ / ウィンドウ操作」のキー設定
 

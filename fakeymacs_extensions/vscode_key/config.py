@@ -63,11 +63,11 @@ def vscodeExecuteCommand2(command):
     return _func
 
 ## カーソル移動
-def goto_previous_error():
+def previous_error():
     # VSCode Command : Go to Previous Problem in Files (Error, Warning, Info)
     self_insert_command("S-F8")()
 
-def goto_next_error():
+def next_error():
     # VSCode Command : Go to Next Problem in Files (Error, Warning, Info)
     self_insert_command("F8")()
 
@@ -192,11 +192,11 @@ def comment_dwim():
     self_insert_command("C-Slash")()
 
 ## 「カーソル移動」のキー設定
-define_key3(keymap_emacs, "M-g p",           reset_search(reset_undo(reset_counter(reset_mark(goto_previous_error)))))
-define_key3(keymap_emacs, "M-g M-p",         reset_search(reset_undo(reset_counter(reset_mark(goto_previous_error)))))
-define_key3(keymap_emacs, "M-g n",           reset_search(reset_undo(reset_counter(reset_mark(goto_next_error)))))
-define_key3(keymap_emacs, "M-g M-n",         reset_search(reset_undo(reset_counter(reset_mark(goto_next_error)))))
-define_key3(keymap_emacs, "Ctl-x BackQuote", reset_search(reset_undo(reset_counter(reset_mark(goto_next_error)))))
+define_key3(keymap_emacs, "M-g p",           reset_search(reset_undo(reset_counter(reset_mark(previous_error)))))
+define_key3(keymap_emacs, "M-g M-p",         reset_search(reset_undo(reset_counter(reset_mark(previous_error)))))
+define_key3(keymap_emacs, "M-g n",           reset_search(reset_undo(reset_counter(reset_mark(next_error)))))
+define_key3(keymap_emacs, "M-g M-n",         reset_search(reset_undo(reset_counter(reset_mark(next_error)))))
+define_key3(keymap_emacs, "Ctl-x BackQuote", reset_search(reset_undo(reset_counter(reset_mark(next_error)))))
 
 ## 「カット / コピー」のキー設定
 define_key3(keymap_emacs, "C-k", reset_search(reset_undo(reset_counter(reset_mark(repeat3(kill_line2))))))

@@ -172,11 +172,11 @@ VSCode については、一般的な Emacs キーバインドの他に次のキ
 |---------------------+-------------------------------+--------------------------------------------------------|
 | Key-binding         | Fakeymacs Function            | VSCode Command                                         |
 |---------------------+-------------------------------+--------------------------------------------------------|
-| M-g p               | goto_previous_error           | Go to Previous Problem in Files (Error, Warning, Info) |
-| M-g M-p             | goto_previous_error           | Go to Previous Problem in Files (Error, Warning, Info) |
-| M-g n               | goto_next_error               | Go to Next Problem in Files (Error, Warning, Info)     |
-| M-g M-n             | goto_next_error               | Go to Next Problem in Files (Error, Warning, Info)     |
-| Ctl-x `             | goto_next_error               | Go to Next Problem in Files (Error, Warning, Info)     |
+| M-g p               | previous_error                | Go to Previous Problem in Files (Error, Warning, Info) |
+| M-g M-p             | previous_error                | Go to Previous Problem in Files (Error, Warning, Info) |
+| M-g n               | next_error                    | Go to Next Problem in Files (Error, Warning, Info)     |
+| M-g M-n             | next_error                    | Go to Next Problem in Files (Error, Warning, Info)     |
+| Ctl-x `             | next_error                    | Go to Next Problem in Files (Error, Warning, Info)     |
 | Ctl+x 0             | delete_group                  | Close All Editors in Group                             |
 | Ctl+x 1             | delete_other_groups           | Close Editors in Other Groups                          |
 | Ctl+x 2             | split_editor_below            | Split Editor Orthogonal                                |
