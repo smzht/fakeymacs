@@ -113,6 +113,8 @@ not_emacs_target に登録されているアプリケーションソフトで有
 | C-e                    | move_end_of_line              |                                      |
 | M-<                    | beginning_of_buffer           |                                      |
 | M->                    | end_of_buffer                 |                                      |
+| M-g g                  | goto_line                     |                                      |
+| M-g M-g                | goto_line                     |                                      |
 | C-l                    | recenter                      | 初期設定では、Sakura Editor のみ動作 |
 | scroll_key[0] の設定値 | scroll_up                     | 初期値：M-v                          |
 | scroll_key[1] の設定値 | scroll_down                   | 初期値：C-v                          |

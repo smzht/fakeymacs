@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210503_01"
+fakeymacs_version = "20210504_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -824,6 +824,13 @@ def configure(keymap):
     def end_of_buffer():
         self_insert_command("C-End")()
 
+    def goto_line():
+        if (checkWindow("sakura.exe", "EditorClient") or # Sakura Editor
+            checkWindow("sakura.exe", "SakuraView*")):   # Sakura Editor
+            self_insert_command("C-j")()
+        else:
+            self_insert_command("C-g")()
+
     def scroll_up():
         self_insert_command("PageUp")()
 
@@ -1223,19 +1230,38 @@ def configure(keymap):
     def kbd(keys):
         if keys:
             key_lists = [keys.split()]
+            key_list0 = []
+            key_list1 = []
+            key_list2 = []
+            mata_flg  = False
 
-            if key_lists[0][0] == "Ctl-x":
-                if fc.ctl_x_prefix_key:
-                    key_lists[0][0] = fc.ctl_x_prefix_key
+            for key in key_lists[0]:
+                if key == "Ctl-x":
+                    key = fc.ctl_x_prefix_key
+
+                if "M-" in key:
+                    key_list1.append("C-OpenBracket")
+                    key_list2.append("Esc")
+                    append_key = key.replace("M-", "")
+                    if append_key:
+                        key_list0.append(key.replace("M-", "A-"))
+                        key_list1.append(append_key)
+                        key_list2.append(append_key)
+                    else:
+                        key_list0 = []
+                    mata_flg = True
                 else:
-                    key_lists = []
+                    key_list0.append(key)
+                    key_list1.append(key)
+                    key_list2.append(key)
 
-            elif key_lists[0][0].startswith("M-"):
-                key = re.sub("^M-", "", key_lists[0][0])
-                key_lists[0][0] = "A-" + key
-                key_lists.append(["C-OpenBracket", key])
+            key_lists = [key_list0]
+            if mata_flg:
+                key_lists.append(key_list1)
                 if fc.use_esc_as_meta:
-                    key_lists.append(["Esc", key])
+                    key_lists.append(key_list2)
+
+            key_lists = [key_list for key_list in key_lists if key_list]
 
             for key_list in key_lists:
                 key_list[0] = addSideOfModifierKey(key_list[0])
@@ -1299,7 +1325,10 @@ def configure(keymap):
                 if re.match(key_list[0], r"O-RAlt$", re.IGNORECASE):
                     window_keymap["D-RAlt"] = "D-RAlt", "(7)"
             else:
-                window_keymap[key_list[0]][key_list[1]] = keyCommand(None)
+                w_keymap = window_keymap
+                for key in key_list[:-1]:
+                    w_keymap = w_keymap[key]
+                w_keymap[key_list[-1]] = keyCommand(None)
 
     def define_key2(window_keymap, keys, command):
         define_key(window_keymap, keys, command, skip_check=False)
@@ -1484,11 +1513,11 @@ def configure(keymap):
     # http://www3.airnet.ne.jp/saka/hardware/keyboard/109scode.html
 
     ## マルチストロークキーの設定
-    define_key(keymap_emacs, "Ctl-x",         keymap.defineMultiStrokeKeymap(fc.ctl_x_prefix_key))
-    define_key(keymap_emacs, "C-q",           keymap.defineMultiStrokeKeymap("C-q"))
-    define_key(keymap_emacs, "C-OpenBracket", keymap.defineMultiStrokeKeymap("C-OpenBracket"))
-    if fc.use_esc_as_meta:
-        define_key(keymap_emacs, "Esc", keymap.defineMultiStrokeKeymap("Esc"))
+    define_key(keymap_emacs, "Ctl-x",  keymap.defineMultiStrokeKeymap(fc.ctl_x_prefix_key))
+    define_key(keymap_emacs, "C-q",    keymap.defineMultiStrokeKeymap("C-q"))
+    define_key(keymap_emacs, "M-",     keymap.defineMultiStrokeKeymap("M-"))
+    define_key(keymap_emacs, "M-g",    keymap.defineMultiStrokeKeymap("M-g"))
+    define_key(keymap_emacs, "M-g M-", keymap.defineMultiStrokeKeymap("M-g M-"))
 
     ## 数字キーの設定
     for n in range(10):
@@ -1572,6 +1601,8 @@ def configure(keymap):
     define_key(keymap_emacs, "C-e",        reset_search(reset_undo(reset_counter(mark(move_end_of_line, True)))))
     define_key(keymap_emacs, "M-S-Comma",  reset_search(reset_undo(reset_counter(mark(beginning_of_buffer, False)))))
     define_key(keymap_emacs, "M-S-Period", reset_search(reset_undo(reset_counter(mark(end_of_buffer, True)))))
+    define_key(keymap_emacs, "M-g g",      reset_search(reset_undo(reset_counter(reset_mark(goto_line)))))
+    define_key(keymap_emacs, "M-g M-g",    reset_search(reset_undo(reset_counter(reset_mark(goto_line)))))
     define_key(keymap_emacs, "C-l",        reset_search(reset_undo(reset_counter(recenter))))
 
     define_key(keymap_emacs, "C-S-b", reset_search(reset_undo(reset_counter(mark2(repeat(backward_char), False)))))
