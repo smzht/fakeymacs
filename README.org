@@ -169,27 +169,32 @@ VSCode については、一般的な Emacs キーバインドの他に次のキ
 
 デフォルトで有効にしている拡張機能 vscode_key で実現しています。
 
-|---------------------+-------------------------------+----------------------------------------|
-| Key-binding         | Fakeymacs Function            | VSCode Command                         |
-|---------------------+-------------------------------+----------------------------------------|
-| Ctl+x 0             | delete_group                  | Close All Editors in Group             |
-| Ctl+x 1             | delete_other_groups           | Close Editors in Other Groups          |
-| Ctl+x 2             | split_editor_below            | Split Editor Orthogonal                |
-| Ctl+x 3             | split_editor_right            | Split Editor                           |
-| Ctl+x o             | other_group                   | Navigate Between Editor Groups         |
-| Ctrl+<数字キー>     | switch_focus(<数字キーの値>)  | Focus Side Bar or n-th Editor Group    |
-| Ctrl+Alt+<数字キー> | switch_focus(<数字キーの値>)  | Focus Side Bar or n-th Editor Group    |
-| Ctrl+Alt+p          | mark_up                       | cursorColumnSelectUp                   |
-| Ctrl+Alt+n          | mark_down                     | cursorColumnSelectDown                 |
-| Ctrl+Alt+b          | mark + backward_char          | cursorLeftSelect                       |
-| Ctrl+Alt+f          | mark + forward_char           | cursorRightSelect                      |
-| Ctrl+Alt+a          | mark + move_beginning_of_line | cursorHomeSelect                       |
-| Ctrl+Alt+e          | mark + move_end_of_line       | cursorEndSelect                        |
-| Ctrl+Alt+d          | mark_next_like_this           | Add Selection To Next Find Match       |
-| Ctrl+Alt+s          | skip_to_next_like_this        | Move Last Selection To Next Find Match |
-| Meta+x              | execute_extended_command      | Show All Commands                      |
-| Meta+;              | comment_dwim                  | Toggle Line Comment                    |
-|---------------------+-------------------------------+----------------------------------------|
+|---------------------+-------------------------------+--------------------------------------------------------|
+| Key-binding         | Fakeymacs Function            | VSCode Command                                         |
+|---------------------+-------------------------------+--------------------------------------------------------|
+| M-g p               | goto_previous_error           | Go to Previous Problem in Files (Error, Warning, Info) |
+| M-g M-p             | goto_previous_error           | Go to Previous Problem in Files (Error, Warning, Info) |
+| M-g n               | goto_next_error               | Go to Next Problem in Files (Error, Warning, Info)     |
+| M-g M-n             | goto_next_error               | Go to Next Problem in Files (Error, Warning, Info)     |
+| Ctl-x `             | goto_next_error               | Go to Next Problem in Files (Error, Warning, Info)     |
+| Ctl+x 0             | delete_group                  | Close All Editors in Group                             |
+| Ctl+x 1             | delete_other_groups           | Close Editors in Other Groups                          |
+| Ctl+x 2             | split_editor_below            | Split Editor Orthogonal                                |
+| Ctl+x 3             | split_editor_right            | Split Editor                                           |
+| Ctl+x o             | other_group                   | Navigate Between Editor Groups                         |
+| Ctrl+<数字キー>     | switch_focus(<数字キーの値>)  | Focus Side Bar or n-th Editor Group                    |
+| Ctrl+Alt+<数字キー> | switch_focus(<数字キーの値>)  | Focus Side Bar or n-th Editor Group                    |
+| Ctrl+Alt+p          | mark_up                       | cursorColumnSelectUp                                   |
+| Ctrl+Alt+n          | mark_down                     | cursorColumnSelectDown                                 |
+| Ctrl+Alt+b          | mark + backward_char          | cursorLeftSelect                                       |
+| Ctrl+Alt+f          | mark + forward_char           | cursorRightSelect                                      |
+| Ctrl+Alt+a          | mark + move_beginning_of_line | cursorHomeSelect                                       |
+| Ctrl+Alt+e          | mark + move_end_of_line       | cursorEndSelect                                        |
+| Ctrl+Alt+d          | mark_next_like_this           | Add Selection To Next Find Match                       |
+| Ctrl+Alt+s          | skip_to_next_like_this        | Move Last Selection To Next Find Match                 |
+| Meta+x              | execute_extended_command      | Show All Commands                                      |
+| Meta+;              | comment_dwim                  | Toggle Line Comment                                    |
+|---------------------+-------------------------------+--------------------------------------------------------|
 
 VSCode に vcode-dired Extension、Center Editor Window Extension、Search in Current File を
 インストールし、Fakeymacs の 拡張機能 vscode-extensions を有効にすることにより、
