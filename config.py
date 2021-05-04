@@ -1354,10 +1354,9 @@ def configure(keymap):
     def getKeyCommand(window_keymap, keys):
         try:
             key_list = kbd(keys)[-1]
-            if len(key_list) == 1:
-                func = window_keymap[key_list[0]]
-            else:
-                func = window_keymap[key_list[0]][key_list[1]]
+            for key in key_list:
+                window_keymap = window_keymap[key]
+            func = window_keymap
         except:
             func = None
 
