@@ -182,6 +182,11 @@ def skip_to_next_like_this():
     # vscodeExecuteCommand("MLSTNFM")()
     # vscodeExecuteCommand("editor.action.moveSelectionToNextFindMatch")()
 
+def skip_to_previous_like_this():
+    # VSCode Command : Move Last Selection To Previous Find Match
+    vscodeExecuteCommand("MLSTPFM")()
+    # vscodeExecuteCommand("editor.action.moveSelectionToPreviousFindMatch")()
+
 ## ターミナル操作
 def create_terminal():
     # VSCode Command : Terminal: Create New Integrated Terminal
@@ -255,6 +260,7 @@ define_key(keymap_vscode, "C-A-f", reset_search(reset_undo(reset_counter(mark2(r
 define_key(keymap_vscode, "C-A-a", reset_search(reset_undo(reset_counter(mark2(move_beginning_of_line, False)))))
 define_key(keymap_vscode, "C-A-e", reset_search(reset_undo(reset_counter(mark2(move_end_of_line, True)))))
 define_key(keymap_vscode, "C-A-d", reset_search(reset_undo(reset_counter(mark_next_like_this))))
+define_key(keymap_vscode, "C-A-r", reset_search(reset_undo(reset_counter(skip_to_previous_like_this))))
 define_key(keymap_vscode, "C-A-s", reset_search(reset_undo(reset_counter(skip_to_next_like_this))))
 
 ## 「ターミナル操作」のキー設定
