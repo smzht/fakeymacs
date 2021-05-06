@@ -89,6 +89,7 @@ use_ctrl_digit_key_for_digit_argument 変数が有効の時には機能しませ
 | C-A-a   | mark + move_beginning_of_line |             |
 | C-A-e   | mark + move_end_of_line       |             |
 | C-A-d   | mark_next_like_this           |             |
+| C-A-S-d | mark_all_like_this            |             |
 | C-A-r   | skip_to_previous_like_this    |             |
 | C-A-s   | skip_to_next_like_this        |             |
 |---------+-------------------------------+-------------|

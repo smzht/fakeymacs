@@ -176,6 +176,12 @@ def mark_next_like_this():
     # vscodeExecuteCommand("ASTNFM")()
     # vscodeExecuteCommand("cursorColumnSelectDown")()
 
+def mark_all_like_this():
+    # VSCode Command : Select All Occurrences of Find Match
+    self_insert_command("C-S-l")()
+    # vscodeExecuteCommand("SAOoFM")()
+    # vscodeExecuteCommand("editor.action.selectHighlights")()
+
 def skip_to_next_like_this():
     # VSCode Command : Move Last Selection To Next Find Match
     self_insert_command("C-k", "C-d")()
@@ -253,15 +259,16 @@ for n in range(10):
         define_key(keymap_vscode, "C-{}".format(n), reset_search(reset_undo(reset_counter(reset_mark(switch_focus(n))))))
 
 ## 「マルチカーソル」のキー設定
-define_key(keymap_vscode, "C-A-p", reset_search(reset_undo(reset_counter(mark_up))))
-define_key(keymap_vscode, "C-A-n", reset_search(reset_undo(reset_counter(mark_down))))
-define_key(keymap_vscode, "C-A-b", reset_search(reset_undo(reset_counter(mark2(repeat(backward_char), False)))))
-define_key(keymap_vscode, "C-A-f", reset_search(reset_undo(reset_counter(mark2(repeat(forward_char), True)))))
-define_key(keymap_vscode, "C-A-a", reset_search(reset_undo(reset_counter(mark2(move_beginning_of_line, False)))))
-define_key(keymap_vscode, "C-A-e", reset_search(reset_undo(reset_counter(mark2(move_end_of_line, True)))))
-define_key(keymap_vscode, "C-A-d", reset_search(reset_undo(reset_counter(mark_next_like_this))))
-define_key(keymap_vscode, "C-A-r", reset_search(reset_undo(reset_counter(skip_to_previous_like_this))))
-define_key(keymap_vscode, "C-A-s", reset_search(reset_undo(reset_counter(skip_to_next_like_this))))
+define_key(keymap_vscode, "C-A-p",   reset_search(reset_undo(reset_counter(mark_up))))
+define_key(keymap_vscode, "C-A-n",   reset_search(reset_undo(reset_counter(mark_down))))
+define_key(keymap_vscode, "C-A-b",   reset_search(reset_undo(reset_counter(mark2(repeat(backward_char), False)))))
+define_key(keymap_vscode, "C-A-f",   reset_search(reset_undo(reset_counter(mark2(repeat(forward_char), True)))))
+define_key(keymap_vscode, "C-A-a",   reset_search(reset_undo(reset_counter(mark2(move_beginning_of_line, False)))))
+define_key(keymap_vscode, "C-A-e",   reset_search(reset_undo(reset_counter(mark2(move_end_of_line, True)))))
+define_key(keymap_vscode, "C-A-d",   reset_search(reset_undo(reset_counter(reset_mark(mark_next_like_this)))))
+define_key(keymap_vscode, "C-A-S-d", reset_search(reset_undo(reset_counter(reset_mark(mark_all_like_this)))))
+define_key(keymap_vscode, "C-A-r",   reset_search(reset_undo(reset_counter(reset_mark(skip_to_previous_like_this)))))
+define_key(keymap_vscode, "C-A-s",   reset_search(reset_undo(reset_counter(reset_mark(skip_to_next_like_this)))))
 
 ## 「ターミナル操作」のキー設定
 define_key(keymap_vscode, "C-S-(243)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))

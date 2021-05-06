@@ -191,6 +191,7 @@ VSCode については、一般的な Emacs キーバインドの他に次のキ
 | Ctrl+Alt+a          | mark + move_beginning_of_line | cursorHomeSelect                                       |
 | Ctrl+Alt+e          | mark + move_end_of_line       | cursorEndSelect                                        |
 | Ctrl+Alt+d          | mark_next_like_this           | Add Selection To Next Find Match                       |
+| CTrl+Alt+Shift+d    | mark_all_like_this            | Select All Occurrences of Find Match                   |
 | Ctrl+Alt+r          | skip_to_previous_like_this    | Move Last Selection To Previous Find Match             |
 | Ctrl+Alt+s          | skip_to_next_like_this        | Move Last Selection To Next Find Match                 |
 | Meta+x              | execute_extended_command      | Show All Commands                                      |
