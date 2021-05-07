@@ -112,11 +112,11 @@ side_of_ctrl_key 変数で設定した側でない Ctrl キーを使うか、C-q
 
 ※ ターミナルで C-k を利用できるようにするには、VSCode の 設定で terminal.integrated.allowChords
 を false にする必要があります。
-（https://code.visualstudio.com/docs/editor/integrated-terminal#_chord-keybindings-in-the-terminal）
+
+- https://code.visualstudio.com/docs/editor/integrated-terminal#_chord-keybindings-in-the-terminal
 
 ※ ターミナルで C-s を利用できるようにするには、bash で stty stop undef の設定をする必要があります。
 この設定をしないでこのキーを押下すると stop から戻れなくなりますのでご注意ください。
-
 
 ※ use_direct_input_in_vscode_terminal 変数を True にしている場合に Terminal から抜ける場合は、
 次のキーを利用するようにしてください。先に説明した４つのキーが VSCode のショートカットキーとして
@@ -182,7 +182,9 @@ def vscodeExecuteCommand(command):
 ※ vscodeExecuteCommand 関数内では日本語入力モードの切り替えを行っているのですが、Google
 日本語入力を利用して入力モードのポップアップを表示する設定にしている場合、このポップアップが
 何度も表示される症状が発生するようです。このため、ポップアップを非表示にする設定にしてご利用
-ください。（https://memotora.com/2014/10/05/google-ime-pop-up-setting/）
+ください。
+
+- https://memotora.com/2014/10/05/google-ime-pop-up-setting/
 
 ※ Microsoft Excel や Word などの Office系アプリを使ってコピー＆ペーストをした際、「Ctrl」と表示
 される「貼り付けオプション」ボタンが表示される場合があります。
