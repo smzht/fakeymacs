@@ -31,10 +31,10 @@ VSCode で Extension をインストールすることで Emacs のキーバイ�
 
 *** 留意事項
 
-vscode-dired Extension をインストールして利用する場合、Ctrl+x f に設定されているキーバインドは、
+● vscode-dired Extension をインストールして利用する場合、Ctrl+x f に設定されているキーバインドは、
 Ctrl+x（Cut）の機能とバッティングするので、削除してください。
 （Open Keyboard Shortcuts コマンドで削除可能です。）
 
-Search in Current File Extension をインストールして利用する場合、アクティビティバーの SEARCH
+● Search in Current File Extension をインストールして利用する場合、アクティビティバーの SEARCH
 アイコンをパネルのバーにドラッグで持っていくと、検索結果がパネルに表示されるようになり、
 使いやすくなります。

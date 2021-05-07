@@ -179,14 +179,14 @@ def vscodeExecuteCommand(command):
 
 *** 留意事項
 
-※ vscodeExecuteCommand 関数内では日本語入力モードの切り替えを行っているのですが、Google
+● vscodeExecuteCommand 関数内では日本語入力モードの切り替えを行っているのですが、Google
 日本語入力を利用して入力モードのポップアップを表示する設定にしている場合、このポップアップが
 何度も表示される症状が発生するようです。このため、ポップアップを非表示にする設定にしてご利用
 ください。
 
 - https://memotora.com/2014/10/05/google-ime-pop-up-setting/
 
-※ Microsoft Excel や Word などの Office系アプリを使ってコピー＆ペーストをした際、「Ctrl」と表示
+● Microsoft Excel や Word などの Office系アプリを使ってコピー＆ペーストをした際、「Ctrl」と表示
 される「貼り付けオプション」ボタンが表示される場合があります。
 これが Emacsキーバインドで利用している Ctrl キーの押下を検知して、想定外の動きをしてしまうようです。
 今のところ本設定での対策は難しいと思っておりますので、以下のページで紹介している「貼り付けオプション」
@@ -194,18 +194,18 @@ def vscodeExecuteCommand(command):
 
 - http://ciao.aoten.jp/ciao/2015/03/word-54e8.html
 
-※ Keyhac のクリップボードリスト画面で migemo 検索を可能とするためには、辞書ファイルを登録する必要
+● Keyhac のクリップボードリスト画面で migemo 検索を可能とするためには、辞書ファイルを登録する必要
 があります。次のページに分かりやすく説明がされていますので、参考としてください。
 （dictフォルダの中をすべてコピーするのではなく、dict/utf-8 の中のファイルをコピーするところが
 ポイントです。また、migemo 検索するには、検索文字列の一文字目を大文字で指定する必要があります。）
 
 - http://blog.livedoor.jp/ryman_trainee/archives/1042315792.html
 
-※ Logicool のマウス で SetPoint アプリによりキーストロークの割当を行った場合、Keyhac のフックを
+● Logicool のマウス で SetPoint アプリによりキーストロークの割当を行った場合、Keyhac のフックを
 OFF にしてから割当をしないと正常に動作しませんでした。他のキーストロークを設定するソフトの場合
 にも同様の問題が発生する可能性があると思いますので、ご留意ください。
 
-※ ブラウザで github1s.com を指定した際に開く VSCode の画面では、M-k や Ctl-x k で
+● ブラウザで github1s.com を指定した際に開く VSCode の画面では、M-k や Ctl-x k で
 発行している C-F4 がブラウザ側でキャッチされ、ブラウザのタブを閉じようとしてしまいます。
 このため、vscode_target 変数に指定したブラウザで github1s.com を開いて Ctl-x k を実行した
 場合には、コマンドパレットで View: Close Editor を実行するようにし、VSCode の機能が働くように
@@ -215,7 +215,7 @@ M-k は 従来どおり C-F4 を発行するのみの機能としていますの
 （この対応により、ブラウザで github1s.com を開いていない場合に Ctl-x k を発行すると、
 おかしな動き（F1 の実行により、ヘルプの画面が表示される）となります。ご留意ください。）
 
-※ ブラウザで github1s.com を指定した際に開く VSCode の画面では、Ctl-x b で発行している
+● ブラウザで github1s.com を指定した際に開く VSCode の画面では、Ctl-x b で発行している
 C-Tab がブラウザ側でキャッチされ、ブラウザのタブを切り替えてしまいます。
 このため、vscode_target 変数に指定したブラウザで github1s.com を開いて Ctl-x b を実行した
 場合には、コマンドパレットで View: Quick Open Privious Recently Used Editor in Group を
