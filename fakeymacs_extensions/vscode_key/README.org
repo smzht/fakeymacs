@@ -154,10 +154,10 @@ True にした場合に Esc を入力するには、Esc を二回押下してく
 
 **** ■ vscodeExecuteCommand
 
-VSCode のコマンドを実行する関数を返す
+VSCode のコマンドを実行する関数を返す。
 
 この関数を使うことにより、ショートカットキーが割り当てられていない VSCode のコマンドでも、
-Fakeymacs から実行できるようにしています
+Fakeymacs から実行できるようにしています。
 
 ***** Function
 
