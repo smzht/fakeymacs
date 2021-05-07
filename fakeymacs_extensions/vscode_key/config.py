@@ -259,8 +259,8 @@ for n in range(10):
         define_key(keymap_vscode, "C-{}".format(n), reset_search(reset_undo(reset_counter(reset_mark(switch_focus(n))))))
 
 ## 「マルチカーソル」のキー設定
-define_key(keymap_vscode, "C-A-p",   reset_search(reset_undo(reset_counter(mark_up))))
-define_key(keymap_vscode, "C-A-n",   reset_search(reset_undo(reset_counter(mark_down))))
+define_key(keymap_vscode, "C-A-p",   reset_search(reset_undo(reset_counter(reset_mark(mark_up)))))
+define_key(keymap_vscode, "C-A-n",   reset_search(reset_undo(reset_counter(reset_mark(mark_down)))))
 define_key(keymap_vscode, "C-A-b",   reset_search(reset_undo(reset_counter(mark2(repeat(backward_char), False)))))
 define_key(keymap_vscode, "C-A-f",   reset_search(reset_undo(reset_counter(mark2(repeat(forward_char), True)))))
 define_key(keymap_vscode, "C-A-a",   reset_search(reset_undo(reset_counter(mark2(move_beginning_of_line, False)))))
