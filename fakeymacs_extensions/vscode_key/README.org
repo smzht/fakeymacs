@@ -57,17 +57,17 @@ True に設定した場合でも Toggle Terminal 用のキーとして C-<半角
 
 ****  「エディタ操作」のキー設定
 
-|----------------+------------------------------+-------------------------------------------+-----------------------------------------------------------|
-| Keybind        | Function                     | VSCode Command                            | Description                                               |
-|----------------+------------------------------+-------------------------------------------+-----------------------------------------------------------|
-| Ctl-x 0        | delete_group                 | View: Close All Editors in Group          |                                                           |
-| Ctl-x 1        | delete_other_groups          | View: Close Editors in Other Groups       |                                                           |
-| Ctl-x 2        | split_editor_below           | View: Split Editor Orthogonal             |                                                           |
-| Ctl-x 3        | split_editor_right           | View: Split Editor                        |                                                           |
-| Ctl-x o        | other_group                  | View: Navigate Between Editor Groups      |                                                           |
-| C-<数字キー>   | switch_focus(<数字キーの値>) | View: Focus Side Bar or n-th Editor Group | use_ctrl_digit_key_for_digit_argument 変数が False の場合 |
-| C-A-<数字キー> | switch_focus(<数字キーの値>) | View: Focus Side Bar or n-th Editor Group |                                                           |
-|----------------+------------------------------+-------------------------------------------+-----------------------------------------------------------|
+|----------------+------------------------------+-------------------------------------------+-------------|
+| Keybind        | Function                     | VSCode Command                            | Description |
+|----------------+------------------------------+-------------------------------------------+-------------|
+| Ctl-x 0        | delete_group                 | View: Close All Editors in Group          |             |
+| Ctl-x 1        | delete_other_groups          | View: Close Editors in Other Groups       |             |
+| Ctl-x 2        | split_editor_below           | View: Split Editor Orthogonal             |             |
+| Ctl-x 3        | split_editor_right           | View: Split Editor                        |             |
+| Ctl-x o        | other_group                  | View: Navigate Between Editor Groups      |             |
+| C-<数字キー>   | switch_focus(<数字キーの値>) | View: Focus Side Bar or n-th Editor Group |             |
+| C-A-<数字キー> | switch_focus(<数字キーの値>) | View: Focus Side Bar or n-th Editor Group |             |
+|----------------+------------------------------+-------------------------------------------+-------------|
 
 ※ C-<数字キー> に割り当てられている Focus n-th Editor Group の機能は、
 use_ctrl_digit_key_for_digit_argument 変数が有効の時には機能しません（数引数の指定用として使われる）。
@@ -92,22 +92,24 @@ use_ctrl_digit_key_for_digit_argument 変数が有効の時には機能しませ
 
 ****  「ターミナル操作」のキー設定
 
-|-----------------+-----------------+------------------------------------------+----------------------------------------------------------------|
-| Keybind         | Function        | VSCode Command                           | Description                                                    |
-|-----------------+-----------------+------------------------------------------+----------------------------------------------------------------|
-| C-S-` (C-~)     | create_terminal | View: Toggle Terminal -like              | US Keyboard の場合                                             |
-| C-S-@ (C-`)     | create_terminal | View: Toggle Terminal -like              | JIS Keyboard の場合                                            |
-| C-S-<半角/全角> | create_terminal | View: Toggle Terminal -like              | JIS Keyboard の場合                                            |
-| C-`             | toggle_terminal | Terminal: Create New Integrated Terminal | US Keyboard の場合                                             |
-| C-@             | toggle_terminal | Terminal: Create New Integrated Terminal | JIS Keyboard の場合 / use_ctrl_atmark_for_mark が False の場合 |
-| C-<半角/全角>   | toggle_terminal | Terminal: Create New Integrated Terminal | JIS Keyboard の場合                                            |
-|-----------------+-----------------+------------------------------------------+----------------------------------------------------------------|
+|-----------------+-----------------+------------------------------------------+---------------------|
+| Keybind         | Function        | VSCode Command                           | Description         |
+|-----------------+-----------------+------------------------------------------+---------------------|
+| C-S-` (C-~)     | create_terminal | View: Toggle Terminal -like              | US Keyboard の場合  |
+| C-S-@ (C-`)     | create_terminal | View: Toggle Terminal -like              | JIS Keyboard の場合 |
+| C-S-<半角/全角> | create_terminal | View: Toggle Terminal -like              | JIS Keyboard の場合 |
+| C-`             | toggle_terminal | Terminal: Create New Integrated Terminal | US Keyboard の場合  |
+| C-@             | toggle_terminal | Terminal: Create New Integrated Terminal | JIS Keyboard の場合 |
+| C-<半角/全角>   | toggle_terminal | Terminal: Create New Integrated Terminal | JIS Keyboard の場合 |
+|-----------------+-----------------+------------------------------------------+---------------------|
 
-※ use_direct_input_in_vscode_terminal 変数を True にしている場合には、上記のキーを押下して
+※ C-@ は、use_ctrl_atmark_for_mark が False の場合に機能します。
+
+※ use_direct_input_in_vscode_terminal 変数を True にしている場合には、上記のいずれかのキーを押下して
 ターミナルに移行することで、４つのキー（C-k、C-r、C-s、C-y）の入力ができるようになります。
 
-※ use_direct_input_in_vscode_terminal 変数が False（初期値）の場合には、 C-q を前置することで
-４つのキーを利用することができます。
+※ use_direct_input_in_vscode_terminal 変数が False（初期値）の場合には、 side_of_ctrl_key 変数で
+設定した側でない Ctrlキーを使うか、C-q を前置することで４つのキーを利用することができます。
 
 ※ ターミナルで C-k を利用できるようにするには、VSCode の 設定で terminal.integrated.allowChords
 を false にする必要があります。
@@ -117,24 +119,24 @@ use_ctrl_digit_key_for_digit_argument 変数が有効の時には機能しませ
 この設定をしないでこのキーを押下すると stop から戻れなくなりますのでご注意ください。
 
 
-Terminal から抜ける場合は次のキーを利用するようにしてください。先の４つのキーが VSCode の
+Terminal から抜ける場合は次のキーを利用するようにしてください。先に説明した４つのキーが VSCode の
 ショートカットキーとして認識されるように戻ります。
 
-|----------------+------------------------------+-------------------------------------+----------------------------------------------------------------|
-| Keybind        | Function                     | VSCode Command                      | Description                                                    |
-|----------------+------------------------------+-------------------------------------+----------------------------------------------------------------|
-| C-`            | toggle_terminal              | Create New Integrated Terminal      | US Keyboard の場合                                             |
-| C-@            | toggle_terminal              | Create New Integrated Terminal      | JIS Keyboard の場合 / use_ctrl_atmark_for_mark が False の場合 |
-| C-<半角/全角>  | toggle_terminal              | Create New Integrated Terminal      | JIS Keyboard の場合                                            |
-|----------------+------------------------------+-------------------------------------+----------------------------------------------------------------|
-| Ctl-x o        | other_group                  | Navigate Between Editor Groups      |                                                                |
-| C-<数字キー>   | switch_focus(<数字キーの値>) | Focus Side Bar or n-th Editor Group | use_ctrl_digit_key_for_digit_argument 変数が False の場合      |
-| C-A-<数字キー> | switch_focus(<数字キーの値>) | Focus Side Bar or n-th Editor Group |                                                                |
-|----------------+------------------------------+-------------------------------------+----------------------------------------------------------------|
+|----------------+------------------------------+-------------------------------------+---------------------|
+| Keybind        | Function                     | VSCode Command                      | Description         |
+|----------------+------------------------------+-------------------------------------+---------------------|
+| C-`            | toggle_terminal              | Create New Integrated Terminal      | US Keyboard の場合  |
+| C-@            | toggle_terminal              | Create New Integrated Terminal      | JIS Keyboard の場合 |
+| C-<半角/全角>  | toggle_terminal              | Create New Integrated Terminal      | JIS Keyboard の場合 |
+|----------------+------------------------------+-------------------------------------+---------------------|
+| Ctl-x o        | other_group                  | Navigate Between Editor Groups      |                     |
+| C-<数字キー>   | switch_focus(<数字キーの値>) | Focus Side Bar or n-th Editor Group |                     |
+| C-A-<数字キー> | switch_focus(<数字キーの値>) | Focus Side Bar or n-th Editor Group |                     |
+|----------------+------------------------------+-------------------------------------+---------------------|
 
 ※ マウスのクリックでカーソル位置の変更を行うと、この状態の認識に齟齬が発生することがあります。
-その場合は、上記のいずれかのキーを押下することにより、Fakeymacs に現在の状態を再認識させる
-ようにしてください。
+その場合は、上記のいずれかのキーを押下することにより、Fakeymacs に現在の状態を再認識させるように
+してください。
 
 ****  「その他」のキー設定
 
