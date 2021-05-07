@@ -35,30 +35,30 @@ True に設定した場合でも Toggle Terminal 用のキーとして C-<半角
 
 **** ● 「カーソル移動」のキー設定
 
-|---------+--------------------+--------------------------------------------------------+-------------|
-| Keybind | Fakeymacs Function | VSCode Command                                         | Description |
-|---------+--------------------+--------------------------------------------------------+-------------|
-| M-g p   | previous_error     | Go to Previous Problem in Files (Error, Warning, Info) |             |
-| M-g M-p | previous_error     | Go to Previous Problem in Files (Error, Warning, Info) |             |
-| M-g n   | next_error         | Go to Next Problem in Files (Error, Warning, Info)     |             |
-| M-g M-n | next_error         | Go to Next Problem in Files (Error, Warning, Info)     |             |
-| Ctl-x ` | next_error         | Go to Next Problem in Files (Error, Warning, Info)     |             |
-|---------+--------------------+--------------------------------------------------------+-------------|
+|---------+----------------+--------------------------------------------------------+-------------|
+| Keybind | Function       | VSCode Command                                         | Description |
+|---------+----------------+--------------------------------------------------------+-------------|
+| M-g p   | previous_error | Go to Previous Problem in Files (Error, Warning, Info) |             |
+| M-g M-p | previous_error | Go to Previous Problem in Files (Error, Warning, Info) |             |
+| M-g n   | next_error     | Go to Next Problem in Files (Error, Warning, Info)     |             |
+| M-g M-n | next_error     | Go to Next Problem in Files (Error, Warning, Info)     |             |
+| Ctl-x ` | next_error     | Go to Next Problem in Files (Error, Warning, Info)     |             |
+|---------+----------------+--------------------------------------------------------+-------------|
 
 **** ● 「バッファ / ウィンドウ操作」のキー設定
 
-|-----------+--------------------+---------------------------------------------------------+-------------|
-| Keybind   | Fakeymacs Function | VSCode Command                                          | Description |
-|-----------+--------------------+---------------------------------------------------------+-------------|
-| Ctl-x k   | kill_buffer        | View: Close Editor                                      |             |
-| Ctl-x b   | switch_to_buffer   | View: Quick Open Privious Recently Used Editor in Group |             |
-| Ctl-x C-b | list_buffers       | View: Show All Editors By Most Recently Used            |             |
-|-----------+--------------------+---------------------------------------------------------+-------------|
+|-----------+------------------+---------------------------------------------------------+-------------|
+| Keybind   | Function         | VSCode Command                                          | Description |
+|-----------+------------------+---------------------------------------------------------+-------------|
+| Ctl-x k   | kill_buffer      | View: Close Editor                                      |             |
+| Ctl-x b   | switch_to_buffer | View: Quick Open Privious Recently Used Editor in Group |             |
+| Ctl-x C-b | list_buffers     | View: Show All Editors By Most Recently Used            |             |
+|-----------+------------------+---------------------------------------------------------+-------------|
 
 ****  「エディタ操作」のキー設定
 
 |----------------+------------------------------+-------------------------------------------+-------------|
-| Keybind        | Fakeymacs Function           | VSCode Command                            | Description |
+| Keybind        | Function                     | VSCode Command                            | Description |
 |----------------+------------------------------+-------------------------------------------+-------------|
 | Ctl-x 0        | delete_group                 | View: Close All Editors in Group          |             |
 | Ctl-x 1        | delete_other_groups          | View: Close Editors in Other Groups       |             |
@@ -76,7 +76,7 @@ True の場合（数引数の指定用として使われる）にこの機能を
 ****  「マルチカーソル」のキー設定
 
 |---------+-------------------------------+--------------------------------------------+-------------|
-| Keybind | Fakeymacs Function            | VSCode Command or Command ID               | Description |
+| Keybind | Function                      | VSCode Command or Command ID               | Description |
 |---------+-------------------------------+--------------------------------------------+-------------|
 | C-A-p   | mark_up                       | cursorColumnSelectUp                       |             |
 | C-A-n   | mark_down                     | cursorColumnSelectDown                     |             |
@@ -92,16 +92,16 @@ True の場合（数引数の指定用として使われる）にこの機能を
 
 ****  「ターミナル操作」のキー設定
 
-|-----------------+--------------------+------------------------------------------+---------------------|
-| Keybind         | Fakeymacs Function | VSCode Command                           | Description         |
-|-----------------+--------------------+------------------------------------------+---------------------|
-| C-S-` (C-~)     | create_terminal    | View: Toggle Terminal -like              | US Keyboard の場合  |
-| C-S-@ (C-`)     | create_terminal    | View: Toggle Terminal -like              | JIS Keyboard の場合 |
-| C-S-<半角/全角> | create_terminal    | View: Toggle Terminal -like              | JIS Keyboard の場合 |
-| C-`             | toggle_terminal    | Terminal: Create New Integrated Terminal | US Keyboard の場合  |
-| C-@             | toggle_terminal    | Terminal: Create New Integrated Terminal | JIS Keyboard の場合 |
-| C-<半角/全角>   | toggle_terminal    | Terminal: Create New Integrated Terminal | JIS Keyboard の場合 |
-|-----------------+--------------------+------------------------------------------+---------------------|
+|-----------------+-----------------+------------------------------------------+---------------------|
+| Keybind         | Function        | VSCode Command                           | Description         |
+|-----------------+-----------------+------------------------------------------+---------------------|
+| C-S-` (C-~)     | create_terminal | View: Toggle Terminal -like              | US Keyboard の場合  |
+| C-S-@ (C-`)     | create_terminal | View: Toggle Terminal -like              | JIS Keyboard の場合 |
+| C-S-<半角/全角> | create_terminal | View: Toggle Terminal -like              | JIS Keyboard の場合 |
+| C-`             | toggle_terminal | Terminal: Create New Integrated Terminal | US Keyboard の場合  |
+| C-@             | toggle_terminal | Terminal: Create New Integrated Terminal | JIS Keyboard の場合 |
+| C-<半角/全角>   | toggle_terminal | Terminal: Create New Integrated Terminal | JIS Keyboard の場合 |
+|-----------------+-----------------+------------------------------------------+---------------------|
 
 ※ C-@ は、use_ctrl_atmark_for_mark が False の場合に機能します。
 
@@ -141,7 +141,7 @@ side_of_ctrl_key 変数で設定した側でない Ctrl キーを使うか、C-q
 ****  「その他」のキー設定
 
 |---------+--------------------------+---------------------+-------------|
-| Keybind | Fakeymacs Function       | VSCode Command      | Description |
+| Keybind | Function                 | VSCode Command      | Description |
 |---------+--------------------------+---------------------+-------------|
 | M-x     | execute_extended_command | Show All Commands   |             |
 | M-;     | comment_dwim             | Toggle Line Comment |             |
