@@ -152,7 +152,7 @@ def other_group():
 
 def switch_focus(number):
     def _func():
-        # VSCode Command : View: Focus n-th Editor Group
+        # VSCode Command : View: Focus Side Bar or n-th Editor Group
         self_insert_command("C-{}".format(number))()
 
         if fc.use_direct_input_in_vscode_terminal:
