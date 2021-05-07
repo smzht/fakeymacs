@@ -21,13 +21,13 @@ VSCode で Extension をインストールすることで Emacs のキーバイ�
 
 *** キーバインド
 
-|-----------+----------+------------------------+-------------|
-| Keybind   | Function | VSCode Command         | Description |
-|-----------+----------+------------------------+-------------|
-| Ctl-x d   | dired    | Open dired buffer      |             |
-| C-l       | recenter | Center Editor Window   |             |
-| Ctl-x C-o | occur    | Search in Current File |             |
-|-----------+----------+------------------------+-------------|
+|-----------+--------------------+------------------------+-------------|
+| Keybind   | Fakeymacs Function | VSCode Command         | Description |
+|-----------+--------------------+------------------------+-------------|
+| Ctl-x d   | dired              | Open dired buffer      |             |
+| C-l       | recenter           | Center Editor Window   |             |
+| Ctl-x C-o | occur              | Search in Current File |             |
+|-----------+--------------------+------------------------+-------------|
 
 *** 留意事項
 
