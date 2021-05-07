@@ -118,7 +118,7 @@ side_of_ctrl_key 変数で設定した側でない Ctrl キーを使うか、C-q
 この設定をしないでこのキーを押下すると stop から戻れなくなりますのでご注意ください。
 
 
-use_direct_input_in_vscode_terminal 変数を True にしている場合に Terminal から抜ける場合は、
+※ use_direct_input_in_vscode_terminal 変数を True にしている場合に Terminal から抜ける場合は、
 次のキーを利用するようにしてください。先に説明した４つのキーが VSCode のショートカットキーとして
 認識されるように戻ります。
 
