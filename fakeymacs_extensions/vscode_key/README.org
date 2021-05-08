@@ -108,7 +108,7 @@ True の場合（数引数の指定用として使われる）にこの機能を
 ※ use_direct_input_in_vscode_terminal 変数を True にしている場合には、上記のいずれかのキーを押下して
 ターミナルに移行することで、４つのキー（C-k、C-r、C-s、C-y）のダイレクト入力ができるようになります。
 use_direct_input_in_vscode_terminal 変数が False（初期値）の場合でも、side_of_ctrl_key 変数で設定した
-側でない Ctrl キーを使うか C-q を前置することで、４つのキーをダイレクト入力を利用することができます。
+側でない Ctrl キーを使うか C-q を前置することで、４つのキーのダイレクト入力を行うことができます。
 
 ※ ターミナルで C-k を利用できるようにするには、VSCode の 設定で terminal.integrated.allowChords
 を false にする必要があります。
