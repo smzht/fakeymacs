@@ -174,8 +174,8 @@ VSCode については、次の２つの拡張機能により、機能強化を�
 | [[/fakeymacs_extensions/vscode_extensions][vscode_extensions]] | 無効     | VSCode で Extension のインストールが必要な機能の設定を行う |
 |-------------------+----------+------------------------------------------------------------|
 
-VSCode の Emacs Keymap Extension と比較した本機能の特徴は、以下のページの <2021/02/23 追記> に
-記載しています。参考としてください。
+VSCode の Emacs Keymap Extension と比較した本機能の特徴は、以下のページの *<2021/02/23 追記>*
+に記載しています。参考としてください。
 
 - https://w.atwiki.jp/ntemacs/pages/25.html
 
