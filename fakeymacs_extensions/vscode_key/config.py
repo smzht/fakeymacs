@@ -174,7 +174,7 @@ def mark_next_like_this():
     # VSCode Command : Add Selection To Next Find Match
     self_insert_command("C-d")()
     # vscodeExecuteCommand("ASTN")()
-    # vscodeExecuteCommand("cursorColumnSelectDown")()
+    # vscodeExecuteCommand("editor.action.addSelectionToNextFindMatch")()
 
 def mark_all_like_this():
     # VSCode Command : Select All Occurrences of Find Match
