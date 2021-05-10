@@ -160,7 +160,7 @@ def switch_focus(number):
             fakeymacs.vscode_focus = "not_terminal"
     return _func
 
-## マルチカーソル
+## 矩形選択 / マルチカーソル
 def mark_previous_line():
     # VSCode Command ID : cursorColumnSelectUp
     self_insert_command("C-S-A-Up")()
@@ -291,7 +291,7 @@ for n in range(10):
     if not fc.use_ctrl_digit_key_for_digit_argument:
         define_key(keymap_vscode, "C-{}".format(n), reset_search(reset_undo(reset_counter(reset_mark(switch_focus(n))))))
 
-## 「マルチカーソル」のキー設定
+## 「矩形選択 / マルチカーソル」のキー設定
 define_key(keymap_vscode, "C-A-p",   reset_search(reset_undo(reset_counter(repeat(mark_previous_line)))))
 define_key(keymap_vscode, "C-A-n",   reset_search(reset_undo(reset_counter(repeat(mark_next_line)))))
 define_key(keymap_vscode, "C-A-b",   reset_search(reset_undo(reset_counter(repeat(mark_backward_char)))))
