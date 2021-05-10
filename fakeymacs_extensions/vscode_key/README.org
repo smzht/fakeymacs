@@ -80,10 +80,10 @@ True の場合（数引数の指定用として使われる）にこの機能を
 |---------+-------------------------------+--------------------------------------------+-------------|
 | C-A-p   | mark_up                       | cursorColumnSelectUp                       |             |
 | C-A-n   | mark_down                     | cursorColumnSelectDown                     |             |
-| C-A-b   | mark + backward_char          | cursorLeftSelect -like                     |             |
-| C-A-f   | mark + forward_char           | cursorRightSelect -like                    |             |
-| C-A-a   | mark + move_beginning_of_line | cursorHomeSelect -like                     |             |
-| C-A-e   | mark + move_end_of_line       | cursorEndSelect -like                      |             |
+| C-A-b   | mark + backward_char          | cursorLeftSelect                           |             |
+| C-A-f   | mark + forward_char           | cursorRightSelect                          |             |
+| C-A-a   | mark + move_beginning_of_line | cursorHomeSelect                           |             |
+| C-A-e   | mark + move_end_of_line       | cursorEndSelect                            |             |
 | C-A-d   | mark_next_like_this           | Add Selection To Next Find Match           |             |
 | C-A-S-d | mark_all_like_this            | Select All Occurrences of Find Match       |             |
 | C-A-r   | skip_to_previous_like_this    | Move Last Selection To Previous Find Match |             |
