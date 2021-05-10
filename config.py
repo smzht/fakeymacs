@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210507_01"
+fakeymacs_version = "20210510_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1415,11 +1415,6 @@ def configure(keymap):
 
     def mark2(func, forward_direction):
         def _func():
-            # Emacs と仕様を合わせる場合は、以下をアンコメント化する必要あり
-            # （コメント化した状態の方が自然の動作と思い、コメント化している）
-            # if fakeymacs.is_marked:
-            #     resetRegion()
-            #     fakeymacs.forward_direction = None
             fakeymacs.is_marked = True
             mark(func, forward_direction)()
             fakeymacs.is_marked = False
