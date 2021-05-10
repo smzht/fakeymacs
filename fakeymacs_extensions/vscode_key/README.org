@@ -75,20 +75,20 @@ True の場合（数引数の指定用として使われる）にこの機能を
 
 ****  「マルチカーソル」のキー設定
 
-|---------+-------------------------------+--------------------------------------------+-------------|
-| Keybind | Function                      | VSCode Command or Command ID               | Description |
-|---------+-------------------------------+--------------------------------------------+-------------|
-| C-A-p   | mark_up                       | cursorColumnSelectUp                       |             |
-| C-A-n   | mark_down                     | cursorColumnSelectDown                     |             |
-| C-A-b   | mark + backward_char          | cursorLeftSelect                           |             |
-| C-A-f   | mark + forward_char           | cursorRightSelect                          |             |
-| C-A-a   | mark + move_beginning_of_line | cursorHomeSelect                           |             |
-| C-A-e   | mark + move_end_of_line       | cursorEndSelect                            |             |
-| C-A-d   | mark_next_like_this           | Add Selection To Next Find Match           |             |
-| C-A-S-d | mark_all_like_this            | Select All Occurrences of Find Match       |             |
-| C-A-r   | skip_to_previous_like_this    | Move Last Selection To Previous Find Match |             |
-| C-A-s   | skip_to_next_like_this        | Move Last Selection To Next Find Match     |             |
-|---------+-------------------------------+--------------------------------------------+-------------|
+|---------+-----------------------------+----------------------------------------------+-------------|
+| Keybind | Function                    | VSCode Command or Command ID                 | Description |
+|---------+-----------------------------+----------------------------------------------+-------------|
+| C-A-p   | mark_previous_line          | cursorColumnSelectUp                         |             |
+| C-A-n   | mark_next_line              | cursorColumnSelectDown                       |             |
+| C-A-b   | mark_backward_char          | cursorColumnSelectLeft or cursorLeftSelect   |             |
+| C-A-f   | mark_forward_char           | cursorColumnSelectRight or cursorRightSelect |             |
+| C-A-a   | mark_move_beginning_of_line | cursorHomeSelect                             |             |
+| C-A-e   | mark_move_end_of_line       | cursorEndSelect                              |             |
+| C-A-d   | mark_next_like_this         | Add Selection To Next Find Match             |             |
+| C-A-S-d | mark_all_like_this          | Select All Occurrences of Find Match         |             |
+| C-A-r   | skip_to_previous_like_this  | Move Last Selection To Previous Find Match   |             |
+| C-A-s   | skip_to_next_like_this      | Move Last Selection To Next Find Match       |             |
+|---------+-----------------------------+----------------------------------------------+-------------|
 
 ****  「ターミナル操作」のキー設定
 

@@ -35,6 +35,7 @@ except:
     fc.use_direct_input_in_vscode_terminal = False
 
 fakeymacs.vscode_focus = "not_terminal"
+fakeymacs.rectangle_mode = False
 
 def is_vscode_target(window):
     if window.getProcessName() in fc.vscode_target:
@@ -160,15 +161,43 @@ def switch_focus(number):
     return _func
 
 ## マルチカーソル
-def mark_up():
+def mark_previous_line():
     # VSCode Command ID : cursorColumnSelectUp
     self_insert_command("C-S-A-Up")()
     # vscodeExecuteCommand("cursorColumnSelectUp")()
+    fakeymacs.rectangle_mode = True
 
-def mark_down():
+def mark_next_line():
     # VSCode Command ID : cursorColumnSelectDown
     self_insert_command("C-S-A-Down")()
     # vscodeExecuteCommand("cursorColumnSelectDown")()
+    fakeymacs.rectangle_mode = True
+
+def mark_backward_char():
+    if fakeymacs.rectangle_mode:
+        # VSCode Command ID : cursorColumnSelectLeft
+        self_insert_command("C-S-A-Left")()
+        # vscodeExecuteCommand("cursorColumnSelectLeft")()
+        fakeymacs.forward_direction = False
+    else:
+        mark2(backward_char, False)()
+
+def mark_forward_char():
+    if fakeymacs.rectangle_mode:
+        # VSCode Command ID : cursorColumnSelectRight
+        self_insert_command("C-S-A-Right")()
+        # vscodeExecuteCommand("cursorColumnSelectRight")()
+        fakeymacs.forward_direction = True
+    else:
+        mark2(forward_char, True)()
+
+def mark_beginning_of_line():
+    mark2(move_beginning_of_line, False)()
+    fakeymacs.rectangle_mode = False
+
+def mark_end_of_line():
+    mark2(move_end_of_line, True)()
+    fakeymacs.rectangle_mode = False
 
 def mark_next_like_this():
     # VSCode Command : Add Selection To Next Find Match
@@ -259,12 +288,12 @@ for n in range(10):
         define_key(keymap_vscode, "C-{}".format(n), reset_search(reset_undo(reset_counter(reset_mark(switch_focus(n))))))
 
 ## 「マルチカーソル」のキー設定
-define_key(keymap_vscode, "C-A-p",   reset_search(reset_undo(reset_counter(repeat(mark_up)))))
-define_key(keymap_vscode, "C-A-n",   reset_search(reset_undo(reset_counter(repeat(mark_down)))))
-define_key(keymap_vscode, "C-A-b",   reset_search(reset_undo(reset_counter(mark2(repeat(backward_char), False)))))
-define_key(keymap_vscode, "C-A-f",   reset_search(reset_undo(reset_counter(mark2(repeat(forward_char), True)))))
-define_key(keymap_vscode, "C-A-a",   reset_search(reset_undo(reset_counter(mark2(move_beginning_of_line, False)))))
-define_key(keymap_vscode, "C-A-e",   reset_search(reset_undo(reset_counter(mark2(move_end_of_line, True)))))
+define_key(keymap_vscode, "C-A-p",   reset_search(reset_undo(reset_counter(repeat(mark_previous_line)))))
+define_key(keymap_vscode, "C-A-n",   reset_search(reset_undo(reset_counter(repeat(mark_next_line)))))
+define_key(keymap_vscode, "C-A-b",   reset_search(reset_undo(reset_counter(repeat(mark_backward_char)))))
+define_key(keymap_vscode, "C-A-f",   reset_search(reset_undo(reset_counter(repeat(mark_forward_char)))))
+define_key(keymap_vscode, "C-A-a",   reset_search(reset_undo(reset_counter(mark_beginning_of_line))))
+define_key(keymap_vscode, "C-A-e",   reset_search(reset_undo(reset_counter(mark_end_of_line))))
 define_key(keymap_vscode, "C-A-d",   reset_search(reset_undo(reset_counter(reset_mark(mark_next_like_this)))))
 define_key(keymap_vscode, "C-A-S-d", reset_search(reset_undo(reset_counter(reset_mark(mark_all_like_this)))))
 define_key(keymap_vscode, "C-A-r",   reset_search(reset_undo(reset_counter(reset_mark(skip_to_previous_like_this)))))
