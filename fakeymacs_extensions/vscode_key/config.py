@@ -204,23 +204,27 @@ def mark_next_like_this():
     self_insert_command("C-d")()
     # vscodeExecuteCommand("ASTN")()
     # vscodeExecuteCommand("editor.action.addSelectionToNextFindMatch")()
+    fakeymacs.forward_direction = True
 
 def mark_all_like_this():
     # VSCode Command : Select All Occurrences of Find Match
     self_insert_command("C-S-l")()
     # vscodeExecuteCommand("SAOo")()
     # vscodeExecuteCommand("editor.action.selectHighlights")()
+    fakeymacs.forward_direction = True
 
 def skip_to_next_like_this():
     # VSCode Command : Move Last Selection To Next Find Match
     self_insert_command("C-k", "C-d")()
     # vscodeExecuteCommand("MLSTN")()
     # vscodeExecuteCommand("editor.action.moveSelectionToNextFindMatch")()
+    fakeymacs.forward_direction = True
 
 def skip_to_previous_like_this():
     # VSCode Command : Move Last Selection To Previous Find Match
     vscodeExecuteCommand("MLSTP")()
     # vscodeExecuteCommand("editor.action.moveSelectionToPreviousFindMatch")()
+    fakeymacs.forward_direction = True
 
 ## ターミナル操作
 def create_terminal():
@@ -294,10 +298,10 @@ define_key(keymap_vscode, "C-A-b",   reset_search(reset_undo(reset_counter(repea
 define_key(keymap_vscode, "C-A-f",   reset_search(reset_undo(reset_counter(repeat(mark_forward_char)))))
 define_key(keymap_vscode, "C-A-a",   reset_search(reset_undo(reset_counter(mark_beginning_of_line))))
 define_key(keymap_vscode, "C-A-e",   reset_search(reset_undo(reset_counter(mark_end_of_line))))
-define_key(keymap_vscode, "C-A-d",   reset_search(reset_undo(reset_counter(reset_mark(mark_next_like_this)))))
-define_key(keymap_vscode, "C-A-S-d", reset_search(reset_undo(reset_counter(reset_mark(mark_all_like_this)))))
-define_key(keymap_vscode, "C-A-r",   reset_search(reset_undo(reset_counter(reset_mark(skip_to_previous_like_this)))))
-define_key(keymap_vscode, "C-A-s",   reset_search(reset_undo(reset_counter(reset_mark(skip_to_next_like_this)))))
+define_key(keymap_vscode, "C-A-d",   reset_search(reset_undo(reset_counter(mark_next_like_this))))
+define_key(keymap_vscode, "C-A-S-d", reset_search(reset_undo(reset_counter(mark_all_like_this))))
+define_key(keymap_vscode, "C-A-r",   reset_search(reset_undo(reset_counter(skip_to_previous_like_this))))
+define_key(keymap_vscode, "C-A-s",   reset_search(reset_undo(reset_counter(skip_to_next_like_this))))
 
 ## 「ターミナル操作」のキー設定
 define_key(keymap_vscode, "C-S-(243)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
