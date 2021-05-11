@@ -165,12 +165,14 @@ def mark_previous_line():
     # VSCode Command ID : cursorColumnSelectUp
     self_insert_command("C-S-A-Up")()
     # vscodeExecuteCommand("cursorColumnSelectUp")()
+
     fakeymacs.rectangle_mode = True
 
 def mark_next_line():
     # VSCode Command ID : cursorColumnSelectDown
     self_insert_command("C-S-A-Down")()
     # vscodeExecuteCommand("cursorColumnSelectDown")()
+
     fakeymacs.rectangle_mode = True
 
 def mark_backward_char():
@@ -178,6 +180,7 @@ def mark_backward_char():
         # VSCode Command ID : cursorColumnSelectLeft
         self_insert_command("C-S-A-Left")()
         # vscodeExecuteCommand("cursorColumnSelectLeft")()
+
         fakeymacs.forward_direction = False
     else:
         mark2(backward_char, False)()
@@ -187,6 +190,7 @@ def mark_forward_char():
         # VSCode Command ID : cursorColumnSelectRight
         self_insert_command("C-S-A-Right")()
         # vscodeExecuteCommand("cursorColumnSelectRight")()
+
         fakeymacs.forward_direction = True
     else:
         mark2(forward_char, True)()
@@ -204,6 +208,7 @@ def mark_next_like_this():
     self_insert_command("C-d")()
     # vscodeExecuteCommand("ASTN")()
     # vscodeExecuteCommand("editor.action.addSelectionToNextFindMatch")()
+
     fakeymacs.rectangle_mode = False
     fakeymacs.forward_direction = True
 
@@ -212,6 +217,7 @@ def mark_all_like_this():
     self_insert_command("C-S-l")()
     # vscodeExecuteCommand("SAOo")()
     # vscodeExecuteCommand("editor.action.selectHighlights")()
+
     fakeymacs.rectangle_mode = False
     fakeymacs.forward_direction = True
 
@@ -220,6 +226,7 @@ def skip_to_next_like_this():
     self_insert_command("C-k", "C-d")()
     # vscodeExecuteCommand("MLSTN")()
     # vscodeExecuteCommand("editor.action.moveSelectionToNextFindMatch")()
+
     fakeymacs.rectangle_mode = False
     fakeymacs.forward_direction = True
 
@@ -227,6 +234,7 @@ def skip_to_previous_like_this():
     # VSCode Command : Move Last Selection To Previous Find Match
     vscodeExecuteCommand("MLSTP")()
     # vscodeExecuteCommand("editor.action.moveSelectionToPreviousFindMatch")()
+
     fakeymacs.rectangle_mode = False
     fakeymacs.forward_direction = True
 
