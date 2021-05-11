@@ -204,6 +204,7 @@ def mark_next_like_this():
     self_insert_command("C-d")()
     # vscodeExecuteCommand("ASTN")()
     # vscodeExecuteCommand("editor.action.addSelectionToNextFindMatch")()
+    fakeymacs.rectangle_mode = False
     fakeymacs.forward_direction = True
 
 def mark_all_like_this():
@@ -211,6 +212,7 @@ def mark_all_like_this():
     self_insert_command("C-S-l")()
     # vscodeExecuteCommand("SAOo")()
     # vscodeExecuteCommand("editor.action.selectHighlights")()
+    fakeymacs.rectangle_mode = False
     fakeymacs.forward_direction = True
 
 def skip_to_next_like_this():
@@ -218,12 +220,14 @@ def skip_to_next_like_this():
     self_insert_command("C-k", "C-d")()
     # vscodeExecuteCommand("MLSTN")()
     # vscodeExecuteCommand("editor.action.moveSelectionToNextFindMatch")()
+    fakeymacs.rectangle_mode = False
     fakeymacs.forward_direction = True
 
 def skip_to_previous_like_this():
     # VSCode Command : Move Last Selection To Previous Find Match
     vscodeExecuteCommand("MLSTP")()
     # vscodeExecuteCommand("editor.action.moveSelectionToPreviousFindMatch")()
+    fakeymacs.rectangle_mode = False
     fakeymacs.forward_direction = True
 
 ## ターミナル操作
