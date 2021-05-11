@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210510_01"
+fakeymacs_version = "20210511_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1510,9 +1510,9 @@ def configure(keymap):
     ## マルチストロークキーの設定
     define_key(keymap_emacs, "Ctl-x",  keymap.defineMultiStrokeKeymap(fc.ctl_x_prefix_key))
     define_key(keymap_emacs, "C-q",    keymap.defineMultiStrokeKeymap("C-q"))
-    define_key(keymap_emacs, "M-",     keymap.defineMultiStrokeKeymap("M-"))
+    define_key(keymap_emacs, "M-",     keymap.defineMultiStrokeKeymap("Esc"))
     define_key(keymap_emacs, "M-g",    keymap.defineMultiStrokeKeymap("M-g"))
-    define_key(keymap_emacs, "M-g M-", keymap.defineMultiStrokeKeymap("M-g M-"))
+    define_key(keymap_emacs, "M-g M-", keymap.defineMultiStrokeKeymap("M-g Esc"))
 
     ## 数字キーの設定
     for n in range(10):
