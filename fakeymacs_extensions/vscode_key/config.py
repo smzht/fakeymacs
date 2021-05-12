@@ -339,7 +339,7 @@ define_key(keymap_vscode, "C-A-d",   reset_search(reset_undo(reset_counter(mark_
 define_key(keymap_vscode, "C-A-S-d", reset_search(reset_undo(reset_counter(mark_all_like_this))))
 define_key(keymap_vscode, "C-A-r",   reset_search(reset_undo(reset_counter(skip_to_previous_like_this))))
 define_key(keymap_vscode, "C-A-s",   reset_search(reset_undo(reset_counter(skip_to_next_like_this))))
-define_key(keymap_vscode, "C-A-u",   reset_search(reset_counter(mark_undo)))
+define_key(keymap_vscode, "C-A-u",   reset_search(reset_undo(reset_counter(mark_undo))))
 
 ## 「ターミナル操作」のキー設定
 define_key(keymap_vscode, "C-S-(243)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
