@@ -195,6 +195,14 @@ def mark_forward_char():
     else:
         mark2(forward_char, True)()
 
+def mark_backward_word():
+    mark2(backward_word, False)()
+    fakeymacs.rectangle_mode = False
+
+def mark_forward_word():
+    mark2(forward_word, True)()
+    fakeymacs.rectangle_mode = False
+
 def mark_beginning_of_line():
     mark2(move_beginning_of_line, False)()
     fakeymacs.rectangle_mode = False
@@ -308,6 +316,8 @@ define_key(keymap_vscode, "C-A-p",   reset_search(reset_undo(reset_counter(repea
 define_key(keymap_vscode, "C-A-n",   reset_search(reset_undo(reset_counter(repeat(mark_next_line)))))
 define_key(keymap_vscode, "C-A-b",   reset_search(reset_undo(reset_counter(repeat(mark_backward_char)))))
 define_key(keymap_vscode, "C-A-f",   reset_search(reset_undo(reset_counter(repeat(mark_forward_char)))))
+define_key(keymap_vscode, "C-A-S-b", reset_search(reset_undo(reset_counter(repeat(mark_backward_word)))))
+define_key(keymap_vscode, "C-A-S-f", reset_search(reset_undo(reset_counter(repeat(mark_forward_word)))))
 define_key(keymap_vscode, "C-A-a",   reset_search(reset_undo(reset_counter(mark_beginning_of_line))))
 define_key(keymap_vscode, "C-A-e",   reset_search(reset_undo(reset_counter(mark_end_of_line))))
 define_key(keymap_vscode, "C-A-d",   reset_search(reset_undo(reset_counter(mark_next_like_this))))

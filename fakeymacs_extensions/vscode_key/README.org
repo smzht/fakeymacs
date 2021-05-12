@@ -82,6 +82,8 @@ True の場合（数引数の指定用として使われる）にこの機能を
 | C-A-n   | mark_next_line             | cursorColumnSelectDown                       |             |
 | C-A-b   | mark_backward_char         | cursorColumnSelectLeft or cursorLeftSelect   |             |
 | C-A-f   | mark_forward_char          | cursorColumnSelectRight or cursorRightSelect |             |
+| C-A-S-b | mark_backward_word         | cursorWordLeftSelect                         |             |
+| C-A-S-f | mark_forward_word          | cursorWordRightSelect                        |             |
 | C-A-a   | mark_beginning_of_line     | cursorHomeSelect                             |             |
 | C-A-e   | mark_end_of_line           | cursorEndSelect                              |             |
 | C-A-d   | mark_next_like_this        | Add Selection To Next Find Match             |             |
