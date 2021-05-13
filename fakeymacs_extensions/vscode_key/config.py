@@ -246,20 +246,26 @@ def skip_to_next_like_this():
     fakeymacs.rectangle_mode = False
     fakeymacs.forward_direction = True
 
-def mark_undo():
-    # VSCode Command : Cursor Undo
-    self_insert_command("C-u")()
-    # vscodeExecuteCommand("CuUn")()
-    # vscodeExecuteCommand("cursorUndo")()
+def cursor_undo():
+    if fakeymacs.is_undo_mode:
+        # VSCode Command : Cursor Undo
+        self_insert_command("C-u")()
+        # vscodeExecuteCommand("CuUn")()
+        # vscodeExecuteCommand("cursorUndo")()
 
-    fakeymacs.rectangle_mode = False
+        fakeymacs.rectangle_mode = False
+    else:
+        # VSCode Command : Cursor Redo
+        vscodeExecuteCommand("CuRed")()
+        # vscodeExecuteCommand("cursorRedo")()
 
-def mark_redo():
-    # VSCode Command : Cursor Redo
-    vscodeExecuteCommand("CuRed")()
-    # vscodeExecuteCommand("cursorRedo")()
+        fakeymacs.rectangle_mode = False
 
-    fakeymacs.rectangle_mode = False
+def cursor_undo_switching():
+    if fakeymacs.is_undo_mode:
+        fakeymacs.is_undo_mode = False
+    else:
+        fakeymacs.is_undo_mode = True
 
 ## ターミナル操作
 def create_terminal():
@@ -339,7 +345,8 @@ define_key(keymap_vscode, "C-A-d",   reset_search(reset_undo(reset_counter(mark_
 define_key(keymap_vscode, "C-A-S-d", reset_search(reset_undo(reset_counter(mark_all_like_this))))
 define_key(keymap_vscode, "C-A-r",   reset_search(reset_undo(reset_counter(skip_to_previous_like_this))))
 define_key(keymap_vscode, "C-A-s",   reset_search(reset_undo(reset_counter(skip_to_next_like_this))))
-define_key(keymap_vscode, "C-A-u",   reset_search(reset_undo(reset_counter(mark_undo))))
+define_key(keymap_vscode, "C-A-u",   reset_search(reset_counter(cursor_undo)))
+define_key(keymap_vscode, "C-A-g",   reset_search(reset_counter(cursor_undo_switching)))
 
 ## 「ターミナル操作」のキー設定
 define_key(keymap_vscode, "C-S-(243)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))

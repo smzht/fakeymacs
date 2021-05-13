@@ -90,7 +90,8 @@ True の場合（数引数の指定用として使われる）にこの機能を
 | C-A-S-d | mark_all_like_this         | Select All Occurrences of Find Match         |             |
 | C-A-r   | skip_to_previous_like_this | Move Last Selection To Previous Find Match   |             |
 | C-A-s   | skip_to_next_like_this     | Move Last Selection To Next Find Match       |             |
-| C-A-u   | mark_undo                  | Cursor Undo                                  |             |
+| C-A-u   | cursor_undo                | Cursor Undo or Cursor Redo                   |             |
+| C-A-g   | cursor_undo_switching      | Cursor Undo と Cursor Redo の切替え          |             |
 |---------+----------------------------+----------------------------------------------+-------------|
 
 ※ マルチカーソルを維持したまま選択したリージョンを解除するには、リージョンのコピー（M-w）、
