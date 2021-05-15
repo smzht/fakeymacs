@@ -295,17 +295,25 @@ def toggle_terminal():
 def execute_extended_command():
     # VSCode Command : Show All Commands
     self_insert_command3("f1")()
+    # vscodeExecuteCommand("ShAlC")()
+    # vscodeExecuteCommand("workbench.action.showCommands")()
 
 def comment_dwim():
     # VSCode Command : Toggle Line Comment
     self_insert_command("C-Slash")()
+    # vscodeExecuteCommand("TogLC")()
+    # vscodeExecuteCommand("editor.action.commentLine")()
 
 ## 「カーソル移動」のキー設定
 define_key3(keymap_emacs, "M-g p",           reset_search(reset_undo(reset_counter(reset_mark(previous_error)))))
 define_key3(keymap_emacs, "M-g M-p",         reset_search(reset_undo(reset_counter(reset_mark(previous_error)))))
 define_key3(keymap_emacs, "M-g n",           reset_search(reset_undo(reset_counter(reset_mark(next_error)))))
 define_key3(keymap_emacs, "M-g M-n",         reset_search(reset_undo(reset_counter(reset_mark(next_error)))))
-define_key3(keymap_emacs, "Ctl-x BackQuote", reset_search(reset_undo(reset_counter(reset_mark(next_error)))))
+
+if is_japanese_keyboard:
+    define_key3(keymap_emacs, "Ctl-x S-Atmark",  reset_search(reset_undo(reset_counter(reset_mark(next_error)))))
+else:
+    define_key3(keymap_emacs, "Ctl-x BackQuote", reset_search(reset_undo(reset_counter(reset_mark(next_error)))))
 
 ## 「カット / コピー」のキー設定
 define_key3(keymap_emacs, "C-k", reset_search(reset_undo(reset_counter(reset_mark(repeat3(kill_line2))))))
