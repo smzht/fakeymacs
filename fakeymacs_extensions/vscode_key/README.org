@@ -153,15 +153,21 @@ use_direct_input_in_vscode_terminal 変数が False（初期値）の場合で�
 
 ****  「その他」のキー設定
 
-|---------+--------------------------+---------------------+-------------|
-| Keybind | Function                 | VSCode Command      | Description |
-|---------+--------------------------+---------------------+-------------|
-| M-x     | execute_extended_command | Show All Commands   |             |
-| M-;     | comment_dwim             | Toggle Line Comment |             |
-|---------+--------------------------+---------------------+-------------|
+|---------+--------------------------+---------------------+---------------------|
+| Keybind | Function                 | VSCode Command      | Description         |
+|---------+--------------------------+---------------------+---------------------|
+| M-x     | execute_extended_command | Show All Commands   |                     |
+| M-;     | comment_dwim             | Toggle Line Comment |                     |
+| C-'     | trigger_suggest          | Trigger Suggest     | US Keyboard の場合  |
+| C-:     | trigger_suggest          | Trigger Suggest     | JIS Keyboard の場合 |
+|---------+--------------------------+---------------------+---------------------|
 
 ※ Meta（M-）で Esc を利用したい場合には、use_esc_as_meta 変数を True にしてください。
 True にした場合に Esc を入力するには、Esc を二回押下してください。
+
+※ Intellisense の機能については、次のページを参考としてください。
+
+- https://code.visualstudio.com/docs/editor/intellisense
 
 *** 関数（Functions）
 

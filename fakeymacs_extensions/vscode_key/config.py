@@ -304,6 +304,12 @@ def comment_dwim():
     # vscodeExecuteCommand("TogLC")()
     # vscodeExecuteCommand("editor.action.commentLine")()
 
+def trigger_suggest():
+    # VSCode Command : Trigger Suggest
+    self_insert_command("C-Space")()
+    # vscodeExecuteCommand("TrSu")()
+    # vscodeExecuteCommand("editor.action.triggerSuggest")()
+
 ## 「カーソル移動」のキー設定
 define_key3(keymap_emacs, "M-g p",           reset_search(reset_undo(reset_counter(reset_mark(previous_error)))))
 define_key3(keymap_emacs, "M-g M-p",         reset_search(reset_undo(reset_counter(reset_mark(previous_error)))))
@@ -373,3 +379,8 @@ else:
 ## 「その他」のキー設定
 define_key3(keymap_emacs, "M-x",         reset_search(reset_undo(reset_counter(reset_mark(execute_extended_command)))))
 define_key3(keymap_emacs, "M-Semicolon", reset_search(reset_undo(reset_counter(comment_dwim))))
+
+if is_japanese_keyboard:
+    define_key(keymap_vscode, "C-Colon", trigger_suggest)
+else:
+    define_key(keymap_vscode, "C-Quote", trigger_suggest)
