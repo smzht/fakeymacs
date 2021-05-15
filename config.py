@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210511_01"
+fakeymacs_version = "20210515_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -375,6 +375,9 @@ def configure(keymap):
 
     ## 日本語キーボードを利用している場合、<無変換> キーで英数入力、<変換> キーで日本語入力となる
     fc.set_input_method_key += [["(29)", "(28)"]]
+
+    ## 日本語キーボードを利用している場合、<Ａ> キーで英数入力、<あ> キーで日本語入力となる
+    # fc.set_input_method_key += [["(26)", "(22)"]]
 
     ## LAlt の単押しで英数入力、RAlt の単押しで日本語入力となる
     ## （JetBrains 製の IDE でこの設定を利用するためには、ツールボタンをオンにする必要があるようです。
@@ -1503,9 +1506,9 @@ def configure(keymap):
 
     # https://github.com/crftwr/keyhac/blob/master/keyhac_keymap.py
     # https://github.com/crftwr/pyauto/blob/master/pyauto_const.py
-    # http://www.yoshidastyle.net/2007/10/windowswin32api.html
-    # http://www.azaelia.net/factory/vk.html
+    # https://bsakatu.net/doc/virtual-key-of-windows/
     # http://www3.airnet.ne.jp/saka/hardware/keyboard/109scode.html
+    # https://docs.microsoft.com/ja-jp/windows-hardware/design/component-guidelines/keyboard-japan-ime
 
     ## マルチストロークキーの設定
     define_key(keymap_emacs, "Ctl-x",  keymap.defineMultiStrokeKeymap(fc.ctl_x_prefix_key))
