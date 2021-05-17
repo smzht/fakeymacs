@@ -213,9 +213,9 @@ def vscodeExecuteCommand(command):
 
 *** 留意事項
 
-● side_of_ctrl_key 変数で設定した側でない Ctrl キーを使うか C-q を前置することで、VSCode 本来の
-ショートカットキーを入力することもできます。VSCode のショートカットキーは、次のページで詳しく
-紹介されています。
+● side_of_ctrl_key 変数で設定した側でない Ctrl キーを使う、C-q を前置する、vscode_prefix_key
+で指定した Fakeymacs 用のプレフィックスキーを使うことで、VSCode 本来のショートカットキーを
+入力することもできます。VSCode のショートカットキーは、次のページで詳しく紹介されています。
 
 - https://qiita.com/12345/items/64f4372fbca041e949d0
 
