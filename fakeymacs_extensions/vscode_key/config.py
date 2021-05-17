@@ -18,6 +18,17 @@ except:
 
 try:
     # 設定されているか？
+    fc.vscode_prefix_key
+except:
+    # 置き換えするプレフィックスキーの組み合わせ（VSCode のキー、Fakeymacs のキー）を指定する（複数指定可）
+    # （置き換えた Fakeymacs のプレフィックスキーを利用することにより、プレフィックスキーの後に入力する
+    #   キーが全角文字で入力されることが無くなります）
+    # （同じキーを指定することもできます）
+    # （Fakeymacs のキーに Meta キー（M-）は指定できません）
+    fc.vscode_prefix_key  = [["C-k", "C-A-k"]]
+
+try:
+    # 設定されているか？
     fc.use_ctrl_atmark_for_mark
 except:
     # 日本語キーボードを利用する際、VSCode で  C-@ をマーク用のキーとして使うかどうかを指定する
@@ -46,6 +57,18 @@ def is_vscode_target(window):
 keymap_vscode = keymap.defineWindowKeymap(check_func=is_vscode_target)
 
 ## 共通関数
+def self_insert_command4(*keys):
+    func = self_insert_command(*keys)
+    def _func():
+        imeStatus = keymap.getWindow().getImeStatus()
+        if imeStatus:
+            keymap.getWindow().setImeStatus(0)
+        func()
+        delay()
+        if imeStatus:
+            keymap.getWindow().setImeStatus(1)
+    return _func
+
 def define_key3(window_keymap, keys, command):
     define_key(window_keymap, keys,
                makeKeyCommand(window_keymap, keys, command, lambda: is_vscode_target(keymap.getWindow())))
@@ -309,6 +332,18 @@ def trigger_suggest():
     self_insert_command("C-Space")()
     # vscodeExecuteCommand("TrSu")()
     # vscodeExecuteCommand("editor.action.triggerSuggest")()
+
+## プレフィックスキーの設定
+for pkey1, pkey2 in fc.vscode_prefix_key:
+    define_key(keymap_vscode, pkey2, keymap.defineMultiStrokeKeymap("<VSCode> " + pkey1))
+
+    for vkey in vkeys():
+        key = "({})".format(vkey)
+        for mod1 in ["", "A-"]:
+            for mod2 in ["", "C-"]:
+                for mod3 in ["", "S-"]:
+                    mkey = mod1 + mod2 + mod3 + key
+                    define_key(keymap_vscode, "{} {}".format(pkey2, mkey), self_insert_command4(pkey1, mkey))
 
 ## 「カーソル移動」のキー設定
 define_key3(keymap_emacs, "M-g p",           reset_search(reset_undo(reset_counter(reset_mark(previous_error)))))
