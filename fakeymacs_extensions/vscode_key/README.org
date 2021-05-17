@@ -180,7 +180,7 @@ use_direct_input_in_vscode_terminal 変数が False（初期値）の場合で�
 ※ Meta（M-）で Esc を利用したい場合には、use_esc_as_meta 変数を True にしてください。
 True にした場合に Esc を入力するには、Esc を二回押下してください。
 
-※ Intellisense の機能については、次のページを参考としてください。
+※ IntelliSense の機能については、次のページを参考としてください。
 
 - https://code.visualstudio.com/docs/editor/intellisense
 
