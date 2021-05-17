@@ -33,4 +33,3 @@ def browser_popup(key, ime_status=0):
 
 define_key(keymap_global, "C-A-l", browser_popup("C-l"))
 define_key(keymap_global, "C-A-t", browser_popup("C-t"))
-define_key(keymap_global, "C-A-k", browser_popup("C-k"))
