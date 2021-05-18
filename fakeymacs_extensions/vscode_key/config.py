@@ -346,10 +346,10 @@ for pkey1, pkey2 in fc.vscode_prefix_key:
                     define_key(keymap_vscode, "{} {}".format(pkey2, mkey), self_insert_command4(pkey1, mkey))
 
 ## 「カーソル移動」のキー設定
-define_key3(keymap_emacs, "M-g p",           reset_search(reset_undo(reset_counter(reset_mark(previous_error)))))
-define_key3(keymap_emacs, "M-g M-p",         reset_search(reset_undo(reset_counter(reset_mark(previous_error)))))
-define_key3(keymap_emacs, "M-g n",           reset_search(reset_undo(reset_counter(reset_mark(next_error)))))
-define_key3(keymap_emacs, "M-g M-n",         reset_search(reset_undo(reset_counter(reset_mark(next_error)))))
+define_key3(keymap_emacs, "M-g p",   reset_search(reset_undo(reset_counter(reset_mark(previous_error)))))
+define_key3(keymap_emacs, "M-g M-p", reset_search(reset_undo(reset_counter(reset_mark(previous_error)))))
+define_key3(keymap_emacs, "M-g n",   reset_search(reset_undo(reset_counter(reset_mark(next_error)))))
+define_key3(keymap_emacs, "M-g M-n", reset_search(reset_undo(reset_counter(reset_mark(next_error)))))
 
 if is_japanese_keyboard:
     define_key3(keymap_emacs, "Ctl-x S-Atmark",  reset_search(reset_undo(reset_counter(reset_mark(next_error)))))
