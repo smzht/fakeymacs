@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210516_01"
+fakeymacs_version = "20210519_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -165,7 +165,7 @@ def configure(keymap):
 
     # OS に設定しているキーボードタイプが日本語キーボードかどうかを設定する（自動設定）
     # （True: 日本語キーボード、False: 英語キーボード）
-    # （ http://tokovalue.jp/function/GetKeyboardType.htm ）
+    # （http://tokovalue.jp/function/GetKeyboardType.htm）
     if ctypes.windll.user32.GetKeyboardType(0) == 7:
         is_japanese_keyboard = True
     else:
@@ -377,6 +377,7 @@ def configure(keymap):
     fc.set_input_method_key += [["(29)", "(28)"]]
 
     ## 日本語キーボードを利用している場合、<Ａ> キーで英数入力、<あ> キーで日本語入力となる
+    ## （https://docs.microsoft.com/ja-jp/windows-hardware/design/component-guidelines/keyboard-japan-ime）
     # fc.set_input_method_key += [["(26)", "(22)"]]
 
     ## LAlt の単押しで英数入力、RAlt の単押しで日本語入力となる
@@ -1320,7 +1321,7 @@ def configure(keymap):
                 window_keymap[key_list[0]] = keyCommand(key_list[0])
 
                 # Alt キーを単押しした際に、カーソルがメニューへ移動しないようにする
-                # https://www.haijin-boys.com/discussions/4583
+                # （https://www.haijin-boys.com/discussions/4583）
                 if re.match(key_list[0], r"O-LAlt$", re.IGNORECASE):
                     window_keymap["D-LAlt"] = "D-LAlt", "(7)"
 
@@ -1508,7 +1509,6 @@ def configure(keymap):
     # https://github.com/crftwr/pyauto/blob/master/pyauto_const.py
     # https://bsakatu.net/doc/virtual-key-of-windows/
     # http://www3.airnet.ne.jp/saka/hardware/keyboard/109scode.html
-    # https://docs.microsoft.com/ja-jp/windows-hardware/design/component-guidelines/keyboard-japan-ime
 
     ## マルチストロークキーの設定
     define_key(keymap_emacs, "Ctl-x",  keymap.defineMultiStrokeKeymap(fc.ctl_x_prefix_key))
