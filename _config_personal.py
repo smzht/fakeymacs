@@ -94,6 +94,7 @@ fc.set_input_method_key = []
 fc.set_input_method_key += [["(29)", "(28)"]]
 
 ## 日本語キーボードを利用している場合、<Ａ> キーで英数入力、<あ> キーで日本語入力となる
+## （https://docs.microsoft.com/ja-jp/windows-hardware/design/component-guidelines/keyboard-japan-ime）
 # fc.set_input_method_key += [["(26)", "(22)"]]
 
 ## LAlt の単押しで英数入力、RAlt の単押しで日本語入力となる

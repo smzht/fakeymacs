@@ -1,7 +1,7 @@
 ﻿# -*- mode: python; coding: utf-8-with-signature-dos -*-
 
-# 本ファイルは、config_personal.py というファイル名にすることで機能拡張ファイルとして機能します。
-# 以下のようなコードを書くことにより、vscode_key Extension の機能を拡張することができます。
+# 本ファイルは、config_personal.py というファイル名にすることで vscode_key Extension の
+# 機能拡張ファイルとして機能します。以下はサンプルコードです。
 
 def toggle_editor_layout():
     # VSCode Command : Toggle Vertical/Horizontal Editor Layout
