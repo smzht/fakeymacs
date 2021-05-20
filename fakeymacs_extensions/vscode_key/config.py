@@ -90,13 +90,11 @@ def vscodeExecuteCommand2(command):
 def previous_error():
     # VSCode Command : Go to Previous Problem in Files (Error, Warning, Info)
     self_insert_command("S-F8")()
-    # vscodeExecuteCommand("GtPPiF")()
     # vscodeExecuteCommand("editor.action.marker.prevInFiles")()
 
 def next_error():
     # VSCode Command : Go to Next Problem in Files (Error, Warning, Info)
     self_insert_command("F8")()
-    # vscodeExecuteCommand("GtNPiF")()
     # vscodeExecuteCommand("editor.action.marker.nextInFiles")()
 
 ## カット / コピー
@@ -158,7 +156,6 @@ def delete_other_groups():
 def split_editor_below():
     # VSCode Command : View: Split Editor Orthogonal
     self_insert_command("C-k", "C-Yen")()
-    # vscodeExecuteCommand("ViSEO")()
     # vscodeExecuteCommand("workbench.action.splitEditorOrthogonal")()
 
 def split_editor_right():
@@ -237,7 +234,6 @@ def mark_end_of_line():
 def mark_next_like_this():
     # VSCode Command : Add Selection To Next Find Match
     self_insert_command("C-d")()
-    # vscodeExecuteCommand("ASTN")()
     # vscodeExecuteCommand("editor.action.addSelectionToNextFindMatch")()
 
     fakeymacs.rectangle_mode = False
@@ -246,7 +242,6 @@ def mark_next_like_this():
 def mark_all_like_this():
     # VSCode Command : Select All Occurrences of Find Match
     self_insert_command("C-S-l")()
-    # vscodeExecuteCommand("SAOo")()
     # vscodeExecuteCommand("editor.action.selectHighlights")()
 
     fakeymacs.rectangle_mode = False
@@ -263,7 +258,6 @@ def skip_to_previous_like_this():
 def skip_to_next_like_this():
     # VSCode Command : Move Last Selection To Next Find Match
     self_insert_command("C-k", "C-d")()
-    # vscodeExecuteCommand("MLSTN")()
     # vscodeExecuteCommand("editor.action.moveSelectionToNextFindMatch")()
 
     fakeymacs.rectangle_mode = False
@@ -273,7 +267,6 @@ def cursor_undo():
     if fakeymacs.is_undo_mode:
         # VSCode Command : Cursor Undo
         self_insert_command("C-u")()
-        # vscodeExecuteCommand("CuUn")()
         # vscodeExecuteCommand("cursorUndo")()
 
         fakeymacs.rectangle_mode = False
@@ -318,19 +311,16 @@ def toggle_terminal():
 def execute_extended_command():
     # VSCode Command : Show All Commands
     self_insert_command3("f1")()
-    # vscodeExecuteCommand("ShAlC")()
     # vscodeExecuteCommand("workbench.action.showCommands")()
 
 def comment_dwim():
     # VSCode Command : Toggle Line Comment
     self_insert_command("C-Slash")()
-    # vscodeExecuteCommand("TogLC")()
     # vscodeExecuteCommand("editor.action.commentLine")()
 
 def trigger_suggest():
     # VSCode Command : Trigger Suggest
     self_insert_command("C-Space")()
-    # vscodeExecuteCommand("TrSu")()
     # vscodeExecuteCommand("editor.action.triggerSuggest")()
 
 ## プレフィックスキーの設定
