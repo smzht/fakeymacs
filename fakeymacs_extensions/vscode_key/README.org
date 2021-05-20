@@ -213,6 +213,9 @@ def vscodeExecuteCommand(command):
 
 *** 留意事項
 
+● 本フォルダにある _config_personal.py を config_personal.py というファイル名にすることで
+機能拡張ファイルとして機能します。vscode_key Extension の機能を拡張する際にご利用ください。
+
 ● side_of_ctrl_key 変数で設定した側でない Ctrl キーを使う、C-q を前置する、vscode_prefix_key
 で指定した Fakeymacs 用のプレフィックスキーを使うことで、VSCode 本来のショートカットキーを
 入力することもできます。VSCode のショートカットキーは、次のページで詳しく紹介されています。

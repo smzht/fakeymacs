@@ -362,8 +362,8 @@ define_key3(keymap_emacs, "C-s", reset_undo(reset_counter(reset_mark(isearch_for
 ## 「エディタ操作」のキー設定
 define_key3(keymap_emacs, "Ctl-x 0", reset_search(reset_undo(reset_counter(reset_mark(delete_group)))))
 define_key3(keymap_emacs, "Ctl-x 1", reset_search(reset_undo(reset_counter(reset_mark(delete_other_groups)))))
-define_key3(keymap_emacs, "Ctl-x 2", reset_search(reset_undo(reset_counter(reset_mark(split_editor_below)))))
-define_key3(keymap_emacs, "Ctl-x 3", reset_search(reset_undo(reset_counter(reset_mark(split_editor_right)))))
+define_key3(keymap_emacs, "Ctl-x 2", split_editor_below)
+define_key3(keymap_emacs, "Ctl-x 3", split_editor_right)
 define_key3(keymap_emacs, "Ctl-x o", reset_search(reset_undo(reset_counter(reset_mark(other_group)))))
 
 for n in range(10):
@@ -409,3 +409,6 @@ if is_japanese_keyboard:
     define_key(keymap_vscode, "C-Colon", trigger_suggest)
 else:
     define_key(keymap_vscode, "C-Quote", trigger_suggest)
+
+## config_personal.py ファイルの読み込み
+exec(readConfigExtension(r"vscode_key\config_personal.py", msg=False), dict(globals(), **locals()))

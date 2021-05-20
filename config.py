@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210519_01"
+fakeymacs_version = "20210520_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -193,12 +193,13 @@ def configure(keymap):
 
         return config_section
 
-    def readConfigExtension(config_file):
+    def readConfigExtension(config_file, msg=True):
         try:
             with open(dataPath() + r"\fakeymacs_extensions\\" + config_file, "r", encoding="utf-8-sig") as f:
                 config_extension = f.read()
         except:
-            print("拡張機能ファイル {} の読み込みに失敗しました".format(config_file))
+            if msg:
+                print("拡張機能ファイル {} の読み込みに失敗しました".format(config_file))
             config_extension = ""
 
         return config_extension
