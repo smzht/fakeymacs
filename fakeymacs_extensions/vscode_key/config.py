@@ -318,6 +318,8 @@ def comment_dwim():
     self_insert_command("C-Slash")()
     # vscodeExecuteCommand("editor.action.commentLine")()
 
+    resetRegion()
+
 def trigger_suggest():
     # VSCode Command : Trigger Suggest
     self_insert_command("C-Space")()
@@ -403,7 +405,7 @@ else:
 
 ## 「その他」のキー設定
 define_key3(keymap_emacs, "M-x",         reset_search(reset_undo(reset_counter(reset_mark(execute_extended_command)))))
-define_key3(keymap_emacs, "M-Semicolon", reset_search(reset_undo(reset_counter(comment_dwim))))
+define_key3(keymap_emacs, "M-Semicolon", reset_search(reset_undo(reset_counter(reset_mark(comment_dwim)))))
 
 if is_japanese_keyboard:
     define_key(keymap_vscode, "C-Colon", trigger_suggest)
