@@ -49,7 +49,8 @@ fakeymacs.vscode_focus = "not_terminal"
 fakeymacs.rectangle_mode = False
 
 def is_vscode_target(window):
-    if window.getProcessName() in fc.vscode_target:
+    if (window.getProcessName() in fc.vscode_target and
+        window.getClassName() == "Chrome_WidgetWin_1"):
         return True
     else:
         return False

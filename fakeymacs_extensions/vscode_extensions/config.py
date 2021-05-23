@@ -27,7 +27,8 @@ except:
 
 def define_key3(window_keymap, keys, command):
     define_key(window_keymap, keys,
-               makeKeyCommand(window_keymap, keys, command, lambda: checkWindow("Code.exe", None)))
+               makeKeyCommand(window_keymap, keys, command,
+                              lambda: checkWindow("Code.exe", "Chrome_WidgetWin_1")))
 
 def vscodeExecuteCommand(command):
     def _func():
