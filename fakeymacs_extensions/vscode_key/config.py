@@ -61,12 +61,12 @@ keymap_vscode = keymap.defineWindowKeymap(check_func=is_vscode_target)
 def self_insert_command4(*keys):
     func = self_insert_command(*keys)
     def _func():
-        imeStatus = keymap.getWindow().getImeStatus()
-        if imeStatus:
+        ime_status = keymap.getWindow().getImeStatus()
+        if ime_status:
             keymap.getWindow().setImeStatus(0)
         func()
         delay()
-        if imeStatus:
+        if ime_status:
             keymap.getWindow().setImeStatus(1)
     return _func
 
