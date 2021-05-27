@@ -81,11 +81,11 @@ True に設定した場合でも Toggle Terminal 用のキーとして C-<半角
 | Ctl-x 3        | split_editor_right           | View: Split Editor                        |             |
 | Ctl-x o        | other_group                  | View: Navigate Between Editor Groups      |             |
 | C-<数字キー>   | switch_focus(<数字キーの値>) | View: Focus Side Bar or n-th Editor Group |             |
+| C-A-<数字キー> | switch_focus(<数字キーの値>) | View: Focus Side Bar or n-th Editor Group |             |
 |----------------+------------------------------+-------------------------------------------+-------------|
 
 ※ C-<数字キー> は、use_ctrl_digit_key_for_digit_argument が変数 False（初期値）の場合に機能します。
-True の場合（数引数の指定用として使われる）にこの機能を利用したい場合には、プレフィックスキー C-q を
-前置するようにしてください。
+True の場合（数引数の指定用として使われる）には、代わりに C-A-<数字キー> を設定しています。
 
 ****  「矩形選択 / マルチカーソル」のキー設定
 
