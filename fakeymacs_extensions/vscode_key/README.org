@@ -117,6 +117,13 @@ True の場合（数引数の指定用として使われる）にこの機能を
 - https://code.visualstudio.com/docs/editor/codebasics#_column-box-selection
 - https://code.visualstudio.com/docs/editor/codebasics#_multiple-selections-multicursor
 
+※ 次の VSCode の Extension をインストールすると、この「矩形選択 / マルチカーソル」の機能が
+より有用なものとなります。プレフィックスキーには、vscode_prefix_key 変数で設定した C-A-k が
+利用できます。
+
+- https://marketplace.visualstudio.com/items?itemName=dbankier.vscode-quick-select
+- https://marketplace.visualstudio.com/items?itemName=tomoki1207.vscode-input-sequence
+
 ****  「ターミナル操作」のキー設定
 
 |-----------------+-----------------+------------------------------------------+---------------------|
