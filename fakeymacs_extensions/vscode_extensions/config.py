@@ -49,7 +49,6 @@ if fc.vscode_recenter:
     def recenter():
         # VSCode Command : Center Editor Window
         self_insert_command("C-l")()
-        # vscodeExecuteCommand("C-EW")()
         # vscodeExecuteCommand("center-editor-window.center")()
 
     define_key3(keymap_emacs, "C-l", reset_search(reset_undo(reset_counter(recenter))))

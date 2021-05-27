@@ -121,7 +121,7 @@ def kill_buffer():
 
 def switch_to_buffer():
     # VSCode Command : View: Quick Open Privious Recently Used Editor in Group
-    vscodeExecuteCommand("VQO-P-RUEi")()
+    vscodeExecuteCommand("VQOPrRUEi")()
     # vscodeExecuteCommand("workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup")()
 
 def list_buffers():
@@ -166,7 +166,7 @@ def split_editor_right():
 
 def other_group():
     # VSCode Command : View: Navigate Between Editor Groups
-    vscodeExecuteCommand("VNB-EG")()
+    vscodeExecuteCommand("VNBEdG")()
     # vscodeExecuteCommand("workbench.action.navigateEditorGroups")()
 
     if fc.use_direct_input_in_vscode_terminal:
