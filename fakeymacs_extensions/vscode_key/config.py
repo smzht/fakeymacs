@@ -47,6 +47,7 @@ except:
 
 fakeymacs.vscode_focus = "not_terminal"
 fakeymacs.rectangle_mode = False
+fakeymacs.is_undo_mode = True
 
 def is_vscode_target(window):
     if (window.getProcessName() in fc.vscode_target and
