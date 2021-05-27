@@ -369,9 +369,8 @@ define_key3(keymap_emacs, "Ctl-x 2", split_editor_below)
 define_key3(keymap_emacs, "Ctl-x 3", split_editor_right)
 define_key3(keymap_emacs, "Ctl-x o", reset_search(reset_undo(reset_counter(reset_mark(other_group)))))
 
-for n in range(10):
-    define_key(keymap_vscode, "C-A-{}".format(n), reset_search(reset_undo(reset_counter(reset_mark(switch_focus(n))))))
-    if not fc.use_ctrl_digit_key_for_digit_argument:
+if not fc.use_ctrl_digit_key_for_digit_argument:
+    for n in range(10):
         define_key(keymap_vscode, "C-{}".format(n), reset_search(reset_undo(reset_counter(reset_mark(switch_focus(n))))))
 
 ## 「矩形選択 / マルチカーソル」のキー設定
