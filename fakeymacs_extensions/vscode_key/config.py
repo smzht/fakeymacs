@@ -400,8 +400,8 @@ define_key(keymap_vscode, "C-A-d",   reset_search(reset_undo(reset_counter(mark_
 define_key(keymap_vscode, "C-A-S-d", reset_search(reset_undo(reset_counter(mark_all_like_this))))
 define_key(keymap_vscode, "C-A-s",   reset_search(reset_undo(reset_counter(skip_to_next_like_this))))
 define_key(keymap_vscode, "C-A-S-s", reset_search(reset_undo(reset_counter(skip_to_previous_like_this))))
-define_key(keymap_vscode, "C-A-e",   reset_search(reset_undo(reset_counter(expand_region))))
-define_key(keymap_vscode, "C-A-S-e", reset_search(reset_undo(reset_counter(shrink_region))))
+define_key(keymap_vscode, "C-A-x",   reset_search(reset_undo(reset_counter(expand_region))))
+define_key(keymap_vscode, "C-A-S-x", reset_search(reset_undo(reset_counter(shrink_region))))
 define_key(keymap_vscode, "C-A-u",   reset_search(reset_counter(cursor_undo)))
 define_key(keymap_vscode, "C-A-g",   reset_search(reset_counter(cursor_undo_switching)))
 

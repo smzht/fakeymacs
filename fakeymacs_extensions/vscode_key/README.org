@@ -105,8 +105,8 @@ True の場合（C-<数字キー> は数引数の指定用として使われる�
 | C-A-S-d | mark_all_like_this         | Select All Occurrences of Find Match         |             |
 | C-A-s   | skip_to_next_like_this     | Move Last Selection To Next Find Match       |             |
 | C-A-S-s | skip_to_previous_like_this | Move Last Selection To Previous Find Match   |             |
-| C-A-e   | expand_region              | Expand Selection                             |             |
-| C-A-S-e | shrink_region              | Shrink Selection                             |             |
+| C-A-x   | expand_region              | Expand Selection                             |             |
+| C-A-S-x | shrink_region              | Shrink Selection                             |             |
 | C-A-u   | cursor_undo                | Cursor Undo or Cursor Redo                   |             |
 | C-A-g   | cursor_undo_switching      | Cursor Undo と Cursor Redo の切替え          |             |
 |---------+----------------------------+----------------------------------------------+-------------|
