@@ -275,24 +275,18 @@ def shrink_region():
     # vscodeExecuteCommand("editor.action.smartSelect.shrink")()
 
 def cursor_undo():
-    if fakeymacs.is_undo_mode:
-        # VSCode Command : Cursor Undo
-        self_insert_command("C-u")()
-        # vscodeExecuteCommand("cursorUndo")()
+    # VSCode Command : Cursor Undo
+    self_insert_command("C-u")()
+    # vscodeExecuteCommand("cursorUndo")()
 
-        fakeymacs.rectangle_mode = False
-    else:
-        # VSCode Command : Cursor Redo
-        vscodeExecuteCommand("CuRed")()
-        # vscodeExecuteCommand("cursorRedo")()
+    fakeymacs.rectangle_mode = False
 
-        fakeymacs.rectangle_mode = False
+def cursor_redo():
+    # VSCode Command : Cursor Redo
+    vscodeExecuteCommand("CuRed")()
+    # vscodeExecuteCommand("cursorRedo")()
 
-def cursor_undo_switching():
-    if fakeymacs.is_undo_mode:
-        fakeymacs.is_undo_mode = False
-    else:
-        fakeymacs.is_undo_mode = True
+    fakeymacs.rectangle_mode = False
 
 ## ターミナル操作
 def create_terminal():
@@ -402,8 +396,8 @@ define_key(keymap_vscode, "C-A-s",   reset_search(reset_undo(reset_counter(skip_
 define_key(keymap_vscode, "C-A-S-s", reset_search(reset_undo(reset_counter(skip_to_previous_like_this))))
 define_key(keymap_vscode, "C-A-x",   reset_search(reset_undo(reset_counter(expand_region))))
 define_key(keymap_vscode, "C-A-S-x", reset_search(reset_undo(reset_counter(shrink_region))))
-define_key(keymap_vscode, "C-A-u",   reset_search(reset_counter(cursor_undo)))
-define_key(keymap_vscode, "C-A-g",   reset_search(reset_counter(cursor_undo_switching)))
+define_key(keymap_vscode, "C-A-u",   reset_search(reset_undo(reset_counter(cursor_undo))))
+define_key(keymap_vscode, "C-A-r",   reset_search(reset_undo(reset_counter(cursor_redo))))
 
 ## 「ターミナル操作」のキー設定
 define_key(keymap_vscode, "C-S-(243)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))

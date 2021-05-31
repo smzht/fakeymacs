@@ -107,8 +107,8 @@ True の場合（C-<数字キー> は数引数の指定用として使われる�
 | C-A-S-s | skip_to_previous_like_this | Move Last Selection To Previous Find Match   | 多くは C-A-u で代用可 |
 | C-A-x   | expand_region              | Expand Selection                             |                       |
 | C-A-S-x | shrink_region              | Shrink Selection                             | 多くは C-A-u で代用可 |
-| C-A-u   | cursor_undo                | Cursor Undo or Cursor Redo                   |                       |
-| C-A-g   | cursor_undo_switching      | Cursor Undo と Cursor Redo の切替え          |                       |
+| C-A-u   | cursor_undo                | Cursor Undo                                  |                       |
+| C-A-r   | cursor_redo                | Cursor Redo                                  |                       |
 |---------+----------------------------+----------------------------------------------+-----------------------|
 
 ※ マルチカーソルを維持したまま選択したリージョンを解除するには、リージョンのコピー（M-w）、
