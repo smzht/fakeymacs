@@ -1106,15 +1106,16 @@ def configure(keymap):
     def indent_for_tab_command():
         self_insert_command("Tab")()
 
-    def keyboard_quit():
+    def keyboard_quit(esc=True):
         resetRegion()
 
-        # Esc を発行して問題ないアプリケーションソフトには Esc を発行する
-        if not (checkWindow("cmd.exe", "ConsoleWindowClass") or        # Cmd
-                checkWindow("powershell.exe", "ConsoleWindowClass") or # PowerShell
-                checkWindow("EXCEL.EXE", "EXCEL*") or                  # Microsoft Excel
-                checkWindow("Evernote.exe", "WebViewHost")):           # Evernote
-            self_insert_command("Esc")()
+        if esc:
+            # Esc を発行して問題ないアプリケーションソフトには Esc を発行する
+            if not (checkWindow("cmd.exe", "ConsoleWindowClass") or        # Cmd
+                    checkWindow("powershell.exe", "ConsoleWindowClass") or # PowerShell
+                    checkWindow("EXCEL.EXE", "EXCEL*") or                  # Microsoft Excel
+                    checkWindow("Evernote.exe", "WebViewHost")):           # Evernote
+                self_insert_command("Esc")()
 
         keymap.command_RecordStop()
 

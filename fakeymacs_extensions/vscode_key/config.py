@@ -45,6 +45,16 @@ except:
     # どうかを指定する（True: 使う、False: 使わない）
     fc.use_direct_input_in_vscode_terminal = False
 
+try:
+    # 設定されているか？
+    fc.esc_key_mode_in_keyboard_quit
+except:
+    # keyboard_quit 関数コール時の Esc キーの発行方法を指定する
+    # （1：Esc キーを常に発行する
+    #   2：Esc キーを常に発行しない
+    #   3：Ctrl+g を２回連続押下した場合に Esc キーを発行する）
+    fc.esc_key_mode_in_keyboard_quit = 1
+
 fakeymacs.vscode_focus = "not_terminal"
 fakeymacs.rectangle_mode = False
 
@@ -295,6 +305,19 @@ def cursor_redo():
 
     fakeymacs.rectangle_mode = False
 
+def keyboard_quit2():
+    if fc.esc_key_mode_in_keyboard_quit == 1:
+        keyboard_quit(esc=True)
+
+    elif fc.esc_key_mode_in_keyboard_quit == 2:
+        keyboard_quit(esc=False)
+
+    elif fc.esc_key_mode_in_keyboard_quit == 3:
+        if fakeymacs.last_keys == [keymap_emacs, "C-g"]:
+            keyboard_quit(esc=True)
+        else:
+            keyboard_quit(esc=False)
+
 ## ターミナル操作
 def create_terminal():
     # VSCode Command : Terminal: Create New Integrated Terminal
@@ -421,6 +444,7 @@ else:
     define_key(keymap_vscode, "C-BackQuote",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
 
 ## 「その他」のキー設定
+define_key3(keymap_emacs, "C-g",         reset_search(reset_counter(reset_mark(keyboard_quit2))))
 define_key3(keymap_emacs, "M-x",         reset_search(reset_undo(reset_counter(reset_mark(execute_extended_command)))))
 define_key3(keymap_emacs, "M-Semicolon", reset_search(reset_undo(reset_counter(reset_mark(comment_dwim)))))
 
