@@ -202,7 +202,8 @@ def mark_backward_char():
         self_insert_command("C-S-A-Left")()
         # vscodeExecuteCommand("cursorColumnSelectLeft")()
 
-        fakeymacs.forward_direction = False
+        if fakeymacs.forward_direction is None:
+            fakeymacs.forward_direction = False
     else:
         mark2(backward_char, False)()
 
@@ -212,7 +213,8 @@ def mark_forward_char():
         self_insert_command("C-S-A-Right")()
         # vscodeExecuteCommand("cursorColumnSelectRight")()
 
-        fakeymacs.forward_direction = True
+        if fakeymacs.forward_direction is None:
+            fakeymacs.forward_direction = True
     else:
         mark2(forward_char, True)()
 
@@ -269,10 +271,15 @@ def expand_region():
     self_insert_command("A-S-Right")()
     # vscodeExecuteCommand("editor.action.smartSelect.expand")()
 
+    fakeymacs.rectangle_mode = False
+    fakeymacs.forward_direction = True
+
 def shrink_region():
     # VSCode Command : Shrink Selection
     self_insert_command("A-S-Left")()
     # vscodeExecuteCommand("editor.action.smartSelect.shrink")()
+
+    fakeymacs.rectangle_mode = False
 
 def cursor_undo():
     # VSCode Command : Cursor Undo
