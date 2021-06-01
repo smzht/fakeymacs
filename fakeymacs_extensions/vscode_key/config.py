@@ -313,6 +313,9 @@ def keyboard_quit2():
         else:
             keyboard_quit(esc=False)
 
+def keyboard_quit3():
+    keyboard_quit(esc=False)
+
 ## ターミナル操作
 def create_terminal():
     # VSCode Command : Terminal: Create New Integrated Terminal
@@ -440,6 +443,7 @@ else:
 
 ## 「その他」のキー設定
 define_key3(keymap_emacs, "C-g",         reset_search(reset_counter(reset_mark(keyboard_quit2))))
+define_key(keymap_vscode, "C-A-g",       reset_search(reset_counter(reset_mark(keyboard_quit3))))
 define_key3(keymap_emacs, "M-x",         reset_search(reset_undo(reset_counter(reset_mark(execute_extended_command)))))
 define_key3(keymap_emacs, "M-Semicolon", reset_search(reset_undo(reset_counter(reset_mark(comment_dwim)))))
 
