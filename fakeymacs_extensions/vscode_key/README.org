@@ -38,8 +38,7 @@ True に設定した場合でも Toggle Terminal 用のキーとして C-<半角
 
 ※ esc_key_mode_in_keyboard_quit の設定値には、次の３つの値のいずれかを指定できます。
 - 1：Esc キーを常に発行する
-- 2：Esc キーを常に発行しない
-- 3：Ctrl+g を２回連続押下した場合に Esc キーを発行する
+- 2：Ctrl+g を２回連続押下した場合に Esc キーを発行する
 
 *** キーバインド
 

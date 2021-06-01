@@ -51,8 +51,7 @@ try:
 except:
     # keyboard_quit 関数コール時の Esc キーの発行方法を指定する
     # （1：Esc キーを常に発行する
-    #   2：Esc キーを常に発行しない
-    #   3：Ctrl+g を２回連続押下した場合に Esc キーを発行する）
+    #   2：Ctrl+g を２回連続押下した場合に Esc キーを発行する）
     fc.esc_key_mode_in_keyboard_quit = 1
 
 fakeymacs.vscode_focus = "not_terminal"
@@ -308,11 +307,7 @@ def cursor_redo():
 def keyboard_quit2():
     if fc.esc_key_mode_in_keyboard_quit == 1:
         keyboard_quit(esc=True)
-
-    elif fc.esc_key_mode_in_keyboard_quit == 2:
-        keyboard_quit(esc=False)
-
-    elif fc.esc_key_mode_in_keyboard_quit == 3:
+    else:
         if fakeymacs.last_keys == [keymap_emacs, "C-g"]:
             keyboard_quit(esc=True)
         else:
