@@ -39,6 +39,8 @@ True に設定した場合でも Toggle Terminal 用のキーとして C-<半角
 ※ esc_key_mode_in_keyboard_quit の設定値には、次の３つの値のいずれかを指定できます。
 - 1：Esc キーを常に発行する
 - 2：Ctrl+g を２回連続押下した場合に Esc キーを発行する
+設定値 2 の利用は、VSCode の Jupyter Extension を使う場合などを想定しています。
+設定値 1 の場合でも、C-A-g キーにより Esc キーを発行しない keyboard_quit を利用できます。
 
 *** キーバインド
 
