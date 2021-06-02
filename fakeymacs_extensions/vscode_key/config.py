@@ -297,6 +297,13 @@ def cursor_redo():
     vscodeExecuteCommand("CuRed")()
     # vscodeExecuteCommand("cursorRedo")()
 
+def quick_select(window_keymap, key):
+    func = getKeyCommand(window_keymap, key)
+    def _func():
+        reset_rect(func)()
+        fakeymacs.forward_direction = True
+    return _func
+
 ## ターミナル操作
 def create_terminal():
     # VSCode Command : Terminal: Create New Integrated Terminal
@@ -419,6 +426,43 @@ define_key(keymap_vscode, "C-A-x",   reset_search(reset_undo(reset_counter(reset
 define_key(keymap_vscode, "C-A-S-x", reset_search(reset_undo(reset_counter(reset_rect(shrink_region)))))
 define_key(keymap_vscode, "C-A-u",   reset_search(reset_undo(reset_counter(reset_rect(cursor_undo)))))
 define_key(keymap_vscode, "C-A-r",   reset_search(reset_undo(reset_counter(reset_rect(cursor_redo)))))
+
+## Quick and Simple Text Selection Extension 利用時の対応
+## （https://marketplace.visualstudio.com/items?itemName=dbankier.vscode-quick-select）
+if is_japanese_keyboard:
+    quick_select_keys = {'"' : "S-2",
+                         "'" : "S-7",
+                         ";" : "Semicolon",
+                         ":" : "Colon",
+                         "`" : "S-Atmark",
+                         "(" : "S-8",
+                         ")" : "S-9",
+                         "[" : "OpenBracket",
+                         "]" : "CloseBracket",
+                         "{" : "S-OpenBracket",
+                         "}" : "S-CloseBracket",
+                         "<" : "S-Comma",
+                         ">" : "S-Period"
+                        }
+else:
+    quick_select_keys = {'"' : "S-Quote",
+                         "'" : "Quote",
+                         ";" : "Semicolon",
+                         ":" : "S-Semicolon",
+                         "`" : "BackQuote",
+                         "(" : "S-9",
+                         ")" : "S-0",
+                         "[" : "OpenBracket",
+                         "]" : "CloseBracket",
+                         "{" : "S-OpenBracket",
+                         "}" : "S-CloseBracket",
+                         "<" : "S-Comma",
+                         ">" : "S-Period"
+                        }
+
+for key in quick_select_keys.values():
+    mkey = "C-A-k {}".format(key)
+    define_key(keymap_vscode, mkey, quick_select(keymap_vscode, mkey))
 
 ## 「ターミナル操作」のキー設定
 define_key(keymap_vscode, "C-S-(243)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
