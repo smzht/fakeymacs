@@ -304,18 +304,6 @@ def cursor_redo():
 
     fakeymacs.rectangle_mode = False
 
-def keyboard_quit2():
-    if fc.esc_key_mode_in_keyboard_quit == 1:
-        keyboard_quit(esc=True)
-    else:
-        if fakeymacs.last_keys == [keymap_emacs, "C-g"]:
-            keyboard_quit(esc=True)
-        else:
-            keyboard_quit(esc=False)
-
-def keyboard_quit3():
-    keyboard_quit(esc=False)
-
 ## ターミナル操作
 def create_terminal():
     # VSCode Command : Terminal: Create New Integrated Terminal
@@ -341,6 +329,18 @@ def toggle_terminal():
         vscodeExecuteCommand2("workbench.action.terminal.toggleTerminal")()
 
 ## その他
+def keyboard_quit2():
+    if fc.esc_key_mode_in_keyboard_quit == 1:
+        keyboard_quit(esc=True)
+    else:
+        if fakeymacs.last_keys == [keymap_emacs, "C-g"]:
+            keyboard_quit(esc=True)
+        else:
+            keyboard_quit(esc=False)
+
+def keyboard_quit3():
+    keyboard_quit(esc=False)
+
 def execute_extended_command():
     # VSCode Command : Show All Commands
     self_insert_command3("f1")()
