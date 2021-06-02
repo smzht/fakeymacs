@@ -96,6 +96,18 @@ def vscodeExecuteCommand2(command):
         vscodeExecuteCommand(command)()
     return _func
 
+def rect(func):
+    def _func():
+        func()
+        fakeymacs.rectangle_mode = True
+    return _func
+
+def reset_rect(func):
+    def _func():
+        func()
+        fakeymacs.rectangle_mode = False
+    return _func
+
 ## カーソル移動
 def previous_error():
     # VSCode Command : Go to Previous Problem in Files (Error, Warning, Info)
@@ -196,14 +208,10 @@ def mark_previous_line():
     self_insert_command("C-S-A-Up")()
     # vscodeExecuteCommand("cursorColumnSelectUp")()
 
-    fakeymacs.rectangle_mode = True
-
 def mark_next_line():
     # VSCode Command ID : cursorColumnSelectDown
     self_insert_command("C-S-A-Down")()
     # vscodeExecuteCommand("cursorColumnSelectDown")()
-
-    fakeymacs.rectangle_mode = True
 
 def mark_backward_char():
     if fakeymacs.rectangle_mode:
@@ -229,26 +237,21 @@ def mark_forward_char():
 
 def mark_backward_word():
     mark2(backward_word, False)()
-    fakeymacs.rectangle_mode = False
 
 def mark_forward_word():
     mark2(forward_word, True)()
-    fakeymacs.rectangle_mode = False
 
 def mark_beginning_of_line():
     mark2(move_beginning_of_line, False)()
-    fakeymacs.rectangle_mode = False
 
 def mark_end_of_line():
     mark2(move_end_of_line, True)()
-    fakeymacs.rectangle_mode = False
 
 def mark_next_like_this():
     # VSCode Command : Add Selection To Next Find Match
     self_insert_command("C-d")()
     # vscodeExecuteCommand("editor.action.addSelectionToNextFindMatch")()
 
-    fakeymacs.rectangle_mode = False
     fakeymacs.forward_direction = True
 
 def mark_all_like_this():
@@ -256,7 +259,6 @@ def mark_all_like_this():
     self_insert_command("C-S-l")()
     # vscodeExecuteCommand("editor.action.selectHighlights")()
 
-    fakeymacs.rectangle_mode = False
     fakeymacs.forward_direction = True
 
 def skip_to_previous_like_this():
@@ -264,7 +266,6 @@ def skip_to_previous_like_this():
     vscodeExecuteCommand("MLSTP")()
     # vscodeExecuteCommand("editor.action.moveSelectionToPreviousFindMatch")()
 
-    fakeymacs.rectangle_mode = False
     fakeymacs.forward_direction = True
 
 def skip_to_next_like_this():
@@ -272,7 +273,6 @@ def skip_to_next_like_this():
     self_insert_command("C-k", "C-d")()
     # vscodeExecuteCommand("editor.action.moveSelectionToNextFindMatch")()
 
-    fakeymacs.rectangle_mode = False
     fakeymacs.forward_direction = True
 
 def expand_region():
@@ -280,7 +280,6 @@ def expand_region():
     self_insert_command("A-S-Right")()
     # vscodeExecuteCommand("editor.action.smartSelect.expand")()
 
-    fakeymacs.rectangle_mode = False
     fakeymacs.forward_direction = True
 
 def shrink_region():
@@ -288,21 +287,15 @@ def shrink_region():
     self_insert_command("A-S-Left")()
     # vscodeExecuteCommand("editor.action.smartSelect.shrink")()
 
-    fakeymacs.rectangle_mode = False
-
 def cursor_undo():
     # VSCode Command : Cursor Undo
     self_insert_command("C-u")()
     # vscodeExecuteCommand("cursorUndo")()
 
-    fakeymacs.rectangle_mode = False
-
 def cursor_redo():
     # VSCode Command : Cursor Redo
     vscodeExecuteCommand("CuRed")()
     # vscodeExecuteCommand("cursorRedo")()
-
-    fakeymacs.rectangle_mode = False
 
 ## ターミナル操作
 def create_terminal():
@@ -410,22 +403,22 @@ for n in range(10):
     define_key(keymap_vscode, key.format(n), reset_search(reset_undo(reset_counter(reset_mark(switch_focus(n))))))
 
 ## 「矩形選択 / マルチカーソル」のキー設定
-define_key(keymap_vscode, "C-A-p",   reset_search(reset_undo(reset_counter(repeat(mark_previous_line)))))
-define_key(keymap_vscode, "C-A-n",   reset_search(reset_undo(reset_counter(repeat(mark_next_line)))))
+define_key(keymap_vscode, "C-A-p",   reset_search(reset_undo(reset_counter(rect(repeat(mark_previous_line))))))
+define_key(keymap_vscode, "C-A-n",   reset_search(reset_undo(reset_counter(rect(repeat(mark_next_line))))))
 define_key(keymap_vscode, "C-A-b",   reset_search(reset_undo(reset_counter(repeat(mark_backward_char)))))
 define_key(keymap_vscode, "C-A-f",   reset_search(reset_undo(reset_counter(repeat(mark_forward_char)))))
-define_key(keymap_vscode, "C-A-S-b", reset_search(reset_undo(reset_counter(repeat(mark_backward_word)))))
-define_key(keymap_vscode, "C-A-S-f", reset_search(reset_undo(reset_counter(repeat(mark_forward_word)))))
-define_key(keymap_vscode, "C-A-a",   reset_search(reset_undo(reset_counter(mark_beginning_of_line))))
-define_key(keymap_vscode, "C-A-e",   reset_search(reset_undo(reset_counter(mark_end_of_line))))
-define_key(keymap_vscode, "C-A-d",   reset_search(reset_undo(reset_counter(mark_next_like_this))))
-define_key(keymap_vscode, "C-A-S-d", reset_search(reset_undo(reset_counter(mark_all_like_this))))
-define_key(keymap_vscode, "C-A-s",   reset_search(reset_undo(reset_counter(skip_to_next_like_this))))
-define_key(keymap_vscode, "C-A-S-s", reset_search(reset_undo(reset_counter(skip_to_previous_like_this))))
-define_key(keymap_vscode, "C-A-x",   reset_search(reset_undo(reset_counter(expand_region))))
-define_key(keymap_vscode, "C-A-S-x", reset_search(reset_undo(reset_counter(shrink_region))))
-define_key(keymap_vscode, "C-A-u",   reset_search(reset_undo(reset_counter(cursor_undo))))
-define_key(keymap_vscode, "C-A-r",   reset_search(reset_undo(reset_counter(cursor_redo))))
+define_key(keymap_vscode, "C-A-S-b", reset_search(reset_undo(reset_counter(reset_rect(repeat(mark_backward_word))))))
+define_key(keymap_vscode, "C-A-S-f", reset_search(reset_undo(reset_counter(reset_rect(repeat(mark_forward_word))))))
+define_key(keymap_vscode, "C-A-a",   reset_search(reset_undo(reset_counter(reset_rect(mark_beginning_of_line)))))
+define_key(keymap_vscode, "C-A-e",   reset_search(reset_undo(reset_counter(reset_rect(mark_end_of_line)))))
+define_key(keymap_vscode, "C-A-d",   reset_search(reset_undo(reset_counter(reset_rect(mark_next_like_this)))))
+define_key(keymap_vscode, "C-A-S-d", reset_search(reset_undo(reset_counter(reset_rect(mark_all_like_this)))))
+define_key(keymap_vscode, "C-A-s",   reset_search(reset_undo(reset_counter(reset_rect(skip_to_next_like_this)))))
+define_key(keymap_vscode, "C-A-S-s", reset_search(reset_undo(reset_counter(reset_rect(skip_to_previous_like_this)))))
+define_key(keymap_vscode, "C-A-x",   reset_search(reset_undo(reset_counter(reset_rect(expand_region)))))
+define_key(keymap_vscode, "C-A-S-x", reset_search(reset_undo(reset_counter(reset_rect(shrink_region)))))
+define_key(keymap_vscode, "C-A-u",   reset_search(reset_undo(reset_counter(reset_rect(cursor_undo)))))
+define_key(keymap_vscode, "C-A-r",   reset_search(reset_undo(reset_counter(reset_rect(cursor_redo)))))
 
 ## 「ターミナル操作」のキー設定
 define_key(keymap_vscode, "C-S-(243)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
