@@ -363,7 +363,7 @@ for pkey1, pkey2 in fc.vscode_prefix_key:
     define_key(keymap_vscode, pkey2, keymap.defineMultiStrokeKeymap("<VSCode> " + pkey1))
 
     for vkey in vkeys():
-        key = "({})".format(vkey)
+        key = vkToStr(vkey)
         for mod1 in ["", "A-"]:
             for mod2 in ["", "C-"]:
                 for mod3 in ["", "S-"]:
