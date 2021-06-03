@@ -1925,25 +1925,13 @@ def configure(keymap):
         define_key(keymap_ei, "C-a", move_beginning_of_line)
         define_key(keymap_ei, "C-e", move_end_of_line)
 
-        define_key(keymap_ei, "Left",     backward_char)
-        define_key(keymap_ei, "Right",    forward_char)
-        define_key(keymap_ei, "Up",       previous_line)
-        define_key(keymap_ei, "Down",     next_line)
-        define_key(keymap_ei, "Home",     move_beginning_of_line)
-        define_key(keymap_ei, "End",      move_end_of_line)
-        define_key(keymap_ei, "PageUP",   scroll_up)
-        define_key(keymap_ei, "PageDown", scroll_down)
-
         ## 「カット / コピー / 削除 / アンドゥ」のキー設定
-        define_key(keymap_ei, "Back",   delete_backward_char)
         define_key(keymap_ei, "C-h",    delete_backward_char)
-        define_key(keymap_ei, "Delete", delete_char)
         define_key(keymap_ei, "C-d",    delete_char)
 
         ## 「その他」のキー設定
         define_key(keymap_ei, "Enter", ei_newline)
         define_key(keymap_ei, "C-m",   ei_newline)
-        define_key(keymap_ei, "Tab",   indent_for_tab_command)
         define_key(keymap_ei, "C-g",   ei_keyboard_quit)
 
         ## 「スクロール」のキー設定
