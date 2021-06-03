@@ -36,11 +36,15 @@ True に設定した場合でも Toggle Terminal 用のキーとして C-<半角
 仕様を理解した方のみ使う機能としています。use_direct_input_in_vscode_terminal 変数を True に
 した際の仕様については、以降の説明を参照してください。
 
-※ esc_mode_in_keyboard_quit の設定値には、次のいずれかの値を指定できます。
+※ esc_mode_in_keyboard_quit 変数の設定値には、次のいずれかの値を指定できます。
 - 1：Esc キーを常に発行する
 - 2：C-g を２回連続して押下した場合に Esc キーを発行する
 設定値 2 の利用は、VSCode で Jupyter Notebook を使う場合などを想定しています。
 設定値 1 の場合でも、C-A-g キーにより Esc キーを発行しない keyboard_quit を利用できます。
+
+※ esc_mode_in_keyboard_quit 変数の設定は、vscode_target 変数で指定する全てのアプリケーション
+ソフトに影響します。vscode_target 変数にブラウザアプリを指定している場合には、そこにも影響
+しますので、ご留意ください。
 
 *** キーバインド
 
