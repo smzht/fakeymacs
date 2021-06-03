@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210602_01"
+fakeymacs_version = "20210603_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1203,13 +1203,21 @@ def configure(keymap):
                 else:
                     self_insert_command("Left", "Right")()
 
-            elif (checkWindow("powershell.exe", "ConsoleWindowClass") or # PowerShell
-                  checkWindow("EXCEL.EXE", None)):                       # Microsoft Excel
+            elif checkWindow("powershell.exe", "ConsoleWindowClass"): # PowerShell
                 # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
                 if fakeymacs.forward_direction:
                     self_insert_command("Left", "Right")()
                 else:
                     self_insert_command("Right", "Left")()
+
+            # Microsoft Excel 2019 以前のバージョンでは必要な設定の可能性あり
+            # elif checkWindow("EXCEL.EXE", None): # Microsoft Excel
+            #     # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
+            #     if fakeymacs.forward_direction:
+            #         self_insert_command("Left", "Right")()
+            #     else:
+            #         self_insert_command("Right", "Left")()
+
             else:
                 # 選択されているリージョンのハイライトを解除するためにカーソルキーを発行する
                 if fakeymacs.forward_direction:
