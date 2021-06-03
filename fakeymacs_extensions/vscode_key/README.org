@@ -15,6 +15,7 @@ VSCode 用のキーの設定を行う拡張機能です。
 | vscode_prefix_key                   | 置き換えするプレフィックスキーの組み合わせ（VSCode のキー、Fakeymacs のキー）を指定する（複数指定可） |
 | use_ctrl_atmark_for_mark            | 日本語キーボードを利用する際、VSCode で  C-@ をマーク用のキーとして使うかどうかを指定する             |
 | use_direct_input_in_vscode_terminal | VSCode の Terminal内 で ４つのキー（C-k、C-r、C-s、C-y）のダイレクト入力機能を使うかどうかを指定する  |
+| esc_mode_in_keyboard_quit           | keyboard_quit 関数コール時の Esc キーの発行方法を指定する                                             |
 |-------------------------------------+-------------------------------------------------------------------------------------------------------|
 
 ※ vscode_target 変数の初期値には、ブラウザのアプリケーションソフトも複数指定しています。
@@ -34,6 +35,12 @@ True に設定した場合でも Toggle Terminal 用のキーとして C-<半角
 ※ use_direct_input_in_vscode_terminal 変数は初期値を False（使わない）としており、
 仕様を理解した方のみ使う機能としています。use_direct_input_in_vscode_terminal 変数を True に
 した際の仕様については、以降の説明を参照してください。
+
+※ esc_mode_in_keyboard_quit の設定値には、次のいずれかの値を指定できます。
+- 1：Esc キーを常に発行する
+- 2：C-g を２回連続して押下した場合に Esc キーを発行する
+設定値 2 の利用は、VSCode で Jupyter Notebook を使う場合などを想定しています。
+設定値 1 の場合でも、C-A-g キーにより Esc キーを発行しない keyboard_quit を利用できます。
 
 *** キーバインド
 
@@ -111,8 +118,9 @@ True の場合（C-<数字キー> は数引数の指定用として使われる�
 | C-A-r   | cursor_redo                | Cursor Redo                                  |                       |
 |---------+----------------------------+----------------------------------------------+-----------------------|
 
-※ マルチカーソルを維持したまま選択したリージョンを解除するには、リージョンのコピー（M-w）、
-カーソルの移動（C-[pnbfae] 等）、マークの解除（C-Space）などを利用してください。
+※ マルチカーソルを維持したまま選択したリージョンを解除するには、Esc キーを発行しない
+keyboard_quit（C-A-g）を利用してください。（esc_mode_in_keyboard_quit 変数が 2 の場合は、
+連続入力しない C-g を利用することができます。）
 
 ※ 「矩形選択 / マルチカーソル」の機能については、次のページを参考としてください。
 
@@ -177,14 +185,15 @@ use_direct_input_in_vscode_terminal 変数が False（初期値）の場合で�
 
 ****  「その他」のキー設定
 
-|---------+--------------------------+---------------------+---------------------|
-| Keybind | Function                 | VSCode Command      | Description         |
-|---------+--------------------------+---------------------+---------------------|
-| M-x     | execute_extended_command | Show All Commands   |                     |
-| M-;     | comment_dwim             | Toggle Line Comment |                     |
-| C-'     | trigger_suggest          | Trigger Suggest     | US Keyboard の場合  |
-| C-:     | trigger_suggest          | Trigger Suggest     | JIS Keyboard の場合 |
-|---------+--------------------------+---------------------+---------------------|
+|---------+--------------------------+---------------------+------------------------------------|
+| Keybind | Function                 | VSCode Command      | Description                        |
+|---------+--------------------------+---------------------+------------------------------------|
+| C-A-g   | keyboard_quit3           | -                   | Esc キーを発行しない keyboard_quit |
+| M-x     | execute_extended_command | Show All Commands   |                                    |
+| M-;     | comment_dwim             | Toggle Line Comment |                                    |
+| C-'     | trigger_suggest          | Trigger Suggest     | US Keyboard の場合                 |
+| C-:     | trigger_suggest          | Trigger Suggest     | JIS Keyboard の場合                |
+|---------+--------------------------+---------------------+------------------------------------|
 
 ※ Meta（M-）で Esc を利用したい場合には、use_esc_as_meta 変数を True にしてください。
 True にした場合に Esc を入力するには、Esc を二回押下してください。

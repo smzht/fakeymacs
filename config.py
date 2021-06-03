@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210523_01"
+fakeymacs_version = "20210602_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -595,6 +595,7 @@ def configure(keymap):
     fakeymacs.ime_cancel = False
     fakeymacs.last_window = None
     fakeymacs.clipboard_hook = True
+    fakeymacs.last_keys = [None, None]
 
     def is_emacs_target(window):
         last_window  = fakeymacs.last_window
@@ -1105,15 +1106,16 @@ def configure(keymap):
     def indent_for_tab_command():
         self_insert_command("Tab")()
 
-    def keyboard_quit():
+    def keyboard_quit(esc=True):
         resetRegion()
 
-        # Esc を発行して問題ないアプリケーションソフトには Esc を発行する
-        if not (checkWindow("cmd.exe", "ConsoleWindowClass") or        # Cmd
-                checkWindow("powershell.exe", "ConsoleWindowClass") or # PowerShell
-                checkWindow("EXCEL.EXE", "EXCEL*") or                  # Microsoft Excel
-                checkWindow("Evernote.exe", "WebViewHost")):           # Evernote
-            self_insert_command("Esc")()
+        if esc:
+            # Esc を発行して問題ないアプリケーションソフトには Esc を発行する
+            if not (checkWindow("cmd.exe", "ConsoleWindowClass") or        # Cmd
+                    checkWindow("powershell.exe", "ConsoleWindowClass") or # PowerShell
+                    checkWindow("EXCEL.EXE", "EXCEL*") or                  # Microsoft Excel
+                    checkWindow("Evernote.exe", "WebViewHost")):           # Evernote
+                self_insert_command("Esc")()
 
         keymap.command_RecordStop()
 
@@ -1227,6 +1229,12 @@ def configure(keymap):
             vkeys.remove(vkey)
         return vkeys
 
+    def vkToStr(vkey):
+        return keyhac_keymap.KeyCondition.vkToStr(vkey)
+
+    def strToVk(name):
+        return keyhac_keymap.KeyCondition.strToVk(name)
+
     def addSideOfModifierKey(key):
         key = re.sub(r'(^|-)(C-)', r'\1' + fc.side_of_ctrl_key + r'\2', key)
         key = re.sub(r'(^|-)(A-)', r'\1' + fc.side_of_alt_key  + r'\2', key)
@@ -1303,18 +1311,28 @@ def configure(keymap):
             except:
                 pass
 
-            if (key is not None and
-                "keymap_emacs" in locals() and
-                window_keymap == locals()["keymap_emacs"] and
-                type(command) is types.FunctionType):
+            if type(command) is types.FunctionType:
+                if (key is not None and
+                    "keymap_emacs" in locals() and
+                    window_keymap == locals()["keymap_emacs"]):
 
-                ckey = str(keyhac_keymap.KeyCondition.fromString(key))
-                def _command():
-                    if ckey in fakeymacs.exclution_key:
-                        keymap.InputKeyCommand(key)()
-                    else:
+                    ckey = str(keyhac_keymap.KeyCondition.fromString(key))
+                    def _command():
+                        fakeymacs.update_last_keys = True
+                        if ckey in fakeymacs.exclution_key:
+                            keymap.InputKeyCommand(key)()
+                        else:
+                            command()
+                        if fakeymacs.update_last_keys:
+                            fakeymacs.last_keys = [window_keymap, keys]
+                    return _command
+                else:
+                    def _command():
+                        fakeymacs.update_last_keys = True
                         command()
-                return _command
+                        if fakeymacs.update_last_keys:
+                            fakeymacs.last_keys = [window_keymap, keys]
+                    return _command
             else:
                 return command
 
@@ -1512,6 +1530,16 @@ def configure(keymap):
     # https://bsakatu.net/doc/virtual-key-of-windows/
     # http://www3.airnet.ne.jp/saka/hardware/keyboard/109scode.html
 
+    ## 全てキーパターンの設定（キーの入力記録を残すための設定）
+    for vkey in vkeys():
+        key = vkToStr(vkey)
+        for mod1 in ["", "W-"]:
+            for mod2 in ["", "A-"]:
+                for mod3 in ["", "C-"]:
+                    for mod4 in ["", "S-"]:
+                        mkey = mod1 + mod2 + mod3 + mod4 + key
+                        define_key(keymap_emacs, mkey, self_insert_command(mkey))
+
     ## マルチストロークキーの設定
     define_key(keymap_emacs, "Ctl-x",  keymap.defineMultiStrokeKeymap(fc.ctl_x_prefix_key))
     define_key(keymap_emacs, "C-q",    keymap.defineMultiStrokeKeymap("C-q"))
@@ -1532,7 +1560,7 @@ def configure(keymap):
 
     ## アルファベットキーの設定
     for vkey in range(VK_A, VK_Z + 1):
-        key = "({})".format(vkey)
+        key = vkToStr(vkey)
         define_key(keymap_emacs,        key, reset_undo(reset_counter(reset_mark(repeat(self_insert_command2(       key))))))
         define_key(keymap_emacs, "S-" + key, reset_undo(reset_counter(reset_mark(repeat(self_insert_command2("S-" + key))))))
         define_key(keymap_ime,          key, self_insert_command2(       key))
@@ -1543,7 +1571,7 @@ def configure(keymap):
     define_key(keymap_emacs, "S-Space", reset_undo(reset_counter(reset_mark(repeat(self_insert_command("S-Space"))))))
 
     for vkey in [VK_OEM_MINUS, VK_OEM_PLUS, VK_OEM_COMMA, VK_OEM_PERIOD, VK_OEM_1, VK_OEM_2, VK_OEM_3, VK_OEM_4, VK_OEM_5, VK_OEM_6, VK_OEM_7, VK_OEM_102]:
-        key = "({})".format(vkey)
+        key = vkToStr(vkey)
         define_key(keymap_emacs,        key, reset_undo(reset_counter(reset_mark(repeat(self_insert_command2(       key))))))
         define_key(keymap_emacs, "S-" + key, reset_undo(reset_counter(reset_mark(repeat(self_insert_command2("S-" + key))))))
         define_key(keymap_ime,          key, self_insert_command2(       key))
@@ -1551,13 +1579,13 @@ def configure(keymap):
 
     ## 10key の特殊文字キーの設定
     for vkey in [VK_MULTIPLY, VK_ADD, VK_SUBTRACT, VK_DECIMAL, VK_DIVIDE]:
-        key = "({})".format(vkey)
+        key = vkToStr(vkey)
         define_key(keymap_emacs, key, reset_undo(reset_counter(reset_mark(repeat(self_insert_command2(key))))))
         define_key(keymap_ime,   key, self_insert_command2(key))
 
     ## quoted-insertキーの設定
     for vkey in vkeys():
-        key = "({})".format(vkey)
+        key = vkToStr(vkey)
         for mod1 in ["", "W-"]:
             for mod2 in ["", "A-"]:
                 for mod3 in ["", "C-"]:
@@ -1779,7 +1807,6 @@ def configure(keymap):
 
         def enable_emacs_ime_mode(delay=0):
             fakeymacs.ei_last_window = keymap.getWindow()
-            fakeymacs.ei_last_func = None
             ei_updateKeymap(delay)
 
         def disable_emacs_ime_mode():
@@ -1798,32 +1825,36 @@ def configure(keymap):
             disable_emacs_ime_mode()
             disable_input_method()
 
-        def ei_enable_input_method2(key, window_keymap):
+        def ei_enable_input_method2(window_keymap, key):
             func = getKeyCommand(window_keymap, key)
             if func is None:
                 if key.startswith("O-"):
-                    func = ei_record_func(self_insert_command("(28)")) # <変換> キーを発行
+                    func = self_insert_command("(28)") # <変換> キーを発行
                 else:
-                    func = ei_record_func(self_insert_command(key))
+                    func = self_insert_command(key)
 
             def _func():
-                if fakeymacs.ei_last_func == delete_backward_char:
+                if (fakeymacs.last_keys[0] == keymap_ei and
+                    fakeymacs.last_keys[1] in ["Back", "C-h"]):
                     ei_enable_input_method()
+                    fakeymacs.update_last_keys = False
                 else:
                     func()
             return _func
 
-        def ei_disable_input_method2(key, window_keymap):
+        def ei_disable_input_method2(window_keymap, key):
             func = getKeyCommand(window_keymap, key)
             if func is None:
                 if key.startswith("O-"):
-                    func = ei_record_func(self_insert_command("(29)")) # <無変換> キーを発行
+                    func = self_insert_command("(29)") # <無変換> キーを発行
                 else:
-                    func = ei_record_func(self_insert_command(key))
+                    func = self_insert_command(key)
 
             def _func():
-                if fakeymacs.ei_last_func == delete_backward_char:
+                if (fakeymacs.last_keys[0] == keymap_ei and
+                    fakeymacs.last_keys[1] in ["Back", "C-h"]):
                     ei_disable_input_method()
+                    fakeymacs.update_last_keys = False
                 else:
                     func()
             return _func
@@ -1848,12 +1879,6 @@ def configure(keymap):
         ## 共通関数（Emacs日本語入力モード用）
         ##################################################
 
-        def ei_record_func(func):
-            def _func():
-                func()
-                fakeymacs.ei_last_func = func
-            return _func
-
         def ei_popBalloon(ime_mode_status):
             if not fakeymacs.is_playing_kmacro:
                 if fc.emacs_ime_mode_balloon_message:
@@ -1874,15 +1899,14 @@ def configure(keymap):
         ## キーバインド（Emacs日本語入力モード用）
         ##################################################
 
-        ## 全てキーパターンの設定（ei_record_func 関数を通すための設定）
+        ## 全てキーパターンの設定（キーの入力記録を残すための設定）
         for vkey in vkeys():
-            key = "({})".format(vkey)
-            define_key(keymap_ei,          key, ei_record_func(self_insert_command(         key)))
-            define_key(keymap_ei, "S-"   + key, ei_record_func(self_insert_command("S-"   + key)))
-            define_key(keymap_ei, "C-"   + key, ei_record_func(self_insert_command("C-"   + key)))
-            define_key(keymap_ei, "C-S-" + key, ei_record_func(self_insert_command("C-S-" + key)))
-            define_key(keymap_ei, "A-"   + key, ei_record_func(self_insert_command("A-"   + key)))
-            define_key(keymap_ei, "A-S-" + key, ei_record_func(self_insert_command("A-S-" + key)))
+            key = vkToStr(vkey)
+            for mod1 in ["", "A-"]:
+                for mod2 in ["", "C-"]:
+                    for mod3 in ["", "S-"]:
+                        mkey = mod1 + mod2 + mod3 + key
+                        define_key(keymap_ei, mkey, self_insert_command(mkey))
 
         ## 「IME の切り替え」のキー設定
         define_key(keymap_ei, "(243)",  ei_disable_input_method)
@@ -1890,62 +1914,50 @@ def configure(keymap):
         define_key(keymap_ei, "A-(25)", ei_disable_input_method)
 
         ## Escキーの設定
-        define_key(keymap_ei, "Esc",           ei_record_func(ei_esc))
-        define_key(keymap_ei, "C-OpenBracket", ei_record_func(ei_esc))
+        define_key(keymap_ei, "Esc",           ei_esc)
+        define_key(keymap_ei, "C-OpenBracket", ei_esc)
 
         ## 「カーソル移動」のキー設定
-        define_key(keymap_ei, "C-b", ei_record_func(backward_char))
-        define_key(keymap_ei, "C-f", ei_record_func(forward_char))
-        define_key(keymap_ei, "C-p", ei_record_func(previous_line))
-        define_key(keymap_ei, "C-n", ei_record_func(next_line))
-        define_key(keymap_ei, "C-a", ei_record_func(move_beginning_of_line))
-        define_key(keymap_ei, "C-e", ei_record_func(move_end_of_line))
-
-        define_key(keymap_ei, "Left",     ei_record_func(backward_char))
-        define_key(keymap_ei, "Right",    ei_record_func(forward_char))
-        define_key(keymap_ei, "Up",       ei_record_func(previous_line))
-        define_key(keymap_ei, "Down",     ei_record_func(next_line))
-        define_key(keymap_ei, "Home",     ei_record_func(move_beginning_of_line))
-        define_key(keymap_ei, "End",      ei_record_func(move_end_of_line))
-        define_key(keymap_ei, "PageUP",   ei_record_func(scroll_up))
-        define_key(keymap_ei, "PageDown", ei_record_func(scroll_down))
+        define_key(keymap_ei, "C-b", backward_char)
+        define_key(keymap_ei, "C-f", forward_char)
+        define_key(keymap_ei, "C-p", previous_line)
+        define_key(keymap_ei, "C-n", next_line)
+        define_key(keymap_ei, "C-a", move_beginning_of_line)
+        define_key(keymap_ei, "C-e", move_end_of_line)
 
         ## 「カット / コピー / 削除 / アンドゥ」のキー設定
-        define_key(keymap_ei, "Back",   ei_record_func(delete_backward_char))
-        define_key(keymap_ei, "C-h",    ei_record_func(delete_backward_char))
-        define_key(keymap_ei, "Delete", ei_record_func(delete_char))
-        define_key(keymap_ei, "C-d",    ei_record_func(delete_char))
+        define_key(keymap_ei, "C-h",    delete_backward_char)
+        define_key(keymap_ei, "C-d",    delete_char)
 
         ## 「その他」のキー設定
         define_key(keymap_ei, "Enter", ei_newline)
         define_key(keymap_ei, "C-m",   ei_newline)
-        define_key(keymap_ei, "Tab",   ei_record_func(indent_for_tab_command))
         define_key(keymap_ei, "C-g",   ei_keyboard_quit)
 
         ## 「スクロール」のキー設定
         if fc.scroll_key:
             if fc.scroll_key[0]:
-                define_key(keymap_ei, fc.scroll_key[0].replace("M-", "A-"), ei_record_func(scroll_up))
+                define_key(keymap_ei, fc.scroll_key[0].replace("M-", "A-"), scroll_up)
             if fc.scroll_key[1]:
-                define_key(keymap_ei, fc.scroll_key[1].replace("M-", "A-"), ei_record_func(scroll_down))
+                define_key(keymap_ei, fc.scroll_key[1].replace("M-", "A-"), scroll_down)
 
         # 「IME のショートカットの置き換え」のキー設定
         for replace_key, original_key in fc.emacs_ime_mode_key:
-            define_key(keymap_ei, replace_key, ei_record_func(self_insert_command(original_key)))
+            define_key(keymap_ei, replace_key, self_insert_command(original_key))
 
         # この時点の keymap_ei を複製する
         keymap_ei_dup = copy.deepcopy(keymap_ei)
 
         ## 「IME の切り替え」のキー設定
         for key in fc.toggle_input_method_key:
-            define_key(keymap_ei, key, ei_disable_input_method2(key, keymap_ei_dup))
+            define_key(keymap_ei, key, ei_disable_input_method2(keymap_ei_dup, key))
 
         ## 「IME の切り替え」のキー設定
         for disable_key, enable_key in fc.set_input_method_key:
             if disable_key:
-                define_key(keymap_ei, disable_key, ei_disable_input_method2(disable_key, keymap_ei_dup))
+                define_key(keymap_ei, disable_key, ei_disable_input_method2(keymap_ei_dup, disable_key))
             if enable_key:
-                define_key(keymap_ei, enable_key, ei_enable_input_method2(enable_key, keymap_ei_dup))
+                define_key(keymap_ei, enable_key, ei_enable_input_method2(keymap_ei_dup, enable_key))
 
 
     ###########################################################################
@@ -1971,26 +1983,26 @@ def configure(keymap):
     ## Alt+数字キー列の設定
     if fc.use_alt_digit_key_for_f1_to_f12:
         for i in range(10):
-            define_key(keymap_global, "A-{}".format((i + 1) % 10), self_insert_command("({})".format(VK_F1 + i)))
+            define_key(keymap_global, "A-{}".format((i + 1) % 10), self_insert_command(vkToStr(VK_F1 + i)))
 
-        define_key(keymap_global, "A-Minus", self_insert_command("({})".format(VK_F11)))
+        define_key(keymap_global, "A-Minus", self_insert_command(vkToStr(VK_F11)))
 
         if is_japanese_keyboard:
-            define_key(keymap_global, "A-Caret", self_insert_command("({})".format(VK_F12)))
+            define_key(keymap_global, "A-Caret", self_insert_command(vkToStr(VK_F12)))
         else:
-            define_key(keymap_global, "A-Plus",  self_insert_command("({})".format(VK_F12)))
+            define_key(keymap_global, "A-Plus",  self_insert_command(vkToStr(VK_F12)))
 
     ## Alt+Shift+数字キー列の設定
     if fc.use_alt_shift_digit_key_for_f13_to_f24:
         for i in range(10):
-            define_key(keymap_global, "A-S-{}".format((i + 1) % 10), self_insert_command("({})".format(VK_F13 + i)))
+            define_key(keymap_global, "A-S-{}".format((i + 1) % 10), self_insert_command(vkToStr(VK_F13 + i)))
 
-        define_key(keymap_global, "A-S-Minus", self_insert_command("({})".format(VK_F23)))
+        define_key(keymap_global, "A-S-Minus", self_insert_command(vkToStr(VK_F23)))
 
         if is_japanese_keyboard:
-            define_key(keymap_global, "A-S-Caret", self_insert_command("({})".format(VK_F24)))
+            define_key(keymap_global, "A-S-Caret", self_insert_command(vkToStr(VK_F24)))
         else:
-            define_key(keymap_global, "A-S-Plus",  self_insert_command("({})".format(VK_F24)))
+            define_key(keymap_global, "A-S-Plus",  self_insert_command(vkToStr(VK_F24)))
 
 
     ###########################################################################
