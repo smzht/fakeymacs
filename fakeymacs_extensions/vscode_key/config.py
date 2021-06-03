@@ -51,7 +51,7 @@ try:
 except:
     # keyboard_quit 関数コール時の Esc キーの発行方法を指定する
     # （1：Esc キーを常に発行する
-    #   2：Ctrl+g を２回連続押下した場合に Esc キーを発行する）
+    #   2：C-g を２回連続して押下した場合に Esc キーを発行する）
     fc.esc_mode_in_keyboard_quit = 1
 
 fakeymacs.vscode_focus = "not_terminal"
