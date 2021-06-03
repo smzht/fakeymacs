@@ -213,7 +213,7 @@ fc.vscode_prefix_key  = [["C-k", "C-A-k"]]
 # fc.vscode_prefix_key += [["C-;", "C-A-;"]]
 fc.use_ctrl_atmark_for_mark = False
 fc.use_direct_input_in_vscode_terminal = False
-fc.esc_key_mode_in_keyboard_quit = 1
+fc.esc_mode_in_keyboard_quit = 1
 exec(readConfigExtension(r"vscode_key/config.py"), dict(globals(), **locals()))
 
 # VSCode で Extension のインストールが必要な機能の設定を行う
