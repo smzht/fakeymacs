@@ -97,30 +97,31 @@ True の場合（C-<数字キー> は数引数の指定用として使われる�
 
 ****  「矩形選択 / マルチカーソル」のキー設定
 
-|---------+----------------------------+----------------------------------------------+-----------------------|
-| Keybind | Function                   | VSCode Command or Command ID                 | Description           |
-|---------+----------------------------+----------------------------------------------+-----------------------|
-| C-A-p   | mark_previous_line         | cursorColumnSelectUp                         |                       |
-| C-A-n   | mark_next_line             | cursorColumnSelectDown                       |                       |
-| C-A-b   | mark_backward_char         | cursorColumnSelectLeft or cursorLeftSelect   |                       |
-| C-A-f   | mark_forward_char          | cursorColumnSelectRight or cursorRightSelect |                       |
-| C-A-S-b | mark_backward_word         | cursorWordLeftSelect                         |                       |
-| C-A-S-f | mark_forward_word          | cursorWordRightSelect                        |                       |
-| C-A-a   | mark_beginning_of_line     | cursorHomeSelect                             |                       |
-| C-A-e   | mark_end_of_line           | cursorEndSelect                              |                       |
-| C-A-d   | mark_next_like_this        | Add Selection To Next Find Match             |                       |
-| C-A-S-d | mark_all_like_this         | Select All Occurrences of Find Match         |                       |
-| C-A-s   | skip_to_next_like_this     | Move Last Selection To Next Find Match       |                       |
-| C-A-S-s | skip_to_previous_like_this | Move Last Selection To Previous Find Match   | 多くは C-A-u で代用可 |
-| C-A-x   | expand_region              | Expand Selection                             |                       |
-| C-A-S-x | shrink_region              | Shrink Selection                             | 多くは C-A-u で代用可 |
-| C-A-u   | cursor_undo                | Cursor Undo                                  |                       |
-| C-A-r   | cursor_redo                | Cursor Redo                                  |                       |
-|---------+----------------------------+----------------------------------------------+-----------------------|
+|---------+----------------------------+----------------------------------------------+------------------------------------|
+| Keybind | Function                   | VSCode Command or Command ID                 | Description                        |
+|---------+----------------------------+----------------------------------------------+------------------------------------|
+| C-A-p   | mark_previous_line         | cursorColumnSelectUp                         |                                    |
+| C-A-n   | mark_next_line             | cursorColumnSelectDown                       |                                    |
+| C-A-b   | mark_backward_char         | cursorColumnSelectLeft or cursorLeftSelect   |                                    |
+| C-A-f   | mark_forward_char          | cursorColumnSelectRight or cursorRightSelect |                                    |
+| C-A-S-b | mark_backward_word         | cursorWordLeftSelect                         |                                    |
+| C-A-S-f | mark_forward_word          | cursorWordRightSelect                        |                                    |
+| C-A-a   | mark_beginning_of_line     | cursorHomeSelect                             |                                    |
+| C-A-e   | mark_end_of_line           | cursorEndSelect                              |                                    |
+| C-A-d   | mark_next_like_this        | Add Selection To Next Find Match             |                                    |
+| C-A-S-d | mark_all_like_this         | Select All Occurrences of Find Match         |                                    |
+| C-A-s   | skip_to_next_like_this     | Move Last Selection To Next Find Match       |                                    |
+| C-A-S-s | skip_to_previous_like_this | Move Last Selection To Previous Find Match   | 多くは C-A-u で代用可              |
+| C-A-x   | expand_region              | Expand Selection                             |                                    |
+| C-A-S-x | shrink_region              | Shrink Selection                             | 多くは C-A-u で代用可              |
+| C-A-u   | cursor_undo                | Cursor Undo                                  |                                    |
+| C-A-r   | cursor_redo                | Cursor Redo                                  |                                    |
+| C-A-g   | keyboard_quit2             | -                                            | Esc キーを発行しない keyboard_quit |
+|---------+----------------------------+----------------------------------------------+------------------------------------|
 
 ※ マルチカーソルを維持したまま選択したリージョンを解除するには、Esc キーを発行しない
 keyboard_quit（C-A-g）を利用してください。（esc_mode_in_keyboard_quit 変数が 2 の場合は、
-連続入力しない C-g を利用することができます。）
+連続入力しない C-g を利用することもできます。）
 
 ※ 「矩形選択 / マルチカーソル」の機能については、次のページを参考としてください。
 
@@ -188,7 +189,6 @@ use_direct_input_in_vscode_terminal 変数が False（初期値）の場合で�
 |---------+--------------------------+---------------------+------------------------------------|
 | Keybind | Function                 | VSCode Command      | Description                        |
 |---------+--------------------------+---------------------+------------------------------------|
-| C-A-g   | keyboard_quit3           | -                   | Esc キーを発行しない keyboard_quit |
 | M-x     | execute_extended_command | Show All Commands   |                                    |
 | M-;     | comment_dwim             | Toggle Line Comment |                                    |
 | C-'     | trigger_suggest          | Trigger Suggest     | US Keyboard の場合                 |

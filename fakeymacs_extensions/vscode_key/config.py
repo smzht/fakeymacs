@@ -297,6 +297,9 @@ def cursor_redo():
     vscodeExecuteCommand("CuRed")()
     # vscodeExecuteCommand("cursorRedo")()
 
+def keyboard_quit2():
+    keyboard_quit(esc=False)
+
 def quick_select(window_keymap, key):
     func = getKeyCommand(window_keymap, key)
     def _func():
@@ -329,7 +332,7 @@ def toggle_terminal():
         vscodeExecuteCommand2("workbench.action.terminal.toggleTerminal")()
 
 ## その他
-def keyboard_quit2():
+def keyboard_quit3():
     if fc.esc_mode_in_keyboard_quit == 1:
         keyboard_quit(esc=True)
     else:
@@ -338,9 +341,6 @@ def keyboard_quit2():
             keyboard_quit(esc=True)
         else:
             keyboard_quit(esc=False)
-
-def keyboard_quit3():
-    keyboard_quit(esc=False)
 
 def execute_extended_command():
     # VSCode Command : Show All Commands
@@ -427,6 +427,7 @@ define_key(keymap_vscode, "C-A-x",   reset_search(reset_undo(reset_counter(reset
 define_key(keymap_vscode, "C-A-S-x", reset_search(reset_undo(reset_counter(reset_rect(shrink_region)))))
 define_key(keymap_vscode, "C-A-u",   reset_search(reset_undo(reset_counter(reset_rect(cursor_undo)))))
 define_key(keymap_vscode, "C-A-r",   reset_search(reset_undo(reset_counter(reset_rect(cursor_redo)))))
+define_key(keymap_vscode, "C-A-g",   reset_search(reset_counter(reset_mark(keyboard_quit2))))
 
 ## Quick and Simple Text Selection Extension 利用時の対応
 ## （https://marketplace.visualstudio.com/items?itemName=dbankier.vscode-quick-select）
@@ -480,8 +481,7 @@ else:
     define_key(keymap_vscode, "C-BackQuote",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
 
 ## 「その他」のキー設定
-define_key3(keymap_emacs, "C-g",         reset_search(reset_counter(reset_mark(keyboard_quit2))))
-define_key(keymap_vscode, "C-A-g",       reset_search(reset_counter(reset_mark(keyboard_quit3))))
+define_key3(keymap_emacs, "C-g",         reset_search(reset_counter(reset_mark(keyboard_quit3))))
 define_key3(keymap_emacs, "M-x",         reset_search(reset_undo(reset_counter(reset_mark(execute_extended_command)))))
 define_key3(keymap_emacs, "M-Semicolon", reset_search(reset_undo(reset_counter(reset_mark(comment_dwim)))))
 
