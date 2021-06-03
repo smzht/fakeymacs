@@ -333,7 +333,8 @@ def keyboard_quit2():
     if fc.esc_mode_in_keyboard_quit == 1:
         keyboard_quit(esc=True)
     else:
-        if fakeymacs.last_keys == [keymap_emacs, "C-g"]:
+        if (fakeymacs.last_keys == [keymap_emacs, "C-g"] or
+            fakeymacs.last_keys == [keymap_vscode, "C-A-g"]):
             keyboard_quit(esc=True)
         else:
             keyboard_quit(esc=False)
