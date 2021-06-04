@@ -108,6 +108,12 @@ def reset_rect(func):
         fakeymacs.rectangle_mode = False
     return _func
 
+def region(func):
+    def _func():
+        func()
+        fakeymacs.forward_direction = True
+    return _func
+
 ## カーソル移動
 def previous_error():
     # VSCode Command : Go to Previous Problem in Files (Error, Warning, Info)
@@ -249,38 +255,28 @@ def mark_end_of_line():
 
 def mark_next_like_this():
     # VSCode Command : Add Selection To Next Find Match
-    self_insert_command("C-d")()
+    region(self_insert_command("C-d"))()
     # vscodeExecuteCommand("editor.action.addSelectionToNextFindMatch")()
-
-    fakeymacs.forward_direction = True
 
 def mark_all_like_this():
     # VSCode Command : Select All Occurrences of Find Match
-    self_insert_command("C-S-l")()
+    region(self_insert_command("C-S-l"))()
     # vscodeExecuteCommand("editor.action.selectHighlights")()
-
-    fakeymacs.forward_direction = True
 
 def skip_to_previous_like_this():
     # VSCode Command : Move Last Selection To Previous Find Match
-    vscodeExecuteCommand("MLSTP")()
+    region(vscodeExecuteCommand("MLSTP"))()
     # vscodeExecuteCommand("editor.action.moveSelectionToPreviousFindMatch")()
-
-    fakeymacs.forward_direction = True
 
 def skip_to_next_like_this():
     # VSCode Command : Move Last Selection To Next Find Match
-    self_insert_command("C-k", "C-d")()
+    region(self_insert_command("C-k", "C-d"))()
     # vscodeExecuteCommand("editor.action.moveSelectionToNextFindMatch")()
-
-    fakeymacs.forward_direction = True
 
 def expand_region():
     # VSCode Command : Expand Selection
-    self_insert_command("A-S-Right")()
+    region(self_insert_command("A-S-Right"))()
     # vscodeExecuteCommand("editor.action.smartSelect.expand")()
-
-    fakeymacs.forward_direction = True
 
 def shrink_region():
     # VSCode Command : Shrink Selection
@@ -299,13 +295,6 @@ def cursor_redo():
 
 def keyboard_quit2():
     keyboard_quit(esc=False)
-
-def quick_select(window_keymap, key):
-    func = getKeyCommand(window_keymap, key)
-    def _func():
-        reset_rect(func)()
-        fakeymacs.forward_direction = True
-    return _func
 
 ## ターミナル操作
 def create_terminal():
@@ -429,8 +418,33 @@ define_key(keymap_vscode, "C-A-u",   reset_search(reset_undo(reset_counter(reset
 define_key(keymap_vscode, "C-A-r",   reset_search(reset_undo(reset_counter(reset_rect(cursor_redo)))))
 define_key(keymap_vscode, "C-A-g",   reset_search(reset_counter(reset_mark(keyboard_quit2))))
 
-## Quick and Simple Text Selection Extension 利用時の対応
-## （https://marketplace.visualstudio.com/items?itemName=dbankier.vscode-quick-select）
+## 「ターミナル操作」のキー設定
+define_key(keymap_vscode, "C-S-(243)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
+define_key(keymap_vscode, "C-S-(244)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
+define_key(keymap_vscode, "C-(243)",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
+define_key(keymap_vscode, "C-(244)",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
+
+if is_japanese_keyboard:
+    define_key(keymap_vscode, "C-S-Atmark", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
+    if not fc.use_ctrl_atmark_for_mark:
+        define_key(keymap_vscode, "C-Atmark", reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
+else:
+    define_key(keymap_vscode, "C-S-BackQuote", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
+    define_key(keymap_vscode, "C-BackQuote",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
+
+## 「その他」のキー設定
+define_key3(keymap_emacs, "C-g",         reset_search(reset_counter(reset_mark(keyboard_quit3))))
+define_key3(keymap_emacs, "M-x",         reset_search(reset_undo(reset_counter(reset_mark(execute_extended_command)))))
+define_key3(keymap_emacs, "M-Semicolon", reset_search(reset_undo(reset_counter(reset_mark(comment_dwim)))))
+
+if is_japanese_keyboard:
+    define_key(keymap_vscode, "C-Colon", trigger_suggest)
+else:
+    define_key(keymap_vscode, "C-Quote", trigger_suggest)
+
+## 拡張機能でリージョンが選択される機能がある場合、必要な変数の設定処理を追加する
+# （Quick and Simple Text Selection Extension 利用時の対応
+#   https://marketplace.visualstudio.com/items?itemName=dbankier.vscode-quick-select）
 if is_japanese_keyboard:
     quick_select_keys = {'"' : "S-2",
                          "'" : "S-7",
@@ -464,31 +478,12 @@ else:
 
 for key in quick_select_keys.values():
     mkey = "C-A-k {}".format(key)
-    define_key(keymap_vscode, mkey, quick_select(keymap_vscode, mkey))
+    define_key(keymap_vscode, mkey, reset_rect(region(getKeyCommand(keymap_vscode, mkey))))
 
-## 「ターミナル操作」のキー設定
-define_key(keymap_vscode, "C-S-(243)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
-define_key(keymap_vscode, "C-S-(244)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
-define_key(keymap_vscode, "C-(243)",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
-define_key(keymap_vscode, "C-(244)",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
-
-if is_japanese_keyboard:
-    define_key(keymap_vscode, "C-S-Atmark", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
-    if not fc.use_ctrl_atmark_for_mark:
-        define_key(keymap_vscode, "C-Atmark", reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
-else:
-    define_key(keymap_vscode, "C-S-BackQuote", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
-    define_key(keymap_vscode, "C-BackQuote",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
-
-## 「その他」のキー設定
-define_key3(keymap_emacs, "C-g",         reset_search(reset_counter(reset_mark(keyboard_quit3))))
-define_key3(keymap_emacs, "M-x",         reset_search(reset_undo(reset_counter(reset_mark(execute_extended_command)))))
-define_key3(keymap_emacs, "M-Semicolon", reset_search(reset_undo(reset_counter(reset_mark(comment_dwim)))))
-
-if is_japanese_keyboard:
-    define_key(keymap_vscode, "C-Colon", trigger_suggest)
-else:
-    define_key(keymap_vscode, "C-Quote", trigger_suggest)
+## 拡張機能でリージョンが選択される機能がある場合、必要な変数の設定処理を追加する
+# （vscode-input-sequence 利用時の対応
+#   https://marketplace.visualstudio.com/items?itemName=tomoki1207.vscode-input-sequence）
+define_key(keymap_vscode, "C-A-0", reset_rect(region(self_insert_command3("C-A-0"))))
 
 ## config_personal.py ファイルの読み込み
 exec(readConfigExtension(r"vscode_key\config_personal.py", msg=False), dict(globals(), **locals()))
