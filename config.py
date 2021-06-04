@@ -1210,7 +1210,7 @@ def configure(keymap):
                 else:
                     self_insert_command("Right", "Left")()
 
-            # Microsoft Excel 2019 以前のバージョンでは必要な設定の可能性あり
+            # Microsoft Excel 2019 より前のバージョンでは必要な設定の可能性あり
             # elif checkWindow("EXCEL.EXE", None): # Microsoft Excel
             #     # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
             #     if fakeymacs.forward_direction:
@@ -1934,8 +1934,8 @@ def configure(keymap):
         define_key(keymap_ei, "C-e", move_end_of_line)
 
         ## 「カット / コピー / 削除 / アンドゥ」のキー設定
-        define_key(keymap_ei, "C-h",    delete_backward_char)
-        define_key(keymap_ei, "C-d",    delete_char)
+        define_key(keymap_ei, "C-h", delete_backward_char)
+        define_key(keymap_ei, "C-d", delete_char)
 
         ## 「その他」のキー設定
         define_key(keymap_ei, "Enter", ei_newline)
