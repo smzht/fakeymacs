@@ -95,7 +95,7 @@ True に設定した場合でも Toggle Terminal 用のキーとして C-<半角
 | C-A-<数字キー> | switch_focus(<数字キーの値>) | View: Focus Side Bar or n-th Editor Group |             |
 |----------------+------------------------------+-------------------------------------------+-------------|
 
-※ C-<数字キー> は、use_ctrl_digit_key_for_digit_argument が変数 False（初期値）の場合に機能します。
+※ C-<数字キー> は、use_ctrl_digit_key_for_digit_argument 変数が False（初期値）の場合に機能します。
 True の場合（C-<数字キー> は数引数の指定用として使われる）には、代わりに C-A-<数字キー> が機能する
 ようにしています。
 
