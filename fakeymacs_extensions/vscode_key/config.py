@@ -25,7 +25,10 @@ except:
     #   キーが全角文字で入力されることが無くなります）
     # （同じキーを指定することもできます）
     # （Fakeymacs のキーに Meta キー（M-）は指定できません）
-    fc.vscode_prefix_key  = [["C-k", "C-A-k"]]
+    fc.vscode_prefix_key  = []
+
+# プレフィックスキー C-k は デフォルトで C-A-k に置き換えられるものとする
+fc.vscode_prefix_key += [["C-k", "C-A-k"]]
 
 try:
     # 設定されているか？
@@ -483,7 +486,10 @@ for key in quick_select_keys.values():
 ## 拡張機能でリージョンが選択される機能がある場合、必要な変数の設定処理を追加する
 # （vscode-input-sequence 利用時の対応
 #   https://marketplace.visualstudio.com/items?itemName=tomoki1207.vscode-input-sequence）
-define_key(keymap_vscode, "C-A-0", reset_rect(region(self_insert_command3("C-A-0"))))
+if not fc.use_ctrl_digit_key_for_digit_argument:
+    define_key(keymap_vscode, "C-A-0", reset_rect(region(self_insert_command3("C-A-0"))))
+
+define_key(keymap_vscode, "C-A-k 0", reset_rect(region(self_insert_command3("C-A-0"))))
 
 ## config_personal.py ファイルの読み込み
 exec(readConfigExtension(r"vscode_key\config_personal.py", msg=False), dict(globals(), **locals()))

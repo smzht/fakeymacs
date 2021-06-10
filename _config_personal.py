@@ -209,7 +209,6 @@ fc.vscode_target += ["chrome.exe",
                      "msedge.exe",
                      "firefox.exe"
                     ]
-fc.vscode_prefix_key  = [["C-k", "C-A-k"]]
 # fc.vscode_prefix_key += [["C-;", "C-A-;"]]
 fc.use_ctrl_atmark_for_mark = False
 fc.use_direct_input_in_vscode_terminal = False
