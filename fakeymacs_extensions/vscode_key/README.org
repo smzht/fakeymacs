@@ -203,17 +203,17 @@ use_direct_input_in_vscode_terminal 変数が False（初期値）の場合で�
 次のキーを利用するようにしてください。先に説明した４つのキーが VSCode のショートカットキーとして
 認識されるように戻ります。
 
-|----------------+------------------------------+-------------------------------------+---------------------|
-| Keybind        | Function                     | VSCode Command                      | Description         |
-|----------------+------------------------------+-------------------------------------+---------------------|
-| C-`            | toggle_terminal              | Create New Integrated Terminal      | US Keyboard の場合  |
-| C-@            | toggle_terminal              | Create New Integrated Terminal      | JIS Keyboard の場合 |
-| C-<半角/全角>  | toggle_terminal              | Create New Integrated Terminal      | JIS Keyboard の場合 |
-|----------------+------------------------------+-------------------------------------+---------------------|
-| Ctl-x o        | other_group                  | Navigate Between Editor Groups      |                     |
-| C-<数字キー>   | switch_focus(<数字キーの値>) | Focus Side Bar or n-th Editor Group |                     |
-| C-A-<数字キー> | switch_focus(<数字キーの値>) | Focus Side Bar or n-th Editor Group |                     |
-|----------------+------------------------------+-------------------------------------+---------------------|
+|----------------+------------------------------+------------------------------------------+---------------------|
+| Keybind        | Function                     | VSCode Command                           | Description         |
+|----------------+------------------------------+------------------------------------------+---------------------|
+| C-`            | toggle_terminal              | Terminal: Create New Integrated Terminal | US Keyboard の場合  |
+| C-@            | toggle_terminal              | Terminal: Create New Integrated Terminal | JIS Keyboard の場合 |
+| C-<半角/全角>  | toggle_terminal              | Terminal: Create New Integrated Terminal | JIS Keyboard の場合 |
+|----------------+------------------------------+------------------------------------------+---------------------|
+| Ctl-x o        | other_group                  | Navigate Between Editor Groups           |                     |
+| C-<数字キー>   | switch_focus(<数字キーの値>) | Focus Side Bar or n-th Editor Group      |                     |
+| C-A-<数字キー> | switch_focus(<数字キーの値>) | Focus Side Bar or n-th Editor Group      |                     |
+|----------------+------------------------------+------------------------------------------+---------------------|
 
 ※ マウスのクリックでカーソル位置の変更を行うと、この状態の認識に齟齬が発生することがあります。
 その場合は、上記のいずれかのキーを押下することにより、Fakeymacs に現在の状態を再認識させるように
