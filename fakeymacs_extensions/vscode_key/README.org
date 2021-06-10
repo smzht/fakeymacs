@@ -145,11 +145,17 @@ keyboard_quit（C-A-g）を利用してください。（esc_mode_in_keyboard_qu
 |-----------------+-----------------+------------------------------------------+---------------------|
 | Keybind         | Function        | VSCode Command                           | Description         |
 |-----------------+-----------------+------------------------------------------+---------------------|
-| C-S-` (C-~)     | create_terminal | View: Toggle Terminal -like              | US Keyboard の場合  |
-| C-S-@ (C-`)     | create_terminal | View: Toggle Terminal -like              | JIS Keyboard の場合 |
-| C-S-<半角/全角> | create_terminal | View: Toggle Terminal -like              | JIS Keyboard の場合 |
+| C-~ (C-S-`)     | create_terminal | View: Toggle Terminal -like              | US Keyboard の場合  |
 | C-`             | toggle_terminal | Terminal: Create New Integrated Terminal | US Keyboard の場合  |
+|-----------------+-----------------+------------------------------------------+---------------------|
+
+
+|-----------------+-----------------+------------------------------------------+---------------------|
+| Keybind         | Function        | VSCode Command                           | Description         |
+|-----------------+-----------------+------------------------------------------+---------------------|
+| C-` (C-S-@)     | create_terminal | View: Toggle Terminal -like              | JIS Keyboard の場合 |
 | C-@             | toggle_terminal | Terminal: Create New Integrated Terminal | JIS Keyboard の場合 |
+| C-S-<半角/全角> | create_terminal | View: Toggle Terminal -like              | JIS Keyboard の場合 |
 | C-<半角/全角>   | toggle_terminal | Terminal: Create New Integrated Terminal | JIS Keyboard の場合 |
 |-----------------+-----------------+------------------------------------------+---------------------|
 
