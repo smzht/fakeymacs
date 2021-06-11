@@ -218,7 +218,7 @@ fc.use_ctrl_atmark_for_mark = False
 fc.use_direct_input_in_vscode_terminal = False
 fc.esc_mode_in_keyboard_quit = 1
 
-# VSCode で Extension のインストールが必要な機能の設定を行う
+# VSCode Extension 用のキーの設定を行う
 fc.vscode_dired = False
 fc.vscode_recenter = False
 fc.vscode_occur = False
