@@ -39,18 +39,6 @@ except:
     # vscode-input-sequence を利用するかどうかを指定する
     fc.vscode_input_sequence = False
 
-def define_key3(window_keymap, keys, command):
-    define_key(window_keymap, keys,
-               makeKeyCommand(window_keymap, keys, command,
-                              lambda: checkWindow("Code.exe", "Chrome_WidgetWin_1")))
-
-def vscodeExecuteCommand(command):
-    def _func():
-        self_insert_command("f1")()
-        princ(command)
-        self_insert_command("Enter")()
-    return _func
-
 if fc.vscode_dired:
     def dired():
         # VSCode Command : Open dired buffer
