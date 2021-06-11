@@ -53,7 +53,7 @@ if fc.vscode_recenter:
         self_insert_command("C-l")()
         # vscodeExecuteCommand("center-editor-window.center")()
 
-    define_key3(keymap_emacs, "C-l", reset_search(reset_undo(reset_counter(recenter))))
+    define_key(keymap_vscode, "C-l", reset_search(reset_undo(reset_counter(recenter))))
 
 if fc.vscode_occur:
     def occur():
