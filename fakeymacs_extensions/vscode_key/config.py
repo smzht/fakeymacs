@@ -445,51 +445,8 @@ if is_japanese_keyboard:
 else:
     define_key(keymap_vscode, "C-Quote", trigger_suggest)
 
-## 拡張機能でリージョンが選択される機能がある場合、必要な変数の設定処理を追加する
-# （Quick and Simple Text Selection Extension 利用時の対応
-#   https://marketplace.visualstudio.com/items?itemName=dbankier.vscode-quick-select）
-if is_japanese_keyboard:
-    quick_select_keys = {'"' : "S-2",
-                         "'" : "S-7",
-                         ";" : "Semicolon",
-                         ":" : "Colon",
-                         "`" : "S-Atmark",
-                         "(" : "S-8",
-                         ")" : "S-9",
-                         "[" : "OpenBracket",
-                         "]" : "CloseBracket",
-                         "{" : "S-OpenBracket",
-                         "}" : "S-CloseBracket",
-                         "<" : "S-Comma",
-                         ">" : "S-Period"
-                        }
-else:
-    quick_select_keys = {'"' : "S-Quote",
-                         "'" : "Quote",
-                         ";" : "Semicolon",
-                         ":" : "S-Semicolon",
-                         "`" : "BackQuote",
-                         "(" : "S-9",
-                         ")" : "S-0",
-                         "[" : "OpenBracket",
-                         "]" : "CloseBracket",
-                         "{" : "S-OpenBracket",
-                         "}" : "S-CloseBracket",
-                         "<" : "S-Comma",
-                         ">" : "S-Period"
-                        }
-
-for key in quick_select_keys.values():
-    mkey = "C-A-k {}".format(key)
-    define_key(keymap_vscode, mkey, reset_rect(region(getKeyCommand(keymap_vscode, mkey))))
-
-## 拡張機能でリージョンが選択される機能がある場合、必要な変数の設定処理を追加する
-# （vscode-input-sequence 利用時の対応
-#   https://marketplace.visualstudio.com/items?itemName=tomoki1207.vscode-input-sequence）
-if not fc.use_ctrl_digit_key_for_digit_argument:
-    define_key(keymap_vscode, "C-A-0", reset_rect(region(self_insert_command3("C-A-0"))))
-
-define_key(keymap_vscode, "C-A-k 0", reset_rect(region(self_insert_command3("C-A-0"))))
+## vscode_extensions 拡張機能の読み込み
+exec(readConfigExtension(r"vscode_extensions\config.py"), dict(globals(), **locals()))
 
 ## config_personal.py ファイルの読み込み
 exec(readConfigExtension(r"vscode_key\config_personal.py", msg=False), dict(globals(), **locals()))

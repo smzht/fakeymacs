@@ -11,23 +11,74 @@ VSCode で Extension をインストールすることで Emacs のキーバイ�
 
 *** コンフィグレーションパラメータ
 
-|-------------------------+----------------------------------------------------------------|
-| Configuration parameter | Description                                                    |
-|-------------------------+----------------------------------------------------------------|
-| vscode_dired            | vscode-dired Extension を利用するかどうかを指定する            |
-| vscode_recenter         | Center Editor Window Extension を利用するかどうかを指定する    |
-| vscode_occur            | Search in Current File Extension  を利用するかどうかを指定する |
-|-------------------------+----------------------------------------------------------------|
+|-------------------------+------------------------------------------------------------------------|
+| Configuration parameter | Description                                                            |
+|-------------------------+------------------------------------------------------------------------|
+| vscode_dired            | vscode-dired Extension を利用するかどうかを指定する                    |
+| vscode_recenter         | Center Editor Window Extension を利用するかどうかを指定する            |
+| vscode_occur            | Search in Current File Extension  を利用するかどうかを指定する         |
+| vscode_quick_select     | Quick and Simple Text Selection Extension を利用するかどうかを指定する |
+| vscode_input_sequence   | vscode-input-sequence を利用するかどうかを指定する                     |
+|-------------------------+------------------------------------------------------------------------|
 
 *** キーバインド
+
+**** ● vscode_dired
 
 |-----------+----------+------------------------+-------------|
 | Keybind   | Function | VSCode Command         | Description |
 |-----------+----------+------------------------+-------------|
 | Ctl-x d   | dired    | Open dired buffer      |             |
+|-----------+----------+------------------------+-------------|
+
+**** ● vscode_recenter
+
+|-----------+----------+------------------------+-------------|
+| Keybind   | Function | VSCode Command         | Description |
+|-----------+----------+------------------------+-------------|
 | C-l       | recenter | Center Editor Window   |             |
+|-----------+----------+------------------------+-------------|
+
+**** ● vscode_occur
+
+|-----------+----------+------------------------+-------------|
+| Keybind   | Function | VSCode Command         | Description |
+|-----------+----------+------------------------+-------------|
 | Ctl-x C-o | occur    | Search in Current File |             |
 |-----------+----------+------------------------+-------------|
+
+**** ● vscode_quick_select
+
+- https://marketplace.visualstudio.com/items?itemName=dbankier.vscode-quick-select
+
+|---------+----------------------------------+----------------------------------------------+-------------|
+| Keybind | Function                         | VSCode Command                               | Description |
+|---------+----------------------------------+----------------------------------------------+-------------|
+| C-A-k " | self_insert_command4("C-k", '"') | Quick Select: Select inside double quote     |             |
+| C-A-k ' | self_insert_command4("C-k", "'") | Quick Select: Select inside single quote     |             |
+| C-A-k ; | self_insert_command4("C-k", ";") | Quick Select: Select inside either quote     |             |
+| C-A-k : | self_insert_command4("C-k", ":") | Quick Select: Switch quotes                  |             |
+| C-A-k ` | self_insert_command4("C-k", "`") | Quick Select: Select inside back ticks       |             |
+| C-A-k ( | self_insert_command4("C-k", "(") | Quick Select: Select inside parenthesis      |             |
+| C-A-k ) | self_insert_command4("C-k", ")") | Quick Select: Select outside parenthesis     |             |
+| C-A-k [ | self_insert_command4("C-k", "[") | Quick Select: Select inside square brackets  |             |
+| C-A-k ] | self_insert_command4("C-k", "]") | Quick Select: Select outside square brackets |             |
+| C-A-k { | self_insert_command4("C-k", "{") | Quick Select: Select inside curly brackets   |             |
+| C-A-k } | self_insert_command4("C-k", "}") | Quick Select: Select outside curly brackets  |             |
+| C-A-k < | self_insert_command4("C-k", "<") | Quick Select: Select inside angled brackets  |             |
+| C-A-k > | self_insert_command4("C-k", ">") | Quick Select: Select inside tag              |             |
+|---------+----------------------------------+----------------------------------------------+-------------|
+
+**** ● vscode_input_sequence
+
+- https://marketplace.visualstudio.com/items?itemName=tomoki1207.vscode-input-sequence
+
+|---------+-------------------------------+--------------------------+-------------------------------------------------------|
+| Keybind | Function                      | VSCode Command           | Description                                           |
+|---------+-------------------------------+--------------------------+-------------------------------------------------------|
+| C-A-0   | self_insert_command3("C-A-0") | Insert Sequential number | use_ctrl_digit_key_for_digit_argument が False の場合 |
+| C-A-k 0 | self_insert_command3("C-A-0") | Insert Sequential number |                                                       |
+|---------+-------------------------------+--------------------------+-------------------------------------------------------|
 
 *** 留意事項
 

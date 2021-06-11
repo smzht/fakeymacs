@@ -203,6 +203,10 @@ fc.lancherList_listers = [
 ####################################################################################################
 # [section-extensions] -----------------------------------------------------------------------------
 
+# https://github.com/smzht/fakeymacs/blob/master/fakeymacs_manuals/extensions.org
+
+# --------------------------------------------------------------------------------------------------
+
 # VSCode 用のキーの設定を行う
 fc.vscode_target  = ["Code.exe"]
 fc.vscode_target += ["chrome.exe",
@@ -213,24 +217,35 @@ fc.vscode_target += ["chrome.exe",
 fc.use_ctrl_atmark_for_mark = False
 fc.use_direct_input_in_vscode_terminal = False
 fc.esc_mode_in_keyboard_quit = 1
-exec(readConfigExtension(r"vscode_key/config.py"), dict(globals(), **locals()))
 
 # VSCode で Extension のインストールが必要な機能の設定を行う
-# fc.vscode_dired = True
-# fc.vscode_recenter = True
-# fc.vscode_occur = True
-# exec(readConfigExtension(r"vscode_extensions/config.py"), dict(globals(), **locals()))
+fc.vscode_dired = False
+fc.vscode_recenter = False
+fc.vscode_occur = False
+fc.vscode_quick_select = True
+fc.vscode_input_sequence = True
+
+exec(readConfigExtension(r"vscode_key\config.py"), dict(globals(), **locals()))
+# vscode_extensions\config.py は、vscode_key\config.py 内部から呼ばれている
+
+# --------------------------------------------------------------------------------------------------
 
 # Everything を起動するキーを指定する
-# exec(readConfigExtension(r"everything/config.py"), dict(globals(), **locals()))
+# exec(readConfigExtension(r"everything\config.py"), dict(globals(), **locals()))
+
+# --------------------------------------------------------------------------------------------------
 
 # ブラウザ向けのキーの設定を行う
-# exec(readConfigExtension(r"browser_key/config.py"), dict(globals(), **locals()))
+# exec(readConfigExtension(r"browser_key\config.py"), dict(globals(), **locals()))
+
+# --------------------------------------------------------------------------------------------------
 
 # Chrome 系ブラウザで Ctl-x C-b を入力した際、Chrome の拡張機能 Quick Tabs を起動する
 # （github1s を利用する場合、本機能を有効にせずに Quick Tabs を利用すればキー被りが発生しません）
 # fc.quick_tabs_shortcut_key = "A-q"
-# exec(readConfigExtension(r"chrome_quick_tabs/config.py"), dict(globals(), **locals()))
+# exec(readConfigExtension(r"chrome_quick_tabs\config.py"), dict(globals(), **locals()))
+
+# --------------------------------------------------------------------------------------------------
 
 # Emacs の shell-command-on-region の機能をサポートする
 # fc.linux_tool = "WSL"
@@ -241,22 +256,34 @@ exec(readConfigExtension(r"vscode_key/config.py"), dict(globals(), **locals()))
 # fc.bash_options = ["-l"]
 # exec(readConfigExtension(r"shell_command_on_region\config.py"), dict(globals(), **locals()))
 
+# --------------------------------------------------------------------------------------------------
+
 # 指定したアプリケーションソフトに F2（編集モード移行）を割り当てるキーを設定する
 # exec(readConfigExtension(r"edit_mode\config.py"), dict(globals(), **locals()))
 
+# --------------------------------------------------------------------------------------------------
+
 # Emacs の場合、IME 切り替え用のキーを C-\ に置き換える
 # exec(readConfigExtension(r"real_emacs\config.py"), dict(globals(), **locals()))
+
+# --------------------------------------------------------------------------------------------------
 
 # 英語キーボード設定をした OS 上で日本語キーボードを利用する場合の設定を行う
 # fc.change_keyboard_startup = "US"
 # fc.change_keyboard_startup = "JP"
 # exec(readConfigExtension(r"change_keyboard\config.py"), dict(globals(), **locals()))
 
+# --------------------------------------------------------------------------------------------------
+
 # クリップボードに格納したファイルもしくはフォルダのパスを emacsclient で開く
 # fc.emacsclient_name = r"<emacsclient プログラムをインストールしている Windows のパス>\wslclient-n.exe"
-# exec(readConfigExtension(r"emacsclient/config.py"), dict(globals(), **locals()))
+# exec(readConfigExtension(r"emacsclient\config.py"), dict(globals(), **locals()))
+
+# --------------------------------------------------------------------------------------------------
 
 # 指定したキーを押下したときに IME の状態を表示する
 # fc.pop_ime_balloon_key = ["C-Semicolon"]
 # fc.pop_ime_balloon_key = ["O-" + fc.side_of_ctrl_key + "Ctrl"] # Ctrl キーの単押し
-# exec(readConfigExtension(r"pop_ime_balloon/config.py"), dict(globals(), **locals()))
+# exec(readConfigExtension(r"pop_ime_balloon\config.py"), dict(globals(), **locals()))
+
+# --------------------------------------------------------------------------------------------------

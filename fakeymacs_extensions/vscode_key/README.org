@@ -82,7 +82,7 @@ True に設定した場合でも Toggle Terminal 用のキーとして C-<半角
 | Ctl-x C-b | list_buffers     | View: Show All Editors By Most Recently Used            |                                     |
 |-----------+------------------+---------------------------------------------------------+-------------------------------------|
 
-****  「エディタ操作」のキー設定
+**** ● 「エディタ操作」のキー設定
 
 |----------------+------------------------------+-------------------------------------------+-------------|
 | Keybind        | Function                     | VSCode Command                            | Description |
@@ -100,7 +100,7 @@ True に設定した場合でも Toggle Terminal 用のキーとして C-<半角
 True の場合（C-<数字キー> は数引数の指定用として使われる）には、代わりに C-A-<数字キー> が機能する
 ようにしています。
 
-****  「矩形選択 / マルチカーソル」のキー設定
+**** ● 「矩形選択 / マルチカーソル」のキー設定
 
 |---------+----------------------------+----------------------------------------------+------------------------------------|
 | Keybind | Function                   | VSCode Command or Command ID                 | Description                        |
@@ -134,38 +134,7 @@ keyboard_quit（C-A-g）を利用してください。（esc_mode_in_keyboard_qu
 - https://code.visualstudio.com/docs/editor/codebasics#_column-box-selection
 - https://code.visualstudio.com/docs/editor/codebasics#_multiple-selections-multicursor
 
-※ Quick and Simple Text Selection Extension をインストールすることにより、以下のキーバインドも利用できます。
-- https://marketplace.visualstudio.com/items?itemName=dbankier.vscode-quick-select
-
-|---------+----------------------------------+----------------------------------------------+-------------|
-| Keybind | Function                         | VSCode Command                               | Description |
-|---------+----------------------------------+----------------------------------------------+-------------|
-| C-A-k " | self_insert_command4("C-k", '"') | Quick Select: Select inside double quote     |             |
-| C-A-k ' | self_insert_command4("C-k", "'") | Quick Select: Select inside single quote     |             |
-| C-A-k ; | self_insert_command4("C-k", ";") | Quick Select: Select inside either quote     |             |
-| C-A-k : | self_insert_command4("C-k", ":") | Quick Select: Switch quotes                  |             |
-| C-A-k ` | self_insert_command4("C-k", "`") | Quick Select: Select inside back ticks       |             |
-| C-A-k ( | self_insert_command4("C-k", "(") | Quick Select: Select inside parenthesis      |             |
-| C-A-k ) | self_insert_command4("C-k", ")") | Quick Select: Select outside parenthesis     |             |
-| C-A-k [ | self_insert_command4("C-k", "[") | Quick Select: Select inside square brackets  |             |
-| C-A-k ] | self_insert_command4("C-k", "]") | Quick Select: Select outside square brackets |             |
-| C-A-k { | self_insert_command4("C-k", "{") | Quick Select: Select inside curly brackets   |             |
-| C-A-k } | self_insert_command4("C-k", "}") | Quick Select: Select outside curly brackets  |             |
-| C-A-k < | self_insert_command4("C-k", "<") | Quick Select: Select inside angled brackets  |             |
-| C-A-k > | self_insert_command4("C-k", ">") | Quick Select: Select inside tag              |             |
-|---------+----------------------------------+----------------------------------------------+-------------|
-
-※ vscode-input-sequence Extension をインストールすることにより、以下のキーバインドも利用できます。
-- https://marketplace.visualstudio.com/items?itemName=tomoki1207.vscode-input-sequence
-
-|---------+-------------------------------+--------------------------+-------------------------------------------------------|
-| Keybind | Function                      | VSCode Command           | Description                                           |
-|---------+-------------------------------+--------------------------+-------------------------------------------------------|
-| C-A-0   | self_insert_command3("C-A-0") | Insert Sequential number | use_ctrl_digit_key_for_digit_argument が False の場合 |
-| C-A-k 0 | self_insert_command3("C-A-0") | Insert Sequential number |                                                       |
-|---------+-------------------------------+--------------------------+-------------------------------------------------------|
-
-****  「ターミナル操作」のキー設定
+****  ●「ターミナル操作」のキー設定
 
 |-----------------+-----------------+------------------------------------------+---------------------|
 | Keybind         | Function        | VSCode Command                           | Description         |
@@ -219,7 +188,7 @@ use_direct_input_in_vscode_terminal 変数が False（初期値）の場合で�
 その場合は、上記のいずれかのキーを押下することにより、Fakeymacs に現在の状態を再認識させるように
 してください。
 
-****  「その他」のキー設定
+**** ● 「その他」のキー設定
 
 |---------+--------------------------+---------------------+---------------------|
 | Keybind | Function                 | VSCode Command      | Description         |
