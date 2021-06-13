@@ -134,6 +134,16 @@ keyboard_quit（C-A-g）を利用してください。（esc_mode_in_keyboard_qu
 - https://code.visualstudio.com/docs/editor/codebasics#_column-box-selection
 - https://code.visualstudio.com/docs/editor/codebasics#_multiple-selections-multicursor
 
+※ 次の VSCode の Extension をインストールすると、この「矩形選択 / マルチカーソル」の機能が
+より有用なものとなります。
+
+- https://marketplace.visualstudio.com/items?itemName=dbankier.vscode-quick-select
+- https://marketplace.visualstudio.com/items?itemName=tomoki1207.vscode-input-sequence
+
+キーバインドの設定は次の拡張機能の中で行っています。
+
+- https://github.com/smzht/fakeymacs/tree/master/fakeymacs_extensions/vscode_extensions
+
 ****  ●「ターミナル操作」のキー設定
 
 |-----------------+-----------------+------------------------------------------+---------------------|
