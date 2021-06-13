@@ -39,6 +39,13 @@ except:
     # vscode-input-sequence を利用するかどうかを指定する
     fc.vscode_input_sequence = False
 
+try:
+    # 設定されているか？
+    fc.vscode_insert_numbers
+except:
+    # Insert Numbers を利用するかどうかを指定する
+    fc.vscode_insert_numbers = False
+
 if fc.vscode_dired:
     def dired():
         # VSCode Command : Open dired buffer
@@ -104,3 +111,6 @@ if fc.vscode_input_sequence:
         define_key(keymap_vscode, "C-A-0", reset_rect(region(self_insert_command3("C-A-0"))))
 
     define_key(keymap_vscode, "C-A-k 0", reset_rect(region(self_insert_command3("C-A-0"))))
+
+if fc.vscode_insert_numbers:
+    define_key(keymap_vscode, "C-A-k n", reset_rect(region(self_insert_command3("C-A-n"))))

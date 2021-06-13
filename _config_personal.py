@@ -224,6 +224,7 @@ fc.vscode_recenter = False
 fc.vscode_occur = False
 fc.vscode_quick_select = True
 fc.vscode_input_sequence = True
+fc.vscode_insert_numbers = True
 
 exec(readConfigExtension(r"vscode_key\config.py"), dict(globals(), **locals()))
 # vscode_extensions\config.py は、vscode_key\config.py 内部から呼ばれている

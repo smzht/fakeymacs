@@ -139,6 +139,7 @@ keyboard_quit（C-A-g）を利用してください。（esc_mode_in_keyboard_qu
 
 - https://marketplace.visualstudio.com/items?itemName=dbankier.vscode-quick-select
 - https://marketplace.visualstudio.com/items?itemName=tomoki1207.vscode-input-sequence
+- https://marketplace.visualstudio.com/items?itemName=Asuka.insertnumbers
 
 キーバインドの設定は次の拡張機能の中で行っています。
 
