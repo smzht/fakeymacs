@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210603_01"
+fakeymacs_version = "20210614_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -362,6 +362,10 @@ def configure(keymap):
     # Emacs日本語入力モードが有効なときに表示するバルーンメッセージを指定する
     # fc.emacs_ime_mode_balloon_message = None
     fc.emacs_ime_mode_balloon_message = "▲"
+
+    # IME の状態を表示するバルーンメッセージの組み合わせ（英数入力、日本語入力）を指定する
+    # fc.ime_status_balloon_message = None
+    fc.ime_status_balloon_message = ["[A]", "[あ]"]
 
     # IME をトグルで切り替えるキーを指定する（複数指定可）
     fc.toggle_input_method_key = []
@@ -742,14 +746,16 @@ def configure(keymap):
         popImeBalloon(ime_status)
 
     def popImeBalloon(ime_status=None):
-        if ime_status is None:
-            ime_status = keymap.getWindow().getImeStatus()
+        if (fc.ime_status_balloon_message and
+            not fakeymacs.is_playing_kmacro):
 
-        if not fakeymacs.is_playing_kmacro:
+            if ime_status is None:
+                ime_status = keymap.getWindow().getImeStatus()
+
             if ime_status:
-                message = "[あ]"
+                message = fc.ime_status_balloon_message[1]
             else:
-                message = "[A]"
+                message = fc.ime_status_balloon_message[0]
 
             try:
                 # IME の状態をバルーンヘルプで表示する

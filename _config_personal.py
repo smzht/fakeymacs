@@ -79,6 +79,14 @@ fc.emacs_exclusion_key  = {"chrome.exe"       : ["C-l", "C-t"],
 # Emacs日本語入力モードを使うかどうかを指定する（True: 使う、False: 使わない）
 fc.use_emacs_ime_mode = True
 
+# Emacs日本語入力モードが有効なときに表示するバルーンメッセージを指定する
+# fc.emacs_ime_mode_balloon_message = None
+# fc.emacs_ime_mode_balloon_message = "▲"
+
+# IME の状態を表示するバルーンメッセージの組み合わせ（英数入力、日本語入力）を指定する
+# fc.ime_status_balloon_message = None
+# fc.ime_status_balloon_message = ["[A]", "[あ]"]
+
 # IME をトグルで切り替えるキーを指定する（複数指定可）
 fc.toggle_input_method_key = []
 fc.toggle_input_method_key += ["C-Yen"]
