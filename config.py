@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210614_01"
+fakeymacs_version = "20210615_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1898,8 +1898,9 @@ def configure(keymap):
         def ei_popBalloon(ime_mode_status):
             if not fakeymacs.is_playing_kmacro:
                 if fc.emacs_ime_mode_balloon_message:
-                    # LINE は入力文字にバルーンヘルプが被るので、対象外とする
-                    if not checkWindow("LINE*.EXE", "Qt5QWindowIcon"): # LINE
+                    # Qt5*QWindowIcon にマッチするクラスをもつアプリは入力文字にバルーンヘルプが
+                    # 被るので、バルーンヘルプ表示対象外とする
+                    if not checkWindow(None, "Qt5*QWindowIcon"):
                         if ime_mode_status:
                             keymap.popBalloon("emacs_ime_mode", fc.emacs_ime_mode_balloon_message)
                         else:
