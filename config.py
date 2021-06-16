@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210615_01"
+fakeymacs_version = "20210616_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -365,8 +365,10 @@ def configure(keymap):
     # fc.emacs_ime_mode_balloon_message = None
     fc.emacs_ime_mode_balloon_message = "▲"
 
+    # IME の状態を表示するバルーンメッセージを表示するかどうかを指定する（True: 表示する、False: 表示しない）
+    fc.use_ime_status_balloon = True
+
     # IME の状態を表示するバルーンメッセージの組み合わせ（英数入力、日本語入力）を指定する
-    # fc.ime_status_balloon_message = None
     fc.ime_status_balloon_message = ["[A]", "[あ]"]
 
     # IME をトグルで切り替えるキーを指定する（複数指定可）
@@ -747,23 +749,26 @@ def configure(keymap):
 
         popImeBalloon(ime_status)
 
-    def popImeBalloon(ime_status=None):
-        if (fc.ime_status_balloon_message and
-            not fakeymacs.is_playing_kmacro):
+    def popImeBalloon(ime_status=None, force=False):
+        if not fakeymacs.is_playing_kmacro:
+            if force or fc.use_ime_status_balloon:
+                # スマホアプリでない LINE アプリなど、Qt5152QWindowIcon にマッチするクラスをもつ
+                # アプリは入力文字にバルーンヘルプが被るので、バルーンヘルプの表示対象から外す
+                # （ただし、force が True の場合は除く）
+                if force or not checkWindow(None, "Qt5152QWindowIcon"):
+                    if ime_status is None:
+                        ime_status = keymap.getWindow().getImeStatus()
 
-            if ime_status is None:
-                ime_status = keymap.getWindow().getImeStatus()
+                    if ime_status:
+                        message = fc.ime_status_balloon_message[1]
+                    else:
+                        message = fc.ime_status_balloon_message[0]
 
-            if ime_status:
-                message = fc.ime_status_balloon_message[1]
-            else:
-                message = fc.ime_status_balloon_message[0]
-
-            try:
-                # IME の状態をバルーンヘルプで表示する
-                keymap.popBalloon("ime_status", message, 500)
-            except:
-                pass
+                    try:
+                        # IME の状態をバルーンヘルプで表示する
+                        keymap.popBalloon("ime_status", message, 500)
+                    except:
+                        pass
 
     def reconversion(reconv_key, cancel_key):
         def _func():
@@ -1899,7 +1904,7 @@ def configure(keymap):
             if not fakeymacs.is_playing_kmacro:
                 if fc.emacs_ime_mode_balloon_message:
                     # Qt5*QWindowIcon にマッチするクラスをもつアプリは入力文字にバルーンヘルプが
-                    # 被るので、バルーンヘルプ表示対象外とする
+                    # 被るので、バルーンヘルプの表示対象から外す
                     if not checkWindow(None, "Qt5*QWindowIcon"):
                         if ime_mode_status:
                             keymap.popBalloon("emacs_ime_mode", fc.emacs_ime_mode_balloon_message)
