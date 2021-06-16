@@ -754,8 +754,8 @@ def configure(keymap):
     def popImeBalloon(ime_status=None, force=False):
         if not fakeymacs.is_playing_kmacro:
             if force or fc.use_ime_status_balloon:
-                # スマホアプリでない LINE アプリなど、Qt5152QWindowIcon にマッチするクラスをもつ
-                # アプリは入力文字にバルーンヘルプが被るので、バルーンヘルプの表示対象から外す
+                # LINE アプリなど、Qt5152QWindowIcon にマッチするクラスをもつアプリは入力文字に
+                # バルーンヘルプが被るので、バルーンヘルプの表示対象から外す
                 # （ただし、force が True の場合は除く）
                 if force or not checkWindow(None, "Qt5152QWindowIcon"):
                     if ime_status is None:
