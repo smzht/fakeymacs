@@ -112,9 +112,9 @@ if fc.vscode_input_sequence:
         self_insert_command3("C-A-0")()
 
     if not fc.use_ctrl_digit_key_for_digit_argument:
-        define_key(keymap_vscode, "C-A-0", reset_rect(region(input_sequence)))
+        define_key(keymap_vscode, "C-A-0", reset_rect(input_sequence))
 
-    define_key(keymap_vscode, "C-A-k 0", reset_rect(region(input_sequence)))
+    define_key(keymap_vscode, "C-A-k 0", reset_rect(input_sequence))
 
 if fc.vscode_insert_numbers:
     def insert_numbers():
