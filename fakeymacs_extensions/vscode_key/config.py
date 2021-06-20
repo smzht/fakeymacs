@@ -59,6 +59,7 @@ except:
 
 fakeymacs.vscode_focus = "not_terminal"
 fakeymacs.rectangle_mode = False
+fakeymacs.post_processing = None
 
 def is_vscode_target(window):
     if (window.getProcessName() in fc.vscode_target and
@@ -115,6 +116,14 @@ def region(func):
     def _func():
         func()
         fakeymacs.forward_direction = True
+    return _func
+
+def post(func):
+    def _func():
+        func()
+        if fakeymacs.post_processing:
+            fakeymacs.post_processing()
+            fakeymacs.post_processing = None
     return _func
 
 ## カーソル移動
@@ -327,10 +336,12 @@ def toggle_terminal():
 def keyboard_quit3():
     if fc.esc_mode_in_keyboard_quit == 1:
         keyboard_quit(esc=True)
+        fakeymacs.post_processing = None
     else:
         if fakeymacs.last_keys in [[keymap_emacs, "C-g"],
                                    [keymap_vscode, "C-A-g"]]:
             keyboard_quit(esc=True)
+            fakeymacs.post_processing = None
         else:
             keyboard_quit(esc=False)
 
@@ -436,6 +447,8 @@ else:
     define_key(keymap_vscode, "C-BackQuote",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
 
 ## 「その他」のキー設定
+define_key3(keymap_emacs, "Enter",       post(reset_undo(reset_counter(reset_mark(repeat(newline))))))
+define_key3(keymap_emacs, "C-m",         post(reset_undo(reset_counter(reset_mark(repeat(newline))))))
 define_key3(keymap_emacs, "C-g",         reset_search(reset_counter(reset_mark(keyboard_quit3))))
 define_key3(keymap_emacs, "M-x",         reset_search(reset_undo(reset_counter(reset_mark(execute_extended_command)))))
 define_key3(keymap_emacs, "M-Semicolon", reset_search(reset_undo(reset_counter(reset_mark(comment_dwim)))))

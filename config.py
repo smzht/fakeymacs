@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210616_01"
+fakeymacs_version = "20210620_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1134,10 +1134,11 @@ def configure(keymap):
 
         keymap.command_RecordStop()
 
-        if fakeymacs.is_undo_mode:
-            fakeymacs.is_undo_mode = False
-        else:
-            fakeymacs.is_undo_mode = True
+        if fakeymacs.forward_direction is None:
+            if fakeymacs.is_undo_mode:
+                fakeymacs.is_undo_mode = False
+            else:
+                fakeymacs.is_undo_mode = True
 
     def kill_emacs():
         # Excel のファイルを開いた直後一回目、kill_emacs が正常に動作しない。その対策。

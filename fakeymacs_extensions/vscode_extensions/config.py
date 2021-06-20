@@ -107,10 +107,18 @@ if fc.vscode_quick_select:
         define_key(keymap_vscode, mkey, reset_rect(region(getKeyCommand(keymap_vscode, mkey))))
 
 if fc.vscode_input_sequence:
-    if not fc.use_ctrl_digit_key_for_digit_argument:
-        define_key(keymap_vscode, "C-A-0", reset_rect(region(self_insert_command3("C-A-0"))))
+    def input_sequence():
+        fakeymacs.post_processing = lambda: region(lambda: None)()
+        self_insert_command3("C-A-0")()
 
-    define_key(keymap_vscode, "C-A-k 0", reset_rect(region(self_insert_command3("C-A-0"))))
+    if not fc.use_ctrl_digit_key_for_digit_argument:
+        define_key(keymap_vscode, "C-A-0", reset_rect(region(input_sequence)))
+
+    define_key(keymap_vscode, "C-A-k 0", reset_rect(region(input_sequence)))
 
 if fc.vscode_insert_numbers:
-    define_key(keymap_vscode, "C-A-k n", reset_rect(region(self_insert_command3("C-A-n"))))
+    def insert_numbers():
+        fakeymacs.post_processing = lambda: region(lambda: None)()
+        self_insert_command3("C-A-n")()
+
+    define_key(keymap_vscode, "C-A-k n", reset_rect(insert_numbers))
