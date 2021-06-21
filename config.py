@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210620_01"
+fakeymacs_version = "20210621_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -308,7 +308,8 @@ def configure(keymap):
 
     # キーマップ毎にキー設定をスキップするキーを指定する
     # （リストに指定するキーは、define_key の第二引数に指定する記法のキーとしてください。"A-v" や "C-v"
-    #   のような指定の他に、"M-f" や "Ctl-x d" などの指定も可能です。）
+    #   のような指定の他に、"M-f" や "Ctl-x d" などの指定も可能です。"M-g*" のようにワイルドカードも
+    #   利用することができます。）
     # （ここで指定したキーに新たに別のキー設定をしたいときには、define_key2 関数を利用してください）
     fc.skip_settings_key    = {"keymap_global"    : [], # 全画面共通 Keymap
                                "keymap_emacs"     : [], # Emacs キーバインド対象アプリ用 Keymap
@@ -1324,9 +1325,10 @@ def configure(keymap):
             for keymap_name in fc.skip_settings_key:
                 if (keymap_name in locals() and
                     window_keymap == locals()[keymap_name]):
-                    if keys in fc.skip_settings_key[keymap_name]:
-                        print("skip settings key : [" + keymap_name + "] " + keys)
-                        return
+                    for skey in fc.skip_settings_key[keymap_name]:
+                        if fnmatch.fnmatch(keys, skey):
+                            print("skip settings key : [" + keymap_name + "] " + keys)
+                            return
 
         def keyCommand(key):
             # local スコープで参照できるようにする
