@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210622_01"
+fakeymacs_version = "20210623_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1783,12 +1783,10 @@ def configure(keymap):
         define_key(keymap_ime,   key, toggle_input_method)
 
     for disable_key, enable_key in fc.set_input_method_key:
-        if disable_key:
-            define_key(keymap_emacs, disable_key, disable_input_method)
-            define_key(keymap_ime,   disable_key, disable_input_method)
-        if enable_key:
-            define_key(keymap_emacs, enable_key, enable_input_method)
-            define_key(keymap_ime,   enable_key, enable_input_method)
+        define_key(keymap_emacs, disable_key, disable_input_method)
+        define_key(keymap_ime,   disable_key, disable_input_method)
+        define_key(keymap_emacs, enable_key,  enable_input_method)
+        define_key(keymap_ime,   enable_key,  enable_input_method)
 
     ## 「再変換」、「確定取り消し」のキー設定
     if fc.reconversion_key:
@@ -1984,10 +1982,8 @@ def configure(keymap):
 
         ## 「IME の切り替え」のキー設定
         for disable_key, enable_key in fc.set_input_method_key:
-            if disable_key:
-                define_key(keymap_ei, disable_key, ei_disable_input_method2(keymap_ei_dup, disable_key))
-            if enable_key:
-                define_key(keymap_ei, enable_key, ei_enable_input_method2(keymap_ei_dup, enable_key))
+            define_key(keymap_ei, disable_key, ei_disable_input_method2(keymap_ei_dup, disable_key))
+            define_key(keymap_ei, enable_key,  ei_enable_input_method2(keymap_ei_dup, enable_key))
 
 
     ###########################################################################
