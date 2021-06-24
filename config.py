@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210623_01"
+fakeymacs_version = "20210625_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1567,7 +1567,7 @@ def configure(keymap):
                 for mod3 in ["", "C-"]:
                     for mod4 in ["", "S-"]:
                         mkey = mod1 + mod2 + mod3 + mod4 + key
-                        define_key(keymap_emacs, mkey, self_insert_command(mkey))
+                        define_key2(keymap_emacs, mkey, self_insert_command(mkey))
 
     ## マルチストロークキーの設定
     define_key(keymap_emacs, "Ctl-x",  keymap.defineMultiStrokeKeymap(fc.ctl_x_prefix_key))
@@ -1934,7 +1934,7 @@ def configure(keymap):
                 for mod2 in ["", "C-"]:
                     for mod3 in ["", "S-"]:
                         mkey = mod1 + mod2 + mod3 + key
-                        define_key(keymap_ei, mkey, self_insert_command(mkey))
+                        define_key2(keymap_ei, mkey, self_insert_command(mkey))
 
         ## 「IME の切り替え」のキー設定
         define_key(keymap_ei, "(243)",  ei_disable_input_method)
