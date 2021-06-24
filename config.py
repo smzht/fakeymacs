@@ -1559,7 +1559,7 @@ def configure(keymap):
     # https://bsakatu.net/doc/virtual-key-of-windows/
     # http://www3.airnet.ne.jp/saka/hardware/keyboard/109scode.html
 
-    ## 全てキーパターンの設定（キーの入力記録を残すための設定）
+    ## 全てのキーパターンの設定（キーの入力記録を残すための設定）
     for vkey in vkeys():
         key = vkToStr(vkey)
         for mod1 in ["", "W-"]:
@@ -1927,7 +1927,7 @@ def configure(keymap):
         ## キーバインド（Emacs日本語入力モード用）
         ##################################################
 
-        ## 全てキーパターンの設定（キーの入力記録を残すための設定）
+        ## 全てのキーパターンの設定（キーの入力記録を残すための設定）
         for vkey in vkeys():
             key = vkToStr(vkey)
             for mod1 in ["", "A-"]:
