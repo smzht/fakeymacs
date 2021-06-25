@@ -46,6 +46,8 @@ except:
     # Insert Numbers を利用するかどうかを指定する
     fc.vscode_insert_numbers = False
 
+# --------------------------------------------------------------------------------------------------
+
 if fc.vscode_dired:
     def dired():
         # VSCode Command : Open dired buffer
@@ -53,6 +55,8 @@ if fc.vscode_dired:
         # vscodeExecuteCommand("extension.dired.open")()
 
     define_key3(keymap_emacs, "Ctl-x d",  reset_search(reset_undo(reset_counter(reset_mark(dired)))))
+
+# --------------------------------------------------------------------------------------------------
 
 if fc.vscode_recenter:
     def recenter():
@@ -62,6 +66,8 @@ if fc.vscode_recenter:
 
     define_key(keymap_vscode, "C-l", reset_search(reset_undo(reset_counter(recenter))))
 
+# --------------------------------------------------------------------------------------------------
+
 if fc.vscode_occur:
     def occur():
         # VSCode Command : Search in Current File
@@ -69,6 +75,8 @@ if fc.vscode_occur:
         # vscodeExecuteCommand("search-in-current-file.searchInCurrentFile")()
 
     define_key3(keymap_emacs, "Ctl-x C-o", reset_search(reset_undo(reset_counter(reset_mark(occur)))))
+
+# --------------------------------------------------------------------------------------------------
 
 if fc.vscode_quick_select:
     if is_japanese_keyboard:
@@ -106,6 +114,8 @@ if fc.vscode_quick_select:
         mkey = "C-A-k {}".format(key)
         define_key(keymap_vscode, mkey, reset_rect(region(getKeyCommand(keymap_vscode, mkey))))
 
+# --------------------------------------------------------------------------------------------------
+
 if fc.vscode_input_sequence:
     def input_sequence():
         fakeymacs.post_processing = lambda: region(lambda: None)()
@@ -116,9 +126,13 @@ if fc.vscode_input_sequence:
 
     define_key(keymap_vscode, "C-A-k 0", reset_rect(input_sequence))
 
+# --------------------------------------------------------------------------------------------------
+
 if fc.vscode_insert_numbers:
     def insert_numbers():
         fakeymacs.post_processing = lambda: region(lambda: None)()
         self_insert_command3("C-A-n")()
 
     define_key(keymap_vscode, "C-A-k n", reset_rect(insert_numbers))
+
+# --------------------------------------------------------------------------------------------------
