@@ -69,8 +69,6 @@ True に設定した場合でも Toggle Terminal 用のキーとして C-<半角
 | Ctl-x C-d | find_directory | File: Open Folder... |                                |
 | Ctl-x C-r | recentf        | File: Open Recent... |                                |
 | Ctl-x C-l | locate         | Go to File...        |                                |
-| Ctl-x C-s | save_buffer    | File: Save           | Fakeymacs 標準機能（参考記載） |
-| Ctl-x C-w | write_file     | File: Save As...     | Fakeymacs 標準機能（参考記載） |
 |-----------+----------------+----------------------+--------------------------------|
 
 **** ● 「カーソル移動」のキー設定
