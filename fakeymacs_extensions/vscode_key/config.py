@@ -126,6 +126,22 @@ def post(func):
             fakeymacs.post_processing = None
     return _func
 
+## ファイル操作
+def find_directory():
+    # VSCode Command : File: Open Folder...
+    self_insert_command("C-k", "C-o")()
+    # vscodeExecuteCommand("workbench.action.files.openFolder")()
+
+def recentf():
+    # VSCode Command : File: Open Recent...
+    self_insert_command("C-r")()
+    # vscodeExecuteCommand("workbench.action.openRecent")()
+
+def locate():
+    # VSCode Command : Go to File...
+    self_insert_command("C-p")()
+    # vscodeExecuteCommand("workbench.action.quickOpen")()
+
 ## カーソル移動
 def previous_error():
     # VSCode Command : Go to Previous Problem in Files (Error, Warning, Info)
@@ -202,6 +218,11 @@ def split_editor_right():
     # VSCode Command : View: Split Editor
     self_insert_command("C-Yen")()
     # vscodeExecuteCommand("workbench.action.splitEditor")()
+
+def rotate_layout():
+    # VSCode Command : Toggle Vertical/Horizontal Editor Layout
+    self_insert_command("A-S-0")()
+    # vscodeExecuteCommand("workbench.action.toggleEditorGroupLayout")()
 
 def other_group():
     # VSCode Command : View: Navigate Between Editor Groups
@@ -374,6 +395,11 @@ for pkey1, pkey2 in fc.vscode_prefix_key:
                     mkey = mod1 + mod2 + mod3 + key
                     define_key(keymap_vscode, "{} {}".format(pkey2, mkey), self_insert_command4(pkey1, mkey))
 
+## 「ファイル操作」のキー設定
+define_key3(keymap_emacs, "Ctl-x C-d", reset_search(reset_undo(reset_counter(reset_mark(find_directory)))))
+define_key3(keymap_emacs, "Ctl-x C-r", reset_search(reset_undo(reset_counter(reset_mark(recentf)))))
+define_key3(keymap_emacs, "Ctl-x C-l", reset_search(reset_undo(reset_counter(reset_mark(locate)))))
+
 ## 「カーソル移動」のキー設定
 define_key3(keymap_emacs, "M-g p",   reset_search(reset_undo(reset_counter(reset_mark(previous_error)))))
 define_key3(keymap_emacs, "M-g M-p", reset_search(reset_undo(reset_counter(reset_mark(previous_error)))))
@@ -403,6 +429,7 @@ define_key3(keymap_emacs, "Ctl-x 0", reset_search(reset_undo(reset_counter(reset
 define_key3(keymap_emacs, "Ctl-x 1", reset_search(reset_undo(reset_counter(reset_mark(delete_other_groups)))))
 define_key3(keymap_emacs, "Ctl-x 2", split_editor_below)
 define_key3(keymap_emacs, "Ctl-x 3", split_editor_right)
+define_key3(keymap_emacs, "Ctl-x 4", rotate_layout)
 define_key3(keymap_emacs, "Ctl-x o", reset_search(reset_undo(reset_counter(reset_mark(other_group)))))
 
 if fc.use_ctrl_digit_key_for_digit_argument:
