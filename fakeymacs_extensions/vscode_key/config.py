@@ -411,6 +411,9 @@ if is_japanese_keyboard:
 else:
     define_key3(keymap_emacs, "Ctl-x BackQuote", reset_search(reset_undo(reset_counter(reset_mark(next_error)))))
 
+define_key(keymap_vscode, "A-p", self_insert_command("C-Up"))
+define_key(keymap_vscode, "A-n", self_insert_command("C-Down"))
+
 ## 「カット / コピー」のキー設定
 define_key3(keymap_emacs, "C-k", reset_search(reset_undo(reset_counter(reset_mark(repeat3(kill_line2))))))
 define_key3(keymap_emacs, "C-y", reset_search(reset_undo(reset_counter(reset_mark(repeat(yank2))))))

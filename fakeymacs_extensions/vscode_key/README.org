@@ -73,15 +73,18 @@ True に設定した場合でも Toggle Terminal 用のキーとして C-<半角
 
 **** ● 「カーソル移動」のキー設定
 
-|---------+----------------+--------------------------------------------------------+-------------|
-| Keybind | Function       | VSCode Command                                         | Description |
-|---------+----------------+--------------------------------------------------------+-------------|
-| M-g p   | previous_error | Go to Previous Problem in Files (Error, Warning, Info) |             |
-| M-g M-p | previous_error | Go to Previous Problem in Files (Error, Warning, Info) |             |
-| M-g n   | next_error     | Go to Next Problem in Files (Error, Warning, Info)     |             |
-| M-g M-n | next_error     | Go to Next Problem in Files (Error, Warning, Info)     |             |
-| Ctl-x ` | next_error     | Go to Next Problem in Files (Error, Warning, Info)     |             |
-|---------+----------------+--------------------------------------------------------+-------------|
+|---------+-------------------------------+--------------------------------------------------------+------------------------|
+| Keybind | Function                      | VSCode Command                                         | Description            |
+|---------+-------------------------------+--------------------------------------------------------+------------------------|
+| M-g p   | previous_error                | Go to Previous Problem in Files (Error, Warning, Info) |                        |
+| M-g M-p | previous_error                | Go to Previous Problem in Files (Error, Warning, Info) |                        |
+| M-g n   | next_error                    | Go to Next Problem in Files (Error, Warning, Info)     |                        |
+| M-g M-n | next_error                    | Go to Next Problem in Files (Error, Warning, Info)     |                        |
+| Ctl-x ` | next_error                    | Go to Next Problem in Files (Error, Warning, Info)     |                        |
+|---------+-------------------------------+--------------------------------------------------------+------------------------|
+| A-p     | self_insert_command("C-Up")   | -                                                      | キーバインドの置き換え |
+| A-n     | self_insert_command("C-Down") | -                                                      | キーバインドの置き換え |
+|---------+-------------------------------+--------------------------------------------------------+------------------------|
 
 **** ● 「バッファ / ウィンドウ操作」のキー設定
 
