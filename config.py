@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210625_02"
+fakeymacs_version = "20210727_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1916,7 +1916,10 @@ def configure(keymap):
                     # 被るので、バルーンヘルプの表示対象から外す
                     if not checkWindow(None, "Qt5*QWindowIcon"):
                         if ime_mode_status:
-                            keymap.popBalloon("emacs_ime_mode", fc.emacs_ime_mode_balloon_message)
+                            try:
+                                keymap.popBalloon("emacs_ime_mode", fc.emacs_ime_mode_balloon_message)
+                            except:
+                                pass
                         else:
                             keymap.closeBalloon("emacs_ime_mode")
 
@@ -2160,7 +2163,8 @@ def configure(keymap):
         define_key(keymap_global, next_key,     move_window_to_next_desktop)
 
     # IME の「単語登録」プログラムの起動
-    define_key(keymap_global, fc.word_register_key, keymap.ShellExecuteCommand(None, fc.word_register_name, fc.word_register_param, ""))
+    define_key(keymap_global, fc.word_register_key,
+               keymap.ShellExecuteCommand(None, fc.word_register_name, fc.word_register_param, ""))
 
 
     ###########################################################################
@@ -2447,7 +2451,9 @@ def configure(keymap):
                 for wnd in window_list:
                     window_items.append([formatter.format(wnd.getProcessName(), wnd.getText()), popWindow(wnd)])
 
-            window_items.append([list_formatter.format("<Desktop>"), keymap.ShellExecuteCommand(None, r"shell:::{3080F90D-D7AD-11D9-BD98-0000947B0257}", "", "")])
+            window_items.append([list_formatter.format("<Desktop>"),
+                                 keymap.ShellExecuteCommand(None, r"shell:::{3080F90D-D7AD-11D9-BD98-0000947B0257}", "", "")])
+
             listers = [["Window", cblister_FixedPhrase(window_items)]] + fc.lancherList_listers
 
             try:
