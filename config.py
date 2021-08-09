@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210727_02"
+fakeymacs_version = "20210809_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -2172,7 +2172,9 @@ def configure(keymap):
     ###########################################################################
 
     def is_task_switching_window(window):
-        if window.getClassName() in ("MultitaskingViewFrame", "TaskSwitcherWnd"):
+        if window.getClassName() in ["MultitaskingViewFrame",
+                                     "TaskSwitcherWnd",
+                                     "Windows.UI.Input.InputSite.WindowClass"]:
             return True
         else:
             return False
@@ -2188,7 +2190,6 @@ def configure(keymap):
     define_key(keymap_tsw, "A-p", previous_window)
     define_key(keymap_tsw, "A-n", next_window)
     define_key(keymap_tsw, "A-g", self_insert_command("A-Esc"))
-
 
     ###########################################################################
     ## リストウィンドウの設定
