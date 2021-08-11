@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210811_01"
+fakeymacs_version = "20210811_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -2186,10 +2186,10 @@ def configure(keymap):
     ## キーバインド（タスク切り替え画面用）
     ##################################################
 
-    define_key(keymap_tsw, "A-b", previous_window)
-    define_key(keymap_tsw, "A-f", next_window)
-    define_key(keymap_tsw, "A-p", previous_window)
-    define_key(keymap_tsw, "A-n", next_window)
+    define_key(keymap_tsw, "A-b", self_insert_command("A-Left"))
+    define_key(keymap_tsw, "A-f", self_insert_command("A-Right"))
+    define_key(keymap_tsw, "A-p", self_insert_command("A-Up"))
+    define_key(keymap_tsw, "A-n", self_insert_command("A-Down"))
     define_key(keymap_tsw, "A-g", self_insert_command("A-Esc"))
 
     define_key(keymap_tsw, "C-b", backward_char)
