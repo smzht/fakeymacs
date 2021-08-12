@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210812_01"
+fakeymacs_version = "20210812_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1016,10 +1016,13 @@ def configure(keymap):
 
     def other_window():
         window_list = getWindowList()
-        for wnd in window_list[1:]:
-            if not wnd.isMinimized():
-                wnd.getLastActivePopup().setForeground()
-                break
+        try:
+            for wnd in window_list[1:]:
+                if not wnd.isMinimized():
+                    wnd.getLastActivePopup().setForeground()
+                    break
+        except:
+            pass
 
     ##################################################
     ## 文字列検索 / 置換
