@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210811_02"
+fakeymacs_version = "20210812_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -2168,7 +2168,7 @@ def configure(keymap):
 
 
     ###########################################################################
-    ## タスク切り替え画面の設定
+    ## タスク切り替え画面／タスクビューの設定
     ###########################################################################
 
     def is_task_switching_window(window):
@@ -2183,7 +2183,7 @@ def configure(keymap):
     keymap_tsw = keymap.defineWindowKeymap(check_func=is_task_switching_window)
 
     ##################################################
-    ## キーバインド（タスク切り替え画面用）
+    ## キーバインド（タスク切り替え画面／タスクビュー用）
     ##################################################
 
     define_key(keymap_tsw, "A-b", self_insert_command("A-Left"))
