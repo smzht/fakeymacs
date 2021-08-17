@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210812_02"
+fakeymacs_version = "20210818_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1428,6 +1428,15 @@ def configure(keymap):
     def self_insert_command2(*keys):
         func = self_insert_command(*keys)
         def _func():
+            # Chrome 92 の Chromium 系ブラウザでアドレスバーにカーソルを移動した際、強制的に
+            # ascii入力モードに移行する不具合？が発生する。さらに Google日本語入力を利用している
+            # 場合、keymap.getWindow().getImeStatus() の値が正しく返されないため、Emacs日本語入力
+            # モードの挙動がおかしくなる。次の if ブロックはこれを改善するための対策。
+            if fc.use_emacs_ime_mode:
+                if fc.ime == "Google_IME":
+                    if keymap.getWindow().getImeStatus():
+                        if keymap.getWindow().getProcessName() in ["chrome.exe", "msedge.exe"]:
+                            self_insert_command("A-(25)", "A-(25)")()
             func()
             if fc.use_emacs_ime_mode:
                 if keymap.getWindow().getImeStatus():
