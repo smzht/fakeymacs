@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210818_01"
+fakeymacs_version = "20210819_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -735,12 +735,15 @@ def configure(keymap):
     ##################################################
 
     def enable_input_method():
+        correctImeStatus()
         setImeStatus(1)
 
     def disable_input_method():
+        correctImeStatus()
         setImeStatus(0)
 
     def toggle_input_method():
+        correctImeStatus()
         setImeStatus(keymap.getWindow().getImeStatus() ^ 1)
 
     def setImeStatus(ime_status):
@@ -755,6 +758,17 @@ def configure(keymap):
 
         popImeBalloon(ime_status)
 
+    def correctImeStatus():
+        # Chrome 92 の Chromium 系ブラウザでアドレスバーにカーソルを移動した際、強制的に
+        # ascii入力モードに移行する不具合？が発生する。さらに Google日本語入力を利用している
+        # 場合、keymap.getWindow().getImeStatus() が True を返すため、Emacs日本語入力モード
+        # の挙動がおかしくなる。本関数は、これを改善する。
+        if fc.ime == "Google_IME":
+            if keymap.getWindow().getProcessName() in ["chrome.exe", "msedge.exe"]:
+                if keymap.getWindow().getImeStatus():
+                    self_insert_command("A-(25)", "A-(25)")()
+                    delay()
+
     def popImeBalloon(ime_status=None, force=False):
         if not fakeymacs.is_playing_kmacro:
             if force or fc.use_ime_status_balloon:
@@ -763,6 +777,7 @@ def configure(keymap):
                 # （ただし、force が True の場合は除く）
                 if force or not checkWindow(None, "Qt5152QWindowIcon"):
                     if ime_status is None:
+                        correctImeStatus()
                         ime_status = keymap.getWindow().getImeStatus()
 
                     if ime_status:
@@ -1428,15 +1443,8 @@ def configure(keymap):
     def self_insert_command2(*keys):
         func = self_insert_command(*keys)
         def _func():
-            # Chrome 92 の Chromium 系ブラウザでアドレスバーにカーソルを移動した際、強制的に
-            # ascii入力モードに移行する不具合？が発生する。さらに Google日本語入力を利用している
-            # 場合、keymap.getWindow().getImeStatus() の値が正しく返されないため、Emacs日本語入力
-            # モードの挙動がおかしくなる。次の if ブロックはこれを改善するための対策。
             if fc.use_emacs_ime_mode:
-                if fc.ime == "Google_IME":
-                    if keymap.getWindow().getImeStatus():
-                        if keymap.getWindow().getProcessName() in ["chrome.exe", "msedge.exe"]:
-                            self_insert_command("A-(25)", "A-(25)")()
+                correctImeStatus()
             func()
             if fc.use_emacs_ime_mode:
                 if keymap.getWindow().getImeStatus():
