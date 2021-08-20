@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210820_01"
+fakeymacs_version = "20210821_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -735,18 +735,17 @@ def configure(keymap):
     ##################################################
 
     def enable_input_method():
-        correctImeStatus()
         setImeStatus(1)
 
     def disable_input_method():
-        correctImeStatus()
         setImeStatus(0)
 
     def toggle_input_method():
-        correctImeStatus()
         setImeStatus(keymap.getWindow().getImeStatus() ^ 1)
 
     def setImeStatus(ime_status):
+        correctImeStatus()
+
         if keymap.getWindow().getImeStatus() != ime_status:
             # IME を切り替える
             # （keymap.getWindow().setImeStatus(ime_status) を使わないのは、キーボードマクロの再生時に
@@ -777,7 +776,6 @@ def configure(keymap):
                 # （ただし、force が True の場合は除く）
                 if force or not checkWindow(None, "Qt5152QWindowIcon"):
                     if ime_status is None:
-                        correctImeStatus()
                         ime_status = keymap.getWindow().getImeStatus()
 
                     if ime_status:
