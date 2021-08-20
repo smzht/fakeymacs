@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210819_01"
+fakeymacs_version = "20210820_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -766,8 +766,8 @@ def configure(keymap):
         if fc.ime == "Google_IME":
             if keymap.getWindow().getProcessName() in ["chrome.exe", "msedge.exe"]:
                 if keymap.getWindow().getImeStatus():
-                    self_insert_command("A-(25)", "A-(25)")()
-                    delay()
+                    keymap.getWindow().setImeStatus(0) # この行は必要
+                    keymap.getWindow().setImeStatus(1)
 
     def popImeBalloon(ime_status=None, force=False):
         if not fakeymacs.is_playing_kmacro:
