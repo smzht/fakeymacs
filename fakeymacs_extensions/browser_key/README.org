@@ -42,3 +42,9 @@ fc.browser_listの最初に定義するブラウザを起動します。
 
 ● タブを閉じるには、A-k（M-k） が利用できます。また、タブを切り替えるには、C-Tab、C-S-Tab
 （Windows 標準キーバインド）が利用できます。
+
+● Mouse without Borders を利用している場合、Mouse without Borders で定義されている
+ショートカットキー C-A-l が本設定より優先されてしまうようです。
+Mouse without Borders と併用する場合には、Mouse without Borders のショートカットキーを
+変更するか、Disable にするかなどの対応をお願いします。
+- https://www.gigafree.net/internet/remote/mousewithoutborders.html
