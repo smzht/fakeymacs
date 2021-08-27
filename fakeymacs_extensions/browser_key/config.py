@@ -13,8 +13,21 @@ except:
                       "msedge.exe",
                       "firefox.exe"]
 
-# C-A-l、C-A-t、C-A-k を入力した際、ブラウザをポップアップしてから C-l、C-t、C-k の機能を
-# 実行する。また、アドレスバーに移動した際には IME を OFF にする。
+try:
+    # 設定されているか？
+    fc.browser_key1
+except:
+    # アドレスバーに移動するキーを指定する
+    fc.browser_key1 = "C-A-l"
+
+try:
+    # 設定されているか？
+    fc.browser_key2
+except:
+    # 新しいタブを開いてそのタブのアドレスバーに移動するキーを指定する
+    fc.browser_key2 = "C-A-t"
+
+# ブラウザをポップアップしてから指定したキーを実行する。また、IME を OFF にする。
 
 def browser_popup(key, ime_status=0):
     def _func():
@@ -31,5 +44,5 @@ def browser_popup(key, ime_status=0):
 
     return _func
 
-define_key(keymap_global, "C-A-l", browser_popup("C-l"))
-define_key(keymap_global, "C-A-t", browser_popup("C-t"))
+define_key(keymap_global, fc.browser_key1, browser_popup("C-l"))
+define_key(keymap_global, fc.browser_key2, browser_popup("C-t"))
