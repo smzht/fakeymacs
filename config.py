@@ -2189,6 +2189,9 @@ def configure(keymap):
     ###########################################################################
 
     def is_task_switching_window(window):
+        if window.getProcessName() not in ["explorer.exe"]:
+            return False
+
         if window.getClassName() in ["MultitaskingViewFrame",
                                      "TaskSwitcherWnd",
                                      "Windows.UI.Core.CoreWindow",
