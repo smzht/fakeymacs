@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210822_01"
+fakeymacs_version = "20210902_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -2189,10 +2189,11 @@ def configure(keymap):
     ###########################################################################
 
     def is_task_switching_window(window):
-        if window.getClassName() in ["MultitaskingViewFrame",
-                                     "TaskSwitcherWnd",
-                                     "Windows.UI.Core.CoreWindow",
-                                     "Windows.UI.Input.InputSite.WindowClass"]:
+        if (window.getProcessName() == "explorer.exe" and
+            window.getClassName() in ["MultitaskingViewFrame",
+                                      "TaskSwitcherWnd",
+                                      "Windows.UI.Core.CoreWindow",
+                                      "Windows.UI.Input.InputSite.WindowClass"]):
             return True
         else:
             return False
