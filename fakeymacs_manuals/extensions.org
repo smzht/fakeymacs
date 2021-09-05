@@ -25,4 +25,5 @@ Fakeymacs には以下の機能拡張を同梱しています。
 | [[/fakeymacs_extensions/change_keyboard][change_keyboard]]         | 英語キーボード設定をした OS 上で日本語キーボードを利用する場合の設定を行う          |
 | [[/fakeymacs_extensions/emacsclient][emacsclient]]             | クリップボードに格納したファイルもしくはフォルダのパスを emacsclient で開く         |
 | [[/fakeymacs_extensions/pop_ime_balloon][pop_ime_balloon]]         | 指定したキーを押下したときに IME の状態を表示する                                   |
+| [[/fakeymacs_extensions/compact_keyboard][compact_keyboard]]        | 60% US キーボードのキー不足（Delete キー、Backquote キー不足）の対策を行う          |
 |-------------------------+-------------------------------------------------------------------------------------|

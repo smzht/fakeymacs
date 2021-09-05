@@ -306,3 +306,9 @@ if 0:
     exec(readConfigExtension(r"pop_ime_balloon\config.py"), dict(globals(), **locals()))
 
 # --------------------------------------------------------------------------------------------------
+
+# 60% US キーボードのキー不足（Delete キー、Backquote キー不足）の対策を行う
+if 0:
+    exec(readConfigExtension(r"compact_keyboard\config.py"), dict(globals(), **locals()))
+
+# --------------------------------------------------------------------------------------------------
