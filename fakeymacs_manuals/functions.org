@@ -79,6 +79,31 @@ def define_key2(window_keymap, keys, command):
 
 - 無し
 
+*** ■ define_key3
+
+キーマップにキーを定義する。（キーに定義されている関数に新しいコマンドを分岐実行させるバージョン）
+
+**** Function
+
+#+BEGIN_EXAMPLE
+def define_key3(window_keymap, keys, command, chek_func):
+#+END_EXAMPLE
+
+**** Parameters
+
+|---------------+--------------------------------------------------------|
+| Parameter     | Description                                            |
+|---------------+--------------------------------------------------------|
+| window_keymap | WindowKeymapオブジェクト                               |
+| keys          | キーの定義（マルチストロークのキーはスペースで区切る） |
+| command       | 実行するコマンド（関数）                               |
+| check_func    | 新しいコマンドを実行するかを判定する関数                                     |
+|---------------+--------------------------------------------------------|
+
+**** Returns
+
+- 無し
+
 *** ■ getKeyCommand
 
 キーに定義されている関数を返す。
