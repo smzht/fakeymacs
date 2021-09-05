@@ -4,9 +4,11 @@
 
 ** ■ 60% US キーボードのキー不足（Delete キー、Backquote キー不足）の対策を行う
 
+60% US キーボードのキー不足（Delete キー、Backquote キー不足）の対策を行う拡張機能です。
+
 多くの 60% の US キーボードでは、専用の Delete キーや Backqoute キーがなく、
 Ctrl+Alt+Del の入力時や Linux の shell でチルダキーを入力する際などに Fn キーを
-一緒に押す必要があり、混乱します。
+一緒に押す必要があり、一時的に思考が停止します。
 
 本拡張機能は Backspace キーの利用により、この問題を解決する方法を提案します。
 
@@ -21,10 +23,12 @@ Ctrl+Alt+Del の入力時や Linux の shell でチルダキーを入力する�
 
 ※ 主なキーの置き換えは、次のとおりとなります。
 
-|-------------------------+----------------------|
-| keybind                 | Insert key           |
-|-------------------------+----------------------|
-| C-A-Backspace           | C-A-Delete           |
-| S-Backspace Backspace   | Backquote            |
-| S-Backspace S-Backspace | S-Backquote（Tilda） |
-|-------------------------+----------------------|
+|---------------------------+----------------------+-------------------------|
+| keybind                   | Insert key           | Description             |
+|---------------------------+----------------------+-------------------------|
+| C-A-Backspace             | C-A-Delete           |                         |
+| S-Backspace Backspace     | Backquote            |                         |
+| S-Backspace S-Backspace   | S-Backquote（Tilda） |                         |
+| S-Backspace C-Backspace   | C-Backquote          | vscode_key Extension 用 |
+| S-Backspace C-S-Backspace | C-S-Backquote        | vscode_key Extension 用 |
+|---------------------------+----------------------+-------------------------|
