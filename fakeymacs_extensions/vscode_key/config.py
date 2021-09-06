@@ -71,7 +71,7 @@ def is_vscode_target(window):
 fc.keymap_vscode = keymap_vscode = keymap.defineWindowKeymap(check_func=is_vscode_target)
 
 ## 共通関数
-def self_insert_command4(*keys):
+def self_insert_command_v(*keys):
     func = self_insert_command(*keys)
     def _func():
         ime_status = keymap.getWindow().getImeStatus()
@@ -153,14 +153,14 @@ def next_error():
     # vscodeExecuteCommand("editor.action.marker.nextInFiles")()
 
 ## カット / コピー
-def kill_line2(repeat=1):
+def kill_line_v(repeat=1):
     if (fc.use_direct_input_in_vscode_terminal and
         fakeymacs.vscode_focus == "terminal"):
         self_insert_command("C-k")()
     else:
         kill_line(repeat)
 
-def yank2():
+def yank_v():
     if (fc.use_direct_input_in_vscode_terminal and
         fakeymacs.vscode_focus == "terminal"):
         self_insert_command("C-y")()
@@ -184,7 +184,7 @@ def list_buffers():
     # vscodeExecuteCommand("workbench.action.showAllEditorsByMostRecentlyUsed")()
 
 ## 文字列検索
-def isearch2(direction):
+def isearch_v(direction):
     if (fc.use_direct_input_in_vscode_terminal and
         fakeymacs.vscode_focus == "terminal"):
         self_insert_command({"backward":"C-r", "forward":"C-s"}[direction])()
@@ -192,10 +192,10 @@ def isearch2(direction):
         isearch(direction)
 
 def isearch_backward():
-    isearch2("backward")
+    isearch_v("backward")
 
 def isearch_forward():
-    isearch2("forward")
+    isearch_v("forward")
 
 ## エディタ操作
 def delete_group():
@@ -325,7 +325,7 @@ def cursor_redo():
     vscodeExecuteCommand("CuRed")()
     # vscodeExecuteCommand("cursorRedo")()
 
-def keyboard_quit2():
+def keyboard_quit_v1():
     keyboard_quit(esc=False)
 
 ## ターミナル操作
@@ -353,7 +353,7 @@ def toggle_terminal():
         vscodeExecuteCommand2("workbench.action.terminal.toggleTerminal")()
 
 ## その他
-def keyboard_quit3():
+def keyboard_quit_v2():
     if fc.esc_mode_in_keyboard_quit == 1:
         keyboard_quit(esc=True)
         fakeymacs.post_processing = None
@@ -392,7 +392,7 @@ for pkey1, pkey2 in fc.vscode_prefix_key:
             for mod2 in ["", "C-"]:
                 for mod3 in ["", "S-"]:
                     mkey = mod1 + mod2 + mod3 + key
-                    define_key(keymap_vscode, "{} {}".format(pkey2, mkey), self_insert_command4(pkey1, mkey))
+                    define_key(keymap_vscode, "{} {}".format(pkey2, mkey), self_insert_command_v(pkey1, mkey))
 
 ## 「ファイル操作」のキー設定
 define_key_v(keymap_emacs, "Ctl-x C-d", reset_search(reset_undo(reset_counter(reset_mark(find_directory)))))
@@ -414,8 +414,8 @@ define_key(keymap_vscode, "A-p", self_insert_command("C-Up"))
 define_key(keymap_vscode, "A-n", self_insert_command("C-Down"))
 
 ## 「カット / コピー」のキー設定
-define_key_v(keymap_emacs, "C-k", reset_search(reset_undo(reset_counter(reset_mark(repeat3(kill_line2))))))
-define_key_v(keymap_emacs, "C-y", reset_search(reset_undo(reset_counter(reset_mark(repeat(yank2))))))
+define_key_v(keymap_emacs, "C-k", reset_search(reset_undo(reset_counter(reset_mark(repeat3(kill_line_v))))))
+define_key_v(keymap_emacs, "C-y", reset_search(reset_undo(reset_counter(reset_mark(repeat(yank_v))))))
 
 ## 「バッファ / ウィンドウ操作」のキー設定
 define_key_v(keymap_emacs, "Ctl-x k",   reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
@@ -459,7 +459,7 @@ define_key(keymap_vscode, "C-A-x",   reset_search(reset_undo(reset_counter(reset
 define_key(keymap_vscode, "C-A-S-x", reset_search(reset_undo(reset_counter(reset_rect(shrink_region)))))
 define_key(keymap_vscode, "C-A-u",   reset_search(reset_undo(reset_counter(reset_rect(cursor_undo)))))
 define_key(keymap_vscode, "C-A-r",   reset_search(reset_undo(reset_counter(reset_rect(cursor_redo)))))
-define_key(keymap_vscode, "C-A-g",   reset_search(reset_counter(reset_mark(keyboard_quit2))))
+define_key(keymap_vscode, "C-A-g",   reset_search(reset_counter(reset_mark(keyboard_quit_v1))))
 
 ## 「ターミナル操作」のキー設定
 define_key(keymap_vscode, "C-S-(243)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
@@ -478,7 +478,7 @@ else:
 ## 「その他」のキー設定
 define_key_v(keymap_emacs, "Enter",       post(reset_undo(reset_counter(reset_mark(repeat(newline))))))
 define_key_v(keymap_emacs, "C-m",         post(reset_undo(reset_counter(reset_mark(repeat(newline))))))
-define_key_v(keymap_emacs, "C-g",         reset_search(reset_counter(reset_mark(keyboard_quit3))))
+define_key_v(keymap_emacs, "C-g",         reset_search(reset_counter(reset_mark(keyboard_quit_v2))))
 define_key_v(keymap_emacs, "M-x",         reset_search(reset_undo(reset_counter(reset_mark(execute_extended_command)))))
 define_key_v(keymap_emacs, "M-Semicolon", reset_search(reset_undo(reset_counter(reset_mark(comment_dwim)))))
 
