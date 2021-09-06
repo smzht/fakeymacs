@@ -51,23 +51,23 @@ VSCode Extension 用のキーの設定を行う拡張機能です。
 
 - https://marketplace.visualstudio.com/items?itemName=dbankier.vscode-quick-select
 
-|---------+----------------------------------+----------------------------------------------+-------------|
-| Keybind | Function                         | VSCode Command                               | Description |
-|---------+----------------------------------+----------------------------------------------+-------------|
-| C-A-k " | self_insert_command4("C-k", '"') | Quick Select: Select inside double quote     |             |
-| C-A-k ' | self_insert_command4("C-k", "'") | Quick Select: Select inside single quote     |             |
-| C-A-k ; | self_insert_command4("C-k", ";") | Quick Select: Select inside either quote     |             |
-| C-A-k : | self_insert_command4("C-k", ":") | Quick Select: Switch quotes                  |             |
-| C-A-k ` | self_insert_command4("C-k", "`") | Quick Select: Select inside back ticks       |             |
-| C-A-k ( | self_insert_command4("C-k", "(") | Quick Select: Select inside parenthesis      |             |
-| C-A-k ) | self_insert_command4("C-k", ")") | Quick Select: Select outside parenthesis     |             |
-| C-A-k [ | self_insert_command4("C-k", "[") | Quick Select: Select inside square brackets  |             |
-| C-A-k ] | self_insert_command4("C-k", "]") | Quick Select: Select outside square brackets |             |
-| C-A-k { | self_insert_command4("C-k", "{") | Quick Select: Select inside curly brackets   |             |
-| C-A-k } | self_insert_command4("C-k", "}") | Quick Select: Select outside curly brackets  |             |
-| C-A-k < | self_insert_command4("C-k", "<") | Quick Select: Select inside angled brackets  |             |
-| C-A-k > | self_insert_command4("C-k", ">") | Quick Select: Select inside tag              |             |
-|---------+----------------------------------+----------------------------------------------+-------------|
+|---------+-----------------------------------+----------------------------------------------+-------------|
+| Keybind | Function                          | VSCode Command                               | Description |
+|---------+-----------------------------------+----------------------------------------------+-------------|
+| C-A-k " | self_insert_command_v("C-k", '"') | Quick Select: Select inside double quote     |             |
+| C-A-k ' | self_insert_command_v("C-k", "'") | Quick Select: Select inside single quote     |             |
+| C-A-k ; | self_insert_command_v("C-k", ";") | Quick Select: Select inside either quote     |             |
+| C-A-k : | self_insert_command_v("C-k", ":") | Quick Select: Switch quotes                  |             |
+| C-A-k ` | self_insert_command_v("C-k", "`") | Quick Select: Select inside back ticks       |             |
+| C-A-k ( | self_insert_command_v("C-k", "(") | Quick Select: Select inside parenthesis      |             |
+| C-A-k ) | self_insert_command_v("C-k", ")") | Quick Select: Select outside parenthesis     |             |
+| C-A-k [ | self_insert_command_v("C-k", "[") | Quick Select: Select inside square brackets  |             |
+| C-A-k ] | self_insert_command_v("C-k", "]") | Quick Select: Select outside square brackets |             |
+| C-A-k { | self_insert_command_v("C-k", "{") | Quick Select: Select inside curly brackets   |             |
+| C-A-k } | self_insert_command_v("C-k", "}") | Quick Select: Select outside curly brackets  |             |
+| C-A-k < | self_insert_command_v("C-k", "<") | Quick Select: Select inside angled brackets  |             |
+| C-A-k > | self_insert_command_v("C-k", ">") | Quick Select: Select inside tag              |             |
+|---------+-----------------------------------+----------------------------------------------+-------------|
 
 **** ● vscode_input_sequence
 
