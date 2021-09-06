@@ -54,7 +54,7 @@ if fc.vscode_dired:
         vscodeExecuteCommand("Odb")()
         # vscodeExecuteCommand("extension.dired.open")()
 
-    define_key4(keymap_emacs, "Ctl-x d",  reset_search(reset_undo(reset_counter(reset_mark(dired)))))
+    define_key_v(keymap_emacs, "Ctl-x d",  reset_search(reset_undo(reset_counter(reset_mark(dired)))))
 
 # --------------------------------------------------------------------------------------------------
 
@@ -74,7 +74,7 @@ if fc.vscode_occur:
         vscodeExecuteCommand("SiCF")()
         # vscodeExecuteCommand("search-in-current-file.searchInCurrentFile")()
 
-    define_key4(keymap_emacs, "Ctl-x C-o", reset_search(reset_undo(reset_counter(reset_mark(occur)))))
+    define_key_v(keymap_emacs, "Ctl-x C-o", reset_search(reset_undo(reset_counter(reset_mark(occur)))))
 
 # --------------------------------------------------------------------------------------------------
 

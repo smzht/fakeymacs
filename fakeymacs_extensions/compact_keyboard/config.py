@@ -30,11 +30,11 @@ if not is_japanese_keyboard:
             else:
                 return False
 
-        def define_key4(window_keymap, keys, command):
+        def define_key_v(window_keymap, keys, command):
             define_key3(window_keymap, keys, command, lambda: is_vscode_target(keymap.getWindow()))
 
-        define_key4(keymap_global, "S-Back C-S-Back", getKeyCommand(fc.keymap_vscode, "C-S-BackQuote"))
-        define_key4(keymap_global, "S-Back C-Back",   getKeyCommand(fc.keymap_vscode, "C-BackQuote"))
+        define_key_v(keymap_global, "S-Back C-S-Back", getKeyCommand(fc.keymap_vscode, "C-S-BackQuote"))
+        define_key_v(keymap_global, "S-Back C-Back",   getKeyCommand(fc.keymap_vscode, "C-BackQuote"))
 
     except:
         pass
