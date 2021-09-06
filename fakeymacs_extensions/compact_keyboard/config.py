@@ -18,9 +18,9 @@ if not is_japanese_keyboard:
                     mkey2 = mkey + "BackQuote"
                     define_key(keymap_global, "S-Back " + mkey1, self_insert_command(mkey2))
 
-    # 拡張機能 vscode_key が有効な場合の追加設定
+    # vscode_key Extension が有効な場合の追加設定
     try:
-        # 拡張機能 vscode_key は有効か？
+        # vscode_key Extension は有効か？
         fc.keymap_vscode
 
         def is_vscode_target(window):
