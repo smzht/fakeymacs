@@ -18,6 +18,7 @@ except:
                         "vcxsrv.exe",             # VcXsrv
                         "X410.exe",               # X410
                         "Xpra-Launcher.exe",      # Xpra
+                        "mstsc.exe",              # WSLg
                        ]
 
 def is_real_emacs(window):

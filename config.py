@@ -253,7 +253,7 @@ def configure(keymap):
                                "SLES-12.exe",            # WSL
                                "openSUSE-42.exe",        # WSL
                                "openSUSE-Leap-15-1.exe", # WSL
-                               "mstsc.exe",              # Remote Desktop
+                               "mstsc.exe",              # Remote Desktop / WSLg
                                "WindowsTerminal.exe",    # Windows Terminal
                                "mintty.exe",             # mintty
                                "Cmder.exe",              # Cmder
