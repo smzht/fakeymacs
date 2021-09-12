@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210905_01"
+fakeymacs_version = "20210912_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1474,13 +1474,15 @@ def configure(keymap):
         return _func
 
     def mark(func, forward_direction):
+        # M-< や M-> 押下時に D-Shift が解除されないようにする対策
+        func_d_shift = self_insert_command("D-LShift", "D-RShift")
+        func_u_shift = self_insert_command("U-LShift", "U-RShift")
         def _func():
             if fakeymacs.is_marked:
-                # D-Shift だと、M-< や M-> 押下時に、D-Shift が解除されてしまう。その対策。
-                self_insert_command("D-LShift", "D-RShift")()
+                func_d_shift()
                 delay()
                 func()
-                self_insert_command("U-LShift", "U-RShift")()
+                func_u_shift()
 
                 # fakeymacs.forward_direction が未設定の場合、設定する
                 if fakeymacs.forward_direction is None:
@@ -1491,9 +1493,10 @@ def configure(keymap):
         return _func
 
     def mark2(func, forward_direction):
+        func_mark = mark(func, forward_direction)
         def _func():
             fakeymacs.is_marked = True
-            mark(func, forward_direction)()
+            func_mark()
             fakeymacs.is_marked = False
         return _func
 
