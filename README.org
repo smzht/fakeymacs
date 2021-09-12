@@ -202,7 +202,7 @@ OFF にしてから割当をしないと正常に動作しませんでした。�
 
 ● Keyhac のコンソールに「Time stamp inversion happened.」と表示される場合があります。これは、
 レジストリ HKEY_CURRENT_USER\Control Panel\Desktop\LowLevelHooksTimeout を DWORD 形式で作成し、
-そこに ms の値（1000、5000 などの数値）を設定することで、ある程度の回避ができるようです。
+そこに ms の値（10進数で 1000、5000 などの数値）を設定することで、ある程度の回避ができるようです。
 ただし、この設定により生ずる影響は分かっていませんので、試す場合は各自の責任でお願いします。
 - https://apollo440.hatenablog.com/entries/2010/12/21
 - https://nazochu.blogspot.com/2011/08/windows7.html
