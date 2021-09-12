@@ -199,3 +199,11 @@ VSCode の Emacs Keymap Extension と比較した本機能の特徴は、以下�
 ● Logicool のマウス で SetPoint アプリによりキーストロークの割当を行った場合、Keyhac のフックを
 OFF にしてから割当をしないと正常に動作しませんでした。他のキーストロークを設定するソフトの場合
 にも同様の問題が発生する可能性があると思いますので、ご留意ください。
+
+● Keyhac のコンソールに「Time stamp inversion happened.」と表示される場合があります。これは、
+レジストリ HKEY_CURRENT_USER\Control Panel\Desktop\LowLevelHooksTimeout を DWORD 形式で作成し、
+そこに ms の値（1000、5000 などの数値）を設定することで、ある程度の回避ができるようです。
+ただし、この設定により生ずる影響は分かっていませんので、試す場合は各自の責任でお願いします。
+- https://apollo440.hatenablog.com/entries/2010/12/21
+- https://nazochu.blogspot.com/2011/08/windows7.html
+- https://blogs.msdn.microsoft.com/alejacma/2010/10/14/global-hooks-getting-lost-on-windows-7/
