@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210912_01"
+fakeymacs_version = "20210912_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1480,7 +1480,8 @@ def configure(keymap):
         def _func():
             if fakeymacs.is_marked:
                 func_d_shift()
-                delay()
+                # Windows 11 で遅延が顕著に発生するようになったので一旦コメント化（必要かもしれないが..）
+                # delay()
                 func()
                 func_u_shift()
 
