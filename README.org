@@ -207,3 +207,5 @@ OFF にしてから割当をしないと正常に動作しませんでした。�
 - https://apollo440.hatenablog.com/entries/2010/12/21
 - https://nazochu.blogspot.com/2011/08/windows7.html
 - https://blogs.msdn.microsoft.com/alejacma/2010/10/14/global-hooks-getting-lost-on-windows-7/
+- https://jinblog.at.webry.info/201103/article_9.html
+- https://jinblog.at.webry.info/201103/article_10.html
