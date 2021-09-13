@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210912_03"
+fakeymacs_version = "20210913_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -611,6 +611,7 @@ def configure(keymap):
     fakeymacs.last_window = None
     fakeymacs.clipboard_hook = True
     fakeymacs.last_keys = [None, None]
+    fakeymacs.correct_ime_status = None
 
     def is_emacs_target(window):
         last_window  = fakeymacs.last_window
@@ -633,6 +634,12 @@ def configure(keymap):
                                            for key in fc.emacs_exclusion_key[process_name]]
             else:
                 fakeymacs.exclution_key = []
+
+            if fc.ime == "Google_IME":
+                if window.getProcessName() in ["chrome.exe", "msedge.exe"]:
+                    fakeymacs.correct_ime_status = True
+                else:
+                    fakeymacs.correct_ime_status = False
 
             reset_undo(reset_counter(reset_mark(lambda: None)))()
             fakeymacs.ime_cancel = False
@@ -763,9 +770,8 @@ def configure(keymap):
         # ascii入力モードに移行する不具合？が発生する。さらに Google日本語入力を利用している
         # 場合、keymap.getWindow().getImeStatus() が True を返すため、Emacs日本語入力モード
         # の挙動がおかしくなる。本関数は、これを改善する。
-        if fc.ime == "Google_IME":
-            if (keymap.getWindow().getImeStatus() and
-                keymap.getWindow().getProcessName() in ["chrome.exe", "msedge.exe"]):
+        if fakeymacs.correct_ime_status:
+            if keymap.getWindow().getImeStatus():
                 keymap.getWindow().setImeStatus(0) # この行は必要
                 keymap.getWindow().setImeStatus(1)
 
