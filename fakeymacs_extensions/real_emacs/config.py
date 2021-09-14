@@ -16,6 +16,7 @@ except:
                         "XWin_Cygwin_1.16.3.exe", # MobaXterm/X
                         "Xming.exe",              # Xming
                         "vcxsrv.exe",             # VcXsrv
+                        "GWSL_vcxsrv.exe",        # GWSL
                         "X410.exe",               # X410
                         "Xpra-Launcher.exe",      # Xpra
                         "mstsc.exe",              # WSLg
