@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210915_02"
+fakeymacs_version = "20210916_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -225,6 +225,14 @@ def configure(keymap):
     # fc.ime = "new_Microsoft_IME"
     # fc.ime = "Google_IME"
     # fc.ime = None
+
+    # Chromium 系ブラウザで発生する問題の対策を行うかどうかを指定する（True: 対策する、False: 対策しない）
+    # （Chromium 系ブラウザのバージョン 92 では、アドレスバーにカーソルを移動した際、強制的に ascii入力
+    #   モードに移行する不具合が発生します。（バージョン 93 で対策済みですが、過去にも度々発生しています）
+    #   （https://did2memo.net/2021/07/22/chrome-japanese-ime-off-issue-chrome-92/）
+    #   さらに Google日本語入力を利用している場合、keymap.getWindow().getImeStatus() が True を返すため、
+    #   Emacs日本語入力モードの挙動がおかしくなります。この対策を行うかどうかを指定します。）
+    fc.correct_ime_status = False
 
     # 個人設定ファイルのセクション [section-options] を読み込んで実行する
     exec(readConfigPersonal("[section-options]"), dict(globals(), **locals()))
@@ -637,11 +645,12 @@ def configure(keymap):
             else:
                 fakeymacs.exclution_key = []
 
-            if fc.ime == "Google_IME":
-                if window.getProcessName() in ["chrome.exe", "msedge.exe"]:
-                    fakeymacs.correct_ime_status = True
-                else:
-                    fakeymacs.correct_ime_status = False
+            if fc.correct_ime_status:
+                if fc.ime == "Google_IME":
+                    if window.getProcessName() in ["chrome.exe", "msedge.exe"]:
+                        fakeymacs.correct_ime_status = True
+                    else:
+                        fakeymacs.correct_ime_status = False
 
             reset_undo(reset_counter(reset_mark(lambda: None)))()
             fakeymacs.ime_cancel = False
@@ -768,10 +777,7 @@ def configure(keymap):
         popImeBalloon(ime_status)
 
     def correctImeStatus():
-        # Chrome 92 の Chromium 系ブラウザでアドレスバーにカーソルを移動した際、強制的に
-        # ascii入力モードに移行する不具合？が発生する。さらに Google日本語入力を利用している
-        # 場合、keymap.getWindow().getImeStatus() が True を返すため、Emacs日本語入力モード
-        # の挙動がおかしくなる。本関数は、これを改善する。
+        # Chromium 系ブラウザで発生する問題の対策を行う
         if fakeymacs.correct_ime_status:
             if keymap.getWindow().getImeStatus():
                 keymap.getWindow().setImeStatus(0) # この行は必要
