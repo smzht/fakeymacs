@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210916_01"
+fakeymacs_version = "20210917_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -294,7 +294,8 @@ def configure(keymap):
 
     # IME の切り替え“のみをしたい”アプリケーションソフトを指定する
     # （指定できるアプリケーションソフトは、not_emacs_target で（除外）指定したものからのみとなります）
-    fc.ime_target           = ["bash.exe",               # WSL
+    fc.ime_target           = ["wsl.exe",                # WSL
+                               "bash.exe",               # WSL
                                "ubuntu.exe",             # WSL
                                "ubuntu1604.exe",         # WSL
                                "ubuntu1804.exe",         # WSL
