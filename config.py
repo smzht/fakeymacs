@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210917_01"
+fakeymacs_version = "20210920_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -227,12 +227,17 @@ def configure(keymap):
     # fc.ime = None
 
     # Chromium 系ブラウザで発生する問題の対策を行うかどうかを指定する（True: 対策する、False: 対策しない）
-    # （Chromium 系ブラウザのバージョン 92 では、アドレスバーにカーソルを移動した際、強制的に ascii入力
+    # （Chromium 系ブラウザのバージョン 92 では、アドレスバーにカーソルを移動した際、強制的に ASCII入力
     #   モードに移行する不具合が発生します。（バージョン 93 で対策済みですが、過去にも度々発生しています）
     #   （https://did2memo.net/2021/07/22/chrome-japanese-ime-off-issue-chrome-92/）
     #   さらに Google日本語入力を利用している場合、keymap.getWindow().getImeStatus() が True を返すため、
     #   Emacs日本語入力モードの挙動がおかしくなります。この対策を行うかどうかを指定します。）
     fc.correct_ime_status = False
+
+    # 上記の対策を行う Chromium 系ブラウザのプログラム名称を指定する
+    fc.chromium_browser_list = ["chrome.exe",
+                                "msedge.exe",
+                               ]
 
     # 個人設定ファイルのセクション [section-options] を読み込んで実行する
     exec(readConfigPersonal("[section-options]"), dict(globals(), **locals()))
@@ -648,7 +653,7 @@ def configure(keymap):
 
             if fc.correct_ime_status:
                 if fc.ime == "Google_IME":
-                    if window.getProcessName() in ["chrome.exe", "msedge.exe"]:
+                    if window.getProcessName() in fc.chromium_browser_list:
                         fakeymacs.correct_ime_status = True
                     else:
                         fakeymacs.correct_ime_status = False
