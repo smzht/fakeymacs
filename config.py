@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210920_01"
+fakeymacs_version = "20210921_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -287,6 +287,7 @@ def configure(keymap):
                                "Xming.exe",              # Xming
                                "vcxsrv.exe",             # VcXsrv
                                "GWSL_vcxsrv.exe",        # GWSL
+                               "GWSL_vcxsrv_lowdpi.exe", # GWSL
                                "X410.exe",               # X410
                                "Xpra-Launcher.exe",      # Xpra
                                "putty.exe",              # PuTTY
