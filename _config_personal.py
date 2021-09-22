@@ -312,3 +312,9 @@ if 0:
     exec(readConfigExtension(r"compact_keyboard\config.py"), dict(globals(), **locals()))
 
 # --------------------------------------------------------------------------------------------------
+
+# 入力した文字を半角に変換し、IME を OFF にするキーを設定する（Emacs日本語入力モード用）
+if 0:
+    exec(readConfigExtension(r"hankaku_henkan\config.py"), dict(globals(), **locals()))
+
+# --------------------------------------------------------------------------------------------------

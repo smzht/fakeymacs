@@ -11,19 +11,20 @@ Fakeymacs には以下の機能拡張を同梱しています。
 同様の拡張機能ファイルを作成し、個人設定ファイル（config_personal.py）で読み込むことにより、容易に
 機能を拡張できます。
 
-|-------------------------+-------------------------------------------------------------------------------------|
-| Extension name          | Description                                                                         |
-|-------------------------+-------------------------------------------------------------------------------------|
-| [[/fakeymacs_extensions/vscode_key][vscode_key]]              | VSCode 用のキーの設定を行う                                                         |
-| [[/fakeymacs_extensions/vscode_extensions][vscode_extensions]]       | VSCode Extension 用のキーの設定を行う                                               |
-| [[/fakeymacs_extensions/everything][everything]]              | Everything を起動するキーを指定する                                                 |
-| [[/fakeymacs_extensions/browser_key][browser_key]]             | ブラウザ用のキーの設定を行う                                                        |
-| [[/fakeymacs_extensions/chrome_quick_tabs][chrome_quick_tabs]]       | Chrome 系ブラウザで Ctl-x C-b を入力した際、Chrome の拡張機能 Quick Tabs を起動する |
-| [[/fakeymacs_extensions/shell_command_on_region][shell_command_on_region]] | Emacs の shell-command-on-region の機能をサポートする                               |
-| [[/fakeymacs_extensions/edit_mode][edit_mode]]               | 指定したアプリケーションソフトに F2（編集モード移行）を割り当てるキーを設定する     |
-| [[/fakeymacs_extensions/real_emacs][real_emacs]]              | Emacs の場合、IME 切り替え用のキーを C-\ に置き換える                               |
-| [[/fakeymacs_extensions/change_keyboard][change_keyboard]]         | 英語キーボード設定をした OS 上で日本語キーボードを利用する場合の設定を行う          |
-| [[/fakeymacs_extensions/emacsclient][emacsclient]]             | クリップボードに格納したファイルもしくはフォルダのパスを emacsclient で開く         |
-| [[/fakeymacs_extensions/pop_ime_balloon][pop_ime_balloon]]         | 指定したキーを押下したときに IME の状態を表示する                                   |
-| [[/fakeymacs_extensions/compact_keyboard][compact_keyboard]]        | 60% US キーボードのキー不足（Delete キー、Backquote キー不足）の対策を行う          |
-|-------------------------+-------------------------------------------------------------------------------------|
+|-------------------------+----------------------------------------------------------------------------------------|
+| Extension name          | Description                                                                            |
+|-------------------------+----------------------------------------------------------------------------------------|
+| [[/fakeymacs_extensions/vscode_key][vscode_key]]              | VSCode 用のキーの設定を行う                                                            |
+| [[/fakeymacs_extensions/vscode_extensions][vscode_extensions]]       | VSCode Extension 用のキーの設定を行う                                                  |
+| [[/fakeymacs_extensions/everything][everything]]              | Everything を起動するキーを指定する                                                    |
+| [[/fakeymacs_extensions/browser_key][browser_key]]             | ブラウザ用のキーの設定を行う                                                           |
+| [[/fakeymacs_extensions/chrome_quick_tabs][chrome_quick_tabs]]       | Chrome 系ブラウザで Ctl-x C-b を入力した際、Chrome の拡張機能 Quick Tabs を起動する    |
+| [[/fakeymacs_extensions/shell_command_on_region][shell_command_on_region]] | Emacs の shell-command-on-region の機能をサポートする                                  |
+| [[/fakeymacs_extensions/edit_mode][edit_mode]]               | 指定したアプリケーションソフトに F2（編集モード移行）を割り当てるキーを設定する        |
+| [[/fakeymacs_extensions/real_emacs][real_emacs]]              | Emacs の場合、IME 切り替え用のキーを C-\ に置き換える                                  |
+| [[/fakeymacs_extensions/change_keyboard][change_keyboard]]         | 英語キーボード設定をした OS 上で日本語キーボードを利用する場合の設定を行う             |
+| [[/fakeymacs_extensions/emacsclient][emacsclient]]             | クリップボードに格納したファイルもしくはフォルダのパスを emacsclient で開く            |
+| [[/fakeymacs_extensions/pop_ime_balloon][pop_ime_balloon]]         | 指定したキーを押下したときに IME の状態を表示する                                      |
+| [[/fakeymacs_extensions/compact_keyboard][compact_keyboard]]        | 60% US キーボードのキー不足（Delete キー、Backquote キー不足）の対策を行う             |
+| [[/fakeymacs_extensions/hankaku_henkan][hankaku_henkan]]          | 入力した文字を半角に変換し、IME を OFF にするキーを設定する（Emacs日本語入力モード用） |
+|-------------------------+----------------------------------------------------------------------------------------|
