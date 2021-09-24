@@ -21,7 +21,7 @@ if fc.use_emacs_ime_mode:
         ei_disable_input_method()
 
     def zenkaku_henkan():
-        # Microsoft Excel でセルの編集中でなければ終了する
+        # Microsoft Excel の場合、セルの編集中（ウインドウのタイトル文字列が空）でなければ終了する
         if checkWindow("EXCEL.EXE", "EXCEL*", "?*"):
             return
 
