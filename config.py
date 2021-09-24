@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210921_01"
+fakeymacs_version = "20210924_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -637,7 +637,7 @@ def configure(keymap):
 
         if window != last_window:
             if (process_name in fc.not_clipboard_target or
-                any([checkWindow(None, c, window) for c in fc.not_clipboard_target_class])):
+                any([checkWindow(None, c, None, window) for c in fc.not_clipboard_target_class])):
                 # クリップボードの監視用のフックを無効にする
                 keymap.clipboard_history.enableHook(False)
                 fakeymacs.clipboard_hook = False
@@ -1068,7 +1068,7 @@ def configure(keymap):
             self_insert_command({"backward":"C-r", "forward":"C-s"}[direction])()
         else:
             if fakeymacs.is_searching:
-                if checkWindow("EXCEL.EXE", None): # Microsoft Excel
+                if checkWindow("EXCEL.EXE"): # Microsoft Excel
                     if checkWindow(None, "EDTBX"): # 検索ウィンドウ
                         self_insert_command({"backward":"A-S-f", "forward":"A-f"}[direction])()
                     else:
@@ -1269,7 +1269,7 @@ def configure(keymap):
                     self_insert_command("Right", "Left")()
 
             # Microsoft Excel 2019 より前のバージョンでは必要な設定の可能性あり
-            # elif checkWindow("EXCEL.EXE", None): # Microsoft Excel
+            # elif checkWindow("EXCEL.EXE"): # Microsoft Excel
             #     # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
             #     if fakeymacs.forward_direction:
             #         self_insert_command("Left", "Right")()
@@ -1283,11 +1283,12 @@ def configure(keymap):
                 else:
                     self_insert_command("Left")()
 
-    def checkWindow(process_name, class_name, window=None):
+    def checkWindow(process_name, class_name=None, text=None, window=None):
         if window is None:
             window = keymap.getWindow()
         return ((process_name is None or fnmatch.fnmatch(window.getProcessName(), process_name)) and
-                (class_name is None or fnmatch.fnmatch(window.getClassName(), class_name)))
+                (class_name is None or fnmatch.fnmatch(window.getClassName(), class_name)) and
+                (text is None or fnmatch.fnmatch(window.getText(), text)))
 
     def vkeys():
         vkeys = list(keyCondition.vk_str_table)

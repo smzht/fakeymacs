@@ -16,12 +16,12 @@ try:
     fc.edit_mode_target
 except:
     # 本機能を割り当てるアプリケーションソフトを指定する
-    fc.edit_mode_target = [["EXCEL.EXE",    "EXCEL*"],
-                           ["explorer.exe", "DirectUIHWND"]]
+    fc.edit_mode_target = [["EXCEL.EXE",    "EXCEL*",       "?*"],
+                           ["explorer.exe", "DirectUIHWND", None]]
 
 def is_edit_mode_target(window):
-    for process_name, class_name in fc.edit_mode_target:
-        if checkWindow(process_name, class_name, window):
+    for process_name, class_name, text in fc.edit_mode_target:
+        if checkWindow(process_name, class_name, text, window):
             return True
     return False
 

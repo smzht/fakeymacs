@@ -21,6 +21,10 @@ if fc.use_emacs_ime_mode:
         ei_disable_input_method()
 
     def zenkaku_henkan():
+        # Microsoft Excel でセルの編集中でなければ終了する
+        if checkWindow("EXCEL.EXE", "EXCEL*", "?*"):
+            return
+
         # カーソルの前の word を選択し、クリップボードに格納する
         mark2(backward_word, False)()
         copyRegion()
