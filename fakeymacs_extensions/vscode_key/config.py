@@ -414,8 +414,8 @@ define_key(keymap_vscode, "A-p", self_insert_command("C-Up"))
 define_key(keymap_vscode, "A-n", self_insert_command("C-Down"))
 
 ## 「カット / コピー」のキー設定
-define_key_v(keymap_emacs, "C-k", reset_search(reset_undo(reset_counter(reset_mark(repeat3(kill_line_v))))))
-define_key_v(keymap_emacs, "C-y", reset_search(reset_undo(reset_counter(reset_mark(repeat(yank_v))))))
+define_key(keymap_vscode, "C-k", reset_search(reset_undo(reset_counter(reset_mark(repeat3(kill_line_v))))))
+define_key(keymap_vscode, "C-y", reset_search(reset_undo(reset_counter(reset_mark(repeat(yank_v))))))
 
 ## 「バッファ / ウィンドウ操作」のキー設定
 define_key_v(keymap_emacs, "Ctl-x k",   reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
@@ -423,8 +423,8 @@ define_key_v(keymap_emacs, "Ctl-x b",   reset_search(reset_undo(reset_counter(re
 define_key_v(keymap_emacs, "Ctl-x C-b", reset_search(reset_undo(reset_counter(reset_mark(list_buffers)))))
 
 ## 「文字列検索」のキー設定
-define_key_v(keymap_emacs, "C-r", reset_undo(reset_counter(reset_mark(isearch_backward))))
-define_key_v(keymap_emacs, "C-s", reset_undo(reset_counter(reset_mark(isearch_forward))))
+define_key(keymap_vscode, "C-r", reset_undo(reset_counter(reset_mark(isearch_backward))))
+define_key(keymap_vscode, "C-s", reset_undo(reset_counter(reset_mark(isearch_forward))))
 
 ## 「エディタ操作」のキー設定
 define_key_v(keymap_emacs, "Ctl-x 0", reset_search(reset_undo(reset_counter(reset_mark(delete_group)))))
@@ -476,9 +476,10 @@ else:
     define_key(keymap_vscode, "C-BackQuote",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
 
 ## 「その他」のキー設定
-define_key_v(keymap_emacs, "Enter",       post(reset_undo(reset_counter(reset_mark(repeat(newline))))))
-define_key_v(keymap_emacs, "C-m",         post(reset_undo(reset_counter(reset_mark(repeat(newline))))))
-define_key_v(keymap_emacs, "C-g",         reset_search(reset_counter(reset_mark(keyboard_quit_v2))))
+define_key(keymap_vscode, "Enter", post(reset_undo(reset_counter(reset_mark(repeat(newline))))))
+define_key(keymap_vscode, "C-m",   post(reset_undo(reset_counter(reset_mark(repeat(newline))))))
+define_key(keymap_vscode, "C-g",   reset_search(reset_counter(reset_mark(keyboard_quit_v2))))
+
 define_key_v(keymap_emacs, "M-x",         reset_search(reset_undo(reset_counter(reset_mark(execute_extended_command)))))
 define_key_v(keymap_emacs, "M-Semicolon", reset_search(reset_undo(reset_counter(reset_mark(comment_dwim)))))
 
