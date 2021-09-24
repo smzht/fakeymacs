@@ -25,8 +25,12 @@ if fc.use_emacs_ime_mode:
         if checkWindow("EXCEL.EXE", "EXCEL*", "?*"):
             return
 
-        # カーソルの前の word を選択し、クリップボードに格納する
-        mark2(backward_word, False)()
+        if fakeymacs.forward_direction is None:
+            # カーソル位置を変えないように、カーソルの前の word を選択する
+            backward_word()
+            mark2(forward_word, True)()
+
+        # リージョンをクリップボードに格納する
         copyRegion()
         delay()
 
@@ -46,9 +50,8 @@ if fc.use_emacs_ime_mode:
             # Emacs日本語入力モードを ON にする
             enable_emacs_ime_mode()
         else:
-            # リージョンを解除し、カーソルの位置を元に戻す
+            # リージョンを解除する
             resetRegion()
-            forward_word()
 
     define_key(keymap_ei,    fc.zenkaku_hankaku_key, hankaku_henkan)
     define_key(keymap_emacs, fc.zenkaku_hankaku_key, reset_undo(reset_counter(reset_mark(zenkaku_henkan))))
