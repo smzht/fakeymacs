@@ -26,5 +26,5 @@ Fakeymacs には以下の機能拡張を同梱しています。
 | [[/fakeymacs_extensions/emacsclient][emacsclient]]             | クリップボードに格納したファイルもしくはフォルダのパスを emacsclient で開く                         |
 | [[/fakeymacs_extensions/pop_ime_balloon][pop_ime_balloon]]         | 指定したキーを押下したときに IME の状態を表示する                                                   |
 | [[/fakeymacs_extensions/compact_keyboard][compact_keyboard]]        | 60% US キーボードのキー不足（Delete キー、Backquote キー不足）の対策を行う                          |
-| [[/fakeymacs_extensions/hankaku_henkan][zenkaku_hankaku]]         | 半角と全角の入力を間違えた際、入力モードの切り替えと入力文字の変換を行う（Emacs日本語入力モード用） |
+| [[/fakeymacs_extensions/zenkaku_hankaku][zenkaku_hankaku]]         | 半角と全角の入力を間違えた際、入力モードの切り替えと入力文字の変換を行う（Emacs日本語入力モード用） |
 |-------------------------+-----------------------------------------------------------------------------------------------------|
