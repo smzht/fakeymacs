@@ -30,10 +30,18 @@ if fc.use_emacs_ime_mode:
             backward_word()
             mark2(forward_word, True)()
 
-        # リージョンをクリップボードに格納する
-        copyRegion()
-        delay()
+        if fakeymacs.clipboard_hook:
+            # クリップボードの監視用のフックを無効にする
+            keymap.clipboard_history.enableHook(False)
 
+        # リージョンをクリップボードに格納する
+        self_insert_command("C-c")()
+
+        if fakeymacs.clipboard_hook:
+            # クリップボードの監視用のフックを有効にする
+            keymap.clipboard_history.enableHook(True)
+
+        delay()
         clipboard_text = getClipboardText()
 
         # 半角英数字か？（特殊文字は key への変換が難しいので対象外とする）
