@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210924_01"
+fakeymacs_version = "20210925_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1283,7 +1283,7 @@ def configure(keymap):
                 else:
                     self_insert_command("Left")()
 
-    def checkWindow(process_name, class_name=None, text=None, window=None):
+    def checkWindow(process_name=None, class_name=None, text=None, window=None):
         if window is None:
             window = keymap.getWindow()
         return ((process_name is None or fnmatch.fnmatch(window.getProcessName(), process_name)) and
