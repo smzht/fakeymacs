@@ -26,9 +26,8 @@ if fc.use_emacs_ime_mode:
             return
 
         if fakeymacs.forward_direction is None:
-            # カーソル位置を変えないように、カーソルの前の word を選択する
-            backward_word()
-            mark2(forward_word, True)()
+            # カーソル位置の前の word を選択する
+            mark2(backward_word, False)()
 
         if fakeymacs.clipboard_hook:
             # クリップボードの監視用のフックを無効にする
@@ -60,6 +59,10 @@ if fc.use_emacs_ime_mode:
         else:
             # リージョンを解除する
             resetRegion()
+
+            # カーソル位置を元に戻す
+            for i in range(len(clipboard_text)):
+                forward_char()
 
     define_key(keymap_ei,    fc.zenkaku_hankaku_key, hankaku_henkan)
     define_key(keymap_emacs, fc.zenkaku_hankaku_key, reset_undo(reset_counter(reset_mark(zenkaku_henkan))))
