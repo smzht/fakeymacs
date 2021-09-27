@@ -358,7 +358,7 @@ def keyboard_quit_v2():
         keyboard_quit(esc=True)
         fakeymacs.post_processing = None
     else:
-        if fakeymacs.last_keys in [[keymap_emacs, "C-g"],
+        if fakeymacs.last_keys in [[keymap_vscode, "C-g"],
                                    [keymap_vscode, "C-A-g"]]:
             keyboard_quit(esc=True)
             fakeymacs.post_processing = None
