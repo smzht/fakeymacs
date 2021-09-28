@@ -34,6 +34,7 @@ if fc.use_emacs_ime_mode:
             keymap.clipboard_history.enableHook(False)
 
         # リージョンをクリップボードに格納する
+        setClipboardText("")
         self_insert_command("C-c")()
 
         if fakeymacs.clipboard_hook:
@@ -57,11 +58,11 @@ if fc.use_emacs_ime_mode:
             # Emacs日本語入力モードを ON にする
             enable_emacs_ime_mode()
         else:
-            # リージョンを解除する
+            # リージョンを解除する（カーソルの位置を維持するために必要な処理）
             resetRegion()
 
             # カーソル位置を元に戻す
-            for i in range(len(clipboard_text)):
+            for i in range(len(clipboard_text.replace("\r\n", "\n"))):
                 forward_char()
 
     define_key(keymap_ei,    fc.zenkaku_hankaku_key, hankaku_henkan)
