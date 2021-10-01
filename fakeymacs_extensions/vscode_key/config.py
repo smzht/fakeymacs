@@ -400,7 +400,7 @@ def mergeEmacsMultiStrokeKeymap():
         mergeMultiStrokeKeymap(keymap_vscode, keymap_emacs, "M-g M-")
         fakeymacs.vscode_keymap_merged = True
 
-## keymap_emacs キーマップのマルチストロークキーの設定を keymap_vscode キーマップに複写する
+## keymap_emacs キーマップのマルチストロークキーの設定を keymap_vscode キーマップにマージする
 keymap_vscode.applying_func = mergeEmacsMultiStrokeKeymap
 
 ## プレフィックスキーの設定
