@@ -390,17 +390,15 @@ define_key(keymap_vscode, "M-",     keymap.defineMultiStrokeKeymap("Esc"))
 define_key(keymap_vscode, "M-g",    keymap.defineMultiStrokeKeymap("M-g"))
 define_key(keymap_vscode, "M-g M-", keymap.defineMultiStrokeKeymap("M-g Esc"))
 
-vscode_kemap_merged = False
+fakeymacs.vscode_keymap_merged = False
 
 def mergeEmacsMultiStrokeKeymap():
-    global vscode_kemap_merged
-
-    if not vscode_kemap_merged:
+    if not fakeymacs.vscode_keymap_merged:
         mergeMultiStrokeKeymap(keymap_vscode, keymap_emacs, "Ctl-x")
         mergeMultiStrokeKeymap(keymap_vscode, keymap_emacs, "M-")
         mergeMultiStrokeKeymap(keymap_vscode, keymap_emacs, "M-g")
         mergeMultiStrokeKeymap(keymap_vscode, keymap_emacs, "M-g M-")
-        vscode_kemap_merged = True
+        fakeymacs.vscode_keymap_merged = True
 
 ## keymap_emacs キーマップのマルチストロークキーの設定を keymap_vscode キーマップに複写する
 keymap_vscode.applying_func = mergeEmacsMultiStrokeKeymap
