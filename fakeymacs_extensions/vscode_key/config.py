@@ -390,11 +390,18 @@ define_key(keymap_vscode, "M-",     keymap.defineMultiStrokeKeymap("Esc"))
 define_key(keymap_vscode, "M-g",    keymap.defineMultiStrokeKeymap("M-g"))
 define_key(keymap_vscode, "M-g M-", keymap.defineMultiStrokeKeymap("M-g Esc"))
 
+fc.vscode_kemap_merged = False
+
+def mergeEmacsMultiStrokeKeymap():
+    if not fc.vscode_kemap_merged:
+        mergeMultiStrokeKeymap(keymap_vscode, keymap_emacs, "Ctl-x")
+        mergeMultiStrokeKeymap(keymap_vscode, keymap_emacs, "M-")
+        mergeMultiStrokeKeymap(keymap_vscode, keymap_emacs, "M-g")
+        mergeMultiStrokeKeymap(keymap_vscode, keymap_emacs, "M-g M-")
+        fc.vscode_kemap_merged = True
+
 ## keymap_emacs キーマップのマルチストロークキーの設定を keymap_vscode キーマップに複写する
-mergeMultiStrokeKeymap(keymap_vscode, keymap_emacs, "Ctl-x")
-mergeMultiStrokeKeymap(keymap_vscode, keymap_emacs, "M-")
-mergeMultiStrokeKeymap(keymap_vscode, keymap_emacs, "M-g")
-mergeMultiStrokeKeymap(keymap_vscode, keymap_emacs, "M-g M-")
+keymap_vscode.applying_func = mergeEmacsMultiStrokeKeymap
 
 ## プレフィックスキーの設定
 for pkey1, pkey2 in fc.vscode_prefix_key:
