@@ -58,8 +58,8 @@ except:
     fc.esc_mode_in_keyboard_quit = 1
 
 fakeymacs.vscode_focus = "not_terminal"
-fakeymacs.rectangle_mode = False
-fakeymacs.post_processing = None
+fakeymacs.vscode_rectangle_mode = False
+fakeymacs.vscode_post_processing = None
 
 def is_vscode_target(window):
     if (window.getProcessName() in fc.vscode_target and
@@ -104,13 +104,13 @@ def vscodeExecuteCommand2(command):
 def rect(func):
     def _func():
         func()
-        fakeymacs.rectangle_mode = True
+        fakeymacs.vscode_rectangle_mode = True
     return _func
 
 def reset_rect(func):
     def _func():
         func()
-        fakeymacs.rectangle_mode = False
+        fakeymacs.vscode_rectangle_mode = False
     return _func
 
 def region(func):
@@ -122,9 +122,9 @@ def region(func):
 def post(func):
     def _func():
         func()
-        if fakeymacs.post_processing:
-            fakeymacs.post_processing()
-            fakeymacs.post_processing = None
+        if fakeymacs.vscode_post_processing:
+            fakeymacs.vscode_post_processing()
+            fakeymacs.vscode_post_processing = None
     return _func
 
 ## ファイル操作
@@ -254,7 +254,7 @@ def mark_next_line():
     # vscodeExecuteCommand("cursorColumnSelectDown")()
 
 def mark_backward_char():
-    if fakeymacs.rectangle_mode:
+    if fakeymacs.vscode_rectangle_mode:
         # VSCode Command ID : cursorColumnSelectLeft
         self_insert_command("C-S-A-Left")()
         # vscodeExecuteCommand("cursorColumnSelectLeft")()
@@ -265,7 +265,7 @@ def mark_backward_char():
         mark2(backward_char, False)()
 
 def mark_forward_char():
-    if fakeymacs.rectangle_mode:
+    if fakeymacs.vscode_rectangle_mode:
         # VSCode Command ID : cursorColumnSelectRight
         self_insert_command("C-S-A-Right")()
         # vscodeExecuteCommand("cursorColumnSelectRight")()
@@ -358,12 +358,12 @@ def toggle_terminal():
 def keyboard_quit_v2():
     if fc.esc_mode_in_keyboard_quit == 1:
         keyboard_quit(esc=True)
-        fakeymacs.post_processing = None
+        fakeymacs.vscode_post_processing = None
     else:
         if fakeymacs.last_keys in [[keymap_vscode, "C-g"],
                                    [keymap_vscode, "C-A-g"]]:
             keyboard_quit(esc=True)
-            fakeymacs.post_processing = None
+            fakeymacs.vscode_post_processing = None
         else:
             keyboard_quit(esc=False)
 

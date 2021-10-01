@@ -47,9 +47,9 @@ import subprocess
 
 def shell_command_inputbox():
     if fakeymacs.is_universal_argument:
-        fakeymacs.replace_region = True
+        fakeymacs.shell_command_replace_region = True
     else:
-        fakeymacs.replace_region = False
+        fakeymacs.shell_command_replace_region = False
 
     # inputbox_command = dataPath() + r"\fakeymacs_extensions\shell_command_on_region\inputbox.ahk"
     inputbox_command = dataPath() + r"\fakeymacs_extensions\shell_command_on_region\inputbox.exe"
@@ -140,7 +140,7 @@ def shell_command_on_region():
             if keymap.getWindow().getProcessName() in fc.not_clipboard_target:
                 keymap.clipboard_history._push(stdout_text)
 
-            if fakeymacs.replace_region:
+            if fakeymacs.shell_command_replace_region:
                 # delay() のコールでは yank に失敗することがあるため、delayedCall() 経由で実行する
                 keymap.delayedCall(yank, 30)
         else:
