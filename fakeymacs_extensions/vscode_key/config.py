@@ -69,9 +69,11 @@ def is_vscode_target(window):
         return False
 
 if fc.use_emacs_ime_mode:
-    fc.keymap_vscode = keymap_vscode = keymap.defineWindowKeymap(check_func=lambda wnd: is_vscode_target(wnd) and not is_emacs_ime_mode(wnd))
+    keymap_vscode = keymap.defineWindowKeymap(check_func=lambda wnd: is_vscode_target(wnd) and not is_emacs_ime_mode(wnd))
 else:
-    fc.keymap_vscode = keymap_vscode = keymap.defineWindowKeymap(check_func=is_vscode_target)
+    keymap_vscode = keymap.defineWindowKeymap(check_func=is_vscode_target)
+
+fc.keymap_vscode = keymap_vscode
 
 ## 共通関数
 def self_insert_command_v(*keys):
@@ -85,9 +87,6 @@ def self_insert_command_v(*keys):
         if ime_status:
             keymap.getWindow().setImeStatus(1)
     return _func
-
-def define_key_v(window_keymap, keys, command):
-    define_key3(window_keymap, keys, command, lambda: is_vscode_target(keymap.getWindow()))
 
 def vscodeExecuteCommand(command):
     def _func():
@@ -385,6 +384,25 @@ def trigger_suggest():
     self_insert_command("C-Space")()
     # vscodeExecuteCommand("editor.action.triggerSuggest")()
 
+## マルチストロークキーの設定
+define_key(keymap_vscode, "Ctl-x",  keymap.defineMultiStrokeKeymap(fc.ctl_x_prefix_key))
+define_key(keymap_vscode, "M-",     keymap.defineMultiStrokeKeymap("Esc"))
+define_key(keymap_vscode, "M-g",    keymap.defineMultiStrokeKeymap("M-g"))
+define_key(keymap_vscode, "M-g M-", keymap.defineMultiStrokeKeymap("M-g Esc"))
+
+fakeymacs.vscode_keymap_merged = False
+
+def mergeEmacsMultiStrokeKeymap():
+    if not fakeymacs.vscode_keymap_merged:
+        mergeMultiStrokeKeymap(keymap_vscode, keymap_emacs, "Ctl-x")
+        mergeMultiStrokeKeymap(keymap_vscode, keymap_emacs, "M-")
+        mergeMultiStrokeKeymap(keymap_vscode, keymap_emacs, "M-g")
+        mergeMultiStrokeKeymap(keymap_vscode, keymap_emacs, "M-g M-")
+        fakeymacs.vscode_keymap_merged = True
+
+## keymap_emacs キーマップのマルチストロークキーの設定を keymap_vscode キーマップに複写する
+keymap_vscode.applying_func = mergeEmacsMultiStrokeKeymap
+
 ## プレフィックスキーの設定
 for pkey1, pkey2 in fc.vscode_prefix_key:
     define_key(keymap_vscode, pkey2, keymap.defineMultiStrokeKeymap("<VSCode> " + pkey1))
@@ -398,20 +416,20 @@ for pkey1, pkey2 in fc.vscode_prefix_key:
                     define_key(keymap_vscode, "{} {}".format(pkey2, mkey), self_insert_command_v(pkey1, mkey))
 
 ## 「ファイル操作」のキー設定
-define_key_v(keymap_emacs, "Ctl-x C-d", reset_search(reset_undo(reset_counter(reset_mark(find_directory)))))
-define_key_v(keymap_emacs, "Ctl-x C-r", reset_search(reset_undo(reset_counter(reset_mark(recentf)))))
-define_key_v(keymap_emacs, "Ctl-x C-l", reset_search(reset_undo(reset_counter(reset_mark(locate)))))
+define_key(keymap_vscode, "Ctl-x C-d", reset_search(reset_undo(reset_counter(reset_mark(find_directory)))))
+define_key(keymap_vscode, "Ctl-x C-r", reset_search(reset_undo(reset_counter(reset_mark(recentf)))))
+define_key(keymap_vscode, "Ctl-x C-l", reset_search(reset_undo(reset_counter(reset_mark(locate)))))
 
 ## 「カーソル移動」のキー設定
-define_key_v(keymap_emacs, "M-g p",   reset_search(reset_undo(reset_counter(reset_mark(previous_error)))))
-define_key_v(keymap_emacs, "M-g M-p", reset_search(reset_undo(reset_counter(reset_mark(previous_error)))))
-define_key_v(keymap_emacs, "M-g n",   reset_search(reset_undo(reset_counter(reset_mark(next_error)))))
-define_key_v(keymap_emacs, "M-g M-n", reset_search(reset_undo(reset_counter(reset_mark(next_error)))))
+define_key(keymap_vscode, "M-g p",   reset_search(reset_undo(reset_counter(reset_mark(previous_error)))))
+define_key(keymap_vscode, "M-g M-p", reset_search(reset_undo(reset_counter(reset_mark(previous_error)))))
+define_key(keymap_vscode, "M-g n",   reset_search(reset_undo(reset_counter(reset_mark(next_error)))))
+define_key(keymap_vscode, "M-g M-n", reset_search(reset_undo(reset_counter(reset_mark(next_error)))))
 
 if is_japanese_keyboard:
-    define_key_v(keymap_emacs, "Ctl-x S-Atmark",  reset_search(reset_undo(reset_counter(reset_mark(next_error)))))
+    define_key(keymap_vscode, "Ctl-x S-Atmark",  reset_search(reset_undo(reset_counter(reset_mark(next_error)))))
 else:
-    define_key_v(keymap_emacs, "Ctl-x BackQuote", reset_search(reset_undo(reset_counter(reset_mark(next_error)))))
+    define_key(keymap_vscode, "Ctl-x BackQuote", reset_search(reset_undo(reset_counter(reset_mark(next_error)))))
 
 define_key(keymap_vscode, "A-p", self_insert_command("C-Up"))
 define_key(keymap_vscode, "A-n", self_insert_command("C-Down"))
@@ -421,21 +439,21 @@ define_key(keymap_vscode, "C-k", reset_search(reset_undo(reset_counter(reset_mar
 define_key(keymap_vscode, "C-y", reset_search(reset_undo(reset_counter(reset_mark(repeat(yank_v))))))
 
 ## 「バッファ / ウィンドウ操作」のキー設定
-define_key_v(keymap_emacs, "Ctl-x k",   reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
-define_key_v(keymap_emacs, "Ctl-x b",   reset_search(reset_undo(reset_counter(reset_mark(switch_to_buffer)))))
-define_key_v(keymap_emacs, "Ctl-x C-b", reset_search(reset_undo(reset_counter(reset_mark(list_buffers)))))
+define_key(keymap_vscode, "Ctl-x k",   reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
+define_key(keymap_vscode, "Ctl-x b",   reset_search(reset_undo(reset_counter(reset_mark(switch_to_buffer)))))
+define_key(keymap_vscode, "Ctl-x C-b", reset_search(reset_undo(reset_counter(reset_mark(list_buffers)))))
 
 ## 「文字列検索」のキー設定
 define_key(keymap_vscode, "C-r", reset_undo(reset_counter(reset_mark(isearch_backward))))
 define_key(keymap_vscode, "C-s", reset_undo(reset_counter(reset_mark(isearch_forward))))
 
 ## 「エディタ操作」のキー設定
-define_key_v(keymap_emacs, "Ctl-x 0", reset_search(reset_undo(reset_counter(reset_mark(delete_group)))))
-define_key_v(keymap_emacs, "Ctl-x 1", reset_search(reset_undo(reset_counter(reset_mark(delete_other_groups)))))
-define_key_v(keymap_emacs, "Ctl-x 2", split_editor_below)
-define_key_v(keymap_emacs, "Ctl-x 3", split_editor_right)
-define_key_v(keymap_emacs, "Ctl-x 4", rotate_layout)
-define_key_v(keymap_emacs, "Ctl-x o", reset_search(reset_undo(reset_counter(reset_mark(other_group)))))
+define_key(keymap_vscode, "Ctl-x 0", reset_search(reset_undo(reset_counter(reset_mark(delete_group)))))
+define_key(keymap_vscode, "Ctl-x 1", reset_search(reset_undo(reset_counter(reset_mark(delete_other_groups)))))
+define_key(keymap_vscode, "Ctl-x 2", split_editor_below)
+define_key(keymap_vscode, "Ctl-x 3", split_editor_right)
+define_key(keymap_vscode, "Ctl-x 4", rotate_layout)
+define_key(keymap_vscode, "Ctl-x o", reset_search(reset_undo(reset_counter(reset_mark(other_group)))))
 
 if fc.use_ctrl_digit_key_for_digit_argument:
     key = "C-A-{}"
@@ -479,12 +497,11 @@ else:
     define_key(keymap_vscode, "C-BackQuote",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
 
 ## 「その他」のキー設定
-define_key(keymap_vscode, "Enter", post(reset_undo(reset_counter(reset_mark(repeat(newline))))))
-define_key(keymap_vscode, "C-m",   post(reset_undo(reset_counter(reset_mark(repeat(newline))))))
-define_key(keymap_vscode, "C-g",   reset_search(reset_counter(reset_mark(keyboard_quit_v2))))
-
-define_key_v(keymap_emacs, "M-x",         reset_search(reset_undo(reset_counter(reset_mark(execute_extended_command)))))
-define_key_v(keymap_emacs, "M-Semicolon", reset_search(reset_undo(reset_counter(reset_mark(comment_dwim)))))
+define_key(keymap_vscode, "Enter",       post(reset_undo(reset_counter(reset_mark(repeat(newline))))))
+define_key(keymap_vscode, "C-m",         post(reset_undo(reset_counter(reset_mark(repeat(newline))))))
+define_key(keymap_vscode, "C-g",         reset_search(reset_counter(reset_mark(keyboard_quit_v2))))
+define_key(keymap_vscode, "M-x",         reset_search(reset_undo(reset_counter(reset_mark(execute_extended_command)))))
+define_key(keymap_vscode, "M-Semicolon", reset_search(reset_undo(reset_counter(reset_mark(comment_dwim)))))
 
 if is_japanese_keyboard:
     define_key(keymap_vscode, "C-Colon", trigger_suggest)

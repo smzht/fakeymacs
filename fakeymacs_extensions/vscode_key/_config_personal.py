@@ -11,6 +11,6 @@ def toggle_panel():
     # vscodeExecuteCommand("workbench.action.togglePanel")()
 
 # 本設定を行わなくとも、C-q C-j を利用することで対応は可能
-define_key_v(keymap_emacs, "Ctl-x C-j", toggle_panel)
+define_key(keymap_vscode, "Ctl-x C-j", toggle_panel)
 
 # --------------------------------------------------------------------------------------------------
