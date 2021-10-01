@@ -68,12 +68,14 @@ def is_vscode_target(window):
     else:
         return False
 
+fakeymacs.is_vscode_target = is_vscode_target
+
 if fc.use_emacs_ime_mode:
     keymap_vscode = keymap.defineWindowKeymap(check_func=lambda wnd: is_vscode_target(wnd) and not is_emacs_ime_mode(wnd))
 else:
     keymap_vscode = keymap.defineWindowKeymap(check_func=is_vscode_target)
 
-fc.keymap_vscode = keymap_vscode
+fakeymacs.keymap_vscode = keymap_vscode
 
 ## 共通関数
 def self_insert_command_v(*keys):

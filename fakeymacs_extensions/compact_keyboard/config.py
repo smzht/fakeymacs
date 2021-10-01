@@ -21,20 +21,13 @@ if not is_japanese_keyboard:
     # vscode_key Extension が有効な場合の追加設定
     try:
         # vscode_key Extension は有効か？
-        fc.keymap_vscode
-
-        def is_vscode_target(window):
-            if (window.getProcessName() in fc.vscode_target and
-                window.getClassName() == "Chrome_WidgetWin_1"):
-                return True
-            else:
-                return False
+        fakeymacs.keymap_vscode
 
         def define_key_v(window_keymap, keys, command):
-            define_key3(window_keymap, keys, command, lambda: is_vscode_target(keymap.getWindow()))
+            define_key3(window_keymap, keys, command, lambda: fakeymacs.is_vscode_target(keymap.getWindow()))
 
-        define_key_v(keymap_global, "S-Back C-S-Back", getKeyCommand(fc.keymap_vscode, "C-S-BackQuote"))
-        define_key_v(keymap_global, "S-Back C-Back",   getKeyCommand(fc.keymap_vscode, "C-BackQuote"))
+        define_key_v(keymap_global, "S-Back C-S-Back", getKeyCommand(fakeymacs.keymap_vscode, "C-S-BackQuote"))
+        define_key_v(keymap_global, "S-Back C-Back",   getKeyCommand(fakeymacs.keymap_vscode, "C-BackQuote"))
 
     except:
         pass
