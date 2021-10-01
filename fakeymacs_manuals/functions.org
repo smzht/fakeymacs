@@ -118,13 +118,13 @@ def mergeMultiStrokeKeymap(window_keymap1, window_keymap2, keys):
 
 **** Parameters
 
-|----------------+-------------------------------------|
-| Parameter      | Description                         |
-|----------------+-------------------------------------|
-| window_keymap1 | マージ先の WindowKeymapオブジェクト |
-| window_keymap2 | マージする WindowKeymapオブジェクト |
-| keys           | マージするマルチストロークのキー    |
-|----------------+-------------------------------------|
+|----------------+----------------------------------|
+| Parameter      | Description                      |
+|----------------+----------------------------------|
+| window_keymap1 | WindowKeymapオブジェクト1        |
+| window_keymap2 | WindowKeymapオブジェクト2        |
+| keys           | マージするマルチストロークのキー |
+|----------------+----------------------------------|
 
 **** Returns
 
