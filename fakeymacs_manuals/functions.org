@@ -8,7 +8,7 @@
 
 *** ■ checkWindow
 
-ウィンドウが指定した条件に該当するかチェックする。
+ウィンドウが指定した条件に該当するかチェックする
 
 **** Function
 
@@ -34,7 +34,7 @@ def checkWindow(process_name, class_name, text, window=None):
 
 *** ■ define_key
 
-キーマップにキーを定義する。（skip_settings_key に定義したキーの設定を行わないバージョン）
+キーマップにキーを定義する（skip_settings_key に定義したキーの設定を行わないバージョン）
 
 **** Function
 
@@ -58,7 +58,7 @@ def define_key(window_keymap, keys, command):
 
 *** ■ define_key2
 
-キーマップにキーを定義する。（skip_settings_key に定義したキーであっても設定するバージョン）
+キーマップにキーを定義する（skip_settings_key に定義したキーであっても設定するバージョン）
 
 **** Function
 
@@ -82,7 +82,7 @@ def define_key2(window_keymap, keys, command):
 
 *** ■ define_key3
 
-キーマップにキーを定義する。（キーに定義されている関数に新しいコマンドを分岐実行させるバージョン）
+キーマップにキーを定義する（キーに定義されている関数に新しいコマンドを分岐実行させるバージョン）
 
 **** Function
 
@@ -105,9 +105,34 @@ def define_key3(window_keymap, keys, command, chek_func):
 
 - 無し
 
+*** ■ mergeMultiStrokeKeymap
+
+第2引数の WindowKeymapオブジェクトのキーマップにに第1引数の WindowKeymapオブジェクトの
+キーマップをマージ（上書き）し、第1引数の WindowKeymapオブジェクトのキーマップに設定する
+
+**** Function
+
+#+BEGIN_EXAMPLE
+def mergeMultiStrokeKeymap(window_keymap1, window_keymap2, keys):
+#+END_EXAMPLE
+
+**** Parameters
+
+|----------------+-------------------------------------|
+| Parameter      | Description                         |
+|----------------+-------------------------------------|
+| window_keymap1 | マージ先の WindowKeymapオブジェクト |
+| window_keymap2 | マージする WindowKeymapオブジェクト |
+| keys           | マージするマルチストロークのキー    |
+|----------------+-------------------------------------|
+
+**** Returns
+
+- 無し
+
 *** ■ getKeyCommand
 
-キーに定義されている関数を返す。
+キーに定義されている関数を返す
 
 **** Function
 
@@ -130,7 +155,7 @@ def getKeyCommand(window_keymap, keys):
 
 *** ■ makeKeyCommand
 
-キーに定義されている関数に新しいコマンドを分岐実行させる新たな関数を返す。
+キーに定義されている関数に新しいコマンドを分岐実行させる新たな関数を返す
 
 **** Function
 
@@ -155,7 +180,7 @@ def makeKeyCommand(window_keymap, keys, command, check_func):
 
 *** ■ self_insert_command
 
-キーを入力する関数を返す。
+キーを入力する関数を返す
 
 **** Function
 
@@ -178,7 +203,7 @@ def self_insert_command(*keys):
 *** ■ mark
 
 mark がセットされていれば、その mark から func で移動した場所までのリージョンを拡張する
-ための新たな関数を返す。
+ための新たな関数を返す
 
 **** Function
 
@@ -201,7 +226,7 @@ def mark(func, forward_direction):
 
 *** ■ mark2
 
-func で移動した場所までのリージョンを拡張するための新たな関数を返す。
+func で移動した場所までのリージョンを拡張するための新たな関数を返す
 （Shift を使ったリージョン拡張処理などで利用）
 
 **** Function
@@ -225,7 +250,7 @@ def mark2(func, forward_direction):
 
 *** ■ reset_mark
 
-mark の状態を reset する新たな関数を返す。
+mark の状態を reset する新たな関数を返す
 
 **** Function
 
@@ -247,7 +272,7 @@ def reset_mark(func):
 
 *** ■ reset_counter
 
-repeat counter の状態を reset する新たな関数を返す。
+repeat counter の状態を reset する新たな関数を返す
 
 **** Function
 
@@ -269,7 +294,7 @@ def reset_counter(func):
 
 *** ■ reset_undo
 
-undo/redo の状態を undo に reset する新たな関数を返す。
+undo/redo の状態を undo に reset する新たな関数を返す
 
 **** Function
 
@@ -291,7 +316,7 @@ def reset_undo(func):
 
 *** ■ reset_search
 
-検索中の状態を reset する新たな関数を返す。
+検索中の状態を reset する新たな関数を返す
 
 **** Function
 
@@ -313,7 +338,7 @@ def reset_search(func):
 
 *** ■ repeat
 
-数引数の値に従い、repeat の処理を施した新たな関数を返す。
+数引数の値に従い、repeat の処理を施した新たな関数を返す
 
 **** Function
 
@@ -335,7 +360,7 @@ def repeat(func):
 
 *** ■ repeat2
 
-数引数の値に従い、repeat の処理を施した新たな関数を返す。
+数引数の値に従い、repeat の処理を施した新たな関数を返す
 （リーションが設定してある場合は、一回のみ処理を行うバージョン）
 
 **** Function
@@ -358,7 +383,7 @@ def repeat2(func):
 
 *** ■ repeat3
 
-数引数の値に従い、repeat の処理を施した新たな関数を返す。
+数引数の値に従い、repeat の処理を施した新たな関数を返す
 （repaet 回数を func の引数で渡すバージョン）
 
 **** Function
@@ -381,7 +406,7 @@ def repeat3(func):
 
 *** ■ delay
 
-処理を指定した時間停止する。
+処理を指定した時間停止する
 
 **** Function
 
