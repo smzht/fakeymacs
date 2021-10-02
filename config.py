@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20210930_01"
+fakeymacs_version = "20211002_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1431,13 +1431,11 @@ def configure(keymap):
         define_key(window_keymap, keys, makeKeyCommand(window_keymap, keys, command, check_func))
 
     def mergeMultiStrokeKeymap(window_keymap1, window_keymap2, keys):
-        for key_list in kbd(keys):
-            w_keymap1 = window_keymap1
-            w_keymap2 = window_keymap2
-            for key in key_list:
-                w_keymap1 = w_keymap1[key]
-                w_keymap2 = w_keymap2[key]
-            w_keymap1.keymap = {**w_keymap2.keymap, **w_keymap1.keymap}
+        key_list = kbd(keys)[0]
+        for key in key_list:
+            window_keymap1 = window_keymap1[key]
+            window_keymap2 = window_keymap2[key]
+        window_keymap1.keymap = {**window_keymap2.keymap, **window_keymap1.keymap}
 
     def getKeyCommand(window_keymap, keys):
         try:
