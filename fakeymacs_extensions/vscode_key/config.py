@@ -57,9 +57,14 @@ except:
     #   2：C-g を２回連続して押下した場合に Esc キーを発行する）
     fc.esc_mode_in_keyboard_quit = 1
 
-fakeymacs.vscode_focus = "not_terminal"
-fakeymacs.vscode_rectangle_mode = False
-fakeymacs.vscode_post_processing = None
+class FakeymacsVSCode:
+    pass
+
+fakeymacs_vscode = FakeymacsVSCode()
+
+fakeymacs_vscode.vscode_focus = "not_terminal"
+fakeymacs_vscode.rectangle_mode = False
+fakeymacs_vscode.post_processing = None
 
 def is_vscode_target(window):
     if (window.getProcessName() in fc.vscode_target and
@@ -106,13 +111,13 @@ def vscodeExecuteCommand2(command):
 def rect(func):
     def _func():
         func()
-        fakeymacs.vscode_rectangle_mode = True
+        fakeymacs_vscode.rectangle_mode = True
     return _func
 
 def reset_rect(func):
     def _func():
         func()
-        fakeymacs.vscode_rectangle_mode = False
+        fakeymacs_vscode.rectangle_mode = False
     return _func
 
 def region(func):
@@ -124,9 +129,9 @@ def region(func):
 def post(func):
     def _func():
         func()
-        if fakeymacs.vscode_post_processing:
-            fakeymacs.vscode_post_processing()
-            fakeymacs.vscode_post_processing = None
+        if fakeymacs_vscode.post_processing:
+            fakeymacs_vscode.post_processing()
+            fakeymacs_vscode.post_processing = None
     return _func
 
 ## ファイル操作
@@ -159,14 +164,14 @@ def next_error():
 ## カット / コピー
 def kill_line_v(repeat=1):
     if (fc.use_direct_input_in_vscode_terminal and
-        fakeymacs.vscode_focus == "terminal"):
+        fakeymacs_vscode.vscode_focus == "terminal"):
         self_insert_command("C-k")()
     else:
         kill_line(repeat)
 
 def yank_v():
     if (fc.use_direct_input_in_vscode_terminal and
-        fakeymacs.vscode_focus == "terminal"):
+        fakeymacs_vscode.vscode_focus == "terminal"):
         self_insert_command("C-y")()
     else:
         yank()
@@ -190,7 +195,7 @@ def list_buffers():
 ## 文字列検索
 def isearch_v(direction):
     if (fc.use_direct_input_in_vscode_terminal and
-        fakeymacs.vscode_focus == "terminal"):
+        fakeymacs_vscode.vscode_focus == "terminal"):
         self_insert_command({"backward":"C-r", "forward":"C-s"}[direction])()
     else:
         isearch(direction)
@@ -233,7 +238,7 @@ def other_group():
     # vscodeExecuteCommand("workbench.action.navigateEditorGroups")()
 
     if fc.use_direct_input_in_vscode_terminal:
-        fakeymacs.vscode_focus = "not_terminal"
+        fakeymacs_vscode.vscode_focus = "not_terminal"
 
 def switch_focus(number):
     def _func():
@@ -241,7 +246,7 @@ def switch_focus(number):
         self_insert_command("C-{}".format(number))()
 
         if fc.use_direct_input_in_vscode_terminal:
-            fakeymacs.vscode_focus = "not_terminal"
+            fakeymacs_vscode.vscode_focus = "not_terminal"
     return _func
 
 ## 矩形選択 / マルチカーソル
@@ -256,7 +261,7 @@ def mark_next_line():
     # vscodeExecuteCommand("cursorColumnSelectDown")()
 
 def mark_backward_char():
-    if fakeymacs.vscode_rectangle_mode:
+    if fakeymacs_vscode.rectangle_mode:
         # VSCode Command ID : cursorColumnSelectLeft
         self_insert_command("C-S-A-Left")()
         # vscodeExecuteCommand("cursorColumnSelectLeft")()
@@ -267,7 +272,7 @@ def mark_backward_char():
         mark2(backward_char, False)()
 
 def mark_forward_char():
-    if fakeymacs.vscode_rectangle_mode:
+    if fakeymacs_vscode.rectangle_mode:
         # VSCode Command ID : cursorColumnSelectRight
         self_insert_command("C-S-A-Right")()
         # vscodeExecuteCommand("cursorColumnSelectRight")()
@@ -338,20 +343,20 @@ def create_terminal():
     vscodeExecuteCommand2("workbench.action.terminal.new")()
 
     if fc.use_direct_input_in_vscode_terminal:
-        fakeymacs.vscode_focus = "terminal"
+        fakeymacs_vscode.vscode_focus = "terminal"
 
 def toggle_terminal():
     if fc.use_direct_input_in_vscode_terminal:
-        if fakeymacs.vscode_focus == "not_terminal":
+        if fakeymacs_vscode.vscode_focus == "not_terminal":
             # VSCode Command : Terminal: Focus on Terminal View
             vscodeExecuteCommand2("terminal.focus")()
 
-            fakeymacs.vscode_focus = "terminal"
+            fakeymacs_vscode.vscode_focus = "terminal"
         else:
             # VSCode Command : View: Close Panel
             vscodeExecuteCommand2("workbench.action.closePanel")()
 
-            fakeymacs.vscode_focus = "not_terminal"
+            fakeymacs_vscode.vscode_focus = "not_terminal"
     else:
         # VSCode Command : View: Toggle Terminal
         vscodeExecuteCommand2("workbench.action.terminal.toggleTerminal")()
@@ -360,12 +365,12 @@ def toggle_terminal():
 def keyboard_quit_v2():
     if fc.esc_mode_in_keyboard_quit == 1:
         keyboard_quit(esc=True)
-        fakeymacs.vscode_post_processing = None
+        fakeymacs_vscode.post_processing = None
     else:
         if fakeymacs.last_keys in [[keymap_vscode, "C-g"],
                                    [keymap_vscode, "C-A-g"]]:
             keyboard_quit(esc=True)
-            fakeymacs.vscode_post_processing = None
+            fakeymacs_vscode.post_processing = None
         else:
             keyboard_quit(esc=False)
 
@@ -392,15 +397,15 @@ define_key(keymap_vscode, "M-",     keymap.defineMultiStrokeKeymap("Esc"))
 define_key(keymap_vscode, "M-g",    keymap.defineMultiStrokeKeymap("M-g"))
 define_key(keymap_vscode, "M-g M-", keymap.defineMultiStrokeKeymap("M-g Esc"))
 
-fakeymacs.vscode_keymap_merged = False
+fakeymacs_vscode.keymap_merged = False
 
 def mergeEmacsMultiStrokeKeymap():
-    if not fakeymacs.vscode_keymap_merged:
+    if not fakeymacs_vscode.keymap_merged:
         mergeMultiStrokeKeymap(keymap_vscode, keymap_emacs, "Ctl-x")
         mergeMultiStrokeKeymap(keymap_vscode, keymap_emacs, "M-")
         mergeMultiStrokeKeymap(keymap_vscode, keymap_emacs, "M-g")
         mergeMultiStrokeKeymap(keymap_vscode, keymap_emacs, "M-g M-")
-        fakeymacs.vscode_keymap_merged = True
+        fakeymacs_vscode.keymap_merged = True
 
 ## keymap_emacs キーマップのマルチストロークキーの設定を keymap_vscode キーマップにマージする
 keymap_vscode.applying_func = mergeEmacsMultiStrokeKeymap

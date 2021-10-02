@@ -118,7 +118,7 @@ if fc.vscode_quick_select:
 
 if fc.vscode_input_sequence:
     def input_sequence():
-        fakeymacs.vscode_post_processing = lambda: region(lambda: None)()
+        fakeymacs_vscode.post_processing = lambda: region(lambda: None)()
         self_insert_command3("C-A-0")()
 
     if not fc.use_ctrl_digit_key_for_digit_argument:
@@ -130,7 +130,7 @@ if fc.vscode_input_sequence:
 
 if fc.vscode_insert_numbers:
     def insert_numbers():
-        fakeymacs.vscode_post_processing = lambda: region(lambda: None)()
+        fakeymacs_vscode.post_processing = lambda: region(lambda: None)()
         self_insert_command3("C-A-n")()
 
     define_key(keymap_vscode, "C-A-k n", reset_rect(insert_numbers))
