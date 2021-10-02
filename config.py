@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20211002_01"
+fakeymacs_version = "20211002_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1315,35 +1315,35 @@ def configure(keymap):
             key_list0 = []
             key_list1 = []
             key_list2 = []
-            mata_flg  = False
 
             for key in keys.split():
                 if key == "Ctl-x":
                     key = fc.ctl_x_prefix_key
 
-                if "M-" in key:
+                if key == "M-":
+                    key_list0 = []
+                    if fc.use_esc_as_meta:
+                        key_list2 = copy.copy(key_list1)
+                        key_list2.append("Esc")
                     key_list1.append("C-OpenBracket")
-                    key_list2.append("Esc")
-                    append_key = key.replace("M-", "")
-                    if append_key:
-                        key_list0.append(key.replace("M-", "A-"))
-                        key_list1.append(append_key)
-                        key_list2.append(append_key)
-                    else:
-                        key_list0 = []
-                    mata_flg = True
+                    break
+
+                if "M-" in key:
+                    key_list0.append(key.replace("M-", "A-"))
+                    key_list1.append("C-OpenBracket")
+                    key_list1.append(key.replace("M-", ""))
                 else:
                     key_list0.append(key)
                     key_list1.append(key)
-                    key_list2.append(key)
 
             if key_list0:
                 key_lists.append(key_list0)
 
-            if mata_flg:
+            if key_list0 != key_list1:
                 key_lists.append(key_list1)
-                if fc.use_esc_as_meta:
-                    key_lists.append(key_list2)
+
+            if key_list2:
+                key_lists.append(key_list2)
 
             for key_list in key_lists:
                 key_list[0] = addSideOfModifierKey(key_list[0])
