@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20211002_02"
+fakeymacs_version = "20211003_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1382,7 +1382,7 @@ def configure(keymap):
             except:
                 pass
 
-            if type(command) is types.FunctionType:
+            if isinstance(command, types.FunctionType):
                 if (key is not None and
                     "keymap_emacs" in locals() and
                     window_keymap == locals()["keymap_emacs"]):
