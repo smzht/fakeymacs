@@ -1416,7 +1416,7 @@ def configure(keymap):
                 if key_list[0] == "O-LAlt":
                     window_keymap["D-LAlt"] = "D-LAlt", "(7)"
 
-                if key_list[0] == "O-RAlt":
+                elif key_list[0] == "O-RAlt":
                     window_keymap["D-RAlt"] = "D-RAlt", "(7)"
             else:
                 w_keymap = window_keymap
