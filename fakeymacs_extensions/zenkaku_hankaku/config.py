@@ -25,13 +25,15 @@ if fc.use_emacs_ime_mode:
         if checkWindow("EXCEL.EXE", "EXCEL*", "?*"):
             return
 
-        if fakeymacs.forward_direction is None:
-            # カーソル位置の前の word を選択する
-            mark2(backward_word, False)()
-
         if fakeymacs.clipboard_hook:
             # クリップボードの監視用のフックを無効にする
             keymap.clipboard_history.enableHook(False)
+
+        if fakeymacs.forward_direction is None:
+            # ブラウザのアドレスバーなどで入力補完されたものが選択状態で表示される場合、削除する
+            self_insert_command("C-x")()
+            # カーソル位置の前の word を選択する
+            mark2(backward_word, False)()
 
         # リージョンをクリップボードに格納する
         setClipboardText("")
