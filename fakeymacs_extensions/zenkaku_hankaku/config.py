@@ -32,6 +32,8 @@ if fc.use_emacs_ime_mode:
         if fakeymacs.forward_direction is None:
             # ブラウザのアドレスバーなどで入力補完されたものが選択状態で表示される場合、削除する
             self_insert_command("C-x")()
+            delay()
+
             # カーソル位置の前の word を選択する
             mark2(backward_word, False)()
 
