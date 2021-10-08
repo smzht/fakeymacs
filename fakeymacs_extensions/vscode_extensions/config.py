@@ -93,7 +93,7 @@ if fc.vscode_quick_select:
                              "}" : "S-CloseBracket",
                              "<" : "S-Comma",
                              ">" : "S-Period"
-                            }
+                             }
     else:
         quick_select_keys = {'"' : "S-Quote",
                              "'" : "Quote",
@@ -108,7 +108,7 @@ if fc.vscode_quick_select:
                              "}" : "S-CloseBracket",
                              "<" : "S-Comma",
                              ">" : "S-Period"
-                            }
+                             }
 
     for key in quick_select_keys.values():
         mkey = "C-A-k {}".format(key)
