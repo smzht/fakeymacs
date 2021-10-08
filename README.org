@@ -202,9 +202,9 @@ OFF にしてから割当をしないと正常に動作しませんでした。�
 
 ● Windows 11 にしたら、Keyhac のコンソールに「Time stamp inversion happened.」と表示される頻度が
 高くなりました。これは、レジストリ HKEY_CURRENT_USER\Control Panel\Desktop\LowLevelHooksTimeout を
-DWORD 形式で作成し、そこに ms の値（10進数で 3000、5000 などの数値）を設定することで、ある程度の
-回避ができるようです。ただし、この設定により生ずる影響は分かっていませんので、試す場合は各自の責任で
-お願いします。
+DWORD 形式で作成し、そこに ms の値（10進数で 3000、5000 などの数値）を設定して再起動することで、
+ある程度の回避ができるようです。ただし、この設定により生ずる影響は分かっていませんので、試す場合は
+各自の責任でお願いします。
 - https://apollo440.hatenablog.com/entries/2010/12/21
 - https://nazochu.blogspot.com/2011/08/windows7.html
 - https://blogs.msdn.microsoft.com/alejacma/2010/10/14/global-hooks-getting-lost-on-windows-7/
