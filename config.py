@@ -237,7 +237,7 @@ def configure(keymap):
     # 上記の対策を行う Chromium 系ブラウザのプログラム名称を指定する
     fc.chromium_browser_list = ["chrome.exe",
                                 "msedge.exe",
-                               ]
+                                ]
 
     # 個人設定ファイルのセクション [section-options] を読み込んで実行する
     exec(readConfigPersonal("[section-options]"), dict(globals(), **locals()))
@@ -296,7 +296,7 @@ def configure(keymap):
                                "TurboVNC.exe",           # TurboVNC
                                "vncviewer.exe",          # UltraVNC
                                "vncviewer64.exe",        # UltraVNC
-                              ]
+                               ]
 
     # IME の切り替え“のみをしたい”アプリケーションソフトを指定する
     # （指定できるアプリケーションソフトは、not_emacs_target で（除外）指定したものからのみとなります）
@@ -321,7 +321,7 @@ def configure(keymap):
                                "putty.exe",              # PuTTY
                                "ttermpro.exe",           # TeraTerm
                                "MobaXterm.exe",          # MobaXterm
-                              ]
+                               ]
 
     # キーマップ毎にキー設定をスキップするキーを指定する
     # （リストに指定するキーは、define_key の第二引数に指定する記法のキーとしてください。"A-v" や "C-v"

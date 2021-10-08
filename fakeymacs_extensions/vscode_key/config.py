@@ -14,7 +14,7 @@ except:
     fc.vscode_target += ["chrome.exe",
                          "msedge.exe",
                          "firefox.exe"
-                        ]
+                         ]
 
 try:
     # 設定されているか？
