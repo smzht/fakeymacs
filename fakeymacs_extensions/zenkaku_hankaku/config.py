@@ -51,8 +51,7 @@ if fc.use_emacs_ime_mode:
         # 半角英数字か？（特殊文字は key への変換が難しいので対象外とする）
         if clipboard_text.encode('utf-8').isalnum():
 
-            # 選択されているリージョンを削除し、IME を ON にする
-            self_insert_command("Delete")()
+            # IME を ON にする
             enable_input_method()
 
             # クリックボードに格納されている英数字を一文字ずつ key として入力する
