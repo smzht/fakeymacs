@@ -16,6 +16,12 @@ except:
                          "firefox.exe"
                          ]
 
+# fc.vscode_target に設定しているアプリケーションソフトが fc.not_emacs_target に設定してある場合、
+# それを除外する
+for target in fc.vscode_target:
+    if target in fc.not_emacs_target:
+        fc.vscode_target.remove(target)
+
 try:
     # 設定されているか？
     fc.vscode_prefix_key
