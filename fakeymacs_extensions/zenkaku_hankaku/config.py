@@ -48,7 +48,7 @@ if fc.use_emacs_ime_mode:
             # クリップボードの監視用のフックを有効にする
             keymap.clipboard_history.enableHook(True)
 
-        delay()
+        delay(0.05)
         clipboard_text = getClipboardText()
 
         # 半角英数字か？（特殊文字は key への変換が難しいので対象外とする）
