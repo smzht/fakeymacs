@@ -251,7 +251,7 @@ if 0:
 # --------------------------------------------------------------------------------------------------
 
 # Chrome 系ブラウザで Ctl-x C-b を入力した際、Chrome の拡張機能 Quick Tabs を起動する
-# （github1s を利用する場合、本機能を有効にせずに Quick Tabs を利用すればキー被りが発生しません）
+# （vscode.dev を利用する場合、本機能を有効にせずに Quick Tabs を利用すればキー被りが発生しません）
 if 0:
     fc.quick_tabs_shortcut_key = "A-q"
     exec(readConfigExtension(r"chrome_quick_tabs\config.py"), dict(globals(), **locals()))
