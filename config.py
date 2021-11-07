@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20211007_01"
+fakeymacs_version = "20211108_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -267,7 +267,7 @@ def configure(keymap):
                                "SLES-12.exe",            # WSL
                                "openSUSE-42.exe",        # WSL
                                "openSUSE-Leap-15-1.exe", # WSL
-                               "mstsc.exe",              # Remote Desktop / WSLg
+                               "mstsc.exe",              # Remote Desktop
                                "WindowsTerminal.exe",    # Windows Terminal
                                "mintty.exe",             # mintty
                                "Cmder.exe",              # Cmder
@@ -279,6 +279,7 @@ def configure(keymap):
                                "gvim.exe",               # GVim
                                "xyzzy.exe",              # xyzzy
                                "VirtualBox.exe",         # VirtualBox
+                               "msrdc.exe",              # WSLg
                                "XWin.exe",               # Cygwin/X
                                "XWin_MobaX.exe",         # MobaXterm/X
                                "XWin_MobaX_1.16.3.exe",  # MobaXterm/X
