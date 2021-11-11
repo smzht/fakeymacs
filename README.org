@@ -174,8 +174,8 @@ VSCode については、次の２つの拡張機能により、機能強化を�
 | [[/fakeymacs_extensions/vscode_extensions][vscode_extensions]] | VSCode Extension 用のキーの設定を行う |
 |-------------------+---------------------------------------|
 
-VSCode の Emacs Keymap Extension と比較した本機能の特徴は、以下のページの *<2021/02/23 追記>*
-に記載しています。参考としてください。
+VSCode の Emacs Keymap Extension と比較した本機能の特徴は、次のページの *<2021/02/23 追記>*
+の箇所に記載しています。参考としてください。
 
 - https://w.atwiki.jp/ntemacs/pages/25.html
 
@@ -184,7 +184,7 @@ VSCode の Emacs Keymap Extension と比較した本機能の特徴は、以下�
 ● Microsoft Excel や Word などの Office系アプリを使ってコピー＆ペーストをした際、「Ctrl」と表示
 される「貼り付けオプション」ボタンが表示される場合があります。
 これが Emacsキーバインドで利用している Ctrl キーの押下を検知して、想定外の動きをしてしまうようです。
-今のところ本設定での対策は難しいと思っておりますので、以下のページで紹介している「貼り付けオプション」
+今のところ本設定での対策は難しいと思っておりますので、次のページで紹介している「貼り付けオプション」
 ボタンを消す対応で回避してください。
 
 - http://ciao.aoten.jp/ciao/2015/03/word-54e8.html
