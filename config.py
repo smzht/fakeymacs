@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20211115_01"
+fakeymacs_version = "20211115_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -2099,7 +2099,10 @@ def configure(keymap):
             try:
                 if wnd.isMinimized():
                     wnd.restore()
-                delay() # ウィンドウフォーカスが適切に移動しない場合があることの対策
+
+                # ウィンドウフォーカスが適切に移動しない場合があることの対策
+                self_insert_command("Shift")() # 何かのキーを押下すると良いようだ
+
                 wnd.getLastActivePopup().setForeground()
             except:
                 print("選択したウィンドウは存在しませんでした")
