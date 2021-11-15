@@ -34,6 +34,7 @@ def browser_popup(key, ime_status=0):
         for window in getWindowList():
             if window.getProcessName() in fc.browser_list:
                 popWindow(window)()
+                delay()
                 self_insert_command(key)()
                 keymap.delayedCall(lambda: keymap.getWindow().setImeStatus(ime_status), 100)
                 return
