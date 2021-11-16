@@ -23,12 +23,12 @@ Fn キーを一緒に押す必要があり、その都度思考が中断して�
 
 ※ 主なキーの置き換えは、次のとおりとなります。
 
-|---------------------------+----------------------+-------------------------|
-| keybind                   | Insert key           | Description             |
-|---------------------------+----------------------+-------------------------|
-| C-A-Backspace             | C-A-Delete           |                         |
-| S-Backspace Backspace     | Backquote            |                         |
-| S-Backspace S-Backspace   | S-Backquote（Tilda） |                         |
-| S-Backspace C-Backspace   | C-Backquote          | vscode_key Extension 用 |
-| S-Backspace C-S-Backspace | C-S-Backquote        | vscode_key Extension 用 |
-|---------------------------+----------------------+-------------------------|
+|---------------------------+----------------------+-----------------------------------------------|
+| keybind                   | Insert key           | Description                                   |
+|---------------------------+----------------------+-----------------------------------------------|
+| C-A-Backspace             | C-A-Delete           |                                               |
+| S-Backspace Backspace     | Backquote            |                                               |
+| S-Backspace S-Backspace   | S-Backquote（Tilda） |                                               |
+| S-Backspace C-Backspace   | C-Backquote          | vscode_key Extension 用のキーバインドにも対応 |
+| S-Backspace C-S-Backspace | C-S-Backquote        | vscode_key Extension 用のキーバインドにも対応 |
+|---------------------------+----------------------+-----------------------------------------------|
