@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20211115_02"
+fakeymacs_version = "20211117_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -2037,8 +2037,10 @@ def configure(keymap):
 
         ## 「IME の切り替え」のキー設定
         for disable_key, enable_key in fc.set_input_method_key:
-            define_key(keymap_ei, disable_key, ei_disable_input_method2(keymap_ei_dup, disable_key))
-            define_key(keymap_ei, enable_key,  ei_enable_input_method2(keymap_ei_dup, enable_key))
+            if disable_key:
+                define_key(keymap_ei, disable_key, ei_disable_input_method2(keymap_ei_dup, disable_key))
+            if enable_key:
+                define_key(keymap_ei, enable_key,  ei_enable_input_method2(keymap_ei_dup, enable_key))
 
 
     ###########################################################################
