@@ -260,10 +260,10 @@ if 0:
 
 # Emacs の shell-command-on-region の機能をサポートする
 if 0:
-    fc.linux_tool = "WSL"
-    # fc.linux_tool = "MSYS2"
-    # fc.linux_tool = "Cygwin"
-    # fc.linux_tool = "BusyBox"
+    fc.unix_tool = "WSL"
+    # fc.unix_tool = "MSYS2"
+    # fc.unix_tool = "Cygwin"
+    # fc.unix_tool = "BusyBox"
     # fc.bash_options = []
     fc.bash_options = ["-l"]
     exec(readConfigExtension(r"shell_command_on_region\config.py"), dict(globals(), **locals()))
