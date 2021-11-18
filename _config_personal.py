@@ -216,6 +216,8 @@ fc.lancherList_listers = [
 # VSCode 用のキーの設定を行う
 if 1:
     fc.vscode_target  = ["Code.exe"]
+    # vscode.dev 等、ブラウザで動作する VSCode で本機能を無効とするには、次の３行をコメントアウト
+    # してください
     fc.vscode_target += ["chrome.exe",
                          "msedge.exe",
                          "firefox.exe"
@@ -251,7 +253,8 @@ if 0:
 # --------------------------------------------------------------------------------------------------
 
 # Chrome 系ブラウザで Ctl-x C-b を入力した際、Chrome の拡張機能 Quick Tabs を起動する
-# （vscode.dev を利用する場合、本機能を有効にせずに Quick Tabs を利用すればキー被りが発生しません）
+# （vscode_key Extension で vscode_target に Chrome 系ブラウザを指定している場合、
+#   そちらのキー設定が優先されます）
 if 0:
     fc.quick_tabs_shortcut_key = "A-q"
     exec(readConfigExtension(r"chrome_quick_tabs\config.py"), dict(globals(), **locals()))
