@@ -17,19 +17,26 @@ try:
     # 設定されているか？
     fc.browser_key1
 except:
-    # アドレスバーに移動するキーを指定する
+    # アドレスバーに移動するキーを指定する（IME は OFF）
     fc.browser_key1 = "C-A-l"
 
 try:
     # 設定されているか？
     fc.browser_key2
 except:
-    # 新しいタブを開いてそのタブのアドレスバーに移動するキーを指定する
+    # 新しいタブを開いてそのタブのアドレスバーに移動するキーを指定する（IME は OFF）
     fc.browser_key2 = "C-A-t"
 
-# ブラウザをポップアップしてから指定したキーを実行する。また、IME を OFF にする。
+try:
+    # 設定されているか？
+    fc.browser_key3
+except:
+    # アドレスバーに移動するキーを指定する（IME は ON）
+    fc.browser_key3 = "C-A-i"
 
-def browser_popup(key, ime_status=0):
+# ブラウザをポップアップしてから指定したキーを実行する。
+
+def browser_popup(key, ime_status):
     def _func():
         for window in getWindowList():
             if window.getProcessName() in fc.browser_list:
@@ -45,5 +52,6 @@ def browser_popup(key, ime_status=0):
 
     return _func
 
-define_key(keymap_global, fc.browser_key1, browser_popup("C-l"))
-define_key(keymap_global, fc.browser_key2, browser_popup("C-t"))
+define_key(keymap_global, fc.browser_key1, browser_popup("C-l", 0))
+define_key(keymap_global, fc.browser_key2, browser_popup("C-t", 0))
+define_key(keymap_global, fc.browser_key3, browser_popup("C-l", 1))
