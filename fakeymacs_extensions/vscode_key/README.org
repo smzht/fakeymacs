@@ -177,7 +177,7 @@ keyboard_quit（C-A-g）を利用してください。（esc_mode_in_keyboard_qu
 | C-<半角/全角>   | toggle_terminal | Terminal: Create New Integrated Terminal | JIS Keyboard の場合 |
 |-----------------+-----------------+------------------------------------------+---------------------|
 
-※ C-@ は、use_ctrl_atmark_for_mark が False の場合に機能します。
+※ C-@ は、use_ctrl_atmark_for_mark 変数が False の場合に機能します。
 
 ※ use_direct_input_in_vscode_terminal 変数を True にしている場合には、上記のいずれかのキーを押下して
 ターミナルに移行することで、４つのキー（C-k、C-r、C-s、C-y）のダイレクト入力ができるようになります。
