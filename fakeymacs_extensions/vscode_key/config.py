@@ -13,7 +13,7 @@ except:
     fc.vscode_target  = ["Code.exe"]
     fc.vscode_target += ["chrome.exe",
                          "msedge.exe",
-                         "firefox.exe"
+                         "firefox.exe",
                          ]
 
 # fc.vscode_target に設定しているアプリケーションソフトが fc.not_emacs_target に設定してある場合、
