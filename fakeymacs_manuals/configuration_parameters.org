@@ -46,6 +46,7 @@ Fakeymacs をカスタマイズするために、下記のコンフィグレー�
 | window_switching_key                   | アクティブウィンドウを切り替えるキーの組み合わせ（前、後 の順）を指定する                                                 |
 | window_movement_key_for_displays       | アクティブウィンドウをディスプレイ間で移動するキーの組み合わせ（前、後 の順）を指定する                                   |
 | window_minimize_key                    | ウィンドウを最小化、リストアするキーの組み合わせ（リストア、最小化 の順）を指定する                                       |
+| reverse_window_to_restore              | ウィンドウのリストアが最小化した順番の逆順とならない場合の対策を行うかを指定する（True: 対策有、False: 対策無）           |
 | desktop_switching_key                  | 仮想デスクトップを切り替えるキーの組み合わせ（前、後 の順）を指定する                                                     |
 | window_movement_key_for_desktops       | アクティブウィンドウを仮想デスクトップ間で移動するキーの組み合わせ（前、後 の順）を指定する                               |
 | window_operation_exclusion_class       | ウィンドウ操作（other_window、restore_window など）の対象としたくないアプリケーションソフトの“クラス名称”を指定する     |

@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20211117_01"
+fakeymacs_version = "20211203_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -567,6 +567,10 @@ def configure(keymap):
     # ウィンドウを最小化、リストアするキーの組み合わせ（リストア、最小化 の順）を指定する（複数指定可）
     fc.window_minimize_key = []
     fc.window_minimize_key += [["A-S-m", "A-m"]]
+
+    # ウィンドウのリストアが最小化した順番の逆順とならない場合の対策を行うかを指定する
+    # （True: 対策有、False: 対策無）
+    fc.reverse_window_to_restore = False
 
     # 仮想デスクトップを切り替えるキーの組み合わせ（前、後 の順）を指定する（複数指定可）
     # （仮想デスクトップを切り替えた際にフォーカスのあるウィンドウを適切に処理するため、設定するキーは
@@ -2163,9 +2167,8 @@ def configure(keymap):
     def restore_window():
         window_list = getWindowList()
 
-        # ウィンドウのリストアが最小化した順番の逆順にならないときは次の行を無効化
-        # （コメント化）してください
-        window_list.reverse()
+        if fc.reverse_window_to_restore:
+            window_list.reverse()
 
         for wnd in window_list:
             if wnd.isMinimized():
