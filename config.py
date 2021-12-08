@@ -9,10 +9,6 @@ fakeymacs_version = "20211204_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
-# スクリプトですので、使いやすいようにカスタマイズしてご利用ください。
-#
-# この内容は、utf-8-with-signature-dos の coding-system で config.py の名前でセーブして
-# 利用してください。
 #
 # 本設定を利用するための仕様は、以下を参照してください。
 #
