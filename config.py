@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20211212_01"
+fakeymacs_version = "20211212_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1141,6 +1141,9 @@ def configure(keymap):
     ## その他
     ##################################################
 
+    def escape():
+        self_insert_command("Esc")()
+
     def space():
         self_insert_command("Space")()
         if fc.use_emacs_ime_mode:
@@ -1173,7 +1176,7 @@ def configure(keymap):
                     checkWindow("powershell.exe", "ConsoleWindowClass") or # PowerShell
                     checkWindow("EXCEL.EXE", "EXCEL*") or                  # Microsoft Excel
                     checkWindow("Evernote.exe", "WebViewHost")):           # Evernote
-                self_insert_command("Esc")()
+                escape()
 
         keymap.command_RecordStop()
 
@@ -1678,11 +1681,11 @@ def configure(keymap):
                         define_key(keymap_emacs, "C-q " + mkey, self_insert_command(mkey))
 
     ## Escキーの設定
-    define_key(keymap_emacs, "C-OpenBracket C-OpenBracket", reset_undo(reset_counter(self_insert_command("Esc"))))
+    define_key(keymap_emacs, "C-OpenBracket C-OpenBracket", reset_undo(reset_counter(escape)))
     if fc.use_esc_as_meta:
-        define_key(keymap_emacs, "Esc Esc", reset_undo(reset_counter(self_insert_command("Esc"))))
+        define_key(keymap_emacs, "Esc Esc", reset_undo(reset_counter(escape)))
     else:
-        define_key(keymap_emacs, "Esc", reset_undo(reset_counter(self_insert_command("Esc"))))
+        define_key(keymap_emacs, "Esc", reset_undo(reset_counter(escape)))
 
     ## universal-argumentキーの設定
     define_key(keymap_emacs, "C-u", universal_argument)
@@ -1946,7 +1949,7 @@ def configure(keymap):
         ##################################################
 
         def ei_esc():
-            self_insert_command("Esc")()
+            escape()
 
         def ei_newline():
             self_insert_command("Enter")()
@@ -1954,7 +1957,7 @@ def configure(keymap):
             disable_emacs_ime_mode()
 
         def ei_keyboard_quit():
-            self_insert_command("Esc")()
+            escape()
             disable_emacs_ime_mode()
 
         ##################################################
@@ -2255,7 +2258,7 @@ def configure(keymap):
     define_key(keymap_tsw, "C-p", previous_line)
     define_key(keymap_tsw, "C-n", next_line)
     define_key(keymap_tsw, "C-d", delete_char)
-    define_key(keymap_tsw, "C-g", self_insert_command("Esc"))
+    define_key(keymap_tsw, "C-g", escape)
 
 
     ###########################################################################
@@ -2310,7 +2313,7 @@ def configure(keymap):
     ##################################################
 
     def lw_keyboard_quit():
-        self_insert_command("Esc")()
+        escape()
 
     ##################################################
     ## 共通関数（リストウィンドウ用）
@@ -2340,8 +2343,8 @@ def configure(keymap):
     ##################################################
 
     ## Escキーの設定
-    define_key(keymap_lw, "Esc",           lw_reset_search(self_insert_command("Esc")))
-    define_key(keymap_lw, "C-OpenBracket", lw_reset_search(self_insert_command("Esc")))
+    define_key(keymap_lw, "Esc",           lw_reset_search(escape))
+    define_key(keymap_lw, "C-OpenBracket", lw_reset_search(escape))
 
     ## 「カーソル移動」のキー設定
     define_key(keymap_lw, "C-b", backward_char)
