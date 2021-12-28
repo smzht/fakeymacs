@@ -1410,7 +1410,7 @@ def configure(keymap):
             if len(key_list) == 1:
                 window_keymap[key_list[0]] = keyCommand(key_list[0])
 
-                # Alt キーを単押しした際に、カーソルがメニューへ移動しないようにする
+                # Alt キーを単押しした際に、カーソルがメニューへ移動しないようにするための対策
                 # （https://www.haijin-boys.com/discussions/4583）
                 if re.match(r"O-LAlt$", key_list[0], re.IGNORECASE):
                     window_keymap["D-LAlt"] = "D-LAlt", "(255)"
@@ -1418,6 +1418,8 @@ def configure(keymap):
                 elif re.match(r"O-RAlt$", key_list[0], re.IGNORECASE):
                     window_keymap["D-RAlt"] = "D-RAlt", "(255)"
 
+                # Microsoft Word 等で Ctrl に反応してサブウインドウが開き、そのサブウインドウに
+                # カーソルが移動するのを抑制するための対策
                 if fc.side_of_ctrl_key == "L":
                     window_keymap["D-LCtrl"] = "D-LCtrl", "(255)"
 
@@ -1476,6 +1478,8 @@ def configure(keymap):
         func = keymap.InputKeyCommand(*list(map(addSideOfModifierKey, keys)))
         def _func():
             func()
+            # Microsoft Word 等で Ctrl に反応してサブウインドウが開き、そのサブウインドウに
+            # カーソルが移動するのを抑制するための対策
             pyauto.Input.send([pyauto.Key(strToVk("(255)"))])
             fakeymacs.ime_cancel = False
         return _func
