@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20211228_03"
+fakeymacs_version = "20211229_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1480,7 +1480,8 @@ def configure(keymap):
             func()
             # Microsoft Word 等で Ctrl に反応してサブウインドウが開き、そのサブウインドウに
             # カーソルが移動するのを抑制するための対策
-            pyauto.Input.send([pyauto.Key(strToVk("(255)"))])
+            if keyhac_keymap.checkModifier(keymap.modifier, MODKEY_CTRL):
+                pyauto.Input.send([pyauto.Key(strToVk("(255)"))])
             fakeymacs.ime_cancel = False
         return _func
 
