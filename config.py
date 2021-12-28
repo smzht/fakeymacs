@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20211228_01"
+fakeymacs_version = "20211228_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -138,6 +138,7 @@ import copy
 import types
 import datetime
 import ctypes
+import pyauto
 
 import keyhac_keymap
 from keyhac import *
@@ -1416,6 +1417,12 @@ def configure(keymap):
 
                 elif re.match(r"O-RAlt$", key_list[0], re.IGNORECASE):
                     window_keymap["D-RAlt"] = "D-RAlt", "(255)"
+
+                if fc.side_of_ctrl_key == "L":
+                    window_keymap["D-LCtrl"] = "D-LCtrl", "(255)"
+
+                elif fc.side_of_ctrl_key == "R":
+                    window_keymap["D-RCtrl"] = "D-RCtrl", "(255)"
             else:
                 w_keymap = window_keymap
                 for key in key_list[:-1]:
@@ -1469,6 +1476,7 @@ def configure(keymap):
         func = keymap.InputKeyCommand(*list(map(addSideOfModifierKey, keys)))
         def _func():
             func()
+            pyauto.Input.send([pyauto.Key(strToVk("(255)"))])
             fakeymacs.ime_cancel = False
         return _func
 
