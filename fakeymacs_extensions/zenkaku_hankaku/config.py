@@ -60,7 +60,7 @@ if fc.use_emacs_ime_mode:
 
             # クリックボードに格納されている英数字を一文字ずつ key として入力する
             for key in clipboard_text:
-                keymap.InputKeyCommand(key)()
+                self_insert_command(key)()
 
             # Emacs日本語入力モードを ON にする
             enable_emacs_ime_mode()
