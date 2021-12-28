@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20211212_02"
+fakeymacs_version = "20211228_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1411,11 +1411,11 @@ def configure(keymap):
 
                 # Alt キーを単押しした際に、カーソルがメニューへ移動しないようにする
                 # （https://www.haijin-boys.com/discussions/4583）
-                if key_list[0] == "O-LAlt":
-                    window_keymap["D-LAlt"] = "D-LAlt", "(7)"
+                if re.match(r"O-LAlt$", key_list[0], re.IGNORECASE):
+                    window_keymap["D-LAlt"] = "D-LAlt", "(255)"
 
-                elif key_list[0] == "O-RAlt":
-                    window_keymap["D-RAlt"] = "D-RAlt", "(7)"
+                elif re.match(r"O-RAlt$", key_list[0], re.IGNORECASE):
+                    window_keymap["D-RAlt"] = "D-RAlt", "(255)"
             else:
                 w_keymap = window_keymap
                 for key in key_list[:-1]:
