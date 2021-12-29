@@ -73,6 +73,9 @@ not_emacs_target に登録されているアプリケーションソフトで有
 | reconversion_key の設定値           | reconversion         | 初期値：C-t            |
 |-------------------------------------+----------------------+------------------------|
 
+※ <Ａ> キーと <あ> キーは、Microsoft の新しい日本語キーボードレイアウトに存在するキーとなります。
+- https://docs.microsoft.com/ja-jp/windows-hardware/design/component-guidelines/keyboard-japan-ime
+
 ※ reconversion は IME の再変換を行う機能です。以下の仕様で動作します。
 - 日本語入力確定後に C-t を押すと、「確定取り消し」として機能します。（Windows 10 May 2020 Update の新しい Microsoft IME では「確定取り消し」のキー設定が見つからないので、「再変換」が機能するようにしています。）
 - 文字列の選択（リージョンの設定）をして C-t を押すと、「再変換」が機能します。
