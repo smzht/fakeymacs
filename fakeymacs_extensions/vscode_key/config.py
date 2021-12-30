@@ -74,7 +74,8 @@ fakeymacs_vscode.post_processing = None
 
 def is_vscode_target(window):
     if (window.getProcessName() in fc.vscode_target and
-        window.getClassName() == "Chrome_WidgetWin_1"):
+        window.getClassName() == "Chrome_WidgetWin_1" and
+        fakeymacs.keybind == "emacs"):
         return True
     else:
         return False
