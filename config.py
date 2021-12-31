@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20211229_01"
+fakeymacs_version = "20220101_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1398,7 +1398,7 @@ def configure(keymap):
                     def _command():
                         fakeymacs.update_last_keys = True
                         if ckey in fakeymacs.exclution_key:
-                            keymap.InputKeyCommand(key)()
+                            InputKeyCommand(key)()
                         else:
                             command()
                         if fakeymacs.update_last_keys:
@@ -1463,7 +1463,7 @@ def configure(keymap):
         if func is None:
             key_list = kbd(keys)[0]
             if len(key_list) == 1:
-                func = keymap.InputKeyCommand(key_list[0])
+                func = InputKeyCommand(key_list[0])
             else:
                 func = lambda: None
 
@@ -1474,14 +1474,19 @@ def configure(keymap):
                 func()
         return _func
 
-    def self_insert_command(*keys):
-        func = keymap.InputKeyCommand(*list(map(addSideOfModifierKey, keys)))
+    def InputKeyCommand(*keys):
         def _func():
-            func()
+            keymap.InputKeyCommand(*keys)()
             # Microsoft Word 等で Ctrl に反応してサブウインドウが開き、そのサブウインドウに
             # カーソルが移動するのを抑制するための対策
             if keyhac_keymap.checkModifier(keymap.modifier, MODKEY_CTRL):
                 pyauto.Input.send([pyauto.Key(strToVk("(255)"))])
+        return _func
+
+    def self_insert_command(*keys):
+        func = InputKeyCommand(*list(map(addSideOfModifierKey, keys)))
+        def _func():
+            func()
             fakeymacs.ime_cancel = False
         return _func
 

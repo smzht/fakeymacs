@@ -178,9 +178,33 @@ def makeKeyCommand(window_keymap, keys, command, check_func):
 
 - キーに定義されている関数に新しいコマンドを分岐実行させる新たな関数
 
-*** ■ self_insert_command
+*** ■ InputKeyCommand
 
 キーを入力する関数を返す
+（Microsoft Word 等で Ctrl に反応してサブウインドウが開き、そのサブウインドウに
+カーソルが移動するのを抑制する対策がされた keymap.InputKeyCommand 関数を返す）
+
+**** Function
+
+#+BEGIN_EXAMPLE
+def InputKeyCommand(*keys):
+#+END_EXAMPLE
+
+**** Parameters
+
+|-----------+------------------------------------------------------------|
+| Parameter | Description                                                |
+|-----------+------------------------------------------------------------|
+| *keys     | 入力するキーの羅列（キー文字列をカンマで区切って指定する） |
+|-----------+------------------------------------------------------------|
+
+**** Returns
+
+- 引数で指定したキーを入力する関数
+
+*** ■ self_insert_command
+
+キーを入力する関数を返す（InputKeyCommand の上位関数）
 
 **** Function
 
