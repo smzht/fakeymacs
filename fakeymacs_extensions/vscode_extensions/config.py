@@ -46,6 +46,13 @@ except:
     # Insert Numbers を利用するかどうかを指定する
     fc.vscode_insert_numbers = False
 
+try:
+    # 設定されているか？
+    fc.vscode_keyboard_macro
+except:
+    # Keyboard Macro Beta を利用するかどうかを指定する
+    fc.vscode_keyboard_macro = False
+
 # --------------------------------------------------------------------------------------------------
 
 if fc.vscode_dired:
@@ -134,5 +141,27 @@ if fc.vscode_insert_numbers:
         self_insert_command3("C-A-n")()
 
     define_key(keymap_vscode, "C-A-k n", reset_rect(insert_numbers))
+
+# --------------------------------------------------------------------------------------------------
+
+if fc.vscode_keyboard_macro:
+    def keyboard_macro_start():
+        self_insert_command("C-A-r")()
+
+    def keyboard_macro_stop():
+        self_insert_command("C-A-r")()
+
+    def keyboard_macro_play():
+        self_insert_command("C-A-p")()
+        delay()
+
+    if is_japanese_keyboard:
+        define_key(keymap_vscode, "Ctl-x S-8", keyboard_macro_start)
+        define_key(keymap_vscode, "Ctl-x S-9", keyboard_macro_stop)
+    else:
+        define_key(keymap_vscode, "Ctl-x S-9", keyboard_macro_start)
+        define_key(keymap_vscode, "Ctl-x S-0", keyboard_macro_stop)
+
+    define_key(keymap_vscode, "Ctl-x e", reset_search(reset_undo(reset_counter(repeat(keyboard_macro_play)))))
 
 # --------------------------------------------------------------------------------------------------
