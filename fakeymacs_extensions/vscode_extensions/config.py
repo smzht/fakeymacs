@@ -152,8 +152,11 @@ if fc.vscode_keyboard_macro:
         self_insert_command("C-A-r")()
 
     def keyboard_macro_play():
-        self_insert_command("C-A-p")()
-        delay()
+        def playMacro():
+            self_insert_command("C-A-p")()
+            delay(0.1)
+
+        keymap.delayedCall(playMacro, 0)
 
     if is_japanese_keyboard:
         define_key(keymap_vscode, "Ctl-x S-8", keyboard_macro_start)
