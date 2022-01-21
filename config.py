@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220121_01"
+fakeymacs_version = "20220121_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -617,6 +617,15 @@ def configure(keymap):
     #   ください。）
     fc.is_newline_selectable_in_Excel = False
 
+    # Ctrl キー単押しで開く Ctrl ボタンを持つアプリケーションソフトのリストを指定する
+    # （Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrl キーの単押しにより
+    #   サブウインドウが開く機能がある。その挙動を抑制するアプリケーションソフトの
+    #   リストを指定してください。）
+    fc.ctrl_button_app_list = [["WINWORD.EXE",  "_WwG"],
+                               ["EXCEL.EXE",    "EXCEL*"],
+                               ["POWERPNT.EXE", "mdiClass"],
+                               ]
+
     # 個人設定ファイルのセクション [section-base-1] を読み込んで実行する
     exec(readConfigPersonal("[section-base-1]"), dict(globals(), **locals()))
 
@@ -660,6 +669,12 @@ def configure(keymap):
                         fakeymacs.correct_ime_status = True
                     else:
                         fakeymacs.correct_ime_status = False
+
+            fakeymacs.ctrl_button_app = False
+            for apps in fc.ctrl_button_app_list:
+                if checkWindow(*apps):
+                    fakeymacs.ctrl_button_app = True
+                    break
 
             reset_undo(reset_counter(reset_mark(lambda: None)))()
             fakeymacs.ime_cancel = False
@@ -1477,12 +1492,14 @@ def configure(keymap):
     def InputKeyCommand(*keys):
         def _func():
             keymap.InputKeyCommand(*keys)()
-            # Microsoft Word 等で Ctrl に反応してサブウインドウが開き、そのサブウインドウに
-            # カーソルが移動するのを抑制するための対策
-            if keyhac_keymap.checkModifier(keymap.modifier, MODKEY_CTRL):
-                if not re.search(r"C-", keys[-1]):
-                    delay()
-                    pyauto.Input.send([pyauto.Key(strToVk("(255)"))])
+
+            # Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrl キーの単押しにより
+            # サブウインドウが開く機能がある。その挙動を抑制するための対策。
+            if fakeymacs.ctrl_button_app:
+                if keyhac_keymap.checkModifier(keymap.modifier, MODKEY_CTRL):
+                    if not re.search(r"C-", keys[-1]):
+                        delay() # issue #19 の対策
+                        pyauto.Input.send([pyauto.Key(strToVk("(255)"))])
         return _func
 
     def self_insert_command(*keys):
