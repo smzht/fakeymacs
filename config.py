@@ -619,7 +619,7 @@ def configure(keymap):
 
     # Ctrl キー単押しで開く Ctrl ボタンを持つアプリケーションソフトのリストを指定する
     # （Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrl キーの単押しにより
-    #   サブウインドウが開く機能がある。その挙動を抑制するアプリケーションソフトの
+    #   サブウインドウが開く機能があります。その挙動を抑制するアプリケーションソフトの
     #   リストを指定してください。）
     fc.ctrl_button_app_list = [["WINWORD.EXE",  "_WwG"],
                                ["EXCEL.EXE",    "EXCEL*"],
@@ -712,8 +712,8 @@ def configure(keymap):
         keymap_emacs = keymap.defineWindowKeymap(check_func=is_emacs_target)
         keymap_ime   = keymap.defineWindowKeymap(check_func=is_ime_target)
 
-    # Microsoft Word 等で Ctrl に反応してサブウインドウが開き、そのサブウインドウに
-    # カーソルが移動するのを抑制するための対策
+    # Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrl キーの単押しによりサブウインドウが
+    # 開く機能がある。その挙動を抑制するための対策。
     if fc.side_of_ctrl_key == "L":
         keymap_emacs["D-LCtrl"] = "D-LCtrl", "(255)"
 
@@ -1494,8 +1494,8 @@ def configure(keymap):
         def _func():
             keymap.InputKeyCommand(*keys)()
 
-            # Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrl キーの単押しにより
-            # サブウインドウが開く機能がある。その挙動を抑制するための対策。
+            # Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrl キーの単押しによりサブウインドウが
+            # 開く機能がある。その挙動を抑制するための対策。
             if fakeymacs.ctrl_button_app:
                 if keyhac_keymap.checkModifier(keymap.modifier, MODKEY_CTRL):
                     if not re.search(r"C-", keys[-1]):
@@ -1921,8 +1921,8 @@ def configure(keymap):
 
         keymap_ei = keymap.defineWindowKeymap(check_func=is_emacs_ime_mode2)
 
-        # Microsoft Word 等で Ctrl に反応してサブウインドウが開き、そのサブウインドウに
-        # カーソルが移動するのを抑制するための対策
+        # Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrl キーの単押しによりサブウインドウが
+        # 開く機能がある。その挙動を抑制するための対策。
         if fc.side_of_ctrl_key == "L":
             keymap_ei["D-LCtrl"] = "D-LCtrl", "(255)"
 
