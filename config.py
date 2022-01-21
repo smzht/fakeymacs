@@ -671,8 +671,8 @@ def configure(keymap):
                         fakeymacs.correct_ime_status = False
 
             fakeymacs.ctrl_button_app = False
-            for apps in fc.ctrl_button_app_list:
-                if checkWindow(*apps):
+            for app in fc.ctrl_button_app_list:
+                if checkWindow(*app):
                     fakeymacs.ctrl_button_app = True
                     break
 
