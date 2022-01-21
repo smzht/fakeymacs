@@ -617,8 +617,8 @@ def configure(keymap):
     #   ください。）
     fc.is_newline_selectable_in_Excel = False
 
-    # Ctrl キー単押しで開く Ctrl ボタンを持つアプリケーションソフト（プロセス名とクラス名の組み合わせ
-    # （ワイルドカード指定可））を指定する
+    # Ctrl キー単押しで開く Ctrl ボタンを持つアプリケーションソフト（プロセス名称とクラス名称の
+    # 組み合わせ（ワイルドカード指定可））を指定する
     # （Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrl キーの単押しによりサブウインドウが
     #   開く機能があります。その挙動を抑制するアプリケーションソフトのリストを指定してください。）
     fc.ctrl_button_app_list = [["WINWORD.EXE",  "_WwG"],
