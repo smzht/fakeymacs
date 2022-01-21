@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220121_02"
+fakeymacs_version = "20220121_03"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1198,7 +1198,7 @@ def configure(keymap):
             # Esc を発行して問題ないアプリケーションソフトには Esc を発行する
             if not (checkWindow("cmd.exe", "ConsoleWindowClass") or        # Cmd
                     checkWindow("powershell.exe", "ConsoleWindowClass") or # PowerShell
-                    checkWindow("EXCEL.EXE", "EXCEL*") or                  # Microsoft Excel
+                    checkWindow("EXCEL.EXE", "EXCEL*", "") or              # Microsoft Excel
                     checkWindow("Evernote.exe", "WebViewHost")):           # Evernote
                 escape()
 
@@ -1276,7 +1276,8 @@ def configure(keymap):
                 else:
                     self_insert_command("Left")()
 
-            elif checkWindow("cmd.exe", "ConsoleWindowClass"): # Cmd
+            elif (checkWindow("cmd.exe", "ConsoleWindowClass") or # Cmd
+                  checkWindow("EXCEL.EXE", "EXCEL*", "?*")):      # Excel のセル編集でない場合
                 # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
                 if fakeymacs.forward_direction:
                     self_insert_command("Right", "Left")()
