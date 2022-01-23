@@ -1198,7 +1198,7 @@ def configure(keymap):
             # Esc を発行して問題ないアプリケーションソフトには Esc を発行する
             if not (checkWindow("cmd.exe", "ConsoleWindowClass") or        # Cmd
                     checkWindow("powershell.exe", "ConsoleWindowClass") or # PowerShell
-                    checkWindow("EXCEL.EXE", "EXCEL*", "") or              # Microsoft Excel
+                    checkWindow("EXCEL.EXE", "EXCEL*", "") or              # Microsoft Excel のセル編集
                     checkWindow("Evernote.exe", "WebViewHost")):           # Evernote
                 escape()
 
@@ -1277,7 +1277,7 @@ def configure(keymap):
                     self_insert_command("Left")()
 
             elif (checkWindow("cmd.exe", "ConsoleWindowClass") or # Cmd
-                  checkWindow("EXCEL.EXE", "EXCEL*", "?*")):      # Excel のセル編集でない場合
+                  checkWindow("EXCEL.EXE", "EXCEL*", "?*")):      # Microsoft Excel のセル編集でない場合
                 # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
                 if fakeymacs.forward_direction:
                     self_insert_command("Right", "Left")()
