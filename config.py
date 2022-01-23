@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220121_03"
+fakeymacs_version = "20220124_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1499,7 +1499,7 @@ def configure(keymap):
             if fakeymacs.ctrl_button_app:
                 if keyhac_keymap.checkModifier(keymap.modifier, MODKEY_CTRL):
                     if not re.search(r"C-", keys[-1]):
-                        delay() # issue #19 の対策
+                        delay(0.01) # issue #19 の対策
                         pyauto.Input.send([pyauto.Key(strToVk("(255)"))])
         return _func
 
