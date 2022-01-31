@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220131_01"
+fakeymacs_version = "20220131_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1054,6 +1054,46 @@ def configure(keymap):
         mark_whole_buffer()
 
     ##################################################
+    ## テキストの入れ替え
+    ##################################################
+
+    def transpose_chars():
+        if checkWindow("EXCEL.EXE", "EXCEL*", "?*"): # Microsoft Excel のセル編集でない場合
+            return
+
+        if fakeymacs.clipboard_hook:
+            # クリップボードの監視用のフックを無効にする
+            keymap.clipboard_history.enableHook(False)
+
+        setClipboardText("")
+        mark2(forward_char, True)()
+        self_insert_command("C-c")()
+        delay(0.05)
+
+        clipboard_text = getClipboardText()
+
+        if len(clipboard_text) != 1:
+            if clipboard_text == "\r\n":
+                backward_char()
+
+            setClipboardText("")
+            mark2(backward_char, False)()
+            self_insert_command("C-c")()
+            delay(0.05)
+
+            clipboard_text = getClipboardText()
+
+        if len(clipboard_text):
+            self_insert_command("Delete")()
+            backward_char()
+            yank()
+            forward_char()
+
+        if fakeymacs.clipboard_hook:
+            # クリップボードの監視用のフックを有効にする
+            keymap.clipboard_history.enableHook(True)
+
+    ##################################################
     ## バッファ / ウィンドウ操作
     ##################################################
 
@@ -1815,6 +1855,9 @@ def configure(keymap):
     define_key(keymap_emacs, "C-Space",   reset_search(reset_undo(reset_counter(set_mark_command))))
     define_key(keymap_emacs, "Ctl-x h",   reset_search(reset_undo(reset_counter(mark_whole_buffer))))
     define_key(keymap_emacs, "Ctl-x C-p", reset_search(reset_undo(reset_counter(mark_page))))
+
+    ## 「テキストの入れ替え」のキー設定
+    define_key(keymap_emacs, "C-t", reset_search(reset_undo(reset_counter(reset_mark(transpose_chars)))))
 
     ## 「バッファ / ウィンドウ操作」のキー設定
     define_key(keymap_emacs, "M-k",     reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
