@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220124_01"
+fakeymacs_version = "20220131_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -429,8 +429,8 @@ def configure(keymap):
     ## （Google日本語入力を利用する場合、Ctrl キーと組み合わせたキーを設定してください。「確定取り消し」
     ##   が正常に動作しないアプリケーションソフト（Microsoft Excel、Sakura Editor など）があります。
     ##   ただし、C-Back キーは設定しないでください。）
+    ## （リージョンを選択した状態で Space キーを押下すると「再変換」が機能します）
     fc.reconversion_key = []
-    fc.reconversion_key += ["C-t"]
     # fc.reconversion_key += ["(28)"]   # <変換> キーを利用する場合でも、本機能を全て使うためには設定が必要
     # fc.reconversion_key += ["O-RAlt"] # ワンショットモディファイアの指定も可能
 
@@ -445,8 +445,6 @@ def configure(keymap):
         fc.ime_reconv_key = "W-Slash" # 「再変換」キー
         fc.ime_cancel_key = "C-Back"  # 「確定の取り消し」キー
         fc.ime_reconv_region = False  # 「再変換」の時にリージョンの選択が必要かどうかを指定する
-        fc.ime_reconv_space  = False  # リージョンを選択した状態で Space キーを押下した際、「再変換」が働くか
-                                      # どうかを指定する
 
     ## Windows 10 2004 以降の 新しい Microsoft IME の場合
     ## （新しい Microsoft IME には確定取り消し（C-Backspace）の設定が無いようなので、「再変換」のキー
@@ -455,16 +453,12 @@ def configure(keymap):
         fc.ime_reconv_key = "W-Slash" # 「再変換」キー
         fc.ime_cancel_key = "W-Slash" # 「確定の取り消し」キー
         fc.ime_reconv_region = False  # 「再変換」の時にリージョンの選択が必要かどうかを指定する
-        fc.ime_reconv_space  = True   # リージョンを選択した状態で Space キーを押下した際、「再変換」が働くか
-                                      # どうかを指定する
 
     ## Google日本語入力の場合
     elif fc.ime == "Google_IME":
         fc.ime_reconv_key = "W-Slash" # 「再変換」キー
         fc.ime_cancel_key = "C-Back"  # 「確定の取り消し」キー
         fc.ime_reconv_region = True   # 「再変換」の時にリージョンの選択が必要かどうかを指定する
-        fc.ime_reconv_space  = False  # リージョンを選択した状態で Space キーを押下した際、「再変換」が働くか
-                                      # どうかを指定する
 
     ## 上記以外の場合の場合（機能を無効にする）
     else:
@@ -472,7 +466,6 @@ def configure(keymap):
         fc.ime_reconv_key = None
         fc.ime_cancel_key = None
         fc.ime_reconv_region = False
-        fc.ime_reconv_space  = False
     #---------------------------------------------------------------------------------------------------
 
     #---------------------------------------------------------------------------------------------------
@@ -1169,12 +1162,10 @@ def configure(keymap):
         self_insert_command("Esc")()
 
     def space():
-        self_insert_command("Space")()
-        if fc.use_emacs_ime_mode:
-            if fc.ime_reconv_space:
-                if keymap.getWindow().getImeStatus():
-                    if fakeymacs.forward_direction is not None:
-                        enable_emacs_ime_mode()
+        if fakeymacs.forward_direction is not None:
+            reconversion(fc.ime_reconv_key, fc.ime_cancel_key)()
+        else:
+            self_insert_command("Space")()
 
     def newline():
         self_insert_command("Enter")()
