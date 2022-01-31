@@ -1198,10 +1198,10 @@ def configure(keymap):
         self_insert_command("Esc")()
 
     def space():
-        if fakeymacs.forward_direction is not None:
-            reconversion(fc.ime_reconv_key, fc.ime_cancel_key)()
-        else:
+        if fakeymacs.forward_direction is None:
             self_insert_command("Space")()
+        else:
+            reconversion(fc.ime_reconv_key, fc.ime_cancel_key)()
 
     def newline():
         self_insert_command("Enter")()
