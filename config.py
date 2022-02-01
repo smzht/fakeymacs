@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220201_01"
+fakeymacs_version = "20220201_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -826,23 +826,21 @@ def configure(keymap):
                     except:
                         pass
 
-    def reconversion(reconv_key, cancel_key):
-        def _func():
-            if fakeymacs.ime_cancel:
-                self_insert_command(cancel_key)()
-                if fc.use_emacs_ime_mode:
-                    enable_emacs_ime_mode(100)
-            else:
-                if fc.ime_reconv_region:
-                    if fakeymacs.forward_direction is not None:
-                        self_insert_command(reconv_key)()
-                        if fc.use_emacs_ime_mode:
-                            enable_emacs_ime_mode()
-                else:
-                    self_insert_command(reconv_key)()
+    def reconversion():
+        if fakeymacs.ime_cancel:
+            self_insert_command(fc.ime_cancel_key)()
+            if fc.use_emacs_ime_mode:
+                enable_emacs_ime_mode(100)
+        else:
+            if fc.ime_reconv_region:
+                if fakeymacs.forward_direction is not None:
+                    self_insert_command(fc.ime_reconv_key)()
                     if fc.use_emacs_ime_mode:
                         enable_emacs_ime_mode()
-        return _func
+            else:
+                self_insert_command(reconv_key)()
+                if fc.use_emacs_ime_mode:
+                    enable_emacs_ime_mode()
 
     ##################################################
     ## ファイル操作
@@ -1205,7 +1203,7 @@ def configure(keymap):
         if fakeymacs.forward_direction is None:
             self_insert_command("Space")()
         else:
-            reconversion(fc.ime_reconv_key, fc.ime_cancel_key)()
+            reconversion()
 
     def newline():
         self_insert_command("Enter")()
@@ -1930,7 +1928,7 @@ def configure(keymap):
                 pass
 
         for key in fc.reconversion_key:
-            define_key(keymap_emacs, key, reset_undo(reset_counter(reset_mark(reconversion(fc.ime_reconv_key, fc.ime_cancel_key)))))
+            define_key(keymap_emacs, key, reset_undo(reset_counter(reset_mark(reconversion))))
 
 
     ###########################################################################
