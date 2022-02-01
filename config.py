@@ -431,7 +431,7 @@ def configure(keymap):
     ##   ただし、C-Back キーは設定しないでください。）
     ## （リージョンを選択した状態で Space キーを押下すると「再変換」が機能します）
     fc.reconversion_key = []
-    fc.reconversion_key += ["C-Comma"]
+    fc.reconversion_key += ["C-Comma"] # Comma は < のキーでもあり、変換を戻すイメージを持てるので採用
     # fc.reconversion_key += ["(28)"]   # <変換> キーを利用する場合でも、本機能を全て使うためには設定が必要
     # fc.reconversion_key += ["O-RAlt"] # ワンショットモディファイアの指定も可能
 
