@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220131_02"
+fakeymacs_version = "20220201_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -431,6 +431,7 @@ def configure(keymap):
     ##   ただし、C-Back キーは設定しないでください。）
     ## （リージョンを選択した状態で Space キーを押下すると「再変換」が機能します）
     fc.reconversion_key = []
+    fc.reconversion_key += ["C-Comma"]
     # fc.reconversion_key += ["(28)"]   # <変換> キーを利用する場合でも、本機能を全て使うためには設定が必要
     # fc.reconversion_key += ["O-RAlt"] # ワンショットモディファイアの指定も可能
 
@@ -1058,15 +1059,18 @@ def configure(keymap):
     ##################################################
 
     def transpose_chars():
-        if checkWindow("EXCEL.EXE", "EXCEL*", "?*"): # Microsoft Excel のセル編集でない場合
+        # Microsoft Excel の場合、セルの編集中（ウインドウのタイトル文字列が空）でなければ終了する
+        if checkWindow("EXCEL.EXE", "EXCEL*", "?*"):
             return
 
         if fakeymacs.clipboard_hook:
             # クリップボードの監視用のフックを無効にする
             keymap.clipboard_history.enableHook(False)
 
-        setClipboardText("")
+        resetRegion()
+
         mark2(forward_char, True)()
+        setClipboardText("")
         self_insert_command("C-c")()
         delay(0.05)
 
@@ -1076,8 +1080,8 @@ def configure(keymap):
             if clipboard_text == "\r\n":
                 backward_char()
 
-            setClipboardText("")
             mark2(backward_char, False)()
+            setClipboardText("")
             self_insert_command("C-c")()
             delay(0.05)
 
