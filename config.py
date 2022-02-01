@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220201_03"
+fakeymacs_version = "20220201_04"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1081,15 +1081,11 @@ def configure(keymap):
             mark2(backward_char, False)()
             setClipboardText("")
             self_insert_command("C-c")()
-            delay(0.05)
 
-            clipboard_text = getClipboardText()
-
-        if len(clipboard_text):
-            self_insert_command("Delete")()
-            backward_char()
-            yank()
-            forward_char()
+        self_insert_command("Delete")()
+        backward_char()
+        yank()
+        forward_char()
 
         if fakeymacs.clipboard_hook:
             # クリップボードの監視用のフックを有効にする
