@@ -67,17 +67,22 @@ Caps Lock のキーの置き換えは Keyhac ではできませんので、KeySw
 
 - https://sites.google.com/site/craftware/keyhac-ja
 
-起動時に dll load エラーが発生する場合は、「Visual Studio 2015 ランタイムパッケージ」を
-インストールする必要があります。上記のサイトにリンクしてあるものは少し古いバージョンなので、
-次のサイトから新しいものをダウンロードしてインストールしてください。
+起動時に dll load エラーが発生する場合は、「Microsoft Visual C++ 再頒布可能パッケージ」を
+インストールする必要があります。上記のサイトにリンクしてあるものは少し古いバージョンですので、
+次のサイトから最新の「Visual Studio 2015、2017、2019、および2022の Microsoft Visual C++
+再頒布可能パッケージ」をダウンロードし、インストールしてください。
 
-- https://www.microsoft.com/ja-jp/download/details.aspx?id=53840
+- https://docs.microsoft.com/ja-JP/cpp/windows/latest-supported-vc-redist?view=msvc-170
 
-※ Windows OS が x64版 でも、ランタイムパッケージは x86版 をインストールしてください。
+※ Windows OS が x64版 でも、「Microsoft Visual C++ 再頒布可能パッケージ」は x86版 を
+インストールする必要があります。
 
-※ 上記でインストールされるものは C:\Windows\SysWOW64\msvcp140.dll ですので、この dll を
-keyhac.exe と同じフォルダに置けば、ランタイムパッケージをインストールしていない PC でも
-Keyhac を動かすことができるようになります。
+※ dll load エラーが発生しない場合でも、「Microsoft Visual C++ 再頒布可能パッケージ」の
+最新版をインストールすることは意味のあることかもしれません。
+
+※ 上記でインストールされる C:\Windows\SysWOW64\msvcp140.dll を keyhac.exe と同じフォルダに
+置けば、再頒布可能パッケージをインストールしていない PC でも Keyhac を動かすことができる
+ようになります。
 
 *** 3) Keyhac を自動起動するようにする
 
