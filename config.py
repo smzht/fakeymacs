@@ -1422,6 +1422,7 @@ def configure(keymap):
                         if fnmatch.fnmatch(keys, skey):
                             print("skip settings key : [" + keymap_name + "] " + keys)
                             return
+                    break
 
         def keyCommand(key):
             # local スコープで参照できるようにする
