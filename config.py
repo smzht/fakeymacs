@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220201_04"
+fakeymacs_version = "20220209_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1417,7 +1417,7 @@ def configure(keymap):
             # 設定をスキップするキーの処理を行う
             for keymap_name in fc.skip_settings_key:
                 if (keymap_name in locals() and
-                    window_keymap == locals()[keymap_name]):
+                    window_keymap is locals()[keymap_name]):
                     for skey in fc.skip_settings_key[keymap_name]:
                         if fnmatch.fnmatch(keys, skey):
                             print("skip settings key : [" + keymap_name + "] " + keys)
@@ -1433,7 +1433,7 @@ def configure(keymap):
             if callable(command):
                 if (key is not None and
                     "keymap_emacs" in locals() and
-                    window_keymap == locals()["keymap_emacs"]):
+                    window_keymap is locals()["keymap_emacs"]):
 
                     ckey = str(keyhac_keymap.KeyCondition.fromString(key))
                     def _command():
@@ -1933,7 +1933,7 @@ def configure(keymap):
     if fc.use_emacs_ime_mode:
 
         def is_emacs_ime_mode(window):
-            if fakeymacs.ei_last_window == window:
+            if fakeymacs.ei_last_window is window:
                 return True
             else:
                 fakeymacs.ei_last_window = None
@@ -1993,7 +1993,7 @@ def configure(keymap):
                     func = self_insert_command(key)
 
             def _func():
-                if (fakeymacs.last_keys[0] == keymap_ei and
+                if (fakeymacs.last_keys[0] is keymap_ei and
                     fakeymacs.last_keys[1] in ["Back", "C-h"]):
                     ei_enable_input_method()
                     fakeymacs.update_last_keys = False
@@ -2010,7 +2010,7 @@ def configure(keymap):
                     func = self_insert_command(key)
 
             def _func():
-                if (fakeymacs.last_keys[0] == keymap_ei and
+                if (fakeymacs.last_keys[0] is keymap_ei and
                     fakeymacs.last_keys[1] in ["Back", "C-h"]):
                     ei_disable_input_method()
                     fakeymacs.update_last_keys = False
