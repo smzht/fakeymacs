@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220209_01"
+fakeymacs_version = "20220210_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1474,7 +1474,7 @@ def configure(keymap):
                 w_keymap[key_list[-1]] = keyCommand(None)
 
     def define_key2(window_keymap, keys, command):
-        define_key(window_keymap, keys, command, skip_check=False)
+        define_key(window_keymap, keys, command, False)
 
     def define_key3(window_keymap, keys, command, check_func):
         define_key(window_keymap, keys, makeKeyCommand(window_keymap, keys, command, check_func))

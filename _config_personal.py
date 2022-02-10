@@ -53,6 +53,7 @@ fc.ime_target          += []
 #   関数を利用して定義してください）
 fc.skip_settings_key    = {"keymap_global"    : [], # 全画面共通 Keymap
                            "keymap_emacs"     : [], # Emacs キーバインド対象アプリ用 Keymap
+                           "keymap_vscode"    : [], # Emacs キーバインド VSCode 拡張用 Keymap
                            "keymap_ime"       : [], # IME 切り替え専用アプリ用 Keymap
                            "keymap_ei"        : [], # Emacs 日本語入力モード用 Keymap
                            "keymap_tsw"       : [], # タスク切り替え画面用 Keymap

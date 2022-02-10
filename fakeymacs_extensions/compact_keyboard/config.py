@@ -23,11 +23,11 @@ if not is_japanese_keyboard:
         # vscode_key Extension は有効か？
         fakeymacs.keymap_vscode
 
-        def define_key_v(window_keymap, keys, command):
-            define_key3(window_keymap, keys, command, lambda: fakeymacs.is_vscode_target(keymap.getWindow()))
+        def define_key_vsc(keys, command):
+            define_key3(keymap_global, keys, command, lambda: fakeymacs.is_vscode_target(keymap.getWindow()))
 
-        define_key_v(keymap_global, "S-Back C-S-Back", getKeyCommand(fakeymacs.keymap_vscode, "C-S-BackQuote"))
-        define_key_v(keymap_global, "S-Back C-Back",   getKeyCommand(fakeymacs.keymap_vscode, "C-BackQuote"))
+        define_key_vsc("S-Back C-S-Back", getKeyCommand(fakeymacs.keymap_vscode, "C-S-BackQuote"))
+        define_key_vsc("S-Back C-Back",   getKeyCommand(fakeymacs.keymap_vscode, "C-BackQuote"))
 
     except:
         pass
