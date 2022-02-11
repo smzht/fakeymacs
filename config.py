@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220210_01"
+fakeymacs_version = "20220211_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1196,7 +1196,8 @@ def configure(keymap):
         self_insert_command("Esc")()
 
     def space():
-        if fakeymacs.forward_direction is None:
+        if (fc.ime_reconv_key is None or
+            fakeymacs.forward_direction is None):
             self_insert_command("Space")()
         else:
             reconversion()
