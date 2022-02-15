@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220211_01"
+fakeymacs_version = "20220215_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -2546,10 +2546,10 @@ def configure(keymap):
         ["Notepad",     keymap.ShellExecuteCommand(None, r"notepad.exe", "", "")],
         ["Explorer",    keymap.ShellExecuteCommand(None, r"explorer.exe", "", "")],
         ["Cmd",         keymap.ShellExecuteCommand(None, r"cmd.exe", "", "")],
-        ["MSEdge",      keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe", "", "")],
-        ["Chrome",      keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe", "", "")],
-        ["Firefox",     keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\Mozilla Firefox\firefox.exe", "", "")],
-        ["Thunderbird", keymap.ShellExecuteCommand(None, r"C:\Program Files (x86)\Mozilla Thunderbird\thunderbird.exe", "", "")],
+        ["MSEdge",      keymap.ShellExecuteCommand(None, r"msedge.exe", "", "")],
+        ["Chrome",      keymap.ShellExecuteCommand(None, r"chrome.exe", "", "")],
+        ["Firefox",     keymap.ShellExecuteCommand(None, r"firefox.exe", "", "")],
+        ["Thunderbird", keymap.ShellExecuteCommand(None, r"thunderbird.exe", "", "")],
     ]
     fc.application_items[0][0] = list_formatter.format(fc.application_items[0][0])
 
