@@ -130,12 +130,10 @@ fakeymacs_version = "20220215_01"
 #   Ctrlキーと同じキーとして扱っている。（C-v と A-v の置き換えのみ行っていない。）
 
 import time
-import sys
 import os.path
 import re
 import fnmatch
 import copy
-import types
 import datetime
 import ctypes
 import pyauto
