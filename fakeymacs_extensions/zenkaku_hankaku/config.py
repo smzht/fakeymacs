@@ -45,7 +45,7 @@ if fc.use_emacs_ime_mode:
         # リージョンをクリップボードに格納する
         setClipboardText("")
         self_insert_command("C-c")()
-        delay(0.05)
+        delay(0.1)
 
         if fakeymacs.clipboard_hook:
             # クリップボードの監視用のフックを有効にする
