@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220220_01"
+fakeymacs_version = "20220224_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1436,7 +1436,7 @@ def configure(keymap):
                     window_keymap is locals()["keymap_emacs"]):
 
                     ckey = str(keyhac_keymap.KeyCondition.fromString(key))
-                    def _command():
+                    def _command0():
                         fakeymacs.update_last_keys = True
                         if ckey in fakeymacs.exclution_key:
                             InputKeyCommand(key)()
@@ -1444,14 +1444,39 @@ def configure(keymap):
                             command()
                         if fakeymacs.update_last_keys:
                             fakeymacs.last_keys = [window_keymap, keys]
-                    return _command
                 else:
-                    def _command():
+                    def _command0():
                         fakeymacs.update_last_keys = True
                         command()
                         if fakeymacs.update_last_keys:
                             fakeymacs.last_keys = [window_keymap, keys]
-                    return _command
+
+                def _command():
+                    if fakeymacs.repeat_counter == 1:
+                        _command0()
+                    else:
+                        def _command1():
+                            # モディファイアを離す（keymap.command_RecordPlay 関数を参考）
+                            modifier = keymap.modifier
+                            input_seq = []
+                            for vk_mod in keymap.vk_mod_map.items():
+                                if keymap.modifier & vk_mod[1]:
+                                    input_seq.append(pyauto.KeyUp(vk_mod[0]))
+                            pyauto.Input.send(input_seq)
+                            keymap.modifier = 0
+
+                            _command0()
+
+                            # モディファイアを戻す（keymap.command_RecordPlay 関数を参考）
+                            input_seq = []
+                            for vk_mod in keymap.vk_mod_map.items():
+                                if modifier & vk_mod[1]:
+                                    input_seq.append(pyauto.KeyDown(vk_mod[0]))
+                            pyauto.Input.send(input_seq)
+                            keymap.modifier = modifier
+
+                        keymap.delayedCall(_command1, 0)
+                return _command
             else:
                 return command
 
