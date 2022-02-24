@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220224_03"
+fakeymacs_version = "20220225_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1468,13 +1468,13 @@ def configure(keymap):
 
                             _command1()
 
-                            # モディファイアを戻す（keymap.command_RecordPlay 関数を参考）
-                            input_seq = []
-                            for vk_mod in keymap.vk_mod_map.items():
-                                if modifier & vk_mod[1]:
-                                    input_seq.append(pyauto.KeyDown(vk_mod[0]))
-                            pyauto.Input.send(input_seq)
-                            keymap.modifier = modifier
+                            # # モディファイアを戻す（keymap.command_RecordPlay 関数を参考）
+                            # input_seq = []
+                            # for vk_mod in keymap.vk_mod_map.items():
+                            #     if modifier & vk_mod[1]:
+                            #         input_seq.append(pyauto.KeyDown(vk_mod[0]))
+                            # pyauto.Input.send(input_seq)
+                            # keymap.modifier = modifier
 
                         keymap.delayedCall(_command2, 0)
                 return _command3
