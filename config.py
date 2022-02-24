@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220224_01"
+fakeymacs_version = "20220224_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1436,7 +1436,7 @@ def configure(keymap):
                     window_keymap is locals()["keymap_emacs"]):
 
                     ckey = str(keyhac_keymap.KeyCondition.fromString(key))
-                    def _command0():
+                    def _command1():
                         fakeymacs.update_last_keys = True
                         if ckey in fakeymacs.exclution_key:
                             InputKeyCommand(key)()
@@ -1445,17 +1445,18 @@ def configure(keymap):
                         if fakeymacs.update_last_keys:
                             fakeymacs.last_keys = [window_keymap, keys]
                 else:
-                    def _command0():
+                    def _command1():
                         fakeymacs.update_last_keys = True
                         command()
                         if fakeymacs.update_last_keys:
                             fakeymacs.last_keys = [window_keymap, keys]
 
-                def _command():
-                    if fakeymacs.repeat_counter == 1:
-                        _command0()
+                def _command3():
+                    if (fakeymacs.repeat_counter == 1 or
+                        fakeymacs.is_playing_kmacro):
+                        _command1()
                     else:
-                        def _command1():
+                        def _command2():
                             # モディファイアを離す（keymap.command_RecordPlay 関数を参考）
                             modifier = keymap.modifier
                             input_seq = []
@@ -1465,7 +1466,7 @@ def configure(keymap):
                             pyauto.Input.send(input_seq)
                             keymap.modifier = 0
 
-                            _command0()
+                            _command1()
 
                             # モディファイアを戻す（keymap.command_RecordPlay 関数を参考）
                             input_seq = []
@@ -1475,8 +1476,8 @@ def configure(keymap):
                             pyauto.Input.send(input_seq)
                             keymap.modifier = modifier
 
-                        keymap.delayedCall(_command1, 0)
-                return _command
+                        keymap.delayedCall(_command2, 0)
+                return _command3
             else:
                 return command
 
