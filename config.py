@@ -513,7 +513,7 @@ def configure(keymap):
     #   に対して切り替えが機能します。また、Emacs キーバインドを OFF にしても、IME の切り替えは ime_target
     #   に登録したアプリケーションソフトと同様に機能するようにしています。）
     # （emacs_target_class 変数に指定したクラス（初期値：Edit）に該当するアプリケーションソフト（Windows
-    #   10版 notepad など）は、Emacs キーバインドを切り替えの対象となりません（常に Emacs キーバインドと
+    #   10版 Notepad など）は、Emacs キーバインドを切り替えの対象となりません（常に Emacs キーバインドと
     #   なります）。）
     fc.toggle_emacs_keybind_key = "C-S-Space"
 
@@ -1012,7 +1012,7 @@ def configure(keymap):
 
     def undo():
         # redo（C-y）の機能を持っていないアプリケーションソフトは常に undo とする
-        if checkWindow("notepad.exe", "Edit"): # Windows 10版 notepad
+        if checkWindow("notepad.exe", "Edit"): # Windows 10版 Notepad
             self_insert_command("C-z")()
         else:
             if fakeymacs.is_undo_mode:
