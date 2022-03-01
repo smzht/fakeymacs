@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220225_02"
+fakeymacs_version = "20220301_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -512,8 +512,9 @@ def configure(keymap):
     # （Emacs キーバインドを利用するアプリケーションでかつフォーカスが当たっているアプリケーションソフト
     #   に対して切り替えが機能します。また、Emacs キーバインドを OFF にしても、IME の切り替えは ime_target
     #   に登録したアプリケーションソフトと同様に機能するようにしています。）
-    # （emacs_target_class 変数に指定したクラス（初期値：Edit）に該当するアプリケーションソフト（NotePad
-    #   など）は、Emacs キーバインドを切り替えの対象となりません（常に Emacs キーバインドとなります）。）
+    # （emacs_target_class 変数に指定したクラス（初期値：Edit）に該当するアプリケーションソフト（Windows
+    #   10版 notepad など）は、Emacs キーバインドを切り替えの対象となりません（常に Emacs キーバインドと
+    #   なります）。）
     fc.toggle_emacs_keybind_key = "C-S-Space"
 
     # アプリケーションキーとして利用するキーを指定する
@@ -1011,7 +1012,7 @@ def configure(keymap):
 
     def undo():
         # redo（C-y）の機能を持っていないアプリケーションソフトは常に undo とする
-        if checkWindow("notepad.exe", "Edit"): # NotePad
+        if checkWindow("notepad.exe", "Edit"): # Windows 10版 notepad
             self_insert_command("C-z")()
         else:
             if fakeymacs.is_undo_mode:
