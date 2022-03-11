@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220311_01"
+fakeymacs_version = "20220311_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -2268,10 +2268,12 @@ def configure(keymap):
         if wnd and not wnd.isMinimized():
             wnd.minimize()
             delay()
-            if wnd is getWindowList()[-1]:
-                fakeymacs.reverse_window_to_restore = False
-            else:
-                fakeymacs.reverse_window_to_restore = True
+            window_list = getWindowList()
+            if wnd in window_list:
+                if wnd is window_list[-1]:
+                    fakeymacs.reverse_window_to_restore = False
+                else:
+                    fakeymacs.reverse_window_to_restore = True
 
     def restore_window():
         window_list = getWindowList()
