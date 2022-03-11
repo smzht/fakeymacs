@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220301_01"
+fakeymacs_version = "20220311_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -554,10 +554,6 @@ def configure(keymap):
     fc.window_minimize_key = []
     fc.window_minimize_key += [["A-S-m", "A-m"]]
 
-    # ウィンドウのリストアが最小化した順番の逆順とならない場合の対策を行うかを指定する
-    # （True: 対策有、False: 対策無）
-    fc.reverse_window_to_restore = False
-
     # 仮想デスクトップを切り替えるキーの組み合わせ（前、後 の順）を指定する（複数指定可）
     # （仮想デスクトップを切り替えた際にフォーカスのあるウィンドウを適切に処理するため、設定するキーは
     #   Winキーとの組み合わせとしてください）
@@ -732,6 +728,9 @@ def configure(keymap):
 
     # undo のモードの時 True になる（redo のモードの時 False になる）
     fakeymacs.is_undo_mode = True
+
+    # ウィンドウのリストアが最小化した順番の逆順となるように制御する
+    fakeymacs.reverse_window_to_restore = False
 
     # Ctl-xプレフィックスキーを構成するキーの仮想キーコードを設定する
     if fc.ctl_x_prefix_key:
@@ -2268,11 +2267,16 @@ def configure(keymap):
         wnd = keymap.getTopLevelWindow()
         if wnd and not wnd.isMinimized():
             wnd.minimize()
+            delay()
+            if wnd is getWindowList()[-1]:
+                fakeymacs.reverse_window_to_restore = False
+            else:
+                fakeymacs.reverse_window_to_restore = True
 
     def restore_window():
         window_list = getWindowList()
 
-        if not fc.reverse_window_to_restore:
+        if not fakeymacs.reverse_window_to_restore:
             window_list.reverse()
 
         for wnd in window_list:
