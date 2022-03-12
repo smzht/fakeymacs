@@ -537,10 +537,15 @@ def configure(keymap):
     fc.other_window_key = "A-o"
 
     # アクティブウィンドウを切り替えるキーの組み合わせ（前、後 の順）を指定する（複数指定可）
-    # （最小化されていないウィンドウを順に切り替えます）
+    # （最小化されていないウィンドウを順に切り替えます。初期設定は ["A-p", "A-n"] としていますが、Emacs
+    #   の shell-mode のキーバインドなどと設定が被る場合には、["A-S-p", "A-S-n"] などの異なる設定とするか、
+    #   Emacs 側に次の設定を入れて、キー設定を置き換えてご利用ください。
+    #     (define-key key-translation-map (kbd "M-S-p") (kbd "M-p"))
+    #     (define-key key-translation-map (kbd "M-S-n") (kbd "M-n"))
+    #  ）
     fc.window_switching_key = []
-    # fc.window_switching_key += [["A-p", "A-n"]]
-    fc.window_switching_key += [["A-S-p", "A-S-n"]]
+    fc.window_switching_key += [["A-p", "A-n"]]
+    # fc.window_switching_key += [["A-S-p", "A-S-n"]]
 
     # アクティブウィンドウをディスプレイ間で移動するキーの組み合わせ（前、後 の順）を指定する（複数指定可）
     # （デフォルトキーは、["W-S-Left", "W-S-Right"]）
