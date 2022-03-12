@@ -539,7 +539,7 @@ def configure(keymap):
     # アクティブウィンドウを切り替えるキーの組み合わせ（前、後 の順）を指定する（複数指定可）
     # （最小化されていないウィンドウを順に切り替えます。初期設定は ["A-p", "A-n"] としていますが、Emacs
     #   の shell-mode のキーバインドなどと設定が被る場合には、["A-S-p", "A-S-n"] などの異なる設定とするか、
-    #   Emacs 側に次の設定を入れて、キー設定を置き換えてご利用ください。
+    #   Emacs 側に次の設定を入れて、キーの設定を置き換えてご利用ください。
     #     (define-key key-translation-map (kbd "M-S-p") (kbd "M-p"))
     #     (define-key key-translation-map (kbd "M-S-n") (kbd "M-n"))
     #  ）
