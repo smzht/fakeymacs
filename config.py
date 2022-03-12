@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220311_02"
+fakeymacs_version = "20220313_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -537,13 +537,10 @@ def configure(keymap):
     fc.other_window_key = "A-o"
 
     # アクティブウィンドウを切り替えるキーの組み合わせ（前、後 の順）を指定する（複数指定可）
-    # （内部で A-Tab による切り替えを行っているため、設定するキーは Altキーとの組み合わせとしてください）
-    # （切り替え画面が起動した後は、A-b、A-f、A-p、A-n でウィンドウを切り替えられるように設定している他、
-    #   Alt + 矢印キーでもウィンドウを切り替えることができます。また、A-g もしくは A-Esc で切り替え画面の
-    #   終了（キャンセル）となり、Altキーを離すか A-Enter で切り替えるウィンドウの確定となります。）
-    # （デフォルトキーは、["A-S-Tab", "A-Tab"]）
+    # （最小化されていないウィンドウを順に切り替えます）
     fc.window_switching_key = []
     # fc.window_switching_key += [["A-p", "A-n"]]
+    fc.window_switching_key += [["A-S-p", "A-S-n"]]
 
     # アクティブウィンドウをディスプレイ間で移動するキーの組み合わせ（前、後 の順）を指定する（複数指定可）
     # （デフォルトキーは、["W-S-Left", "W-S-Right"]）
@@ -625,6 +622,7 @@ def configure(keymap):
     fakeymacs.clipboard_hook = True
     fakeymacs.last_keys = [None, None]
     fakeymacs.correct_ime_status = False
+    fakeymacs.window_list = []
 
     def is_emacs_target(window):
         last_window  = fakeymacs.last_window
@@ -1104,7 +1102,7 @@ def configure(keymap):
         try:
             for wnd in window_list[1:]:
                 if not wnd.isMinimized():
-                    wnd.getLastActivePopup().setForeground()
+                    popWindow(wnd)()
                     break
         except:
             pass
@@ -2211,16 +2209,17 @@ def configure(keymap):
                     wnd.restore()
 
                 # ウィンドウフォーカスが適切に移動しない場合があることの対策
-                self_insert_command("Shift")() # 何かのキーを押下すると良いようだ
+                # self_insert_command("Shift")() # 何かのキーを押下すると良いようだ
 
                 wnd.getLastActivePopup().setForeground()
             except:
                 print("選択したウィンドウは存在しませんでした")
         return _func
 
-    def getWindowList():
+    def getWindowList(minimized=False):
         def makeWindowList(wnd, arg):
-            if wnd.isVisible() and not wnd.getOwner():
+            if (wnd.isVisible() and not wnd.getOwner() and
+                not (minimized and wnd.isMinimized())):
 
                 class_name = wnd.getClassName()
                 title = wnd.getText()
@@ -2251,11 +2250,33 @@ def configure(keymap):
 
         return window_list
 
+    def saveWindowList():
+        try:
+            window_list = getWindowList(True)
+
+            if len(window_list) == len(fakeymacs.window_list):
+                if fakeymacs.last_keys[0] is keymap_global:
+                    for key_list in fc.window_switching_key:
+                        if fakeymacs.last_keys[1] in key_list:
+                            raise Exception
+
+            fakeymacs.window_list = getWindowList(True)
+        except:
+            pass
+
     def previous_window():
-        self_insert_command("A-S-Tab")()
+        saveWindowList()
+
+        if fakeymacs.window_list:
+            fakeymacs.window_list = fakeymacs.window_list[-1:] + fakeymacs.window_list[:-1]
+            popWindow(fakeymacs.window_list[0])()
 
     def next_window():
-        self_insert_command("A-Tab")()
+        saveWindowList()
+
+        if fakeymacs.window_list:
+            fakeymacs.window_list = fakeymacs.window_list[1:] + fakeymacs.window_list[:1]
+            popWindow(fakeymacs.window_list[0])()
 
     def move_window_to_previous_display():
         self_insert_command("W-S-Left")()

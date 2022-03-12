@@ -80,9 +80,6 @@ True に設定した場合でも Toggle Terminal 用のキーとして C-<半角
 | M-g M-n | next_error                    | Go to Next Problem in Files (Error, Warning, Info)     |                        |
 | Ctl-x ` | next_error                    | Go to Next Problem in Files (Error, Warning, Info)     |                        |
 |---------+-------------------------------+--------------------------------------------------------+------------------------|
-| A-p     | self_insert_command("C-Up")   | -                                                      | キーバインドの置き換え |
-| A-n     | self_insert_command("C-Down") | -                                                      | キーバインドの置き換え |
-|---------+-------------------------------+--------------------------------------------------------+------------------------|
 
 **** ● 「バッファ / ウィンドウ操作」のキー設定
 

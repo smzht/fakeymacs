@@ -456,8 +456,8 @@ if is_japanese_keyboard:
 else:
     define_key_v("Ctl-x BackQuote", reset_search(reset_undo(reset_counter(reset_mark(next_error)))))
 
-define_key_v("A-p", self_insert_command("C-Up"))
-define_key_v("A-n", self_insert_command("C-Down"))
+# define_key_v("A-p", self_insert_command("C-Up"))
+# define_key_v("A-n", self_insert_command("C-Down"))
 
 ## 「カット / コピー」のキー設定
 define_key_v("C-k", reset_search(reset_undo(reset_counter(reset_mark(repeat3(kill_line_v))))))
