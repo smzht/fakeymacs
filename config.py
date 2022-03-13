@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220313_02"
+fakeymacs_version = "20220313_04"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -546,6 +546,7 @@ def configure(keymap):
     fc.window_switching_key = []
     fc.window_switching_key += [["A-p", "A-n"]]
     # fc.window_switching_key += [["A-S-p", "A-S-n"]]
+    # fc.window_switching_key += [["A-Up", "A-Down"]]
 
     # アクティブウィンドウをディスプレイ間で移動するキーの組み合わせ（前、後 の順）を指定する（複数指定可）
     # （デフォルトキーは、["W-S-Left", "W-S-Right"]）
@@ -2261,13 +2262,15 @@ def configure(keymap):
 
             # ２つのリストに差異があるか？
             if set(window_list) ^ set(fakeymacs.window_list):
+                fakeymacs.window_list = window_list
+            else:
                 # 連続してウィンドウの切り替えを行っているか？
                 if fakeymacs.last_keys[0] is keymap_global:
                     for key_list in fc.window_switching_key:
                         if fakeymacs.last_keys[1] in key_list:
                             raise Exception
 
-            fakeymacs.window_list = getWindowList(True)
+                fakeymacs.window_list = window_list
         except:
             pass
 

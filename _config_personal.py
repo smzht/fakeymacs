@@ -140,6 +140,7 @@ fc.use_ctrl_digit_key_for_digit_argument = False
 fc.window_switching_key = []
 fc.window_switching_key += [["A-p", "A-n"]]
 # fc.window_switching_key += [["A-S-p", "A-S-n"]]
+# fc.window_switching_key += [["A-Up", "A-Down"]]
 
 # [section-base-2] ---------------------------------------------------------------------------------
 
