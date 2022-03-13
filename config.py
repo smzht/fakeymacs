@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220313_01"
+fakeymacs_version = "20220313_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -2259,7 +2259,9 @@ def configure(keymap):
         try:
             window_list = getWindowList(True)
 
-            if len(window_list) == len(fakeymacs.window_list):
+            # ２つのリストに差異があるか？
+            if set(window_list) ^ set(fakeymacs.window_list):
+                # 連続してウィンドウの切り替えを行っているか？
                 if fakeymacs.last_keys[0] is keymap_global:
                     for key_list in fc.window_switching_key:
                         if fakeymacs.last_keys[1] in key_list:
