@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220313_04"
+fakeymacs_version = "20220313_05"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -2218,6 +2218,7 @@ def configure(keymap):
                 # self_insert_command("Shift")() # 何かのキーを押下すると良いようだ
 
                 wnd.getLastActivePopup().setForeground()
+                fakeymacs.window_list = []
             except:
                 print("選択したウィンドウは存在しませんでした")
         return _func
@@ -2257,36 +2258,27 @@ def configure(keymap):
         return window_list
 
     def saveWindowList():
-        try:
-            window_list = getWindowList(True)
+        window_list = getWindowList(True)
 
-            # ２つのリストに差異があるか？
-            if set(window_list) ^ set(fakeymacs.window_list):
-                fakeymacs.window_list = window_list
-            else:
-                # 連続してウィンドウの切り替えを行っているか？
-                if fakeymacs.last_keys[0] is keymap_global:
-                    for key_list in fc.window_switching_key:
-                        if fakeymacs.last_keys[1] in key_list:
-                            raise Exception
-
-                fakeymacs.window_list = window_list
-        except:
-            pass
+        # ２つのリストに差異があるか？
+        if set(window_list) ^ set(fakeymacs.window_list):
+            fakeymacs.window_list = window_list
 
     def previous_window():
         saveWindowList()
 
         if fakeymacs.window_list:
-            fakeymacs.window_list = fakeymacs.window_list[-1:] + fakeymacs.window_list[:-1]
-            popWindow(fakeymacs.window_list[0])()
+            window_list = fakeymacs.window_list[-1:] + fakeymacs.window_list[:-1]
+            popWindow(window_list[0])()
+            fakeymacs.window_list = window_list
 
     def next_window():
         saveWindowList()
 
         if fakeymacs.window_list:
-            fakeymacs.window_list = fakeymacs.window_list[1:] + fakeymacs.window_list[:1]
-            popWindow(fakeymacs.window_list[0])()
+            window_list = fakeymacs.window_list[1:] + fakeymacs.window_list[:1]
+            popWindow(window_list[0])()
+            fakeymacs.window_list = window_list
 
     def move_window_to_previous_display():
         self_insert_command("W-S-Left")()
