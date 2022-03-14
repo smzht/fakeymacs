@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220313_05"
+fakeymacs_version = "20220314_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1104,14 +1104,10 @@ def configure(keymap):
         self_insert_command("C-Tab")()
 
     def other_window():
-        window_list = getWindowList()
-        try:
-            for wnd in window_list[1:]:
-                if not wnd.isMinimized():
-                    popWindow(wnd)()
-                    break
-        except:
-            pass
+        window_list = getWindowList(False)
+
+        if len(window_list) >= 2:
+            popWindow(window_list[1])()
 
     ##################################################
     ## 文字列検索 / 置換
@@ -2214,19 +2210,17 @@ def configure(keymap):
                 if wnd.isMinimized():
                     wnd.restore()
 
-                # ウィンドウフォーカスが適切に移動しない場合があることの対策
-                # self_insert_command("Shift")() # 何かのキーを押下すると良いようだ
-
                 wnd.getLastActivePopup().setForeground()
-                fakeymacs.window_list = []
             except:
                 print("選択したウィンドウは存在しませんでした")
+
+            fakeymacs.window_list = []
         return _func
 
-    def getWindowList(minimized=False):
+    def getWindowList(minimized_window=True):
         def makeWindowList(wnd, arg):
             if (wnd.isVisible() and not wnd.getOwner() and
-                not (minimized and wnd.isMinimized())):
+                (minimized_window or not wnd.isMinimized())):
 
                 class_name = wnd.getClassName()
                 title = wnd.getText()
@@ -2258,7 +2252,7 @@ def configure(keymap):
         return window_list
 
     def saveWindowList():
-        window_list = getWindowList(True)
+        window_list = getWindowList(False)
 
         # ２つのリストに差異があるか？
         if set(window_list) ^ set(fakeymacs.window_list):
