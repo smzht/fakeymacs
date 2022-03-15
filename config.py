@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220315_01"
+fakeymacs_version = "20220315_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1350,9 +1350,9 @@ def configure(keymap):
         return keyhac_keymap.KeyCondition.strToVk(name)
 
     def addSideOfModifierKey(key):
-        key = re.sub(r'(^|-)(C-)', r'\1' + fc.side_of_ctrl_key + r'\2', key)
-        key = re.sub(r'(^|-)(A-)', r'\1' + fc.side_of_alt_key  + r'\2', key)
-        key = re.sub(r'(^|-)(W-)', r'\1' + fc.side_of_win_key  + r'\2', key)
+        key = re.sub(r"(^|-)(C-)", r"\1" + fc.side_of_ctrl_key + r"\2", key)
+        key = re.sub(r"(^|-)(A-)", r"\1" + fc.side_of_alt_key  + r"\2", key)
+        key = re.sub(r"(^|-)(W-)", r"\1" + fc.side_of_win_key  + r"\2", key)
         return key
 
     def kbd(keys):
@@ -2220,37 +2220,26 @@ def configure(keymap):
     def getWindowList(minimized_window=None):
         def makeWindowList(wnd, arg):
             if wnd.isVisible() and not wnd.getOwner():
-
                 class_name = wnd.getClassName()
-                title = wnd.getText()
+                title = re.sub(r".* ‎- ", r"", wnd.getText())
 
                 if class_name == "Emacs" or title != "":
                     if not re.match(fc.window_operation_exclusion_class, class_name):
                         process_name = wnd.getProcessName()
 
                         if not re.match(fc.window_operation_exclusion_process, process_name):
-                            # 表示されていない UWPアプリ（「設定」等）が window_list に登録されるのを抑制する
-                            # （UWP アプリが最小化されている場合、バックグラウンドでの起動との区別が付かない
-                            #   ため、window_list から削除するようにしています。このため、restore_window 関数
-                            #   で最小化されている UWPアプリの復帰ができません。Keyhac で UWPアプリの最小化と
-                            #   バックグラウンド起動を区別する方法が分かれば、対策を検討します。
-                            #   ・http://mrxray.on.coocan.jp/Delphi/plSamples/324_CheckRun_UWPApp.htm ）
                             if class_name == "Windows.UI.Core.CoreWindow":
-                                if title in window_dict:
-                                    if window_dict[title] in window_list:
-                                        window_list.remove(window_dict[title])
-                                else:
-                                    window_dict[title] = wnd
+                                window_title.add(title)
 
                             elif class_name == "ApplicationFrameWindow":
-                                if title not in window_dict:
-                                    window_dict[title] = wnd
-                                    window_list.append(wnd)
+                                if title != "Cortana":
+                                    if title not in window_title or wnd.isMinimized():
+                                        window_list.append(wnd)
                             else:
                                 window_list.append(wnd)
             return True
 
-        window_dict = {}
+        window_title = set()
         window_list = []
         Window.enum(makeWindowList, None)
 
