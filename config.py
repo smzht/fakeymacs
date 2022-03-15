@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220315_03"
+fakeymacs_version = "20220315_04"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -2231,17 +2231,20 @@ def configure(keymap):
 
                         if not re.match(fc.window_operation_exclusion_process, process_name):
                             if class_name == "Windows.UI.Core.CoreWindow":
+                                # print("Windows.UI.Core.CoreWindow : " + title + " : " + str(wnd.isMinimized()))
                                 window_title = title
 
                             elif class_name == "ApplicationFrameWindow":
+                                # print("ApplicationFrameWindow     : " + title + " : " + str(wnd.isMinimized()))
                                 if title != "Cortana":
                                     if title != window_title or wnd.isMinimized():
                                         window_list.append(wnd)
                                 window_title = None
                             else:
                                 window_list.append(wnd)
-                                window_title = None
             return True
+
+        # print("--------------------------------------------------------------------------------")
 
         window_title = None
         window_list = []
