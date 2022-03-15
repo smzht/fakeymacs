@@ -2230,6 +2230,11 @@ def configure(keymap):
                         process_name = wnd.getProcessName()
 
                         if not re.match(fc.window_operation_exclusion_process, process_name):
+
+                            # バックグラウンドで起動している UWP アプリが window_list に登録されるのを抑制する
+                            # （http://mrxray.on.coocan.jp/Delphi/plSamples/320_AppList.htm）
+                            # （http://mrxray.on.coocan.jp/Delphi/plSamples/324_CheckRun_UWPApp.htm）
+
                             if class_name == "Windows.UI.Core.CoreWindow":
                                 # print("Windows.UI.Core.CoreWindow : " + title + " : " + str(wnd.isMinimized()))
                                 window_title = title
