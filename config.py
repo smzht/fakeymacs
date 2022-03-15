@@ -223,8 +223,8 @@ def configure(keymap):
 
     # Chromium 系ブラウザで発生する問題の対策を行うかどうかを指定する（True: 対策する、False: 対策しない）
     # （Chromium 系ブラウザのバージョン 92 では、アドレスバーにカーソルを移動した際、強制的に ASCII入力
-    #   モードに移行する不具合が発生します。（バージョン 93 で対策済みですが、過去にも度々発生しています）
-    #   （https://did2memo.net/2021/07/22/chrome-japanese-ime-off-issue-chrome-92/）
+    #   モードに移行する不具合が発生します。（バージョン 93 で対策済みですが、過去にも度々発生しています。）
+    #   ・https://did2memo.net/2021/07/22/chrome-japanese-ime-off-issue-chrome-92/
     #   さらに Google日本語入力を利用している場合、keymap.getWindow().getImeStatus() が True を返すため、
     #   Emacs日本語入力モードの挙動がおかしくなります。この対策を行うかどうかを指定します。）
     fc.correct_ime_status = False
@@ -2227,8 +2227,14 @@ def configure(keymap):
                 if class_name == "Emacs" or title != "":
                     if not re.match(fc.window_operation_exclusion_class, class_name):
                         process_name = wnd.getProcessName()
+
                         if not re.match(fc.window_operation_exclusion_process, process_name):
-                            # 表示されていないストアアプリ（「設定」等）が window_list に登録されるのを抑制する
+                            # 表示されていない UWPアプリ（「設定」等）が window_list に登録されるのを抑制する
+                            # （UWP アプリが最小化されている場合、バックグラウンドでの起動との区別が付かない
+                            #   ため、window_list から削除するようにしています。このため、restore_window 関数
+                            #   で最小化されている UWPアプリの復帰ができません。Keyhac で UWPアプリの最小化と
+                            #   バックグラウンド起動を区別する方法が分かれば、対策を検討します。
+                            #   ・http://mrxray.on.coocan.jp/Delphi/plSamples/324_CheckRun_UWPApp.htm ）
                             if class_name == "Windows.UI.Core.CoreWindow":
                                 if title in window_dict:
                                     if window_dict[title] in window_list:
