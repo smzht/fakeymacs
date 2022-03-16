@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220315_04"
+fakeymacs_version = "20220316_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1258,9 +1258,10 @@ def configure(keymap):
             fakeymacs.is_digit_argument = True
 
     def shell_command():
-        for window in getWindowList():
-            if window.getProcessName() in os.path.basename(fc.command_name):
-                popWindow(window)()
+        command_name = os.path.basename(fc.command_name)
+        for wnd in getWindowList():
+            if wnd.getProcessName() == command_name:
+                popWindow(wnd)()
                 return
 
         keymap.ShellExecuteCommand(None, fc.command_name, "", "")()

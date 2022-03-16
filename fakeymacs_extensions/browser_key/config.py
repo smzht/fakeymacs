@@ -38,9 +38,15 @@ except:
 
 def browser_popup(key, ime_status):
     def _func():
-        for window in getWindowList():
-            if window.getProcessName() in fc.browser_list:
-                popWindow(window)()
+        for wnd in getWindowList():
+            if wnd.getProcessName() in fc.browser_list:
+
+                # thunderbird から本コマンドを実行した際、ウィンドウフォーカスが適切に
+                # 移動しない場合がある。その対策。（何かのキーを押下すると良いようだ。）
+                if keymap.getWindow().getProcessName() == "thunderbird.exe":
+                    self_insert_command("Shift")()
+
+                popWindow(wnd)()
                 delay()
                 self_insert_command(key)()
                 keymap.delayedCall(lambda: keymap.getWindow().setImeStatus(ime_status), 100)
