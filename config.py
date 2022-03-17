@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220316_01"
+fakeymacs_version = "20220317_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -2232,7 +2232,7 @@ def configure(keymap):
 
                         if not re.match(fc.window_operation_exclusion_process, process_name):
 
-                            # バックグラウンドで起動している UWP アプリが window_list に登録されるのを抑制する
+                            # バックグラウンドで起動している UWPアプリが window_list に登録されるのを抑制する
                             # （http://mrxray.on.coocan.jp/Delphi/plSamples/320_AppList.htm）
                             # （http://mrxray.on.coocan.jp/Delphi/plSamples/324_CheckRun_UWPApp.htm）
 
@@ -2243,7 +2243,8 @@ def configure(keymap):
                             elif class_name == "ApplicationFrameWindow":
                                 # print("ApplicationFrameWindow     : " + title + " : " + str(wnd.isMinimized()))
                                 if title != "Cortana":
-                                    if title != window_title or wnd.isMinimized():
+                                    if (title != window_title or wnd.isMinimized() or
+                                        wnd in fakeymacs.window_list): # UWPアプリの仮想デスクトップ対策
                                         window_list.append(wnd)
                                 window_title = None
                             else:
