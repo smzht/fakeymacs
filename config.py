@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220317_01"
+fakeymacs_version = "20220318_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -552,6 +552,7 @@ def configure(keymap):
     # （デフォルトキーは、["W-S-Left", "W-S-Right"]）
     fc.window_movement_key_for_displays = []
     fc.window_movement_key_for_displays += [[None, "W-o"]]
+    # fc.window_movement_key_for_displays += [[None, "A-S-o"]]
 
     # ウィンドウを最小化、リストアするキーの組み合わせ（リストア、最小化 の順）を指定する（複数指定可）
     fc.window_minimize_key = []
@@ -2237,11 +2238,9 @@ def configure(keymap):
                             # （http://mrxray.on.coocan.jp/Delphi/plSamples/324_CheckRun_UWPApp.htm）
 
                             if class_name == "Windows.UI.Core.CoreWindow":
-                                # print("Windows.UI.Core.CoreWindow : " + title + " : " + str(wnd.isMinimized()))
                                 window_title = title
 
                             elif class_name == "ApplicationFrameWindow":
-                                # print("ApplicationFrameWindow     : " + title + " : " + str(wnd.isMinimized()))
                                 if title != "Cortana":
                                     if (title != window_title or wnd.isMinimized() or
                                         wnd in fakeymacs.window_list): # UWPアプリの仮想デスクトップ対策
@@ -2250,8 +2249,6 @@ def configure(keymap):
                             else:
                                 window_list.append(wnd)
             return True
-
-        # print("--------------------------------------------------------------------------------")
 
         window_title = None
         window_list = []
