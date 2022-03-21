@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220318_01"
+fakeymacs_version = "20220321_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -2693,3 +2693,16 @@ def configure(keymap):
 
     # 個人設定ファイルのセクション [section-extensions] を読み込んで実行する
     exec(readConfigPersonal("[section-extensions]"), dict(globals(), **locals()))
+
+
+    ####################################################################################################
+    ## 後処理（キーマップの優先順位を調整する）
+    ####################################################################################################
+
+    keymap.window_keymap_list.remove(keymap_global)
+    keymap.window_keymap_list.remove(keymap_tsw)
+    keymap.window_keymap_list.remove(keymap_lw)
+
+    keymap.window_keymap_list.append(keymap_global)
+    keymap.window_keymap_list.append(keymap_tsw)
+    keymap.window_keymap_list.append(keymap_lw)
