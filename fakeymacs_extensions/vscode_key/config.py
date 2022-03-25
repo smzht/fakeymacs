@@ -404,6 +404,13 @@ def toggle_terminal():
         # VSCode Command : View: Toggle Terminal
         vscodeExecuteCommand2("workbench.action.terminal.toggleTerminal")()
 
+def create_terminal_in_editor_area():
+    # VSCode Command : Terminal: Create New Integrated Terminal in Editor Area
+    vscodeExecuteCommand2("workbench.action.createTerminalEditor")()
+
+    if fc.use_direct_input_in_vscode_terminal:
+        fakeymacs_vscode.vscode_focus = "not_terminal"
+
 ## その他
 def keyboard_quit_v2():
     if fc.esc_mode_in_keyboard_quit == 1:
@@ -534,14 +541,18 @@ define_key_v("C-S-(243)", reset_search(reset_undo(reset_counter(reset_mark(creat
 define_key_v("C-S-(244)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
 define_key_v("C-(243)",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
 define_key_v("C-(244)",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
+define_key_v("C-A-(243)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal_in_editor_area)))))
+define_key_v("C-A-(244)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal_in_editor_area)))))
 
 if is_japanese_keyboard:
     define_key_v("C-S-Atmark", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
     if not fc.use_ctrl_atmark_for_mark:
         define_key_v("C-Atmark", reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
+    define_key_v("C-A-Atmark", reset_search(reset_undo(reset_counter(reset_mark(create_terminal_in_editor_area)))))
 else:
     define_key_v("C-S-BackQuote", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
     define_key_v("C-BackQuote",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
+    define_key_v("C-A-BackQuote", reset_search(reset_undo(reset_counter(reset_mark(create_terminal_in_editor_area)))))
 
 ## 「その他」のキー設定
 define_key_v("Enter",       post(reset_undo(reset_counter(reset_mark(repeat(newline))))))
