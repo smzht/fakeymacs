@@ -56,6 +56,16 @@ except:
 
 try:
     # 設定されているか？
+    fc.terminal_list_for_direct_input
+except:
+    # Terminal をエディタ領域で使う際、ダイレクト入力機能を使う Terminal の種類を指定する
+    fc.terminal_list_for_direct_input = ["bash",
+                                         "wsl",
+                                         "powershell",
+                                         ]
+
+try:
+    # 設定されているか？
     fc.esc_mode_in_keyboard_quit
 except:
     # keyboard_quit 関数コール時の Esc キーの発行方法を指定する
@@ -158,13 +168,13 @@ def post(func):
 ## ファイル操作
 def find_directory():
     # VSCode Command : File: Open Folder...
-    self_insert_command("C-k", "C-o")()
-    # vscodeExecuteCommand("workbench.action.files.openFolder")()
+    # self_insert_command("C-k", "C-o")() # Terminal で誤動作するのでショートカットは使わない
+    vscodeExecuteCommand("workbench.action.files.openFolder")()
 
 def recentf():
     # VSCode Command : File: Open Recent...
-    self_insert_command("C-r")()
-    # vscodeExecuteCommand("workbench.action.openRecent")()
+    # self_insert_command("C-r")() # Terminal で誤動作するのでショートカットは使わない
+    vscodeExecuteCommand("workbench.action.openRecent")()
 
 def locate():
     # VSCode Command : Go to File...
@@ -184,15 +194,13 @@ def next_error():
 
 ## カット / コピー
 def kill_line_v(repeat=1):
-    if (fc.use_direct_input_in_vscode_terminal and
-        fakeymacs_vscode.vscode_focus == "terminal"):
+    if fakeymacs_vscode.vscode_focus == "terminal" or is_terminal_for_direct_input():
         self_insert_command("C-k")()
     else:
         kill_line(repeat)
 
 def yank_v():
-    if (fc.use_direct_input_in_vscode_terminal and
-        fakeymacs_vscode.vscode_focus == "terminal"):
+    if fakeymacs_vscode.vscode_focus == "terminal" or is_terminal_for_direct_input():
         self_insert_command("C-y")()
     else:
         yank()
@@ -215,8 +223,7 @@ def list_buffers():
 
 ## 文字列検索
 def isearch_v(direction):
-    if (fc.use_direct_input_in_vscode_terminal and
-        fakeymacs_vscode.vscode_focus == "terminal"):
+    if fakeymacs_vscode.vscode_focus == "terminal" or is_terminal_for_direct_input():
         self_insert_command({"backward":"C-r", "forward":"C-s"}[direction])()
     else:
         isearch(direction)
@@ -239,19 +246,27 @@ def delete_other_groups():
     # vscodeExecuteCommand("workbench.action.closeEditorsInOtherGroups")()
 
 def split_editor_below():
-    # VSCode Command : View: Split Editor Orthogonal
-    self_insert_command("C-k", "C-Yen")()
-    # vscodeExecuteCommand("workbench.action.splitEditorOrthogonal")()
+    if not (fakeymacs_vscode.vscode_focus == "terminal" or is_terminal_for_direct_input()):
+        # VSCode Command : View: Split Editor Orthogonal
+        vscodeExecuteCommand("VSEOr")()
+        # self_insert_command("C-k", "C-Yen")() # Terminal で誤動作するのでショートカットは使わない
+        # vscodeExecuteCommand("workbench.action.splitEditorOrthogonal")()
 
 def split_editor_right():
-    # VSCode Command : View: Split Editor
-    self_insert_command("C-Yen")()
-    # vscodeExecuteCommand("workbench.action.splitEditor")()
+    if fakeymacs_vscode.vscode_focus == "terminal" or is_terminal_for_direct_input():
+        # View: Split Terminal
+        self_insert_command("C-S-5")()
+        # vscodeExecuteCommand("workbench.action.terminal.split")()
+    else:
+        # VSCode Command : View: Split Editor
+        self_insert_command("C-Yen")()
+        # vscodeExecuteCommand("workbench.action.splitEditor")()
 
 def rotate_layout():
-    # VSCode Command : Toggle Vertical/Horizontal Editor Layout
-    self_insert_command("A-S-0")()
-    # vscodeExecuteCommand("workbench.action.toggleEditorGroupLayout")()
+    if not (fakeymacs_vscode.vscode_focus == "terminal" or is_terminal_for_direct_input()):
+        # VSCode Command : Toggle Vertical/Horizontal Editor Layout
+        self_insert_command("A-S-0")()
+        # vscodeExecuteCommand("workbench.action.toggleEditorGroupLayout")()
 
 def other_group():
     # VSCode Command : View: Navigate Between Editor Groups
@@ -269,6 +284,10 @@ def switch_focus(number):
         if fc.use_direct_input_in_vscode_terminal:
             fakeymacs_vscode.vscode_focus = "not_terminal"
     return _func
+
+def is_terminal_for_direct_input():
+    title = re.sub(r" - .*$",  r"", keymap.getWindow().getText())
+    return title in fc.terminal_list_for_direct_input
 
 ## 矩形選択 / マルチカーソル
 def mark_previous_line():
@@ -332,7 +351,8 @@ def skip_to_previous_like_this():
 
 def skip_to_next_like_this():
     # VSCode Command : Move Last Selection To Next Find Match
-    region(self_insert_command("C-k", "C-d"))()
+    region(vscodeExecuteCommand("MLSTN"))()
+    # region(self_insert_command("C-k", "C-d"))() # Terminal で誤動作するのでショートカットは使わない
     # region(vscodeExecuteCommand("editor.action.moveSelectionToNextFindMatch"))()
 
 def expand_region():

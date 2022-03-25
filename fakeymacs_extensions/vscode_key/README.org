@@ -15,6 +15,7 @@ VSCode 用のキーの設定を行う拡張機能です。
 | vscode_prefix_key                   | 置き換えするプレフィックスキーの組み合わせ（VSCode のキー、Fakeymacs のキー）を指定する（複数指定可） |
 | use_ctrl_atmark_for_mark            | 日本語キーボードを利用する際、VSCode で  C-@ をマーク用のキーとして使うかどうかを指定する             |
 | use_direct_input_in_vscode_terminal | VSCode の Terminal内 で ４つのキー（C-k、C-r、C-s、C-y）のダイレクト入力機能を使うかどうかを指定する  |
+| terminal_list_for_direct_input      | Terminal をエディタ領域で使う際、ダイレクト入力機能を使う Terminal の種類を指定する                   |
 | esc_mode_in_keyboard_quit           | keyboard_quit 関数コール時の Esc キーの発行方法を指定する                                             |
 |-------------------------------------+-------------------------------------------------------------------------------------------------------|
 
