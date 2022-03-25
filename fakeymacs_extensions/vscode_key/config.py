@@ -165,6 +165,10 @@ def post(func):
             fakeymacs_vscode.post_processing = None
     return _func
 
+def is_terminal_for_direct_input():
+    title = re.sub(r" - .*$",  r"", keymap.getWindow().getText())
+    return title in fc.terminal_list_for_direct_input
+
 ## ファイル操作
 def find_directory():
     # VSCode Command : File: Open Folder...
@@ -284,10 +288,6 @@ def switch_focus(number):
         if fc.use_direct_input_in_vscode_terminal:
             fakeymacs_vscode.vscode_focus = "not_terminal"
     return _func
-
-def is_terminal_for_direct_input():
-    title = re.sub(r" - .*$",  r"", keymap.getWindow().getText())
-    return title in fc.terminal_list_for_direct_input
 
 ## 矩形選択 / マルチカーソル
 def mark_previous_line():
