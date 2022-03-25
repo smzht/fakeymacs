@@ -198,16 +198,16 @@ def next_error():
 
 ## カット / コピー
 def kill_line_v(repeat=1):
-    if fakeymacs_vscode.vscode_focus == "terminal" or is_terminal_for_direct_input():
-        self_insert_command("C-k")()
-    else:
+    if fakeymacs_vscode.vscode_focus == "not_terminal" and not is_terminal_for_direct_input():
         kill_line(repeat)
+    else:
+        self_insert_command("C-k")()
 
 def yank_v():
-    if fakeymacs_vscode.vscode_focus == "terminal" or is_terminal_for_direct_input():
-        self_insert_command("C-y")()
-    else:
+    if fakeymacs_vscode.vscode_focus == "not_terminal" and not is_terminal_for_direct_input():
         yank()
+    else:
+        self_insert_command("C-y")()
 
 ## バッファ / ウィンドウ操作
 def kill_buffer():
@@ -227,10 +227,10 @@ def list_buffers():
 
 ## 文字列検索
 def isearch_v(direction):
-    if fakeymacs_vscode.vscode_focus == "terminal" or is_terminal_for_direct_input():
-        self_insert_command({"backward":"C-r", "forward":"C-s"}[direction])()
-    else:
+    if fakeymacs_vscode.vscode_focus == "not_terminal" and not is_terminal_for_direct_input():
         isearch(direction)
+    else:
+        self_insert_command({"backward":"C-r", "forward":"C-s"}[direction])()
 
 def isearch_backward():
     isearch_v("backward")
@@ -240,34 +240,36 @@ def isearch_forward():
 
 ## エディタ操作
 def delete_group():
-    # VSCode Command : View: Close All Editors in Group
-    vscodeExecuteCommand("VCAEi")()
-    # vscodeExecuteCommand("workbench.action.closeEditorsInGroup")()
+    if fakeymacs_vscode.vscode_focus == "not_terminal":
+        # VSCode Command : View: Close All Editors in Group
+        vscodeExecuteCommand("VCAEi")()
+        # vscodeExecuteCommand("workbench.action.closeEditorsInGroup")()
 
 def delete_other_groups():
-    # VSCode Command : View: Close Editors in Other Groups
-    vscodeExecuteCommand("VCEiO")()
-    # vscodeExecuteCommand("workbench.action.closeEditorsInOtherGroups")()
+    if fakeymacs_vscode.vscode_focus == "not_terminal":
+        # VSCode Command : View: Close Editors in Other Groups
+        vscodeExecuteCommand("VCEiO")()
+        # vscodeExecuteCommand("workbench.action.closeEditorsInOtherGroups")()
 
 def split_editor_below():
-    if not (fakeymacs_vscode.vscode_focus == "terminal" or is_terminal_for_direct_input()):
+    if fakeymacs_vscode.vscode_focus == "not_terminal" and not is_terminal_for_direct_input():
         # VSCode Command : View: Split Editor Orthogonal
         vscodeExecuteCommand("VSEOr")()
         # self_insert_command("C-k", "C-Yen")() # Terminal で誤動作するのでショートカットは使わない
         # vscodeExecuteCommand("workbench.action.splitEditorOrthogonal")()
 
 def split_editor_right():
-    if fakeymacs_vscode.vscode_focus == "terminal" or is_terminal_for_direct_input():
-        # View: Split Terminal
-        self_insert_command("C-S-5")()
-        # vscodeExecuteCommand("workbench.action.terminal.split")()
-    else:
+    if fakeymacs_vscode.vscode_focus == "not_terminal" and not is_terminal_for_direct_input():
         # VSCode Command : View: Split Editor
         self_insert_command("C-Yen")()
         # vscodeExecuteCommand("workbench.action.splitEditor")()
+    else:
+        # View: Split Terminal
+        self_insert_command("C-S-5")()
+        # vscodeExecuteCommand("workbench.action.terminal.split")()
 
 def rotate_layout():
-    if not (fakeymacs_vscode.vscode_focus == "terminal" or is_terminal_for_direct_input()):
+    if fakeymacs_vscode.vscode_focus == "not_terminal" and not is_terminal_for_direct_input():
         # VSCode Command : Toggle Vertical/Horizontal Editor Layout
         self_insert_command("A-S-0")()
         # vscodeExecuteCommand("workbench.action.toggleEditorGroupLayout")()
