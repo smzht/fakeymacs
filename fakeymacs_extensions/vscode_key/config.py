@@ -252,7 +252,7 @@ def delete_other_groups():
         # vscodeExecuteCommand("workbench.action.closeEditorsInOtherGroups")()
 
 def split_editor_below():
-    if fakeymacs_vscode.vscode_focus == "not_terminal" and not is_terminal_for_direct_input():
+    if fakeymacs_vscode.vscode_focus == "not_terminal":
         # VSCode Command : View: Split Editor Orthogonal
         vscodeExecuteCommand("VSEOr")()
         # self_insert_command("C-k", "C-Yen")() # Terminal で誤動作するのでショートカットは使わない
