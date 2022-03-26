@@ -14,8 +14,8 @@ VSCode 用のキーの設定を行う拡張機能です。
 | vscode_target                       | VSCode 用のキーバインドを利用するアプリケーションソフトを指定する                                     |
 | vscode_prefix_key                   | 置き換えするプレフィックスキーの組み合わせ（VSCode のキー、Fakeymacs のキー）を指定する（複数指定可） |
 | use_ctrl_atmark_for_mark            | 日本語キーボードを利用する際、VSCode で  C-@ をマーク用のキーとして使うかどうかを指定する             |
-| use_direct_input_in_vscode_terminal | VSCode の Terminal内 で ４つのキー（C-k、C-r、C-s、C-y）のダイレクト入力機能を使うかどうかを指定する  |
-| terminal_list_for_direct_input      | Terminal をエディタ領域で使う際、ダイレクト入力機能を使う Terminal の種類を指定する                   |
+| use_direct_input_in_vscode_terminal | パネル内のターミナル で ４つのキー（C-k、C-r、C-s、C-y）のダイレクト入力機能を使うかどうかを指定する  |
+| terminal_list_for_direct_input      | ターミナルをエディタ領域で使う際、ダイレクト入力機能を使うターミナルの種類を指定する                  |
 | esc_mode_in_keyboard_quit           | keyboard_quit 関数コール時の Esc キーの発行方法を指定する                                             |
 |-------------------------------------+-------------------------------------------------------------------------------------------------------|
 
@@ -156,7 +156,7 @@ keyboard_quit（C-A-g）を利用してください。（esc_mode_in_keyboard_qu
 
 - https://github.com/smzht/fakeymacs/tree/master/fakeymacs_extensions/vscode_extensions
 
-****  ●「ターミナル操作」のキー設定
+****  ●「ターミナル操作」のキー設定（パネル内ターミナル）
 
 |-------------+-----------------+------------------------------------------+--------------------|
 | Keybind     | Function        | VSCode Command                           | Description        |
@@ -210,7 +210,7 @@ use_direct_input_in_vscode_terminal 変数が False（初期値）の場合で�
 その場合は、上記のいずれかのキーを押下することにより、Fakeymacs に現在の状態を再認識させるように
 してください。
 
-※ エディタ領域に Terminal を開く場合には、次のキーを利用してください。
+****  ●「ターミナル操作」のキー設定（エディタ領域ターミナル）
 
 |-----------------+--------------------------------+---------------------------------------------------------+---------------------|
 | Keybind         | Function                       | VSCode Command                                          | Description         |
@@ -219,6 +219,13 @@ use_direct_input_in_vscode_terminal 変数が False（初期値）の場合で�
 | C-A-@           | create_terminal_in_editor_area | Terminal: Create New Integrated Terminal in Editor Area | JIS Keyboard の場合 |
 | C-A-<半角/全角> | create_terminal_in_editor_area | Terminal: Create New Integrated Terminal in Editor Area | JIS Keyboard の場合 |
 |-----------------+--------------------------------+---------------------------------------------------------+---------------------|
+
+※ エディタ領域にターミナルを開く場合には、上記のキーを利用してください。
+
+※ エディタ領域に表示するターミナルでは、ウィンドウのタイトルからターミナルが選択されていることを
+判別できます。このため、terminal_list_for_direct_input 変数に設定しているターミナルについては、
+use_direct_input_in_vscode_terminal 変数の設定に関わらず、４つのキー（C-k、C-r、C-s、C-y）の
+ダイレクト入力をできるようにしています。
 
 **** ● 「その他」のキー設定
 

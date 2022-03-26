@@ -50,18 +50,19 @@ try:
     # 設定されているか？
     fc.use_direct_input_in_vscode_terminal
 except:
-    # VSCode の Terminal内 で ４つのキー（Ctrl+k、Ctrl+r、Ctrl+s、Ctrl+y）のダイレクト入力機能を使うか
-    # どうかを指定する（True: 使う、False: 使わない）
+    # パネルのターミナル内 で ４つのキー（C-k、C-r、C-s、C-y）のダイレクト入力機能を使うかどうかを
+    # 指定する（True: 使う、False: 使わない）
     fc.use_direct_input_in_vscode_terminal = False
 
 try:
     # 設定されているか？
     fc.terminal_list_for_direct_input
 except:
-    # Terminal をエディタ領域で使う際、ダイレクト入力機能を使う Terminal の種類を指定する
+    # ターミナルをエディタ領域で使う際、ダイレクト入力機能を使うターミナルの種類を指定する
     fc.terminal_list_for_direct_input = ["bash",
                                          "wsl",
                                          "powershell",
+                                         "zsh"
                                          ]
 
 try:
@@ -172,12 +173,12 @@ def is_terminal_for_direct_input():
 ## ファイル操作
 def find_directory():
     # VSCode Command : File: Open Folder...
-    # self_insert_command("C-k", "C-o")() # Terminal で誤動作するのでショートカットは使わない
+    # self_insert_command("C-k", "C-o")() # ターミナルで誤動作するのでショートカットは使わない
     vscodeExecuteCommand("workbench.action.files.openFolder")()
 
 def recentf():
     # VSCode Command : File: Open Recent...
-    # self_insert_command("C-r")() # Terminal で誤動作するのでショートカットは使わない
+    # self_insert_command("C-r")() # ターミナルで誤動作するのでショートカットは使わない
     vscodeExecuteCommand("workbench.action.openRecent")()
 
 def locate():
@@ -255,7 +256,7 @@ def split_editor_below():
     if fakeymacs_vscode.vscode_focus == "not_terminal":
         # VSCode Command : View: Split Editor Orthogonal
         vscodeExecuteCommand("VSEOr")()
-        # self_insert_command("C-k", "C-Yen")() # Terminal で誤動作するのでショートカットは使わない
+        # self_insert_command("C-k", "C-Yen")() # ターミナルで誤動作するのでショートカットは使わない
         # vscodeExecuteCommand("workbench.action.splitEditorOrthogonal")()
 
 def split_editor_right():
@@ -354,7 +355,7 @@ def skip_to_previous_like_this():
 def skip_to_next_like_this():
     # VSCode Command : Move Last Selection To Next Find Match
     region(vscodeExecuteCommand("MLSTN"))()
-    # region(self_insert_command("C-k", "C-d"))() # Terminal で誤動作するのでショートカットは使わない
+    # region(self_insert_command("C-k", "C-d"))() # ターミナルで誤動作するのでショートカットは使わない
     # region(vscodeExecuteCommand("editor.action.moveSelectionToNextFindMatch"))()
 
 def expand_region():
