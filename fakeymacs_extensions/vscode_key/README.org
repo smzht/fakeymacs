@@ -97,12 +97,12 @@ True に設定した場合でも Toggle Terminal 用のキーとして C-<半角
 |----------------+------------------------------+-------------------------------------------+-------------|
 | Keybind        | Function                     | VSCode Command                            | Description |
 |----------------+------------------------------+-------------------------------------------+-------------|
-| Ctl-x 0        | delete_group                 | View: Close All Editors in Group          |             |
-| Ctl-x 1        | delete_other_groups          | View: Close Editors in Other Groups       |             |
-| Ctl-x 2        | split_editor_below           | View: Split Editor Orthogonal             |             |
-| Ctl-x 3        | split_editor_right           | View: Split Editor                        |             |
+| Ctl-x 0        | delete_window                | View: Close All Editors in Group          |             |
+| Ctl-x 1        | delete_other_windows         | View: Close Editors in Other Groups       |             |
+| Ctl-x 2        | split_window_below           | View: Split Editor Orthogonal             |             |
+| Ctl-x 3        | split_window_right           | View: Split Editor                        |             |
 | Ctl-x 4        | rotate_layout                | Toggle Vertical/Horizontal Editor Layout  |             |
-| Ctl-x o        | other_group                  | View: Navigate Between Editor Groups      |             |
+| Ctl-x o        | other_window                 | View: Navigate Between Editor Groups      |             |
 | C-<数字キー>   | switch_focus(<数字キーの値>) | View: Focus Side Bar or n-th Editor Group |             |
 | C-A-<数字キー> | switch_focus(<数字キーの値>) | View: Focus Side Bar or n-th Editor Group |             |
 |----------------+------------------------------+-------------------------------------------+-------------|
@@ -201,7 +201,7 @@ use_direct_input_in_vscode_terminal 変数が False（初期値）の場合で�
 | C-@            | toggle_terminal              | View: Toggle Terminal -like         | JIS Keyboard の場合 |
 | C-<半角/全角>  | toggle_terminal              | View: Toggle Terminal -like         | JIS Keyboard の場合 |
 |----------------+------------------------------+-------------------------------------+---------------------|
-| Ctl-x o        | other_group                  | Navigate Between Editor Groups      |                     |
+| Ctl-x o        | other_window                 | Navigate Between Editor Groups      |                     |
 | C-<数字キー>   | switch_focus(<数字キーの値>) | Focus Side Bar or n-th Editor Group |                     |
 | C-A-<数字キー> | switch_focus(<数字キーの値>) | Focus Side Bar or n-th Editor Group |                     |
 |----------------+------------------------------+-------------------------------------+---------------------|

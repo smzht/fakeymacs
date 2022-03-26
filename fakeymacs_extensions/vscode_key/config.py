@@ -240,26 +240,39 @@ def isearch_forward():
     isearch_v("forward")
 
 ## エディタ操作
-def delete_group():
+def delete_window():
     if fakeymacs_vscode.vscode_focus == "not_terminal":
         # VSCode Command : View: Close All Editors in Group
         vscodeExecuteCommand("VCAEi")()
         # vscodeExecuteCommand("workbench.action.closeEditorsInGroup")()
+    else:
+        # VSCode Command : View: Close Panel
+        vscodeExecuteCommand2("workbench.action.closePanel")()
 
-def delete_other_groups():
+        fakeymacs_vscode.vscode_focus = "not_terminal"
+
+def delete_other_windows():
     if fakeymacs_vscode.vscode_focus == "not_terminal":
         # VSCode Command : View: Close Editors in Other Groups
         vscodeExecuteCommand("VCEiO")()
         # vscodeExecuteCommand("workbench.action.closeEditorsInOtherGroups")()
+    else:
+        # VSCode Command : View: Toggle Maximized Panel
+        vscodeExecuteCommand("VTMP")()
+        # vscodeExecuteCommand("workbench.action.toggleMaximizedPanel")()
 
-def split_editor_below():
+def split_window_below():
     if fakeymacs_vscode.vscode_focus == "not_terminal":
         # VSCode Command : View: Split Editor Orthogonal
         vscodeExecuteCommand("VSEOr")()
         # self_insert_command("C-k", "C-Yen")() # ターミナルで誤動作するのでショートカットは使わない
         # vscodeExecuteCommand("workbench.action.splitEditorOrthogonal")()
+    else:
+        # VSCode Command : View: Toggle Maximized Panel
+        vscodeExecuteCommand("VTMP")()
+        # vscodeExecuteCommand("workbench.action.toggleMaximizedPanel")()
 
-def split_editor_right():
+def split_window_right():
     if fakeymacs_vscode.vscode_focus == "not_terminal" and not is_terminal_for_direct_input():
         # VSCode Command : View: Split Editor
         self_insert_command("C-Yen")()
@@ -275,7 +288,7 @@ def rotate_layout():
         self_insert_command("A-S-0")()
         # vscodeExecuteCommand("workbench.action.toggleEditorGroupLayout")()
 
-def other_group():
+def other_window():
     # VSCode Command : View: Navigate Between Editor Groups
     vscodeExecuteCommand("VNBEdG")()
     # vscodeExecuteCommand("workbench.action.navigateEditorGroups")()
@@ -503,12 +516,12 @@ define_key_v("C-r", reset_undo(reset_counter(reset_mark(isearch_backward))))
 define_key_v("C-s", reset_undo(reset_counter(reset_mark(isearch_forward))))
 
 ## 「エディタ操作」のキー設定
-define_key_v("Ctl-x 0", reset_search(reset_undo(reset_counter(reset_mark(delete_group)))))
-define_key_v("Ctl-x 1", reset_search(reset_undo(reset_counter(reset_mark(delete_other_groups)))))
-define_key_v("Ctl-x 2", split_editor_below)
-define_key_v("Ctl-x 3", split_editor_right)
+define_key_v("Ctl-x 0", reset_search(reset_undo(reset_counter(reset_mark(delete_window)))))
+define_key_v("Ctl-x 1", reset_search(reset_undo(reset_counter(reset_mark(delete_other_windows)))))
+define_key_v("Ctl-x 2", split_window_below)
+define_key_v("Ctl-x 3", split_window_right)
 define_key_v("Ctl-x 4", rotate_layout)
-define_key_v("Ctl-x o", reset_search(reset_undo(reset_counter(reset_mark(other_group)))))
+define_key_v("Ctl-x o", reset_search(reset_undo(reset_counter(reset_mark(other_window)))))
 
 if fc.use_ctrl_digit_key_for_digit_argument:
     key = "C-A-{}"
