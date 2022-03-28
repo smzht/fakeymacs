@@ -199,16 +199,22 @@ def next_error():
 
 ## カット / コピー
 def kill_line_v(repeat=1):
-    if fakeymacs_vscode.vscode_focus == "not_terminal" and not is_terminal_for_direct_input():
-        kill_line(repeat)
+    if checkWindow("code.exe"):
+        if fakeymacs_vscode.vscode_focus == "not_terminal" and not is_terminal_for_direct_input():
+            kill_line(repeat)
+        else:
+            self_insert_command("C-k")()
     else:
-        self_insert_command("C-k")()
+        kill_line(repeat)
 
 def yank_v():
-    if fakeymacs_vscode.vscode_focus == "not_terminal" and not is_terminal_for_direct_input():
-        yank()
+    if checkWindow("code.exe"):
+        if fakeymacs_vscode.vscode_focus == "not_terminal" and not is_terminal_for_direct_input():
+            yank()
+        else:
+            self_insert_command("C-y")()
     else:
-        self_insert_command("C-y")()
+        yank()
 
 ## バッファ / ウィンドウ操作
 def kill_buffer():
@@ -228,10 +234,13 @@ def list_buffers():
 
 ## 文字列検索
 def isearch_v(direction):
-    if fakeymacs_vscode.vscode_focus == "not_terminal" and not is_terminal_for_direct_input():
-        isearch(direction)
+    if checkWindow("code.exe"):
+        if fakeymacs_vscode.vscode_focus == "not_terminal" and not is_terminal_for_direct_input():
+            isearch(direction)
+        else:
+            self_insert_command({"backward":"C-r", "forward":"C-s"}[direction])()
     else:
-        self_insert_command({"backward":"C-r", "forward":"C-s"}[direction])()
+        isearch(direction)
 
 def isearch_backward():
     isearch_v("backward")
