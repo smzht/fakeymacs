@@ -231,12 +231,14 @@ fc.lancherList_listers = [
 # VSCode 用のキーの設定を行う
 if 1:
     fc.vscode_target  = ["Code.exe"]
-    # vscode.dev 等、ブラウザで動作する VSCode で本機能を無効とするには、次の４行をコメントアウト
+
+    # vscode.dev 等、ブラウザで動作する VSCode で本機能を有効とするには、次の４行のコメントを解除
     # してください
-    fc.vscode_target += ["chrome.exe",
-                         "msedge.exe",
-                         "firefox.exe",
-                         ]
+    # fc.vscode_target += ["chrome.exe",
+    #                      "msedge.exe",
+    #                      "firefox.exe",
+    #                      ]
+
     # fc.vscode_prefix_key = [["C-;", "C-A-;"]]
     fc.use_ctrl_atmark_for_mark = False
     fc.use_direct_input_in_vscode_terminal = False
