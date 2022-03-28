@@ -287,7 +287,7 @@ def split_window_right():
         self_insert_command("C-Yen")()
         # vscodeExecuteCommand("workbench.action.splitEditor")()
     else:
-        # View: Split Terminal
+        # VSCode Command : View: Split Terminal
         self_insert_command("C-S-5")()
         # vscodeExecuteCommand("workbench.action.terminal.split")()
 
