@@ -38,7 +38,7 @@ True に設定した場合でも Toggle Terminal 用のキーとして C-<半角
 ※ use_direct_input_in_vscode_terminal 変数が False の場合でも、terminal_list_for_direct_input
 変数に設定しているターミナルをエディタ領域で開いた場合には、４つのキー（C-k、C-r、C-s、C-y）の
 ダイレクト入力が機能します。パネルのターミナルでダイレクト入力機能を利用する場合と異なり、
-場所の認識が不要となりますので、シンプルな利用形態になると思います。
+現在の場所を認識する必要がなくなるため、シンプルな利用形態になると思います。
 
 ※ esc_mode_in_keyboard_quit 変数の設定値には、次のいずれかの値を指定できます。
 - 1：Esc キーを常に発行する
