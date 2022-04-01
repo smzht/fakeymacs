@@ -50,7 +50,7 @@ try:
     # 設定されているか？
     fc.use_direct_input_in_vscode_terminal
 except:
-    # パネルのターミナル内 で ４つのキー（C-k、C-r、C-s、C-y）のダイレクト入力機能を使うかどうかを
+    # パネルのターミナル内で４つのキー（C-k、C-r、C-s、C-y）のダイレクト入力機能を使うかどうかを
     # 指定する（True: 使う、False: 使わない）
     fc.use_direct_input_in_vscode_terminal = False
 

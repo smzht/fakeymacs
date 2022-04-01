@@ -14,7 +14,7 @@ VSCode 用のキーの設定を行う拡張機能です。
 | vscode_target                       | VSCode 用のキーバインドを利用するアプリケーションソフトを指定する                                     |
 | vscode_prefix_key                   | 置き換えするプレフィックスキーの組み合わせ（VSCode のキー、Fakeymacs のキー）を指定する（複数指定可） |
 | use_ctrl_atmark_for_mark            | 日本語キーボードを利用する際、VSCode で  C-@ をマーク用のキーとして使うかどうかを指定する             |
-| use_direct_input_in_vscode_terminal | パネル内のターミナル で ４つのキー（C-k、C-r、C-s、C-y）のダイレクト入力機能を使うかどうかを指定する  |
+| use_direct_input_in_vscode_terminal | パネルのターミナル内で４つのキー（C-k、C-r、C-s、C-y）のダイレクト入力機能を使うかどうかを            |
 | terminal_list_for_direct_input      | ターミナルをエディタ領域で使う際、ダイレクト入力機能を使うターミナルの種類を指定する                  |
 | esc_mode_in_keyboard_quit           | keyboard_quit 関数コール時の Esc キーの発行方法を指定する                                             |
 |-------------------------------------+-------------------------------------------------------------------------------------------------------|
@@ -34,6 +34,12 @@ True に設定した場合でも Toggle Terminal 用のキーとして C-<半角
 ※ use_direct_input_in_vscode_terminal 変数は初期値を False（使わない）としており、
 仕様を理解した方のみ使う機能としています。use_direct_input_in_vscode_terminal 変数を True に
 した際の仕様については、以降の説明を参照してください。
+
+※ use_direct_input_in_vscode_terminal 変数が False の場合でも、terminal_list_for_direct_input
+変数に設定しているターミナルをエディタ領域に開く場合には、４つのキー（C-k、C-r、C-s、C-y）の
+ダイレクト入力は常に機能します。こちらの利用形態の方が、ターミナルを利用しているかどうか
+をプログラムに認識させる操作（パネルのターミナルを使う場合には必要）が不要となりますので、
+シンプルな利用形態になると思います。
 
 ※ esc_mode_in_keyboard_quit 変数の設定値には、次のいずれかの値を指定できます。
 - 1：Esc キーを常に発行する
