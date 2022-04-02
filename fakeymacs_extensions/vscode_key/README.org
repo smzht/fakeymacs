@@ -166,7 +166,7 @@ keyboard_quit（C-A-g）を利用してください。（esc_mode_in_keyboard_qu
 |-------------+-----------------+------------------------------------------+--------------------|
 | Keybind     | Function        | VSCode Command                           | Description        |
 |-------------+-----------------+------------------------------------------+--------------------|
-| C-~ (C-S-`) | create_terminal | Terminal: Create New Integrated Terminal | US Keyboard の場合 |
+| C-~ (C-S-`) | create_terminal | Terminal: Create New Terminal            | US Keyboard の場合 |
 | C-`         | toggle_terminal | View: Toggle Terminal -like              | US Keyboard の場合 |
 |-------------+-----------------+------------------------------------------+--------------------|
 
@@ -174,9 +174,9 @@ keyboard_quit（C-A-g）を利用してください。（esc_mode_in_keyboard_qu
 |-----------------+-----------------+------------------------------------------+---------------------|
 | Keybind         | Function        | VSCode Command                           | Description         |
 |-----------------+-----------------+------------------------------------------+---------------------|
-| C-` (C-S-@)     | create_terminal | Terminal: Create New Integrated Terminal | JIS Keyboard の場合 |
+| C-` (C-S-@)     | create_terminal | Terminal: Create New Terminal            | JIS Keyboard の場合 |
 | C-@             | toggle_terminal | View: Toggle Terminal -like              | JIS Keyboard の場合 |
-| C-S-<半角/全角> | create_terminal | Terminal: Create New Integrated Terminal | JIS Keyboard の場合 |
+| C-S-<半角/全角> | create_terminal | Terminal: Create New Terminal            | JIS Keyboard の場合 |
 | C-<半角/全角>   | toggle_terminal | View: Toggle Terminal -like              | JIS Keyboard の場合 |
 |-----------------+-----------------+------------------------------------------+---------------------|
 
@@ -217,13 +217,13 @@ Fakeymacs に現在の場所を再認識させるようにしてください。
 
 ****  ●「ターミナル操作」のキー設定（エディタ領域ターミナル）
 
-|-----------------+--------------------------------+---------------------------------------------------------+---------------------|
-| Keybind         | Function                       | VSCode Command                                          | Description         |
-|-----------------+--------------------------------+---------------------------------------------------------+---------------------|
-| C-A-`           | create_terminal_in_editor_area | Terminal: Create New Integrated Terminal in Editor Area | US Keyboard の場合  |
-| C-A-@           | create_terminal_in_editor_area | Terminal: Create New Integrated Terminal in Editor Area | JIS Keyboard の場合 |
-| C-A-<半角/全角> | create_terminal_in_editor_area | Terminal: Create New Integrated Terminal in Editor Area | JIS Keyboard の場合 |
-|-----------------+--------------------------------+---------------------------------------------------------+---------------------|
+|-----------------+--------------------------------+----------------------------------------------+---------------------|
+| Keybind         | Function                       | VSCode Command                               | Description         |
+|-----------------+--------------------------------+----------------------------------------------+---------------------|
+| C-A-`           | create_terminal_in_editor_area | Terminal: Create New Terminal in Editor Area | US Keyboard の場合  |
+| C-A-@           | create_terminal_in_editor_area | Terminal: Create New Terminal in Editor Area | JIS Keyboard の場合 |
+| C-A-<半角/全角> | create_terminal_in_editor_area | Terminal: Create New Terminal in Editor Area | JIS Keyboard の場合 |
+|-----------------+--------------------------------+----------------------------------------------+---------------------|
 
 ※ エディタ領域にターミナルを開く場合には、上記のキーを利用してください。
 

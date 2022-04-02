@@ -42,8 +42,8 @@ try:
 except:
     # 日本語キーボードを利用する際、VSCode で  C-@ をマーク用のキーとして使うかどうかを指定する
     # （True: 使う、False: 使わない）
-    # （VSCode で C-@ を Toggle Integrated Terminal 用のキーとして使えるようにするために設けた設定です。
-    #   True に設定した場合でも、Toggle Integrated Terminal 用のキーとして  C-<半角／全角> が使えます。）
+    # （VSCode で C-@ を Toggle Terminal 用のキーとして使えるようにするために設けた設定です。
+    #   True に設定した場合でも、Toggle Terminal 用のキーとして  C-<半角／全角> が使えます。）
     fc.use_ctrl_atmark_for_mark = False
 
 try:
@@ -255,8 +255,12 @@ def delete_window():
         vscodeExecuteCommand("VCAEi")()
         # vscodeExecuteCommand("workbench.action.closeEditorsInGroup")()
     else:
+        # VSCode Command : View: Focus into Panel
+        vscodeExecuteCommand("VFiPa")()
+        # vscodeExecuteCommand("workbench.action.focusPanel")()
+
         # VSCode Command : View: Close Panel
-        vscodeExecuteCommand2("workbench.action.closePanel")()
+        vscodeExecuteCommand("workbench.action.closePanel")()
 
         fakeymacs_vscode.vscode_focus = "not_terminal"
 
@@ -405,7 +409,7 @@ def keyboard_quit_v1():
 
 ## ターミナル操作
 def create_terminal():
-    # VSCode Command : Terminal: Create New Integrated Terminal
+    # VSCode Command : Terminal: Create New Terminal
     vscodeExecuteCommand2("workbench.action.terminal.new")()
 
     if fc.use_direct_input_in_vscode_terminal:
@@ -419,8 +423,12 @@ def toggle_terminal():
 
             fakeymacs_vscode.vscode_focus = "terminal"
         else:
+            # VSCode Command : View: Focus into Panel
+            vscodeExecuteCommand("VFiPa")()
+            # vscodeExecuteCommand("workbench.action.focusPanel")()
+
             # VSCode Command : View: Close Panel
-            vscodeExecuteCommand2("workbench.action.closePanel")()
+            vscodeExecuteCommand("workbench.action.closePanel")()
 
             fakeymacs_vscode.vscode_focus = "not_terminal"
     else:
@@ -428,7 +436,7 @@ def toggle_terminal():
         vscodeExecuteCommand2("workbench.action.terminal.toggleTerminal")()
 
 def create_terminal_in_editor_area():
-    # VSCode Command : Terminal: Create New Integrated Terminal in Editor Area
+    # VSCode Command : Terminal: Create New Terminal in Editor Area
     vscodeExecuteCommand2("workbench.action.createTerminalEditor")()
 
     if fc.use_direct_input_in_vscode_terminal:
