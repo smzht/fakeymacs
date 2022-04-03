@@ -292,8 +292,8 @@ def split_window_right():
         # vscodeExecuteCommand("workbench.action.splitEditor")()
     else:
         # VSCode Command : View: Split Terminal
-        self_insert_command("C-S-5")()
-        # vscodeExecuteCommand("workbench.action.terminal.split")()
+        # self_insert_command("C-S-5")()
+        vscodeExecuteCommand("workbench.action.terminal.split")()
 
 def rotate_layout():
     if fakeymacs_vscode.vscode_focus == "not_terminal" and not is_terminal_for_direct_input():
