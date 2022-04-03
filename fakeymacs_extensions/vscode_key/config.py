@@ -271,13 +271,14 @@ def delete_other_windows():
         vscodeExecuteCommand("VCEiO")()
         # vscodeExecuteCommand("workbench.action.closeEditorsInOtherGroups")()
 
-        # VSCode Command : View: Focus into Panel
-        vscodeExecuteCommand("VFiPa")()
-        # vscodeExecuteCommand("workbench.action.focusPanel")()
+        if fc.use_direct_input_in_vscode_terminal:
+            # VSCode Command : View: Focus into Panel
+            vscodeExecuteCommand("VFiPa")()
+            # vscodeExecuteCommand("workbench.action.focusPanel")()
 
-        # VSCode Command : View: Close Panel
-        vscodeExecuteCommand("VCPa")()
-        # vscodeExecuteCommand("workbench.action.closePanel")()
+            # VSCode Command : View: Close Panel
+            vscodeExecuteCommand("VCPa")()
+            # vscodeExecuteCommand("workbench.action.closePanel")()
     else:
         # VSCode Command : View: Toggle Maximized Panel
         vscodeExecuteCommand("VTMP")()
