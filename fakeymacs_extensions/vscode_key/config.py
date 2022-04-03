@@ -260,7 +260,8 @@ def delete_window():
         # vscodeExecuteCommand("workbench.action.focusPanel")()
 
         # VSCode Command : View: Close Panel
-        vscodeExecuteCommand("workbench.action.closePanel")()
+        vscodeExecuteCommand("VCPa")()
+        # vscodeExecuteCommand("workbench.action.closePanel")()
 
         fakeymacs_vscode.vscode_focus = "not_terminal"
 
@@ -269,6 +270,14 @@ def delete_other_windows():
         # VSCode Command : View: Close Editors in Other Groups
         vscodeExecuteCommand("VCEiO")()
         # vscodeExecuteCommand("workbench.action.closeEditorsInOtherGroups")()
+
+        # VSCode Command : View: Focus into Panel
+        vscodeExecuteCommand("VFiPa")()
+        # vscodeExecuteCommand("workbench.action.focusPanel")()
+
+        # VSCode Command : View: Close Panel
+        vscodeExecuteCommand("VCPa")()
+        # vscodeExecuteCommand("workbench.action.closePanel")()
     else:
         # VSCode Command : View: Toggle Maximized Panel
         vscodeExecuteCommand("VTMP")()
@@ -428,7 +437,8 @@ def toggle_terminal():
             # vscodeExecuteCommand("workbench.action.focusPanel")()
 
             # VSCode Command : View: Close Panel
-            vscodeExecuteCommand("workbench.action.closePanel")()
+            vscodeExecuteCommand("VCPa")()
+            # vscodeExecuteCommand("workbench.action.closePanel")()
 
             fakeymacs_vscode.vscode_focus = "not_terminal"
     else:
