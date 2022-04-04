@@ -248,6 +248,22 @@ def isearch_backward():
 def isearch_forward():
     isearch_v("forward")
 
+## パネル操作
+def focus_into_panel():
+    # VSCode Command : View: Focus into Panel
+    vscodeExecuteCommand("VFiP")()
+    # vscodeExecuteCommand("workbench.action.focusPanel")()
+
+def close_panel():
+    # VSCode Command : View: Close Panel
+    vscodeExecuteCommand("VCPa")()
+    # vscodeExecuteCommand("workbench.action.closePanel")()
+
+def toggle_maximized_panel():
+    # VSCode Command : View: Toggle Maximized Panel
+    vscodeExecuteCommand("VTMP")()
+    # vscodeExecuteCommand("workbench.action.toggleMaximizedPanel")()
+
 ## エディタ操作
 def delete_window():
     if fakeymacs_vscode.vscode_focus == "not_terminal":
@@ -255,14 +271,8 @@ def delete_window():
         vscodeExecuteCommand("VCAEi")()
         # vscodeExecuteCommand("workbench.action.closeEditorsInGroup")()
     else:
-        # VSCode Command : View: Focus into Panel
-        vscodeExecuteCommand("VFiPa")()
-        # vscodeExecuteCommand("workbench.action.focusPanel")()
-
-        # VSCode Command : View: Close Panel
-        vscodeExecuteCommand("VCPa")()
-        # vscodeExecuteCommand("workbench.action.closePanel")()
-
+        focus_into_panel()
+        close_panel()
         fakeymacs_vscode.vscode_focus = "not_terminal"
 
 def delete_other_windows():
@@ -272,17 +282,10 @@ def delete_other_windows():
         # vscodeExecuteCommand("workbench.action.closeEditorsInOtherGroups")()
 
         if fc.use_direct_input_in_vscode_terminal:
-            # VSCode Command : View: Focus into Panel
-            vscodeExecuteCommand("VFiPa")()
-            # vscodeExecuteCommand("workbench.action.focusPanel")()
-
-            # VSCode Command : View: Close Panel
-            vscodeExecuteCommand("VCPa")()
-            # vscodeExecuteCommand("workbench.action.closePanel")()
+            focus_into_panel()
+            close_panel()
     else:
-        # VSCode Command : View: Toggle Maximized Panel
-        vscodeExecuteCommand("VTMP")()
-        # vscodeExecuteCommand("workbench.action.toggleMaximizedPanel")()
+        toggle_maximized_panel()
 
 def split_window_below():
     if fakeymacs_vscode.vscode_focus == "not_terminal":
@@ -291,9 +294,7 @@ def split_window_below():
         # self_insert_command("C-k", "C-Yen")() # ターミナルで誤動作するのでショートカットキーは使わない
         # vscodeExecuteCommand("workbench.action.splitEditorOrthogonal")()
     else:
-        # VSCode Command : View: Toggle Maximized Panel
-        vscodeExecuteCommand("VTMP")()
-        # vscodeExecuteCommand("workbench.action.toggleMaximizedPanel")()
+        toggle_maximized_panel()
 
 def split_window_right():
     if fakeymacs_vscode.vscode_focus == "not_terminal" and not is_terminal_for_direct_input():
@@ -433,14 +434,8 @@ def toggle_terminal():
 
             fakeymacs_vscode.vscode_focus = "terminal"
         else:
-            # VSCode Command : View: Focus into Panel
-            vscodeExecuteCommand("VFiPa")()
-            # vscodeExecuteCommand("workbench.action.focusPanel")()
-
-            # VSCode Command : View: Close Panel
-            vscodeExecuteCommand("VCPa")()
-            # vscodeExecuteCommand("workbench.action.closePanel")()
-
+            focus_into_panel()
+            close_panel()
             fakeymacs_vscode.vscode_focus = "not_terminal"
     else:
         # VSCode Command : View: Toggle Terminal
