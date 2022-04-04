@@ -173,12 +173,12 @@ def is_terminal_for_direct_input():
 ## ファイル操作
 def find_directory():
     # VSCode Command : File: Open Folder...
-    # self_insert_command("C-k", "C-o")() # ターミナルで誤動作するのでショートカットは使わない
+    # self_insert_command("C-k", "C-o")() # ターミナルで誤動作するのでショートカットキーは使わない
     vscodeExecuteCommand("workbench.action.files.openFolder")()
 
 def recentf():
     # VSCode Command : File: Open Recent...
-    # self_insert_command("C-r")() # ターミナルで誤動作するのでショートカットは使わない
+    # self_insert_command("C-r")() # ターミナルで誤動作するのでショートカットキーは使わない
     vscodeExecuteCommand("workbench.action.openRecent")()
 
 def locate():
@@ -288,7 +288,7 @@ def split_window_below():
     if fakeymacs_vscode.vscode_focus == "not_terminal":
         # VSCode Command : View: Split Editor Orthogonal
         vscodeExecuteCommand("VSEOr")()
-        # self_insert_command("C-k", "C-Yen")() # ターミナルで誤動作するのでショートカットは使わない
+        # self_insert_command("C-k", "C-Yen")() # ターミナルで誤動作するのでショートカットキーは使わない
         # vscodeExecuteCommand("workbench.action.splitEditorOrthogonal")()
     else:
         # VSCode Command : View: Toggle Maximized Panel
@@ -391,7 +391,7 @@ def skip_to_previous_like_this():
 def skip_to_next_like_this():
     # VSCode Command : Move Last Selection To Next Find Match
     region(vscodeExecuteCommand("MLSTN"))()
-    # region(self_insert_command("C-k", "C-d"))() # ターミナルで誤動作するのでショートカットは使わない
+    # region(self_insert_command("C-k", "C-d"))() # ターミナルで誤動作するのでショートカットキーは使わない
     # region(vscodeExecuteCommand("editor.action.moveSelectionToNextFindMatch"))()
 
 def expand_region():
