@@ -167,7 +167,7 @@ keyboard_quit（C-A-g）を利用してください。（esc_mode_in_keyboard_qu
 | Keybind     | Function        | VSCode Command                           | Description        |
 |-------------+-----------------+------------------------------------------+--------------------|
 | C-~ (C-S-`) | create_terminal | Terminal: Create New Terminal            | US Keyboard の場合 |
-| C-`         | toggle_terminal | View: Toggle Terminal -like              | US Keyboard の場合 |
+| C-`         | toggle_terminal | View: Toggle Terminal                    | US Keyboard の場合 |
 |-------------+-----------------+------------------------------------------+--------------------|
 
 
@@ -175,9 +175,9 @@ keyboard_quit（C-A-g）を利用してください。（esc_mode_in_keyboard_qu
 | Keybind         | Function        | VSCode Command                           | Description         |
 |-----------------+-----------------+------------------------------------------+---------------------|
 | C-` (C-S-@)     | create_terminal | Terminal: Create New Terminal            | JIS Keyboard の場合 |
-| C-@             | toggle_terminal | View: Toggle Terminal -like              | JIS Keyboard の場合 |
+| C-@             | toggle_terminal | View: Toggle Terminal                    | JIS Keyboard の場合 |
 | C-S-<半角/全角> | create_terminal | Terminal: Create New Terminal            | JIS Keyboard の場合 |
-| C-<半角/全角>   | toggle_terminal | View: Toggle Terminal -like              | JIS Keyboard の場合 |
+| C-<半角/全角>   | toggle_terminal | View: Toggle Terminal                    | JIS Keyboard の場合 |
 |-----------------+-----------------+------------------------------------------+---------------------|
 
 ※ C-@ は、use_ctrl_atmark_for_mark 変数が False の場合に機能します。
@@ -202,9 +202,9 @@ use_direct_input_in_vscode_terminal 変数が False（初期値）の場合で�
 |----------------+------------------------------+-------------------------------------+---------------------|
 | Keybind        | Function                     | VSCode Command                      | Description         |
 |----------------+------------------------------+-------------------------------------+---------------------|
-| C-`            | toggle_terminal              | View: Toggle Terminal -like         | US Keyboard の場合  |
-| C-@            | toggle_terminal              | View: Toggle Terminal -like         | JIS Keyboard の場合 |
-| C-<半角/全角>  | toggle_terminal              | View: Toggle Terminal -like         | JIS Keyboard の場合 |
+| C-`            | toggle_terminal              | View: Toggle Terminal               | US Keyboard の場合  |
+| C-@            | toggle_terminal              | View: Toggle Terminal               | JIS Keyboard の場合 |
+| C-<半角/全角>  | toggle_terminal              | View: Toggle Terminal               | JIS Keyboard の場合 |
 |----------------+------------------------------+-------------------------------------+---------------------|
 | Ctl-x o        | other_window                 | Navigate Between Editor Groups      |                     |
 | C-<数字キー>   | switch_focus(<数字キーの値>) | Focus Side Bar or n-th Editor Group |                     |
