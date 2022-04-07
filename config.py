@@ -2310,11 +2310,9 @@ def configure(keymap):
 
     def restore_window():
         window_list = getWindowList(True)
-
-        if not fakeymacs.reverse_window_to_restore:
-            window_list.reverse()
-
-        if  window_list:
+        if window_list:
+            if not fakeymacs.reverse_window_to_restore:
+                window_list.reverse()
             window_list[0].restore()
 
     def previous_desktop():
