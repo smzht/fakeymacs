@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220321_01"
+fakeymacs_version = "20220407_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1261,9 +1261,9 @@ def configure(keymap):
 
     def shell_command():
         command_name = os.path.basename(fc.command_name)
-        for wnd in getWindowList():
-            if wnd.getProcessName() == command_name:
-                popWindow(wnd)()
+        for window in getWindowList():
+            if window.getProcessName() == command_name:
+                popWindow(window)()
                 return
 
         keymap.ShellExecuteCommand(None, fc.command_name, "", "")()
@@ -2207,13 +2207,14 @@ def configure(keymap):
     ## ウィンドウ操作（デスクトップ用）
     ##################################################
 
-    def popWindow(wnd):
+    def popWindow(window):
         def _func():
             try:
-                if wnd.isMinimized():
-                    wnd.restore()
+                if window.isMinimized():
+                    window.restore()
 
-                wnd.getLastActivePopup().setForeground()
+                window.getLastActivePopup().setForeground()
+                # window.getLastActivePopup().setActive()
             except:
                 print("選択したウィンドウは存在しませんでした")
 
@@ -2221,16 +2222,16 @@ def configure(keymap):
         return _func
 
     def getWindowList(minimized_window=None):
-        def makeWindowList(wnd, arg):
+        def makeWindowList(window, arg):
             nonlocal window_title
 
-            if wnd.isVisible() and not wnd.getOwner():
-                class_name = wnd.getClassName()
-                title = re.sub(r".* ‎- ", r"", wnd.getText())
+            if window.isVisible() and not window.getOwner():
+                class_name = window.getClassName()
+                title = re.sub(r".* ‎- ", r"", window.getText())
 
                 if class_name == "Emacs" or title != "":
                     if not re.match(fc.window_operation_exclusion_class, class_name):
-                        process_name = wnd.getProcessName()
+                        process_name = window.getProcessName()
 
                         if not re.match(fc.window_operation_exclusion_process, process_name):
 
@@ -2243,12 +2244,12 @@ def configure(keymap):
 
                             elif class_name == "ApplicationFrameWindow":
                                 if title != "Cortana":
-                                    if (title != window_title or wnd.isMinimized() or
-                                        wnd in fakeymacs.window_list): # UWPアプリの仮想デスクトップ対策
-                                        window_list.append(wnd)
+                                    if (title != window_title or window.isMinimized() or
+                                        window in fakeymacs.window_list): # UWPアプリの仮想デスクトップ対策
+                                        window_list.append(window)
                                 window_title = None
                             else:
-                                window_list.append(wnd)
+                                window_list.append(window)
             return True
 
         window_title = None
@@ -2259,10 +2260,10 @@ def configure(keymap):
             window_list2 = window_list
         else:
             window_list2 = []
-            for wnd in window_list:
-                if ((minimized_window and wnd.isMinimized()) or
-                    (not minimized_window and not wnd.isMinimized())):
-                    window_list2.append(wnd)
+            for window in window_list:
+                if ((minimized_window and window.isMinimized()) or
+                    (not minimized_window and not window.isMinimized())):
+                    window_list2.append(window)
 
         return window_list2
 
@@ -2296,13 +2297,13 @@ def configure(keymap):
         self_insert_command("W-S-Right")()
 
     def minimize_window():
-        wnd = keymap.getTopLevelWindow()
-        if wnd and not wnd.isMinimized():
-            wnd.minimize()
+        window = keymap.getTopLevelWindow()
+        if window and not window.isMinimized():
+            window.minimize()
             delay()
             window_list = getWindowList()
-            if wnd in window_list:
-                if wnd is window_list[-1]:
+            if window in window_list:
+                if window is window_list[-1]:
                     fakeymacs.reverse_window_to_restore = False
                 else:
                     fakeymacs.reverse_window_to_restore = True
@@ -2658,8 +2659,8 @@ def configure(keymap):
                 process_name_length = max(map(len, map(Window.getProcessName, window_list)))
 
                 formatter = "{0:" + str(process_name_length) + "} | {1}"
-                for wnd in window_list:
-                    window_items.append([formatter.format(wnd.getProcessName(), wnd.getText()), popWindow(wnd)])
+                for window in window_list:
+                    window_items.append([formatter.format(window.getProcessName(), window.getText()), popWindow(window)])
 
             window_items.append([list_formatter.format("<Desktop>"),
                                  keymap.ShellExecuteCommand(None, r"shell:::{3080F90D-D7AD-11D9-BD98-0000947B0257}", "", "")])
