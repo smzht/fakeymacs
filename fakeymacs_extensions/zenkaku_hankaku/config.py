@@ -71,7 +71,7 @@ if fc.use_emacs_ime_mode:
             resetRegion()
 
             # カーソル位置を元に戻す
-            for i in range(len(clipboard_text.replace("\r\n", "\n"))):
+            for _ in range(len(clipboard_text.replace("\r\n", "\n"))):
                 forward_char()
 
     define_key(keymap_ei,    fc.zenkaku_hankaku_key, hankaku_henkan)

@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220407_01"
+fakeymacs_version = "20220408_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -935,7 +935,7 @@ def configure(keymap):
         fakeymacs.is_marked = True
 
         def move_beginning_of_region():
-            for i in range(repeat):
+            for _ in range(repeat):
                 backward_word()
 
         mark(move_beginning_of_region, False)()
@@ -947,7 +947,7 @@ def configure(keymap):
         fakeymacs.is_marked = True
 
         def move_end_of_region():
-            for i in range(repeat):
+            for _ in range(repeat):
                 forward_word()
 
         mark(move_end_of_region, True)()
@@ -978,11 +978,11 @@ def configure(keymap):
         else:
             def move_end_of_region():
                 if checkWindow("WINWORD.EXE", "_WwG"): # Microsoft Word
-                    for i in range(repeat):
+                    for _ in range(repeat):
                         next_line()
                     move_beginning_of_line()
                 else:
-                    for i in range(repeat - 1):
+                    for _ in range(repeat - 1):
                         next_line()
                     move_end_of_line()
                     forward_char()
@@ -1003,7 +1003,7 @@ def configure(keymap):
                     key = "Back"
 
                 delay()
-                for i in range(len(getClipboardText())):
+                for _ in range(len(getClipboardText())):
                     self_insert_command(key)()
         else:
             cutRegion()
@@ -1663,7 +1663,7 @@ def configure(keymap):
             # キーボードマクロの繰り返し実行を可能とするために初期化する
             fakeymacs.repeat_counter = 1
 
-            for i in range(repeat_counter):
+            for _ in range(repeat_counter):
                 func()
         return _func
 
