@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220408_02"
+fakeymacs_version = "20220408_03"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1636,7 +1636,10 @@ def configure(keymap):
             # キーボードマクロの繰り返し実行を可能とするために初期化する
             fakeymacs.repeat_counter = 1
 
-            if repeat_counter == 1 or fakeymacs.is_playing_kmacro:
+            if repeat_counter == 1:
+                func()
+
+            elif fakeymacs.is_playing_kmacro:
                 for _ in range(repeat_counter):
                     func()
             else:
