@@ -2213,7 +2213,6 @@ def configure(keymap):
                     window.restore()
 
                 window.getLastActivePopup().setForeground()
-                # window.getLastActivePopup().setActive()
             except:
                 print("選択したウィンドウは存在しませんでした")
 
