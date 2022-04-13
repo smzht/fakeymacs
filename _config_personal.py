@@ -240,7 +240,7 @@ if 1:
     #                      "firefox.exe",
     #                      ]
 
-    # fc.vscode_prefix_key = [["C-;", "C-A-;"]]
+    # fc.vscode_prefix_key += [["C-Semicolon", "C-A-Semicolon"]]
     fc.use_ctrl_atmark_for_mark = False
     fc.use_direct_input_in_vscode_terminal = False
     fc.esc_mode_in_keyboard_quit = 1
