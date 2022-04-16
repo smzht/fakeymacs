@@ -192,8 +192,12 @@ use_direct_input_in_vscode_terminal 変数が False（初期値）の場合で�
 
 - https://code.visualstudio.com/docs/editor/integrated-terminal#_chord-keybindings-in-the-terminal
 
-※ ターミナルで C-s を利用できるようにするには、bash で stty stop undef の設定をする必要があります。
-この設定をしないでこのキーを押下すると stop から戻れなくなりますのでご注意ください。
+※ bash のターミナルで C-s を利用できるようにするには、bash で stty stop undef の設定をする必要が
+あります。この設定をしないでこのキーを押下すると stop から戻れなくなりますのでご注意ください。
+
+※ PowerShell のターミナルで emacs キーバインドを使うためには、次のページを参照してください。
+
+- https://note.com/kokoronopython/n/nbf09b3b5db46
 
 ※ use_direct_input_in_vscode_terminal 変数を True にしている場合にターミナルから抜ける場合は、
 次のキーを利用するようにしてください。先に説明した４つのキーが VSCode のショートカットキーとして
