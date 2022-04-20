@@ -77,10 +77,10 @@ not_emacs_target に登録されているアプリケーションソフトで有
 - https://docs.microsoft.com/ja-jp/windows-hardware/design/component-guidelines/keyboard-japan-ime
 
 ※ reconversion は IME の再変換を行う機能です。以下の仕様で動作します。
-- 日本語入力確定後に C-, を押すと、「確定取り消し」として機能します。（Windows 10 May 2020 Update の新しい Microsoft IME では「確定取り消し」のキー設定が見つからないので、「再変換」が機能するようにしています。）
+- 日本語入力確定後に C-, を押すと、「確定取り消し」として機能します。（Windows 10 May 2020 Update でリリースされた新しい Microsoft IME では、「確定取り消し」のキー設定が見つからないので「再変換」が機能するようにしています。）
 - 文字列の選択（リージョンの設定）をして C-, または Space を押すと、「再変換」が機能します。
 - 文字列が選択されているか（リージョンが設定されているか）は fakeymacs.forward_direction が設定されているかで判断しているため、マウスではなくキーボードによる選択が必要です。
-- Microsoft IME の場合、文字列を選択せずに C-, を押すと、カーソル位置近くの文節で「再変換」が機能します。
+- Microsoft IME の場合（新旧どちらの Microsoft IME でも）、文字列を選択せずに C-, を押すと、カーソル位置近くの文節で「再変換」が機能します。
 - Emacs日本語入力モードを有効にしている場合（デフォルトは有効）、「確定取り消し」や「再変換」の状態になると、Emacs日本語入力モードが機能するようにしています。
 - VSCode では、IME の再変換の機能がうまく動かないようです。
 
