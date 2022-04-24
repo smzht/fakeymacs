@@ -53,6 +53,13 @@ except:
     # Keyboard Macro Beta を利用するかどうかを指定する
     fc.vscode_keyboard_macro = False
 
+try:
+    # 設定されているか？
+    fc.vscode_filter_text
+except:
+    # Filter Text を利用するかどうかを指定する
+    fc.vscode_filter_text = False
+
 # --------------------------------------------------------------------------------------------------
 
 if fc.vscode_dired:
@@ -166,5 +173,26 @@ if fc.vscode_keyboard_macro:
         define_key_v("Ctl-x S-0", keyboard_macro_stop)
 
     define_key_v("Ctl-x e", reset_search(reset_undo(reset_counter(repeat(keyboard_macro_play)))))
+
+# --------------------------------------------------------------------------------------------------
+
+if fc.vscode_filter_text:
+    def filter_text_in_place():
+        # VSCode Command : FilterText: Filter text in-place
+        self_insert_command("C-k", "C-f")()
+        # vscodeExecuteCommand("extension.filterTextInplace")()
+
+    def run_filter_through_selected_text():
+        # VSCode Command : FilterText: Run filter through selected text
+        vscodeExecuteCommand("FRftst")()
+        # vscodeExecuteCommand("extension.filterText")()
+
+    def shell_command_on_region():
+        if fakeymacs.is_universal_argument:
+            filter_text_in_place()
+        else:
+            run_filter_through_selected_text()
+
+    define_key_v("M-S-BackSlash", reset_search(reset_undo(reset_counter(reset_mark(shell_command_on_region)))))
 
 # --------------------------------------------------------------------------------------------------

@@ -103,6 +103,23 @@ VSCode Extension 用のキーの設定を行う拡張機能です。
 | Ctrl-x e | keyboard_macro_play  | Keyboard Macro: Playback         |             |
 |----------+----------------------+----------------------------------+-------------|
 
+**** ● vscode_filter_text
+
+- https://marketplace.visualstudio.com/items?itemName=yhirose.FilterText
+
+|-------------+----------------------------------+----------------------------------------------+-------------|
+| Keybind     | Function                         | VSCode Command                               | Description |
+|-------------+----------------------------------+----------------------------------------------+-------------|
+| M-\vert     | run_filter_through_selected_text | FilterText: Run filter through selected text |             |
+| C-u M-\vert | filter_text_in_place             | FilterText: Filter text in-place             |             |
+|-------------+----------------------------------+----------------------------------------------+-------------|
+
+※ リージョンが選択されていない状態で FilterText: Filter text in-place が実行されると、拡張機能の
+説明には次のとおりの記載がありますが、実際にはコマンドの実行結果を挿入するのではなく、開いている
+ファイルの内容全てを置き換えてしまうようです。
+
+- If you didn't select anything, it simply inserts the result text at the current cursor position.
+
 *** 留意事項
 
 ● vscode-dired Extension をインストールして利用する場合、Ctrl+x f に設定されているキーバインドは、

@@ -253,6 +253,7 @@ if 1:
     fc.vscode_input_sequence = True
     fc.vscode_insert_numbers = True
     fc.vscode_keyboard_macro = False
+    fc.vscode_filter_text = False
 
     exec(readConfigExtension(r"vscode_key\config.py"), dict(globals(), **locals()))
     # vscode_extensions\config.py は、vscode_key\config.py 内部から呼ばれている
