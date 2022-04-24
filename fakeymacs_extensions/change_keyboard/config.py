@@ -33,7 +33,9 @@ keymap.replaceKey("BackSlash", "Return") # <］> キーを Enter キーにする
 # とで混在して利用する場合の切り替えの設定
 
 def change_keyboard(popBalloon=True):
-    if fakeymacs.change_keyboard_status == "US":
+    global change_keyboard_status
+
+    if change_keyboard_status == "US":
         # 日本語キーボードの利用に切り替える
 
         # 日本語キーボードの <］> キーを Enter キーにする
@@ -42,7 +44,7 @@ def change_keyboard(popBalloon=True):
         if popBalloon:
             keymap.popBalloon("keyboard", "[JP Keyboard]", 1000)
 
-        fakeymacs.change_keyboard_status = "JP"
+        change_keyboard_status = "JP"
     else:
         # 英語キーボードの利用に切り替える
 
@@ -52,12 +54,12 @@ def change_keyboard(popBalloon=True):
         if popBalloon:
             keymap.popBalloon("keyboard", "[US Keyboard]", 1000)
 
-        fakeymacs.change_keyboard_status = "US"
+        change_keyboard_status = "US"
 
 if fc.change_keyboard_startup == "US":
-    fakeymacs.change_keyboard_status = "JP"
+    change_keyboard_status = "JP"
 else:
-    fakeymacs.change_keyboard_status = "US"
+    change_keyboard_status = "US"
 
 change_keyboard(False)
 
