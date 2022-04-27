@@ -32,6 +32,9 @@ Fakeymacs をカスタマイズするために、下記のコンフィグレー�
 | emacs_ime_mode_balloon_message         | Emacs日本語入力モードが有効なときに表示するバルーンメッセージを指定する                                                                 |
 | use_ime_status_balloon                 | IME の状態を表示するバルーンメッセージを表示するかどうかを指定する                                                                      |
 | ime_status_balloon_message             | IME の状態を表示するバルーンメッセージの組み合わせ（英数入力、日本語入力）を指定する                                                    |
+| use_ime_status_cursor_color            | IME の状態をテキスト カーソル インジケーターの色で表現するかどうかを指定する                                                            |
+| ime_on_cursor_color                    | IME が ON のときのテキスト カーソル インジケーターの色を指定する                                                                        |
+| ime_off_cursor_color                   | IME が ON のときのテキスト カーソル インジケーターの色を指定する                                                                        |
 | toggle_input_method_key                | IME をトグルで切り替えるキーを指定する                                                                                                  |
 | set_input_method_key                   | IME を切り替えるキーの組み合わせ（disable、enable の順）を指定する                                                                      |
 | reconversion_key                       | IME の「再変換」を行うキーを指定する                                                                                                    |
