@@ -49,7 +49,7 @@ def browser_popup(key, ime_status):
                 popWindow(window)()
                 delay()
                 self_insert_command(key)()
-                keymap.delayedCall(lambda: keymap.getWindow().setImeStatus(ime_status), 100)
+                keymap.delayedCall(lambda: setImeStatus(ime_status), 100)
                 return
 
         # fc.browser_list に定義するブラウザが起動していない場合、fc.browser_list の最初

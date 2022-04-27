@@ -87,6 +87,16 @@ fc.emacs_ime_mode_balloon_message = "▲"
 # IME の状態を表示するバルーンメッセージを表示するかどうかを指定する（True: 表示する、False: 表示しない）
 fc.use_ime_status_balloon = True
 
+# IME の状態をテキスト カーソル インジケーターの色で表現するかどうかを指定する
+# （True: 表現する、False: 表現しない）
+fc.use_ime_status_cursor_color = False
+
+# IME が ON のときのテキスト カーソル インジケーターの色を指定する
+fc.ime_on_cursor_color = 0x00C800 # 濃い緑
+
+# IME が OFF のときのテキスト カーソル インジケーターの色を指定する
+fc.ime_off_cursor_color = 0x0000FF # 赤
+
 # IME をトグルで切り替えるキーを指定する（複数指定可）
 fc.toggle_input_method_key = []
 fc.toggle_input_method_key += ["C-Yen"]

@@ -118,13 +118,13 @@ def define_key_v2(keys, command):
 def self_insert_command_v(*keys):
     func = self_insert_command(*keys)
     def _func():
-        ime_status = keymap.getWindow().getImeStatus()
+        ime_status = getImeStatus()
         if ime_status:
-            keymap.getWindow().setImeStatus(0)
+            setImeStatus(0)
         func()
         delay()
         if ime_status:
-            keymap.getWindow().setImeStatus(1)
+            setImeStatus(1)
     return _func
 
 def vscodeExecuteCommand(command):
@@ -136,7 +136,7 @@ def vscodeExecuteCommand(command):
 
 def vscodeExecuteCommand2(command):
     def _func():
-        keymap.getWindow().setImeStatus(0)
+        setImeStatus(0)
         vscodeExecuteCommand(command)()
     return _func
 
