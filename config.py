@@ -699,7 +699,6 @@ def configure(keymap):
             return False
         else:
             if window != last_window:
-                setCursorColor()
                 popImeBalloon()
             fakeymacs.keybind = "emacs"
             return True
@@ -815,7 +814,6 @@ def configure(keymap):
             if fakeymacs.is_playing_kmacro:
                 delay(0.2)
 
-        setCursorColor(ime_status)
         popImeBalloon(ime_status)
 
     def getImeStatus():
@@ -850,6 +848,8 @@ def configure(keymap):
                 winreg.SetValueEx(key, "IndicatorColor", 0, winreg.REG_DWORD, cursor_color)
 
     def popImeBalloon(ime_status=None, force=False):
+        setCursorColor(ime_status)
+
         if not fakeymacs.is_playing_kmacro:
             if force or fc.use_ime_status_balloon:
                 # LINE アプリなど、Qt5152QWindowIcon にマッチするクラスをもつアプリは入力文字に
