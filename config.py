@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220429_01"
+fakeymacs_version = "20220429_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -202,8 +202,11 @@ def configure(keymap):
 
         def callback(hWinEventHook, event, hwnd, idObject, idChild, dwEventThread, dwmsEventTime):
             keymap._updateFocusWindow()
-            setCursorColor()
-            popImeBalloon()
+            try:
+                setCursorColor()
+                popImeBalloon()
+            except:
+                pass
 
         WinEventProc = WinEventProcType(callback)
 
