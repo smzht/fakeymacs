@@ -89,6 +89,8 @@ fc.use_ime_status_balloon = True
 
 # IME の状態をテキスト カーソル インジケーターの色で表現するかどうかを指定する
 # （True: 表現する、False: 表現しない）
+# （テキスト カーソル インジケーターを利用するには、次のページを参考とし設定を行ってください
+#   https://faq.nec-lavie.jp/qasearch/1007/app/servlet/relatedqa?QID=022081）
 fc.use_ime_status_cursor_color = False
 
 # IME が ON のときのテキスト カーソル インジケーターの色を指定する
