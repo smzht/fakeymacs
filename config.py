@@ -175,14 +175,19 @@ def configure(keymap):
 
     # ウィンドウフォーカスが変わった時、すぐに Keyhac に検知させるための設定を行う
     # （IME の状態をテキスト カーソル インジケーターの色で表現するためにこの機能を追加した）
-    # （https://stackoverflow.com/questions/15849564/how-to-use-winapi-setwineventhook-in-python）
     # （https://sites.google.com/site/agkh6mze/howto/winevent）
+    # （https://github.com/Danesprite/windows-fun/blob/master/window%20change%20listener.py）
     if 1:
         try:
             # reload 時の対策
             ctypes.windll.user32.UnhookWinEvent(keymap.fakeymacs_hook)
         except:
             pass
+
+        EVENT_SYSTEM_DIALOGSTART = 0x0010
+        WINEVENT_OUTOFCONTEXT    = 0x0000
+        EVENT_SYSTEM_FOREGROUND  = 0x0003
+        WINEVENT_SKIPOWNPROCESS  = 0x0002
 
         WinEventProcType = ctypes.WINFUNCTYPE(
             None,
@@ -204,13 +209,13 @@ def configure(keymap):
 
         ctypes.windll.user32.SetWinEventHook.restype = ctypes.wintypes.HANDLE
         keymap.fakeymacs_hook = ctypes.windll.user32.SetWinEventHook(
-            0x00000003,   # eventMin      : EVENT_SYSTEM_FOREGROUND
-            0x00000003,   # eventMax      : EVENT_SYSTEM_FOREGROUND
-            0,            # hModule       : self
-            WinEventProc, # hWinEventProc :
-            0,            # idProcess     : All process
-            0,            # idThread      : All threads
-            0x0003        # dwFlags       : WINEVENT_SKIPOWNTHREAD | WINEVENT_SKIPOWNPROCESS
+            EVENT_SYSTEM_FOREGROUND,
+            EVENT_SYSTEM_FOREGROUND,
+            0,
+            WinEventProc,
+            0,
+            0,
+            WINEVENT_OUTOFCONTEXT | WINEVENT_SKIPOWNPROCESS
         )
 
     # 個人設定ファイルを読み込む
