@@ -946,7 +946,7 @@ def configure(keymap):
     def write_file():
         self_insert_command("A-f")()
         delay()
-        self_insert_command("A-a")()
+        self_insert_command("a")()
 
     def dired():
         keymap.ShellExecuteCommand(None, r"explorer.exe", "", "")()
