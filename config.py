@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220501_02"
+fakeymacs_version = "20220501_03"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -944,7 +944,9 @@ def configure(keymap):
         self_insert_command("C-s")()
 
     def write_file():
-        self_insert_command("A-f", "A-a")()
+        self_insert_command("A-f")()
+        delay()
+        self_insert_command("A-a")()
 
     def dired():
         keymap.ShellExecuteCommand(None, r"explorer.exe", "", "")()
