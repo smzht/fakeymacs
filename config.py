@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220501_03"
+fakeymacs_version = "20220502_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1872,6 +1872,15 @@ def configure(keymap):
     ## universal-argumentキーの設定
     define_key(keymap_emacs, "C-u", universal_argument)
 
+    ## 「IME の切り替え」のキー設定
+    define_key(keymap_emacs, "(243)",  toggle_input_method)
+    define_key(keymap_emacs, "(244)",  toggle_input_method)
+    define_key(keymap_emacs, "A-(25)", toggle_input_method)
+
+    define_key(keymap_ime,   "(243)",  toggle_input_method)
+    define_key(keymap_ime,   "(244)",  toggle_input_method)
+    define_key(keymap_ime,   "A-(25)", toggle_input_method)
+
     ## 「ファイル操作」のキー設定
     define_key(keymap_emacs, "Ctl-x C-f", reset_search(reset_undo(reset_counter(reset_mark(find_file)))))
     define_key(keymap_emacs, "Ctl-x C-s", reset_search(reset_undo(reset_counter(reset_mark(save_buffer)))))
@@ -2248,13 +2257,6 @@ def configure(keymap):
 
     define_key(keymap_global, fc.application_key, self_insert_command("Apps"))
 
-    ###########################################################################
-    ## 「IME の切り替え」のキー設定
-    ###########################################################################
-
-    define_key(keymap_global, "(243)",  toggle_input_method)
-    define_key(keymap_global, "(244)",  toggle_input_method)
-    define_key(keymap_global, "A-(25)", toggle_input_method)
 
     ###########################################################################
     ## ファンクションキーの設定
