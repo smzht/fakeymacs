@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220503_02"
+fakeymacs_version = "20220503_03"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -178,6 +178,11 @@ def configure(keymap):
     # （https://sites.google.com/site/agkh6mze/howto/winevent）
     # （https://github.com/Danesprite/windows-fun/blob/master/window%20change%20listener.py）
     if 1:
+        EVENT_SYSTEM_DIALOGSTART = 0x0010
+        WINEVENT_OUTOFCONTEXT    = 0x0000
+        EVENT_SYSTEM_FOREGROUND  = 0x0003
+        WINEVENT_SKIPOWNPROCESS  = 0x0002
+
         user32 = ctypes.windll.user32
         ole32 = ctypes.windll.ole32
 
@@ -186,17 +191,12 @@ def configure(keymap):
             keymap.fakeymacs_hook
 
             # reload 時の対策
-            ctypes.windll.user32.UnhookWinEvent(keymap.fakeymacs_hook)
+            user32.UnhookWinEvent(keymap.fakeymacs_hook)
             ole32.CoUninitialize()
         except:
             pass
 
         ole32.CoInitialize(None)
-
-        EVENT_SYSTEM_DIALOGSTART = 0x0010
-        WINEVENT_OUTOFCONTEXT    = 0x0000
-        EVENT_SYSTEM_FOREGROUND  = 0x0003
-        WINEVENT_SKIPOWNPROCESS  = 0x0002
 
         WinEventProcType = ctypes.WINFUNCTYPE(
             None,
