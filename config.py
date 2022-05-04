@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220503_03"
+fakeymacs_version = "20220504_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -741,11 +741,9 @@ def configure(keymap):
             fakeymacs.last_window = window
 
         if is_task_switching_window(window):
-            fakeymacs.keybind = "tsw"
             return False
 
         if is_list_window(window):
-            fakeymacs.keybind = "lw"
             return False
 
         if window != last_window:
@@ -763,16 +761,9 @@ def configure(keymap):
             return True
 
     def is_ime_target(window):
-        if (fakeymacs.keybind == "not_emacs" and
-            window.getProcessName() in fc.ime_target):
-            fakeymacs.keybind = "ime"
-            return True
-        else:
-            return False
-
-    def is_ime2_target(window):
-        if fakeymacs.keybind == "not_emacs":
-            fakeymacs.keybind = "ime2"
+        if (window.getClassName() not in fc.emacs_target_class and
+            (window.getProcessName() in fakeymacs.not_emacs_keybind or
+             window.getProcessName() in fc.ime_target)):
             return True
         else:
             return False
@@ -784,7 +775,7 @@ def configure(keymap):
         keymap_emacs = keymap.defineWindowKeymap(check_func=is_emacs_target)
         keymap_ime   = keymap.defineWindowKeymap(check_func=is_ime_target)
 
-    keymap_ime2 = keymap.defineWindowKeymap(check_func=is_ime2_target)
+    keymap_ime2 = keymap.defineWindowKeymap(check_func=lambda wnd: not is_ime_target(wnd))
 
     # Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrl キーの単押しによりサブウインドウが
     # 開く機能がある。その挙動を抑制するための対策。
