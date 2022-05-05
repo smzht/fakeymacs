@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220504_01"
+fakeymacs_version = "20220504_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -740,10 +740,14 @@ def configure(keymap):
             fakeymacs.ime_cancel = False
             fakeymacs.last_window = window
 
+        fakeymacs.keymap = None
+
         if is_task_switching_window(window):
+            fakeymacs.keymap = "tsw"
             return False
 
         if is_list_window(window):
+            fakeymacs.keymap = "lw"
             return False
 
         if window != last_window:
@@ -757,13 +761,20 @@ def configure(keymap):
             fakeymacs.keybind = "not_emacs"
             return False
         else:
+            fakeymacs.keymap = "emacs"
             fakeymacs.keybind = "emacs"
             return True
 
     def is_ime_target(window):
-        if (window.getClassName() not in fc.emacs_target_class and
-            (window.getProcessName() in fakeymacs.not_emacs_keybind or
-             window.getProcessName() in fc.ime_target)):
+        if (fakeymacs.keymap is None and
+            window.getProcessName() in fc.ime_target):
+            fakeymacs.keymap = "ime"
+            return True
+        else:
+            return False
+
+    def is_other_target(window):
+        if fakeymacs.keymap is None:
             return True
         else:
             return False
@@ -775,7 +786,7 @@ def configure(keymap):
         keymap_emacs = keymap.defineWindowKeymap(check_func=is_emacs_target)
         keymap_ime   = keymap.defineWindowKeymap(check_func=is_ime_target)
 
-    keymap_ime2 = keymap.defineWindowKeymap(check_func=lambda wnd: not is_ime_target(wnd))
+    keymap_other = keymap.defineWindowKeymap(check_func=is_other_target)
 
     # Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrl キーの単押しによりサブウインドウが
     # 開く機能がある。その挙動を抑制するための対策。
@@ -1896,11 +1907,11 @@ def configure(keymap):
     define_key(keymap_ime,   "(240)",   toggle_input_method)
     define_key(keymap_ime,   "S-(240)", toggle_input_method)
 
-    define_key(keymap_ime2,  "(243)",   toggle_input_method)
-    define_key(keymap_ime2,  "(244)",   toggle_input_method)
-    define_key(keymap_ime2,  "A-(25)",  toggle_input_method)
-    define_key(keymap_ime2,  "(240)",   toggle_input_method)
-    define_key(keymap_ime2,  "S-(240)", toggle_input_method)
+    define_key(keymap_other, "(243)",   toggle_input_method)
+    define_key(keymap_other, "(244)",   toggle_input_method)
+    define_key(keymap_other, "A-(25)",  toggle_input_method)
+    define_key(keymap_other, "(240)",   toggle_input_method)
+    define_key(keymap_other, "S-(240)", toggle_input_method)
 
     ## 「ファイル操作」のキー設定
     define_key(keymap_emacs, "Ctl-x C-f", reset_search(reset_undo(reset_counter(reset_mark(find_file)))))
