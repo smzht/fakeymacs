@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220506_01"
+fakeymacs_version = "20220506_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -273,8 +273,8 @@ def configure(keymap):
     ####################################################################################################
 
     # IMEの設定（次の設定のいずれかを有効にする）
-    fc.ime = "old_Microsoft_IME"
-    # fc.ime = "new_Microsoft_IME"
+    # fc.ime = "old_Microsoft_IME"
+    fc.ime = "new_Microsoft_IME"
     # fc.ime = "Google_IME"
     # fc.ime = None
 

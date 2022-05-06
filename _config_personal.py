@@ -27,8 +27,8 @@ keymap.setFont("ＭＳ ゴシック", 12)
 # [section-options] --------------------------------------------------------------------------------
 
 # IMEの設定（次の設定のいずれかを有効にする）
-fc.ime = "old_Microsoft_IME"
-# fc.ime = "new_Microsoft_IME"
+# fc.ime = "old_Microsoft_IME"
+fc.ime = "new_Microsoft_IME"
 # fc.ime = "Google_IME"
 # fc.ime = None
 
