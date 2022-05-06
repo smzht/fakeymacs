@@ -217,9 +217,3 @@ DWORD 形式で作成し、そこに ms の値（10進数で 3000、5000 など�
 - https://blogs.msdn.microsoft.com/alejacma/2010/10/14/global-hooks-getting-lost-on-windows-7/
 - https://jinblog.at.webry.info/201103/article_9.html
 - https://jinblog.at.webry.info/201103/article_10.html
-
-● Microsoft Excel を使っていてセルの移動が遅いと感じる場合は、次のページの設定をお試しください。
-私の環境ではかなりの改善がありました。専用のグラフィックボードを搭載していない PC では、お勧めの
-設定と思われます。
-
-- https://www.yonezu.net/blog/home/archives/000007.html
