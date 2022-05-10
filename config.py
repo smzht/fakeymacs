@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220510_01"
+fakeymacs_version = "20220510_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -706,7 +706,7 @@ def configure(keymap):
         process_name = window.getProcessName()
         class_name   = window.getClassName()
 
-        if window != last_window:
+        if window is not last_window:
             if (process_name in fc.not_clipboard_target or
                 any([checkWindow(None, c, None, window) for c in fc.not_clipboard_target_class])):
                 # クリップボードの監視用のフックを無効にする
@@ -750,7 +750,7 @@ def configure(keymap):
             fakeymacs.is_keymap_decided = True
             return False
 
-        if window != last_window:
+        if window is not last_window:
             ime_status = window.getImeStatus()
             setCursorColor(ime_status)
             popImeBalloon(ime_status)
