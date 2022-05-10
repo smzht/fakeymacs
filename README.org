@@ -143,7 +143,16 @@ VSCode 用としては、次のコンフィグレーションパラメータも�
 変更する必要があります。この場合、左 Control キーは従来どおり Windows ショートカット用
 のキーとして利用できます。
 
-*** 7) keyhac.exe を起動する
+*** 7) テキスト カーソル インジケーターの設定を行う
+
+IME の状態をテキスト カーソル インジケーターの色で表現する機能を利用する場合、次のページを参考とし、
+テキスト カーソル インジケーターを有効にしてください。
+
+-  https://faq.nec-lavie.jp/qasearch/1007/app/servlet/relatedqa?QID=022081
+
+また、config_personal.py 内の use_ime_status_cursor_color 変数を True にしてください。
+
+*** 8) keyhac.exe を起動する
 
 keyhac.exe を起動すると、タスクバー（＾アイコンの中）に Keyhac のアイコンが表示されます。
 必要に応じて、通知領域に表示するようにしてください。
