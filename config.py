@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220510_02"
+fakeymacs_version = "20220512_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -753,7 +753,7 @@ def configure(keymap):
         if window is not last_window:
             ime_status = window.getImeStatus()
             setCursorColor(ime_status)
-            popImeBalloon(ime_status)
+            popImeBalloon(ime_status, window=window)
 
         if (class_name not in fc.emacs_target_class and
             (process_name in fakeymacs.not_emacs_keybind or
@@ -902,11 +902,8 @@ def configure(keymap):
                 setImeStatus(0) # この行は必要
                 setImeStatus(1)
 
-    def setCursorColor(ime_status=None):
+    def setCursorColor(ime_status):
         if fc.use_ime_status_cursor_color:
-            if ime_status is None:
-                ime_status = getImeStatus()
-
             if ime_status:
                 cursor_color = fc.ime_on_cursor_color
             else:
@@ -919,16 +916,13 @@ def configure(keymap):
                                   access=winreg.KEY_WRITE) as key:
                 winreg.SetValueEx(key, "IndicatorColor", 0, winreg.REG_DWORD, cursor_color)
 
-    def popImeBalloon(ime_status=None, force=False):
+    def popImeBalloon(ime_status, force=False, window=None):
         if not fakeymacs.is_playing_kmacro:
             if force or fc.use_ime_status_balloon:
                 # LINE アプリなど、Qt5152QWindowIcon にマッチするクラスをもつアプリは入力文字に
                 # バルーンヘルプが被るので、バルーンヘルプの表示対象から外す
                 # （ただし、force が True の場合は除く）
-                if force or not checkWindow(None, "Qt5152QWindowIcon"):
-                    if ime_status is None:
-                        ime_status = getImeStatus()
-
+                if force or not checkWindow(None, "Qt5152QWindowIcon", window=window):
                     if ime_status:
                         message = fc.ime_status_balloon_message[1]
                     else:

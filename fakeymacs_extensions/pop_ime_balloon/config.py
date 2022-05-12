@@ -12,5 +12,5 @@ except:
     fc.pop_ime_balloon_key = ["C-Semicolon"]
 
 for key in fc.pop_ime_balloon_key:
-    define_key(keymap_emacs, key, lambda: popImeBalloon(force=True))
-    define_key(keymap_ime,   key, lambda: popImeBalloon(force=True))
+    define_key(keymap_emacs, key, lambda: popImeBalloon(getImeStatus(), force=True))
+    define_key(keymap_ime,   key, lambda: popImeBalloon(getImeStatus(), force=True))
