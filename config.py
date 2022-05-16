@@ -637,10 +637,10 @@ def configure(keymap):
     # fc.desktop_switching_key += [["W-Left", "W-Right"]]
 
     # アクティブウィンドウを仮想デスクトップ間で移動するキーの組み合わせ（前、後 の順）を指定する（複数指定可）
-    # （本機能を利用する場合は、次のページから SylphyHornPlusWin11 をインストールしてください。
+    # （本機能を利用する場合は、次のページから SylphyHornPlus をインストールしてください。
     #   ・https://github.com/hwtnb/SylphyHornPlusWin11/releases
-    #   SylphyHornPlusWin11 は、Microsoft Store からインストール可能な SylphyHorn の fork で、
-    #   Windows 11 の対応など、改良が加えられたものとなっています。）
+    #   SylphyHornPlus は、Microsoft Store からインストール可能な SylphyHorn の fork で、Windows 11 の
+    #   対応など、改良が加えられたものとなっています。）
     # （アクティブウィンドウを仮想デスクトップ間で移動するためのデフォルトキーは、["W-C-A-Left", "W-C-A-Right"]
     #   です。この設定は変更しないでください。）
     fc.window_movement_key_for_desktops = []
