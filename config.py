@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220512_02"
+fakeymacs_version = "20220516_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -637,11 +637,12 @@ def configure(keymap):
     # fc.desktop_switching_key += [["W-Left", "W-Right"]]
 
     # アクティブウィンドウを仮想デスクトップ間で移動するキーの組み合わせ（前、後 の順）を指定する（複数指定可）
-    # （本機能を利用する場合は、Microsoft Store から SylphyHorn をインストールしてください。
-    #   Windows 10 では動作を確認しておりますが、Windows 11 では正常に動作しないようです。）
-    # （デフォルトキーは、["W-C-A-Left", "W-C-A-Right"] です。この設定は変更しないでください）
-    # （仮想デスクトップ切り替え時の通知を ON にすると処理が重くなります。代わりに、トレイアイコンに
-    #   デスクトップ番号を表示する機能を ON にすると良いようです。）
+    # （本機能を利用する場合は、次のページから SylphyHornPlusWin11 をインストールしてください。
+    #   ・https://github.com/hwtnb/SylphyHornPlusWin11/releases
+    #   SylphyHornPlusWin11 は、Microsoft Store からインストール可能な SylphyHorn の fork で、
+    #   Windows 11 の対応など、改良が加えられたものとなっています。）
+    # （アクティブウィンドウを仮想デスクトップ間で移動するためのデフォルトキーは、["W-C-A-Left", "W-C-A-Right"]
+    #   です。この設定は変更しないでください。）
     fc.window_movement_key_for_desktops = []
     # fc.window_movement_key_for_desktops += [["W-p", "W-n"]]
     # fc.window_movement_key_for_desktops += [["W-Up", "W-Down"]]
