@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220516_02"
+fakeymacs_version = "20220517_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -117,7 +117,8 @@ fakeymacs_version = "20220516_02"
 #     ・http://www.jw7.org/2015/11/03/windows10_virtualdesktop_animation_off/ ）
 # ・window_movement_key_for_desktops 変数に設定したキーにより、アクティブウィンドウの
 #   仮想デスクトップ間の移動が行われる。
-#   （本機能を利用する場合は、Microsoft Store から SylphyHorn をインストールしてください。）
+#   （本機能を利用する場合は、次のページから SylphyHornPlus をインストールしてください。
+#     ・https://github.com/hwtnb/SylphyHornPlusWin11/releases）
 # ・word_register_key 変数に設定したキーにより、IME の「単語登録」プログラムの起動が
 #   行われる。
 # ・clipboardList_key 変数に設定したキーにより、クリップボードリストが起動する。
