@@ -640,7 +640,7 @@ def configure(keymap):
     # アクティブウィンドウを仮想デスクトップ間で移動するキーの組み合わせ（前、後 の順）を指定する（複数指定可）
     # （本機能を利用する場合は、次のページから SylphyHornPlus をインストールしてください。
     #   ・https://github.com/hwtnb/SylphyHornPlusWin11/releases
-    #   SylphyHornPlus は、Microsoft Store からインストール可能な SylphyHorn の fork で、Windows 11 の
+    #   SylphyHornPlus は、Microsoft Store からインストール可能な SylphyHorn の Fork で、Windows 11 の
     #   対応など、改良が加えられたものとなっています。）
     # （アクティブウィンドウを仮想デスクトップ間で移動するためのデフォルトキーは、["W-C-A-Left", "W-C-A-Right"]
     #   です。この設定は変更しないでください。）

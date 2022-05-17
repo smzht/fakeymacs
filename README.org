@@ -152,7 +152,18 @@ IME の状態をテキスト カーソル インジケーターの色で表現�
 
 また、config_personal.py 内の use_ime_status_cursor_color 変数を True にしてください。
 
-*** 8) keyhac.exe を起動する
+*** 8) SylphyHorn の設定を行う
+
+アクティブウィンドウを仮想デスクトップ間で移動する機能を利用する場合、次のページから  SylphyHornPlus
+をインストールしてください。（SylphyHornPlus は、Microsoft Store からインストール可能な SylphyHorn
+の Fork で、Windows 11 の対応など、改良が加えられたものとなっています。）
+
+- https://github.com/hwtnb/SylphyHornPlusWin11/releases
+
+また、操作のためのキー設定を config_personal.py 内で window_movement_key_for_desktops 変数に対し、
+行ってください。（変数の設定方法は、config.py を参考としてください。）
+
+*** 9) keyhac.exe を起動する
 
 keyhac.exe を起動すると、タスクバー（＾アイコンの中）に Keyhac のアイコンが表示されます。
 必要に応じて、通知領域に表示するようにしてください。
