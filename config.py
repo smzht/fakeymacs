@@ -966,6 +966,9 @@ def configure(keymap):
         self_insert_command("C-s")()
 
     def write_file():
+        # https://www.sriproot.net/blog/ctrl-shift-s-saveas-922
+        # self_insert_command("C-S-s")()
+
         self_insert_command("A-f")()
         delay()
         self_insert_command("a")()
