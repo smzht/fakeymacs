@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220524_01"
+fakeymacs_version = "20220601_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -2780,9 +2780,15 @@ def configure(keymap):
             if window_list:
                 process_name_length = max(map(len, map(Window.getProcessName, window_list)))
 
-                formatter = "{0:" + str(process_name_length) + "} | {1}"
+                formatter = "{0:" + str(process_name_length) + "} |{1:1}| {2}"
                 for window in window_list:
-                    window_items.append([formatter.format(window.getProcessName(), window.getText()), popWindow(window)])
+                    if window.isMinimized():
+                        icon = "m"
+                    else:
+                        icon = ""
+
+                    window_items.append([formatter.format(window.getProcessName(),
+                                                          icon, window.getText()), popWindow(window)])
 
             window_items.append([list_formatter.format("<Desktop>"),
                                  keymap.ShellExecuteCommand(None, r"shell:::{3080F90D-D7AD-11D9-BD98-0000947B0257}", "", "")])
