@@ -917,7 +917,7 @@ def configure(keymap):
             # https://docs.python.org/ja/3/library/winreg.html
             # https://itasuke.hatenablog.com/entry/2018/01/08/133510
             with winreg.OpenKeyEx(winreg.HKEY_CURRENT_USER,
-                                  r"SOFTWARE\Microsoft\Accessibility\CursorIndicator",
+                                  r"Software\Microsoft\Accessibility\CursorIndicator",
                                   access=winreg.KEY_WRITE) as key:
                 winreg.SetValueEx(key, "IndicatorColor", 0, winreg.REG_DWORD, cursor_color)
 
