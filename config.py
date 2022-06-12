@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220601_01"
+fakeymacs_version = "20220612_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1455,7 +1455,7 @@ def configure(keymap):
                 (text is None or fnmatch.fnmatchcase(window.getText(), text)))
 
     def vkeys():
-        vkeys = list(keyCondition.vk_str_table)
+        vkeys = list(keyhac_keymap.KeyCondition.vk_str_table)
         for vkey in [VK_MENU, VK_LMENU, VK_RMENU, VK_CONTROL, VK_LCONTROL, VK_RCONTROL, VK_SHIFT, VK_LSHIFT, VK_RSHIFT, VK_LWIN, VK_RWIN]:
             vkeys.remove(vkey)
         return vkeys
