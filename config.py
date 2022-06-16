@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220612_01"
+fakeymacs_version = "20220615_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1515,21 +1515,17 @@ def configure(keymap):
         return key_lists
 
     def define_key(window_keymap, keys, command, skip_check=True):
+        nonlocal keymap_global
+        nonlocal keymap_emacs
+        nonlocal keymap_ime
+        nonlocal keymap_ei
+        nonlocal keymap_tsw
+        nonlocal keymap_lw
+
         if keys is None:
             return
 
         if skip_check:
-            # local スコープで参照できるようにする
-            try:
-                keymap_global
-                keymap_emacs
-                keymap_ime
-                keymap_ei
-                keymap_tsw
-                keymap_lw
-            except:
-                pass
-
             # 設定をスキップするキーの処理を行う
             for keymap_name in fc.skip_settings_key:
                 if (keymap_name in locals() and
@@ -1541,11 +1537,7 @@ def configure(keymap):
                     break
 
         def keyCommand(key):
-            # local スコープで参照できるようにする
-            try:
-                keymap_emacs
-            except:
-                pass
+            nonlocal keymap_emacs
 
             if callable(command):
                 if (key is not None and
