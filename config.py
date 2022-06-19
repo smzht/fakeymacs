@@ -1339,7 +1339,8 @@ def configure(keymap):
             if not (checkWindow("cmd.exe", "ConsoleWindowClass") or        # Cmd
                     checkWindow("powershell.exe", "ConsoleWindowClass") or # PowerShell
                     checkWindow("EXCEL.EXE", "EXCEL*", "") or              # Microsoft Excel のセル編集
-                    checkWindow("Evernote.exe", "WebViewHost")):           # Evernote
+                    checkWindow("Evernote.exe", "WebViewHost") or          # Evernote
+                    checkWindow("Notepad.exe", "RichEditD2DPT")):          # Windows 11版 Notepad
                 escape()
 
         keymap.command_RecordStop()
