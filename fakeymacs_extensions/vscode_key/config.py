@@ -574,14 +574,14 @@ define_key_v("C-A-r",   reset_search(reset_undo(reset_counter(reset_rect(cursor_
 define_key_v("C-A-g",   reset_search(reset_counter(reset_mark(keyboard_quit_v1))))
 
 ## 「ターミナル操作」のキー設定
-define_key_v("C-S-(243)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
-define_key_v("C-S-(244)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
-define_key_v("C-(243)",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
-define_key_v("C-(244)",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
-define_key_v("C-A-(243)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal_in_editor_area)))))
-define_key_v("C-A-(244)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal_in_editor_area)))))
-
 if is_japanese_keyboard:
+    define_key_v("C-S-(243)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
+    define_key_v("C-S-(244)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
+    define_key_v("C-(243)",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
+    define_key_v("C-(244)",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
+    define_key_v("C-A-(243)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal_in_editor_area)))))
+    define_key_v("C-A-(244)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal_in_editor_area)))))
+
     define_key_v("C-S-Atmark", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
     if not fc.use_ctrl_atmark_for_mark:
         define_key_v("C-Atmark", reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
