@@ -209,7 +209,7 @@ def InputKeyCommand(*keys):
 **** Function
 
 #+BEGIN_EXAMPLE
-def self_insert_command(*keys):
+def self_insert_command(*key_list):
 #+END_EXAMPLE
 
 **** Parameters
@@ -217,7 +217,7 @@ def self_insert_command(*keys):
 |-----------+------------------------------------------------------------|
 | Parameter | Description                                                |
 |-----------+------------------------------------------------------------|
-| *keys     | 入力するキーの羅列（キー文字列をカンマで区切って指定する） |
+| *key_list | 入力するキーの羅列（キー文字列をカンマで区切って指定する） |
 |-----------+------------------------------------------------------------|
 
 **** Returns
