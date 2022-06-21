@@ -1770,7 +1770,7 @@ def configure(keymap):
         try:
             func = self_insert_command_cache[key_list]
         except:
-            func = InputKeyCommand(*list(map(addSideOfModifierKey, key_list)))
+            func = InputKeyCommand(*map(addSideOfModifierKey, key_list))
             self_insert_command_cache[key_list] = func
 
         def _func():
