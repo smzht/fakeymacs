@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220621_03"
+fakeymacs_version = "20220621_04"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1669,12 +1669,19 @@ def configure(keymap):
                             _command1()
 
                             # モディファイアを戻す（keymap.command_RecordPlay 関数を参考）
+                            keymap.modifier = 0
                             input_seq = []
                             for vk_mod in keymap.vk_mod_map.items():
-                                if modifier & vk_mod[1]:
-                                    input_seq.append(pyauto.KeyDown(vk_mod[0]))
+                                # 「Time stamp Inversion happend.」メッセージがでると、キーの繰り返し入力後に
+                                # Shiftキーが押されたままの状態となる。根本的な対策ではないが、Shiftキーの
+                                # 押下の状態の復元を除外することで、暫定的な対策とする。
+                                # （Shiftキーは押しっぱなしにするキーでないので、押した状態を復元しなくとも
+                                #   ほとんどの場合、問題は起きない）
+                                if vk_mod[0] not in [VK_LSHIFT, VK_RSHIFT]:
+                                    if modifier & vk_mod[1]:
+                                        input_seq.append(pyauto.KeyDown(vk_mod[0]))
+                                        keymap.modifier |= vk_mod[1]
                             pyauto.Input.send(input_seq)
-                            keymap.modifier = modifier
 
                         keymap.delayedCall(_command2, 0)
                 return _command3
