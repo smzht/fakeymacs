@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220621_02"
+fakeymacs_version = "20220621_03"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1683,7 +1683,7 @@ def configure(keymap):
 
         for key_list in kbd(keys):
             for pos_list in keyPos(key_list):
-                if len(key_list) == 1:
+                if len(pos_list) == 1:
                     window_keymap[pos_list[0]] = keyCommand(key_list[0])
 
                     # Alt キーを単押しした際に、カーソルがメニューへ移動しないようにするための対策
@@ -1744,35 +1744,35 @@ def configure(keymap):
                 func()
         return _func
 
-    def InputKeyCommand(*keys):
-        func = keymap.InputKeyCommand(*keyInput(keys))
+    def InputKeyCommand(*key_list):
+        func = keymap.InputKeyCommand(*keyInput(key_list))
         def _func():
             func()
             # Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrl キーの単押しによりサブウインドウが
             # 開く機能がある。その挙動を抑制するための対策。
             if fakeymacs.ctrl_button_app:
                 if keyhac_keymap.checkModifier(keymap.modifier, MODKEY_CTRL):
-                    if "C-" not in keys[-1]:
+                    if "C-" not in key_list[-1]:
                         delay(0.01) # issue #19 の対策
                         pyauto.Input.send([pyauto.Key(strToVk("(255)"))])
         return _func
 
     self_insert_command_cache = {}
 
-    def self_insert_command(*keys):
+    def self_insert_command(*key_list):
         try:
-            func = self_insert_command_cache[keys]
+            func = self_insert_command_cache[key_list]
         except:
-            func = InputKeyCommand(*list(map(addSideOfModifierKey, keys)))
-            self_insert_command_cache[keys] = func
+            func = InputKeyCommand(*list(map(addSideOfModifierKey, key_list)))
+            self_insert_command_cache[key_list] = func
 
         def _func():
             func()
             fakeymacs.ime_cancel = False
         return _func
 
-    def self_insert_command2(*keys):
-        func = self_insert_command(*keys)
+    def self_insert_command2(*key_list):
+        func = self_insert_command(*key_list)
         def _func():
             correctImeStatus()
             func()
@@ -1783,8 +1783,8 @@ def configure(keymap):
                         enable_emacs_ime_mode()
         return _func
 
-    def self_insert_command3(*keys):
-        func = self_insert_command(*keys)
+    def self_insert_command3(*key_list):
+        func = self_insert_command(*key_list)
         def _func():
             func()
             setImeStatus(0)
