@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220621_04"
+fakeymacs_version = "20220622_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -371,7 +371,10 @@ def configure(keymap):
                        }
 
     def keyStrNormalization(key):
-        return usjisFilter(str, usjisFilter(keyhac_keymap.KeyCondition.fromString, key))
+        nkey = usjisFilter(str, usjisFilter(keyhac_keymap.KeyCondition.fromString, key))
+        if "D-" not in key:
+            nkey = nkey.replace("D-", "")
+        return nkey
 
     def usjisPos(key):
         key_list = []
@@ -815,7 +818,7 @@ def configure(keymap):
                 fakeymacs.clipboard_hook = True
 
             if process_name in fc.emacs_exclusion_key:
-                fakeymacs.exclution_key = [keyStrNormalization(addSideOfModifierKey(key))
+                fakeymacs.exclution_key = [addSideOfModifierKey(keyStrNormalization(key))
                                            for key in fc.emacs_exclusion_key[process_name]]
             else:
                 fakeymacs.exclution_key = []
@@ -1587,13 +1590,13 @@ def configure(keymap):
                     key_list1.append(key)
 
             if key_list0:
-                key_lists.append(key_list0)
+                key_lists.append(list(map(keyStrNormalization, key_list0)))
 
             if key_list0 != key_list1:
-                key_lists.append(key_list1)
+                key_lists.append(list(map(keyStrNormalization, key_list1)))
 
             if key_list2:
-                key_lists.append(key_list2)
+                key_lists.append(list(map(keyStrNormalization, key_list2)))
 
             for key_list in key_lists:
                 key_list[0] = addSideOfModifierKey(key_list[0])
@@ -1636,10 +1639,9 @@ def configure(keymap):
                     "keymap_emacs" in locals() and
                     window_keymap is locals()["keymap_emacs"]):
 
-                    ckey = str(keyhac_keymap.KeyCondition.fromString(key))
                     def _command1():
                         fakeymacs.update_last_keys = True
-                        if ckey in fakeymacs.exclution_key:
+                        if key in fakeymacs.exclution_key:
                             InputKeyCommand(key)()
                         else:
                             command()
@@ -2179,10 +2181,8 @@ def configure(keymap):
             # Google日本語入力を利用している時、ime_cancel_key に設定しているキーがキーバインドに
             # 定義されていると、「確定取り消し」が正常に動作しない場合がある。このため、そのキー
             # バインドの定義を削除する。
-            try:
-                del keymap_emacs[addSideOfModifierKey(fc.ime_cancel_key)]
-            except:
-                pass
+            del keymap_base[keyPos(kbd(fc.ime_cancel_key)[0])[0][0]]
+            del keymap_emacs[keyPos(kbd(fc.ime_cancel_key)[0])[0][0]]
 
         for key in fc.reconversion_key:
             define_key(keymap_emacs, key, reset_undo(reset_counter(reset_mark(reconversion))))
