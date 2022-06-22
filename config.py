@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220622_01"
+fakeymacs_version = "20220622_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1677,7 +1677,7 @@ def configure(keymap):
                                 # 「Time stamp Inversion happend.」メッセージがでると、キーの繰り返し入力後に
                                 # Shiftキーが押されたままの状態となる。根本的な対策ではないが、Shiftキーの
                                 # 押下の状態の復元を除外することで、暫定的な対策とする。
-                                # （Shiftキーは押しっぱなしにするキーでないので、押した状態を復元しなくとも
+                                # （Shiftキーは押しっぱなしにするキーではないので、押した状態を復元しなくとも
                                 #   ほとんどの場合、問題は起きない）
                                 if vk_mod[0] not in [VK_LSHIFT, VK_RSHIFT]:
                                     if modifier & vk_mod[1]:
@@ -1935,8 +1935,7 @@ def configure(keymap):
                 for mod3 in ["", "C-"]:
                     for mod4 in ["", "S-"]:
                         mkey = mod1 + mod2 + mod3 + mod4 + key
-                        define_key2(keymap_base,  mkey, self_insert_command(mkey))
-                        define_key2(keymap_emacs, mkey, self_insert_command(mkey))
+                        define_key2(keymap_base, mkey, self_insert_command(mkey))
 
     ## マルチストロークキーの設定
     define_key(keymap_emacs, "Ctl-x",  keymap.defineMultiStrokeKeymap(fc.ctl_x_prefix_key))
@@ -2181,8 +2180,11 @@ def configure(keymap):
             # Google日本語入力を利用している時、ime_cancel_key に設定しているキーがキーバインドに
             # 定義されていると、「確定取り消し」が正常に動作しない場合がある。このため、そのキー
             # バインドの定義を削除する。
-            del keymap_base[keyPos(kbd(fc.ime_cancel_key)[0])[0][0]]
-            del keymap_emacs[keyPos(kbd(fc.ime_cancel_key)[0])[0][0]]
+            try:
+                del keymap_base[keyPos(kbd(fc.ime_cancel_key)[0])[0][0]]
+                del keymap_emacs[keyPos(kbd(fc.ime_cancel_key)[0])[0][0]]
+            except:
+                pass
 
         for key in fc.reconversion_key:
             define_key(keymap_emacs, key, reset_undo(reset_counter(reset_mark(reconversion))))
