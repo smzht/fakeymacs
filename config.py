@@ -2180,8 +2180,8 @@ def configure(keymap):
             # Google日本語入力を利用している時、ime_cancel_key に設定しているキーがキーバインドに
             # 定義されていると、「確定取り消し」が正常に動作しない場合がある。このため、そのキー
             # バインドの定義を削除する。
+            del keymap_base[keyPos(kbd(fc.ime_cancel_key)[0])[0][0]]
             try:
-                del keymap_base[keyPos(kbd(fc.ime_cancel_key)[0])[0][0]]
                 del keymap_emacs[keyPos(kbd(fc.ime_cancel_key)[0])[0][0]]
             except:
                 pass
