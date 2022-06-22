@@ -21,9 +21,6 @@ except:
 
 if not is_japanese_keyboard and use_usjis_keyboard_conversion:
 
-    # 日本語キーボードの <＼> キーを Shift キーにする
-    keymap.replaceKey("BackSlash", "Shift")
-
     # リモートデスクトップで接続する場合など、一つの OS を英語キーボードと日本語キーボード
     # とで混在して利用する場合の切り替えの設定
 
@@ -36,6 +33,9 @@ if not is_japanese_keyboard and use_usjis_keyboard_conversion:
             # 日本語キーボードの <］> キーを Enter キーにする
             keymap.replaceKey("CloseBracket", "Enter")
 
+            # 日本語キーボードの <＼> キーを Shift キーにする
+            keymap.replaceKey("BackSlash", "Shift")
+
             if popBalloon:
                 keymap.popBalloon("keyboard", "[JP Keyboard]", 1000)
 
@@ -45,6 +45,9 @@ if not is_japanese_keyboard and use_usjis_keyboard_conversion:
 
             # 日本語キーボードの <］> キーを元の設定に戻す
             keymap.replaceKey("CloseBracket", "CloseBracket")
+
+            # 日本語キーボードの <＼> キーを元の設定に戻す
+            keymap.replaceKey("BackSlash", "BackSlash")
 
             if popBalloon:
                 keymap.popBalloon("keyboard", "[US Keyboard]", 1000)
