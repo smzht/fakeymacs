@@ -329,6 +329,14 @@ if 0:
 
 # --------------------------------------------------------------------------------------------------
 
+# 日本語キーボード設定をした OS 上で日本語キーボードを英語配列で利用する場合の設定を行う
+if 0:
+    fc.change_keyboard2_startup = "US"
+    # fc.change_keyboard2_startup = "JP"
+    exec(readConfigExtension(r"change_keyboard2\config.py"), dict(globals(), **locals()))
+
+# --------------------------------------------------------------------------------------------------
+
 # クリップボードに格納したファイルもしくはフォルダのパスを emacsclient で開く
 if 0:
     fc.emacsclient_name = r"<emacsclient プログラムをインストールしている Windows のパス>\wslclient-n.exe"
