@@ -19,7 +19,7 @@ except:
     fc.change_keyboard2_startup = "US"
     # fc.change_keyboard2_startup = "JP"
 
-if not is_japanese_keyboard and use_usjis_keyboard_conversion:
+if use_usjis_keyboard_conversion:
 
     # リモートデスクトップで接続する場合など、一つの OS を英語キーボードと日本語キーボード
     # とで混在して利用する場合の切り替えの設定

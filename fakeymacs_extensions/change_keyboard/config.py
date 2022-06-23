@@ -19,7 +19,7 @@ except:
     fc.change_keyboard_startup = "US"
     # fc.change_keyboard_startup = "JP"
 
-if not is_japanese_keyboard and not use_usjis_keyboard_conversion:
+if os_keyboard_type == "US":
     # OS の設定を英語キーボードにして日本語キーボードを利用する場合のお勧め設定
     # （予め Change Key を使って、日本語キーボードの <￥> キーにスキャンコード 0x6F を
     #   <変換> キーにスキャンコード 0x7F を割り当ててください。）

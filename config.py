@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220622_02"
+fakeymacs_version = "20220623_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -167,12 +167,13 @@ def configure(keymap):
 
     fakeymacs = Fakeymacs()
 
-    # OS に設定しているキーボードタイプが日本語キーボードかどうかを設定する（自動設定）
-    # （True: 日本語キーボード、False: 英語キーボード）
+    # OS に設定しているキーボードタイプの設定を行う
     # （http://tokovalue.jp/function/GetKeyboardType.htm）
     if ctypes.windll.user32.GetKeyboardType(0) == 7:
+        os_keyboard_type = "JP"
         is_japanese_keyboard = True
     else:
+        os_keyboard_type = "US"
         is_japanese_keyboard = False
 
     # ウィンドウフォーカスが変わった時、すぐに Keyhac に検知させるための設定を行う
@@ -312,14 +313,18 @@ def configure(keymap):
     ## 日本語キーボード設定をした OS 上で英語キーボードを利用するための設定
     ###########################################################################
 
-    if is_japanese_keyboard:
+    use_usjis_keyboard_conversion = False
+
+    if os_keyboard_type == "JP":
         if fc.use_usjis_keyboard_conversion:
             use_usjis_keyboard_conversion = True
             is_japanese_keyboard = False
-        else:
-            use_usjis_keyboard_conversion = False
-    else:
-        use_usjis_keyboard_conversion = False
+            try:
+                if keymap.fakeymacs_keyboard == "JP":
+                    use_usjis_keyboard_conversion = False
+                    is_japanese_keyboard = True
+            except:
+                pass
 
     if use_usjis_keyboard_conversion:
         str_vk_table = copy.copy(keyhac_keymap.KeyCondition.str_vk_table_common)
@@ -1909,6 +1914,13 @@ def configure(keymap):
         if imeStatus:
             setImeStatus(1)
 
+    def reloadConfig(mode):
+        if mode:
+            keymap.fakeymacs_keyboard = "JP"
+        else:
+            keymap.fakeymacs_keyboard = "US"
+        keymap.command_ReloadConfig()
+
     ##################################################
     ## キーバインド
     ##################################################
@@ -2864,6 +2876,12 @@ def configure(keymap):
         ["Edit   config.py", keymap.command_EditConfig],
         ["Reload config.py", keymap.command_ReloadConfig],
     ]
+    if os_keyboard_type == "JP":
+        if fc.use_usjis_keyboard_conversion:
+            fc.other_items += [
+                ["Reload config.py (to  US layout)", lambda: reloadConfig(0)],
+                ["Reload config.py (to JIS layout)", lambda: reloadConfig(1)],
+            ]
     fc.other_items[0][0] = list_formatter.format(fc.other_items[0][0])
 
     fc.lancherList_listers = [

@@ -221,13 +221,6 @@ fc.website_items = [
 ]
 fc.website_items[0][0] = list_formatter.format(fc.website_items[0][0])
 
-# その他
-fc.other_items = [
-    ["Edit   config.py", keymap.command_EditConfig],
-    ["Reload config.py", keymap.command_ReloadConfig],
-]
-fc.other_items[0][0] = list_formatter.format(fc.other_items[0][0])
-
 fc.lancherList_listers = [
     ["App",     cblister_FixedPhrase(fc.application_items)],
     ["Website", cblister_FixedPhrase(fc.website_items)],
