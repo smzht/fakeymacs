@@ -319,12 +319,16 @@ def configure(keymap):
         if fc.use_usjis_keyboard_conversion:
             use_usjis_keyboard_conversion = True
             is_japanese_keyboard = False
-            try:
-                if keymap.fakeymacs_keyboard == "JP":
-                    use_usjis_keyboard_conversion = False
-                    is_japanese_keyboard = True
-            except:
-                pass
+
+        try:
+            if keymap.fakeymacs_keyboard == "JP":
+                use_usjis_keyboard_conversion = False
+                is_japanese_keyboard = True
+            else:
+                use_usjis_keyboard_conversion = True
+                is_japanese_keyboard = False
+        except:
+            pass
 
     if use_usjis_keyboard_conversion:
         str_vk_table = copy.copy(keyhac_keymap.KeyCondition.str_vk_table_common)
@@ -2877,11 +2881,10 @@ def configure(keymap):
         ["Reload config.py", keymap.command_ReloadConfig],
     ]
     if os_keyboard_type == "JP":
-        if fc.use_usjis_keyboard_conversion:
-            fc.other_items += [
-                ["Reload config.py (to  US layout)", lambda: reloadConfig(0)],
-                ["Reload config.py (to JIS layout)", lambda: reloadConfig(1)],
-            ]
+        fc.other_items += [
+            ["Reload config.py (to  US layout)", lambda: reloadConfig(0)],
+            ["Reload config.py (to JIS layout)", lambda: reloadConfig(1)],
+        ]
     fc.other_items[0][0] = list_formatter.format(fc.other_items[0][0])
 
     fc.lancherList_listers = [
