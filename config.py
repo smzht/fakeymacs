@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220623_01"
+fakeymacs_version = "20220623_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -171,10 +171,8 @@ def configure(keymap):
     # （http://tokovalue.jp/function/GetKeyboardType.htm）
     if ctypes.windll.user32.GetKeyboardType(0) == 7:
         os_keyboard_type = "JP"
-        is_japanese_keyboard = True
     else:
         os_keyboard_type = "US"
-        is_japanese_keyboard = False
 
     # ウィンドウフォーカスが変わった時、すぐに Keyhac に検知させるための設定を行う
     # （IME の状態をテキスト カーソル インジケーターの色で表現するためにこの機能を追加した）
@@ -313,22 +311,24 @@ def configure(keymap):
     ## 日本語キーボード設定をした OS 上で英語キーボードを利用するための設定
     ###########################################################################
 
-    use_usjis_keyboard_conversion = False
-
     if os_keyboard_type == "JP":
-        if fc.use_usjis_keyboard_conversion:
-            use_usjis_keyboard_conversion = True
-            is_japanese_keyboard = False
-
         try:
             if keymap.fakeymacs_keyboard == "JP":
-                use_usjis_keyboard_conversion = False
                 is_japanese_keyboard = True
+                use_usjis_keyboard_conversion = False
             else:
-                use_usjis_keyboard_conversion = True
                 is_japanese_keyboard = False
+                use_usjis_keyboard_conversion = True
         except:
-            pass
+            if fc.use_usjis_keyboard_conversion:
+                is_japanese_keyboard = False
+                use_usjis_keyboard_conversion = True
+            else:
+                is_japanese_keyboard = True
+                use_usjis_keyboard_conversion = False
+    else:
+        is_japanese_keyboard = False
+        use_usjis_keyboard_conversion = False
 
     if use_usjis_keyboard_conversion:
         str_vk_table = copy.copy(keyhac_keymap.KeyCondition.str_vk_table_common)
