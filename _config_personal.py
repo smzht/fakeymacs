@@ -79,6 +79,7 @@ fc.skip_settings_key    = {"keymap_global"    : [], # 全画面共通 Keymap
 # Emacs のキーバインドにするアプリケーションソフトで、Emacs キーバインドから除外するキーを指定する
 # （リストに指定するキーは、Keyhac で指定可能なマルチストロークではないキーとしてください。
 #   Fakeymacs の記法の "M-f" や "Ctl-x d" などの指定はできません。"A-v"、"C-v" などが指定可能です。）
+# （ここで指定しなくとも、左右のモディファイアキーを使い分けることで入力することは可能です）
 fc.emacs_exclusion_key  = {"chrome.exe"       : ["C-l", "C-t"],
                            "msedge.exe"       : ["C-l", "C-t"],
                            "firefox.exe"      : ["C-l", "C-t"],
