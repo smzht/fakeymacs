@@ -174,62 +174,6 @@ def configure(keymap):
     else:
         os_keyboard_type = "US"
 
-    # ウィンドウフォーカスが変わった時、すぐに Keyhac に検知させるための設定を行う
-    # （IME の状態をテキスト カーソル インジケーターの色で表現するためにこの機能を追加した）
-    # （https://sites.google.com/site/agkh6mze/howto/winevent）
-    # （https://github.com/Danesprite/windows-fun/blob/master/window%20change%20listener.py）
-    if 1:
-        EVENT_SYSTEM_DIALOGSTART = 0x0010
-        WINEVENT_OUTOFCONTEXT    = 0x0000
-        EVENT_SYSTEM_FOREGROUND  = 0x0003
-        WINEVENT_SKIPOWNPROCESS  = 0x0002
-
-        user32 = ctypes.windll.user32
-        ole32 = ctypes.windll.ole32
-
-        try:
-            # 設定されているか？
-            keymap.fakeymacs_hook
-
-            # reload 時の対策
-            user32.UnhookWinEvent(keymap.fakeymacs_hook)
-            ole32.CoUninitialize()
-        except:
-            pass
-
-        ole32.CoInitialize(None)
-
-        WinEventProcType = ctypes.WINFUNCTYPE(
-            None,
-            ctypes.wintypes.HANDLE,
-            ctypes.wintypes.DWORD,
-            ctypes.wintypes.HWND,
-            ctypes.wintypes.LONG,
-            ctypes.wintypes.LONG,
-            ctypes.wintypes.DWORD,
-            ctypes.wintypes.DWORD
-        )
-
-        def callback(hWinEventHook, event, hwnd, idObject, idChild, dwEventThread, dwmsEventTime):
-            if keymap.hook_enabled:
-                delay(0.1)
-                keymap._updateFocusWindow()
-            else:
-                setCursorColor(False)
-
-        WinEventProc = WinEventProcType(callback)
-
-        user32.SetWinEventHook.restype = ctypes.wintypes.HANDLE
-        keymap.fakeymacs_hook = user32.SetWinEventHook(
-            EVENT_SYSTEM_FOREGROUND,
-            EVENT_SYSTEM_FOREGROUND,
-            0,
-            WinEventProc,
-            0,
-            0,
-            WINEVENT_OUTOFCONTEXT | WINEVENT_SKIPOWNPROCESS
-        )
-
     # 個人設定ファイルを読み込む
     try:
         with open(dataPath() + r"\config_personal.py", "r", encoding="utf-8-sig") as f:
@@ -282,6 +226,22 @@ def configure(keymap):
     # fc.ime = "Google_IME"
     # fc.ime = None
 
+    # 日本語キーボード設定をした OS 上で英語キーボードを利用するかどうかを指定する
+    # （True: 使う、False: 使わない）
+    fc.use_usjis_keyboard_conversion = False
+
+    # IME の状態をテキスト カーソル インジケーターの色で表現するかどうかを指定する
+    # （True: 表現する、False: 表現しない）
+    # （テキスト カーソル インジケーターを利用するには、次のページを参考とし設定を行ってください
+    #   https://faq.nec-lavie.jp/qasearch/1007/app/servlet/relatedqa?QID=022081）
+    fc.use_ime_status_cursor_color = False
+
+    # IME が ON のときのテキスト カーソル インジケーターの色を指定する
+    fc.ime_on_cursor_color = 0x00C800 # 濃い緑
+
+    # IME が OFF のときのテキスト カーソル インジケーターの色を指定する
+    fc.ime_off_cursor_color = 0x0000FF # 赤
+
     # Chromium 系ブラウザで発生する問題の対策を行うかどうかを指定する（True: 対策する、False: 対策しない）
     # （Chromium 系ブラウザのバージョン 92 では、アドレスバーにカーソルを移動した際、強制的に ASCII入力
     #   モードに移行する不具合が発生します。（バージョン 93 で対策済みですが、過去にも度々発生しています。）
@@ -295,10 +255,6 @@ def configure(keymap):
                                 "msedge.exe",
                                 ]
 
-    # 日本語キーボード設定をした OS 上で英語キーボードを利用するかどうかを指定する
-    # （True: 使う、False: 使わない）
-    fc.use_usjis_keyboard_conversion = False
-
     # 個人設定ファイルのセクション [section-options] を読み込んで実行する
     exec(readConfigPersonal("[section-options]"), dict(globals(), **locals()))
 
@@ -306,6 +262,67 @@ def configure(keymap):
     ####################################################################################################
     ## 基本設定
     ####################################################################################################
+
+    ###########################################################################
+    ## ウィンドウフォーカスが変わった時、すぐに Keyhac に検知させるための設定
+    ###########################################################################
+
+    # IME の状態をテキスト カーソル インジケーターの色で表現するときに必要となる設定
+    # （https://sites.google.com/site/agkh6mze/howto/winevent）
+    # （https://github.com/Danesprite/windows-fun/blob/master/window%20change%20listener.py）
+
+    if fc.use_ime_status_cursor_color:
+        EVENT_SYSTEM_DIALOGSTART = 0x0010
+        WINEVENT_OUTOFCONTEXT    = 0x0000
+        EVENT_SYSTEM_FOREGROUND  = 0x0003
+        WINEVENT_SKIPOWNPROCESS  = 0x0002
+
+        user32 = ctypes.windll.user32
+        ole32 = ctypes.windll.ole32
+
+        try:
+            # 設定されているか？
+            keymap.fakeymacs_hook
+
+            # reload 時の対策
+            user32.UnhookWinEvent(keymap.fakeymacs_hook)
+            ole32.CoUninitialize()
+        except:
+            pass
+
+        ole32.CoInitialize(None)
+
+        WinEventProcType = ctypes.WINFUNCTYPE(
+            None,
+            ctypes.wintypes.HANDLE,
+            ctypes.wintypes.DWORD,
+            ctypes.wintypes.HWND,
+            ctypes.wintypes.LONG,
+            ctypes.wintypes.LONG,
+            ctypes.wintypes.DWORD,
+            ctypes.wintypes.DWORD
+        )
+
+        def callback(hWinEventHook, event, hwnd, idObject, idChild, dwEventThread, dwmsEventTime):
+            if keymap.hook_enabled:
+                delay(0.1)
+                keymap._updateFocusWindow()
+            else:
+                setCursorColor(False)
+
+        WinEventProc = WinEventProcType(callback)
+
+        user32.SetWinEventHook.restype = ctypes.wintypes.HANDLE
+        keymap.fakeymacs_hook = user32.SetWinEventHook(
+            EVENT_SYSTEM_FOREGROUND,
+            EVENT_SYSTEM_FOREGROUND,
+            0,
+            WinEventProc,
+            0,
+            0,
+            WINEVENT_OUTOFCONTEXT | WINEVENT_SKIPOWNPROCESS
+        )
+
 
     ###########################################################################
     ## 日本語キーボード設定をした OS 上で英語キーボードを利用するための設定
@@ -551,18 +568,6 @@ def configure(keymap):
 
     # IME の状態を表示するバルーンメッセージの組み合わせ（英数入力、日本語入力）を指定する
     fc.ime_status_balloon_message = ["[A]", "[あ]"]
-
-    # IME の状態をテキスト カーソル インジケーターの色で表現するかどうかを指定する
-    # （True: 表現する、False: 表現しない）
-    # （テキスト カーソル インジケーターを利用するには、次のページを参考とし設定を行ってください
-    #   https://faq.nec-lavie.jp/qasearch/1007/app/servlet/relatedqa?QID=022081）
-    fc.use_ime_status_cursor_color = False
-
-    # IME が ON のときのテキスト カーソル インジケーターの色を指定する
-    fc.ime_on_cursor_color = 0x00C800 # 濃い緑
-
-    # IME が OFF のときのテキスト カーソル インジケーターの色を指定する
-    fc.ime_off_cursor_color = 0x0000FF # 赤
 
     # IME をトグルで切り替えるキーを指定する（複数指定可）
     fc.toggle_input_method_key = []
