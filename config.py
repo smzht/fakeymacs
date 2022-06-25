@@ -271,6 +271,7 @@ def configure(keymap):
     # （https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwineventhook）
     # （https://sites.google.com/site/agkh6mze/howto/winevent）
     # （https://github.com/Danesprite/windows-fun/blob/master/window%20change%20listener.py）
+    # （https://www.nicovideo.jp/watch/sm20797948）
 
     if fc.use_ime_status_cursor_color:
         EVENT_SYSTEM_DIALOGSTART = 0x0010
