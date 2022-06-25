@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220623_02"
+fakeymacs_version = "20220625_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -197,8 +197,8 @@ def configure(keymap):
 
         # 「ウィンドウフォーカスが変わった時、すぐに Keyhac に検知させるための設定」を追加した後、
         # config_personal.py を作成しない場合や、config_pesonal.py で一つも Extension を有効としない
-        # 場合に keyhac が起動しなくなった。次の設定はこれを回避するための設定。どうしてこの設定が
-        # あると keyhac が落ちないかは分かっていない。
+        # 場合に Keyhac が起動しなくなった。次の設定はこれを回避するための設定。どうしてこの設定が
+        # あると Keyhac が落ちないのかは分かっていない。
         config_section += 'def _x(): pass\n'
 
         return config_section
@@ -279,7 +279,7 @@ def configure(keymap):
     # （https://github.com/Danesprite/windows-fun/blob/master/window%20change%20listener.py）
     # （https://www.nicovideo.jp/watch/sm20797948）
 
-    if fc.use_ime_status_cursor_color:
+    if 1:
         EVENT_SYSTEM_DIALOGSTART = 0x0010
         WINEVENT_OUTOFCONTEXT    = 0x0000
         EVENT_SYSTEM_FOREGROUND  = 0x0003
