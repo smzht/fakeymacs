@@ -195,6 +195,12 @@ def configure(keymap):
         else:
             config_section = ""
 
+        # 「ウィンドウフォーカスが変わった時、すぐに Keyhac に検知させるための設定」を追加した後、
+        # config_personal.py を作成しない場合や、config_pesonal.py で一つも Extension を有効としない
+        # 場合に keyhac が起動しなくなった。次の設定はこれを回避するための設定。どうしてこの設定が
+        # あると keyhac が落ちないかは分かっていない。
+        config_section += 'def _x(): pass\n'
+
         return config_section
 
     def readConfigExtension(config_file, msg=True):
