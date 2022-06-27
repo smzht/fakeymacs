@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220627_01"
+fakeymacs_version = "20220627_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -184,8 +184,8 @@ def configure(keymap):
 
     def readConfigPersonal(section):
         if config_personal:
-            m = re.match(r".*(#\s{}.*?((?=#\s\[section-)|$)).*".format(re.escape(section)), config_personal,
-                         flags=re.DOTALL)
+            m = re.search(r"(#\s{}.*?)(#\s\[section-|$)".format(re.escape(section)), config_personal,
+                          flags=re.DOTALL)
             try:
                 config_section = m.group(1)
                 config_section = re.sub(r"^##.*", r"", config_section, flags=re.MULTILINE)
@@ -199,7 +199,7 @@ def configure(keymap):
         # config_personal.py を作成しない場合や、config_pesonal.py で一つも Extension を有効としない
         # 場合に Keyhac が起動しなくなった。次の設定はこれを回避するための設定。どうしてこの設定が
         # あると Keyhac が落ちないのかは分かっていない。
-        config_section += 'def _x(): pass\n'
+        config_section += '\ndef _x(): pass\n'
 
         return config_section
 
