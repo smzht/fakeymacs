@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220625_01"
+fakeymacs_version = "20220627_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -275,14 +275,14 @@ def configure(keymap):
 
     # IME の状態をテキスト カーソル インジケーターの色で表現するときに必要となる設定
     # （https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwineventhook）
+    # （https://docs.microsoft.com/ja-jp/windows/win32/winauto/event-constants）
     # （https://sites.google.com/site/agkh6mze/howto/winevent）
     # （https://github.com/Danesprite/windows-fun/blob/master/window%20change%20listener.py）
     # （https://www.nicovideo.jp/watch/sm20797948）
 
     if 1:
-        EVENT_SYSTEM_DIALOGSTART = 0x0010
-        WINEVENT_OUTOFCONTEXT    = 0x0000
         EVENT_SYSTEM_FOREGROUND  = 0x0003
+        WINEVENT_OUTOFCONTEXT    = 0x0000
         WINEVENT_SKIPOWNPROCESS  = 0x0002
 
         user32 = ctypes.windll.user32
