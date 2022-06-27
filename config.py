@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220627_02"
+fakeymacs_version = "20220627_03"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -184,7 +184,8 @@ def configure(keymap):
 
     def readConfigPersonal(section):
         if config_personal:
-            m = re.search(r"(#\s{}.*?)(#\s\[section-|$)".format(re.escape(section)), config_personal,
+            # https://www.zu-min.com/archives/614
+            m = re.search(r"(#\s{}.*?)(#\s\[section-|\Z)".format(re.escape(section)), config_personal,
                           flags=re.DOTALL)
             try:
                 config_section = m.group(1)
