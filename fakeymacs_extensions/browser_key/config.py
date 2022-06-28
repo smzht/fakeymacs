@@ -48,6 +48,7 @@ def browser_popup(key, ime_status):
 
                 popWindow(window)()
                 delay()
+                escape() # 検索状態になっていた場合に Esc で解除する
                 self_insert_command(key)()
                 keymap.delayedCall(lambda: setImeStatus(ime_status), 100)
                 return
