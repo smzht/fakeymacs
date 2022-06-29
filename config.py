@@ -277,15 +277,14 @@ def configure(keymap):
 
     # IME の状態をテキスト カーソル インジケーターの色で表現するときに必要となる設定
     # （https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwineventhook）
-    # （https://docs.microsoft.com/ja-jp/windows/win32/winauto/event-constants）
     # （https://sites.google.com/site/agkh6mze/howto/winevent）
     # （https://github.com/Danesprite/windows-fun/blob/master/window%20change%20listener.py）
     # （https://www.nicovideo.jp/watch/sm20797948）
 
     if fc.use_ime_status_cursor_color:
-        EVENT_SYSTEM_FOREGROUND  = 0x0003
-        WINEVENT_OUTOFCONTEXT    = 0x0000
-        WINEVENT_SKIPOWNPROCESS  = 0x0002
+        EVENT_SYSTEM_FOREGROUND = 0x0003
+        WINEVENT_OUTOFCONTEXT   = 0x0000
+        WINEVENT_SKIPOWNPROCESS = 0x0002
 
         user32 = ctypes.windll.user32
         ole32 = ctypes.windll.ole32
