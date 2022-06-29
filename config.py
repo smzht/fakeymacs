@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220628_01"
+fakeymacs_version = "20220630_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -196,11 +196,6 @@ def configure(keymap):
         else:
             config_section = ""
 
-        # 「ウィンドウフォーカスが変わった時、すぐに Keyhac に検知させるための設定」を追加した後、
-        # config_personal.py を作成しない場合に Keyhac が起動しなくなった。次の設定はこれを回避する
-        # ための設定。どうしてこの設定があると Keyhac が落ちないのかは分かっていない。
-        config_section += '\ndef _x(): pass\n'
-
         return config_section
 
     def readConfigExtension(config_file, msg=True):
@@ -281,7 +276,7 @@ def configure(keymap):
     # （https://github.com/Danesprite/windows-fun/blob/master/window%20change%20listener.py）
     # （https://www.nicovideo.jp/watch/sm20797948）
 
-    if fc.use_ime_status_cursor_color:
+    def setWinEventHook():
         EVENT_SYSTEM_FOREGROUND = 0x0003
         WINEVENT_OUTOFCONTEXT   = 0x0000
         WINEVENT_SKIPOWNPROCESS = 0x0002
@@ -319,6 +314,9 @@ def configure(keymap):
             else:
                 setCursorColor(False)
 
+        # この設定は必要
+        global WinEventProc
+
         WinEventProc = WinEventProcType(callback)
 
         user32.SetWinEventHook.restype = ctypes.wintypes.HANDLE
@@ -331,6 +329,9 @@ def configure(keymap):
             0,
             WINEVENT_OUTOFCONTEXT | WINEVENT_SKIPOWNPROCESS
         )
+
+    # ウィンドウが切り替わるときのイベントフックを設定する
+    setWinEventHook()
 
 
     ###########################################################################
