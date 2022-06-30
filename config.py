@@ -278,7 +278,7 @@ def configure(keymap):
     # （https://tutorialmore.com/questions-652366.htm）
     # （https://www.nicovideo.jp/watch/sm20797948）
 
-    if 1:
+    def setWinEventHook():
         EVENT_SYSTEM_FOREGROUND = 0x0003
         WINEVENT_OUTOFCONTEXT   = 0x0000
         WINEVENT_SKIPOWNPROCESS = 0x0002
@@ -331,6 +331,9 @@ def configure(keymap):
             0,
             WINEVENT_OUTOFCONTEXT | WINEVENT_SKIPOWNPROCESS
         )
+
+    # ウィンドウが切り替わるときのイベントフックを設定する
+    setWinEventHook()
 
 
     ###########################################################################
