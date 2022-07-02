@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220630_02"
+fakeymacs_version = "20220702_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -416,6 +416,7 @@ def configure(keymap):
 
     def usjisPos(key):
         key_list = []
+        key = keyStrNormalization(key)
         if use_usjis_keyboard_conversion:
             for us_key in usjis_key_table:
                 if re.search(r"(^|[^S]-)" + us_key + "$", key):
@@ -427,6 +428,7 @@ def configure(keymap):
         return key_list
 
     def usjisInput(key):
+        key = keyStrNormalization(key)
         if use_usjis_keyboard_conversion:
             for us_key in usjis_key_table:
                 if re.search(r"(^|[^S]-)" + us_key + "$", key):
@@ -844,7 +846,7 @@ def configure(keymap):
                 fakeymacs.clipboard_hook = True
 
             if process_name in fc.emacs_exclusion_key:
-                fakeymacs.exclution_key = [addSideOfModifierKey(keyStrNormalization(key))
+                fakeymacs.exclution_key = [keyStrNormalization(addSideOfModifierKey(key))
                                            for key in fc.emacs_exclusion_key[process_name]]
             else:
                 fakeymacs.exclution_key = []
@@ -1616,13 +1618,13 @@ def configure(keymap):
                     key_list1.append(key)
 
             if key_list0:
-                key_lists.append(list(map(keyStrNormalization, key_list0)))
+                key_lists.append(key_list0)
 
             if key_list0 != key_list1:
-                key_lists.append(list(map(keyStrNormalization, key_list1)))
+                key_lists.append(key_list1)
 
             if key_list2:
-                key_lists.append(list(map(keyStrNormalization, key_list2)))
+                key_lists.append(key_list2)
 
             for key_list in key_lists:
                 key_list[0] = addSideOfModifierKey(key_list[0])
@@ -1665,9 +1667,10 @@ def configure(keymap):
                     "keymap_emacs" in locals() and
                     window_keymap is locals()["keymap_emacs"]):
 
+                    ckey = keyStrNormalization(key)
                     def _command1():
                         fakeymacs.update_last_keys = True
-                        if key in fakeymacs.exclution_key:
+                        if ckey in fakeymacs.exclution_key:
                             InputKeyCommand(key)()
                         else:
                             command()
