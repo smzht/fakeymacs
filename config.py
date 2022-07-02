@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220702_01"
+fakeymacs_version = "20220702_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -371,19 +371,20 @@ def configure(keymap):
         vk_str_table.update(keyhac_keymap.KeyCondition.vk_str_table_std)
 
     def usjisTableSwap(swap):
-        if use_usjis_keyboard_conversion:
-            if swap:
-                keyhac_keymap.KeyCondition.str_vk_table = str_vk_table
-                keyhac_keymap.KeyCondition.vk_str_table = vk_str_table
-            else:
-                # table_common は table_jpn で update した状態となっているためこれで良い
-                keyhac_keymap.KeyCondition.str_vk_table = keyhac_keymap.KeyCondition.str_vk_table_common
-                keyhac_keymap.KeyCondition.vk_str_table = keyhac_keymap.KeyCondition.vk_str_table_common
+        if swap:
+            keyhac_keymap.KeyCondition.str_vk_table = str_vk_table
+            keyhac_keymap.KeyCondition.vk_str_table = vk_str_table
+        else:
+            # table_common は table_jpn で update した状態となっているためこれで良い
+            keyhac_keymap.KeyCondition.str_vk_table = keyhac_keymap.KeyCondition.str_vk_table_common
+            keyhac_keymap.KeyCondition.vk_str_table = keyhac_keymap.KeyCondition.vk_str_table_common
 
     def usjisFilter(func, *param):
-        usjisTableSwap(1)
+        if use_usjis_keyboard_conversion:
+            usjisTableSwap(1)
         rtn = func(*param)
-        usjisTableSwap(0)
+        if use_usjis_keyboard_conversion:
+            usjisTableSwap(0)
         return rtn
 
     usjis_key_table = { "S-2":            [["S-2"],                     "Atmark"         ], # @
