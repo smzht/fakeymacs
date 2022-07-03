@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220702_02"
+fakeymacs_version = "20220703_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -387,26 +387,26 @@ def configure(keymap):
             usjisTableSwap(0)
         return rtn
 
-    usjis_key_table = { "S-2":            [["S-2"],                     "Atmark"         ], # @
-                        "S-6":            [["S-6"],                     "Caret"          ], # ^
-                        "S-7":            [["S-7"],                     "S-6"            ], # &
-                        "S-8":            [["S-8"],                     "S-Colon"        ], # *
-                        "S-9":            [["S-9"],                     "S-8"            ], # (
-                        "S-0":            [["S-0"],                     "S-9"            ], # )
-                        "S-Minus":        [["S-Minus"],                 "S-BackSlash"    ], # _
-                        "Plus":           [["Caret"],                   "S-Minus"        ], # =
-                        "S-Plus":         [["S-Caret"],                 "S-Semicolon"    ], # +
-                        "OpenBracket":    [["Atmark"],                  "OpenBracket"    ], # [
-                        "S-OpenBracket":  [["S-Atmark"],                "S-OpenBracket"  ], # {
-                        "CloseBracket":   [["OpenBracket"],             "CloseBracket"   ], # ]
-                        "S-CloseBracket": [["S-OpenBracket"],           "S-CloseBracket" ], # }
-                        "BackSlash":      [["CloseBracket"],            "Yen"            ], # \
-                        "S-BackSlash":    [["S-CloseBracket"],          "S-Yen"          ], # |
-                        "S-Semicolon":    [["S-Semicolon"],             "Colon"          ], # :
-                        "Quote":          [["Colon"],                   "S-7"            ], # '
-                        "S-Quote":        [["S-Colon"],                 "S-2"            ], # "
-                        "BackQuote":      [["(243)", "(244)", "(248)"], "S-Atmark"       ], # `
-                        "S-BackQuote":    [["S-(243)", "S-(244)"],      "S-Caret"        ], # ~
+    usjis_key_table = {"S-2"            : [["S-2"],                           "Atmark"        ], # @
+                       "S-6"            : [["S-6"],                           "Caret"         ], # ^
+                       "S-7"            : [["S-7"],                           "S-6"           ], # &
+                       "S-8"            : [["S-8"],                           "S-Colon"       ], # *
+                       "S-9"            : [["S-9"],                           "S-8"           ], # (
+                       "S-0"            : [["S-0"],                           "S-9"           ], # )
+                       "S-Minus"        : [["S-Minus"],                       "S-BackSlash"   ], # _
+                       "Plus"           : [["Caret"],                         "S-Minus"       ], # =
+                       "S-Plus"         : [["S-Caret"],                       "S-Semicolon"   ], # +
+                       "OpenBracket"    : [["Atmark"],                        "OpenBracket"   ], # [
+                       "S-OpenBracket"  : [["S-Atmark"],                      "S-OpenBracket" ], # {
+                       "CloseBracket"   : [["OpenBracket"],                   "CloseBracket"  ], # ]
+                       "S-CloseBracket" : [["S-OpenBracket"],                 "S-CloseBracket"], # }
+                       "BackSlash"      : [["CloseBracket"],                  "Yen"           ], # \
+                       "S-BackSlash"    : [["S-CloseBracket"],                "S-Yen"         ], # |
+                       "S-Semicolon"    : [["S-Semicolon"],                   "Colon"         ], # :
+                       "Quote"          : [["Colon"],                         "S-7"           ], # '
+                       "S-Quote"        : [["S-Colon"],                       "S-2"           ], # "
+                       "BackQuote"      : [["(243)", "(244)", "(248)"],       "S-Atmark"      ], # `
+                       "S-BackQuote"    : [["S-(243)", "S-(244)", "S-(248)"], "S-Caret"       ], # ~
                        }
 
     def keyStrNormalization(key):
