@@ -9,7 +9,7 @@ try:
     fc.emacsclient_key
 except:
     # emacsclient を起動するキーを指定する
-    fc.emacsclient_key = "C-Period"
+    fc.emacsclient_key = "C-."
 
 try:
     # 設定されているか？

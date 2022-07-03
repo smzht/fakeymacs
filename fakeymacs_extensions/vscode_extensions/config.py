@@ -93,38 +93,7 @@ if fc.vscode_occur:
 # --------------------------------------------------------------------------------------------------
 
 if fc.vscode_quick_select:
-    if is_japanese_keyboard:
-        quick_select_keys = {'"' : "S-2",
-                             "'" : "S-7",
-                             ";" : "Semicolon",
-                             ":" : "Colon",
-                             "`" : "S-Atmark",
-                             "(" : "S-8",
-                             ")" : "S-9",
-                             "[" : "OpenBracket",
-                             "]" : "CloseBracket",
-                             "{" : "S-OpenBracket",
-                             "}" : "S-CloseBracket",
-                             "<" : "S-Comma",
-                             ">" : "S-Period"
-                             }
-    else:
-        quick_select_keys = {'"' : "S-Quote",
-                             "'" : "Quote",
-                             ";" : "Semicolon",
-                             ":" : "S-Semicolon",
-                             "`" : "BackQuote",
-                             "(" : "S-9",
-                             ")" : "S-0",
-                             "[" : "OpenBracket",
-                             "]" : "CloseBracket",
-                             "{" : "S-OpenBracket",
-                             "}" : "S-CloseBracket",
-                             "<" : "S-Comma",
-                             ">" : "S-Period"
-                             }
-
-    for key in quick_select_keys.values():
+    for key in '"' + "';:`()[]{}<>":
         mkey = "C-A-k {}".format(key)
         define_key_v(mkey, reset_rect(region(getKeyCommand(keymap_vscode, mkey))))
 
@@ -165,13 +134,8 @@ if fc.vscode_keyboard_macro:
 
         keymap.delayedCall(playMacro, 0)
 
-    if is_japanese_keyboard:
-        define_key_v("Ctl-x S-8", keyboard_macro_start)
-        define_key_v("Ctl-x S-9", keyboard_macro_stop)
-    else:
-        define_key_v("Ctl-x S-9", keyboard_macro_start)
-        define_key_v("Ctl-x S-0", keyboard_macro_stop)
-
+    define_key_v("Ctl-x (", keyboard_macro_start)
+    define_key_v("Ctl-x )", keyboard_macro_stop)
     define_key_v("Ctl-x e", reset_search(reset_undo(reset_counter(repeat(keyboard_macro_play)))))
 
 # --------------------------------------------------------------------------------------------------
@@ -193,6 +157,6 @@ if fc.vscode_filter_text:
         else:
             run_filter_through_selected_text()
 
-    define_key_v("M-S-BackSlash", reset_search(reset_undo(reset_counter(reset_mark(shell_command_on_region)))))
+    define_key_v("M-|", reset_search(reset_undo(reset_counter(reset_mark(shell_command_on_region)))))
 
 # --------------------------------------------------------------------------------------------------

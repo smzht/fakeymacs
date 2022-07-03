@@ -9,7 +9,7 @@ try:
     fc.pop_ime_balloon_key
 except:
     # IME の状態を表示するキーを指定する
-    fc.pop_ime_balloon_key = ["C-Semicolon"]
+    fc.pop_ime_balloon_key = ["C-;"]
 
 for key in fc.pop_ime_balloon_key:
     define_key(keymap_emacs, key, lambda: popImeBalloon(getImeStatus(), force=True))

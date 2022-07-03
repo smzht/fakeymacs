@@ -252,7 +252,7 @@ if 1:
     #                      "firefox.exe",
     #                      ]
 
-    # fc.vscode_prefix_key = [["C-Semicolon", "C-A-Semicolon"]]
+    # fc.vscode_prefix_key = [["C-;", "C-A-;"]]
     fc.use_ctrl_atmark_for_mark = False
     fc.use_direct_input_in_vscode_terminal = False
     fc.esc_mode_in_keyboard_quit = 1
@@ -342,7 +342,7 @@ if 0:
 
 # 指定したキーを押下したときに IME の状態を表示する
 if 0:
-    fc.pop_ime_balloon_key = ["C-Semicolon"]
+    fc.pop_ime_balloon_key = ["C-;"]
     # fc.pop_ime_balloon_key = ["O-" + fc.side_of_ctrl_key + "Ctrl"] # Ctrl キーの単押し
     exec(readConfigExtension(r"pop_ime_balloon\config.py"), dict(globals(), **locals()))
 

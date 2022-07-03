@@ -468,7 +468,7 @@ def execute_extended_command():
 
 def comment_dwim():
     # VSCode Command : Toggle Line Comment
-    self_insert_command("C-Slash")()
+    self_insert_command("C-/")()
     # vscodeExecuteCommand("editor.action.commentLine")()
 
     resetRegion()
@@ -516,11 +516,7 @@ define_key_v("M-g p",   reset_search(reset_undo(reset_counter(reset_mark(previou
 define_key_v("M-g M-p", reset_search(reset_undo(reset_counter(reset_mark(previous_error)))))
 define_key_v("M-g n",   reset_search(reset_undo(reset_counter(reset_mark(next_error)))))
 define_key_v("M-g M-n", reset_search(reset_undo(reset_counter(reset_mark(next_error)))))
-
-if is_japanese_keyboard:
-    define_key_v("Ctl-x S-Atmark",  reset_search(reset_undo(reset_counter(reset_mark(next_error)))))
-else:
-    define_key_v("Ctl-x BackQuote", reset_search(reset_undo(reset_counter(reset_mark(next_error)))))
+define_key_v("Ctl-x `", reset_search(reset_undo(reset_counter(reset_mark(next_error)))))
 
 # define_key_v("A-p", self_insert_command("C-Up"))
 # define_key_v("A-n", self_insert_command("C-Down"))
@@ -582,26 +578,26 @@ if is_japanese_keyboard:
     define_key_v("C-A-(243)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal_in_editor_area)))))
     define_key_v("C-A-(244)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal_in_editor_area)))))
 
-    define_key_v("C-S-Atmark", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
+    define_key_v("C-S-@", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
     if not fc.use_ctrl_atmark_for_mark:
-        define_key_v("C-Atmark", reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
-    define_key_v("C-A-Atmark", reset_search(reset_undo(reset_counter(reset_mark(create_terminal_in_editor_area)))))
+        define_key_v("C-@", reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
+    define_key_v("C-A-@", reset_search(reset_undo(reset_counter(reset_mark(create_terminal_in_editor_area)))))
 else:
-    define_key_v("C-S-BackQuote", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
-    define_key_v("C-BackQuote",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
-    define_key_v("C-A-BackQuote", reset_search(reset_undo(reset_counter(reset_mark(create_terminal_in_editor_area)))))
+    define_key_v("C-S-`", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
+    define_key_v("C-`",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
+    define_key_v("C-A-`", reset_search(reset_undo(reset_counter(reset_mark(create_terminal_in_editor_area)))))
 
 ## 「その他」のキー設定
-define_key_v("Enter",       post(reset_undo(reset_counter(reset_mark(repeat(newline))))))
-define_key_v("C-m",         post(reset_undo(reset_counter(reset_mark(repeat(newline))))))
-define_key_v("C-g",         reset_search(reset_counter(reset_mark(keyboard_quit_v2))))
-define_key_v("M-x",         reset_search(reset_undo(reset_counter(reset_mark(execute_extended_command)))))
-define_key_v("M-Semicolon", reset_search(reset_undo(reset_counter(reset_mark(comment_dwim)))))
+define_key_v("Enter", post(reset_undo(reset_counter(reset_mark(repeat(newline))))))
+define_key_v("C-m",   post(reset_undo(reset_counter(reset_mark(repeat(newline))))))
+define_key_v("C-g",   reset_search(reset_counter(reset_mark(keyboard_quit_v2))))
+define_key_v("M-x",   reset_search(reset_undo(reset_counter(reset_mark(execute_extended_command)))))
+define_key_v("M-;",   reset_search(reset_undo(reset_counter(reset_mark(comment_dwim)))))
 
 if is_japanese_keyboard:
-    define_key_v("C-Colon", trigger_suggest)
+    define_key_v("C-:", trigger_suggest)
 else:
-    define_key_v("C-Quote", trigger_suggest)
+    define_key_v("C-'", trigger_suggest)
 
 ## vscode_extensions 拡張機能の読み込み
 exec(readConfigExtension(r"vscode_extensions\config.py"), dict(globals(), **locals()))

@@ -151,5 +151,5 @@ def shell_command_on_region():
     # キーフックの中で時間のかかる処理を実行できないので、delayedCall() を使って遅延実行する
     keymap.delayedCall(executeShellCommand, 100)
 
-define_key(keymap_emacs, "M-S-BackSlash", reset_search(reset_undo(reset_counter(reset_mark(shell_command_inputbox)))))
-define_key(keymap_emacs, "LC-S-BackSlash", reset_search(reset_undo(reset_counter(reset_mark(shell_command_on_region)))))
+define_key(keymap_emacs, "M-|", reset_search(reset_undo(reset_counter(reset_mark(shell_command_inputbox)))))
+define_key(keymap_emacs, "LC-S-" + vkToStr(VK_F12), reset_search(reset_undo(reset_counter(reset_mark(shell_command_on_region)))))

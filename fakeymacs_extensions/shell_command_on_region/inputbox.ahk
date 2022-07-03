@@ -17,5 +17,5 @@ If ErrorLevel = 0
 {
         clipboard = %ShellCommand%
         Sleep, 500
-        Send, ^+\
+        Send, ^+{F12}
 }
