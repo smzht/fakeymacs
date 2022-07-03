@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220703_01"
+fakeymacs_version = "20220703_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -420,7 +420,7 @@ def configure(keymap):
         key = keyStrNormalization(key)
         if use_usjis_keyboard_conversion:
             for us_key in usjis_key_table:
-                if re.search(r"(^|[^S]-)" + us_key + "$", key):
+                if re.search(r"(^|[^S]-){}$".format(re.escape(us_key)), key):
                     for jis_key in usjis_key_table[us_key][0]:
                         key_list.append(key.replace(us_key, jis_key))
                     break
@@ -432,7 +432,7 @@ def configure(keymap):
         key = keyStrNormalization(key)
         if use_usjis_keyboard_conversion:
             for us_key in usjis_key_table:
-                if re.search(r"(^|[^S]-)" + us_key + "$", key):
+                if re.search(r"(^|[^S]-){}$".format(re.escape(us_key)), key):
                     jis_key = usjis_key_table[us_key][1]
                     key = key.replace(us_key, jis_key)
                     break
