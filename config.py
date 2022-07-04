@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220704_01"
+fakeymacs_version = "20220705_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -2090,24 +2090,17 @@ def configure(keymap):
     define_key(keymap_emacs, "C-u", universal_argument)
 
     ## 「IME の切り替え」のキー設定
-    define_key(keymap_base,  "A-(25)", toggle_input_method)
-    define_key(keymap_emacs, "A-(25)", toggle_input_method)
-    define_key(keymap_ime,   "A-(25)", toggle_input_method)
+    define_key(keymap_base, "A-(25)", toggle_input_method)
 
     if is_japanese_keyboard:
-        define_key(keymap_base,  "(243)", toggle_input_method)
-        define_key(keymap_emacs, "(243)", toggle_input_method)
-        define_key(keymap_ime,   "(243)", toggle_input_method)
-
-        define_key(keymap_base,  "(244)", toggle_input_method)
-        define_key(keymap_emacs, "(244)", toggle_input_method)
-        define_key(keymap_ime,   "(244)", toggle_input_method)
+        define_key(keymap_base, "(243)", toggle_input_method)
+        define_key(keymap_base, "(244)", toggle_input_method)
 
     # 以降の IME の設定は、is_japanese_keyboard 変数が False の場合でも use_usjis_keyboard_conversion 変数
     # が True の場合に使う可能性があるため、if is_japanese_keyboard: の外に設定している
-    define_key(keymap_base,  "(240)",   toggle_input_method)
-    define_key(keymap_emacs, "(240)",   toggle_input_method)
-    define_key(keymap_ime,   "(240)",   toggle_input_method)
+    define_key(keymap_base,  "(240)", toggle_input_method)
+    define_key(keymap_emacs, "(240)", toggle_input_method)
+    define_key(keymap_ime,   "(240)", toggle_input_method)
 
     define_key(keymap_base,  "S-(240)", toggle_input_method)
     define_key(keymap_emacs, "S-(240)", toggle_input_method)
