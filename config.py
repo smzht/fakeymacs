@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220703_04"
+fakeymacs_version = "20220704_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -407,6 +407,10 @@ def configure(keymap):
                        "S-Quote"        : [["S-Colon"],                       "S-2"           ], # "
                        "BackQuote"      : [["(243)", "(244)", "(248)"],       "S-Atmark"      ], # `
                        "S-BackQuote"    : [["S-(243)", "S-(244)", "S-(248)"], "S-Caret"       ], # ~
+                       "(243)"          : [[],                                "(243)"         ],
+                       "S-(243)"        : [[],                                "S-(243)"       ],
+                       "(244)"          : [[],                                "(244)"         ],
+                       "S-(244)"        : [[],                                "S-(244)"       ],
                        }
 
     def keyStrNormalization(key):
@@ -416,15 +420,17 @@ def configure(keymap):
         return nkey
 
     def usjisPos(key):
-        key_list = []
         key = keyStrNormalization(key)
+        key_list = []
+        match_flg = False
         if use_usjis_keyboard_conversion:
             for us_key in usjis_key_table:
                 if re.search(r"(^|[^S]-){}$".format(re.escape(us_key)), key):
                     for jis_key in usjis_key_table[us_key][0]:
                         key_list.append(key.replace(us_key, jis_key))
+                    match_flg = True
                     break
-        if not key_list:
+        if not match_flg:
             key_list.append(key)
         return key_list
 
@@ -1625,7 +1631,8 @@ def configure(keymap):
                     str = special_char_key_table[special_char][1]
                 else:
                     str = special_char_key_table[special_char][0]
-                key = re.sub(r"{}$".format(re.escape(special_char)), str, key)
+                # key = re.sub(r"{}$".format(re.escape(special_char)), str, key)
+                key = key[:-1] + str # 一文字の変換であれば、こちらの方が速い
                 break
         return key
 
