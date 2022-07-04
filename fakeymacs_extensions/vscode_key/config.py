@@ -575,8 +575,7 @@ if is_japanese_keyboard:
     define_key_v("C-S-(244)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
     define_key_v("C-(243)",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
     define_key_v("C-(244)",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
-    define_key_v("C-A-(243)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal_in_editor_area)))))
-    define_key_v("C-A-(244)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal_in_editor_area)))))
+    define_key_v("C-A-(248)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal_in_editor_area)))))
 
     define_key_v("C-S-@", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
     if not fc.use_ctrl_atmark_for_mark:
