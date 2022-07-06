@@ -14,7 +14,7 @@ except:
 def displayImeBalloon():
     ime_status = getImeStatus()
     setCursorColor(ime_status)
-    popImeBalloon(getImeStatus(), force=True)
+    popImeBalloon(ime_status, force=True)
 
 for key in fc.pop_ime_balloon_key:
     define_key(keymap_emacs, key, displayImeBalloon)
