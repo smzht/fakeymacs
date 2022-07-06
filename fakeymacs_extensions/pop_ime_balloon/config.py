@@ -11,11 +11,6 @@ except:
     # IME の状態を表示するキーを指定する
     fc.pop_ime_balloon_key = ["C-;"]
 
-def displayImeBalloon():
-    ime_status = getImeStatus()
-    setCursorColor(ime_status)
-    popImeBalloon(ime_status, force=True)
-
 for key in fc.pop_ime_balloon_key:
-    define_key(keymap_emacs, key, displayImeBalloon)
-    define_key(keymap_ime,   key, displayImeBalloon)
+    define_key(keymap_emacs, key, lambda: showImeStatus(getImeStatus(), force=True))
+    define_key(keymap_ime,   key, lambda: showImeStatus(getImeStatus(), force=True))

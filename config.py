@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220705_02"
+fakeymacs_version = "20220707_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -887,8 +887,7 @@ def configure(keymap):
 
         if window is not last_window:
             ime_status = window.getImeStatus()
-            setCursorColor(ime_status)
-            popImeBalloon(ime_status, window=window)
+            showImeStatus(ime_status, window=window)
 
         if (class_name not in fc.emacs_target_class and
             (process_name in fakeymacs.not_emacs_keybind or
@@ -1013,8 +1012,7 @@ def configure(keymap):
             if fakeymacs.is_playing_kmacro:
                 delay(0.2)
 
-        setCursorColor(ime_status)
-        popImeBalloon(ime_status)
+        showImeStatus(ime_status)
 
     def getImeStatus():
         return keymap.getWindow().getImeStatus()
@@ -1022,6 +1020,10 @@ def configure(keymap):
     def setImeStatus(ime_status):
         keymap.getWindow().setImeStatus(ime_status)
         setCursorColor(ime_status)
+
+    def showImeStatus(ime_status, force=False, window=None):
+        setCursorColor(ime_status)
+        popImeBalloon(ime_status, force, window)
 
     def correctImeStatus():
         # Chromium 系ブラウザで発生する問題の対策を行う
