@@ -886,8 +886,7 @@ def configure(keymap):
             return False
 
         if window is not last_window:
-            ime_status = window.getImeStatus()
-            showImeStatus(ime_status, window=window)
+            showImeStatus(window.getImeStatus(), window=window)
 
         if (class_name not in fc.emacs_target_class and
             (process_name in fakeymacs.not_emacs_keybind or
