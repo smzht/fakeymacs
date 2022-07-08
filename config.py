@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220708_01"
+fakeymacs_version = "20220708_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -820,6 +820,12 @@ def configure(keymap):
                                ["POWERPNT.EXE", "mdiClass"],
                                ]
 
+    # ゲームなど、キーバインドの設定を極力行わないアプリケーションソフトを指定する
+    # （keymap_global 以外のすべてのキーマップをスルーします。keymap_base の設定もスルーするため、
+    #   US -> 日本語キーボード変換の機能も働きません。）
+    fc.game_app_list = ["ffxiv_dx11.exe",       # FINAL FANTASY XIV
+                        ]
+
     # 個人設定ファイルのセクション [section-base-1] を読み込んで実行する
     exec(readConfigPersonal("[section-base-1]"), dict(globals(), **locals()))
 
@@ -876,7 +882,12 @@ def configure(keymap):
                 else:
                     keymap_base["D-RCtrl"] = "D-RCtrl"
 
-        return True
+        if process_name in fc.game_app_list:
+            fakeymacs.is_keymap_decided = True
+            return False
+        else:
+            fakeymacs.is_keymap_decided = False
+            return True
 
     def is_emacs_target(window):
         last_window  = fakeymacs.last_window
@@ -894,8 +905,6 @@ def configure(keymap):
             fakeymacs.ime_cancel = False
             fakeymacs.last_window = window
 
-        fakeymacs.is_keymap_decided = False
-
         if is_task_switching_window(window):
             fakeymacs.is_keymap_decided = True
             return False
@@ -907,9 +916,10 @@ def configure(keymap):
         if window is not last_window:
             showImeStatus(window.getImeStatus(), window=window)
 
-        if (class_name not in fc.emacs_target_class and
-            (process_name in fakeymacs.not_emacs_keybind or
-             process_name in fc.not_emacs_target)):
+        if (fakeymacs.is_keymap_decided == True or
+            (class_name not in fc.emacs_target_class and
+             (process_name in fakeymacs.not_emacs_keybind or
+              process_name in fc.not_emacs_target))):
             fakeymacs.keybind = "not_emacs"
             return False
         else:
