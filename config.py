@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220707_01"
+fakeymacs_version = "20220708_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -836,12 +836,10 @@ def configure(keymap):
     fakeymacs.correct_ime_status = False
     fakeymacs.window_list = []
 
-    def is_emacs_target(window):
-        last_window  = fakeymacs.last_window
+    def is_base_target(window):
         process_name = window.getProcessName()
-        class_name   = window.getClassName()
 
-        if window is not last_window:
+        if window is not fakeymacs.last_window:
             if (process_name in fc.not_clipboard_target or
                 any([checkWindow(None, c, None, window) for c in fc.not_clipboard_target_class])):
                 # クリップボードの監視用のフックを無効にする
@@ -852,15 +850,9 @@ def configure(keymap):
                 keymap.clipboard_history.enableHook(True)
                 fakeymacs.clipboard_hook = True
 
-            if process_name in fc.emacs_exclusion_key:
-                fakeymacs.exclution_key = [keyStrNormalization(addSideOfModifierKey(specialCharToKeyStr(key)))
-                                           for key in fc.emacs_exclusion_key[process_name]]
-            else:
-                fakeymacs.exclution_key = []
-
             if fc.correct_ime_status:
                 if fc.ime == "Google_IME":
-                    if window.getProcessName() in fc.chromium_browser_list:
+                    if process_name in fc.chromium_browser_list:
                         fakeymacs.correct_ime_status = True
                     else:
                         fakeymacs.correct_ime_status = False
@@ -870,6 +862,33 @@ def configure(keymap):
                 if checkWindow(*app):
                     fakeymacs.ctrl_button_app = True
                     break
+
+            # Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrl キーの単押しによりサブウインドウが
+            # 開く機能がある。その挙動を抑制するための対策。
+            if fakeymacs.ctrl_button_app:
+                if fc.side_of_ctrl_key == "L":
+                    keymap_base["D-LCtrl"] = "D-LCtrl", "(255)"
+                else:
+                    keymap_base["D-RCtrl"] = "D-RCtrl", "(255)"
+            else:
+                if fc.side_of_ctrl_key == "L":
+                    keymap_base["D-LCtrl"] = "D-LCtrl"
+                else:
+                    keymap_base["D-RCtrl"] = "D-RCtrl"
+
+        return True
+
+    def is_emacs_target(window):
+        last_window  = fakeymacs.last_window
+        process_name = window.getProcessName()
+        class_name   = window.getClassName()
+
+        if window is not last_window:
+            if process_name in fc.emacs_exclusion_key:
+                fakeymacs.exclution_key = [keyStrNormalization(addSideOfModifierKey(specialCharToKeyStr(key)))
+                                           for key in fc.emacs_exclusion_key[process_name]]
+            else:
+                fakeymacs.exclution_key = []
 
             reset_undo(reset_counter(reset_mark(lambda: None)))()
             fakeymacs.ime_cancel = False
@@ -906,7 +925,7 @@ def configure(keymap):
         else:
             return False
 
-    keymap_base = keymap.defineWindowKeymap()
+    keymap_base = keymap.defineWindowKeymap(check_func=is_base_target)
 
     if fc.use_emacs_ime_mode:
         keymap_emacs = keymap.defineWindowKeymap(check_func=lambda wnd: is_emacs_target(wnd) and not is_emacs_ime_mode(wnd))
@@ -914,14 +933,6 @@ def configure(keymap):
     else:
         keymap_emacs = keymap.defineWindowKeymap(check_func=is_emacs_target)
         keymap_ime   = keymap.defineWindowKeymap(check_func=is_ime_target)
-
-    # Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrl キーの単押しによりサブウインドウが
-    # 開く機能がある。その挙動を抑制するための対策。
-    if fc.side_of_ctrl_key == "L":
-        keymap_emacs["D-LCtrl"] = "D-LCtrl", "(255)"
-
-    elif fc.side_of_ctrl_key == "R":
-        keymap_emacs["D-RCtrl"] = "D-RCtrl", "(255)"
 
     # mark がセットされると True になる
     fakeymacs.is_marked = False
@@ -2271,14 +2282,6 @@ def configure(keymap):
                 return False
 
         keymap_ei = keymap.defineWindowKeymap(check_func=is_emacs_ime_mode2)
-
-        # Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrl キーの単押しによりサブウインドウが
-        # 開く機能がある。その挙動を抑制するための対策。
-        if fc.side_of_ctrl_key == "L":
-            keymap_ei["D-LCtrl"] = "D-LCtrl", "(255)"
-
-        elif fc.side_of_ctrl_key == "R":
-            keymap_ei["D-RCtrl"] = "D-RCtrl", "(255)"
 
         # Emacs日本語入力モードが開始されたときのウィンドウオブジェクトを格納する変数を初期化する
         fakeymacs.ei_last_window = None
