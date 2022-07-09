@@ -820,11 +820,12 @@ def configure(keymap):
                                ["POWERPNT.EXE", "mdiClass"],
                                ]
 
-    # ゲームなど、キーバインドの設定を極力行わないアプリケーションソフトを指定する
-    # （keymap_global 以外のすべてのキーマップをスルーします。keymap_base の設定もスルーするため、
-    #   US -> 日本語キーボード変換の機能も働きません。）
-    fc.game_app_list = ["ffxiv_dx11.exe",       # FINAL FANTASY XIV
-                        ]
+    # ゲームなど、キーバインドの設定を極力行いたくないアプリケーションソフトを指定する
+    # （keymap_global 以外のすべてのキーマップをスルーします。ゲームなど、Keyhac によるキー設定と
+    #   相性が悪いアプリケーションソフトを指定してください。keymap_base の設定もスルーするため、
+    #   英語 -> 日本語キーボード変換の機能も働きません。）
+    fc.game_app_list        = ["ffxiv_dx11.exe",         # FINAL FANTASY XIV
+                               ]
 
     # 個人設定ファイルのセクション [section-base-1] を読み込んで実行する
     exec(readConfigPersonal("[section-base-1]"), dict(globals(), **locals()))
