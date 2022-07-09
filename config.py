@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220708_02"
+fakeymacs_version = "20220708_03"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -2398,15 +2398,6 @@ def configure(keymap):
         ## キーバインド（Emacs日本語入力モード用）
         ##################################################
 
-        ## 全てのキーパターンの設定（キーの入力記録を残すための設定）
-        for vkey in vkeys():
-            key = vkToStr(vkey)
-            for mod1 in ["", "A-"]:
-                for mod2 in ["", "C-"]:
-                    for mod3 in ["", "S-"]:
-                        mkey = mod1 + mod2 + mod3 + key
-                        define_key2(keymap_ei, mkey, self_insert_command(mkey))
-
         ## 「IME の切り替え」のキー設定
         define_key(keymap_ei, "(243)",   ei_disable_input_method)
         define_key(keymap_ei, "(244)",   ei_disable_input_method)
@@ -2427,8 +2418,9 @@ def configure(keymap):
         define_key(keymap_ei, "C-e", move_end_of_line)
 
         ## 「カット / コピー / 削除 / アンドゥ」のキー設定
-        define_key(keymap_ei, "C-h", delete_backward_char)
-        define_key(keymap_ei, "C-d", delete_char)
+        define_key(keymap_ei, "C-h",  delete_backward_char)
+        define_key(keymap_ei, "Back", delete_backward_char) # キーの記録を残すために敢えて設定
+        define_key(keymap_ei, "C-d",  delete_char)
 
         ## 「その他」のキー設定
         define_key(keymap_ei, "Enter", ei_newline)
