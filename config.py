@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220708_03"
+fakeymacs_version = "20220710_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -845,6 +845,7 @@ def configure(keymap):
 
     def is_base_target(window):
         process_name = window.getProcessName()
+        class_name   = window.getClassName()
 
         if window is not fakeymacs.last_window:
             if (process_name in fc.not_clipboard_target or
@@ -883,7 +884,8 @@ def configure(keymap):
                 else:
                     keymap_base["D-RCtrl"] = "D-RCtrl"
 
-        if process_name in fc.game_app_list:
+        if (class_name not in fc.emacs_target_class and
+            process_name in fc.game_app_list):
             fakeymacs.is_keymap_decided = True
             return False
         else:
