@@ -112,13 +112,13 @@ if fc.vscode_quick_select:
     for key in quick_select_jis_keys:
         if os_keyboard_type == "JP":
             ikey = quick_select_jis_keys[key]
-            conv = False
+            usjis_conv = False
         else:
             ikey = key
-            conv = True
+            usjis_conv = True
 
         define_key_v("C-A-k {}".format(key),
-                     reset_rect(region(self_insert_command_v("C-k", ikey, conv=conv))))
+                     reset_rect(region(self_insert_command_v("C-k", ikey, usjis_conv=usjis_conv))))
 
 # --------------------------------------------------------------------------------------------------
 

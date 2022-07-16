@@ -115,8 +115,8 @@ def define_key_v(keys, command, skip_check=True):
 def define_key_v2(keys, command):
     define_key_v(keys, command, False)
 
-def self_insert_command_v(*key_list, conv=True):
-    func = self_insert_command(*key_list, conv=conv)
+def self_insert_command_v(*key_list, usjis_conv=True):
+    func = self_insert_command(*key_list, usjis_conv=usjis_conv)
     def _func():
         ime_status = getImeStatus()
         if ime_status:

@@ -1860,8 +1860,8 @@ def configure(keymap):
                 func()
         return _func
 
-    def InputKeyCommand(*key_list, conv=True):
-        if conv:
+    def InputKeyCommand(*key_list, usjis_conv=True):
+        if usjis_conv:
             func = keymap.InputKeyCommand(*keyInput(key_list))
         else:
             func = keymap.InputKeyCommand(*key_list)
@@ -1879,20 +1879,21 @@ def configure(keymap):
 
     self_insert_command_cache = {}
 
-    def self_insert_command(*key_list, conv=True):
+    def self_insert_command(*key_list, usjis_conv=True):
         try:
-            func = self_insert_command_cache[(key_list, conv)]
+            func = self_insert_command_cache[(key_list, usjis_conv)]
         except:
-            func = InputKeyCommand(*map(addSideOfModifierKey, map(specialCharToKeyStr, key_list)), conv=conv)
-            self_insert_command_cache[(key_list, conv)] = func
+            func = InputKeyCommand(*map(addSideOfModifierKey, map(specialCharToKeyStr, key_list)),
+                                   usjis_conv=usjis_conv)
+            self_insert_command_cache[(key_list, usjis_conv)] = func
 
         def _func():
             func()
             fakeymacs.ime_cancel = False
         return _func
 
-    def self_insert_command2(*key_list):
-        func = self_insert_command(*key_list)
+    def self_insert_command2(*key_list, usjis_conv=True):
+        func = self_insert_command(*key_list, usjis_conv=usjis_conv)
         def _func():
             correctImeStatus()
             func()
@@ -1903,8 +1904,8 @@ def configure(keymap):
                         enable_emacs_ime_mode()
         return _func
 
-    def self_insert_command3(*key_list):
-        func = self_insert_command(*key_list)
+    def self_insert_command3(*key_list, usjis_conv=True):
+        func = self_insert_command(*key_list, usjis_conv=usjis_conv)
         def _func():
             func()
             setImeStatus(0)
