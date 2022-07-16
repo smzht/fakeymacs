@@ -117,7 +117,8 @@ if fc.vscode_quick_select:
             ikey = key
             conv = True
 
-        define_key_v("C-A-k {}".format(key), self_insert_command_v("C-k", ikey, conv=conv))
+        define_key_v("C-A-k {}".format(key),
+                     reset_rect(region(self_insert_command_v("C-k", ikey, conv=conv))))
 
 # --------------------------------------------------------------------------------------------------
 
