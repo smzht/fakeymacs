@@ -39,7 +39,7 @@ def checkWindow(process_name, class_name, text, window=None):
 **** Function
 
 #+BEGIN_EXAMPLE
-def define_key(window_keymap, keys, command):
+def define_key(window_keymap, keys, command, skip_check=True):
 #+END_EXAMPLE
 
 **** Parameters
@@ -50,6 +50,7 @@ def define_key(window_keymap, keys, command):
 | window_keymap | WindowKeymapオブジェクト                               |
 | keys          | キーの定義（マルチストロークのキーはスペースで区切る） |
 | command       | 実行するコマンド（関数）                               |
+| skip_check    | キー設定のスキップ判定を行うかどうかを指定する         |
 |---------------+--------------------------------------------------------|
 
 **** Returns
@@ -187,7 +188,7 @@ def makeKeyCommand(window_keymap, keys, command, check_func):
 **** Function
 
 #+BEGIN_EXAMPLE
-def InputKeyCommand(*keys):
+def InputKeyCommand(*key_list, conv=True):
 #+END_EXAMPLE
 
 **** Parameters
@@ -195,7 +196,8 @@ def InputKeyCommand(*keys):
 |-----------+------------------------------------------------------------|
 | Parameter | Description                                                |
 |-----------+------------------------------------------------------------|
-| *keys     | 入力するキーの羅列（キー文字列をカンマで区切って指定する） |
+| *key_list | 入力するキーの羅列（キー文字列をカンマで区切って指定する） |
+| conv      | キーの US -> JIS 変換を行うかどうかを指定する              |
 |-----------+------------------------------------------------------------|
 
 **** Returns
@@ -209,7 +211,7 @@ def InputKeyCommand(*keys):
 **** Function
 
 #+BEGIN_EXAMPLE
-def self_insert_command(*key_list):
+def self_insert_command(*key_list, conv=True):
 #+END_EXAMPLE
 
 **** Parameters
@@ -218,6 +220,7 @@ def self_insert_command(*key_list):
 | Parameter | Description                                                |
 |-----------+------------------------------------------------------------|
 | *key_list | 入力するキーの羅列（キー文字列をカンマで区切って指定する） |
+| conv      | キーの US -> JIS 変換を行うかどうかを指定する              |
 |-----------+------------------------------------------------------------|
 
 **** Returns

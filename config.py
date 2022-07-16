@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220710_01"
+fakeymacs_version = "20220716_01"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -1860,8 +1860,12 @@ def configure(keymap):
                 func()
         return _func
 
-    def InputKeyCommand(*key_list):
-        func = keymap.InputKeyCommand(*keyInput(key_list))
+    def InputKeyCommand(*key_list, conv=True):
+        if conv:
+            func = keymap.InputKeyCommand(*keyInput(key_list))
+        else:
+            func = keymap.InputKeyCommand(*key_list)
+
         def _func():
             func()
             # Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrl キーの単押しによりサブウインドウが
@@ -1875,12 +1879,12 @@ def configure(keymap):
 
     self_insert_command_cache = {}
 
-    def self_insert_command(*key_list):
+    def self_insert_command(*key_list, conv=True):
         try:
-            func = self_insert_command_cache[key_list]
+            func = self_insert_command_cache[(key_list, conv)]
         except:
-            func = InputKeyCommand(*map(addSideOfModifierKey, map(specialCharToKeyStr, key_list)))
-            self_insert_command_cache[key_list] = func
+            func = InputKeyCommand(*map(addSideOfModifierKey, map(specialCharToKeyStr, key_list)), conv=conv)
+            self_insert_command_cache[(key_list, conv)] = func
 
         def _func():
             func()
