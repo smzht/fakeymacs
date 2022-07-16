@@ -94,25 +94,25 @@ if fc.vscode_occur:
 
 if fc.vscode_quick_select:
     # 日本語キーボードのキー設定に齟齬があるようなので、それを是正する
-    quick_select_jis_keys = {'"' : ["~", True],
-                             "'" : ["^", True],
-                             ";" : [":", True],
-                             ":" : ["*", True],
-                             "`" : ["@", True],
-                             "(" : ["S-9", False],
-                             ")" : ["S-0", False],
-                             "[" : ["[", True],
-                             "]" : ["]", True],
-                             "{" : ["{", True],
-                             "}" : ["}", True],
-                             "<" : ["<", True],
-                             ">" : [">", True],
+    quick_select_jis_keys = {'"' : "S-Caret",
+                             "'" : "Caret",
+                             ";" : "Colon",
+                             ":" : "S-Colon",
+                             "`" : "Atmark",
+                             "(" : "S-9",
+                             ")" : "S-0",
+                             "[" : "OpenBracket",
+                             "]" : "CloseBracket",
+                             "{" : "S-OpenBracket",
+                             "}" : "S-CloseBracket",
+                             "<" : "S-Comma",
+                             ">" : "S-Period",
                              }
 
     for key in quick_select_jis_keys:
         if os_keyboard_type == "JP":
-            ikey = quick_select_jis_keys[key][0]
-            conv = quick_select_jis_keys[key][1]
+            ikey = quick_select_jis_keys[key]
+            conv = False
         else:
             ikey = key
             conv = True
