@@ -5,7 +5,7 @@
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
 
-fakeymacs_version = "20220718_01"
+fakeymacs_version = "20220718_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
@@ -2024,11 +2024,14 @@ def configure(keymap):
             setImeStatus(1)
 
     def reloadConfig(mode):
-        if mode:
-            keymap.fakeymacs_keyboard = "JP"
-        else:
+        if mode == 1:
             keymap.fakeymacs_keyboard = "US"
+        elif mode == 2:
+            keymap.fakeymacs_keyboard = "JP"
+
         keymap.command_ReloadConfig()
+        keymap.popBalloon("reloaded", "[Reloaded]", 1000)
+
 
     ##################################################
     ## キーバインド
@@ -2937,12 +2940,12 @@ def configure(keymap):
     # その他
     fc.other_items = [
         ["Edit   config.py", keymap.command_EditConfig],
-        ["Reload config.py", keymap.command_ReloadConfig],
+        ["Reload config.py", lambda: reloadConfig(0)],
     ]
     if os_keyboard_type == "JP":
         fc.other_items += [
-            ["Reload config.py (to  US layout)", lambda: reloadConfig(0)],
-            ["Reload config.py (to JIS layout)", lambda: reloadConfig(1)],
+            ["Reload config.py (to  US layout)", lambda: reloadConfig(1)],
+            ["Reload config.py (to JIS layout)", lambda: reloadConfig(2)],
         ]
     fc.other_items[0][0] = list_formatter.format(fc.other_items[0][0])
 
