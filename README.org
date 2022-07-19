@@ -170,6 +170,12 @@ IME の状態をテキスト カーソル インジケーターの色で表現�
 
 また、config_personal.py 内の use_ime_status_cursor_color 変数を True にしてください。
 
+※ テキスト カーソル インジケーターは次の issue で報告されているとおり、VSCode で正常に動作しません。
+
+- https://github.com/microsoft/vscode/issues/109151
+
+Backlog として扱われているようですので、改善については気長に待ちたいと思います。
+
 *** 9) SylphyHorn の設定を行う
 
 アクティブウィンドウを仮想デスクトップ間で移動する機能を利用する場合、次のページから  SylphyHornPlus
