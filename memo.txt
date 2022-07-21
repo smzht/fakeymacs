@@ -1,6 +1,6 @@
 ﻿# -*- mode: python; coding: utf-8-with-signature-dos -*-
 
-##                        nickname: Fakeymacs
+##                  nickname: Fakeymacs
 ##
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
