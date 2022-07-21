@@ -1,14 +1,12 @@
 ﻿# -*- mode: python; coding: utf-8-with-signature-dos -*-
 
-##                  nickname: Fakeymacs
-##
-## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
-##
+#########################################################################
+##                              Fakeymacs
+#########################################################################
+##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
+#########################################################################
 
 fakeymacs_version = "20220718_02"
-
-# このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
-#   https://sites.google.com/site/craftware/keyhac-ja
 
 import time
 import os.path
