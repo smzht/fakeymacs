@@ -1,6 +1,6 @@
 ﻿# -*- mode: python; coding: utf-8-with-signature-dos -*-
 
-##                               nickname: Fakeymacs
+##                        nickname: Fakeymacs
 ##
 ## Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 ##
@@ -9,128 +9,6 @@ fakeymacs_version = "20220718_02"
 
 # このスクリプトは、Keyhac for Windows ver 1.82 以降で動作します。
 #   https://sites.google.com/site/craftware/keyhac-ja
-#
-# 本設定を利用するための仕様は、以下を参照してください。
-#
-# ＜共通の仕様＞
-# ・emacs_target_class 変数、not_emacs_target 変数、ime_target 変数で、Emacsキーバインドや
-#   IME の切り替えキーバインドの対象とするアプリケーションソフトやウィンドウを指定できる。
-# ・skip_settings_key 変数で、キーマップ毎にキー設定をスキップするキーを指定できる。
-# ・emacs_exclusion_key 変数で、Emacs キーバインドから除外するキーを指定できる。
-# ・not_clipboard_target 変数、not_clipboard_target_class 変数で、clipboard 監視の対象外と
-#   するアプリケーションソフトやウィンドウを指定できる。
-# ・左右どちらの Ctrlキーを使うかを side_of_ctrl_key 変数で指定できる。
-# ・左右どちらの Altキーを使うかを side_of_alt_key 変数で指定できる。
-# ・左右どちらの Winキーを使うかを side_of_win_key 変数で指定できる。
-# ・キーバインドの定義では次の表記が利用できる。
-#   ・S-    : Shiftキー
-#   ・C-    : Ctrlキー
-#   ・A-    : Altキー
-#   ・M-    : Altキー と Esc、C-[ のプレフィックスキーを利用する３パターンを定義
-#             （Emacsキーバインド設定で利用可。emacs の Meta と同様の意味。）
-#   ・Ctl-x : ctl_x_prefix_key 変数で定義されているプレフィックスキーに置換え
-#             （Emacsキーバインド設定で利用可。変数の意味は以下を参照のこと。）
-#   ・(999) : 仮想キーコード指定
-#
-# ＜Emacsキーバインド設定と IME の切り替え設定を有効にしたアプリケーションソフトでの動き＞
-# ・toggle_input_method_key 変数と set_input_method_key 変数の設定により、IME を切り替える
-#   キーを指定できる。
-# ・use_emacs_ime_mode 変数の設定により、Emacs日本語入力モードを使うかどうかを指定
-#   できる。Emacs日本語入力モードは、IME が ON の時に文字（英数字か、スペースを除く
-#   特殊文字）を入力すると起動する。
-#   Emacs日本語入力モードでは、次のキーのみが Emacsキーバインドとして利用でき、
-#   その他のキーは emacs_ime_mode_key 変数に設定したキーにより置き換えがされた後、
-#   Windows にそのまま渡されるようになる。
-#   ・Emacs日本語入力モードで使える Emacsキーバインドキー
-#     ・C-[
-#     ・C-b、C-f
-#     ・C-p、C-n
-#     ・C-a、C-e
-#     ・C-h
-#     ・C-d
-#     ・C-m
-#     ・C-g
-#     ・scroll_key 変数で指定したスクロールキー
-#   Emacs日本語入力モードは、次の操作で終了する。
-#   ・Enter、C-m または C-g が押された場合
-#   ・<半角／全角> キー、A-` キーが押された場合
-#   ・BS、C-h 押下直後に toggle_input_method_key 変数や set_input_method_key 変数の
-#     disable で指定したキーが押された場合
-#     （間違って日本語入力をしてしまった時のキー操作を想定しての対策）
-# ・Emacs日本語入力モードの使用を有効にした際、emacs_ime_mode_balloon_message 変数の
-#   設定でバルーンメッセージとして表示する文字列を指定できる。
-# ・use_ime_status_balloon 変数の設定により、IME の状態を表示するバルーンメッセージを
-#   表示するかどうかを指定できる。
-# ・ime_status_balloon_message 変数の設定により、IME の状態を表示するバルーンメッセージ
-#   の組み合わせ（英数入力、日本語入力）を指定できる。
-# ・use_ime_status_cursor_color 変数の設定により、IME の状態をテキスト カーソル インジ
-#   ケーターの色で表現するかどうかを指定する
-#
-# ＜Emacsキーバインド設定を有効にしたアプリケーションソフトでの動き＞
-# ・use_ctrl_i_as_tab 変数の設定により、C-iキーを Tabキーとして使うかどうかを指定できる。
-# ・use_esc_as_meta 変数の設定より、Escキーを Metaキーとして使うかどうかを指定できる。
-#   use_esc_as_meta 変数が True（Metaキーとして使う）に設定されている場合、ESC の
-#   二回押下で ESC が入力される。
-# ・ctl_x_prefix_key 変数の設定により、Ctl-xプレフィックスキーに使うキーを指定できる。
-# ・scroll_key 変数の設定により、スクロールに使うキーを指定できる。scroll_key 変数を
-#   None に設定するなどして C-v の指定を外すと、C-v が Windows の 「ペースト」として
-#   機能するようになる。
-# ・C-c、C-z は、Windows の「コピー」、「取り消し」が機能するようにしている。
-#   ctl_x_prefix_key 変数が C-x 以外に設定されている場合には、C-x が Windows の
-#   「カット」として機能するようにしている。
-# ・C-k を連続して実行しても、クリップボードへの削除文字列の蓄積は行われない。
-#   複数行を一括してクリップボードに入れたい場合は、削除の範囲をマークして削除するか
-#   前置引数を指定して削除する。
-# ・C-y を前置引数を指定して実行すると、ヤンク（ペースト）の繰り返しが行われる。
-# ・C-l は、アプリケーションソフト個別対応とする。recenter 関数で個別に指定すること。
-#   この設定では、Sakura Editor のみ対応している。
-# ・キーボードマクロの再生時に IME の状態に依存した動作とならないようにするため、
-#   キーボードマクロの記録と再生の開始時に IME を強制的に OFF にするようにしている。
-# ・kill-buffer に Ctl-x k とは別に M-k も割り当てている。プラウザのタブを削除する際
-#   などに利用可。
-# ・use_ctrl_digit_key_for_digit_argument 変数の設定により、数引数の指定に Ctrl+数字
-#   キーを使うかを指定できる。
-# ・reconversion_key 変数の設定により、IME の「再変換」を行うキーを指定できる。
-#
-# ＜全てのアプリケーションソフトで共通の動き＞
-# ・toggle_emacs_keybind_key 変数の設定により、emacs キーバインドを利用する設定をした
-#   アプリケーションソフトの Emacs キーバインドの利用を切り替えることができる。
-# ・application_key 変数の設定により、アプリケーションキーとして利用するキーを指定できる。
-# ・use_alt_digit_key_for_f1_to_f12 変数の設定により、F1 から F12 を Alt+数字キー列として
-#   使うかを指定できる。
-# ・use_alt_shift_digit_key_for_f13_to_f24 変数の設定により、F13 から F24 を Alt+Shift+数字
-#   キー列として使うかを指定できる。
-# ・other_window_key 変数に設定したキーにより、表示しているウィンドウの中で、一番最近
-#   までフォーカスがあったウィンドウに移動する。NTEmacs の機能やランチャーの機能から
-#   Windows アプリケーションソフトを起動した際に、起動元のアプリケーションソフトに戻る
-#   のに便利。この機能は Ctl-x o にも割り当てているが、こちらは Emacs のキーバインドを
-#   適用したアプリケーションソフトのみで有効となる。
-# ・window_switching_key 変数に設定したキーにより、アクティブウィンドウの切り替えが行われる。
-# ・マルチディスプレイを利用している際に、window_movement_key_for_displays 変数に設定した
-#   キーにより、アクティブウィンドウのディスプレイ間の移動が行われる。
-# ・window_minimize_key 変数に設定したキーにより、ウィンドウの最小化、リストアが行われる。
-# ・desktop_switching_key 変数に設定したキーにより、仮想デスクトップの切り替えが行われる。
-#   （仮想デスクトップの利用については、次のページを参照ください。
-#     ・http://pc-karuma.net/windows-10-virtual-desktops/
-#     ・http://pc-karuma.net/windows-10-virtual-desktop-show-all-window-app/
-#     仮想デスクトップ切替時のアニメーションを止める方法は次のページを参照ください。
-#     ・http://www.jw7.org/2015/11/03/windows10_virtualdesktop_animation_off/ ）
-# ・window_movement_key_for_desktops 変数に設定したキーにより、アクティブウィンドウの
-#   仮想デスクトップ間の移動が行われる。
-#   （本機能を利用する場合は、次のページから SylphyHornPlus をインストールしてください。
-#     ・https://github.com/hwtnb/SylphyHornPlusWin11/releases）
-# ・word_register_key 変数に設定したキーにより、IME の「単語登録」プログラムの起動が
-#   行われる。
-# ・clipboardList_key 変数に設定したキーにより、クリップボードリストが起動する。
-#   （C-f、C-b でリストの変更、C-n、C-p でリスト内を移動し、Enter で確定する。
-#     C-s、C-r で検索も可能。migemo 辞書を登録してあれば、検索文字を大文字で始める
-#     ことで migemo 検索も可能。Emacsキーバインドを適用しないアプリケーションソフト
-#     でもクリップボードリストは起動し、選択した項目を Enter で確定することで、
-#     クリップボードへの格納（テキストの貼り付けではない）が行われる。）
-# ・lancherList_key 変数に設定したキーにより、ランチャーリストが起動する。
-#   （全てのアプリケーションソフトで利用可能。操作方法は、クリップボードリストと同じ。）
-# ・クリップボードリストやランチャーリストのリストボックス内では、基本、Altキーを
-#   Ctrlキーと同じキーとして扱っている。（C-v と A-v の置き換えのみ行っていない。）
 
 import time
 import os.path
