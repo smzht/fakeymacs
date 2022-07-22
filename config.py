@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20220718_02"
+fakeymacs_version = "20220722_01"
 
 import time
 import os.path
@@ -49,6 +49,26 @@ def configure(keymap):
         os_keyboard_type = "JP"
     else:
         os_keyboard_type = "US"
+
+    # キーボード関連変数の設定を行う
+    if os_keyboard_type == "JP":
+        try:
+            if keymap.fakeymacs_keyboard == "JP":
+                is_japanese_keyboard = True
+                use_usjis_keyboard_conversion = False
+            else:
+                is_japanese_keyboard = False
+                use_usjis_keyboard_conversion = True
+        except:
+            if fc.use_usjis_keyboard_conversion:
+                is_japanese_keyboard = False
+                use_usjis_keyboard_conversion = True
+            else:
+                is_japanese_keyboard = True
+                use_usjis_keyboard_conversion = False
+    else:
+        is_japanese_keyboard = False
+        use_usjis_keyboard_conversion = False
 
     # 個人設定ファイルを読み込む
     try:
@@ -141,185 +161,6 @@ def configure(keymap):
     ####################################################################################################
     ## 基本設定
     ####################################################################################################
-
-    ###########################################################################
-    ## ウィンドウフォーカスが変わった時、すぐに Keyhac に検知させるための設定
-    ###########################################################################
-
-    # IME の状態をテキスト カーソル インジケーターの色で表現するときに必要となる設定
-    # （https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwineventhook）
-    # （https://sites.google.com/site/agkh6mze/howto/winevent）
-    # （https://stackoverflow.com/questions/15849564/how-to-use-winapi-setwineventhook-in-python）
-    # （https://github.com/Danesprite/windows-fun/blob/master/window%20change%20listener.py）
-    # （https://tutorialmore.com/questions-652366.htm）
-    # （https://www.nicovideo.jp/watch/sm20797948）
-
-    def setWinEventHook():
-        EVENT_SYSTEM_FOREGROUND = 0x0003
-        WINEVENT_OUTOFCONTEXT   = 0x0000
-        WINEVENT_SKIPOWNPROCESS = 0x0002
-
-        user32 = ctypes.windll.user32
-        ole32 = ctypes.windll.ole32
-
-        try:
-            # 設定されているか？
-            keymap.fakeymacs_hook
-
-            # reload 時の対策
-            user32.UnhookWinEvent(keymap.fakeymacs_hook)
-            ole32.CoUninitialize()
-        except:
-            pass
-
-        ole32.CoInitialize(None)
-
-        WinEventProcType = ctypes.WINFUNCTYPE(
-            None,
-            ctypes.wintypes.HANDLE,
-            ctypes.wintypes.DWORD,
-            ctypes.wintypes.HWND,
-            ctypes.wintypes.LONG,
-            ctypes.wintypes.LONG,
-            ctypes.wintypes.DWORD,
-            ctypes.wintypes.DWORD
-        )
-
-        def callback(hWinEventHook, event, hwnd, idObject, idChild, dwEventThread, dwmsEventTime):
-            if keymap.hook_enabled:
-                delay(0.1)
-                keymap._updateFocusWindow()
-            else:
-                setCursorColor(False)
-
-        # この設定は必要（この設定がないと、Keyhac が落ちる場合がある）
-        global WinEventProc
-
-        WinEventProc = WinEventProcType(callback)
-
-        user32.SetWinEventHook.restype = ctypes.wintypes.HANDLE
-        keymap.fakeymacs_hook = user32.SetWinEventHook(
-            EVENT_SYSTEM_FOREGROUND,
-            EVENT_SYSTEM_FOREGROUND,
-            0,
-            WinEventProc,
-            0,
-            0,
-            WINEVENT_OUTOFCONTEXT | WINEVENT_SKIPOWNPROCESS
-        )
-
-    # ウィンドウが切り替わるときのイベントフックを設定する
-    setWinEventHook()
-
-
-    ###########################################################################
-    ## 日本語キーボード設定をした OS 上で英語キーボードを利用するための設定
-    ###########################################################################
-
-    if os_keyboard_type == "JP":
-        try:
-            if keymap.fakeymacs_keyboard == "JP":
-                is_japanese_keyboard = True
-                use_usjis_keyboard_conversion = False
-            else:
-                is_japanese_keyboard = False
-                use_usjis_keyboard_conversion = True
-        except:
-            if fc.use_usjis_keyboard_conversion:
-                is_japanese_keyboard = False
-                use_usjis_keyboard_conversion = True
-            else:
-                is_japanese_keyboard = True
-                use_usjis_keyboard_conversion = False
-    else:
-        is_japanese_keyboard = False
-        use_usjis_keyboard_conversion = False
-
-    if use_usjis_keyboard_conversion:
-        str_vk_table = copy.copy(keyhac_keymap.KeyCondition.str_vk_table_common)
-        for name in keyhac_keymap.KeyCondition.str_vk_table_jpn:
-            del str_vk_table[name]
-        str_vk_table.update(keyhac_keymap.KeyCondition.str_vk_table_std)
-
-        vk_str_table = copy.copy(keyhac_keymap.KeyCondition.vk_str_table_common)
-        for vk in keyhac_keymap.KeyCondition.vk_str_table_jpn:
-            del vk_str_table[vk]
-        vk_str_table.update(keyhac_keymap.KeyCondition.vk_str_table_std)
-
-    def usjisTableSwap(swap):
-        if swap:
-            keyhac_keymap.KeyCondition.str_vk_table = str_vk_table
-            keyhac_keymap.KeyCondition.vk_str_table = vk_str_table
-        else:
-            # table_common は table_jpn で update した状態となっているためこれで良い
-            keyhac_keymap.KeyCondition.str_vk_table = keyhac_keymap.KeyCondition.str_vk_table_common
-            keyhac_keymap.KeyCondition.vk_str_table = keyhac_keymap.KeyCondition.vk_str_table_common
-
-    def usjisFilter(func, *param):
-        if use_usjis_keyboard_conversion:
-            usjisTableSwap(1)
-        rtn = func(*param)
-        if use_usjis_keyboard_conversion:
-            usjisTableSwap(0)
-        return rtn
-
-    usjis_key_table = {"S-2"            : [["S-2"],                           "Atmark"        ], # @
-                       "S-6"            : [["S-6"],                           "Caret"         ], # ^
-                       "S-7"            : [["S-7"],                           "S-6"           ], # &
-                       "S-8"            : [["S-8"],                           "S-Colon"       ], # *
-                       "S-9"            : [["S-9"],                           "S-8"           ], # (
-                       "S-0"            : [["S-0"],                           "S-9"           ], # )
-                       "S-Minus"        : [["S-Minus"],                       "S-BackSlash"   ], # _
-                       "Plus"           : [["Caret"],                         "S-Minus"       ], # =
-                       "S-Plus"         : [["S-Caret"],                       "S-Semicolon"   ], # +
-                       "OpenBracket"    : [["Atmark"],                        "OpenBracket"   ], # [
-                       "S-OpenBracket"  : [["S-Atmark"],                      "S-OpenBracket" ], # {
-                       "CloseBracket"   : [["OpenBracket"],                   "CloseBracket"  ], # ]
-                       "S-CloseBracket" : [["S-OpenBracket"],                 "S-CloseBracket"], # }
-                       "BackSlash"      : [["CloseBracket"],                  "Yen"           ], # \
-                       "S-BackSlash"    : [["S-CloseBracket"],                "S-Yen"         ], # |
-                       "S-Semicolon"    : [["S-Semicolon"],                   "Colon"         ], # :
-                       "Quote"          : [["Colon"],                         "S-7"           ], # '
-                       "S-Quote"        : [["S-Colon"],                       "S-2"           ], # "
-                       "BackQuote"      : [["(243)", "(244)", "(248)"],       "S-Atmark"      ], # `
-                       "S-BackQuote"    : [["S-(243)", "S-(244)", "S-(248)"], "S-Caret"       ], # ~
-                       "(243)"          : [[],                                "(243)"         ],
-                       "S-(243)"        : [[],                                "S-(243)"       ],
-                       "(244)"          : [[],                                "(244)"         ],
-                       "S-(244)"        : [[],                                "S-(244)"       ],
-                       }
-
-    def keyStrNormalization(key):
-        nkey = usjisFilter(str, usjisFilter(keyhac_keymap.KeyCondition.fromString, key))
-        if "D-" not in key:
-            nkey = nkey.replace("D-", "")
-        return nkey
-
-    def usjisPos(key):
-        key = keyStrNormalization(key)
-        key_list = []
-        match_flg = False
-        if use_usjis_keyboard_conversion:
-            for us_key in usjis_key_table:
-                if re.search(r"(^|[^S]-){}$".format(re.escape(us_key)), key):
-                    for jis_key in usjis_key_table[us_key][0]:
-                        key_list.append(key.replace(us_key, jis_key))
-                    match_flg = True
-                    break
-        if not match_flg:
-            key_list.append(key)
-        return key_list
-
-    def usjisInput(key):
-        key = keyStrNormalization(key)
-        if use_usjis_keyboard_conversion:
-            for us_key in usjis_key_table:
-                if re.search(r"(^|[^S]-){}$".format(re.escape(us_key)), key):
-                    jis_key = usjis_key_table[us_key][1]
-                    key = key.replace(us_key, jis_key)
-                    break
-        return key
-
 
     ###########################################################################
     ## カスタマイズパラメータの設定
@@ -705,6 +546,168 @@ def configure(keymap):
 
     # 個人設定ファイルのセクション [section-base-1] を読み込んで実行する
     exec(readConfigPersonal("[section-base-1]"), dict(globals(), **locals()))
+
+
+    ###########################################################################
+    ## ウィンドウフォーカスが変わった時、すぐに Keyhac に検知させるための設定
+    ###########################################################################
+
+    # IME の状態をテキスト カーソル インジケーターの色で表現するときに必要となる設定
+    # （https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwineventhook）
+    # （https://sites.google.com/site/agkh6mze/howto/winevent）
+    # （https://stackoverflow.com/questions/15849564/how-to-use-winapi-setwineventhook-in-python）
+    # （https://github.com/Danesprite/windows-fun/blob/master/window%20change%20listener.py）
+    # （https://tutorialmore.com/questions-652366.htm）
+    # （https://www.nicovideo.jp/watch/sm20797948）
+
+    def setWinEventHook():
+        EVENT_SYSTEM_FOREGROUND = 0x0003
+        WINEVENT_OUTOFCONTEXT   = 0x0000
+        WINEVENT_SKIPOWNPROCESS = 0x0002
+
+        user32 = ctypes.windll.user32
+        ole32 = ctypes.windll.ole32
+
+        try:
+            # 設定されているか？
+            keymap.fakeymacs_hook
+
+            # reload 時の対策
+            user32.UnhookWinEvent(keymap.fakeymacs_hook)
+            ole32.CoUninitialize()
+        except:
+            pass
+
+        ole32.CoInitialize(None)
+
+        WinEventProcType = ctypes.WINFUNCTYPE(
+            None,
+            ctypes.wintypes.HANDLE,
+            ctypes.wintypes.DWORD,
+            ctypes.wintypes.HWND,
+            ctypes.wintypes.LONG,
+            ctypes.wintypes.LONG,
+            ctypes.wintypes.DWORD,
+            ctypes.wintypes.DWORD
+        )
+
+        def callback(hWinEventHook, event, hwnd, idObject, idChild, dwEventThread, dwmsEventTime):
+            if keymap.hook_enabled:
+                delay(0.1)
+                keymap._updateFocusWindow()
+            else:
+                setCursorColor(False)
+
+        # この設定は必要（この設定がないと、Keyhac が落ちる場合がある）
+        global WinEventProc
+
+        WinEventProc = WinEventProcType(callback)
+
+        user32.SetWinEventHook.restype = ctypes.wintypes.HANDLE
+        keymap.fakeymacs_hook = user32.SetWinEventHook(
+            EVENT_SYSTEM_FOREGROUND,
+            EVENT_SYSTEM_FOREGROUND,
+            0,
+            WinEventProc,
+            0,
+            0,
+            WINEVENT_OUTOFCONTEXT | WINEVENT_SKIPOWNPROCESS
+        )
+
+    # ウィンドウが切り替わるときのイベントフックを設定する
+    setWinEventHook()
+
+
+    ###########################################################################
+    ## 日本語キーボード設定をした OS 上で英語キーボードを利用するための設定
+    ###########################################################################
+
+    if use_usjis_keyboard_conversion:
+        str_vk_table = copy.copy(keyhac_keymap.KeyCondition.str_vk_table_common)
+        for name in keyhac_keymap.KeyCondition.str_vk_table_jpn:
+            del str_vk_table[name]
+        str_vk_table.update(keyhac_keymap.KeyCondition.str_vk_table_std)
+
+        vk_str_table = copy.copy(keyhac_keymap.KeyCondition.vk_str_table_common)
+        for vk in keyhac_keymap.KeyCondition.vk_str_table_jpn:
+            del vk_str_table[vk]
+        vk_str_table.update(keyhac_keymap.KeyCondition.vk_str_table_std)
+
+        def usjisTableSwap(swap):
+            if swap:
+                keyhac_keymap.KeyCondition.str_vk_table = str_vk_table
+                keyhac_keymap.KeyCondition.vk_str_table = vk_str_table
+            else:
+                # table_common は table_jpn で update した状態となっているためこれで良い
+                keyhac_keymap.KeyCondition.str_vk_table = keyhac_keymap.KeyCondition.str_vk_table_common
+                keyhac_keymap.KeyCondition.vk_str_table = keyhac_keymap.KeyCondition.vk_str_table_common
+
+        def usjisFilter(func, *param):
+            usjisTableSwap(1)
+            rtn = func(*param)
+            usjisTableSwap(0)
+            return rtn
+    else:
+        def usjisFilter(func, *param):
+            rtn = func(*param)
+            return rtn
+
+    usjis_key_table = {"S-2"            : [["S-2"],                           "Atmark"        ], # @
+                       "S-6"            : [["S-6"],                           "Caret"         ], # ^
+                       "S-7"            : [["S-7"],                           "S-6"           ], # &
+                       "S-8"            : [["S-8"],                           "S-Colon"       ], # *
+                       "S-9"            : [["S-9"],                           "S-8"           ], # (
+                       "S-0"            : [["S-0"],                           "S-9"           ], # )
+                       "S-Minus"        : [["S-Minus"],                       "S-BackSlash"   ], # _
+                       "Plus"           : [["Caret"],                         "S-Minus"       ], # =
+                       "S-Plus"         : [["S-Caret"],                       "S-Semicolon"   ], # +
+                       "OpenBracket"    : [["Atmark"],                        "OpenBracket"   ], # [
+                       "S-OpenBracket"  : [["S-Atmark"],                      "S-OpenBracket" ], # {
+                       "CloseBracket"   : [["OpenBracket"],                   "CloseBracket"  ], # ]
+                       "S-CloseBracket" : [["S-OpenBracket"],                 "S-CloseBracket"], # }
+                       "BackSlash"      : [["CloseBracket"],                  "Yen"           ], # \
+                       "S-BackSlash"    : [["S-CloseBracket"],                "S-Yen"         ], # |
+                       "S-Semicolon"    : [["S-Semicolon"],                   "Colon"         ], # :
+                       "Quote"          : [["Colon"],                         "S-7"           ], # '
+                       "S-Quote"        : [["S-Colon"],                       "S-2"           ], # "
+                       "BackQuote"      : [["(243)", "(244)", "(248)"],       "S-Atmark"      ], # `
+                       "S-BackQuote"    : [["S-(243)", "S-(244)", "S-(248)"], "S-Caret"       ], # ~
+                       "(243)"          : [[],                                "(243)"         ],
+                       "S-(243)"        : [[],                                "S-(243)"       ],
+                       "(244)"          : [[],                                "(244)"         ],
+                       "S-(244)"        : [[],                                "S-(244)"       ],
+                       }
+
+    def keyStrNormalization(key):
+        nkey = usjisFilter(str, usjisFilter(keyhac_keymap.KeyCondition.fromString, key))
+        if "D-" not in key:
+            nkey = nkey.replace("D-", "")
+        return nkey
+
+    def usjisPos(key):
+        key = keyStrNormalization(key)
+        key_list = []
+        match_flg = False
+        if use_usjis_keyboard_conversion:
+            for us_key in usjis_key_table:
+                if re.search(r"(^|[^S]-){}$".format(re.escape(us_key)), key):
+                    for jis_key in usjis_key_table[us_key][0]:
+                        key_list.append(key.replace(us_key, jis_key))
+                    match_flg = True
+                    break
+        if not match_flg:
+            key_list.append(key)
+        return key_list
+
+    def usjisInput(key):
+        key = keyStrNormalization(key)
+        if use_usjis_keyboard_conversion:
+            for us_key in usjis_key_table:
+                if re.search(r"(^|[^S]-){}$".format(re.escape(us_key)), key):
+                    jis_key = usjis_key_table[us_key][1]
+                    key = key.replace(us_key, jis_key)
+                    break
+        return key
 
 
     ###########################################################################
