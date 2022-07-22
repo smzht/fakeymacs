@@ -50,26 +50,6 @@ def configure(keymap):
     else:
         os_keyboard_type = "US"
 
-    # キーボード関連変数の設定を行う
-    if os_keyboard_type == "JP":
-        try:
-            if keymap.fakeymacs_keyboard == "JP":
-                is_japanese_keyboard = True
-                use_usjis_keyboard_conversion = False
-            else:
-                is_japanese_keyboard = False
-                use_usjis_keyboard_conversion = True
-        except:
-            if fc.use_usjis_keyboard_conversion:
-                is_japanese_keyboard = False
-                use_usjis_keyboard_conversion = True
-            else:
-                is_japanese_keyboard = True
-                use_usjis_keyboard_conversion = False
-    else:
-        is_japanese_keyboard = False
-        use_usjis_keyboard_conversion = False
-
     # 個人設定ファイルを読み込む
     try:
         with open(dataPath() + r"\config_personal.py", "r", encoding="utf-8-sig") as f:
@@ -161,6 +141,30 @@ def configure(keymap):
     ####################################################################################################
     ## 基本設定
     ####################################################################################################
+
+    ###########################################################################
+    ## キーボード関連変数の設定
+    ###########################################################################
+
+    if os_keyboard_type == "JP":
+        try:
+            if keymap.fakeymacs_keyboard == "JP":
+                is_japanese_keyboard = True
+                use_usjis_keyboard_conversion = False
+            else:
+                is_japanese_keyboard = False
+                use_usjis_keyboard_conversion = True
+        except:
+            if fc.use_usjis_keyboard_conversion:
+                is_japanese_keyboard = False
+                use_usjis_keyboard_conversion = True
+            else:
+                is_japanese_keyboard = True
+                use_usjis_keyboard_conversion = False
+    else:
+        is_japanese_keyboard = False
+        use_usjis_keyboard_conversion = False
+
 
     ###########################################################################
     ## カスタマイズパラメータの設定
