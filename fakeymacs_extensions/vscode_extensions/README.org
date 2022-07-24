@@ -103,6 +103,12 @@ VSCode Extension 用のキーの設定を行う拡張機能です。
 | Ctrl-x e | keyboard_macro_play  | Keyboard Macro: Playback         |             |
 |----------+----------------------+----------------------------------+-------------|
 
+※ 本拡張機能が発行するキー C-A-r は、Mouse without Borders アプリでも利用しているキー設定と
+なっています。このため、Mouse without Borders アプリを利用している場合は、このアプリのキー設定の
+変更が必要となります。
+
+- https://pc.watch.impress.co.jp/docs/column/yajiuma-mini-review/1252116.html
+
 **** ● vscode_filter_text
 
 - https://marketplace.visualstudio.com/items?itemName=yhirose.FilterText
