@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20220722_01"
+fakeymacs_version = "20220726_01"
 
 import time
 import os.path
@@ -170,6 +170,11 @@ def configure(keymap):
     ## カスタマイズパラメータの設定
     ###########################################################################
 
+    # すべてのキーマップを透過（スルー）するアプリケーションソフトを指定する
+    fc.transparent_target   = ["mstsc.exe",                     # Remote Desktop
+                               "MouseWithoutBordersHelper.exe", # Mouse Without Borders
+                               ]
+
     # Emacs のキーバインドにするウィンドウのクラスネームを指定する（全ての設定に優先する）
     fc.emacs_target_class   = ["Edit"]                   # テキスト入力フィールドなどが該当
 
@@ -186,7 +191,6 @@ def configure(keymap):
                                "SLES-12.exe",            # WSL
                                "openSUSE-42.exe",        # WSL
                                "openSUSE-Leap-15-1.exe", # WSL
-                               "mstsc.exe",              # Remote Desktop
                                "WindowsTerminal.exe",    # Windows Terminal
                                "mintty.exe",             # mintty
                                "Cmder.exe",              # Cmder
@@ -767,8 +771,9 @@ def configure(keymap):
                 else:
                     keymap_base["D-RCtrl"] = "D-RCtrl"
 
-        if (class_name not in fc.emacs_target_class and
-            process_name in fc.game_app_list):
+        if (process_name in fc.transparent_target or
+            (class_name not in fc.emacs_target_class and
+             process_name in fc.game_app_list)):
             fakeymacs.is_keymap_decided = True
             return False
         else:
@@ -2353,7 +2358,13 @@ def configure(keymap):
     ## 「Emacs キーバインドの切り替え」のキー設定
     ###########################################################################
 
-    keymap_global = keymap.defineWindowKeymap()
+    def is_global_target(window):
+        if window.getProcessName() in fc.transparent_target:
+            return False
+        else:
+            return True
+
+    keymap_global = keymap.defineWindowKeymap(check_func=is_global_target)
 
     define_key(keymap_global, fc.toggle_emacs_keybind_key, toggle_emacs_keybind)
 
