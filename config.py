@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20220726_01"
+fakeymacs_version = "20220728_01"
 
 import time
 import os.path
@@ -769,8 +769,8 @@ def configure(keymap):
                 else:
                     keymap_base["D-RCtrl"] = "D-RCtrl"
 
-        if (process_name in fc.transparent_target or
-            (class_name not in fc.emacs_target_class and
+        if (class_name not in fc.emacs_target_class and
+            (process_name in fc.transparent_target or
              process_name in fc.game_app_list)):
             fakeymacs.is_keymap_decided = True
             return False
