@@ -201,7 +201,6 @@ def configure(keymap):
                                "emacs-w32.exe",          # Emacs
                                "gvim.exe",               # GVim
                                "xyzzy.exe",              # xyzzy
-                               "VirtualBox.exe",         # VirtualBox
                                "msrdc.exe",              # WSLg
                                "XWin.exe",               # Cygwin/X
                                "XWin_MobaX.exe",         # MobaXterm/X
