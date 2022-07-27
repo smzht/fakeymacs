@@ -171,8 +171,7 @@ def configure(keymap):
     ###########################################################################
 
     # すべてのキーマップを透過（スルー）するアプリケーションソフトを指定する
-    fc.transparent_target   = ["mstsc.exe",                     # Remote Desktop
-                               "MouseWithoutBordersHelper.exe", # Mouse Without Borders
+    fc.transparent_target   = ["mstsc.exe",              # Remote Desktop
                                ]
 
     # Emacs のキーバインドにするウィンドウのクラスネームを指定する（全ての設定に優先する）
