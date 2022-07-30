@@ -167,8 +167,10 @@ def post(func):
     return _func
 
 def is_terminal_for_direct_input():
-    title = re.sub(r" - .*$",  r"", keymap.getWindow().getText())
-    return title in fc.terminal_list_for_direct_input
+    for terminal in fc.terminal_list_for_direct_input:
+        if re.search(r"(^| - ){} - ".format(re.escape(terminal)), keymap.getWindow().getText()):
+            return True
+    return False
 
 ## ファイル操作
 def find_directory():
@@ -199,7 +201,7 @@ def next_error():
 
 ## カット / コピー
 def kill_line_v(repeat=1):
-    if checkWindow("code.exe"):
+    if checkWindow(text="* - Visual Studio Code*"):
         if fakeymacs_vscode.vscode_focus == "not_terminal" and not is_terminal_for_direct_input():
             kill_line(repeat)
         else:
@@ -208,7 +210,7 @@ def kill_line_v(repeat=1):
         kill_line(repeat)
 
 def yank_v():
-    if checkWindow("code.exe"):
+    if checkWindow(text="* - Visual Studio Code*"):
         if fakeymacs_vscode.vscode_focus == "not_terminal" and not is_terminal_for_direct_input():
             yank()
         else:
@@ -234,7 +236,7 @@ def list_buffers():
 
 ## 文字列検索
 def isearch_v(direction):
-    if checkWindow("code.exe"):
+    if checkWindow(text="* - Visual Studio Code*"):
         if fakeymacs_vscode.vscode_focus == "not_terminal" and not is_terminal_for_direct_input():
             isearch(direction)
         else:
