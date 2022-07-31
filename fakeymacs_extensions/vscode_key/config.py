@@ -110,6 +110,10 @@ def define_key_v(keys, command, skip_check=True):
                     print("skip settings key : [keymap_vscode] " + keys)
                     return
 
+    if callable(command):
+        command = makeKeyCommand(keymap_emacs, keys, command,
+                                 lambda: checkWindow(text="* - Visual Studio Code*"))
+
     define_key(keymap_vscode, keys, command, False)
 
 def define_key_v2(keys, command):
@@ -201,22 +205,16 @@ def next_error():
 
 ## カット / コピー
 def kill_line_v(repeat=1):
-    if checkWindow(text="* - Visual Studio Code*"):
-        if fakeymacs_vscode.vscode_focus == "not_terminal" and not is_terminal_for_direct_input():
-            kill_line(repeat)
-        else:
-            self_insert_command("C-k")()
-    else:
+    if fakeymacs_vscode.vscode_focus == "not_terminal" and not is_terminal_for_direct_input():
         kill_line(repeat)
+    else:
+        self_insert_command("C-k")()
 
 def yank_v():
-    if checkWindow(text="* - Visual Studio Code*"):
-        if fakeymacs_vscode.vscode_focus == "not_terminal" and not is_terminal_for_direct_input():
-            yank()
-        else:
-            self_insert_command("C-y")()
-    else:
+    if fakeymacs_vscode.vscode_focus == "not_terminal" and not is_terminal_for_direct_input():
         yank()
+    else:
+        self_insert_command("C-y")()
 
 ## バッファ / ウィンドウ操作
 def kill_buffer():
@@ -236,13 +234,10 @@ def list_buffers():
 
 ## 文字列検索
 def isearch_v(direction):
-    if checkWindow(text="* - Visual Studio Code*"):
-        if fakeymacs_vscode.vscode_focus == "not_terminal" and not is_terminal_for_direct_input():
-            isearch(direction)
-        else:
-            self_insert_command({"backward":"C-r", "forward":"C-s"}[direction])()
-    else:
+    if fakeymacs_vscode.vscode_focus == "not_terminal" and not is_terminal_for_direct_input():
         isearch(direction)
+    else:
+        self_insert_command({"backward":"C-r", "forward":"C-s"}[direction])()
 
 def isearch_backward():
     isearch_v("backward")

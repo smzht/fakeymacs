@@ -248,16 +248,23 @@ fc.lancherList_listers = [
 
 # --------------------------------------------------------------------------------------------------
 
+# Chrome 系ブラウザで Ctl-x C-b を入力した際、Chrome の拡張機能 Quick Tabs を起動する
+if 0:
+    fc.quick_tabs_shortcut_key = "A-q"
+    exec(readConfigExtension(r"chrome_quick_tabs\config.py"), dict(globals(), **locals()))
+
+# --------------------------------------------------------------------------------------------------
+
 # VSCode 用のキーの設定を行う
 if 1:
     fc.vscode_target  = ["Code.exe"]
 
     # vscode.dev 等、ブラウザで動作する VSCode で本機能を有効とするには、次の４行のコメントを解除
     # してください
-    # fc.vscode_target += ["chrome.exe",
-    #                      "msedge.exe",
-    #                      "firefox.exe",
-    #                      ]
+    fc.vscode_target += ["chrome.exe",
+                         "msedge.exe",
+                         "firefox.exe",
+                         ]
 
     # fc.vscode_prefix_key = [["C-;", "C-A-;"]]
     fc.use_ctrl_atmark_for_mark = False
@@ -267,6 +274,7 @@ if 1:
     # VSCode Extension 用のキーの設定を行う
     fc.vscode_dired = False
     fc.vscode_recenter = False
+    fc.vscode_recenter2 = False
     fc.vscode_occur = False
     fc.vscode_quick_select = True
     fc.vscode_input_sequence = True
@@ -288,15 +296,6 @@ if 0:
 # ブラウザをポップアップしてから C-l、C-t を入力するキーを設定する
 if 0:
     exec(readConfigExtension(r"browser_key\config.py"), dict(globals(), **locals()))
-
-# --------------------------------------------------------------------------------------------------
-
-# Chrome 系ブラウザで Ctl-x C-b を入力した際、Chrome の拡張機能 Quick Tabs を起動する
-# （vscode_key Extension で vscode_target に Chrome 系ブラウザを指定している場合、そちらの
-#   キー設定が優先されます）
-if 0:
-    fc.quick_tabs_shortcut_key = "A-q"
-    exec(readConfigExtension(r"chrome_quick_tabs\config.py"), dict(globals(), **locals()))
 
 # --------------------------------------------------------------------------------------------------
 

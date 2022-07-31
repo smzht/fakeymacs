@@ -15,6 +15,7 @@ VSCode Extension 用のキーの設定を行う拡張機能です。
 |-------------------------+------------------------------------------------------------------------|
 | vscode_dired            | vscode-dired Extension を利用するかどうかを指定する                    |
 | vscode_recenter         | Center Editor Window Extension を利用するかどうかを指定する            |
+| vscode_recenter2        | Recenter Top Bottom Extension を利用するかどうかを指定する             |
 | vscode_occur            | Search in Current File Extension  を利用するかどうかを指定する         |
 | vscode_quick_select     | Quick and Simple Text Selection Extension を利用するかどうかを指定する |
 | vscode_input_sequence   | vscode-input-sequence を利用するかどうかを指定する                     |
@@ -26,19 +27,27 @@ VSCode Extension 用のキーの設定を行う拡張機能です。
 
 **** ● vscode_dired
 
-|-----------+----------+------------------------+-------------|
-| Keybind   | Function | VSCode Command         | Description |
-|-----------+----------+------------------------+-------------|
-| Ctl-x d   | dired    | Open dired buffer      |             |
-|-----------+----------+------------------------+-------------|
+|---------+----------+-------------------+-------------|
+| Keybind | Function | VSCode Command    | Description |
+|---------+----------+-------------------+-------------|
+| Ctl-x d | dired    | Open dired buffer |             |
+|---------+----------+-------------------+-------------|
 
 **** ● vscode_recenter
 
-|-----------+----------+------------------------+-------------|
-| Keybind   | Function | VSCode Command         | Description |
-|-----------+----------+------------------------+-------------|
-| C-l       | recenter | Center Editor Window   |             |
-|-----------+----------+------------------------+-------------|
+|---------+----------+----------------------+-------------|
+| Keybind | Function | VSCode Command       | Description |
+|---------+----------+----------------------+-------------|
+| C-l     | recenter | Center Editor Window |             |
+|---------+----------+----------------------+-------------|
+
+**** ● vscode_recenter2
+
+|---------+-----------+---------------------+-------------|
+| Keybind | Function  | VSCode Command      | Description |
+|---------+-----------+---------------------+-------------|
+| C-l     | recenter2 | Recenter Top Bottom |             |
+|---------+-----------+---------------------+-------------|
 
 **** ● vscode_occur
 

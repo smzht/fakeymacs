@@ -82,6 +82,16 @@ if fc.vscode_recenter:
 
 # --------------------------------------------------------------------------------------------------
 
+if fc.vscode_recenter2:
+    def recenter2():
+        # VSCode Command : Recenter Top Bottom
+        vscodeExecuteCommand("RTB")()
+        # vscodeExecuteCommand("recenterTopBottom")()
+
+    define_key_v("C-l", reset_search(reset_undo(reset_counter(recenter2))))
+
+# --------------------------------------------------------------------------------------------------
+
 if fc.vscode_occur:
     def occur():
         # VSCode Command : Search in Current File
