@@ -255,6 +255,18 @@ if 0:
 
 # --------------------------------------------------------------------------------------------------
 
+# Emacs の shell-command-on-region の機能をサポートする
+if 0:
+    fc.unix_tool = "WSL"
+    # fc.unix_tool = "MSYS2"
+    # fc.unix_tool = "Cygwin"
+    # fc.unix_tool = "BusyBox"
+    # fc.bash_options = []
+    fc.bash_options = ["-l"]
+    exec(readConfigExtension(r"shell_command_on_region\config.py"), dict(globals(), **locals()))
+
+# --------------------------------------------------------------------------------------------------
+
 # VSCode 用のキーの設定を行う
 if 1:
     fc.vscode_target  = ["Code.exe"]
@@ -293,18 +305,6 @@ if 0:
 # ブラウザをポップアップしてから C-l、C-t を入力するキーを設定する
 if 0:
     exec(readConfigExtension(r"browser_key\config.py"), dict(globals(), **locals()))
-
-# --------------------------------------------------------------------------------------------------
-
-# Emacs の shell-command-on-region の機能をサポートする
-if 0:
-    fc.unix_tool = "WSL"
-    # fc.unix_tool = "MSYS2"
-    # fc.unix_tool = "Cygwin"
-    # fc.unix_tool = "BusyBox"
-    # fc.bash_options = []
-    fc.bash_options = ["-l"]
-    exec(readConfigExtension(r"shell_command_on_region\config.py"), dict(globals(), **locals()))
 
 # --------------------------------------------------------------------------------------------------
 
