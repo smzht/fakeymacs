@@ -258,9 +258,6 @@ if 0:
 # VSCode 用のキーの設定を行う
 if 1:
     fc.vscode_target  = ["Code.exe"]
-
-    # vscode.dev 等、ブラウザで動作する VSCode で本機能を有効とするには、次の４行のコメントを解除
-    # してください
     fc.vscode_target += ["chrome.exe",
                          "msedge.exe",
                          "firefox.exe",
