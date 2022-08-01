@@ -20,6 +20,13 @@ except:
 
 try:
     # 設定されているか？
+    fc.vscode_recenter2
+except:
+    # Center Editor Window Extension を利用するかどうかを指定する
+    fc.vscode_recenter2 = False
+
+try:
+    # 設定されているか？
     fc.vscode_occur
 except:
     # Search in Current File Extension を利用するかどうかを指定する
