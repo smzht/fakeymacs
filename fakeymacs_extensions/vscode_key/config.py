@@ -9,7 +9,7 @@ try:
     fc.vscode_target
 except:
     # VSCode 用のキーバインドを利用するアプリケーションソフトを指定する
-    # （ブラウザを指定した場合には、vscode.dev にアクセスして開く VSCode で利用可能となります）
+    # （ブラウザを指定した場合には、VS Code Web の画面で利用可能となります）
     fc.vscode_target  = ["Code.exe"]
     fc.vscode_target += ["chrome.exe",
                          "msedge.exe",
@@ -218,11 +218,12 @@ def yank_v():
 
 ## バッファ / ウィンドウ操作
 def kill_buffer():
-    # vscode.dev で動作するように、C-F4 の発行とはしていない（C-F4 がブラウザでキャッチされるため）
+    # VS Code Web 画面で動作するように、C-F4 の発行とはしていない（C-F4 がブラウザでキャッチされるため）
     # VSCode Command : View: Close Editor
     vscodeExecuteCommand("workbench.action.closeActiveEditor")()
 
 def switch_to_buffer():
+    # VS Code Web 画面で動作するように、C-Tab の発行とはしていない（C-Tab がブラウザでキャッチされるため）
     # VSCode Command : View: Quick Open Privious Recently Used Editor in Group
     vscodeExecuteCommand("VQOPrRUEi")()
     # vscodeExecuteCommand("workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup")()

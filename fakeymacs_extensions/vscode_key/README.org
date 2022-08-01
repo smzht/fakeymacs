@@ -299,21 +299,31 @@ def vscodeExecuteCommand(command):
 
 - https://memotora.com/2014/10/05/google-ime-pop-up-setting/
 
-● ブラウザで vscode.dev を指定した際に開く VSCode の画面では、M-k や Ctl-x k で
-発行している C-F4 がブラウザ側でキャッチされ、ブラウザのタブを閉じようとしてしまいます。
-このため、vscode_target 変数に指定したブラウザで vscode.dev を開いて Ctl-x k を実行した
-場合には、コマンドパレットで View: Close Editor を実行するようにし、VSCode の機能が働くように
-しています。
-M-k は 従来どおり C-F4 を発行するのみの機能としていますので、vscode.dev を利用する場合
+● ブラウザで vscode.dev を指定した際などに開く VS Code Web の画面では、C-F4 がブラウザ側
+でキャッチされ、ブラウザのタブを閉じようとしてしまいます。
+このため、VS Code Web 画面で Ctl-x k を実行した場合には、コマンドパレットで View: Close
+Editor を実行するようにし、VS Code Web 側の機能が働くようにしています。
+M-k は 従来どおり C-F4 を発行するのみの機能としていますので、VS Code Web を利用する場合
 には、M-k と Ctl-x k を使い分けるようにしてください。
 
-● ブラウザで vscode.dev を指定した際に開く VSCode の画面では、Ctl-x b で発行している
-C-Tab がブラウザ側でキャッチされ、ブラウザのタブを切り替えてしまいます。
-このため、vscode_target 変数に指定したブラウザで vscode.dev を開いて Ctl-x b を実行した
-場合には、コマンドパレットで View: Quick Open Privious Recently Used Editor in Group を
-実行するようにし、VSCode の機能が働くようにしています。
-C-Tab は 従来どおりブラウザで機能しますので、vscode.dev を利用する場合には、C-Tab と
+● ブラウザで vscode.dev を指定した際などに開く VS Code Web の画面では、C-Tab がブラウザ側
+でキャッチされ、ブラウザのタブを切り替えてしまいます。
+このため、VS Code Web 画面で Ctl-x b を実行した場合には、コマンドパレットで View: Quick
+Open Privious Recently Used Editor in Group を実行するようにし、VS Code Web 側の機能が働く
+ようにしています。
+C-Tab は 従来どおりブラウザで機能しますので、VS Code Web を利用する場合には、C-Tab と
 Ctl-x b を使い分けるようにしてください。
+
+● Google Chrome を利用している場合、次のサイトに記載のある方法で VS Code Web の画面の
+ショートカットを「ウィンドウで開く」オプション付きで作成すると、先の２つの問題を回避する
+ことができます。お試しください。
+
+- https://zenn.dev/kato_k/articles/6301d35b3d8d3c#%E5%B0%8F%E6%8A%80
+
+● Micorosoft Edge を利用している場合、次のサイトに記載のある方法で VS Code Web の画面を
+アプリ化すると、先の２つの問題を回避することができます。お試しください。
+
+- https://kiritsume.com/microsoft-edge-install-as-an-app-feature/
 
 ● proxy サーバ配下の環境にある PC で Remote-WSL を使った場合、WSL に接続するまでに時間が
 掛かる問題が発生していました。次のページで紹介してある設定を行ったところ改善しましたので、
