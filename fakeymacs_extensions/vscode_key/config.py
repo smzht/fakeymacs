@@ -112,7 +112,8 @@ def define_key_v(keys, command, skip_check=True):
 
     if callable(command):
         command = makeKeyCommand(keymap_emacs, keys, command,
-                                 lambda: checkWindow(text="* - Visual Studio Code*"))
+                                 lambda: (checkWindow(process_name="Code.exe") or
+                                          checkWindow(text="* - Visual Studio Code*")))
 
     define_key(keymap_vscode, keys, command, False)
 
