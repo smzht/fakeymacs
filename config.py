@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20220728_02"
+fakeymacs_version = "20220805_01"
 
 import time
 import os.path
@@ -204,6 +204,7 @@ def configure(keymap):
                                "XWin.exe",               # Cygwin/X
                                "XWin_MobaX.exe",         # MobaXterm/X
                                "XWin_MobaX_1.16.3.exe",  # MobaXterm/X
+                               "XWin_MobaX_1.20.4.exe",  # MobaXterm/X
                                "XWin_Cygwin_1.14.5.exe", # MobaXterm/X
                                "XWin_Cygwin_1.16.3.exe", # MobaXterm/X
                                "Xming.exe",              # Xming
