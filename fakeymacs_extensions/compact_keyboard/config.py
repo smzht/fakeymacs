@@ -26,7 +26,8 @@ if not is_japanese_keyboard:
         def define_key_vsc(keys, command):
             define_key3(keymap_global, keys, command,
                         lambda: (fakeymacs.is_vscode_target(keymap.getWindow()) and
-                                 checkWindow(text="* - Visual Studio Code*")))
+                                 (checkWindow(process_name="Code.exe") or
+                                  checkWindow(text="* - Visual Studio Code*"))))
 
         define_key_vsc("S-Back C-S-Back", getKeyCommand(fakeymacs.keymap_vscode, "C-S-`"))
         define_key_vsc("S-Back C-Back",   getKeyCommand(fakeymacs.keymap_vscode, "C-`"))
