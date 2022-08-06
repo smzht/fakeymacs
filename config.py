@@ -171,6 +171,7 @@ def configure(keymap):
     ###########################################################################
 
     # すべてのキーマップを透過（スルー）するアプリケーションソフトを指定する
+    # （keymap_base、keymap_global を含むすべてのキーマップをスルーします）
     fc.transparent_target   = ["mstsc.exe",              # Remote Desktop
                                ]
 
