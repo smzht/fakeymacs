@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20220805_01"
+fakeymacs_version = "20220820_01"
 
 import time
 import os.path
@@ -252,12 +252,13 @@ def configure(keymap):
     #   のような指定の他に、"M-f" や "Ctl-x d" などの指定も可能です。"M-g*" のようにワイルドカードも
     #   利用することができます。）
     # （ここで指定したキーに新たに別のキー設定をしたいときには、define_key2 関数を利用してください）
-    fc.skip_settings_key    = {"keymap_global"    : [], # 全画面共通 Keymap
-                               "keymap_emacs"     : [], # Emacs キーバインド対象アプリ用 Keymap
-                               "keymap_ime"       : [], # IME 切り替え専用アプリ用 Keymap
-                               "keymap_ei"        : [], # Emacs 日本語入力モード用 Keymap
-                               "keymap_tsw"       : [], # タスク切り替え画面用 Keymap
-                               "keymap_lw"        : [], # リストウィンドウ用 Keymap
+    fc.skip_settings_key    = {"keymap_base"      : ["W-g"], # ベース Keymap
+                               "keymap_global"    : [],      # グローバル Keymap
+                               "keymap_emacs"     : [],      # Emacs キーバインド対象アプリ用 Keymap
+                               "keymap_ime"       : [],      # IME 切り替え専用アプリ用 Keymap
+                               "keymap_ei"        : [],      # Emacs 日本語入力モード用 Keymap
+                               "keymap_tsw"       : [],      # タスク切り替え画面用 Keymap
+                               "keymap_lw"        : [],      # リストウィンドウ用 Keymap
                                }
 
     # Emacs のキーバインドにするアプリケーションソフトで、Emacs キーバインドから除外するキーを指定する
@@ -1606,6 +1607,7 @@ def configure(keymap):
         return list(map(usjisInput, key_list))
 
     def define_key(window_keymap, keys, command, skip_check=True):
+        nonlocal keymap_base
         nonlocal keymap_global
         nonlocal keymap_emacs
         nonlocal keymap_ime
@@ -1947,7 +1949,7 @@ def configure(keymap):
                 for mod3 in ["", "C-"]:
                     for mod4 in ["", "S-"]:
                         mkey = mod1 + mod2 + mod3 + mod4 + key
-                        define_key2(keymap_base, mkey, self_insert_command(mkey))
+                        define_key(keymap_base, mkey, self_insert_command(mkey))
 
     ## マルチストロークキーの設定
     define_key(keymap_emacs, "Ctl-x",  keymap.defineMultiStrokeKeymap(fc.ctl_x_prefix_key))

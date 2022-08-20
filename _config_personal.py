@@ -73,13 +73,14 @@ fc.ime_target          += []
 #   利用することができます。）
 # （ここで指定したキーに新たに別のキー設定をしたいときには、「-2」が付くセクション内で define_key2
 #   関数を利用して定義してください）
-fc.skip_settings_key    = {"keymap_global"    : [], # 全画面共通 Keymap
-                           "keymap_emacs"     : [], # Emacs キーバインド対象アプリ用 Keymap
-                           "keymap_vscode"    : [], # Emacs キーバインド VSCode 拡張用 Keymap
-                           "keymap_ime"       : [], # IME 切り替え専用アプリ用 Keymap
-                           "keymap_ei"        : [], # Emacs 日本語入力モード用 Keymap
-                           "keymap_tsw"       : [], # タスク切り替え画面用 Keymap
-                           "keymap_lw"        : [], # リストウィンドウ用 Keymap
+fc.skip_settings_key    = {"keymap_base"      : ["W-g"], # ベース Keymap
+                           "keymap_global"    : [],      # グローバル Keymap
+                           "keymap_emacs"     : [],      # Emacs キーバインド対象アプリ用 Keymap
+                           "keymap_vscode"    : [],      # Emacs キーバインド VSCode 拡張用 Keymap
+                           "keymap_ime"       : [],      # IME 切り替え専用アプリ用 Keymap
+                           "keymap_ei"        : [],      # Emacs 日本語入力モード用 Keymap
+                           "keymap_tsw"       : [],      # タスク切り替え画面用 Keymap
+                           "keymap_lw"        : [],      # リストウィンドウ用 Keymap
                            }
 
 # Emacs のキーバインドにするアプリケーションソフトで、Emacs キーバインドから除外するキーを指定する
