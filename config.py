@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20220820_01"
+fakeymacs_version = "20220823_01"
 
 import time
 import os.path
@@ -186,6 +186,7 @@ def configure(keymap):
                                "ubuntu1604.exe",         # WSL
                                "ubuntu1804.exe",         # WSL
                                "ubuntu2004.exe",         # WSL
+                               "ubuntu2204.exe",         # WSL
                                "debian.exe",             # WSL
                                "kali.exe",               # WSL
                                "SLES-12.exe",            # WSL
@@ -230,6 +231,7 @@ def configure(keymap):
                                "ubuntu1604.exe",         # WSL
                                "ubuntu1804.exe",         # WSL
                                "ubuntu2004.exe",         # WSL
+                               "ubuntu2204.exe",         # WSL
                                "debian.exe",             # WSL
                                "kali.exe",               # WSL
                                "SLES-12.exe",            # WSL
