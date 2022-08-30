@@ -21,6 +21,7 @@ VSCode Extension 用のキーの設定を行う拡張機能です。
 | vscode_input_sequence   | vscode-input-sequence を利用するかどうかを指定する                     |
 | vscode_insert_numbers   | Insert Numbers を利用するかどうかを指定する                            |
 | vscode_keyboard_macro   | Keyboard Macro Beta を利用するかどうかを指定する                       |
+| vscode_filter_text      | Filter Text を利用するかどうかを指定する                               |
 |-------------------------+------------------------------------------------------------------------|
 
 *** キーバインド
