@@ -536,7 +536,7 @@ define_key_v("C-s", reset_undo(reset_counter(reset_mark(isearch_forward))))
 
 ## 「エディタ操作」のキー設定
 define_key_v("Ctl-x 0", reset_search(reset_undo(reset_counter(reset_mark(delete_window)))))
-define_key_v("Ctl-x 1", reset_search(reset_undo(reset_counter(reset_mark(delete_other_windows)))))
+define_key_v("Ctl-x 1", delete_other_windows)
 define_key_v("Ctl-x 2", split_window_below)
 define_key_v("Ctl-x 3", split_window_right)
 define_key_v("Ctl-x 4", rotate_layout)
