@@ -477,6 +477,11 @@ def trigger_suggest():
     self_insert_command("C-Space")()
     # vscodeExecuteCommand("editor.action.triggerSuggest")()
 
+def zoom_in():
+    # VSCode Command : View: Zoom In
+    self_insert_command("C-;")()
+    # vscodeExecuteCommand("workbench.action.zoomIn")()
+
 ## マルチストロークキーの設定
 define_key_v("Ctl-x",  keymap.defineMultiStrokeKeymap(fc.ctl_x_prefix_key))
 define_key_v("M-",     keymap.defineMultiStrokeKeymap("Esc"))
@@ -597,6 +602,9 @@ if is_japanese_keyboard:
     define_key_v("C-:", trigger_suggest)
 else:
     define_key_v("C-'", trigger_suggest)
+
+if use_usjis_keyboard_conversion:
+    define_key_v("C-=", zoom_in)
 
 ## vscode_extensions 拡張機能の読み込み
 exec(readConfigExtension(r"vscode_extensions\config.py"), dict(globals(), **locals()))
