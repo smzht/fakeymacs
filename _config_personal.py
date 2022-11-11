@@ -274,6 +274,8 @@ fc.lancherList_listers = [
 
 # Chrome 系ブラウザで Ctl-x C-b を入力した際、Chrome の拡張機能 Quick Tabs を起動する
 if 0:
+    fc.chrome_list= ["chrome.exe",
+                     "msedge.exe"]
     fc.quick_tabs_shortcut_key = "A-q"
     exec(readConfigExtension(r"chrome_quick_tabs\config.py"), dict(globals(), **locals()))
 
@@ -328,6 +330,9 @@ if 0:
 
 # ブラウザをポップアップしてから C-l、C-t を入力するキーを設定する
 if 0:
+    fc.browser_list= ["chrome.exe",
+                      "msedge.exe",
+                      "firefox.exe"]
     exec(readConfigExtension(r"browser_key\config.py"), dict(globals(), **locals()))
 
 # --------------------------------------------------------------------------------------------------
