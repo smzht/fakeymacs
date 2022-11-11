@@ -34,6 +34,9 @@
 
 *** 留意事項
 
+● 本フォルダにある _config_personal.py を config_personal.py というファイル名にすることで
+機能拡張ファイルとして機能します。browser_key Extension の機能を拡張する際にご利用ください。
+
 ● browser_popup の機能を使う場合、fc.browser_list に定義するブラウザが起動していなければ
 fc.browser_listの最初に定義するブラウザを起動します。
 ただし、この場合にアドレスバーの移動キー（Ctrl+l、Ctrl+t）の発行は行っていません。
