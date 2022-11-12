@@ -330,3 +330,9 @@ Ctl-x b を使い分けるようにしてください。
 紹介しておきます。
 
 - https://github.com/microsoft/vscode-remote-release/issues/4888
+
+● VSCode の検索機能では、検索した後にカーソルを移動して再度検索を行うと、検索する文字列が
+移動したカーソルの場所にある単語に置き換えられてしまいます。
+この挙動を抑制する方法が、次のページに書かれています。
+
+- https://zenn.dev/rhosoi/scraps/f6f19f0e8fda64
