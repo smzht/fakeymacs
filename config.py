@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20220823_01"
+fakeymacs_version = "20221118_01"
 
 import time
 import os.path
@@ -1433,20 +1433,26 @@ def configure(keymap):
 
     def copyRegion():
         self_insert_command("C-c")()
-        # C-k (kill_line) したときに k 文字が混在することがあるための対策
+        # C-k (kill_line) したときに k 文字が混在することがあるため delayedCall とする
         keymap.delayedCall(pushToClipboardList, 100)
 
     def cutRegion():
         self_insert_command("C-x")()
-        # C-k (kill_line) したときに k 文字が混在することがあるための対策
+        # C-k (kill_line) したときに k 文字が混在することがあるため delayedCall とする
         keymap.delayedCall(pushToClipboardList, 100)
 
     def pushToClipboardList():
         # clipboard 監視の対象外とするアプリケーションソフトで copy / cut した場合でも
-        # クリップボードの内容をクリップボードリストに登録する
-        if not fakeymacs.clipboard_hook:
-            clipboard_text = getClipboardText()
-            if clipboard_text:
+        # クリップボードの内容をクリップボードリストに登録するための対策。
+        # また、clipboard 監視の対象のアプリケーションソフトでも、マウスでリージョンを
+        # 選択した際、画面にツールチップが表示されると、copy / cut でクリップボードの
+        # 内容がクリップボードリストに格納されない事象が発生する。その対策でもある。
+        clipboard_text = getClipboardText()
+        if clipboard_text:
+            if len(keymap.clipboard_history.items) > 0:
+                if keymap.clipboard_history.items[0] != clipboard_text:
+                    keymap.clipboard_history._push(clipboard_text)
+            else:
                 keymap.clipboard_history._push(clipboard_text)
 
     def resetRegion():
