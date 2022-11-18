@@ -1445,8 +1445,8 @@ def configure(keymap):
         # clipboard 監視の対象外とするアプリケーションソフトで copy / cut した場合でも
         # クリップボードの内容をクリップボードリストに登録するための対策。
         # また、clipboard 監視の対象のアプリケーションソフトでも、マウスでリージョンを
-        # 選択した際、画面にツールチップが表示されると、copy / cut でクリップボードの
-        # 内容がクリップボードリストに格納されない事象が発生する。その対策でもある。
+        # 選択した際、画面にツールチップが表示されると copy / cut を行ってもリージョン
+        # の内容がクリップボードリストに格納されない事象が発生する。その対策でもある。
         clipboard_text = getClipboardText()
         if clipboard_text:
             if len(keymap.clipboard_history.items) > 0:
