@@ -15,6 +15,6 @@ def transpose_windows():
     move_window_to_next_display()
     other_window()
     delay()
-    move_window_to_next_display()
+    move_window_to_previous_display()
 
 define_key(keymap_global, fc.transpose_windows_key, transpose_windows)
