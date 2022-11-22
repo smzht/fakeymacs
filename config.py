@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20221118_01"
+fakeymacs_version = "20221122_01"
 
 import time
 import os.path
@@ -452,7 +452,6 @@ def configure(keymap):
     # （修飾キーに Alt は使えないようです）
     fc.application_key = None
     # fc.application_key = "O-RCtrl"
-    # fc.application_key = "W-m"
 
     # 数引数の指定に Ctrl+数字キーを使うかを指定する（True: 使う、False: 使わない）
     # （False に指定しても、C-u 数字キーで数引数を指定することができます）
@@ -485,6 +484,10 @@ def configure(keymap):
     fc.window_movement_key_for_displays = []
     fc.window_movement_key_for_displays += [[None, "W-o"]]
     # fc.window_movement_key_for_displays += [[None, "A-S-o"]]
+
+    # ウィンドウの最大化をトグルするキーを指定する（複数指定可）
+    fc.window_maximize_key = []
+    fc.window_maximize_key += ["W-m"]
 
     # ウィンドウを最小化、リストアするキーの組み合わせ（リストア、最小化 の順）を指定する（複数指定可）
     fc.window_minimize_key = []
@@ -2512,6 +2515,14 @@ def configure(keymap):
     def move_window_to_next_display():
         self_insert_command("W-S-Right")()
 
+    def maximize_window():
+        window = keymap.getTopLevelWindow()
+        if window:
+            if window.isMaximized():
+                window.restore()
+            else:
+                window.maximize()
+
     def minimize_window():
         window = keymap.getTopLevelWindow()
         if window and not window.isMinimized():
@@ -2559,6 +2570,10 @@ def configure(keymap):
     for previous_key, next_key in fc.window_movement_key_for_displays:
         define_key(keymap_global, previous_key, move_window_to_previous_display)
         define_key(keymap_global, next_key,     move_window_to_next_display)
+
+    # ウィンドウの最大化トグル
+    for maximize_key in fc.window_maximize_key:
+        define_key(keymap_global, maximize_key, maximize_window)
 
     # ウィンドウの最小化、リストア
     for restore_key, minimize_key in fc.window_minimize_key:
