@@ -62,6 +62,7 @@ Fakeymacs には以下の機能拡張を同梱しています。
 |-------------------------+---------------------------------------------------------------------------------+------------|
 | Extension name          | Description                                                                     | Evaluation |
 |-------------------------+---------------------------------------------------------------------------------+------------|
+| [[/fakeymacs_extensions/transpose_windows][transpose_windows]]       | ２つのディスプレイに表示されているウィンドウを入れ替えるキーを指定する          | お勧め！   |
 | [[/fakeymacs_extensions/shell_command_on_region][shell_command_on_region]] | Emacs の shell-command-on-region の機能をサポートする                           | お勧め！   |
 | [[/fakeymacs_extensions/edit_mode][edit_mode]]               | 指定したアプリケーションソフトに F2（編集モード移行）を割り当てるキーを設定する |            |
 | [[/fakeymacs_extensions/everything][everything]]              | Everything を起動するキーを指定する                                             |            |
