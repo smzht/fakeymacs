@@ -487,7 +487,7 @@ def configure(keymap):
 
     # ウィンドウの最大化をトグルするキーを指定する（複数指定可）
     fc.window_maximize_key = []
-    fc.window_maximize_key += ["W-m"]
+    fc.window_maximize_key += ["W-m"] # Windows ショートカットキーの W-m の機能は、W-d で代用可
 
     # ウィンドウを最小化、リストアするキーの組み合わせ（リストア、最小化 の順）を指定する（複数指定可）
     fc.window_minimize_key = []
