@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20221122_01"
+fakeymacs_version = "20221126_01"
 
 import time
 import os.path
@@ -485,9 +485,10 @@ def configure(keymap):
     fc.window_movement_key_for_displays += [[None, "W-o"]]
     # fc.window_movement_key_for_displays += [[None, "A-S-o"]]
 
-    # ウィンドウの最大化をトグルするキーを指定する（複数指定可）
+    # ウィンドウを最大化、リストアするキーの組み合わせ（リストア、最大化 の順）を指定する（複数指定可）
+    # （マルチディスプレイでの最大化にも対応しています）
     fc.window_maximize_key = []
-    fc.window_maximize_key += ["W-m"] # Windows ショートカットキーの W-m の機能は、W-d で代用可
+    fc.window_maximize_key += [["W-S-s", "W-s"]] # Windows ショートカットキーの W-s の機能は、W-q で代用可
 
     # ウィンドウを最小化、リストアするキーの組み合わせ（リストア、最小化 の順）を指定する（複数指定可）
     fc.window_minimize_key = []
@@ -2515,13 +2516,65 @@ def configure(keymap):
     def move_window_to_next_display():
         self_insert_command("W-S-Right")()
 
-    def maximize_window():
+    display_areas = [monitor[1] for monitor in pyauto.Window.getMonitorInfo()]
+    display_cnt = len(display_areas)
+
+    max_rect = [min([left   for left, top, right, bottom in display_areas]) - 8,
+                max([top    for left, top, right, bottom in display_areas]) - 8,
+                max([right  for left, top, right, bottom in display_areas]) + 8,
+                min([bottom for left, top, right, bottom in display_areas]) + 8]
+
+    window_dict = {}
+
+    def resize_window(forward_direction):
+
+        def setRect(rect):
+            # 内部で、setRect 関すを２回繰り返して実行しているのは、スケールが異なるディスプレイが
+            # ある場合、表示されているウィンドウの位置によってウィンドウを表示するスケールが決まる
+            # ため、一回目でウインドウの位置決めをして、二回目で表示スケールを確定させている。
+            window.setRect(rect)
+            window.setRect(rect)
+
         window = keymap.getTopLevelWindow()
         if window:
-            if window.isMaximized():
-                window.restore()
+            if display_cnt == 1:
+                if window.isMaximized():
+                    window.restore()
+                else:
+                    window.maximize()
             else:
-                window.maximize()
+                if window.isMaximized():
+                    if forward_direction:
+                        window.restore()
+                        delay()
+                        if window not in window_dict:
+                            window_dict[window] = list(window.getRect())
+                        setRect(max_rect)
+                    else:
+                        if window in window_dict:
+                            setRect(window_dict[window])
+                            del window_dict[window]
+                        else:
+                            window.restore()
+                else:
+                    if window in window_dict:
+                        setRect(window_dict[window])
+                        del window_dict[window]
+
+                        if not forward_direction:
+                            window.maximize()
+                    else:
+                        if forward_direction:
+                            window.maximize()
+                        else:
+                            window_dict[window] = list(window.getRect())
+                            setRect(max_rect)
+
+    def maximize_window():
+        resize_window(True)
+
+    def restore_mazimized_window():
+        resize_window(False)
 
     def minimize_window():
         window = keymap.getTopLevelWindow()
@@ -2535,7 +2588,7 @@ def configure(keymap):
                 else:
                     fakeymacs.reverse_window_to_restore = True
 
-    def restore_window():
+    def restore_minimized_window():
         window_list = getWindowList(True)
         if window_list:
             if not fakeymacs.reverse_window_to_restore:
@@ -2571,13 +2624,14 @@ def configure(keymap):
         define_key(keymap_global, previous_key, move_window_to_previous_display)
         define_key(keymap_global, next_key,     move_window_to_next_display)
 
-    # ウィンドウの最大化トグル
-    for maximize_key in fc.window_maximize_key:
+    # ウィンドウの最大化、リストア
+    for restore_key, maximize_key in fc.window_maximize_key:
+        define_key(keymap_global, restore_key,  restore_mazimized_window)
         define_key(keymap_global, maximize_key, maximize_window)
 
     # ウィンドウの最小化、リストア
     for restore_key, minimize_key in fc.window_minimize_key:
-        define_key(keymap_global, restore_key,  restore_window)
+        define_key(keymap_global, restore_key,  restore_minimized_window)
         define_key(keymap_global, minimize_key, minimize_window)
 
     # 仮想デスクトップの切り替え
