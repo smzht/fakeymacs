@@ -2528,7 +2528,7 @@ def configure(keymap):
 
     def resize_window(forward_direction):
         def setRect(rect):
-            # setRect 関すを２回繰り返して実行しているのは、DPI スケールが異なるディスプレイがある
+            # setRect 関数を２回繰り返して実行しているのは、DPI スケールが異なるディスプレイがある
             # 場合、表示されているウィンドウの位置によってウィンドウを表示するスケールが決まるため、
             # 一回目でウインドウの位置決めをして、二回目で表示スケールを確定させている。
             window.setRect(rect)
