@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20221126_01"
+fakeymacs_version = "20221127_01"
 
 import time
 import os.path
@@ -484,6 +484,9 @@ def configure(keymap):
     fc.window_movement_key_for_displays = []
     fc.window_movement_key_for_displays += [[None, "W-o"]]
     # fc.window_movement_key_for_displays += [[None, "A-S-o"]]
+
+    # ２つのディスプレイに表示されているウィンドウを入れ替えるキーを指定する
+    fc.transpose_windows_key = "W-t"
 
     # ウィンドウを最大化、リストアするキーの組み合わせ（リストア、最大化 の順）を指定する（複数指定可）
     # （マルチディスプレイでの最大化にも対応しています）
@@ -2517,6 +2520,12 @@ def configure(keymap):
     def move_window_to_next_display():
         self_insert_command("W-S-Right")()
 
+    def transpose_windows():
+        move_window_to_next_display()
+        other_window()
+        delay()
+        move_window_to_previous_display()
+
     display_areas = [monitor[1] for monitor in pyauto.Window.getMonitorInfo()]
     display_cnt = len(display_areas)
 
@@ -2623,6 +2632,9 @@ def configure(keymap):
     for previous_key, next_key in fc.window_movement_key_for_displays:
         define_key(keymap_global, previous_key, move_window_to_previous_display)
         define_key(keymap_global, next_key,     move_window_to_next_display)
+
+    # ２つのディスプレイ間のウィンドウ入れ替え
+    define_key(keymap_global, fc.transpose_windows_key, transpose_windows)
 
     # ウィンドウの最大化、リストア
     for restore_key, maximize_key in fc.window_maximize_key:

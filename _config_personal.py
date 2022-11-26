@@ -390,9 +390,3 @@ if 0:
     exec(readConfigExtension(r"zenkaku_hankaku\config.py"), dict(globals(), **locals()))
 
 # --------------------------------------------------------------------------------------------------
-
-# ２つのディスプレイに表示されているウィンドウを入れ替えるキーを指定する
-if 0:
-    exec(readConfigExtension(r"transpose_windows\config.py"), dict(globals(), **locals()))
-
-# --------------------------------------------------------------------------------------------------
