@@ -2520,14 +2520,31 @@ def configure(keymap):
     def move_window_to_next_display():
         self_insert_command("W-S-Right")()
 
-    def transpose_windows():
-        move_window_to_next_display()
-        other_window()
-        delay()
-        move_window_to_previous_display()
-
     display_areas = [monitor[1] for monitor in pyauto.Window.getMonitorInfo()]
     display_cnt = len(display_areas)
+
+    def transpose_windows():
+        window_list = getWindowList()
+        if len(window_list) > 2:
+            first_window = None
+            for window in window_list:
+                window_rect = window.getRect()
+                for display_area in display_areas:
+                    if (window_rect[0] >= display_area[0] - 16 and
+                        window_rect[1] >= display_area[1] - 16 and
+                        window_rect[2] <= display_area[2] + 16 and
+                        window_rect[3] <= display_area[3] + 16):
+                        if first_window:
+                            if display_area != first_window:
+                                popWindow(window)()
+                                delay()
+                                move_window_to_next_display()
+                                other_window()
+                                delay()
+                                move_window_to_previous_display()
+                                return
+                        else:
+                            first_window = display_area
 
     max_rect = [min([left   for left, top, right, bottom in display_areas]) - 8,
                 max([top    for left, top, right, bottom in display_areas]) - 8,
