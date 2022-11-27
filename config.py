@@ -2545,6 +2545,8 @@ def configure(keymap):
                                     move_window_to_next_display()
                                     return
                             else:
+                                popWindow(window)()
+                                delay()
                                 first_window = display_area
                             break
 
