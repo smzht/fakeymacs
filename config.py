@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20221127_01"
+fakeymacs_version = "20221127_02"
 
 import time
 import os.path
@@ -2545,6 +2545,7 @@ def configure(keymap):
                                 return
                         else:
                             first_window = display_area
+                            break
 
     max_rect = [min([left   for left, top, right, bottom in display_areas]) - 8,
                 max([top    for left, top, right, bottom in display_areas]) - 8,
