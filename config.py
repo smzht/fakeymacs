@@ -2539,10 +2539,10 @@ def configure(keymap):
                                 if display_area != first_window:
                                     popWindow(window)()
                                     delay()
-                                    move_window_to_next_display()
+                                    move_window_to_previous_display()
                                     other_window()
                                     delay()
-                                    move_window_to_previous_display()
+                                    move_window_to_next_display()
                                     return
                             else:
                                 first_window = display_area
