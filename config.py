@@ -2545,7 +2545,7 @@ def configure(keymap):
                                 return
                         else:
                             first_window = display_area
-                            break
+                        break
 
     max_rect = [min([left   for left, top, right, bottom in display_areas]) - 8,
                 max([top    for left, top, right, bottom in display_areas]) - 8,
