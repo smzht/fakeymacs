@@ -168,11 +168,11 @@ if fc.vscode_keyboard_macro:
         self_insert_command("C-A-r")()
 
     def keyboard_macro_play():
-        def playMacro():
+        def _keyboard_macro_play():
             self_insert_command("C-A-p")()
             delay(0.1)
 
-        keymap.delayedCall(playMacro, 0)
+        keymap.delayedCall(_keyboard_macro_play, 0)
 
     define_key_v("Ctl-x (", keyboard_macro_start)
     define_key_v("Ctl-x )", keyboard_macro_stop)

@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20221127_02"
+fakeymacs_version = "20221127_03"
 
 import time
 import os.path
@@ -610,7 +610,7 @@ def configure(keymap):
             ctypes.wintypes.DWORD
         )
 
-        def callback(hWinEventHook, event, hwnd, idObject, idChild, dwEventThread, dwmsEventTime):
+        def _callback(hWinEventHook, event, hwnd, idObject, idChild, dwEventThread, dwmsEventTime):
             if keymap.hook_enabled:
                 delay(0.1)
                 keymap._updateFocusWindow()
@@ -620,7 +620,7 @@ def configure(keymap):
         # この設定は必要（この設定がないと、Keyhac が落ちる場合がある）
         global WinEventProc
 
-        WinEventProc = WinEventProcType(callback)
+        WinEventProc = WinEventProcType(_callback)
 
         user32.SetWinEventHook.restype = ctypes.wintypes.HANDLE
         keymap.fakeymacs_hook = user32.SetWinEventHook(
@@ -1097,11 +1097,11 @@ def configure(keymap):
         resetRegion()
         fakeymacs.is_marked = True
 
-        def move_beginning_of_region():
+        def _move_beginning_of_region():
             for _ in range(repeat):
                 backward_word()
 
-        mark(move_beginning_of_region, False)()
+        mark(_move_beginning_of_region, False)()
         delay()
         kill_region()
 
@@ -1109,11 +1109,11 @@ def configure(keymap):
         resetRegion()
         fakeymacs.is_marked = True
 
-        def move_end_of_region():
+        def _move_end_of_region():
             for _ in range(repeat):
                 forward_word()
 
-        mark(move_end_of_region, True)()
+        mark(_move_end_of_region, True)()
         delay()
         kill_region()
 
@@ -1139,7 +1139,7 @@ def configure(keymap):
                 copyRegion()
                 self_insert_command("Delete")()
         else:
-            def move_end_of_region():
+            def _move_end_of_region():
                 if checkWindow("WINWORD.EXE", "_WwG"): # Microsoft Word
                     for _ in range(repeat):
                         next_line()
@@ -1150,7 +1150,7 @@ def configure(keymap):
                     move_end_of_line()
                     forward_char()
 
-            mark(move_end_of_region, True)()
+            mark(_move_end_of_region, True)()
             delay()
             kill_region()
 
@@ -1341,7 +1341,7 @@ def configure(keymap):
                        keymap.record_seq.append((ctl_x_prefix_vkey[0], True))
 
     def kmacro_end_and_call_macro():
-        def callKmacro():
+        def _kmacro_end_and_call_macro():
             # キーボードマクロの最初が IME ON の場合、この delay が必要
             delay(0.2)
             fakeymacs.is_playing_kmacro = True
@@ -1349,7 +1349,7 @@ def configure(keymap):
             keymap.command_RecordPlay()
             fakeymacs.is_playing_kmacro = False
 
-        keymap.delayedCall(callKmacro, 0)
+        keymap.delayedCall(_kmacro_end_and_call_macro, 0)
 
     ##################################################
     ## その他
@@ -1645,7 +1645,7 @@ def configure(keymap):
                             return
                     break
 
-        def keyCommand(key):
+        def _keyCommand(key):
             nonlocal keymap_emacs
 
             if callable(command):
@@ -1708,7 +1708,7 @@ def configure(keymap):
         for key_list in kbd(keys):
             for pos_list in keyPos(key_list):
                 if len(pos_list) == 1:
-                    window_keymap[pos_list[0]] = keyCommand(key_list[0])
+                    window_keymap[pos_list[0]] = _keyCommand(key_list[0])
 
                     # Alt キーを単押しした際に、カーソルがメニューへ移動しないようにするための対策
                     # （https://www.haijin-boys.com/discussions/4583）
@@ -1721,7 +1721,7 @@ def configure(keymap):
                     w_keymap = window_keymap
                     for key in pos_list[:-1]:
                         w_keymap = w_keymap[key]
-                    w_keymap[pos_list[-1]] = keyCommand(None)
+                    w_keymap[pos_list[-1]] = _keyCommand(None)
 
     def define_key2(window_keymap, keys, command):
         define_key(window_keymap, keys, command, skip_check=False)
@@ -2446,7 +2446,7 @@ def configure(keymap):
         return _func
 
     def getWindowList(minimized_window=None):
-        def makeWindowList(window, arg):
+        def _makeWindowList(window, arg):
             nonlocal window_title
 
             if window.isVisible() and not window.getOwner():
@@ -2478,7 +2478,7 @@ def configure(keymap):
 
         window_title = None
         window_list = []
-        Window.enum(makeWindowList, None)
+        Window.enum(_makeWindowList, None)
 
         if minimized_window is None:
             window_list2 = window_list
@@ -2524,28 +2524,31 @@ def configure(keymap):
     display_cnt = len(display_areas)
 
     def transpose_windows():
-        window_list = getWindowList()
-        if len(window_list) > 2:
-            first_window = None
-            for window in window_list:
-                window_rect = window.getRect()
-                for display_area in display_areas:
-                    if (window_rect[0] >= display_area[0] - 16 and
-                        window_rect[1] >= display_area[1] - 16 and
-                        window_rect[2] <= display_area[2] + 16 and
-                        window_rect[3] <= display_area[3] + 16):
-                        if first_window:
-                            if display_area != first_window:
-                                popWindow(window)()
-                                delay()
-                                move_window_to_next_display()
-                                other_window()
-                                delay()
-                                move_window_to_previous_display()
-                                return
-                        else:
-                            first_window = display_area
-                        break
+        def _transpose_windows():
+            window_list = getWindowList()
+            if len(window_list) > 2:
+                first_window = None
+                for window in window_list:
+                    window_rect = window.getRect()
+                    for display_area in display_areas:
+                        if (window_rect[0] >= display_area[0] - 16 and
+                            window_rect[1] >= display_area[1] - 16 and
+                            window_rect[2] <= display_area[2] + 16 and
+                            window_rect[3] <= display_area[3] + 16):
+                            if first_window:
+                                if display_area != first_window:
+                                    popWindow(window)()
+                                    delay()
+                                    move_window_to_next_display()
+                                    other_window()
+                                    delay()
+                                    move_window_to_previous_display()
+                                    return
+                            else:
+                                first_window = display_area
+                            break
+
+        keymap.delayedCall(_transpose_windows, 0)
 
     max_rect = [min([left   for left, top, right, bottom in display_areas]) - 8,
                 max([top    for left, top, right, bottom in display_areas]) - 8,
@@ -2555,7 +2558,7 @@ def configure(keymap):
     window_dict = {}
 
     def resize_window(forward_direction):
-        def setRect(rect):
+        def _setRect(rect):
             # setRect 関数を２回繰り返して実行しているのは、DPI スケールが異なるディスプレイがある
             # 場合、表示されているウィンドウの位置によってウィンドウを表示するスケールが決まるため、
             # 一回目でウインドウの位置決めをして、二回目で表示スケールを確定させている。
@@ -2576,16 +2579,16 @@ def configure(keymap):
                         delay()
                         if window not in window_dict:
                             window_dict[window] = list(window.getRect())
-                        setRect(max_rect)
+                        _setRect(max_rect)
                     else:
                         if window in window_dict:
-                            setRect(window_dict[window])
+                            _setRect(window_dict[window])
                             del window_dict[window]
                         else:
                             window.restore()
                 else:
                     if window in window_dict:
-                        setRect(window_dict[window])
+                        _setRect(window_dict[window])
                         del window_dict[window]
 
                         if not forward_direction:
@@ -2595,7 +2598,7 @@ def configure(keymap):
                             window.maximize()
                         else:
                             window_dict[window] = list(window.getRect())
-                            setRect(max_rect)
+                            _setRect(max_rect)
 
     def maximize_window():
         resize_window(True)
@@ -2963,7 +2966,7 @@ def configure(keymap):
     exec(readConfigPersonal("[section-lancherList-1]"), dict(globals(), **locals()))
 
     def lw_lancherList():
-        def popLancherList():
+        def _lw_lancherList():
 
             # 既にリストが開いていたら閉じるだけ
             if keymap.isListWindowOpened():
@@ -3004,7 +3007,7 @@ def configure(keymap):
                 print("エラーが発生しました")
 
         # キーフックの中で時間のかかる処理を実行できないので、delayedCall() を使って遅延実行する
-        keymap.delayedCall(popLancherList, 0)
+        keymap.delayedCall(_lw_lancherList, 0)
 
     # ランチャーリストを起動する
     define_key(keymap_global, fc.lancherList_key, lw_lancherList)
