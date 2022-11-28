@@ -437,7 +437,7 @@ Emacs日本語入力モードは、次の操作で終了します。
 | desktop_switching_key[n][1] の設定値 | next_desktop     | 初期値：W-f（Default key：W-C-Right） |
 |--------------------------------------+------------------+---------------------------------------|
 
-***** ・ アクティブウィンドウ仮想デスクトップの切り替え（Microsoft Store から SylphyHorn のインストールが必要）
+***** ・ アクティブウィンドウ仮想デスクトップの切り替え
 
 |-------------------------------------------------+---------------------------------+----------------------------------------|
 | Keybind                                         | Function                        | Description                            |
@@ -445,6 +445,10 @@ Emacs日本語入力モードは、次の操作で終了します。
 | window_movement_key_for_desktops[n][0] の設定値 | move_window_to_previous_desktop | 初期値：無し（Default key：W-C-Left）  |
 | window_movement_key_for_desktops[n][1] の設定値 | move_window_to_next_desktop     | 初期値：無し（Default key：W-C-Right） |
 |-------------------------------------------------+---------------------------------+----------------------------------------|
+
+※ この機能を利用するためには、SylphyHornPlus のインストールが必要です。詳しくは次のページを参照してください。
+
+- https://github.com/smzht/fakeymacs#9-sylphyhorn-%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%82%92%E8%A1%8C%E3%81%86
 
 ***** ・ IME の「単語登録」プログラムの起動
 
