@@ -2606,7 +2606,7 @@ def configure(keymap):
     def maximize_window():
         resize_window(True)
 
-    def restore_mazimized_window():
+    def restore_maximized_window():
         resize_window(False)
 
     def minimize_window():
@@ -2662,7 +2662,7 @@ def configure(keymap):
 
     # ウィンドウの最大化、リストア
     for restore_key, maximize_key in fc.window_maximize_key:
-        define_key(keymap_global, restore_key,  restore_mazimized_window)
+        define_key(keymap_global, restore_key,  restore_maximized_window)
         define_key(keymap_global, maximize_key, maximize_window)
 
     # ウィンドウの最小化、リストア
