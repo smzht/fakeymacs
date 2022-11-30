@@ -10,19 +10,19 @@ VSCode Extension 用のキーの設定を行う拡張機能です。
 
 *** コンフィグレーションパラメータ
 
-|-------------------------+------------------------------------------------------------------------|
-| Configuration parameter | Description                                                            |
-|-------------------------+------------------------------------------------------------------------|
-| vscode_dired            | vscode-dired Extension を利用するかどうかを指定する                    |
-| vscode_recenter         | Center Editor Window Extension を利用するかどうかを指定する            |
-| vscode_recenter2        | Recenter Top Bottom Extension を利用するかどうかを指定する             |
-| vscode_occur            | Search in Current File Extension  を利用するかどうかを指定する         |
-| vscode_quick_select     | Quick and Simple Text Selection Extension を利用するかどうかを指定する |
-| vscode_input_sequence   | vscode-input-sequence を利用するかどうかを指定する                     |
-| vscode_insert_numbers   | Insert Numbers を利用するかどうかを指定する                            |
-| vscode_keyboard_macro   | Keyboard Macro Beta を利用するかどうかを指定する                       |
-| vscode_filter_text      | Filter Text を利用するかどうかを指定する                               |
-|-------------------------+------------------------------------------------------------------------|
+|--------------------------+------------------------------------------------------------------------|
+| Configuration parameter  | Description                                                            |
+|--------------------------+------------------------------------------------------------------------|
+| fc.vscode_dired          | vscode-dired Extension を利用するかどうかを指定する                    |
+| fc.vscode_recenter       | Center Editor Window Extension を利用するかどうかを指定する            |
+| fc.vscode_recenter2      | Recenter Top Bottom Extension を利用するかどうかを指定する             |
+| fc.vscode_occur          | Search in Current File Extension  を利用するかどうかを指定する         |
+| fc.vscode_quick_select   | Quick and Simple Text Selection Extension を利用するかどうかを指定する |
+| fc.vscode_input_sequence | vscode-input-sequence を利用するかどうかを指定する                     |
+| fc.vscode_insert_numbers | Insert Numbers を利用するかどうかを指定する                            |
+| fc.vscode_keyboard_macro | Keyboard Macro Beta を利用するかどうかを指定する                       |
+| fc.vscode_filter_text    | Filter Text を利用するかどうかを指定する                               |
+|--------------------------+------------------------------------------------------------------------|
 
 *** キーバインド
 

@@ -485,7 +485,7 @@ def configure(keymap):
     fc.window_movement_key_for_displays += [[None, "W-o"]]
     # fc.window_movement_key_for_displays += [[None, "A-S-o"]]
 
-    # ２つのディスプレイに表示されているウィンドウを入れ替えるキーを指定する
+    # デュアルディスプレイにそれぞれ表示されているウィンドウを入れ替えるキーを指定する
     fc.transpose_windows_key = "W-t"
 
     # ウィンドウを最大化、リストアするキーの組み合わせ（リストア、最大化 の順）を指定する（複数指定可）

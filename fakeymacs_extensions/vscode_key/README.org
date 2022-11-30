@@ -8,58 +8,58 @@ VSCode 用のキーの設定を行う拡張機能です。
 
 *** コンフィグレーションパラメータ
 
-|-------------------------------------+-------------------------------------------------------------------------------------------------------|
-| Configuration parameter             | Description                                                                                           |
-|-------------------------------------+-------------------------------------------------------------------------------------------------------|
-| vscode_target                       | VSCode 用のキーバインドを利用するアプリケーションソフトを指定する                                     |
-| vscode_prefix_key                   | 置き換えするプレフィックスキーの組み合わせ（VSCode のキー、Fakeymacs のキー）を指定する（複数指定可） |
-| use_ctrl_atmark_for_mark            | 日本語キーボードを利用する際、VSCode で  C-@ をマーク用のキーとして使うかどうかを指定する             |
-| use_direct_input_in_vscode_terminal | パネルのターミナル内で４つのキー（C-k、C-r、C-s、C-y）のダイレクト入力機能を使うかどうかを指定する    |
-| terminal_list_for_direct_input      | ターミナルをエディタ領域で使う際、ダイレクト入力機能を使うターミナルの種類を指定する                  |
-| esc_mode_in_keyboard_quit           | keyboard_quit 関数コール時の Esc キーの発行方法を指定する                                             |
-|-------------------------------------+-------------------------------------------------------------------------------------------------------|
+|----------------------------------------+-------------------------------------------------------------------------------------------------------|
+| Configuration parameter                | Description                                                                                           |
+|----------------------------------------+-------------------------------------------------------------------------------------------------------|
+| fc.vscode_target                       | VSCode 用のキーバインドを利用するアプリケーションソフトを指定する                                     |
+| fc.vscode_prefix_key                   | 置き換えするプレフィックスキーの組み合わせ（VSCode のキー、Fakeymacs のキー）を指定する（複数指定可） |
+| fc.use_ctrl_atmark_for_mark            | 日本語キーボードを利用する際、VSCode で  C-@ をマーク用のキーとして使うかどうかを指定する             |
+| fc.use_direct_input_in_vscode_terminal | パネルのターミナル内で４つのキー（C-k、C-r、C-s、C-y）のダイレクト入力機能を使うかどうかを指定する    |
+| fc.terminal_list_for_direct_input      | ターミナルをエディタ領域で使う際、ダイレクト入力機能を使うターミナルの種類を指定する                  |
+| fc.esc_mode_in_keyboard_quit           | keyboard_quit 関数コール時の Esc キーの発行方法を指定する                                             |
+|----------------------------------------+-------------------------------------------------------------------------------------------------------|
 
-※ vscode_target 変数の初期値には、ブラウザのアプリケーションソフトも複数指定しています。
+※ fc.vscode_target 変数の初期値には、ブラウザのアプリケーションソフトも複数指定しています。
 これは、ブラウザで vscode.dev にアクセスしたときに VSCode 用のキーバインドを利用できる
 ようにするためです。
 
-※ vscode_prefix_key 変数は、VSCode のプレフィックスキーを使う際、後に入力した文字が全角文字で
+※ fc.vscode_prefix_key 変数は、VSCode のプレフィックスキーを使う際、後に入力した文字が全角文字で
 入力されることがある問題を対策するために設けた設定です。
 
-※ use_ctrl_atmark_for_mark 変数は、VSCode で C-@ を Toggle Terminal 用のキーとして使えるように
+※ fc.use_ctrl_atmark_for_mark 変数は、VSCode で C-@ を Toggle Terminal 用のキーとして使えるように
 するために設けた設定です。
 初期値は False としており、C-@ を Toggle Terminal 用のキーとして使えるようにしています。
 True に設定した場合でも Toggle Terminal 用のキーとして C-<半角／全角> が使えます。
 
-※ use_direct_input_in_vscode_terminal 変数は初期値を False（使わない）としており、
-仕様を理解した方のみ使う機能としています。use_direct_input_in_vscode_terminal 変数を True に
+※ fc.use_direct_input_in_vscode_terminal 変数は初期値を False（使わない）としており、
+仕様を理解した方のみ使う機能としています。fc.use_direct_input_in_vscode_terminal 変数を True に
 した際の仕様については、以降の説明を参照してください。
 
-※ use_direct_input_in_vscode_terminal 変数が False の場合でも、terminal_list_for_direct_input
+※ fc.use_direct_input_in_vscode_terminal 変数が False の場合でも、fc.terminal_list_for_direct_input
 変数に設定しているターミナルをエディタ領域で開いた場合には、４つのキー（C-k、C-r、C-s、C-y）の
 ダイレクト入力が機能します。パネルのターミナルでダイレクト入力機能を利用する場合と異なり、
 現在の場所を認識する必要がなくなるため、シンプルな利用形態になると思います。
 
-※ esc_mode_in_keyboard_quit 変数の設定値には、次のいずれかの値を指定できます。
+※ fc.esc_mode_in_keyboard_quit 変数の設定値には、次のいずれかの値を指定できます。
 - 1：Esc キーを常に発行する
 - 2：C-g を２回連続して押下した場合に Esc キーを発行する
 設定値 2 の利用は、VSCode で Jupyter Notebook を使う場合などを想定しています。
 設定値 1 の場合でも、C-A-g キーにより Esc キーを発行しない keyboard_quit を利用できます。
 
-※ esc_mode_in_keyboard_quit 変数の設定は、vscode_target 変数で指定する全てのアプリケーション
-ソフトに影響します。vscode_target 変数にブラウザアプリを指定している場合には、そこにも影響
+※ fc.esc_mode_in_keyboard_quit 変数の設定は、fc.vscode_target 変数で指定する全てのアプリケーション
+ソフトに影響します。fc.vscode_target 変数にブラウザアプリを指定している場合には、そこにも影響
 しますので、ご留意ください。
 
 *** キーバインド
 
 **** ● VSCode 用プレフィックスキーの置き換え設定
 
-|----------------------------------+----------------------------------+-------------|
-| VSCode's prefix key              | Fakeymacs's prefix key           | Description |
-|----------------------------------+----------------------------------+-------------|
-| C-k                              | C-A-k                            |             |
-| vscode_prefix_key[n][0] の設定値 | vscode_prefix_key[n][1] の設定値 |             |
-|----------------------------------+----------------------------------+-------------|
+|-------------------------------------+-------------------------------------+-------------|
+| VSCode's prefix key                 | Fakeymacs's prefix key              | Description |
+|-------------------------------------+-------------------------------------+-------------|
+| C-k                                 | C-A-k                               |             |
+| fc.vscode_prefix_key[n][0] の設定値 | fc.vscode_prefix_key[n][1] の設定値 |             |
+|-------------------------------------+-------------------------------------+-------------|
 
 ※ Fakeymacs のプレフィックスキーを利用することにより、プレフィックスキーの後に入力するキーが
 全角文字で入力されることが無くなります。
@@ -112,7 +112,7 @@ True に設定した場合でも Toggle Terminal 用のキーとして C-<半角
 | C-A-<数字キー> | switch_focus(<数字キーの値>) | View: Focus Side Bar or n-th Editor Group |             |
 |----------------+------------------------------+-------------------------------------------+-------------|
 
-※ C-<数字キー> は、use_ctrl_digit_key_for_digit_argument 変数が False（初期値）の場合に機能します。
+※ C-<数字キー> は、fc.use_ctrl_digit_key_for_digit_argument 変数が False（初期値）の場合に機能します。
 True の場合（C-<数字キー> は数引数の指定用として使われる）には、代わりに C-A-<数字キー> が機能する
 ようにしています。
 
@@ -141,7 +141,7 @@ True の場合（C-<数字キー> は数引数の指定用として使われる�
 |---------+----------------------------+----------------------------------------------+------------------------------------|
 
 ※ マルチカーソルを維持したまま選択したリージョンを解除するには、Esc キーを発行しない
-keyboard_quit（C-A-g）を利用してください。（esc_mode_in_keyboard_quit 変数が 2 の場合は、
+keyboard_quit（C-A-g）を利用してください。（fc.esc_mode_in_keyboard_quit 変数が 2 の場合は、
 連続入力しない C-g を利用することもできます。）
 
 ※ 「矩形選択 / マルチカーソル」の機能については、次のページを参考としてください。
@@ -180,11 +180,11 @@ keyboard_quit（C-A-g）を利用してください。（esc_mode_in_keyboard_qu
 | C-<半角/全角>   | toggle_terminal | View: Toggle Terminal                    | JIS Keyboard の場合 |
 |-----------------+-----------------+------------------------------------------+---------------------|
 
-※ C-@ は、use_ctrl_atmark_for_mark 変数が False の場合に機能します。
+※ C-@ は、fc.use_ctrl_atmark_for_mark 変数が False の場合に機能します。
 
-※ use_direct_input_in_vscode_terminal 変数を True にしている場合には、上記のいずれかのキーを押下して
+※ fc.use_direct_input_in_vscode_terminal 変数を True にしている場合には、上記のいずれかのキーを押下して
 ターミナルに移行することで、４つのキー（C-k、C-r、C-s、C-y）のダイレクト入力ができるようになります。
-use_direct_input_in_vscode_terminal 変数が False（初期値）の場合でも、side_of_ctrl_key 変数で設定した
+fc.use_direct_input_in_vscode_terminal 変数が False（初期値）の場合でも、fc.side_of_ctrl_key 変数で設定した
 側でない Ctrl キーを使うか C-q を前置することで、４つのキーのダイレクト入力を行うことができます。
 
 ※ ターミナルで C-k を利用できるようにするには、VSCode の 設定で terminal.integrated.allowChords
@@ -199,7 +199,7 @@ use_direct_input_in_vscode_terminal 変数が False（初期値）の場合で�
 
 - https://note.com/kokoronopython/n/nbf09b3b5db46
 
-※ use_direct_input_in_vscode_terminal 変数を True にしている場合にターミナルから抜ける場合は、
+※ fc.use_direct_input_in_vscode_terminal 変数を True にしている場合にターミナルから抜ける場合は、
 次のキーを利用するようにしてください。先に説明した４つのキーが VSCode のショートカットキーとして
 認識されるように戻ります。
 
@@ -232,8 +232,8 @@ Fakeymacs に現在の場所を再認識させるようにしてください。
 ※ エディタ領域にターミナルを開く場合には、上記のキーを利用してください。
 
 ※ エディタ領域に表示するターミナルでは、ウィンドウのタイトルからターミナルが選択されていることを
-判別できます。このため、terminal_list_for_direct_input 変数に設定しているターミナルについては、
-use_direct_input_in_vscode_terminal 変数の設定に関わらず、４つのキー（C-k、C-r、C-s、C-y）の
+判別できます。このため、fc.terminal_list_for_direct_input 変数に設定しているターミナルについては、
+fc.use_direct_input_in_vscode_terminal 変数の設定に関わらず、４つのキー（C-k、C-r、C-s、C-y）の
 ダイレクト入力が行われるようにしています。
 
 **** ● 「その他」のキー設定
@@ -247,7 +247,7 @@ use_direct_input_in_vscode_terminal 変数の設定に関わらず、４つの�
 | C-:     | trigger_suggest          | Trigger Suggest     | JIS Keyboard の場合 |
 |---------+--------------------------+---------------------+---------------------|
 
-※ Meta（M-）で Esc を利用したい場合には、use_esc_as_meta 変数を True にしてください。
+※ Meta（M-）で Esc を利用したい場合には、fc.use_esc_as_meta 変数を True にしてください。
 True にした場合に Esc を入力するには、Esc を二回押下してください。
 
 ※ IntelliSense の機能については、次のページを参考としてください。
@@ -286,7 +286,7 @@ def vscodeExecuteCommand(command):
 ● 本フォルダにある _config_personal.py を config_personal.py というファイル名にすることで
 機能拡張ファイルとして機能します。vscode_key Extension の機能を拡張する際にご利用ください。
 
-● side_of_ctrl_key 変数で設定した側でない Ctrl キーを使う、C-q を前置する、vscode_prefix_key
+● fc.side_of_ctrl_key 変数で設定した側でない Ctrl キーを使う、C-q を前置する、fc.vscode_prefix_key
 で指定した Fakeymacs 用のプレフィックスキーを使うことで、VSCode 本来のショートカットキーを
 入力することもできます。VSCode のショートカットキーは、次のページで詳しく紹介されています。
 
