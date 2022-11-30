@@ -2654,7 +2654,7 @@ def configure(keymap):
         define_key(keymap_global, previous_key, move_window_to_previous_display)
         define_key(keymap_global, next_key,     move_window_to_next_display)
 
-    # ２つのディスプレイ間のウィンドウ入れ替え
+    # デュアルディスプレイにそれぞれ表示されているウィンドウの入れ替え
     define_key(keymap_global, fc.transpose_windows_key, transpose_windows)
 
     # ウィンドウの最大化、リストア
