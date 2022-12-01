@@ -413,11 +413,11 @@ Emacs日本語入力モードは、次の操作で終了します。
 |---------------------------------------+--------------------------+---------------|
 | Keybind                               | Function                 | Description   |
 |---------------------------------------+--------------------------+---------------|
-| fc.window_maximize_key[n][0] の設定値 | restore_maximized_window | 初期値：W-S-m |
-| fc.window_maximize_key[n][1] の設定値 | maximize_window          | 初期値：W-m   |
+| fc.window_maximize_key[n][0] の設定値 | restore_maximized_window | 初期値：W-S-q |
+| fc.window_maximize_key[n][1] の設定値 | maximize_window          | 初期値：W-q   |
 |---------------------------------------+--------------------------+---------------|
 
-※ Windows ショートカットキーの W-s の機能は、W-q で代用可能です
+※ Windows ショートカットキーの W-q の機能は、W-s で代用可能です
 
 ***** ・ ウィンドウの最小化、リストア
 

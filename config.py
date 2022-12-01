@@ -491,7 +491,8 @@ def configure(keymap):
     # ウィンドウを最大化、リストアするキーの組み合わせ（リストア、最大化 の順）を指定する（複数指定可）
     # （マルチディスプレイでの最大化にも対応しています）
     fc.window_maximize_key = []
-    fc.window_maximize_key += [["W-S-m", "W-m"]] # Windows ショートカットキーの W-m の機能は、W-d で代用可
+    fc.window_maximize_key += [["W-S-q", "W-q"]] # Windows ショートカットキーの W-q の機能は、W-s で代用可
+    # fc.window_maximize_key += [["W-S-m", "W-m"]] # Windows ショートカットキーの W-m の機能は、W-d で代用可
     # fc.window_maximize_key += [["W-S-s", "W-s"]] # Windows ショートカットキーの W-s の機能は、W-q で代用可
 
     # ウィンドウを最小化、リストアするキーの組み合わせ（リストア、最小化 の順）を指定する（複数指定可）
