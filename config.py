@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20221201_01"
+fakeymacs_version = "20221205_01"
 
 import time
 import os.path
@@ -2011,12 +2011,9 @@ def configure(keymap):
     ## quoted-insertキーの設定
     for vkey in vkeys():
         key = vkToStr(vkey)
-        for mod1 in ["", "W-"]:
-            for mod2 in ["", "A-"]:
-                for mod3 in ["", "C-"]:
-                    for mod4 in ["", "S-"]:
-                        mkey = mod1 + mod2 + mod3 + mod4 + key
-                        define_key(keymap_emacs, "C-q " + mkey, self_insert_command(mkey))
+        for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
+            mkey = mod1 + mod2 + mod3 + mod4 + key
+            define_key(keymap_emacs, "C-q " + mkey, self_insert_command(mkey))
 
     ## Escキーの設定
     define_key(keymap_emacs, "C-[ C-[", reset_undo(reset_counter(escape)))
