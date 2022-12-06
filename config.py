@@ -1952,10 +1952,10 @@ def configure(keymap):
     # ・A-    : Altキー（fc.side_of_alt_key 変数で指定した側のキー）
     # ・LA-   : LAltキー
     # ・RA-   : RAltキー
-    # ・M-    : Altキー と Esc、C-[ のプレフィックスキーを利用する３パターンを定義（Emacs の Meta と同様）
     # ・W-    : Winキー（fc.side_of_win_key 変数で指定した側のキー）
     # ・LW-   : LWinキー
     # ・RW-   : RWinキー
+    # ・M-    : Altキー と Esc、C-[ のプレフィックスキーを利用する３パターンを定義（Emacs の Meta と同様）
     # ・Ctl-x : fc.ctl_x_prefix_key 変数で定義されているプレフィックスキーに置換え
     # ・(999) : 仮想キーコード指定
 
