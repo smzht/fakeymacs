@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20221205_02"
+fakeymacs_version = "20221206_01"
 
 import time
 import os.path
@@ -355,7 +355,7 @@ def configure(keymap):
     # IME の「再変換」を行うキーを指定する
 
     ## IME の「再変換」のために利用するキーを設定する（複数指定可）
-    ## （Google日本語入力を利用する場合、Ctrl キーと組み合わせたキーを設定してください。「確定取り消し」
+    ## （Google日本語入力を利用する場合、Ctrlキーと組み合わせたキーを設定してください。「確定取り消し」
     ##   が正常に動作しないアプリケーションソフト（Microsoft Excel、Sakura Editor など）があります。
     ##   ただし、C-Back キーは設定しないでください。）
     ## （リージョンを選択した状態で Space キーを押下すると「再変換」が機能します）
@@ -548,9 +548,9 @@ def configure(keymap):
     #   ください。）
     fc.is_newline_selectable_in_Excel = False
 
-    # Ctrl キー単押しで開く Ctrl ボタンを持つアプリケーションソフト（プロセス名称とクラス名称の
+    # Ctrlキー単押しで開く Ctrl ボタンを持つアプリケーションソフト（プロセス名称とクラス名称の
     # 組み合わせ（ワイルドカード指定可））を指定する
-    # （Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrl キーの単押しによりサブウインドウが
+    # （Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrlキーの単押しによりサブウインドウが
     #   開く機能があります。その挙動を抑制するアプリケーションソフトのリストを指定してください。）
     fc.ctrl_button_app_list = [["WINWORD.EXE",  "_WwG"],
                                ["EXCEL.EXE",    "EXCEL*"],
@@ -770,7 +770,7 @@ def configure(keymap):
                     fakeymacs.ctrl_button_app = True
                     break
 
-            # Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrl キーの単押しによりサブウインドウが
+            # Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrlキーの単押しによりサブウインドウが
             # 開く機能がある。その挙動を抑制するための対策。
             if fakeymacs.ctrl_button_app:
                 if fc.side_of_ctrl_key == "L":
@@ -1711,7 +1711,7 @@ def configure(keymap):
                 if len(pos_list) == 1:
                     window_keymap[pos_list[0]] = _keyCommand(key_list[0])
 
-                    # Alt キーを単押しした際に、カーソルがメニューへ移動しないようにするための対策
+                    # Altキーを単押しした際に、カーソルがメニューへ移動しないようにするための対策
                     # （https://www.haijin-boys.com/discussions/4583）
                     if re.match(r"O-LAlt$", pos_list[0], re.IGNORECASE):
                         window_keymap["D-LAlt"] = "D-LAlt", "(255)"
@@ -1777,7 +1777,7 @@ def configure(keymap):
 
         def _func():
             func()
-            # Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrl キーの単押しによりサブウインドウが
+            # Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrlキーの単押しによりサブウインドウが
             # 開く機能がある。その挙動を抑制するための対策。
             if fakeymacs.ctrl_button_app:
                 if keyhac_keymap.checkModifier(keymap.modifier, MODKEY_CTRL):
@@ -1945,12 +1945,18 @@ def configure(keymap):
     ##################################################
 
     # キーバインドの定義に利用している表記の意味は次のとおりです。
-    # ・S-    : Shiftキー
-    # ・C-    : Ctrlキー
-    # ・A-    : Altキー
+    # ・S-    : Shiftキー（左右どちらでも）
+    # ・C-    : Ctrlキー（fc.side_of_ctrl_key 変数で指定した側のキー）
+    # ・LC-   : LCtrlキー
+    # ・RC-   : RCtrlキー
+    # ・A-    : Altキー（fc.side_of_alt_key 変数で指定した側のキー）
+    # ・LA-   : LAltキー
+    # ・RA-   : RAltキー
     # ・M-    : Altキー と Esc、C-[ のプレフィックスキーを利用する３パターンを定義（Emacs の Meta と同様）
-    # ・W-    : Winキー
-    # ・Ctl-x : ctl_x_prefix_key 変数で定義されているプレフィックスキーに置換え
+    # ・W-    : Winキー（fc.side_of_win_key 変数で指定した側のキー）
+    # ・LW-   : LWinキー
+    # ・RW-   : RWinキー
+    # ・Ctl-x : fc.ctl_x_prefix_key 変数で定義されているプレフィックスキーに置換え
     # ・(999) : 仮想キーコード指定
 
     # https://github.com/crftwr/keyhac/blob/master/keyhac_keymap.py
