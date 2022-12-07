@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20221206_01"
+fakeymacs_version = "20221207_01"
 
 import time
 import os.path
@@ -254,13 +254,13 @@ def configure(keymap):
     #   のような指定の他に、"M-f" や "Ctl-x d" などの指定も可能です。"M-g*" のようにワイルドカードも
     #   利用することができます。）
     # （ここで指定したキーに新たに別のキー設定をしたいときには、define_key2 関数を利用してください）
-    fc.skip_settings_key    = {"keymap_base"      : ["*W-g"], # ベース Keymap
-                               "keymap_global"    : [],       # グローバル Keymap
-                               "keymap_emacs"     : [],       # Emacs キーバインド対象アプリ用 Keymap
-                               "keymap_ime"       : [],       # IME 切り替え専用アプリ用 Keymap
-                               "keymap_ei"        : [],       # Emacs 日本語入力モード用 Keymap
-                               "keymap_tsw"       : [],       # タスク切り替え画面用 Keymap
-                               "keymap_lw"        : [],       # リストウィンドウ用 Keymap
+    fc.skip_settings_key    = {"keymap_base"      : ["W-g"], # ベース Keymap
+                               "keymap_global"    : [],      # グローバル Keymap
+                               "keymap_emacs"     : [],      # Emacs キーバインド対象アプリ用 Keymap
+                               "keymap_ime"       : [],      # IME 切り替え専用アプリ用 Keymap
+                               "keymap_ei"        : [],      # Emacs 日本語入力モード用 Keymap
+                               "keymap_tsw"       : [],      # タスク切り替え画面用 Keymap
+                               "keymap_lw"        : [],      # リストウィンドウ用 Keymap
                                }
 
     # Emacs のキーバインドにするアプリケーションソフトで、Emacs キーバインドから除外するキーを指定する
@@ -1771,10 +1771,9 @@ def configure(keymap):
 
     def InputKeyCommand(*key_list, usjis_conv=True):
         if usjis_conv:
-            func = keymap.InputKeyCommand(*keyInput(key_list))
-        else:
-            func = keymap.InputKeyCommand(*key_list)
+            key_list = keyInput(key_list)
 
+        func = keymap.InputKeyCommand(*key_list)
         def _func():
             func()
             # Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrlキーの単押しによりサブウインドウが
@@ -1945,19 +1944,11 @@ def configure(keymap):
     ##################################################
 
     # キーバインドの定義に利用可能な表記の意味は次のとおりです。
-    # ・S-    : Shiftキー（左右どちらでも）
-    # ・LS-   : LShiftキー
-    # ・RS-   : RShiftキー
-    # ・C-    : Ctrlキー（fc.side_of_ctrl_key 変数で指定した側のキー）
-    # ・LC-   : LCtrlキー
-    # ・RC-   : RCtrlキー
-    # ・A-    : Altキー（fc.side_of_alt_key 変数で指定した側のキー）
-    # ・LA-   : LAltキー
-    # ・RA-   : RAltキー
-    # ・W-    : Winキー（fc.side_of_win_key 変数で指定した側のキー）
-    # ・LW-   : LWinキー
-    # ・RW-   : RWinキー
+    # ・S-    : Shiftキー
+    # ・C-    : Ctrlキー
+    # ・A-    : Altキー
     # ・M-    : Altキー と Esc、C-[ のプレフィックスキーを利用する３パターンを定義（Emacs の Meta と同様）
+    # ・W-    : Winキー
     # ・Ctl-x : fc.ctl_x_prefix_key 変数で定義されているプレフィックスキーに置換え
     # ・(999) : 仮想キーコード指定
 
@@ -1969,10 +1960,7 @@ def configure(keymap):
     ## 全てのキーパターンの設定（キーの入力記録を残すための設定）
     for vkey in vkeys():
         key = vkToStr(vkey)
-        for mod1, mod2, mod3, mod4 in itertools.product(["", "LW-", "RW-"],
-                                                        ["", "LA-", "RA-"],
-                                                        ["", "LC-", "RC-"],
-                                                        ["", "S-"]):
+        for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
             mkey = mod1 + mod2 + mod3 + mod4 + key
             define_key(keymap_base, mkey, self_insert_command(mkey))
 
