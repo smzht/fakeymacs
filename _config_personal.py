@@ -93,18 +93,18 @@ fc.emacs_exclusion_key  = {"chrome.exe"       : ["C-l", "C-t"],
                            "Code.exe"         : ["C-S-b", "C-S-f", "C-S-p", "C-S-n", "C-S-a", "C-S-e"],
                            }
 
-# 左右どちらの Ctrlキーを使うかを指定する（"L": 左、"R": 右）
+# 左右どちらの Ctrl キーを使うかを指定する（"L": 左、"R": 右）
 fc.side_of_ctrl_key = "L"
 # fc.side_of_ctrl_key = "R"
 
-# Escキーを Metaキーとして使うかどうかを指定する（True: 使う、False: 使わない）
-# （True（Metaキーとして使う）に設定されている場合、ESC の二回押下で ESC が入力されます）
+# Esc キーを Meta キーとして使うかどうかを指定する（True: 使う、False: 使わない）
+# （True（Meta キーとして使う）に設定されている場合、ESC の二回押下で ESC が入力されます）
 fc.use_esc_as_meta = False
 
-# Emacs日本語入力モードを使うかどうかを指定する（True: 使う、False: 使わない）
+# Emacs 日本語入力モードを使うかどうかを指定する（True: 使う、False: 使わない）
 fc.use_emacs_ime_mode = True
 
-# Emacs日本語入力モードが有効なときに表示するバルーンメッセージを指定する
+# Emacs 日本語入力モードが有効なときに表示するバルーンメッセージを指定する
 # fc.emacs_ime_mode_balloon_message = None
 fc.emacs_ime_mode_balloon_message = "▲"
 
@@ -145,7 +145,7 @@ fc.set_input_method_key += [["(26)", "(22)"]]
 #---------------------------------------------------------------------------------------------------
 
 #---------------------------------------------------------------------------------------------------
-# Emacs日本語入力モードを利用する際に、IME のショートカットを置き換えるキーの組み合わせ
+# Emacs 日本語入力モードを利用する際に、IME のショートカットを置き換えるキーの組み合わせ
 # （置き換え先、置き換え元）を指定する
 # （「ことえり」のキーバインドを利用するための設定例です。Google日本語入力で「ことえり」の
 #   キー設定になっている場合には不要ですが、設定を行っていても問題はありません。）
@@ -374,7 +374,7 @@ if 0:
 # 指定したキーを押下したときに IME の状態を表示する
 if 0:
     fc.pop_ime_balloon_key = ["C-;"]
-    # fc.pop_ime_balloon_key = ["O-" + fc.side_of_ctrl_key + "Ctrl"] # Ctrlキーの単押し
+    # fc.pop_ime_balloon_key = ["O-" + fc.side_of_ctrl_key + "Ctrl"] # Ctrl キーの単押し
     exec(readConfigExtension(r"pop_ime_balloon\config.py"), dict(globals(), **locals()))
 
 # --------------------------------------------------------------------------------------------------

@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20221207_01"
+fakeymacs_version = "20221211_01"
 
 import time
 import os.path
@@ -126,7 +126,7 @@ def configure(keymap):
     #   モードに移行する不具合が発生します。（バージョン 93 で対策済みですが、過去にも度々発生しています。）
     #   ・https://did2memo.net/2021/07/22/chrome-japanese-ime-off-issue-chrome-92/
     #   さらに Google日本語入力を利用している場合、keymap.getWindow().getImeStatus() が True を返すため、
-    #   Emacs日本語入力モードの挙動がおかしくなります。この対策を行うかどうかを指定します。）
+    #   Emacs 日本語入力モードの挙動がおかしくなります。この対策を行うかどうかを指定します。）
     fc.correct_ime_status = False
 
     # 上記の対策を行う Chromium 系ブラウザのプログラム名称を指定する
@@ -281,34 +281,34 @@ def configure(keymap):
     fc.not_clipboard_target_class = []
     fc.not_clipboard_target_class += ["HwndWrapper*"] # WPF アプリ
 
-    # 左右どちらの Ctrlキーを使うかを指定する（"L": 左、"R": 右）
+    # 左右どちらの Ctrl キーを使うかを指定する（"L": 左、"R": 右）
     fc.side_of_ctrl_key = "L"
 
-    # 左右どちらの Altキーを使うかを指定する（"L": 左、"R": 右）
+    # 左右どちらの Alt キーを使うかを指定する（"L": 左、"R": 右）
     fc.side_of_alt_key = "L"
 
-    # 左右どちらの Winキーを使うかを指定する（"L": 左、"R": 右）
+    # 左右どちらの Win キーを使うかを指定する（"L": 左、"R": 右）
     fc.side_of_win_key = "L"
 
-    # C-iキーを Tabキーとして使うかどうかを指定する（True: 使う、False: 使わない）
+    # C-i キーを Tab キーとして使うかどうかを指定する（True: 使う、False: 使わない）
     fc.use_ctrl_i_as_tab = True
 
-    # Escキーを Metaキーとして使うかどうかを指定する（True: 使う、False: 使わない）
-    # （True（Metaキーとして使う）に設定されている場合、ESC の二回押下で ESC が入力されます）
+    # Esc キーを Meta キーとして使うかどうかを指定する（True: 使う、False: 使わない）
+    # （True（Meta キーとして使う）に設定されている場合、ESC の二回押下で ESC が入力されます）
     fc.use_esc_as_meta = False
 
-    # Ctl-xプレフィックスキーに使うキーを指定する
-    # （Ctl-xプレフィックスキーのモディファイアキーは、Ctrl または Alt のいずれかから指定してください）
+    # Ctl-x プレフィックスキーに使うキーを指定する
+    # （Ctl-x プレフィックスキーのモディファイアキーは、Ctrl または Alt のいずれかから指定してください）
     fc.ctl_x_prefix_key = "C-x"
 
     # スクロールに使うキーの組み合わせ（Up、Down の順）を指定する
-    # fc.scroll_key = None # PageUp、PageDownキーのみを利用する
+    # fc.scroll_key = None # PageUp、PageDown キーのみを利用する
     fc.scroll_key = ["M-v", "C-v"]
 
-    # Emacs日本語入力モードを使うかどうかを指定する（True: 使う、False: 使わない）
+    # Emacs 日本語入力モードを使うかどうかを指定する（True: 使う、False: 使わない）
     fc.use_emacs_ime_mode = True
 
-    # Emacs日本語入力モードが有効なときに表示するバルーンメッセージを指定する
+    # Emacs 日本語入力モードが有効なときに表示するバルーンメッセージを指定する
     # fc.emacs_ime_mode_balloon_message = None
     fc.emacs_ime_mode_balloon_message = "▲"
 
@@ -355,7 +355,7 @@ def configure(keymap):
     # IME の「再変換」を行うキーを指定する
 
     ## IME の「再変換」のために利用するキーを設定する（複数指定可）
-    ## （Google日本語入力を利用する場合、Ctrlキーと組み合わせたキーを設定してください。「確定取り消し」
+    ## （Google 日本語入力を利用する場合、Ctrl キーと組み合わせたキーを設定してください。「確定取り消し」
     ##   が正常に動作しないアプリケーションソフト（Microsoft Excel、Sakura Editor など）があります。
     ##   ただし、C-Back キーは設定しないでください。）
     ## （リージョンを選択した状態で Space キーを押下すると「再変換」が機能します）
@@ -395,7 +395,7 @@ def configure(keymap):
     #---------------------------------------------------------------------------------------------------
 
     #---------------------------------------------------------------------------------------------------
-    # Emacs日本語入力モードを利用する際に、IME のショートカットを置き換えるキーの組み合わせ
+    # Emacs 日本語入力モードを利用する際に、IME のショートカットを置き換えるキーの組み合わせ
     # （置き換え先、置き換え元）を指定する
     # （「ことえり」のキーバインドを利用するための設定例です。Google日本語入力で「ことえり」の
     #   キー設定になっている場合には不要ですが、設定を行っていても問題はありません。）
@@ -443,9 +443,9 @@ def configure(keymap):
     # （Emacs キーバインドを利用するアプリケーションでかつフォーカスが当たっているアプリケーションソフト
     #   に対して切り替えが機能します。また、Emacs キーバインドを OFF にしても、IME の切り替えは ime_target
     #   に登録したアプリケーションソフトと同様に機能するようにしています。）
-    # （emacs_target_class 変数に指定したクラス（初期値：Edit）に該当するアプリケーションソフト（Windows
-    #   10版 Notepad など）は、Emacs キーバインドを切り替えの対象となりません（常に Emacs キーバインドと
-    #   なります）。）
+    # （fc.emacs_target_class 変数に指定したクラス（初期値：Edit）に該当するアプリケーションソフト
+    #   （Windows10版 Notepad など）は、Emacs キーバインドを切り替えの対象となりません（常に Emacs
+    #   キーバインドとなります）。）
     fc.toggle_emacs_keybind_key = "C-S-Space"
 
     # アプリケーションキーとして利用するキーを指定する
@@ -501,7 +501,7 @@ def configure(keymap):
 
     # 仮想デスクトップを切り替えるキーの組み合わせ（前、後 の順）を指定する（複数指定可）
     # （仮想デスクトップを切り替えた際にフォーカスのあるウィンドウを適切に処理するため、設定するキーは
-    #   Winキーとの組み合わせとしてください）
+    #   Win キーとの組み合わせとしてください）
     # （デフォルトキーは、["W-C-Left", "W-C-Right"]）
     fc.desktop_switching_key = []
     fc.desktop_switching_key += [["W-b", "W-f"]]
@@ -548,9 +548,9 @@ def configure(keymap):
     #   ください。）
     fc.is_newline_selectable_in_Excel = False
 
-    # Ctrlキー単押しで開く Ctrl ボタンを持つアプリケーションソフト（プロセス名称とクラス名称の
+    # Ctrl キー単押しで開く Ctrl ボタンを持つアプリケーションソフト（プロセス名称とクラス名称の
     # 組み合わせ（ワイルドカード指定可））を指定する
-    # （Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrlキーの単押しによりサブウインドウが
+    # （Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrl キーの単押しによりサブウインドウが
     #   開く機能があります。その挙動を抑制するアプリケーションソフトのリストを指定してください。）
     fc.ctrl_button_app_list = [["WINWORD.EXE",  "_WwG"],
                                ["EXCEL.EXE",    "EXCEL*"],
@@ -770,7 +770,7 @@ def configure(keymap):
                     fakeymacs.ctrl_button_app = True
                     break
 
-            # Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrlキーの単押しによりサブウインドウが
+            # Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrl キーの単押しによりサブウインドウが
             # 開く機能がある。その挙動を抑制するための対策。
             if fakeymacs.ctrl_button_app:
                 if fc.side_of_ctrl_key == "L":
@@ -874,7 +874,7 @@ def configure(keymap):
     # ウィンドウのリストアが最小化した順番の逆順となるように制御する
     fakeymacs.reverse_window_to_restore = False
 
-    # Ctl-xプレフィックスキーを構成するキーの仮想キーコードを設定する
+    # Ctl-x プレフィックスキーを構成するキーの仮想キーコードを設定する
     if fc.ctl_x_prefix_key:
         keyCondition = usjisFilter(keyhac_keymap.KeyCondition.fromString, fc.ctl_x_prefix_key)
 
@@ -890,7 +890,7 @@ def configure(keymap):
             else:
                 ctl_x_prefix_vkey = [VK_RMENU, keyCondition.vk]
         else:
-            print("Ctl-xプレフィックスキーのモディファイアキーは、Ctrl または Alt のいずれかから指定してください")
+            print("Ctl-x プレフィックスキーのモディファイアキーは、Ctrl または Alt のいずれかから指定してください")
 
     ##################################################
     ## Emacs キーバインドの切り替え
@@ -1319,7 +1319,7 @@ def configure(keymap):
 
     def kmacro_end_macro():
         keymap.command_RecordStop()
-        # キーボードマクロの終了キー「Ctl-xプレフィックスキー + ")"」の Ctl-xプレフィックスキーがマクロに
+        # キーボードマクロの終了キー「Ctl-x プレフィックスキー + ")"」の Ctl-x プレフィックスキーがマクロに
         # 記録されてしまうのを対策する（キーボードマクロの終了キーの前提を「Ctl-xプレフィックスキー + ")"」
         # としていることについては、とりあえず了承ください。）
         if fc.ctl_x_prefix_key and len(keymap.record_seq) >= 4:
@@ -1691,9 +1691,9 @@ def configure(keymap):
                             input_seq = []
                             for vk_mod in keymap.vk_mod_map.items():
                                 # 「Time stamp Inversion happend.」メッセージがでると、キーの繰り返し入力後に
-                                # Shiftキーが押されたままの状態となる。根本的な対策ではないが、Shiftキーの
+                                # Shift キーが押されたままの状態となる。根本的な対策ではないが、Shift キーの
                                 # 押下の状態の復元を除外することで、暫定的な対策とする。
-                                # （Shiftキーは押しっぱなしにするキーではないので、押した状態を復元しなくとも
+                                # （Shift キーは押しっぱなしにするキーではないので、押した状態を復元しなくとも
                                 #   ほとんどの場合、問題は起きない）
                                 if vk_mod[0] not in [VK_LSHIFT, VK_RSHIFT]:
                                     if modifier & vk_mod[1]:
@@ -1711,7 +1711,7 @@ def configure(keymap):
                 if len(pos_list) == 1:
                     window_keymap[pos_list[0]] = _keyCommand(key_list[0])
 
-                    # Altキーを単押しした際に、カーソルがメニューへ移動しないようにするための対策
+                    # Alt キーを単押しした際に、カーソルがメニューへ移動しないようにするための対策
                     # （https://www.haijin-boys.com/discussions/4583）
                     if re.match(r"O-LAlt$", pos_list[0], re.IGNORECASE):
                         window_keymap["D-LAlt"] = "D-LAlt", "(255)"
@@ -1776,7 +1776,7 @@ def configure(keymap):
         func = keymap.InputKeyCommand(*key_list)
         def _func():
             func()
-            # Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrlキーの単押しによりサブウインドウが
+            # Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrl キーの単押しによりサブウインドウが
             # 開く機能がある。その挙動を抑制するための対策。
             if fakeymacs.ctrl_button_app:
                 if keyhac_keymap.checkModifier(keymap.modifier, MODKEY_CTRL):
@@ -1944,11 +1944,11 @@ def configure(keymap):
     ##################################################
 
     # キーバインドの定義に利用可能な表記の意味は次のとおりです。
-    # ・S-    : Shiftキー
-    # ・C-    : Ctrlキー
-    # ・A-    : Altキー
-    # ・M-    : Altキー と Esc、C-[ のプレフィックスキーを利用する３パターンを定義（Emacs の Meta と同様）
-    # ・W-    : Winキー
+    # ・S-    : Shift キー
+    # ・C-    : Ctrl キー
+    # ・A-    : Alt キー
+    # ・M-    : Alt キー と Esc、C-[ のプレフィックスキーを利用する３パターンを定義（Emacs の Meta と同様）
+    # ・W-    : Win キー
     # ・Ctl-x : fc.ctl_x_prefix_key 変数で定義されているプレフィックスキーに置換え
     # ・(999) : 仮想キーコード指定
 
@@ -2007,21 +2007,21 @@ def configure(keymap):
         define_key(keymap_emacs, key, reset_undo(reset_counter(reset_mark(repeat(self_insert_command2(key))))))
         define_key(keymap_ime,   key, self_insert_command2(key))
 
-    ## quoted-insertキーの設定
+    ## quoted-insert キーの設定
     for vkey in vkeys():
         key = vkToStr(vkey)
         for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
             mkey = mod1 + mod2 + mod3 + mod4 + key
             define_key(keymap_emacs, "C-q " + mkey, self_insert_command(mkey))
 
-    ## Escキーの設定
+    ## Esc キーの設定
     define_key(keymap_emacs, "C-[ C-[", reset_undo(reset_counter(escape)))
     if fc.use_esc_as_meta:
         define_key(keymap_emacs, "Esc Esc", reset_undo(reset_counter(escape)))
     else:
         define_key(keymap_emacs, "Esc", reset_undo(reset_counter(escape)))
 
-    ## universal-argumentキーの設定
+    ## universal-argument キーの設定
     define_key(keymap_emacs, "C-u", universal_argument)
 
     ## 「IME の切り替え」のキー設定
@@ -2185,7 +2185,7 @@ def configure(keymap):
 
 
     ###########################################################################
-    ## Emacs日本語入力モードの設定
+    ## Emacs 日本語入力モードの設定
     ###########################################################################
     if fc.use_emacs_ime_mode:
 
@@ -2206,11 +2206,11 @@ def configure(keymap):
 
         keymap_ei = keymap.defineWindowKeymap(check_func=is_emacs_ime_mode2)
 
-        # Emacs日本語入力モードが開始されたときのウィンドウオブジェクトを格納する変数を初期化する
+        # Emacs 日本語入力モードが開始されたときのウィンドウオブジェクトを格納する変数を初期化する
         fakeymacs.ei_last_window = None
 
         ##################################################
-        ## Emacs日本語入力モード の切り替え
+        ## Emacs 日本語入力モード の切り替え
         ##################################################
 
         def enable_emacs_ime_mode(delay=0):
@@ -2222,7 +2222,7 @@ def configure(keymap):
             ei_updateKeymap(0)
 
         ##################################################
-        ## IME の切り替え（Emacs日本語入力モード用）
+        ## IME の切り替え（Emacs 日本語入力モード用）
         ##################################################
 
         def ei_enable_input_method():
@@ -2268,7 +2268,7 @@ def configure(keymap):
             return _func
 
         ##################################################
-        ## その他（Emacs日本語入力モード用）
+        ## その他（Emacs 日本語入力モード用）
         ##################################################
 
         def ei_esc():
@@ -2284,7 +2284,7 @@ def configure(keymap):
             disable_emacs_ime_mode()
 
         ##################################################
-        ## 共通関数（Emacs日本語入力モード用）
+        ## 共通関数（Emacs 日本語入力モード用）
         ##################################################
 
         def ei_popBalloon(ime_mode_status):
@@ -2308,7 +2308,7 @@ def configure(keymap):
                 keymap.delayedCall(keymap.updateKeymap, delay)
 
         ##################################################
-        ## キーバインド（Emacs日本語入力モード用）
+        ## キーバインド（Emacs 日本語入力モード用）
         ##################################################
 
         ## 「IME の切り替え」のキー設定
@@ -2318,7 +2318,7 @@ def configure(keymap):
         define_key(keymap_ei, "(240)",   ei_disable_input_method)
         define_key(keymap_ei, "S-(240)", ei_disable_input_method)
 
-        ## Escキーの設定
+        ## Esc キーの設定
         define_key(keymap_ei, "Esc", ei_esc)
         define_key(keymap_ei, "C-[", ei_esc)
 
@@ -2719,15 +2719,15 @@ def configure(keymap):
     ###########################################################################
 
     # リストウィンドウはクリップボードリストで利用していますが、クリップボードリストの機能を
-    # Emacsキーバインドを適用していないアプリケーションソフトでも利用できるようにするため、
+    # Emacs キーバインドを適用していないアプリケーションソフトでも利用できるようにするため、
     # クリップボードリストで Enter を押下した際の挙動を、次のとおりに切り分けています。
     #
-    # １）Emacsキーバインドを適用しているアプリケーションソフトからクリップボードリストを起動
+    # １）Emacs キーバインドを適用しているアプリケーションソフトからクリップボードリストを起動
     #     →   Enter（テキストの貼り付け）
-    # ２）Emacsキーバインドを適用していないアプリケーションソフトからクリップボードリストを起動
+    # ２）Emacs キーバインドを適用していないアプリケーションソフトからクリップボードリストを起動
     #     → S-Enter（テキストをクリップボードに格納）
     #
-    # ※ Emacsキーバインドを適用しないアプリケーションソフトには、文字の入出力の方式が特殊な
+    # ※ Emacs キーバインドを適用しないアプリケーションソフトには、文字の入出力の方式が特殊な
     #    ものもあるため、テキストの貼り付けはそのアプリケーションソフトのペースト操作で行う
     #    ことを前提としています。
     # ※ C-Enter（引用記号付で貼り付け）の置き換えは、対応が複雑となるため行っておりません。
@@ -2795,7 +2795,7 @@ def configure(keymap):
     ## キーバインド（リストウィンドウ用）
     ##################################################
 
-    ## Escキーの設定
+    ## Esc キーの設定
     define_key(keymap_lw, "Esc", lw_reset_search(escape))
     define_key(keymap_lw, "C-[", lw_reset_search(escape))
 
@@ -2852,7 +2852,7 @@ def configure(keymap):
     ## クリップボードリストの設定
     ####################################################################################################
 
-    # クリップボードリストを利用するための設定です。クリップボードリストは clipboardList_key 変数で
+    # クリップボードリストを利用するための設定です。クリップボードリストは fc.clipboardList_key 変数で
     # 設定したキーの押下により起動します。クリップボードリストを開いた後、C-f（→）や C-b（←）
     # キーを入力することで画面を切り替えることができます。
     # （参考：https://github.com/crftwr/keyhac/blob/master/_config.py）

@@ -185,7 +185,7 @@ keyboard_quit（C-A-g）を利用してください。（fc.esc_mode_in_keyboard
 ※ fc.use_direct_input_in_vscode_terminal 変数を True にしている場合には、上記のいずれかのキーを押下して
 ターミナルに移行することで、４つのキー（C-k、C-r、C-s、C-y）のダイレクト入力ができるようになります。
 fc.use_direct_input_in_vscode_terminal 変数が False（初期値）の場合でも、fc.side_of_ctrl_key 変数で設定した
-側でない Ctrlキーを使うか C-q を前置することで、４つのキーのダイレクト入力を行うことができます。
+側でない Ctrl キーを使うか C-q を前置することで、４つのキーのダイレクト入力を行うことができます。
 
 ※ ターミナルで C-k を利用できるようにするには、VSCode の 設定で terminal.integrated.allowChords
 を false にする必要があります。
@@ -286,7 +286,7 @@ def vscodeExecuteCommand(command):
 ● 本フォルダにある _config_personal.py を config_personal.py というファイル名にすることで
 機能拡張ファイルとして機能します。vscode_key Extension の機能を拡張する際にご利用ください。
 
-● fc.side_of_ctrl_key 変数で設定した側でない Ctrlキーを使う、C-q を前置する、fc.vscode_prefix_key
+● fc.side_of_ctrl_key 変数で設定した側でない Ctrl キーを使う、C-q を前置する、fc.vscode_prefix_key
 で指定した Fakeymacs 用のプレフィックスキーを使うことで、VSCode 本来のショートカットキーを
 入力することもできます。VSCode のショートカットキーは、次のページで詳しく紹介されています。
 

@@ -50,5 +50,5 @@ if is_japanese_keyboard:
 
 define_key(keymap_real_emacs, "(29)",   self_insert_command("C-F1")) # <無変換> キー
 define_key(keymap_real_emacs, "(28)",   self_insert_command("C-F2")) # <変換> キー
-# define_key(keymap_real_emacs, "O-LAlt", self_insert_command("C-F1")) # 左 Altキーの単押し
-# define_key(keymap_real_emacs, "O-RAlt", self_insert_command("C-F2")) # 右 Altキーの単押し
+# define_key(keymap_real_emacs, "O-LAlt", self_insert_command("C-F1")) # 左 Alt キーの単押し
+# define_key(keymap_real_emacs, "O-RAlt", self_insert_command("C-F2")) # 右 Alt キーの単押し

@@ -64,7 +64,7 @@ if fc.use_emacs_ime_mode:
             for key in clipboard_text:
                 self_insert_command(key)()
 
-            # Emacs日本語入力モードを ON にする
+            # Emacs 日本語入力モードを ON にする
             enable_emacs_ime_mode()
         else:
             # リージョンを解除する（カーソルの位置を維持するために必要な処理）
