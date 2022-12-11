@@ -125,7 +125,7 @@ def configure(keymap):
     # （Chromium 系ブラウザのバージョン 92 では、アドレスバーにカーソルを移動した際、強制的に ASCII入力
     #   モードに移行する不具合が発生します。（バージョン 93 で対策済みですが、過去にも度々発生しています。）
     #   ・https://did2memo.net/2021/07/22/chrome-japanese-ime-off-issue-chrome-92/
-    #   さらに Google日本語入力を利用している場合、keymap.getWindow().getImeStatus() が True を返すため、
+    #   さらに Google 日本語入力を利用している場合、keymap.getWindow().getImeStatus() が True を返すため、
     #   Emacs 日本語入力モードの挙動がおかしくなります。この対策を行うかどうかを指定します。）
     fc.correct_ime_status = False
 
@@ -380,7 +380,7 @@ def configure(keymap):
         fc.ime_cancel_key = "W-/"    # 「確定の取り消し」キー
         fc.ime_reconv_region = False # 「再変換」の時にリージョンの選択が必要かどうかを指定する
 
-    ## Google日本語入力の場合
+    ## Google 日本語入力の場合
     elif fc.ime == "Google_IME":
         fc.ime_reconv_key = "W-/"    # 「再変換」キー
         fc.ime_cancel_key = "C-Back" # 「確定の取り消し」キー
@@ -397,7 +397,7 @@ def configure(keymap):
     #---------------------------------------------------------------------------------------------------
     # Emacs 日本語入力モードを利用する際に、IME のショートカットを置き換えるキーの組み合わせ
     # （置き換え先、置き換え元）を指定する
-    # （「ことえり」のキーバインドを利用するための設定例です。Google日本語入力で「ことえり」の
+    # （「ことえり」のキーバインドを利用するための設定例です。Google 日本語入力で「ことえり」の
     #   キー設定になっている場合には不要ですが、設定を行っていても問題はありません。）
     fc.emacs_ime_mode_key = []
     fc.emacs_ime_mode_key += [["C-i", "S-Left"],  # 文節を縮める
@@ -427,7 +427,7 @@ def configure(keymap):
         fc.word_register_name = r"C:\Windows\System32\IME\IMEJP\IMJPDCT.EXE"
         fc.word_register_param = ""
 
-    ## Google日本語入力の場合
+    ## Google 日本語入力の場合
     elif fc.ime == "Google_IME":
         fc.word_register_name = r"C:\Program Files (x86)\Google\Google Japanese Input\GoogleIMEJaTool.exe"
         fc.word_register_param = "--mode=word_register_dialog"
@@ -2171,7 +2171,7 @@ def configure(keymap):
     ## 「再変換」、「確定取り消し」のキー設定
     if fc.reconversion_key:
         if fc.ime == "Google_IME":
-            # Google日本語入力を利用している時、ime_cancel_key に設定しているキーがキーバインドに
+            # Google 日本語入力を利用している時、ime_cancel_key に設定しているキーがキーバインドに
             # 定義されていると、「確定取り消し」が正常に動作しない場合がある。このため、そのキー
             # バインドの定義を削除する。
             del keymap_base[keyPos(kbd(fc.ime_cancel_key)[0])[0][0]]
