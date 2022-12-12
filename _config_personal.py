@@ -73,7 +73,8 @@ fc.ime_target          += []
 #   利用することができます。）
 # （ここで指定したキーに新たに別のキー設定をしたいときには、「-2」が付くセクション内で define_key2
 #   関数を利用して定義してください）
-fc.skip_settings_key    = {"keymap_base"      : ["W-g", "W-S-[a-z]"], # ベース Keymap
+fc.skip_settings_key    = {"keymap_base"      : ["W-g", "W-S-c", "W-S-m",
+                                                 "W-S-s", "W-S-v", "W-C-S-b"], # ベース Keymap
                            "keymap_global"    : [], # グローバル Keymap
                            "keymap_emacs"     : [], # Emacs キーバインド対象アプリ用 Keymap
                            "keymap_vscode"    : [], # Emacs キーバインド VSCode 拡張用 Keymap

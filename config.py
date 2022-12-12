@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20221211_01"
+fakeymacs_version = "20221212_01"
 
 import time
 import os.path
@@ -254,7 +254,8 @@ def configure(keymap):
     #   のような指定の他に、"M-f" や "Ctl-x d" などの指定も可能です。"M-g*" のようにワイルドカードも
     #   利用することができます。）
     # （ここで指定したキーに新たに別のキー設定をしたいときには、define_key2 関数を利用してください）
-    fc.skip_settings_key    = {"keymap_base"      : ["W-g", "W-S-[a-z]"], # ベース Keymap
+    fc.skip_settings_key    = {"keymap_base"      : ["W-g", "W-S-c", "W-S-m",
+                                                     "W-S-s", "W-S-v", "W-C-S-b"], # ベース Keymap
                                "keymap_global"    : [], # グローバル Keymap
                                "keymap_emacs"     : [], # Emacs キーバインド対象アプリ用 Keymap
                                "keymap_ime"       : [], # IME 切り替え専用アプリ用 Keymap
