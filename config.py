@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20221212_01"
+fakeymacs_version = "20221213_01"
 
 import time
 import os.path
@@ -547,7 +547,7 @@ def configure(keymap):
     # Microsoft Excel のセル内で改行を選択可能かを指定する（True: 選択可、False: 選択不可）
     # （kill_line 関数の挙動を変えるための変数です。Microsoft Excel 2019 以降では True にして
     #   ください。）
-    fc.is_newline_selectable_in_Excel = False
+    fc.is_newline_selectable_in_Excel = True
 
     # Ctrl キー単押しで開く Ctrl ボタンを持つアプリケーションソフト（プロセス名称とクラス名称の
     # 組み合わせ（ワイルドカード指定可））を指定する

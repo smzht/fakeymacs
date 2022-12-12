@@ -186,6 +186,11 @@ fc.window_switching_key += [["A-p", "A-n"]]
 # fc.window_switching_key += [["A-S-p", "A-S-n"]]
 # fc.window_switching_key += [["A-Up", "A-Down"]]
 
+# Microsoft Excel のセル内で改行を選択可能かを指定する（True: 選択可、False: 選択不可）
+# （kill_line 関数の挙動を変えるための変数です。Microsoft Excel 2019 以降では True にして
+#   ください。）
+fc.is_newline_selectable_in_Excel = True
+
 # ゲームなど、キーバインドの設定を極力行いたくないアプリケーションソフトを指定する
 # （keymap_global 以外のすべてのキーマップをスルーします。ゲームなど、Keyhac によるキー設定と
 #   相性が悪いアプリケーションソフトを指定してください。keymap_base の設定もスルーするため、
