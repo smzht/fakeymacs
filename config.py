@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20221213_01"
+fakeymacs_version = "20221213_02"
 
 import time
 import os.path
@@ -1944,12 +1944,20 @@ def configure(keymap):
     ## キーバインド
     ##################################################
 
-    # キーバインドの定義に利用可能な表記の意味は次のとおりです。
-    # ・S-    : Shift キー
-    # ・C-    : Ctrl キー
-    # ・A-    : Alt キー
+    # キーバインドの定義に利用している表記の意味は次のとおりです。
+    # ・S-    : Shift キー（左右どちらでも）
+    # ・LS-   : 左 Shift キー
+    # ・RS-   : 右 Shift キー
+    # ・C-    : Ctrl キー（fc.side_of_ctrl_key 変数で指定した側のキー）
+    # ・LC-   : 左 Ctrl キー
+    # ・RC-   : 右 Ctrl キー
+    # ・A-    : Alt キー（fc.side_of_alt_key 変数で指定した側のキー）
+    # ・LA-   : 左 Alt キー
+    # ・RA-   : 右 Alt キー
+    # ・W-    : Win キー（fc.side_of_win_key 変数で指定した側のキー）
+    # ・LW-   : 左 Win キー
+    # ・RW-   : 右 Win キー
     # ・M-    : Alt キー と Esc、C-[ のプレフィックスキーを利用する３パターンを定義（Emacs の Meta と同様）
-    # ・W-    : Win キー
     # ・Ctl-x : fc.ctl_x_prefix_key 変数で定義されているプレフィックスキーに置換え
     # ・(999) : 仮想キーコード指定
 
@@ -1961,7 +1969,13 @@ def configure(keymap):
     ## 全てのキーパターンの設定（キーの入力記録を残すための設定）
     for vkey in vkeys():
         key = vkToStr(vkey)
-        for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
+
+        # US と JIS のキーボード変換の機能を有しているため、左右両方のモディファイアキーのパターンで、
+        # keymap_base を登録する
+        for mod1, mod2, mod3, mod4 in itertools.product(["", "LW-", "RW-"],
+                                                        ["", "LA-", "RA-"],
+                                                        ["", "LC-", "RC-"],
+                                                        ["", "S-"]):
             mkey = mod1 + mod2 + mod3 + mod4 + key
             define_key(keymap_base, mkey, self_insert_command(mkey))
 
