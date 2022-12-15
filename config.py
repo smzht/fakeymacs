@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20221213_03"
+fakeymacs_version = "20221215_01"
 
 import time
 import os.path
@@ -879,13 +879,13 @@ def configure(keymap):
     if fc.ctl_x_prefix_key:
         keyCondition = usjisFilter(keyhac_keymap.KeyCondition.fromString, fc.ctl_x_prefix_key)
 
-        if keyCondition.mod == MODKEY_CTRL:
+        if keyCondition.mod == keyhac_keymap.MODKEY_CTRL:
             if fc.side_of_ctrl_key == "L":
                 ctl_x_prefix_vkey = [VK_LCONTROL, keyCondition.vk]
             else:
                 ctl_x_prefix_vkey = [VK_RCONTROL, keyCondition.vk]
 
-        elif keyCondition.mod == MODKEY_ALT:
+        elif keyCondition.mod == keyhac_keymap.MODKEY_ALT:
             if fc.side_of_alt_key == "L":
                 ctl_x_prefix_vkey = [VK_LMENU, keyCondition.vk]
             else:
@@ -1780,7 +1780,7 @@ def configure(keymap):
             # Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrl キーの単押しによりサブウインドウが
             # 開く機能がある。その挙動を抑制するための対策。
             if fakeymacs.ctrl_button_app:
-                if keyhac_keymap.checkModifier(keymap.modifier, MODKEY_CTRL):
+                if keyhac_keymap.checkModifier(keymap.modifier, keyhac_keymap.MODKEY_CTRL):
                     if "C-" not in key_list[-1]:
                         delay(0.01) # issue #19 の対策
                         pyauto.Input.send([pyauto.Key(strToVk("(255)"))])
