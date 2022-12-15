@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20221215_02"
+fakeymacs_version = "20221216_01"
 
 import time
 import os.path
@@ -1775,11 +1775,11 @@ def configure(keymap):
 
         func = keymap.InputKeyCommand(*key_list)
         def _func():
-            # 「keymap_global["W-S-m"] = "W-S-m"」のような設定をした場合、 Shift に RShift を使うと
-            # 正常に動作しない。その対策。
-            if (keymap.modifier & keymap.vk_mod_map[VK_RSHIFT] and
-                (keymap.modifier & keymap.vk_mod_map[VK_LWIN] or
-                 keymap.modifier & keymap.vk_mod_map[VK_RWIN])):
+            # 「define_key(keymap_base, "W-S-m", self_insert_command("W-S-m"))」のような設定を
+            # した場合、 Shift に RShift を使うと正常に動作しない。その対策。
+            if (keymap.modifier & (keymap.vk_mod_map[VK_LWIN] | keymap.vk_mod_map[VK_RWIN]) and
+                keymap.modifier & keymap.vk_mod_map[VK_RSHIFT] and
+                "S-" in key_list[-1]):
                 key_list[-1] = re.sub(r"(^|-)(S-)", r"\1R\2", key_list[-1])
                 keymap.InputKeyCommand(*key_list)()
             else:
