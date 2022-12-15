@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20221215_01"
+fakeymacs_version = "20221215_02"
 
 import time
 import os.path
@@ -254,14 +254,13 @@ def configure(keymap):
     #   のような指定の他に、"M-f" や "Ctl-x d" などの指定も可能です。"M-g*" のようにワイルドカードも
     #   利用することができます。）
     # （ここで指定したキーに新たに別のキー設定をしたいときには、define_key2 関数を利用してください）
-    fc.skip_settings_key    = {"keymap_base"      : ["?W-g", "?W-S-c", "?W-S-m",
-                                                     "?W-S-s", "?W-S-v", "?W-?C-S-b"], # ベース Keymap
-                               "keymap_global"    : [], # グローバル Keymap
-                               "keymap_emacs"     : [], # Emacs キーバインド対象アプリ用 Keymap
-                               "keymap_ime"       : [], # IME 切り替え専用アプリ用 Keymap
-                               "keymap_ei"        : [], # Emacs 日本語入力モード用 Keymap
-                               "keymap_tsw"       : [], # タスク切り替え画面用 Keymap
-                               "keymap_lw"        : [], # リストウィンドウ用 Keymap
+    fc.skip_settings_key    = {"keymap_base"      : ["?W-g"], # ベース Keymap
+                               "keymap_global"    : [],       # グローバル Keymap
+                               "keymap_emacs"     : [],       # Emacs キーバインド対象アプリ用 Keymap
+                               "keymap_ime"       : [],       # IME 切り替え専用アプリ用 Keymap
+                               "keymap_ei"        : [],       # Emacs 日本語入力モード用 Keymap
+                               "keymap_tsw"       : [],       # タスク切り替え画面用 Keymap
+                               "keymap_lw"        : [],       # リストウィンドウ用 Keymap
                                }
 
     # Emacs のキーバインドにするアプリケーションソフトで、Emacs キーバインドから除外するキーを指定する
@@ -1776,7 +1775,16 @@ def configure(keymap):
 
         func = keymap.InputKeyCommand(*key_list)
         def _func():
-            func()
+            # 「keymap_global["W-S-m"] = "W-S-m"」のような設定をした場合、 Shift に RShift を
+            # 使うと正常に動作しないことの対策
+            if (keymap.modifier & keymap.vk_mod_map[VK_RSHIFT] and
+                (keymap.modifier & keymap.vk_mod_map[VK_LWIN] or
+                 keymap.modifier & keymap.vk_mod_map[VK_RWIN])):
+                key_list[-1] = re.sub(r"(^|-)(S-)", r"\1R\2", key_list[-1])
+                keymap.InputKeyCommand(*key_list)()
+            else:
+                func()
+
             # Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrl キーの単押しによりサブウインドウが
             # 開く機能がある。その挙動を抑制するための対策。
             if fakeymacs.ctrl_button_app:
