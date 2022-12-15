@@ -1775,8 +1775,8 @@ def configure(keymap):
 
         func = keymap.InputKeyCommand(*key_list)
         def _func():
-            # 「keymap_global["W-S-m"] = "W-S-m"」のような設定をした場合、 Shift に RShift を
-            # 使うと正常に動作しないことの対策
+            # 「keymap_global["W-S-m"] = "W-S-m"」のような設定をした場合、 Shift に RShift を使うと
+            # 正常に動作しない。その対策。
             if (keymap.modifier & keymap.vk_mod_map[VK_RSHIFT] and
                 (keymap.modifier & keymap.vk_mod_map[VK_LWIN] or
                  keymap.modifier & keymap.vk_mod_map[VK_RWIN])):
