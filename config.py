@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20221217_01"
+fakeymacs_version = "20221219_01"
 
 import time
 import os.path
@@ -67,7 +67,7 @@ def configure(keymap):
                 config_section = m.group(1)
                 config_section = re.sub(r"^##.*", r"", config_section, flags=re.MULTILINE)
             except:
-                print("個人設定ファイルのセクション {} の読み込みに失敗しました".format(section))
+                print(f"個人設定ファイルのセクション {section} の読み込みに失敗しました")
                 config_section = ""
         else:
             config_section = ""
@@ -80,7 +80,7 @@ def configure(keymap):
                 config_extension = f.read()
         except:
             if msg:
-                print("拡張機能ファイル {} の読み込みに失敗しました".format(config_file))
+                print(f"拡張機能ファイル {config_file} の読み込みに失敗しました")
             config_extension = ""
 
         return config_extension
@@ -772,16 +772,11 @@ def configure(keymap):
 
             # Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrl キーの単押しによりサブウインドウが
             # 開く機能がある。その挙動を抑制するための対策。
+            d_ctrl = f"D-{fc.side_of_ctrl_key}Ctrl"
             if fakeymacs.ctrl_button_app:
-                if fc.side_of_ctrl_key == "L":
-                    keymap_base["D-LCtrl"] = "D-LCtrl", "(255)"
-                else:
-                    keymap_base["D-RCtrl"] = "D-RCtrl", "(255)"
+                keymap_base[d_ctrl] = d_ctrl, "(255)"
             else:
-                if fc.side_of_ctrl_key == "L":
-                    keymap_base["D-LCtrl"] = "D-LCtrl"
-                else:
-                    keymap_base["D-RCtrl"] = "D-RCtrl"
+                keymap_base[d_ctrl] = d_ctrl
 
         if (class_name not in fc.emacs_target_class and
             (process_name in fc.transparent_target or

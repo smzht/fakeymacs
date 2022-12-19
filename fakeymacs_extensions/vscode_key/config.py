@@ -322,7 +322,7 @@ def other_window():
 def switch_focus(number):
     def _func():
         # VSCode Command : View: Focus Side Bar or n-th Editor Group
-        self_insert_command("C-{}".format(number))()
+        self_insert_command(f"C-{number}")()
 
         if fc.use_direct_input_in_vscode_terminal:
             fakeymacs_vscode.vscode_focus = "not_terminal"
@@ -506,7 +506,7 @@ for pkey1, pkey2 in fc.vscode_prefix_key:
         key = vkToStr(vkey)
         for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
             mkey = mod1 + mod2 + mod3 + mod4 + key
-            define_key_v("{} {}".format(pkey2, mkey), self_insert_command_v(pkey1, mkey))
+            define_key_v(f"{pkey2} {mkey}", self_insert_command_v(pkey1, mkey))
 
 ## 「ファイル操作」のキー設定
 define_key_v("Ctl-x C-d", reset_search(reset_undo(reset_counter(reset_mark(find_directory)))))
