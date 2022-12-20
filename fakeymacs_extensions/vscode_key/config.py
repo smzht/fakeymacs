@@ -107,7 +107,7 @@ def define_key_v(keys, command, skip_check=True):
         if "keymap_vscode" in fc.skip_settings_key:
             for skey in fc.skip_settings_key["keymap_vscode"]:
                 if fnmatch.fnmatch(keys, skey):
-                    print("skip settings key : [keymap_vscode] " + keys)
+                    print(f"skip settings key : [keymap_vscode] {keys}")
                     return
 
     if callable(command):

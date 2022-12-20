@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20221219_01"
+fakeymacs_version = "20221220_01"
 
 import time
 import os.path
@@ -1565,9 +1565,9 @@ def configure(keymap):
         return key
 
     def addSideOfModifierKey(key):
-        key = re.sub(r"(^|-)(C-)", r"\1" + fc.side_of_ctrl_key + r"\2", key)
-        key = re.sub(r"(^|-)(A-)", r"\1" + fc.side_of_alt_key  + r"\2", key)
-        key = re.sub(r"(^|-)(W-)", r"\1" + fc.side_of_win_key  + r"\2", key)
+        key = re.sub(r"(^|-)(C-)", rf"\1{fc.side_of_ctrl_key}\2", key)
+        key = re.sub(r"(^|-)(A-)", rf"\1{fc.side_of_alt_key}\2", key)
+        key = re.sub(r"(^|-)(W-)", rf"\1{fc.side_of_win_key}\2", key)
         return key
 
     def kbd(keys):
@@ -1637,7 +1637,7 @@ def configure(keymap):
                     window_keymap is locals()[keymap_name]):
                     for skey in fc.skip_settings_key[keymap_name]:
                         if fnmatch.fnmatch(keys, skey):
-                            print("skip settings key : [" + keymap_name + "] " + keys)
+                            print(f"skip settings key : [{keymap_name}] {keys}")
                             return
                     break
 
@@ -2031,7 +2031,6 @@ def configure(keymap):
         for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
             mkey = mod1 + mod2 + mod3 + mod4 + key
             define_key(keymap_emacs, "C-q " + mkey, self_insert_command(mkey))
-
     ## Esc キーの設定
     define_key(keymap_emacs, "C-[ C-[", reset_undo(reset_counter(escape)))
     if fc.use_esc_as_meta:
@@ -2994,7 +2993,7 @@ def configure(keymap):
             if window_list:
                 process_name_length = max(map(len, map(Window.getProcessName, window_list)))
 
-                formatter = "{0:" + str(process_name_length) + "} |{1:1}| {2}"
+                formatter = f"{{0:{process_name_length}}} |{{1:1}}| {{2}}"
                 for window in window_list:
                     if window.isMinimized():
                         icon = "m"
