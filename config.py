@@ -1994,19 +1994,20 @@ def configure(keymap):
         key = str(n)
         define_key(keymap_emacs, key, digit(n))
         if fc.use_ctrl_digit_key_for_digit_argument:
-            define_key(keymap_emacs, "C-" + key, digit2(n))
-        define_key(keymap_emacs, "M-" + key, digit2(n))
-        define_key(keymap_emacs, "S-" + key, reset_undo(reset_counter(reset_mark(repeat(self_insert_command2("S-" + key))))))
-        define_key(keymap_ime,          key, self_insert_command2(       key))
-        define_key(keymap_ime,   "S-" + key, self_insert_command2("S-" + key))
+            define_key(keymap_emacs, f"C-{key}", digit2(n))
+        define_key(keymap_emacs, f"M-{key}", digit2(n))
+        define_key(keymap_emacs, f"S-{key}", reset_undo(reset_counter(reset_mark(repeat(self_insert_command2(f"S-{key}"))))))
+        for mod in ["", "S-"]:
+            mkey = mod + key
+            define_key(keymap_ime, mkey, self_insert_command2(mkey))
 
     ## アルファベットキーの設定
     for vkey in range(VK_A, VK_Z + 1):
         key = vkToStr(vkey)
-        define_key(keymap_emacs,        key, reset_undo(reset_counter(reset_mark(repeat(self_insert_command2(       key))))))
-        define_key(keymap_emacs, "S-" + key, reset_undo(reset_counter(reset_mark(repeat(self_insert_command2("S-" + key))))))
-        define_key(keymap_ime,          key, self_insert_command2(       key))
-        define_key(keymap_ime,   "S-" + key, self_insert_command2("S-" + key))
+        for mod in ["", "S-"]:
+            mkey = mod + key
+            define_key(keymap_emacs, mkey, reset_undo(reset_counter(reset_mark(repeat(self_insert_command2(mkey))))))
+            define_key(keymap_ime,   mkey, self_insert_command2(mkey))
 
     ## 特殊文字キーの設定
     define_key(keymap_emacs, "Space"  , reset_undo(reset_counter(reset_mark(repeat(space)))))
@@ -2014,10 +2015,10 @@ def configure(keymap):
 
     for vkey in [VK_OEM_MINUS, VK_OEM_PLUS, VK_OEM_COMMA, VK_OEM_PERIOD, VK_OEM_1, VK_OEM_2, VK_OEM_3, VK_OEM_4, VK_OEM_5, VK_OEM_6, VK_OEM_7, VK_OEM_102]:
         key = vkToStr(vkey)
-        define_key(keymap_emacs,        key, reset_undo(reset_counter(reset_mark(repeat(self_insert_command2(       key))))))
-        define_key(keymap_emacs, "S-" + key, reset_undo(reset_counter(reset_mark(repeat(self_insert_command2("S-" + key))))))
-        define_key(keymap_ime,          key, self_insert_command2(       key))
-        define_key(keymap_ime,   "S-" + key, self_insert_command2("S-" + key))
+        for mod in ["", "S-"]:
+            mkey = mod + key
+            define_key(keymap_emacs, mkey, reset_undo(reset_counter(reset_mark(repeat(self_insert_command2(mkey))))))
+            define_key(keymap_ime,   mkey, self_insert_command2(mkey))
 
     ## 10key の特殊文字キーの設定
     for vkey in [VK_MULTIPLY, VK_ADD, VK_SUBTRACT, VK_DECIMAL, VK_DIVIDE]:
@@ -2030,7 +2031,7 @@ def configure(keymap):
         key = vkToStr(vkey)
         for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
             mkey = mod1 + mod2 + mod3 + mod4 + key
-            define_key(keymap_emacs, "C-q " + mkey, self_insert_command(mkey))
+            define_key(keymap_emacs, f"C-q {mkey}", self_insert_command(mkey))
 
     ## Esc キーの設定
     define_key(keymap_emacs, "C-[ C-[", reset_undo(reset_counter(escape)))
@@ -2414,7 +2415,7 @@ def configure(keymap):
     ## Alt+数字キー列の設定
     if fc.use_alt_digit_key_for_f1_to_f12:
         for i in range(10):
-            define_key(keymap_global, "A-{}".format((i + 1) % 10), self_insert_command(vkToStr(VK_F1 + i)))
+            define_key(keymap_global, f"A-{(i + 1) % 10}", self_insert_command(vkToStr(VK_F1 + i)))
 
         define_key(keymap_global, "A--", self_insert_command(vkToStr(VK_F11)))
 
@@ -2426,7 +2427,7 @@ def configure(keymap):
     ## Alt+Shift+数字キー列の設定
     if fc.use_alt_shift_digit_key_for_f13_to_f24:
         for i in range(10):
-            define_key(keymap_global, "A-S-{}".format((i + 1) % 10), self_insert_command(vkToStr(VK_F13 + i)))
+            define_key(keymap_global, f"A-S-{(i + 1) % 10}", self_insert_command(vkToStr(VK_F13 + i)))
 
         define_key(keymap_global, "A-S--", self_insert_command(vkToStr(VK_F23)))
 

@@ -134,7 +134,7 @@ if fc.vscode_quick_select:
             ikey = key
             usjis_conv = True
 
-        define_key_v("C-A-k " + key,
+        define_key_v(f"C-A-k {key}",
                      reset_rect(region(self_insert_command_v("C-k", ikey, usjis_conv=usjis_conv))))
 
 # --------------------------------------------------------------------------------------------------

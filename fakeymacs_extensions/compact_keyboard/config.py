@@ -13,7 +13,7 @@ if not is_japanese_keyboard:
         mkey  = mod1 + mod2 + mod3 + mod4
         mkey1 = mkey + "Back"
         mkey2 = mkey + "BackQuote"
-        define_key(keymap_global, "S-Back " + mkey1, self_insert_command(mkey2))
+        define_key(keymap_global, f"S-Back {mkey1}", self_insert_command(mkey2))
 
     # vscode_key Extension が有効な場合の追加設定
     try:

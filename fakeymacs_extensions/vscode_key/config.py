@@ -500,7 +500,7 @@ keymap_vscode.applying_func = mergeEmacsMultiStrokeKeymap
 
 ## プレフィックスキーの設定
 for pkey1, pkey2 in fc.vscode_prefix_key:
-    define_key_v(pkey2, keymap.defineMultiStrokeKeymap("<VSCode> " + pkey1))
+    define_key_v(pkey2, keymap.defineMultiStrokeKeymap(f"<VSCode> {pkey1}"))
 
     for vkey in vkeys():
         key = vkToStr(vkey)
