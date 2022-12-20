@@ -2031,6 +2031,7 @@ def configure(keymap):
         for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
             mkey = mod1 + mod2 + mod3 + mod4 + key
             define_key(keymap_emacs, "C-q " + mkey, self_insert_command(mkey))
+
     ## Esc キーの設定
     define_key(keymap_emacs, "C-[ C-[", reset_undo(reset_counter(escape)))
     if fc.use_esc_as_meta:
