@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20221220_01"
+fakeymacs_version = "20221221_01"
 
 import time
 import os.path
@@ -2540,7 +2540,7 @@ def configure(keymap):
         if display_cnt == 2:
             def _transpose_windows():
                 window_list = getWindowList()
-                if len(window_list) > 2:
+                if len(window_list) >= 2:
                     first_window = None
                     for window in window_list:
                         window_rect = window.getRect()
