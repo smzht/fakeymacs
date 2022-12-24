@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20221221_01"
+fakeymacs_version = "20221225_01"
 
 import time
 import os.path
@@ -254,7 +254,7 @@ def configure(keymap):
     #   のような指定の他に、"M-f" や "Ctl-x d" などの指定も可能です。"M-g*" のようにワイルドカードも
     #   利用することができます。）
     # （ここで指定したキーに新たに別のキー設定をしたいときには、define_key2 関数を利用してください）
-    fc.skip_settings_key    = {"keymap_base"      : ["?W-g"], # ベース Keymap
+    fc.skip_settings_key    = {"keymap_base"      : ["*W-g"], # ベース Keymap
                                "keymap_global"    : [],       # グローバル Keymap
                                "keymap_emacs"     : [],       # Emacs キーバインド対象アプリ用 Keymap
                                "keymap_ime"       : [],       # IME 切り替え専用アプリ用 Keymap
@@ -1973,12 +1973,14 @@ def configure(keymap):
     for vkey in vkeys():
         key = vkToStr(vkey)
 
-        # US と JIS のキーボード変換の機能を有しているため、左右両方のモディファイアキーのパターンで、
-        # keymap_base を登録する
-        for mod1, mod2, mod3, mod4 in itertools.product(["", "LW-", "RW-"],
-                                                        ["", "LA-", "RA-"],
-                                                        ["", "LC-", "RC-"],
-                                                        ["", "S-"]):
+        # # US と JIS のキーボード変換の機能を有しているため、左右両方のモディファイアキーのパターンで、
+        # # keymap_base を登録する
+        # for mod1, mod2, mod3, mod4 in itertools.product(["", "LW-", "RW-"],
+        #                                                 ["", "LA-", "RA-"],
+        #                                                 ["", "LC-", "RC-"],
+        #                                                 ["", "S-"]):
+
+        for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
             mkey = mod1 + mod2 + mod3 + mod4 + key
             define_key(keymap_base, mkey, self_insert_command(mkey))
 
