@@ -25,7 +25,6 @@ Fakeymacs をカスタマイズするために、以下のコンフィグレー�
 | fc.not_clipboard_target_class             | clipboard 監視の対象外とするウィンドウのクラスネームを指定する（ワイルドカードの指定可）                                                |
 | fc.side_of_ctrl_key                       | 左右どちらの Ctrl キーを使うかを指定する                                                                                                |
 | fc.side_of_alt_key                        | 左右どちらの Alt キーを使うかを指定する                                                                                                 |
-| fc.side_of_win_key                        | 左右どちらの Win キーを使うかを指定する                                                                                                 |
 | fc.use_ctrl_i_as_tab                      | C-i キーを Tab キーとして使うかどうかを指定する                                                                                         |
 | fc.use_esc_as_meta                        | Esc キーを Meta キーとして使うかどうかを指定する                                                                                        |
 | fc.ctl_x_prefix_key                       | Ctl-x プレフィックスキーに使うキーを指定する                                                                                            |

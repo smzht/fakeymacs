@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20221225_01"
+fakeymacs_version = "20221225_02"
 
 import time
 import os.path
@@ -286,9 +286,6 @@ def configure(keymap):
 
     # 左右どちらの Alt キーを使うかを指定する（"L": 左、"R": 右）
     fc.side_of_alt_key = "L"
-
-    # 左右どちらの Win キーを使うかを指定する（"L": 左、"R": 右）
-    fc.side_of_win_key = "L"
 
     # C-i キーを Tab キーとして使うかどうかを指定する（True: 使う、False: 使わない）
     fc.use_ctrl_i_as_tab = True
@@ -1567,7 +1564,6 @@ def configure(keymap):
     def addSideOfModifierKey(key):
         key = re.sub(r"(^|-)(C-)", rf"\1{fc.side_of_ctrl_key}\2", key)
         key = re.sub(r"(^|-)(A-)", rf"\1{fc.side_of_alt_key}\2", key)
-        key = re.sub(r"(^|-)(W-)", rf"\1{fc.side_of_win_key}\2", key)
         return key
 
     def kbd(keys):
@@ -1957,7 +1953,7 @@ def configure(keymap):
     # ・A-    : Alt キー（fc.side_of_alt_key 変数で指定した側のキー）
     # ・LA-   : 左 Alt キー
     # ・RA-   : 右 Alt キー
-    # ・W-    : Win キー（fc.side_of_win_key 変数で指定した側のキー）
+    # ・W-    : Win キー（左右どちらでも）
     # ・LW-   : 左 Win キー
     # ・RW-   : 右 Win キー
     # ・M-    : Alt キー と Esc、C-[ のプレフィックスキーを利用する３パターンを定義（Emacs の Meta と同様）
@@ -1973,14 +1969,12 @@ def configure(keymap):
     for vkey in vkeys():
         key = vkToStr(vkey)
 
-        # # US と JIS のキーボード変換の機能を有しているため、左右両方のモディファイアキーのパターンで、
-        # # keymap_base を登録する
-        # for mod1, mod2, mod3, mod4 in itertools.product(["", "LW-", "RW-"],
-        #                                                 ["", "LA-", "RA-"],
-        #                                                 ["", "LC-", "RC-"],
-        #                                                 ["", "S-"]):
-
-        for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
+        # US と JIS のキーボード変換の機能を有しているため、左右両方のモディファイアキーのパターンで、
+        # keymap_base を登録する
+        for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"],
+                                                        ["", "LA-", "RA-"],
+                                                        ["", "LC-", "RC-"],
+                                                        ["", "S-"]):
             mkey = mod1 + mod2 + mod3 + mod4 + key
             define_key(keymap_base, mkey, self_insert_command(mkey))
 
