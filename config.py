@@ -287,7 +287,7 @@ def configure(keymap):
     # 左右どちらの Alt キーを使うかを指定する（"L": 左、"R": 右）
     fc.side_of_alt_key = "L"
 
-    # 左右どちらの Winキーを使うかを指定する（"L": 左、"R": 右）
+    # 左右どちらの Win キーを使うかを指定する（"L": 左、"R": 右）
     fc.side_of_win_key = "L"
 
     # C-i キーを Tab キーとして使うかどうかを指定する（True: 使う、False: 使わない）
