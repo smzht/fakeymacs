@@ -1953,9 +1953,7 @@ def configure(keymap):
     # ・A-    : Alt キー（fc.side_of_alt_key 変数で指定した側のキー）
     # ・LA-   : 左 Alt キー
     # ・RA-   : 右 Alt キー
-    # ・W-    : Win キー（左右どちらでも）
-    # ・LW-   : 左 Win キー
-    # ・RW-   : 右 Win キー
+    # ・W-    : Win キー
     # ・M-    : Alt キー と Esc、C-[ のプレフィックスキーを利用する３パターンを定義（Emacs の Meta と同様）
     # ・Ctl-x : fc.ctl_x_prefix_key 変数で定義されているプレフィックスキーに置換え
     # ・(999) : 仮想キーコード指定
