@@ -1945,8 +1945,6 @@ def configure(keymap):
 
     # キーバインドの定義に利用している表記の意味は次のとおりです。
     # ・S-    : Shift キー（左右どちらでも）
-    # ・LS-   : 左 Shift キー
-    # ・RS-   : 右 Shift キー
     # ・C-    : Ctrl キー（fc.side_of_ctrl_key 変数で指定した側のキー）
     # ・LC-   : 左 Ctrl キー
     # ・RC-   : 右 Ctrl キー
