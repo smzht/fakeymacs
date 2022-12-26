@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20221225_02"
+fakeymacs_version = "20221226_01"
 
 import time
 import os.path
@@ -254,13 +254,13 @@ def configure(keymap):
     #   のような指定の他に、"M-f" や "Ctl-x d" などの指定も可能です。"M-g*" のようにワイルドカードも
     #   利用することができます。）
     # （ここで指定したキーに新たに別のキー設定をしたいときには、define_key2 関数を利用してください）
-    fc.skip_settings_key    = {"keymap_base"      : ["W-g"], # ベース Keymap
-                               "keymap_global"    : [],      # グローバル Keymap
-                               "keymap_emacs"     : [],      # Emacs キーバインド対象アプリ用 Keymap
-                               "keymap_ime"       : [],      # IME 切り替え専用アプリ用 Keymap
-                               "keymap_ei"        : [],      # Emacs 日本語入力モード用 Keymap
-                               "keymap_tsw"       : [],      # タスク切り替え画面用 Keymap
-                               "keymap_lw"        : [],      # リストウィンドウ用 Keymap
+    fc.skip_settings_key    = {"keymap_base"      : ["*W-g"], # ベース Keymap
+                               "keymap_global"    : [],       # グローバル Keymap
+                               "keymap_emacs"     : [],       # Emacs キーバインド対象アプリ用 Keymap
+                               "keymap_ime"       : [],       # IME 切り替え専用アプリ用 Keymap
+                               "keymap_ei"        : [],       # Emacs 日本語入力モード用 Keymap
+                               "keymap_tsw"       : [],       # タスク切り替え画面用 Keymap
+                               "keymap_lw"        : [],       # リストウィンドウ用 Keymap
                                }
 
     # Emacs のキーバインドにするアプリケーションソフトで、Emacs キーバインドから除外するキーを指定する
@@ -286,6 +286,9 @@ def configure(keymap):
 
     # 左右どちらの Alt キーを使うかを指定する（"L": 左、"R": 右）
     fc.side_of_alt_key = "L"
+
+    # 左右どちらの Winキーを使うかを指定する（"L": 左、"R": 右）
+    fc.side_of_win_key = "L"
 
     # C-i キーを Tab キーとして使うかどうかを指定する（True: 使う、False: 使わない）
     fc.use_ctrl_i_as_tab = True
@@ -1564,6 +1567,7 @@ def configure(keymap):
     def addSideOfModifierKey(key):
         key = re.sub(r"(^|-)(C-)", rf"\1{fc.side_of_ctrl_key}\2", key)
         key = re.sub(r"(^|-)(A-)", rf"\1{fc.side_of_alt_key}\2", key)
+        key = re.sub(r"(^|-)(W-)", rf"\1{fc.side_of_win_key}\2", key)
         return key
 
     def kbd(keys):
@@ -1951,7 +1955,9 @@ def configure(keymap):
     # ・A-    : Alt キー（fc.side_of_alt_key 変数で指定した側のキー）
     # ・LA-   : 左 Alt キー
     # ・RA-   : 右 Alt キー
-    # ・W-    : Win キー
+    # ・W-    : Winキー（fc.side_of_win_key 変数で指定した側のキー）
+    # ・LW-   : 左 Win キー
+    # ・RW-   : 右 Win キー
     # ・M-    : Alt キー と Esc、C-[ のプレフィックスキーを利用する３パターンを定義（Emacs の Meta と同様）
     # ・Ctl-x : fc.ctl_x_prefix_key 変数で定義されているプレフィックスキーに置換え
     # ・(999) : 仮想キーコード指定
@@ -1967,11 +1973,17 @@ def configure(keymap):
 
         # US と JIS のキーボード変換の機能を有しているため、左右両方のモディファイアキーのパターンで、
         # keymap_base を登録する
-        for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"],
-                                                        ["", "LA-", "RA-"],
-                                                        ["", "LC-", "RC-"],
-                                                        ["", "S-"]):
-            mkey = mod1 + mod2 + mod3 + mod4 + key
+        for mod1, mod2, mod3, in itertools.product(["", "LA-", "RA-"],
+                                                   ["", "LC-", "RC-"],
+                                                   ["", "S-"]):
+            mkey = mod1 + mod2 + mod3 + key
+            define_key(keymap_base, mkey, self_insert_command(mkey))
+
+        # Win キーとの組み合わせパターンは、数が多くなりすぎてエラーが発生するため、限定する
+        for mod1, mod2, mod3 in itertools.product(["LW-", "RW-"],
+                                                  ["", "LA-", "RA-", "LC-", "RC-"],
+                                                  ["", "S-"]):
+            mkey = mod1 + mod2 + mod3 + key
             define_key(keymap_base, mkey, self_insert_command(mkey))
 
     ## マルチストロークキーの設定
