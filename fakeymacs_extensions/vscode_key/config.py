@@ -173,7 +173,7 @@ def post(func):
 
 def is_terminal_for_direct_input():
     for terminal in fc.terminal_list_for_direct_input:
-        if re.search(r"(^| - ){} - ".format(re.escape(terminal)), keymap.getWindow().getText()):
+        if re.search(rf"(^| - ){re.escape(terminal)} - ", keymap.getWindow().getText()):
             return True
     return False
 

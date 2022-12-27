@@ -61,7 +61,7 @@ def configure(keymap):
     def readConfigPersonal(section):
         if config_personal:
             # https://www.zu-min.com/archives/614
-            m = re.search(r"(#\s{}.*?)(#\s\[section-|\Z)".format(re.escape(section)), config_personal,
+            m = re.search(rf"(#\s{re.escape(section)}.*?)(#\s\[section-|\Z)", config_personal,
                           flags=re.DOTALL)
             try:
                 config_section = m.group(1)
@@ -710,7 +710,7 @@ def configure(keymap):
         match_flg = False
         if use_usjis_keyboard_conversion:
             for us_key in usjis_key_table:
-                if re.search(r"(^|[^S]-){}$".format(re.escape(us_key)), key):
+                if re.search(rf"(^|[^S]-){re.escape(us_key)}$", key):
                     for jis_key in usjis_key_table[us_key][0]:
                         key_list.append(key.replace(us_key, jis_key))
                     match_flg = True
@@ -723,7 +723,7 @@ def configure(keymap):
         key = keyStrNormalization(key)
         if use_usjis_keyboard_conversion:
             for us_key in usjis_key_table:
-                if re.search(r"(^|[^S]-){}$".format(re.escape(us_key)), key):
+                if re.search(rf"(^|[^S]-){re.escape(us_key)}$", key):
                     jis_key = usjis_key_table[us_key][1]
                     key = key.replace(us_key, jis_key)
                     break
@@ -1554,12 +1554,12 @@ def configure(keymap):
 
     def specialCharToKeyStr(key):
         for special_char in special_char_key_table:
-            if re.search(r"(^|-){}$".format(re.escape(special_char)), key):
+            if re.search(rf"(^|-){re.escape(special_char)}$", key):
                 if is_japanese_keyboard:
                     str = special_char_key_table[special_char][1]
                 else:
                     str = special_char_key_table[special_char][0]
-                # key = re.sub(r"{}$".format(re.escape(special_char)), str, key)
+                # key = re.sub(rf"{re.escape(special_char)}$", str, key)
                 key = key[:-1] + str # 一文字の変換であれば、こちらの方が速い
                 break
         return key
