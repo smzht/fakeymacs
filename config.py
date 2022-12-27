@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20221227_01"
+fakeymacs_version = "20221227_02"
 
 import time
 import os.path
@@ -1970,21 +1970,19 @@ def configure(keymap):
     ## 全てのキーパターンの設定（キーの入力記録を残すための設定）
     for vkey in vkeys():
         key = vkToStr(vkey)
-
         for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
             mkey = mod1 + mod2 + mod3 + mod4 + key
             define_key(keymap_base, mkey, self_insert_command(mkey))
 
-        # US と JIS のキーボード変換の機能を有効にしている場合は、変換が必要となるキーを、左右両方の
-        # モディファイアキーの全てのパターンで keymap_base に登録する
-        if use_usjis_keyboard_conversion:
-            for mod1, mod2, mod3, mod4 in itertools.product(["", "LW-", "RW-"],
-                                                            ["", "LA-", "RA-"],
-                                                            ["", "LC-", "RC-"],
-                                                            ["", "S-"]):
-                if mod4 + key in usjis_key_table:
-                    mkey = mod1 + mod2 + mod3 + mod4 + key
-                    define_key(keymap_base, mkey, self_insert_command(mkey))
+    # US と JIS のキーボード変換の機能を有効にしている場合は、変換が必要となるキーを、左右両方の
+    # モディファイアキーの全てのパターンで keymap_base に登録する
+    if use_usjis_keyboard_conversion:
+        for us_key in usjis_key_table:
+            for mod1, mod2, mod3 in itertools.product(["", "LW-", "RW-"],
+                                                      ["", "LA-", "RA-"],
+                                                      ["", "LC-", "RC-"]):
+                mkey = mod1 + mod2 + mod3 + us_key
+                define_key(keymap_base, mkey, self_insert_command(mkey))
 
     ## マルチストロークキーの設定
     define_key(keymap_emacs, "Ctl-x",  keymap.defineMultiStrokeKeymap(fc.ctl_x_prefix_key))
@@ -2048,12 +2046,9 @@ def configure(keymap):
     define_key(keymap_emacs, "C-u", universal_argument)
 
     ## 「IME の切り替え」のキー設定
-    define_key(keymap_base, "A-(25)", toggle_input_method)
-
-    if is_japanese_keyboard:
-        define_key(keymap_base, "(243)", toggle_input_method) # <半角／全角> キー
-        define_key(keymap_base, "(244)", toggle_input_method) # <半角／全角> キー
-
+    define_key(keymap_base, "A-(25)",  toggle_input_method) # Alt-` キー
+    define_key(keymap_base, "(243)",   toggle_input_method) # <半角／全角> キー
+    define_key(keymap_base, "(244)",   toggle_input_method) # <半角／全角> キー
     define_key(keymap_base, "(240)",   toggle_input_method) # CapsLock キー
     define_key(keymap_base, "S-(240)", toggle_input_method) # CapsLock キー
 
@@ -2335,11 +2330,11 @@ def configure(keymap):
         ##################################################
 
         ## 「IME の切り替え」のキー設定
-        define_key(keymap_ei, "(243)",   ei_disable_input_method)
-        define_key(keymap_ei, "(244)",   ei_disable_input_method)
-        define_key(keymap_ei, "A-(25)",  ei_disable_input_method)
-        define_key(keymap_ei, "(240)",   ei_disable_input_method)
-        define_key(keymap_ei, "S-(240)", ei_disable_input_method)
+        define_key(keymap_ei, "A-(25)",  ei_disable_input_method) # Alt-` キー
+        define_key(keymap_ei, "(243)",   ei_disable_input_method) # <半角／全角> キー
+        define_key(keymap_ei, "(244)",   ei_disable_input_method) # <半角／全角> キー
+        define_key(keymap_ei, "(240)",   ei_disable_input_method) # CapsLock キー
+        define_key(keymap_ei, "S-(240)", ei_disable_input_method) # CapsLock キー
 
         ## Esc キーの設定
         define_key(keymap_ei, "Esc", ei_esc)
