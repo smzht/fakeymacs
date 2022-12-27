@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20221226_01"
+fakeymacs_version = "20221227_01"
 
 import time
 import os.path
@@ -1971,20 +1971,20 @@ def configure(keymap):
     for vkey in vkeys():
         key = vkToStr(vkey)
 
-        # US と JIS のキーボード変換の機能を有しているため、左右両方のモディファイアキーのパターンで、
-        # keymap_base を登録する
-        for mod1, mod2, mod3, in itertools.product(["", "LA-", "RA-"],
-                                                   ["", "LC-", "RC-"],
-                                                   ["", "S-"]):
-            mkey = mod1 + mod2 + mod3 + key
+        for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
+            mkey = mod1 + mod2 + mod3 + mod4 + key
             define_key(keymap_base, mkey, self_insert_command(mkey))
 
-        # Win キーとの組み合わせパターンは、数が多くなりすぎてエラーが発生するため、限定する
-        for mod1, mod2, mod3 in itertools.product(["LW-", "RW-"],
-                                                  ["", "LA-", "RA-", "LC-", "RC-"],
-                                                  ["", "S-"]):
-            mkey = mod1 + mod2 + mod3 + key
-            define_key(keymap_base, mkey, self_insert_command(mkey))
+        # US と JIS のキーボード変換の機能を有効にしている場合は、変換が必要となるキーを、左右両方の
+        # モディファイアキーの全てパターンで keymap_base に登録する
+        if use_usjis_keyboard_conversion:
+            for mod1, mod2, mod3, mod4 in itertools.product(["", "LW-", "RW-"],
+                                                            ["", "LA-", "RA-"],
+                                                            ["", "LC-", "RC-"],
+                                                            ["", "S-"]):
+                mkey = mod1 + mod2 + mod3 + mod4 + key
+                if mod4 + key in usjis_key_table:
+                    define_key(keymap_base, mkey, self_insert_command(mkey))
 
     ## マルチストロークキーの設定
     define_key(keymap_emacs, "Ctl-x",  keymap.defineMultiStrokeKeymap(fc.ctl_x_prefix_key))
