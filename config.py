@@ -1982,8 +1982,8 @@ def configure(keymap):
                                                             ["", "LA-", "RA-"],
                                                             ["", "LC-", "RC-"],
                                                             ["", "S-"]):
-                mkey = mod1 + mod2 + mod3 + mod4 + key
                 if mod4 + key in usjis_key_table:
+                    mkey = mod1 + mod2 + mod3 + mod4 + key
                     define_key(keymap_base, mkey, self_insert_command(mkey))
 
     ## マルチストロークキーの設定
