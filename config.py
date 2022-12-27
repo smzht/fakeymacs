@@ -1976,7 +1976,7 @@ def configure(keymap):
             define_key(keymap_base, mkey, self_insert_command(mkey))
 
         # US と JIS のキーボード変換の機能を有効にしている場合は、変換が必要となるキーを、左右両方の
-        # モディファイアキーの全てパターンで keymap_base に登録する
+        # モディファイアキーの全てのパターンで keymap_base に登録する
         if use_usjis_keyboard_conversion:
             for mod1, mod2, mod3, mod4 in itertools.product(["", "LW-", "RW-"],
                                                             ["", "LA-", "RA-"],
