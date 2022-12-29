@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20221227_03"
+fakeymacs_version = "20221229_01"
 
 import time
 import os.path
@@ -2290,7 +2290,7 @@ def configure(keymap):
         ## その他（Emacs 日本語入力モード用）
         ##################################################
 
-        def ei_esc():
+        def ei_escape():
             escape()
 
         def ei_newline():
@@ -2338,8 +2338,8 @@ def configure(keymap):
         define_key(keymap_ei, "S-(240)", ei_disable_input_method) # CapsLock キー
 
         ## Esc キーの設定
-        define_key(keymap_ei, "Esc", ei_esc)
-        define_key(keymap_ei, "C-[", ei_esc)
+        define_key(keymap_ei, "Esc", ei_escape)
+        define_key(keymap_ei, "C-[", ei_escape)
 
         ## 「カーソル移動」のキー設定
         define_key(keymap_ei, "C-b", backward_char)
