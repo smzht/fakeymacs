@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20221229_02"
+fakeymacs_version = "20221231_01"
 
 import time
 import os.path
@@ -1983,7 +1983,8 @@ def configure(keymap):
                                                           ["", "LA-", "RA-"],
                                                           ["", "LC-", "RC-"]):
                     mkey = mod1 + mod2 + mod3 + us_key
-                    define_key(keymap_base, mkey, self_insert_command(mkey))
+                    if not getKeyCommand(keymap_base, mkey):
+                        define_key(keymap_base, mkey, self_insert_command(mkey))
 
     ## マルチストロークキーの設定
     define_key(keymap_emacs, "Ctl-x",  keymap.defineMultiStrokeKeymap(fc.ctl_x_prefix_key))
