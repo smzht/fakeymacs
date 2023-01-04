@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20230104_02"
+fakeymacs_version = "20230104_03"
 
 import time
 import os.path
@@ -1553,10 +1553,7 @@ def configure(keymap):
                               }
 
     def specialCharToKeyStr(key):
-        if is_japanese_keyboard:
-            n = 1
-        else:
-            n = 0
+        n = 1 if is_japanese_keyboard else 0
         for special_char, key_str in special_char_key_table.items():
             if re.search(rf"(^|-){re.escape(special_char)}$", key):
                 key = key[:-1] + key_str[n]
@@ -2994,11 +2991,7 @@ def configure(keymap):
 
                 formatter = f"{{0:{process_name_length}}} |{{1:1}}| {{2}}"
                 for window in window_list:
-                    if window.isMinimized():
-                        icon = "m"
-                    else:
-                        icon = ""
-
+                    icon  = "m" if window.isMinimized() else ""
                     window_items.append([formatter.format(window.getProcessName(),
                                                           icon, window.getText()), popWindow(window)])
 
