@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20221231_01"
+fakeymacs_version = "20230104_02"
 
 import time
 import os.path
@@ -709,10 +709,10 @@ def configure(keymap):
         key_list = []
         match_flg = False
         if use_usjis_keyboard_conversion:
-            for us_key in usjis_key_table:
+            for us_key, jis_list in usjis_key_table.items():
                 if re.search(rf"(^|[^S]-){re.escape(us_key)}$", key):
-                    for jis_key in usjis_key_table[us_key][0]:
-                        key_list.append(key.replace(us_key, jis_key))
+                    for jis_pos_key in jis_list[0]:
+                        key_list.append(key.replace(us_key, jis_pos_key))
                     match_flg = True
                     break
         if not match_flg:
@@ -722,10 +722,10 @@ def configure(keymap):
     def usjisInput(key):
         key = keyStrNormalization(key)
         if use_usjis_keyboard_conversion:
-            for us_key in usjis_key_table:
+            for us_key, jis_list in usjis_key_table.items():
                 if re.search(rf"(^|[^S]-){re.escape(us_key)}$", key):
-                    jis_key = usjis_key_table[us_key][1]
-                    key = key.replace(us_key, jis_key)
+                    jis_input_key = jis_list[1]
+                    key = key.replace(us_key, jis_input_key)
                     break
         return key
 
@@ -1553,14 +1553,13 @@ def configure(keymap):
                               }
 
     def specialCharToKeyStr(key):
-        for special_char in special_char_key_table:
+        if is_japanese_keyboard:
+            n = 1
+        else:
+            n = 0
+        for special_char, key_str in special_char_key_table.items():
             if re.search(rf"(^|-){re.escape(special_char)}$", key):
-                if is_japanese_keyboard:
-                    str = special_char_key_table[special_char][1]
-                else:
-                    str = special_char_key_table[special_char][0]
-                # key = re.sub(rf"{re.escape(special_char)}$", str, key)
-                key = key[:-1] + str # 一文字の変換であれば、こちらの方が速い
+                key = key[:-1] + key_str[n]
                 break
         return key
 
@@ -1977,8 +1976,8 @@ def configure(keymap):
     # US と JIS のキーボード変換の機能を有効にしている場合は、変換が必要となるキーを、左右両方の
     # モディファイアキーの全てのパターンで keymap_base に登録する
     if use_usjis_keyboard_conversion:
-        for us_key in usjis_key_table:
-            if usjis_key_table[us_key][0]:
+        for us_key, jis_list in usjis_key_table.items():
+            if jis_list[0]:
                 for mod1, mod2, mod3 in itertools.product(["", "LW-", "RW-"],
                                                           ["", "LA-", "RA-"],
                                                           ["", "LC-", "RC-"]):
