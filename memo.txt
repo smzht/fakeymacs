@@ -24,9 +24,16 @@
 # ・左右どちらの Alt キーを使うかを fc.side_of_alt_key 変数で指定できる。
 # ・左右どちらの Win キーを使うかを fc.side_of_win_key 変数で指定できる。
 # ・キーバインドの定義では次の表記が利用できる。
-#   ・S-    : Shift キー
-#   ・C-    : Ctrl キー
-#   ・A-    : Alt キー
+#   ・S-    : Shift キー（左右どちらでも）
+#   ・C-    : Ctrl キー（fc.side_of_ctrl_key 変数で指定した側のキー）
+#   ・LC-   : 左 Ctrl キー
+#   ・RC-   : 右 Ctrl キー
+#   ・A-    : Alt キー（fc.side_of_alt_key 変数で指定した側のキー）
+#   ・LA-   : 左 Alt キー
+#   ・RA-   : 右 Alt キー
+#   ・W-    : Win キー（fc.side_of_win_key 変数で指定した側のキー）
+#   ・LW-   : 左 Win キー
+#   ・RW-   : 右 Win キー
 #   ・M-    : Alt キー と Esc、C-[ のプレフィックスキーを利用する３パターンを定義
 #             （Emacs キーバインド設定で利用可。emacs の Meta と同様の意味。）
 #   ・Ctl-x : fc.ctl_x_prefix_key 変数で定義されているプレフィックスキーに置換え
