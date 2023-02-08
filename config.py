@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20230119_01"
+fakeymacs_version = "20230208_01"
 
 import time
 import os.path
@@ -925,9 +925,7 @@ def configure(keymap):
         if getImeStatus() != ime_status:
             # IME を切り替える
             # （setImeStatus(ime_status) を使わないのは、キーボードマクロの再生時に影響がでるため）
-            # self_insert_command("A-(25)")() # 日本語キーボードで PowerShell を使った際に @ が
-            #                                 # 表示されるため、次行に変更
-            self_insert_command("(244)")()
+            self_insert_command("(25)")()
 
             if fakeymacs.is_playing_kmacro:
                 delay(0.2)
