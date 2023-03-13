@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20230208_01"
+fakeymacs_version = "20230314_01"
 
 import time
 import os.path
@@ -176,7 +176,8 @@ def configure(keymap):
                                ]
 
     # Emacs のキーバインドにするウィンドウのクラスネームを指定する（全ての設定に優先する）
-    fc.emacs_target_class   = ["Edit"]                   # テキスト入力フィールドなどが該当
+    fc.emacs_target_class   = ["Edit",                   # テキスト入力フィールドなどが該当
+                               "RAIL_WINDOW"]            # RemoteApp（アプリが mstsc.exe のため、クラスを指定）
 
     # Emacs のキーバインドに“したくない”アプリケーションソフトを指定する
     # （Keyhac のメニューから「内部ログ」を ON にすると processname や classname を確認することができます）
