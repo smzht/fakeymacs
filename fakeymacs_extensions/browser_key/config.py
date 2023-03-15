@@ -27,13 +27,6 @@ except:
     # 新しいタブを開いてそのタブのアドレスバーに移動するキーを指定する（IME は OFF）
     fc.browser_key2 = "C-A-t"
 
-try:
-    # 設定されているか？
-    fc.browser_key3
-except:
-    # アドレスバーに移動するキーを指定する（IME は ON）
-    fc.browser_key3 = "C-A-i"
-
 # ブラウザをポップアップしてから指定したキーを実行する。
 
 def browser_popup(key, ime_status, browser_list=fc.browser_list):
@@ -61,7 +54,6 @@ def browser_popup(key, ime_status, browser_list=fc.browser_list):
 
 define_key(keymap_global, fc.browser_key1, browser_popup("C-l", 0))
 define_key(keymap_global, fc.browser_key2, browser_popup("C-t", 0))
-define_key(keymap_global, fc.browser_key3, browser_popup("C-l", 1))
 
 ## config_personal.py ファイルの読み込み
 exec(readConfigExtension(r"browser_key\config_personal.py", msg=False), dict(globals(), **locals()))
