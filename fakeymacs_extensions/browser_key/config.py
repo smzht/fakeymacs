@@ -34,10 +34,11 @@ def browser_popup(key, ime_status, browser_list=fc.browser_list):
         for window in getWindowList():
             if window.getProcessName() in browser_list:
 
-                # thunderbird から本コマンドを実行した際、ウィンドウフォーカスが適切に
-                # 移動しない場合がある。その対策。（何かのキーを押下すると良いようだ。）
-                if keymap.getWindow().getProcessName() == "thunderbird.exe":
-                    self_insert_command("Shift")()
+                # ★ 現象が発生しなくなったようなので、一旦コメント化する ★
+                # # thunderbird から本コマンドを実行した際、ウィンドウフォーカスが適切に
+                # # 移動しない場合がある。その対策。（何かのキーを押下すると良いようだ。）
+                # if keymap.getWindow().getProcessName() == "thunderbird.exe":
+                #     self_insert_command("Shift")()
 
                 popWindow(window)()
                 delay()
