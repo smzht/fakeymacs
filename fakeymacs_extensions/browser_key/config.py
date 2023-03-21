@@ -44,14 +44,14 @@ def browser_popup(key, ime_status, browser_list=fc.browser_list):
                 delay()
                 escape() # 検索状態になっていた場合に Esc で解除する
                 self_insert_command(key)()
-                keymap.delayedCall(lambda: setImeStatus(ime_status), 100)
+                setImeStatus(ime_status)
                 return
 
         # browser_list に設定されているブラウザが起動していない場合、browser_list の最初
         # に設定されているブラウザを起動する
         keymap.ShellExecuteCommand(None, browser_list[0], "", "")()
 
-    return _func
+    return lambda: keymap.delayedCall(_func, 200)
 
 define_key(keymap_global, fc.browser_key1, browser_popup("C-l", 0))
 define_key(keymap_global, fc.browser_key2, browser_popup("C-t", 0))
