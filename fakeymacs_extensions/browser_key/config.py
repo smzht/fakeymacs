@@ -44,7 +44,7 @@ def browser_popup(key, ime_status, browser_list=fc.browser_list):
                 delay()
                 escape() # 検索状態になっていた場合に Esc で解除する
                 self_insert_command(key)()
-                setImeStatus(ime_status)
+                keymap.delayedCall(lambda: setImeStatus(ime_status), 100)
                 return
 
         # browser_list に設定されているブラウザが起動していない場合、browser_list の最初
