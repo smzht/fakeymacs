@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20230314_01"
+fakeymacs_version = "20230324_01"
 
 import time
 import os.path
@@ -2456,30 +2456,35 @@ def configure(keymap):
             nonlocal window_title
 
             if window.isVisible() and not window.getOwner():
+                process_name = window.getProcessName()
                 class_name = window.getClassName()
                 title = re.sub(r".* ‎- ", r"", window.getText())
 
-                if class_name == "Emacs" or title != "":
-                    if not re.match(fc.window_operation_exclusion_class, class_name):
-                        process_name = window.getProcessName()
+                # RemoteApp を利用する際のおまじない
+                if (process_name == "mstsc.exe" and
+                    class_name == "RAIL_WINDOW" and
+                    title == " (リモート)"):
+                    pass
 
-                        if not re.match(fc.window_operation_exclusion_process, process_name):
+                elif class_name == "Emacs" or title != "":
+                    if (not re.match(fc.window_operation_exclusion_class, class_name) and
+                        not re.match(fc.window_operation_exclusion_process, process_name)):
 
-                            # バックグラウンドで起動している UWPアプリが window_list に登録されるのを抑制する
-                            # （http://mrxray.on.coocan.jp/Delphi/plSamples/320_AppList.htm）
-                            # （http://mrxray.on.coocan.jp/Delphi/plSamples/324_CheckRun_UWPApp.htm）
+                        # バックグラウンドで起動している UWPアプリが window_list に登録されるのを抑制する
+                        # （http://mrxray.on.coocan.jp/Delphi/plSamples/320_AppList.htm）
+                        # （http://mrxray.on.coocan.jp/Delphi/plSamples/324_CheckRun_UWPApp.htm）
 
-                            if class_name == "Windows.UI.Core.CoreWindow":
-                                window_title = title
+                        if class_name == "Windows.UI.Core.CoreWindow":
+                            window_title = title
 
-                            elif class_name == "ApplicationFrameWindow":
-                                if title != "Cortana":
-                                    if (title != window_title or window.isMinimized() or
-                                        window in fakeymacs.window_list): # UWPアプリの仮想デスクトップ対策
-                                        window_list.append(window)
-                                window_title = None
-                            else:
-                                window_list.append(window)
+                        elif class_name == "ApplicationFrameWindow":
+                            if title != "Cortana":
+                                if (title != window_title or window.isMinimized() or
+                                    window in fakeymacs.window_list): # UWPアプリの仮想デスクトップ対策
+                                    window_list.append(window)
+                            window_title = None
+                        else:
+                            window_list.append(window)
             return True
 
         window_title = None
