@@ -15,6 +15,13 @@ except:
 
 try:
     # 設定されているか？
+    fc.browser_url
+except:
+    # ブラウザが起動していない場合に開く URL を指定する
+    fc.browser_url = r"https://www.google.com/"
+
+try:
+    # 設定されているか？
     fc.browser_key1
 except:
     # アドレスバーに移動するキーを指定する（IME は OFF）
@@ -26,13 +33,6 @@ try:
 except:
     # 新しいタブを開いてそのタブのアドレスバーに移動するキーを指定する（IME は OFF）
     fc.browser_key2 = "C-A-t"
-
-try:
-    # 設定されているか？
-    fc.browser_url
-except:
-    # ブラウザが起動していない場合に開く URL を指定する
-    fc.browser_url = r"https://www.google.com/"
 
 # ブラウザをポップアップしてから指定したキーを実行する。
 
