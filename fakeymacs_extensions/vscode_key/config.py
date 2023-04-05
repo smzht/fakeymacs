@@ -226,12 +226,12 @@ def kill_buffer():
 def switch_to_buffer():
     # VS Code Web 画面で動作するように、C-Tab の発行とはしていない（C-Tab がブラウザでキャッチされるため）
     # VSCode Command : View: Quick Open Privious Recently Used Editor in Group
-    vscodeExecuteCommand("VQOPrRUEi")()
+    vscodeExecuteCommand("VQOPRRUEiG")()
     # vscodeExecuteCommand("workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup")()
 
 def list_buffers():
     # VSCode Command : View: Show All Editors By Most Recently Used
-    vscodeExecuteCommand("VSAEBM")()
+    vscodeExecuteCommand("VSAEBMRU")()
     # vscodeExecuteCommand("workbench.action.showAllEditorsByMostRecentlyUsed")()
 
 ## 文字列検索
@@ -250,7 +250,7 @@ def isearch_forward():
 ## パネル操作
 def focus_into_panel():
     # VSCode Command : View: Focus into Panel
-    vscodeExecuteCommand("VFiP")()
+    vscodeExecuteCommand("VFiPa")()
     # vscodeExecuteCommand("workbench.action.focusPanel")()
 
 def close_panel():
@@ -267,7 +267,7 @@ def toggle_maximized_panel():
 def delete_window():
     if fakeymacs_vscode.vscode_focus == "not_terminal":
         # VSCode Command : View: Close All Editors in Group
-        vscodeExecuteCommand("VCAEi")()
+        vscodeExecuteCommand("VCAEiG")()
         # vscodeExecuteCommand("workbench.action.closeEditorsInGroup")()
     else:
         focus_into_panel()
@@ -277,7 +277,7 @@ def delete_window():
 def delete_other_windows():
     if fakeymacs_vscode.vscode_focus == "not_terminal":
         # VSCode Command : View: Close Editors in Other Groups
-        vscodeExecuteCommand("VCEiO")()
+        vscodeExecuteCommand("VCEiOG")()
         # vscodeExecuteCommand("workbench.action.closeEditorsInOtherGroups")()
 
         if fc.use_direct_input_in_vscode_terminal:
@@ -385,12 +385,12 @@ def mark_all_like_this():
 
 def skip_to_previous_like_this():
     # VSCode Command : Move Last Selection To Previous Find Match
-    region(vscodeExecuteCommand("MLSTP"))()
+    region(vscodeExecuteCommand("MLSTPFM"))()
     # region(vscodeExecuteCommand("editor.action.moveSelectionToPreviousFindMatch"))()
 
 def skip_to_next_like_this():
     # VSCode Command : Move Last Selection To Next Find Match
-    region(vscodeExecuteCommand("MLSTN"))()
+    region(vscodeExecuteCommand("MLSTNFM"))()
     # region(self_insert_command("C-k", "C-d"))() # ターミナルで誤動作するのでショートカットキーは使わない
     # region(vscodeExecuteCommand("editor.action.moveSelectionToNextFindMatch"))()
 
