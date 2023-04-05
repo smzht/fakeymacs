@@ -271,7 +271,7 @@ def delete_window():
         # vscodeExecuteCommand("workbench.action.closeEditorsInGroup")()
     else:
         focus_into_panel()
-        close_panel()
+        keymap.delayedCall(close_panel, 300)
         fakeymacs_vscode.vscode_focus = "not_terminal"
 
 def delete_other_windows():
@@ -282,7 +282,7 @@ def delete_other_windows():
 
         if fc.use_direct_input_in_vscode_terminal:
             focus_into_panel()
-            close_panel()
+            keymap.delayedCall(close_panel, 300)
     else:
         toggle_maximized_panel()
 
@@ -434,7 +434,7 @@ def toggle_terminal():
             fakeymacs_vscode.vscode_focus = "terminal"
         else:
             focus_into_panel()
-            close_panel()
+            keymap.delayedCall(close_panel, 300)
             fakeymacs_vscode.vscode_focus = "not_terminal"
     else:
         # VSCode Command : View: Toggle Terminal
