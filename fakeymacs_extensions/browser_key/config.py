@@ -35,21 +35,24 @@ except:
     fc.browser_key2 = "C-A-t"
 
 # ブラウザをポップアップしてから指定したキーを実行する。
-
 def browser_popup(key, ime_status, browser_list=fc.browser_list):
     def _func():
-        for window in getWindowList():
-            if window.getProcessName() in browser_list:
-                popWindow(window)()
-                delay()
-                escape() # 検索状態になっていた場合に Esc で解除する
-                self_insert_command(key)()
-                keymap.delayedCall(lambda: setImeStatus(ime_status), 100)
-                return
+        def _inputKey():
+            escape() # 検索状態になっていた場合に Esc で解除する
+            self_insert_command(key)()
+            setImeStatus(ime_status)
 
-        # browser_list に設定されているブラウザが起動していない場合、browser_url を開く
-        keymap.ShellExecuteCommand(None, fc.browser_url, "", "")()
-
+        if keymap.getWindow().getProcessName() in browser_list:
+            _inputKey()
+        else:
+            for window in getWindowList():
+                if window.getProcessName() in browser_list:
+                    popWindow(window)()
+                    keymap.delayedCall(_inputKey, 0)
+                    break
+            else:
+                # browser_list に設定されているブラウザが起動していない場合、browser_url を開く
+                keymap.ShellExecuteCommand(None, fc.browser_url, "", "")()
     return _func
 
 define_key(keymap_global, fc.browser_key1, browser_popup("C-l", 0))
