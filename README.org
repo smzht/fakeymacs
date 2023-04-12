@@ -72,7 +72,7 @@ Caps Lock のキーの置き換えは Keyhac ではできませんので、KeySw
 *** 2) IMEを切り替えるショートカットキーを無効化する
 
 Alt+Shift や Ctrl+Shift のショートカットキーの操作により IME の切り替えが行われる場合には、
-次のページの内容を参照とし、それらのショートカットキーの無効化をしてください。
+次のページの内容を参照し、それらのショートカットキーの無効化を行ってください。
 
 - (Windows 10) https://jill-tone.com/win10ime_ctrlshift_invalidation/
 - (Windows 11) https://softantenna.com/blog/windows-11-disable-ime-change-shortcuts/
