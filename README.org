@@ -77,6 +77,8 @@ Alt+Shift や Ctrl+Shift のキー操作により IME の切り替えが行わ�
 - (Windows 10) https://jill-tone.com/win10ime_ctrlshift_invalidation/
 - (Windows 11) https://softantenna.com/blog/windows-11-disable-ime-change-shortcuts/
 
+※ この無効化の設定を行わないと、リージョンの選択が正しく機能しません。
+
 *** 3) Keyhac をインストールする
 
 次のサイトから Keyhac をインストールしてください。
