@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20230324_01"
+fakeymacs_version = "20230525_01"
 
 import time
 import os.path
@@ -170,14 +170,16 @@ def configure(keymap):
     ## カスタマイズパラメータの設定
     ###########################################################################
 
-    # すべてのキーマップを透過（スルー）するアプリケーションソフトを指定する
+    # すべてのキーマップを透過（スルー）するアプリケーションソフトを指定する（全ての設定に優先する）
     # （keymap_base、keymap_global を含むすべてのキーマップをスルーします）
-    fc.transparent_target   = ["mstsc.exe",              # Remote Desktop
-                               ]
+    fc.transparent_target       = []
 
-    # Emacs のキーバインドにするウィンドウのクラスネームを指定する（全ての設定に優先する）
-    fc.emacs_target_class   = ["Edit",                   # テキスト入力フィールドなどが該当
-                               "RAIL_WINDOW"]            # RemoteApp（アプリが mstsc.exe のため、クラスを指定）
+    # すべてのキーマップを透過（スルー）するウィンドウのクラスネームを指定する（全ての設定に優先する）
+    # （keymap_base、keymap_global を含むすべてのキーマップをスルーします）
+    fc.transparent_target_class = ["IHWindowClass"]      # Remote Desktop
+
+    # Emacs のキーバインドにするウィンドウのクラスネームを指定する（not_emacs_target の設定より優先する）
+    fc.emacs_target_class   = ["Edit"]                   # テキスト入力フィールドなどが該当
 
     # Emacs のキーバインドに“したくない”アプリケーションソフトを指定する
     # （Keyhac のメニューから「内部ログ」を ON にすると processname や classname を確認することができます）
@@ -779,9 +781,9 @@ def configure(keymap):
             else:
                 keymap_base[d_ctrl] = d_ctrl
 
-        if (class_name not in fc.emacs_target_class and
-            (process_name in fc.transparent_target or
-             process_name in fc.game_app_list)):
+        if (process_name in fc.transparent_target or
+            process_name in fc.transparent_target_class or
+            process_name in fc.game_app_list):
             fakeymacs.is_keymap_decided = True
             return False
         else:
@@ -2383,8 +2385,8 @@ def configure(keymap):
     ###########################################################################
 
     def is_global_target(window):
-        if (window.getClassName() not in fc.emacs_target_class and
-            window.getProcessName() in fc.transparent_target):
+        if (window.getProcessName() in fc.transparent_target or
+            window.getProcessName() in fc.transparent_target_class):
             return False
         else:
             return True
