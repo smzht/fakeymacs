@@ -63,7 +63,7 @@ fc.transparent_target       += []
 # （keymap_base、keymap_global を含むすべてのキーマップをスルーします）
 fc.transparent_target_class += []
 
-# Emacs のキーバインドにするウィンドウのクラスネームを指定する（not_emacs_target の設定より優先する）
+# Emacs のキーバインドにするウィンドウのクラスネームを指定する（fc.not_emacs_target の設定より優先する）
 fc.emacs_target_class  += []
 
 # Emacs のキーバインドに“したくない”アプリケーションソフトを指定する
@@ -197,11 +197,13 @@ fc.window_switching_key += [["A-p", "A-n"]]
 #   ください。）
 fc.is_newline_selectable_in_Excel = True
 
-# ゲームなど、キーバインドの設定を極力行いたくないアプリケーションソフトを指定する
+# ゲームなど、キーバインドの設定を極力行いたくないアプリケーションソフト（プロセス名称と
+# クラス名称の組み合わせ（ワイルドカード指定可））を指定する
 # （keymap_global 以外のすべてのキーマップをスルーします。ゲームなど、Keyhac によるキー設定と
 #   相性が悪いアプリケーションソフトを指定してください。keymap_base の設定もスルーするため、
 #   英語 -> 日本語キーボード変換の機能が働かなくなることにご留意ください。）
-fc.game_app_list        = ["ffxiv_dx11.exe",         # FINAL FANTASY XIV
+fc.game_app_list        = [["ffxiv_dx11.exe", "*"],            # FINAL FANTASY XIV
+                           # ["msrdc.exe",      "RAIL_WINDOW"],  # WSLg
                            ]
 
 # [section-base-2] ---------------------------------------------------------------------------------

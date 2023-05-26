@@ -17,7 +17,7 @@ Fakeymacs をカスタマイズするために、以下のコンフィグレー�
 | fc.chromium_browser_list                  | Chromium 系ブラウザのプログラム名称を指定する                                                                                           |
 | fc.transparent_target                     | すべてのキーマップを透過（スルー）するアプリケーションソフトを指定する（全ての設定に優先する）                                          |
 | fc.transparent_target_class               | すべてのキーマップを透過（スルー）するアプリケーションソフトを指定する（全ての設定に優先する）                                          |
-| fc.emacs_target_class                     | Emacs のキーバインドにするウィンドウのクラスネームを指定する（not_emacs_target の設定より優先する）                                     |
+| fc.emacs_target_class                     | Emacs のキーバインドにするウィンドウのクラスネームを指定する（fc.not_emacs_target の設定より優先する）                                  |
 | fc.not_emacs_target                       | Emacs のキーバインドに“したくない”アプリケーションソフトを指定する                                                                    |
 | fc.ime_target                             | IME の切り替え“のみをしたい”アプリケーションソフトを指定する                                                                          |
 | fc.skip_settings_key                      | キーマップ毎にキー設定をスキップするキーを指定する                                                                                      |

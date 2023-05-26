@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20230525_01"
+fakeymacs_version = "20230526_01"
 
 import time
 import os.path
@@ -178,7 +178,7 @@ def configure(keymap):
     # （keymap_base、keymap_global を含むすべてのキーマップをスルーします）
     fc.transparent_target_class = ["IHWindowClass"]      # Remote Desktop
 
-    # Emacs のキーバインドにするウィンドウのクラスネームを指定する（not_emacs_target の設定より優先する）
+    # Emacs のキーバインドにするウィンドウのクラスネームを指定する（fc.not_emacs_target の設定より優先する）
     fc.emacs_target_class   = ["Edit"]                   # テキスト入力フィールドなどが該当
 
     # Emacs のキーバインドに“したくない”アプリケーションソフトを指定する
@@ -560,11 +560,13 @@ def configure(keymap):
                                ["POWERPNT.EXE", "mdiClass"],
                                ]
 
-    # ゲームなど、キーバインドの設定を極力行いたくないアプリケーションソフトを指定する
+    # ゲームなど、キーバインドの設定を極力行いたくないアプリケーションソフト（プロセス名称と
+    # クラス名称の組み合わせ（ワイルドカード指定可））を指定する
     # （keymap_global 以外のすべてのキーマップをスルーします。ゲームなど、Keyhac によるキー設定と
     #   相性が悪いアプリケーションソフトを指定してください。keymap_base の設定もスルーするため、
     #   英語 -> 日本語キーボード変換の機能が働かなくなることにご留意ください。）
-    fc.game_app_list        = ["ffxiv_dx11.exe",         # FINAL FANTASY XIV
+    fc.game_app_list        = [["ffxiv_dx11.exe", "*"],            # FINAL FANTASY XIV
+                               # ["msrdc.exe",      "RAIL_WINDOW"],  # WSLg
                                ]
 
     # 個人設定ファイルのセクション [section-base-1] を読み込んで実行する
@@ -751,7 +753,7 @@ def configure(keymap):
 
         if window is not fakeymacs.last_window:
             if (process_name in fc.not_clipboard_target or
-                any([checkWindow(None, c, None, window) for c in fc.not_clipboard_target_class])):
+                any((checkWindow(None, c, None, window) for c in fc.not_clipboard_target_class))):
                 # クリップボードの監視用のフックを無効にする
                 keymap.clipboard_history.enableHook(False)
                 fakeymacs.clipboard_hook = False
@@ -768,10 +770,8 @@ def configure(keymap):
                         fakeymacs.correct_ime_status = False
 
             fakeymacs.ctrl_button_app = False
-            for app in fc.ctrl_button_app_list:
-                if checkWindow(*app):
-                    fakeymacs.ctrl_button_app = True
-                    break
+            if any((checkWindow(*app, None, window) for app in fc.ctrl_button_app_list)):
+                fakeymacs.ctrl_button_app = True
 
             # Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrl キーの単押しによりサブウインドウが
             # 開く機能がある。その挙動を抑制するための対策。
@@ -783,7 +783,8 @@ def configure(keymap):
 
         if (process_name in fc.transparent_target or
             process_name in fc.transparent_target_class or
-            process_name in fc.game_app_list):
+            any((checkWindow(*app, None, window) if type(app) is list else
+                 checkWindow(app, None, None, window) for app in fc.game_app_list))):
             fakeymacs.is_keymap_decided = True
             return False
         else:
