@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20230526_01"
+fakeymacs_version = "20230527_01"
 
 import time
 import os.path
@@ -753,7 +753,7 @@ def configure(keymap):
 
         if window is not fakeymacs.last_window:
             if (process_name in fc.not_clipboard_target or
-                any((checkWindow(None, c, None, window) for c in fc.not_clipboard_target_class))):
+                any(checkWindow(None, c, None, window) for c in fc.not_clipboard_target_class)):
                 # クリップボードの監視用のフックを無効にする
                 keymap.clipboard_history.enableHook(False)
                 fakeymacs.clipboard_hook = False
@@ -770,7 +770,7 @@ def configure(keymap):
                         fakeymacs.correct_ime_status = False
 
             fakeymacs.ctrl_button_app = False
-            if any((checkWindow(*app, None, window) for app in fc.ctrl_button_app_list)):
+            if any(checkWindow(*app, None, window) for app in fc.ctrl_button_app_list):
                 fakeymacs.ctrl_button_app = True
 
             # Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrl キーの単押しによりサブウインドウが
@@ -783,8 +783,8 @@ def configure(keymap):
 
         if (process_name in fc.transparent_target or
             process_name in fc.transparent_target_class or
-            any((checkWindow(*app, None, window) if type(app) is list else
-                 checkWindow(app, None, None, window) for app in fc.game_app_list))):
+            any(checkWindow(*app, None, window) if type(app) is list else
+                checkWindow(app, None, None, window) for app in fc.game_app_list)):
             fakeymacs.is_keymap_decided = True
             return False
         else:
