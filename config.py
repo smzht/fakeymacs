@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20230528_01"
+fakeymacs_version = "20230606_01"
 
 import time
 import os.path
@@ -2441,6 +2441,15 @@ def configure(keymap):
     ## ウィンドウ操作（デスクトップ用）
     ##################################################
 
+    def getTopLevelWindow():
+        window = keymap.getTopLevelWindow()
+        if (window and
+            window.getProcessName() == "explorer.exe" and
+            window.getClassName() in ["WorkerW", "Shell_TrayWnd"]):
+            return None
+        else:
+            return window
+
     def popWindow(window):
         def _func():
             try:
@@ -2582,7 +2591,7 @@ def configure(keymap):
             window.setRect(rect)
             window.setRect(rect)
 
-        window = keymap.getTopLevelWindow()
+        window = getTopLevelWindow()
         if window:
             if display_cnt == 1:
                 if window.isMaximized():
@@ -2624,7 +2633,7 @@ def configure(keymap):
         resize_window(False)
 
     def minimize_window():
-        window = keymap.getTopLevelWindow()
+        window = getTopLevelWindow()
         if window and not window.isMinimized():
             window.minimize()
             delay()
