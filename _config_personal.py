@@ -404,3 +404,11 @@ if 0:
     exec(readConfigExtension(r"zenkaku_hankaku\config.py"), dict(globals(), **locals()))
 
 # --------------------------------------------------------------------------------------------------
+
+# Emacs キーバインドを利用しない設定のアプリで、メニューの操作用の Emacs キーバインドを設定する
+if 0:
+    fc.menu_target= ["ttermpro.exe", # TeraTerm
+                     ]
+    exec(readConfigExtension(r"menu_key\config.py"), dict(globals(), **locals()))
+
+# --------------------------------------------------------------------------------------------------
