@@ -33,7 +33,6 @@ def define_key_m(keys, command):
 define_key_m("C-[", escape)
 define_key_m("C-b", backward_char)
 define_key_m("C-f", forward_char)
-define_key_m("C-n", next_line)
 define_key_m("C-p", previous_line)
 define_key_m("C-n", next_line)
 define_key_m("C-m", newline)
