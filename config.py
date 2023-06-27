@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20230627_02"
+fakeymacs_version = "20230628_01"
 
 import time
 import os.path
@@ -1744,7 +1744,7 @@ def configure(keymap):
 
     def getKeyCommand(window_keymap, keys):
         try:
-            key_list = kbd(keys)[-1]
+            key_list = kbd(keys)[0]
             func = command_dict[(window_keymap, tuple(key_list))]
         except:
             func = None
