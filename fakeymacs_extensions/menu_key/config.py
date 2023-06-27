@@ -22,7 +22,8 @@ def is_menu_target(window):
 keymap_menu = keymap.defineWindowKeymap(check_func=is_menu_target)
 
 def is_menu():
-    if Window.find("#32768", None):
+    window = Window.find("#32768", None)
+    if window and window.getOwner() == keymap.getWindow():
         return True
     else:
         return False
