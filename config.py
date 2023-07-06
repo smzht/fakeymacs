@@ -569,6 +569,8 @@ def configure(keymap):
     # （keymap_global 以外のすべてのキーマップをスルーします。ゲームなど、Keyhac によるキー設定と
     #   相性が悪いアプリケーションソフトを指定してください。keymap_base の設定もスルーするため、
     #   英語 -> 日本語キーボード変換の機能が働かなくなることにご留意ください。）
+    # （msrdc.exe の行の有効化の必要性については、次のコミットの説明を参照してください。
+    #   https://github.com/smzht/fakeymacs/commit/5ceb921bd754ce348f9cd79b6606086916520945）
     fc.game_app_list        = [["ffxiv_dx11.exe", "*"],            # FINAL FANTASY XIV
                                # ["msrdc.exe",      "RAIL_WINDOW"],  # WSLg
                                ]
