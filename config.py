@@ -704,9 +704,9 @@ def configure(keymap):
                        "BackQuote"      : [["(243)", "(244)", "(248)"],       "S-Atmark"      ], # `
                        "S-BackQuote"    : [["S-(243)", "S-(244)", "S-(248)"], "S-Caret"       ], # ~
                        "(243)"          : [[],                                "(243)"         ], # <半角／全角>
-                       "S-(243)"        : [[],                                "S-(243)"       ], # <半角／全角>
+                       "S-(243)"        : [[],                                "S-(243)"       ], # S-<半角／全角>
                        "(244)"          : [[],                                "(244)"         ], # <半角／全角>
-                       "S-(244)"        : [[],                                "S-(244)"       ], # <半角／全角>
+                       "S-(244)"        : [[],                                "S-(244)"       ], # S-<半角／全角>
                        }
 
     def keyStrNormalization(key):
@@ -2053,11 +2053,14 @@ def configure(keymap):
     define_key(keymap_emacs, "C-u", universal_argument)
 
     ## 「IME の切り替え」のキー設定
-    define_key(keymap_base, "A-(25)",  toggle_input_method) # Alt-` キー
+    define_key(keymap_base, "C-`",     toggle_input_method) # C-` キー
+    define_key(keymap_base, "A-(25)",  toggle_input_method) # A-` キー
     define_key(keymap_base, "(243)",   toggle_input_method) # <半角／全角> キー
     define_key(keymap_base, "(244)",   toggle_input_method) # <半角／全角> キー
+    define_key(keymap_base, "C-(243)", toggle_input_method) # C-<半角／全角> キー
+    define_key(keymap_base, "C-(244)", toggle_input_method) # C-<半角／全角> キー
     define_key(keymap_base, "(240)",   toggle_input_method) # CapsLock キー
-    define_key(keymap_base, "S-(240)", toggle_input_method) # CapsLock キー
+    define_key(keymap_base, "S-(240)", toggle_input_method) # S-CapsLock キー
 
     ## 「ファイル操作」のキー設定
     define_key(keymap_emacs, "Ctl-x C-f", reset_search(reset_undo(reset_counter(reset_mark(find_file)))))
@@ -2334,11 +2337,14 @@ def configure(keymap):
         ##################################################
 
         ## 「IME の切り替え」のキー設定
-        define_key(keymap_ei, "A-(25)",  ei_disable_input_method) # Alt-` キー
+        define_key(keymap_ei, "C-`",     ei_disable_input_method) # C-` キー
+        define_key(keymap_ei, "A-(25)",  ei_disable_input_method) # A-` キー
         define_key(keymap_ei, "(243)",   ei_disable_input_method) # <半角／全角> キー
         define_key(keymap_ei, "(244)",   ei_disable_input_method) # <半角／全角> キー
+        define_key(keymap_ei, "C-(243)", ei_disable_input_method) # C-<半角／全角> キー
+        define_key(keymap_ei, "C-(244)", ei_disable_input_method) # C-<半角／全角> キー
         define_key(keymap_ei, "(240)",   ei_disable_input_method) # CapsLock キー
-        define_key(keymap_ei, "S-(240)", ei_disable_input_method) # CapsLock キー
+        define_key(keymap_ei, "S-(240)", ei_disable_input_method) # S-CapsLock キー
 
         ## Esc キーの設定
         define_key(keymap_ei, "Esc", escape)
