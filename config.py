@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20230711_01"
+fakeymacs_version = "20230711_02"
 
 import time
 import os.path
@@ -2336,7 +2336,6 @@ def configure(keymap):
         ##################################################
 
         ## 「IME の切り替え」のキー設定
-        define_key(keymap_ei, "C-`",     ei_disable_input_method) # C-` キー
         define_key(keymap_ei, "A-(25)",  ei_disable_input_method) # A-` キー
         define_key(keymap_ei, "(243)",   ei_disable_input_method) # <半角／全角> キー
         define_key(keymap_ei, "(244)",   ei_disable_input_method) # <半角／全角> キー
