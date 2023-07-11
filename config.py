@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20230711_02"
+fakeymacs_version = "20230711_03"
 
 import time
 import os.path
@@ -683,30 +683,30 @@ def configure(keymap):
             rtn = func(*param)
             return rtn
 
-    usjis_key_table = {"S-2"            : [["S-2"],                           "Atmark"        ], # @
-                       "S-6"            : [["S-6"],                           "Caret"         ], # ^
-                       "S-7"            : [["S-7"],                           "S-6"           ], # &
-                       "S-8"            : [["S-8"],                           "S-Colon"       ], # *
-                       "S-9"            : [["S-9"],                           "S-8"           ], # (
-                       "S-0"            : [["S-0"],                           "S-9"           ], # )
-                       "S-Minus"        : [["S-Minus"],                       "S-BackSlash"   ], # _
-                       "Plus"           : [["Caret"],                         "S-Minus"       ], # =
-                       "S-Plus"         : [["S-Caret"],                       "S-Semicolon"   ], # +
-                       "OpenBracket"    : [["Atmark"],                        "OpenBracket"   ], # [
-                       "S-OpenBracket"  : [["S-Atmark"],                      "S-OpenBracket" ], # {
-                       "CloseBracket"   : [["OpenBracket"],                   "CloseBracket"  ], # ]
-                       "S-CloseBracket" : [["S-OpenBracket"],                 "S-CloseBracket"], # }
-                       "BackSlash"      : [["CloseBracket"],                  "Yen"           ], # \
-                       "S-BackSlash"    : [["S-CloseBracket"],                "S-Yen"         ], # |
-                       "S-Semicolon"    : [["S-Semicolon"],                   "Colon"         ], # :
-                       "Quote"          : [["Colon"],                         "S-7"           ], # '
-                       "S-Quote"        : [["S-Colon"],                       "S-2"           ], # "
-                       "BackQuote"      : [["(243)", "(244)", "(248)"],       "S-Atmark"      ], # `
-                       "S-BackQuote"    : [["S-(243)", "S-(244)", "S-(248)"], "S-Caret"       ], # ~
-                       "(243)"          : [[],                                "(243)"         ], # <半角／全角>
-                       "S-(243)"        : [[],                                "S-(243)"       ], # S-<半角／全角>
-                       "(244)"          : [[],                                "(244)"         ], # <半角／全角>
-                       "S-(244)"        : [[],                                "S-(244)"       ], # S-<半角／全角>
+    usjis_key_table = {"S-2"            : [["S-2"],                "Atmark"        ], # @
+                       "S-6"            : [["S-6"],                "Caret"         ], # ^
+                       "S-7"            : [["S-7"],                "S-6"           ], # &
+                       "S-8"            : [["S-8"],                "S-Colon"       ], # *
+                       "S-9"            : [["S-9"],                "S-8"           ], # (
+                       "S-0"            : [["S-0"],                "S-9"           ], # )
+                       "S-Minus"        : [["S-Minus"],            "S-BackSlash"   ], # _
+                       "Plus"           : [["Caret"],              "S-Minus"       ], # =
+                       "S-Plus"         : [["S-Caret"],            "S-Semicolon"   ], # +
+                       "OpenBracket"    : [["Atmark"],             "OpenBracket"   ], # [
+                       "S-OpenBracket"  : [["S-Atmark"],           "S-OpenBracket" ], # {
+                       "CloseBracket"   : [["OpenBracket"],        "CloseBracket"  ], # ]
+                       "S-CloseBracket" : [["S-OpenBracket"],      "S-CloseBracket"], # }
+                       "BackSlash"      : [["CloseBracket"],       "Yen"           ], # \
+                       "S-BackSlash"    : [["S-CloseBracket"],     "S-Yen"         ], # |
+                       "S-Semicolon"    : [["S-Semicolon"],        "Colon"         ], # :
+                       "Quote"          : [["Colon"],              "S-7"           ], # '
+                       "S-Quote"        : [["S-Colon"],            "S-2"           ], # "
+                       "BackQuote"      : [["(243)", "(244)"],     "S-Atmark"      ], # `
+                       "S-BackQuote"    : [["S-(243)", "S-(244)"], "S-Caret"       ], # ~
+                       "(243)"          : [[],                     "(243)"         ], # <半角／全角>
+                       "S-(243)"        : [[],                     "S-(243)"       ], # S-<半角／全角>
+                       "(244)"          : [[],                     "(244)"         ], # <半角／全角>
+                       "S-(244)"        : [[],                     "S-(244)"       ], # S-<半角／全角>
                        }
 
     def keyStrNormalization(key):
@@ -2053,6 +2053,7 @@ def configure(keymap):
     define_key(keymap_emacs, "C-u", universal_argument)
 
     ## 「IME の切り替え」のキー設定
+    define_key(keymap_base, "C-`",     toggle_input_method) # C-` キー
     define_key(keymap_base, "A-(25)",  toggle_input_method) # A-` キー
     define_key(keymap_base, "(243)",   toggle_input_method) # <半角／全角> キー
     define_key(keymap_base, "(244)",   toggle_input_method) # <半角／全角> キー
@@ -2336,6 +2337,7 @@ def configure(keymap):
         ##################################################
 
         ## 「IME の切り替え」のキー設定
+        define_key(keymap_ei, "C-`",     ei_disable_input_method) # C-` キー
         define_key(keymap_ei, "A-(25)",  ei_disable_input_method) # A-` キー
         define_key(keymap_ei, "(243)",   ei_disable_input_method) # <半角／全角> キー
         define_key(keymap_ei, "(244)",   ei_disable_input_method) # <半角／全角> キー
@@ -3068,5 +3070,3 @@ def configure(keymap):
     keymap.window_keymap_list.append(keymap_global)
     keymap.window_keymap_list.append(keymap_tsw)
     keymap.window_keymap_list.append(keymap_lw)
-
-    command_dict.clear()
