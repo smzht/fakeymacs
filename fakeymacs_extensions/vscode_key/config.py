@@ -132,20 +132,21 @@ def self_insert_command_v(*key_list, usjis_conv=True):
             setImeStatus(1)
     return _func
 
-def vscodeExecuteCommand(command):
+def vscodeExecuteCommand(command, esc=False):
     def _func():
         self_insert_command("f1")()
         princ(command)
         self_insert_command("Enter")()
 
-        # 上記のコマンドが実行できない時にコマンドパレットの表示を消すために入力する
-        self_insert_command("Esc")()
+        if esc:
+            # 上記のコマンドが実行できない時にコマンドパレットの表示を消すために入力する
+            self_insert_command("Esc")()
     return _func
 
-def vscodeExecuteCommand2(command):
+def vscodeExecuteCommand2(command, esc=False):
     def _func():
         setImeStatus(0)
-        vscodeExecuteCommand(command)()
+        vscodeExecuteCommand(command, esc)()
     return _func
 
 def rect(func):
@@ -258,7 +259,7 @@ def focus_into_panel():
 
 def close_panel():
     # VSCode Command : View: Close Panel
-    vscodeExecuteCommand("VCPa")()
+    vscodeExecuteCommand("VCPa", esc=True)()
     # vscodeExecuteCommand("workbench.action.closePanel")()
 
 def toggle_maximized_panel():
