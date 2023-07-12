@@ -28,7 +28,7 @@ Fakeymacs で利用できるキーバインドは以下のとおりです。
 
 ※ fc.use_esc_as_meta が False の場合、M（Meta）キーとして Esc は利用できません。
 
-※ fc.use_ctrl_openbracket_as_esc が True の場合、M（Meta）キーとして C-[ は利用できません。
+※ fc.use_ctrl_openbracket_as_meta が False の場合、M（Meta）キーとして C-[ は利用できません。
 
 ※ キーの記述方法は次のページを参照してください。
 
@@ -51,14 +51,14 @@ fc.not_emacs_target に登録されているアプリケーションソフトで
 
 **** ● Esc キーの設定
 
-|---------+----------------------------+------------------------------------------------|
-| Keybind | Function                   | Description                                    |
-|---------+----------------------------+------------------------------------------------|
-| Esc     | self_insert_command("Esc") | fc.use_esc_as_meta が False の場合             |
-| Esc Esc | self_insert_command("Esc") | fc.use_esc_as_meta が True の場合              |
-| C-[     | self_insert_command("Esc") | fc.use_ctrl_openbracket_as_esc が True の場合  |
-| C-[ C-[ | self_insert_command("Esc") | fc.use_ctrl_openbracket_as_esc が False の場合 |
-|---------+----------------------------+------------------------------------------------|
+|---------+----------------------------+-------------------------------------------------|
+| Keybind | Function                   | Description                                     |
+|---------+----------------------------+-------------------------------------------------|
+| Esc     | self_insert_command("Esc") | fc.use_esc_as_meta が False の場合              |
+| Esc Esc | self_insert_command("Esc") | fc.use_esc_as_meta が True の場合               |
+| C-[     | self_insert_command("Esc") | fc.use_ctrl_openbracket_as_meta が False の場合 |
+| C-[ C-[ | self_insert_command("Esc") | fc.use_ctrl_openbracket_as_meta が True の場合  |
+|---------+----------------------------+-------------------------------------------------|
 
 **** ● universal-argument キーの設定
 

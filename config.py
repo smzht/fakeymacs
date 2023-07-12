@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20230712_01"
+fakeymacs_version = "20230713_01"
 
 import time
 import os.path
@@ -304,9 +304,9 @@ def configure(keymap):
     # （True（Meta キーとして使う）に設定されている場合、ESC の二回押下で ESC が入力されます）
     fc.use_esc_as_meta = False
 
-    # C-[ キーを Esc キーとして使うかどうかを指定する（True: 使う、False: 使わない）
-    # （False（Meta キーとして使う）に設定されている場合、C-[ の二回押下で ESC が入力されます）
-    fc.use_ctrl_openbracket_as_esc = False
+    # C-[ キーを Meta キーとして使うかどうかを指定する（True: 使う、False: 使わない）
+    # （True（Meta キーとして使う）に設定されている場合、C-[ の二回押下で ESC が入力されます）
+    fc.use_ctrl_openbracket_as_meta = True
 
     # Ctl-x プレフィックスキーに使うキーを指定する
     # （Ctl-x プレフィックスキーのモディファイアキーは、Ctrl または Alt のいずれかから指定してください）
@@ -1595,7 +1595,7 @@ def configure(keymap):
                     if fc.use_esc_as_meta:
                         key_list1 = key_list0 + ["Esc"]
 
-                    if not fc.use_ctrl_openbracket_as_esc:
+                    if fc.use_ctrl_openbracket_as_meta:
                         key_list2 = key_list0 + ["C-OpenBracket"]
 
                     key_list0 = []
@@ -1608,7 +1608,7 @@ def configure(keymap):
                         key_list1.append("Esc")
                         key_list1.append(key.replace("M-", ""))
                     else:
-                        if not fc.use_ctrl_openbracket_as_esc:
+                        if fc.use_ctrl_openbracket_as_meta:
                             key_list2.append("C-OpenBracket")
                             key_list2.append(key.replace("M-", ""))
                 else:
@@ -1617,7 +1617,7 @@ def configure(keymap):
                     if fc.use_esc_as_meta:
                         key_list1.append(key)
                     else:
-                        if not fc.use_ctrl_openbracket_as_esc:
+                        if fc.use_ctrl_openbracket_as_meta:
                             key_list2.append(key)
 
             if key_list0:
@@ -2068,10 +2068,10 @@ def configure(keymap):
     else:
         define_key(keymap_emacs, "Esc", reset_undo(reset_counter(escape)))
 
-    if fc.use_ctrl_openbracket_as_esc:
-        define_key(keymap_emacs, "C-[", reset_undo(reset_counter(escape)))
-    else:
+    if fc.use_ctrl_openbracket_as_meta:
         define_key(keymap_emacs, "C-[ C-[", reset_undo(reset_counter(escape)))
+    else:
+        define_key(keymap_emacs, "C-[", reset_undo(reset_counter(escape)))
 
     ## universal-argument キーの設定
     define_key(keymap_emacs, "C-u", universal_argument)
