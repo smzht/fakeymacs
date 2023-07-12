@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20230711_03"
+fakeymacs_version = "20230712_01"
 
 import time
 import os.path
@@ -303,6 +303,10 @@ def configure(keymap):
     # Esc キーを Meta キーとして使うかどうかを指定する（True: 使う、False: 使わない）
     # （True（Meta キーとして使う）に設定されている場合、ESC の二回押下で ESC が入力されます）
     fc.use_esc_as_meta = False
+
+    # C-[ キーを Esc キーとして使うかどうかを指定する（True: 使う、False: 使わない）
+    # （False（Meta キーとして使う）に設定されている場合、C-[ の二回押下で ESC が入力されます）
+    fc.use_ctrl_openbracket_as_esc = False
 
     # Ctl-x プレフィックスキーに使うキーを指定する
     # （Ctl-x プレフィックスキーのモディファイアキーは、Ctrl または Alt のいずれかから指定してください）
@@ -1587,29 +1591,44 @@ def configure(keymap):
                     key = fc.ctl_x_prefix_key
 
                 if key == "M-":
-                    key_list0 = []
                     if fc.use_esc_as_meta:
-                        key_list2 = copy.copy(key_list1)
-                        key_list2.append("Esc")
-                    key_list1.append("C-OpenBracket")
+                        key_list1 = key_list0 + ["Esc"]
+
+                    if not fc.use_ctrl_openbracket_as_esc:
+                        key_list2 = key_list0 + ["C-OpenBracket"]
+
+                    key_list0 = []
                     break
 
                 if "M-" in key:
                     key_list0.append(key.replace("M-", "A-"))
-                    key_list1.append("C-OpenBracket")
-                    key_list1.append(key.replace("M-", ""))
+
+                    if fc.use_esc_as_meta:
+                        key_list1.append("Esc")
+                        key_list1.append(key.replace("M-", ""))
+                    else:
+                        if not fc.use_ctrl_openbracket_as_esc:
+                            key_list2.append("C-OpenBracket")
+                            key_list2.append(key.replace("M-", ""))
                 else:
                     key_list0.append(key)
-                    key_list1.append(key)
+
+                    if fc.use_esc_as_meta:
+                        key_list1.append(key)
+                    else:
+                        if not fc.use_ctrl_openbracket_as_esc:
+                            key_list2.append(key)
 
             if key_list0:
                 key_lists.append(key_list0)
 
-            if key_list0 != key_list1:
-                key_lists.append(key_list1)
+            if key_list1:
+                if key_list0 != key_list1:
+                    key_lists.append(key_list1)
 
             if key_list2:
-                key_lists.append(key_list2)
+                if key_list0 != key_list2:
+                    key_lists.append(key_list2)
 
             for key_list in key_lists:
                 key_list[0] = addSideOfModifierKey(key_list[0])
@@ -2043,11 +2062,15 @@ def configure(keymap):
             define_key(keymap_emacs, f"C-q {mkey}", self_insert_command(mkey))
 
     ## Esc キーの設定
-    define_key(keymap_emacs, "C-[ C-[", reset_undo(reset_counter(escape)))
     if fc.use_esc_as_meta:
         define_key(keymap_emacs, "Esc Esc", reset_undo(reset_counter(escape)))
     else:
         define_key(keymap_emacs, "Esc", reset_undo(reset_counter(escape)))
+
+    if fc.use_ctrl_openbracket_as_esc:
+        define_key(keymap_emacs, "C-[", reset_undo(reset_counter(escape)))
+    else:
+        define_key(keymap_emacs, "C-[ C-[", reset_undo(reset_counter(escape)))
 
     ## universal-argument キーの設定
     define_key(keymap_emacs, "C-u", universal_argument)

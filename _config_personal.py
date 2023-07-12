@@ -108,6 +108,10 @@ fc.side_of_ctrl_key = "L"
 # （True（Meta キーとして使う）に設定されている場合、ESC の二回押下で ESC が入力されます）
 fc.use_esc_as_meta = False
 
+# C-[ キーを Esc キーとして使うかどうかを指定する（True: 使う、False: 使わない）
+# （False（Meta キーとして使う）に設定されている場合、C-[ の二回押下で ESC が入力されます）
+fc.use_ctrl_openbracket_as_esc = False
+
 # Emacs 日本語入力モードを使うかどうかを指定する（True: 使う、False: 使わない）
 fc.use_emacs_ime_mode = True
 
