@@ -112,6 +112,15 @@ fc.use_esc_as_meta = False
 # （False（Meta キーとして使う）に設定されている場合、C-[ の二回押下で ESC が入力されます）
 fc.use_ctrl_openbracket_as_esc = False
 
+# Ctl-x プレフィックスキーに使うキーを指定する
+# （Ctl-x プレフィックスキーのモディファイアキーは、Ctrl または Alt のいずれかから指定してください）
+fc.ctl_x_prefix_key = "C-x"
+# fc.ctl_x_prefix_key = "A-x"
+
+# スクロールに使うキーの組み合わせ（Up、Down の順）を指定する
+# fc.scroll_key = None # PageUp、PageDown キーのみを利用する
+fc.scroll_key = ["M-v", "C-v"]
+
 # Emacs 日本語入力モードを使うかどうかを指定する（True: 使う、False: 使わない）
 fc.use_emacs_ime_mode = True
 

@@ -311,6 +311,7 @@ def configure(keymap):
     # Ctl-x プレフィックスキーに使うキーを指定する
     # （Ctl-x プレフィックスキーのモディファイアキーは、Ctrl または Alt のいずれかから指定してください）
     fc.ctl_x_prefix_key = "C-x"
+    # fc.ctl_x_prefix_key = "A-x"
 
     # スクロールに使うキーの組み合わせ（Up、Down の順）を指定する
     # fc.scroll_key = None # PageUp、PageDown キーのみを利用する
