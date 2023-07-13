@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20230713_01"
+fakeymacs_version = "20230713_02"
 
 import time
 import os.path
@@ -1607,18 +1607,18 @@ def configure(keymap):
                     if fc.use_esc_as_meta:
                         key_list1.append("Esc")
                         key_list1.append(key.replace("M-", ""))
-                    else:
-                        if fc.use_ctrl_openbracket_as_meta:
-                            key_list2.append("C-OpenBracket")
-                            key_list2.append(key.replace("M-", ""))
+
+                    elif fc.use_ctrl_openbracket_as_meta:
+                        key_list2.append("C-OpenBracket")
+                        key_list2.append(key.replace("M-", ""))
                 else:
                     key_list0.append(key)
 
                     if fc.use_esc_as_meta:
                         key_list1.append(key)
-                    else:
-                        if fc.use_ctrl_openbracket_as_meta:
-                            key_list2.append(key)
+
+                    elif fc.use_ctrl_openbracket_as_meta:
+                        key_list2.append(key)
 
             if key_list0:
                 key_lists.append(key_list0)
