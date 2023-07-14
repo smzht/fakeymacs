@@ -148,7 +148,7 @@ config.py の内容をみて、変更したいコンフィグレーションパ�
 | fc.set_input_method_key    | IME を切り替えるキーの組み合わせ（disable、enable の順）を指定する   |
 |----------------------------+----------------------------------------------------------------------|
 
-※ 1) で Caps Lock に右 Control キーを割り当てた場合には、side_of_ctrl_key を "R" に
+※ 1) で Caps Lock に右 Control キーを割り当てた場合には、fc.side_of_ctrl_key を "R" に
 変更する必要があります。この場合、左 Control キーは従来どおり Windows ショートカット用
 のキーとして利用できます。
 
@@ -205,7 +205,7 @@ IME の状態をテキスト カーソル インジケーターの色で表現�
 
 - https://github.com/hwtnb/SylphyHornPlusWin11/releases
 
-また、操作のためのキー設定を、config_personal.py 内で window_movement_key_for_desktops 変数に対し
+また、操作のためのキー設定を、config_personal.py 内で fc.window_movement_key_for_desktops 変数に対し
 行ってください。（変数の設定方法は、config.py を参考としてください。）
 
 ※ SylphyHorn の仮想デスクトップ切り替え時に表示される通知機能は、テキスト カーソル インジケーター
