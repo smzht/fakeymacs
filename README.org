@@ -186,7 +186,7 @@ fc.use_usjis_keyboard_conversion 変数を True に設定してください。
 また、日本語キーボードを英語配列キーボードとして使う場合には次の拡張機能を有効にすることで、
 <］> キーを Enter キー、 <＼> キーを Shift キーとして利用することができるようになります。
 英語配列キーボードとして使わないキーを近くのキーに再割当てすることで、日本語キーボードを
-英語キーボードのキー配置に近い形で利用することができるようになります。
+英語キーボードのキー配置により近い形で利用することができるようになります。
 
 - https://github.com/smzht/fakeymacs/tree/master/fakeymacs_extensions/change_keyboard2
 
