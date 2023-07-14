@@ -173,16 +173,7 @@ VSCode を利用する場合には、次の vscode_key Extension 用のコンフ
 | fc.use_direct_input_in_vscode_terminal | VSCode の Terminal内 で ４つのキー（Ctrl+k、Ctrl+r、Ctrl+s、Ctrl+y）のダイレクト入力機能を使うかどうかを指定する |
 |----------------------------------------+------------------------------------------------------------------------------------------------------------------|
 
-*** 9) テキスト カーソル インジケーターの設定を行う（オプション）
-
-IME の状態をテキスト カーソル インジケーターの色で表現する機能を利用する場合、次のページを参考とし、
-テキスト カーソル インジケーターを有効にしてください。
-
--  https://faq.nec-lavie.jp/qasearch/1007/app/servlet/relatedqa?QID=022081
-
-また、config_personal.py 内の fc.use_ime_status_cursor_color 変数を True にしてください。
-
-*** 10) 日本語キーボードの設定がされている OS で英語キーボードを使えるようにする設定を行う（オプション）
+*** 9) 日本語キーボードの設定がされている OS で英語キーボードを使えるようにする設定を行う（オプション）
 
 Fakeymacs は、日本語キーボードの設定がされている OS で英語キーボードを使えるようにする機能を
 有しています。英語キーボードを接続していなくても、日本語キーボードを英語配列キーボードとして
@@ -196,6 +187,15 @@ C-l で開くランチャーメニューの Other メニューにキーボード
 なります。（英語配列キーボードとして使わないキーを近くのキーに再割当てする機能です。）
 
 - https://github.com/smzht/fakeymacs/tree/master/fakeymacs_extensions/change_keyboard2
+
+*** 10) テキスト カーソル インジケーターの設定を行う（オプション）
+
+IME の状態をテキスト カーソル インジケーターの色で表現する機能を利用する場合、次のページを参考とし、
+テキスト カーソル インジケーターを有効にしてください。
+
+-  https://faq.nec-lavie.jp/qasearch/1007/app/servlet/relatedqa?QID=022081
+
+また、config_personal.py 内の fc.use_ime_status_cursor_color 変数を True にしてください。
 
 *** 11) SylphyHorn の設定を行う（オプション）
 
