@@ -218,6 +218,7 @@ def kill_line_v(repeat=1):
 def yank_v():
     if fakeymacs_vscode.vscode_focus == "not_terminal" and not is_terminal_for_direct_input():
         yank()
+        delay() # C-u による繰り返し実行時に必要
     else:
         self_insert_command("C-y")()
 
