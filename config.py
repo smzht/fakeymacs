@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20230713_02"
+fakeymacs_version = "20230717_01"
 
 import time
 import os.path
@@ -1642,6 +1642,32 @@ def configure(keymap):
     def keyInput(key_list):
         return list(map(usjisInput, key_list))
 
+    def commandPlay(command):
+        # モディファイアを離す（keymap.command_RecordPlay 関数を参考）
+        modifier = keymap.modifier
+        input_seq = []
+        for vk_mod in keymap.vk_mod_map.items():
+            if keymap.modifier & vk_mod[1]:
+                input_seq.append(pyauto.KeyUp(vk_mod[0]))
+        pyauto.Input.send(input_seq)
+        keymap.modifier = 0
+
+        command()
+
+        # モディファイアを戻す（keymap.command_RecordPlay 関数を参考）
+        keymap.modifier = 0
+        input_seq = []
+        for vk_mod in keymap.vk_mod_map.items():
+            # 「Time stamp Inversion happend.」メッセージがでると、キーの繰り返し入力後にShift キーが
+            # 押されたままの状態となる。根本的な対策ではないが、Shift キーの 押下の状態の復元を除外する
+            # ことで、暫定的な対策とする。（Shift キーは押しっぱなしにするキーではないので、押した状態
+            # を復元しなくともほとんどの場合、問題は起きない）
+            if vk_mod[0] not in [VK_LSHIFT, VK_RSHIFT]:
+                if modifier & vk_mod[1]:
+                    input_seq.append(pyauto.KeyDown(vk_mod[0]))
+                    keymap.modifier |= vk_mod[1]
+        pyauto.Input.send(input_seq)
+
     command_dict = {}
 
     def define_key(window_keymap, keys, command, skip_check=True):
@@ -1677,52 +1703,25 @@ def configure(keymap):
 
                     ckey = keyStrNormalization(key)
                     def _command1():
-                        fakeymacs.update_last_keys = True
                         if ckey in fakeymacs.exclution_key:
                             InputKeyCommand(key)()
                         else:
                             command()
-                        if fakeymacs.update_last_keys:
-                            fakeymacs.last_keys = [window_keymap, keys]
                 else:
-                    def _command1():
-                        fakeymacs.update_last_keys = True
-                        command()
-                        if fakeymacs.update_last_keys:
-                            fakeymacs.last_keys = [window_keymap, keys]
+                    _command1 = command
+
+                def _command2():
+                    fakeymacs.update_last_keys = True
+                    _command1()
+                    if fakeymacs.update_last_keys:
+                        fakeymacs.last_keys = [window_keymap, keys]
 
                 def _command3():
                     if fakeymacs.repeat_counter == 1 or fakeymacs.is_playing_kmacro:
-                        _command1()
+                        _command2()
                     else:
-                        def _command2():
-                            # モディファイアを離す（keymap.command_RecordPlay 関数を参考）
-                            modifier = keymap.modifier
-                            input_seq = []
-                            for vk_mod in keymap.vk_mod_map.items():
-                                if keymap.modifier & vk_mod[1]:
-                                    input_seq.append(pyauto.KeyUp(vk_mod[0]))
-                            pyauto.Input.send(input_seq)
-                            keymap.modifier = 0
+                        keymap.delayedCall(lambda: commandPlay(_command2), 0)
 
-                            _command1()
-
-                            # モディファイアを戻す（keymap.command_RecordPlay 関数を参考）
-                            keymap.modifier = 0
-                            input_seq = []
-                            for vk_mod in keymap.vk_mod_map.items():
-                                # 「Time stamp Inversion happend.」メッセージがでると、キーの繰り返し入力後に
-                                # Shift キーが押されたままの状態となる。根本的な対策ではないが、Shift キーの
-                                # 押下の状態の復元を除外することで、暫定的な対策とする。
-                                # （Shift キーは押しっぱなしにするキーではないので、押した状態を復元しなくとも
-                                #   ほとんどの場合、問題は起きない）
-                                if vk_mod[0] not in [VK_LSHIFT, VK_RSHIFT]:
-                                    if modifier & vk_mod[1]:
-                                        input_seq.append(pyauto.KeyDown(vk_mod[0]))
-                                        keymap.modifier |= vk_mod[1]
-                            pyauto.Input.send(input_seq)
-
-                        keymap.delayedCall(_command2, 0)
                 return _command3
             else:
                 return command
