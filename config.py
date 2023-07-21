@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20230717_01"
+fakeymacs_version = "20230722_01"
 
 import time
 import os.path
@@ -1966,6 +1966,18 @@ def configure(keymap):
         keymap.command_ReloadConfig()
         keymap.popBalloon("reloaded", "[Reloaded]", 1000)
 
+    def editConfigPersonal():
+        config_filename = rf"{dataPath()}\config_personal.py"
+
+        def jobEditConfig(job_item):
+            keymap.editTextFile(config_filename)
+
+        def jobEditConfigFinished(job_item):
+            print( ckit.strings["log_config_editor_launched"] )
+            print( "" )
+
+        job_item = ckit.JobItem( jobEditConfig, jobEditConfigFinished )
+        ckit.JobQueue.defaultQueue().enqueue(job_item)
 
     ##################################################
     ## キーバインド
@@ -3008,8 +3020,9 @@ def configure(keymap):
 
     # その他
     fc.other_items = [
-        ["Edit   config.py", keymap.command_EditConfig],
-        ["Reload config.py", lambda: reloadConfig(0)],
+        ["Edit   config.py",          keymap.command_EditConfig],
+        ["Edit   config_personal.py", editConfigPersonal],
+        ["Reload config.py",          lambda: reloadConfig(0)],
     ]
     if os_keyboard_type == "JP":
         fc.other_items += [
