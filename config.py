@@ -455,9 +455,8 @@ def configure(keymap):
     # （Emacs キーバインドを利用するアプリケーションでかつフォーカスが当たっているアプリケーションソフト
     #   に対して切り替えが機能します。また、Emacs キーバインドを OFF にしても、IME の切り替えは ime_target
     #   に登録したアプリケーションソフトと同様に機能するようにしています。）
-    # （fc.emacs_target_class 変数に指定したクラス（初期値：Edit）に該当するアプリケーションソフト
-    #   （Windows10版 Notepad など）は、Emacs キーバインドを切り替えの対象となりません（常に Emacs
-    #   キーバインドとなります）。）
+    # （fc.emacs_target_class 変数に指定したクラスに該当するアプリケーションソフト（Windows10版 Notepad など）
+    #   は、Emacs キーバインドを切り替えの対象となりません（常に Emacs キーバインドとなります）。）
     fc.toggle_emacs_keybind_key = "C-S-Space"
 
     # アプリケーションキーとして利用するキーを指定する
