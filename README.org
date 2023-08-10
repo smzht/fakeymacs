@@ -130,8 +130,8 @@ Git を使うと、今後の Fakeymacs のバージョンアップに容易に�
 
 *** 7) コンフィグレーションパラメータをカスタマイズする
 
-_config_personal.py もしくは _config_parameter.py ファイルを config_personal.pyという名称に変更し、
-変更したいコンフィグレーションパラメータをカスタマイズします。
+_config_personal.py ファイルを config_personal.pyという名称に変更し、変更したいコンフィグレーション
+パラメータをカスタマイズします。
 
 次は、修正する必要性が高いと思われるコンフィグレーションパラメータです。
 
