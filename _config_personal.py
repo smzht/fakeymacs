@@ -446,3 +446,9 @@ if 0:
     exec(readConfigExtension(r"menu_key\config.py"), dict(globals(), **locals()))
 
 # --------------------------------------------------------------------------------------------------
+
+# SpaceFn を実現する設定を行う
+if 0:
+    exec(readConfigExtension(r"space_fn\config.py"), dict(globals(), **locals()))
+
+# --------------------------------------------------------------------------------------------------
