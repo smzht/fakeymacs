@@ -33,3 +33,4 @@ SpaceFn を利用する上での制限事項となりますが、Space+s にス�
 ● SpaceFn については、以下のサイトを参考としています。
 
 - https://geekhack.org/index.php?topic=51069.0
+- http://martin-stone.github.io/touchcursor/
