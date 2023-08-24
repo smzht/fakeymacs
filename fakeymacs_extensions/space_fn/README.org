@@ -33,4 +33,3 @@ SpaceFn を利用する上での制限事項となりますが、Space+s にス�
 ● SpaceFn については、以下のサイトを参考としています。
 
 - https://geekhack.org/index.php?topic=51069.0
-- https://github.com/otake88888888/dotfiles/blob/master/keyhac/config.py
