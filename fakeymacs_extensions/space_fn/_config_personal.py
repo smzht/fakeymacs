@@ -8,9 +8,6 @@
 
 # --------------------------------------------------------------------------------------------------
 
-def define_key_f(keys, command):
-    define_key(keymap_emacs, keys, command)
-
 # スペースを連続して入力するためのキーの設定
 define_key_f("U0-s", reset_undo(reset_counter(reset_mark(repeat(space)))))
 
