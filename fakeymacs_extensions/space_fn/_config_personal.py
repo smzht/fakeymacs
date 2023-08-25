@@ -11,39 +11,39 @@
 # --------------------------------------------------------------------------------------------------
 
 # スペースを連続して入力するためのキーの設定
-define_key_f("U0-s", reset_undo(reset_counter(reset_mark(repeat(space)))))
+replicate_key("U0-s", "Space")
 
 # 「カーソル移動」のキー設定
-define_key_f("U0-j", reset_search(reset_undo(reset_counter(mark(repeat(backward_char), False)))))
-define_key_f("U0-l", reset_search(reset_undo(reset_counter(mark(repeat(forward_char), True)))))
-define_key_f("U0-i", reset_search(reset_undo(reset_counter(mark(repeat(previous_line), False)))))
-define_key_f("U0-k", reset_search(reset_undo(reset_counter(mark(repeat(next_line), True)))))
+replicate_key("U0-j", "Left")
+replicate_key("U0-l", "Right")
+replicate_key("U0-i", "Up")
+replicate_key("U0-k", "Down")
 
-define_key_f("S-U0-j", reset_search(reset_undo(reset_counter(mark2(repeat(backward_char), False)))))
-define_key_f("S-U0-l", reset_search(reset_undo(reset_counter(mark2(repeat(forward_char), True)))))
-define_key_f("S-U0-i", reset_search(reset_undo(reset_counter(mark2(repeat(previous_line), False)))))
-define_key_f("S-U0-k", reset_search(reset_undo(reset_counter(mark2(repeat(next_line), True)))))
+replicate_key("U0-S-j", "S-Left")
+replicate_key("U0-S-l", "S-Right")
+replicate_key("U0-S-i", "S-Up")
+replicate_key("U0-S-k", "S-Down")
 
-define_key_f("U0-u", reset_search(reset_undo(reset_counter(mark(move_beginning_of_line, False)))))
-define_key_f("U0-o", reset_search(reset_undo(reset_counter(mark(move_end_of_line, True)))))
+replicate_key("U0-u", "Home")
+replicate_key("U0-o", "End")
 
 # 「カット / コピー / 削除 / アンドゥ」のキー設定
-define_key_f("U0-p", reset_search(reset_undo(reset_counter(reset_mark(repeat2(delete_backward_char))))))
-define_key_f("U0-m", reset_search(reset_undo(reset_counter(reset_mark(repeat2(delete_char))))))
+replicate_key("U0-p", "Back")
+replicate_key("U0-m", "Delete")
 
 # 「スクロール」のキー設定
-define_key_f("U0-h", reset_search(reset_undo(reset_counter(mark(scroll_up, False)))))
-define_key_f("U0-n", reset_search(reset_undo(reset_counter(mark(scroll_down, True)))))
+replicate_key("U0-h", "PageUp")
+replicate_key("U0-n", "PageDown")
 
 # ファンクションキーの設定
 for i in range(10):
-    define_key_f(f"U0-{(i + 1) % 10}", self_insert_command(vkToStr(VK_F1 + i)))
+    replicate_key(f"U0-{(i + 1) % 10}", self_insert_command(vkToStr(VK_F1 + i)))
 
-define_key_f("U0--", self_insert_command(vkToStr(VK_F11)))
+replicate_key("U0--", self_insert_command(vkToStr(VK_F11)))
 
 if is_japanese_keyboard:
-    define_key_f("U0-^", self_insert_command(vkToStr(VK_F12)))
+    replicate_key("U0-^", self_insert_command(vkToStr(VK_F12)))
 else:
-    define_key_f("U0-=", self_insert_command(vkToStr(VK_F12)))
+    replicate_key("U0-=", self_insert_command(vkToStr(VK_F12)))
 
 # --------------------------------------------------------------------------------------------------
