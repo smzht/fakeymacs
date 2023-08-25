@@ -37,13 +37,13 @@ replicate_key("U0-n", "PageDown")
 
 # ファンクションキーの設定
 for i in range(10):
-    replicate_key(f"U0-{(i + 1) % 10}", self_insert_command(vkToStr(VK_F1 + i)))
+    define_key_f(f"U0-{(i + 1) % 10}", self_insert_command(vkToStr(VK_F1 + i)))
 
-replicate_key("U0--", self_insert_command(vkToStr(VK_F11)))
+define_key_f("U0--", self_insert_command(vkToStr(VK_F11)))
 
 if is_japanese_keyboard:
-    replicate_key("U0-^", self_insert_command(vkToStr(VK_F12)))
+    define_key_f("U0-^", self_insert_command(vkToStr(VK_F12)))
 else:
-    replicate_key("U0-=", self_insert_command(vkToStr(VK_F12)))
+    define_key_f("U0-=", self_insert_command(vkToStr(VK_F12)))
 
 # --------------------------------------------------------------------------------------------------
