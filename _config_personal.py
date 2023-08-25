@@ -449,6 +449,8 @@ if 0:
 
 # SpaceFn を実現する設定を行う
 if 0:
+    fc.space_fn_key = "Space"
+    # fc.space_fn_key = "(29)" # 変換キー
     exec(readConfigExtension(r"space_fn\config.py"), dict(globals(), **locals()))
 
 # --------------------------------------------------------------------------------------------------

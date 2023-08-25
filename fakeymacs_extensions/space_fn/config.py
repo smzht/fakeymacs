@@ -4,11 +4,18 @@
 ## SpaceFn を実現する設定を行う
 ####################################################################################################
 
-keymap.defineModifier("Space", "User0")
+try:
+    # 設定されているか？
+    fc.space_fn_key
+except:
+    # SpaceFn 用のモディファイアキーを指定する
+    fc.space_fn_key = "Space"
+
+keymap.defineModifier(fc.space_fn_key, "User0")
 
 for mod in ["", "S-"]:
-    mkey0 = mod + "Space"
-    mkey1 = mod + "O-Space"
+    mkey0 = mod + fc.space_fn_key
+    mkey1 = mod + "O-" + fc.space_fn_key
 
     func = getKeyCommand(keymap_emacs, mkey0)
     if func:
