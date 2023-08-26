@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20230825_01"
+fakeymacs_version = "20230826_01"
 
 import time
 import os.path
@@ -1585,6 +1585,7 @@ def configure(keymap):
             key_list0 = []
             key_list1 = []
             key_list2 = []
+            key_lists0 = []
 
             for key in map(specialCharToKeyStr, keys.split()):
                 if key == "Ctl-x":
@@ -1620,18 +1621,19 @@ def configure(keymap):
                         key_list2.append(key)
 
             if key_list0:
-                key_lists.append(key_list0)
+                key_lists0.append(key_list0)
 
             if key_list1:
                 if key_list0 != key_list1:
-                    key_lists.append(key_list1)
+                    key_lists0.append(key_list1)
 
             if key_list2:
                 if key_list0 != key_list2:
-                    key_lists.append(key_list2)
+                    key_lists0.append(key_list2)
 
-            for key_list in key_lists:
+            for key_list in key_lists0:
                 key_list[0] = addSideOfModifierKey(key_list[0])
+                key_lists.append(list(map(keyStrNormalization, key_list)))
 
         return key_lists
 
@@ -1692,23 +1694,31 @@ def configure(keymap):
                             return
                     break
 
-        def _keyCommand(key):
+        def _keyCommand1(key_list):
             nonlocal keymap_emacs
 
             if callable(command):
-                if (key is not None and
+                if (len(key_list) == 1 and
                     "keymap_emacs" in locals() and
                     window_keymap is locals()["keymap_emacs"]):
 
-                    ckey = keyStrNormalization(key)
                     def _command1():
-                        if ckey in fakeymacs.exclution_key:
+                        key = key_list[0]
+                        if key in fakeymacs.exclution_key:
                             InputKeyCommand(key)()
                         else:
                             command()
                 else:
                     _command1 = command
 
+                return _command1
+            else:
+                return command
+
+        def _keyCommand2(key_list):
+            _command1 = _keyCommand1(key_list)
+
+            if callable(_command1):
                 def _command2():
                     fakeymacs.update_last_keys = True
                     _command1()
@@ -1723,15 +1733,18 @@ def configure(keymap):
 
                 return _command3
             else:
-                return command
+                return _command1
 
         for key_list in kbd(keys):
-            command_dict[(window_keymap, tuple(key_list))] = command
+            command_dict[(window_keymap, tuple(key_list))] = _keyCommand1(key_list)
 
             for pos_list in keyPos(key_list):
-                if len(pos_list) == 1:
-                    window_keymap[pos_list[0]] = _keyCommand(key_list[0])
+                w_keymap = window_keymap
+                for key in pos_list[:-1]:
+                    w_keymap = w_keymap[key]
+                w_keymap[pos_list[-1]] = _keyCommand2(key_list)
 
+                if len(pos_list) == 1:
                     # Alt キーを単押しした際に、カーソルがメニューへ移動しないようにするための対策
                     # （https://www.haijin-boys.com/discussions/4583）
                     if re.match(r"O-LAlt$", pos_list[0], re.IGNORECASE):
@@ -1739,11 +1752,6 @@ def configure(keymap):
 
                     elif re.match(r"O-RAlt$", pos_list[0], re.IGNORECASE):
                         window_keymap["D-RAlt"] = "D-RAlt", "(255)"
-                else:
-                    w_keymap = window_keymap
-                    for key in pos_list[:-1]:
-                        w_keymap = w_keymap[key]
-                    w_keymap[pos_list[-1]] = _keyCommand(None)
 
     def define_key2(window_keymap, keys, command):
         define_key(window_keymap, keys, command, skip_check=False)
