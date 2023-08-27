@@ -29,8 +29,8 @@ Emacs キーバインドの機能があれば使う必要がないものと思�
 Emacs 日本語入力モードが使えるキーマップのみを SpaceFn の対象としているためです。
 SpaceFn の対象とするキーマップの指定は fc.space_fn_window_keymap_list 変数で行なえますので、
 SpaceFn 用のモディファイアキーを Space 以外のキー（「無変換」キーなど）にして利用する
-場合には、fc.space_fn_window_keymap_list 変数 に keymap_base を追加して、より広い範囲で
-SpaceFn の機能を利用できるようにすることもできます。
+場合には、fc.space_fn_window_keymap_list 変数 に keymap_base を追加し、より広い範囲で
+SpaceFn の機能を利用できるようにすることも可能です。
 
 ● 本拡張機能の SpaceFn は、Emacs 日本語入力モードの利用時には機能が働かないように設定
 しています。これは、SpaceFn 用のモディファイアキーに Space を利用した場合、日本語入力時
