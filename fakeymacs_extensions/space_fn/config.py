@@ -15,7 +15,7 @@ try:
     # 設定されているか？
     fc.space_fn_window_keymap_list
 except:
-    # SpaceFn 用を適用するキーマップリストを指定する
+    # SpaceFn 用を適用するキーマップを指定する
     fc.space_fn_window_keymap_list = [keymap_emacs, keymap_ime]
 
 def replicate_key(window_keymap, keys, originalKeys):
