@@ -11,24 +11,38 @@ except:
     # SpaceFn 用のモディファイアキーを指定する
     fc.space_fn_key = "Space"
 
+try:
+    # 設定されているか？
+    fc.space_fn_window_keymap_list
+except:
+    # SpaceFn 用を適用するキーマップリストを指定する
+    fc.space_fn_window_keymap_list = [keymap_emacs, keymap_ime]
+
 keymap.defineModifier(fc.space_fn_key, "User0")
 
-for mod in ["", "S-"]:
-    mkey0 = mod + fc.space_fn_key
-    mkey1 = mod + "O-" + fc.space_fn_key
+for window_keymap in fc.space_fn_window_keymap_list:
+    mkey0 = fc.space_fn_key
+    mkey1 = "O-" + fc.space_fn_key
 
-    func = getKeyCommand(keymap_emacs, mkey0)
+    func = getKeyCommand(window_keymap, mkey0)
     if func:
-        define_key(keymap_emacs, mkey0, lambda: None)
-        define_key(keymap_emacs, mkey1, func)
+        define_key(window_keymap, mkey1, func)
+    else:
+        define_key(window_keymap, mkey1, self_insert_command(mkey0))
+
+    define_key(window_keymap, mkey0, lambda: None)
 
 def define_key_f(keys, command):
-    define_key(keymap_emacs, keys, command)
+    for window_keymap in fc.space_fn_window_keymap_list:
+        define_key(window_keymap, keys, command)
 
 def replicate_key(keys, originalKeys):
-    func = getKeyCommand(keymap_emacs, originalKeys)
-    if func:
-        define_key(keymap_emacs, keys, func)
+    for window_keymap in fc.space_fn_window_keymap_list:
+        func = getKeyCommand(window_keymap, originalKeys)
+        if func:
+            define_key(window_keymap, keys, func)
+        else:
+            define_key(window_keymap, keys, self_insert_command(originalKeys))
 
 ## config_personal.py ファイルの読み込み
 exec(readConfigExtension(r"space_fn\config_personal.py", msg=False), dict(globals(), **locals()))
