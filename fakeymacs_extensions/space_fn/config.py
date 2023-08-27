@@ -18,31 +18,21 @@ except:
     # SpaceFn 用を適用するキーマップリストを指定する
     fc.space_fn_window_keymap_list = [keymap_emacs, keymap_ime]
 
+def replicate_key(window_keymap, keys, originalKeys):
+    func = getKeyCommand(window_keymap, originalKeys)
+    if func:
+        define_key(window_keymap, keys, func)
+    else:
+        define_key(window_keymap, keys, self_insert_command(originalKeys))
+
 keymap.defineModifier(fc.space_fn_key, "User0")
 
+mkey0 = fc.space_fn_key
+mkey1 = "O-" + fc.space_fn_key
+
 for window_keymap in fc.space_fn_window_keymap_list:
-    mkey0 = fc.space_fn_key
-    mkey1 = "O-" + fc.space_fn_key
-
-    func = getKeyCommand(window_keymap, mkey0)
-    if func:
-        define_key(window_keymap, mkey1, func)
-    else:
-        define_key(window_keymap, mkey1, self_insert_command(mkey0))
-
+    replicate_key(window_keymap, mkey1, mkey0)
     define_key(window_keymap, mkey0, lambda: None)
-
-def define_key_f(keys, command):
-    for window_keymap in fc.space_fn_window_keymap_list:
-        define_key(window_keymap, keys, command)
-
-def replicate_key(keys, originalKeys):
-    for window_keymap in fc.space_fn_window_keymap_list:
-        func = getKeyCommand(window_keymap, originalKeys)
-        if func:
-            define_key(window_keymap, keys, func)
-        else:
-            define_key(window_keymap, keys, self_insert_command(originalKeys))
 
 ## config_personal.py ファイルの読み込み
 exec(readConfigExtension(r"space_fn\config_personal.py", msg=False), dict(globals(), **locals()))
