@@ -26,7 +26,7 @@ for window_keymap in fc.space_fn_window_keymap_list:
                        ["p", "Back"],
                        ["m", "Delete"],
                        ["h", "PageUp"],
-                       ["n", "PageDown"]
+                       ["n", "PageDown"],
                        ]:
         for mod in ["", "S-"]:
             mkey0 =         mod + key0
