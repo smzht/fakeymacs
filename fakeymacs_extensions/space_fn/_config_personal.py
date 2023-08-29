@@ -25,7 +25,9 @@ for window_keymap in fc.space_fn_window_keymap_list:
                        ["h", "PageUp"],
                        ["n", "PageDown"]
                        ]:
-        for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
+        for mod1, mod2, mod3, mod4 in itertools.product(["", "A-"],  # Win キーは複製できないものが
+                                                        ["", "C-"],  # あるため対象としない
+                                                        ["", "S-"]):
             mkey0 = mod1 + mod2 + mod3 + mod4 + key0
             mkey1 = "U0-" + mod1 + mod2 + mod3 + mod4 + key1
             replicate_key(window_keymap, mkey1, mkey0)
