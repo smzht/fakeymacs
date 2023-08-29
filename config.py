@@ -1414,7 +1414,7 @@ def configure(keymap):
         # delay(0.1)
         # self_insert_command("U-Alt")()
 
-        # 別な問題（ダイヤログで S や N の入力ができない）が発生するようになったので、
+        # 別な問題（ダイアログで S や N の入力ができない）が発生するようになったので、
         # 元の設定に戻して様子を見る
         self_insert_command("A-F4")()
 
