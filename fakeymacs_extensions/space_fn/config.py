@@ -26,12 +26,12 @@ except:
     # （True: 使う、False: 使わない）
     fc.space_fn_use_one_shot_function = True
 
-def replicate_key(window_keymap, keys, originalKeys):
-    func = getKeyCommand(window_keymap, originalKeys)
+def replicate_key(window_keymap, keys, original_keys):
+    func = getKeyCommand(window_keymap, original_keys)
     if func:
         define_key(window_keymap, keys, func)
     else:
-        define_key(window_keymap, keys, self_insert_command(originalKeys))
+        define_key(window_keymap, keys, self_insert_command(original_keys))
 
 keymap.defineModifier(fc.space_fn_key, "User0")
 
