@@ -1,4 +1,4 @@
-﻿# -*- mode: python; coding: utf-8-with-signature-dos -*-
+﻿ # -*- mode: python; coding: utf-8-with-signature-dos -*-
 
 # 本ファイルは、config_personal.py というファイル名にすることで space_fn Extension の
 # 機能拡張ファイルとして機能します。以下はサンプルコードです。
@@ -20,6 +20,7 @@ for window_keymap in fc.space_fn_window_keymap_list:
                        ["k", "Down"],
                        ["u", "Home"],
                        ["o", "End"],
+                       ["y", "Insert"],
                        ["p", "Back"],
                        ["m", "Delete"],
                        ["h", "PageUp"],
