@@ -6,6 +6,9 @@
 # 本サンプルコードは、次のページの設定に準拠しています。
 # https://martin-stone.github.io/touchcursor/help.html
 
+# 本サンプルコードは、Ctrl キーや Alt キーとの組み合わせも含め、できるだけ完全なキーの複製を行う
+# バージョンです。
+
 # --------------------------------------------------------------------------------------------------
 
 for window_keymap in fc.space_fn_window_keymap_list:
