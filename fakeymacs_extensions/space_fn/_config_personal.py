@@ -13,27 +13,22 @@ for window_keymap in fc.space_fn_window_keymap_list:
     # スペースを連続して入力するためのキーの設定
     replicate_key(window_keymap, "U0-s", "O-Space")
 
-    # 「カーソル移動」のキー設定
-    replicate_key(window_keymap, "U0-j", "Left")
-    replicate_key(window_keymap, "U0-l", "Right")
-    replicate_key(window_keymap, "U0-i", "Up")
-    replicate_key(window_keymap, "U0-k", "Down")
-
-    replicate_key(window_keymap, "U0-S-j", "S-Left")
-    replicate_key(window_keymap, "U0-S-l", "S-Right")
-    replicate_key(window_keymap, "U0-S-i", "S-Up")
-    replicate_key(window_keymap, "U0-S-k", "S-Down")
-
-    replicate_key(window_keymap, "U0-u", "Home")
-    replicate_key(window_keymap, "U0-o", "End")
-
-    # 「カット / コピー / 削除 / アンドゥ」のキー設定
-    replicate_key(window_keymap, "U0-p", "Back")
-    replicate_key(window_keymap, "U0-m", "Delete")
-
-    # 「スクロール」のキー設定
-    replicate_key(window_keymap, "U0-h", "PageUp")
-    replicate_key(window_keymap, "U0-n", "PageDown")
+    # キーの複製
+    for key1, key0 in [["j", "Left"],
+                       ["l", "Right"],
+                       ["i", "Up"],
+                       ["k", "Down"],
+                       ["u", "Home"],
+                       ["o", "End"],
+                       ["p", "Back"],
+                       ["m", "Delete"],
+                       ["h", "PageUp"],
+                       ["n", "PageDown"]
+                       ]:
+        for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
+            mkey0 = mod1 + mod2 + mod3 + mod4 + key0
+            mkey1 = "U0-" + mod1 + mod2 + mod3 + mod4 + key1
+            replicate_key(window_keymap, mkey1, mkey0)
 
     # ファンクションキーの設定
     for i in range(10):
