@@ -275,7 +275,7 @@ Fakeymacs は、次の拡張機能で SpaceFN の機能もサポートしてい�
 | [[/fakeymacs_extensions/space_fn][space_fn]]       | SpaceFN を実現する設定を行う |
 |----------------+------------------------------|
 
-本拡張機能の SpaceFN は、Space キーを Fn として利用する際に発生する日本語入力時の変換漏れの問題や
+本拡張機能の SpaceFN は、Space を Fn キーとして利用する際に発生する日本語入力時の変換漏れの問題や
 Ctrl+Space（set-mark-command）を入力する際の入力遅延によって発生する問題を Fakeymacs 独自の方法で
 解決しており、Emacs のキーバインドとの共存が十分に可能なものとなっています。
 一度お試しいただければと思います。
