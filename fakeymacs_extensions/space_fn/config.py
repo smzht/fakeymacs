@@ -48,6 +48,7 @@ if use_usjis_keyboard_conversion:
 mkey0 = fc.space_fn_key
 mkey1 = "O-" + fc.space_fn_key
 
+# SpaceFN 用のワンショットモディファイアキーの設定を行う
 for window_keymap in fc.space_fn_window_keymap_list:
     if fc.space_fn_use_one_shot_function:
         replicate_key(window_keymap, mkey1, mkey0)
