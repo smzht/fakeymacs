@@ -1,28 +1,28 @@
 ﻿# -*- mode: python; coding: utf-8-with-signature-dos -*-
 
 ####################################################################################################
-## SpaceFn を実現する設定を行う
+## SpaceFN を実現する設定を行う
 ####################################################################################################
 
 try:
     # 設定されているか？
     fc.space_fn_key
 except:
-    # SpaceFn 用のモディファイアキーを指定する
+    # SpaceFN 用のモディファイアキーを指定する
     fc.space_fn_key = "Space"
 
 try:
     # 設定されているか？
     fc.space_fn_window_keymap_list
 except:
-    # SpaceFn を適用するキーマップを指定する
+    # SpaceFN を適用するキーマップを指定する
     fc.space_fn_window_keymap_list = [keymap_emacs, keymap_ime]
 
 try:
     # 設定されているか？
     fc.space_fn_use_one_shot_function
 except:
-    # SpaceFn 用のモディファイアキーの単押しで、元のキーの機能を利用するかどうかを指定する
+    # SpaceFN 用のモディファイアキーの単押しで、元のキーの機能を利用するかどうかを指定する
     # （True: 使う、False: 使わない）
     fc.space_fn_use_one_shot_function = True
 
