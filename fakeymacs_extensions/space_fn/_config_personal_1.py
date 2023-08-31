@@ -41,26 +41,26 @@ for window_keymap in fc.space_fn_window_keymap_list:
                                         ["", "C-"]):
         mod = "U0-" + mod1 + mod2
         for i in range(10):
-            define_key(window_keymap,
-                       mod + f"{(i + 1) % 10}", self_insert_command(mod + vkToStr(VK_F1 + i)))
+            define_key_fn(window_keymap,
+                          mod + f"{(i + 1) % 10}", self_insert_command(mod + vkToStr(VK_F1 + i)))
 
-        define_key(window_keymap, mod + "-", self_insert_command(mod + vkToStr(VK_F11)))
+        define_key_fn(window_keymap, mod + "-", self_insert_command(mod + vkToStr(VK_F11)))
 
         if is_japanese_keyboard:
-            define_key(window_keymap, mod + "^", self_insert_command(mod + vkToStr(VK_F12)))
+            define_key_fn(window_keymap, mod + "^", self_insert_command(mod + vkToStr(VK_F12)))
         else:
-            define_key(window_keymap, mod + "=", self_insert_command(mod + vkToStr(VK_F12)))
+            define_key_fn(window_keymap, mod + "=", self_insert_command(mod + vkToStr(VK_F12)))
 
         mod = "U0-S-" + mod1 + mod2
         for i in range(10):
-            define_key(window_keymap,
-                       mod + f"{(i + 1) % 10}", self_insert_command(mod + vkToStr(VK_F13 + i)))
+            define_key_fn(window_keymap,
+                          mod + f"{(i + 1) % 10}", self_insert_command(mod + vkToStr(VK_F13 + i)))
 
-        define_key(window_keymap, mod + "-", self_insert_command(mod + vkToStr(VK_F23)))
+        define_key_fn(window_keymap, mod + "-", self_insert_command(mod + vkToStr(VK_F23)))
 
         if is_japanese_keyboard:
-            define_key(window_keymap, mod + "^", self_insert_command(mod + vkToStr(VK_F24)))
+            define_key_fn(window_keymap, mod + "^", self_insert_command(mod + vkToStr(VK_F24)))
         else:
-            define_key(window_keymap, mod + "=", self_insert_command(mod + vkToStr(VK_F24)))
+            define_key_fn(window_keymap, mod + "=", self_insert_command(mod + vkToStr(VK_F24)))
 
 # --------------------------------------------------------------------------------------------------
