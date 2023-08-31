@@ -45,14 +45,14 @@ if use_usjis_keyboard_conversion:
                 mkey1 = "U0-" + mod1 + mod2 + mod3 + us_key
                 define_key(keymap_base, mkey1, self_insert_command(mkey0))
 
-fkey0 = fc.space_fn_key
-fkey1 = "O-" + fc.space_fn_key
+fn_key0 = fc.space_fn_key
+fn_key1 = "O-" + fc.space_fn_key
 
 # SpaceFN 用のワンショットモディファイアキーの設定を行う
 for window_keymap in fc.space_fn_window_keymap_list:
     if fc.space_fn_use_one_shot_function:
-        replicate_key(window_keymap, fkey1, fkey0)
-    define_key(window_keymap, fkey0, lambda: None)
+        replicate_key(window_keymap, fn_key1, fn_key0)
+    define_key(window_keymap, fn_key0, lambda: None)
 
 ## config_personal.py ファイルの読み込み
 exec(readConfigExtension(r"space_fn\config_personal.py", msg=False), dict(globals(), **locals()))
