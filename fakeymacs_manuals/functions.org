@@ -131,14 +131,14 @@ def mergeMultiStrokeKeymap(window_keymap1, window_keymap2, keys):
 
 - 無し
 
-*** ■ getKeyActionCommand
+*** ■ getKeyAction
 
 キーにより実行されるアクションを取り出す関数を返す
 
 **** Function
 
 #+BEGIN_EXAMPLE
-def getKeyActionCommand(key):
+def getKeyAction(key):
 #+END_EXAMPLE
 
 **** Parameters
