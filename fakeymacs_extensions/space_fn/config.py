@@ -18,6 +18,14 @@ except:
     # SpaceFN を適用するキーマップを指定する
     fc.space_fn_window_keymap_list = [keymap_emacs, keymap_ime]
 
+    try:
+        # vscode_key Extension は有効か？
+        fakeymacs.keymap_vscode
+
+        fc.space_fn_window_keymap_list += [fakeymacs.keymap_vscode]
+    except:
+        pass
+
 try:
     # 設定されているか？
     fc.space_fn_use_one_shot_function
@@ -29,9 +37,7 @@ except:
 fakeymacs.is_space_fn_mode = None
 
 def define_key_fn(window_keymap, keys, command):
-    func = getKeyCommand(window_keymap, keys.replace("U0-", ""))
-    if func is None:
-        func = self_insert_command(keys.replace("U0-", ""))
+    func = getKeyAction(keys.replace("U0-", ""))
 
     def _func():
         if fakeymacs.last_keys[1] == fc.space_fn_key:
@@ -46,13 +52,17 @@ def define_key_fn(window_keymap, keys, command):
 
     define_key(window_keymap, keys, _func)
 
-def replicate_key(window_keymap, keys, original_keys):
-    func = getKeyCommand(window_keymap, original_keys)
-    if func is None:
-        func = self_insert_command(original_keys)
+def replicate_key(window_keymap, keys, original_key):
+    func = getKeyAction(original_key)
     define_key_fn(window_keymap, keys, func)
 
 keymap.defineModifier(fc.space_fn_key, "User0")
+
+# SpaceFN 用のワンショットモディファイアキーの元のキーの機能を複製する
+for window_keymap in keymap.window_keymap_list:
+    func = getKeyCommand(window_keymap, fc.space_fn_key)
+    if func:
+        define_key(window_keymap, "(200)", func)
 
 for window_keymap in fc.space_fn_window_keymap_list:
 
@@ -63,13 +73,11 @@ for window_keymap in fc.space_fn_window_keymap_list:
             for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
                 mkey0 =         mod1 + mod2 + mod3 + mod4 + key
                 mkey1 = "U0-" + mod1 + mod2 + mod3 + mod4 + key
-                define_key_fn(window_keymap, mkey1, self_insert_command(mkey0))
+                define_key_fn(window_keymap, mkey1, self_insert_command(mkey0)) # Windows 本来のキーを発行する
 
     # SpaceFN 用のワンショットモディファイアキーの設定を行う
     if fc.space_fn_use_one_shot_function:
-        func = getKeyCommand(window_keymap, fc.space_fn_key)
-        if func is None:
-            func = self_insert_command(fc.space_fn_key)
+        func = getKeyAction("(200)")
         define_key(window_keymap, "O-" + fc.space_fn_key, func)
     define_key(window_keymap, fc.space_fn_key, lambda: None)
 
