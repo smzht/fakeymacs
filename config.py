@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20230829_01"
+fakeymacs_version = "20230903_01"
 
 import time
 import os.path
@@ -1985,10 +1985,10 @@ def configure(keymap):
             keymap.editTextFile(config_filename)
 
         def jobEditConfigFinished(job_item):
-            print( ckit.strings["log_config_editor_launched"] )
-            print( "" )
+            print(ckit.strings["log_config_editor_launched"])
+            print("")
 
-        job_item = ckit.JobItem( jobEditConfig, jobEditConfigFinished )
+        job_item = ckit.JobItem(jobEditConfig, jobEditConfigFinished)
         ckit.JobQueue.defaultQueue().enqueue(job_item)
 
     ##################################################
