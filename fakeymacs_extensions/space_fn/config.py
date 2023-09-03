@@ -82,7 +82,7 @@ for window_keymap in fc.space_fn_window_keymap_list:
 
     # SpaceFN 用のワンショットモディファイアキーの設定を行う
     if fc.space_fn_use_one_shot_function:
-        define_key(window_keymap, "O-(200)", func)
+        define_key(window_keymap, "O-" + replace_key, func)
     define_key(window_keymap, replace_key, lambda: None)
 
 ## config_personal.py ファイルの読み込み
