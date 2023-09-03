@@ -34,15 +34,27 @@ except:
     # （True: 使う、False: 使わない）
     fc.space_fn_use_one_shot_function = True
 
+def getKeyAction(key):
+    key_list = kbd(key)[0]
+    pos_list = keyPos(key_list)[0]
+    if len(pos_list) == 1:
+        key_cond = keyhac_keymap.KeyCondition.fromString(pos_list[0])
+        func = lambda: keymap._keyAction(key_cond)
+    else:
+        func = lambda: None
+
+    return func
+
+replace_key = "(200)"
 fakeymacs.is_space_fn_mode = None
 
 def define_key_fn(window_keymap, keys, command):
     func = getKeyAction(keys.replace("U0-", ""))
 
     def _func():
-        if fakeymacs.last_keys[1] == fc.space_fn_key:
+        if fakeymacs.last_keys[1] == replace_key:
             fakeymacs.is_space_fn_mode = True
-        elif fc.space_fn_key in fakeymacs.last_keys[1]:
+        elif replace_key in fakeymacs.last_keys[1]:
             fakeymacs.is_space_fn_mode = False
 
         if fakeymacs.is_space_fn_mode:
@@ -56,30 +68,33 @@ def replicate_key(window_keymap, keys, original_key):
     func = getKeyAction(original_key)
     define_key_fn(window_keymap, keys, func)
 
-keymap.defineModifier(fc.space_fn_key, "User0")
+keymap.replaceKey(fc.space_fn_key, replace_key)
+keymap.defineModifier(replace_key, "User0")
 
-# SpaceFN 用のワンショットモディファイアキーの元のキーの機能を複製する
+# fc.space_fn_key を使う全てのキーを replace_key を使うキーに複製する
 for window_keymap in keymap.window_keymap_list:
-    func = getKeyCommand(window_keymap, fc.space_fn_key)
-    if func:
-        define_key(window_keymap, "(200)", func)
+    for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
+        mod = mod1 + mod2 + mod3 + mod4
+        func = getKeyCommand(window_keymap,  mod + fc.space_fn_key)
+        if func:
+            define_key(window_keymap, mod + replace_key, func)
+
+func = getKeyAction(fc.space_fn_key)
 
 for window_keymap in fc.space_fn_window_keymap_list:
 
-    # SpaceFN 用のモディファイアキーを除く、全てのキーパターンの設定を行う
+    # 全てのキーの入力パターンを SpaceFN 用のモディファイアキーを使うキーに複製する
     for vkey in vkeys():
         key = vkToStr(vkey)
-        if key != keyStrNormalization(fc.space_fn_key):
-            for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
-                mkey0 =         mod1 + mod2 + mod3 + mod4 + key
-                mkey1 = "U0-" + mod1 + mod2 + mod3 + mod4 + key
-                define_key_fn(window_keymap, mkey1, self_insert_command(mkey0)) # Windows 本来のキーを発行する
+        for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
+            mkey0 =         mod1 + mod2 + mod3 + mod4 + key
+            mkey1 = "U0-" + mod1 + mod2 + mod3 + mod4 + key
+            define_key_fn(window_keymap, mkey1, self_insert_command(mkey0)) # Windows 本来のキーを発行する
 
     # SpaceFN 用のワンショットモディファイアキーの設定を行う
     if fc.space_fn_use_one_shot_function:
-        func = getKeyAction("(200)")
-        define_key(window_keymap, "O-" + fc.space_fn_key, func)
-    define_key(window_keymap, fc.space_fn_key, lambda: None)
+        define_key(window_keymap, "O-(200)", func)
+    define_key(window_keymap, replace_key, lambda: None)
 
 ## config_personal.py ファイルの読み込み
 exec(readConfigExtension(r"space_fn\config_personal.py", msg=False), dict(globals(), **locals()))

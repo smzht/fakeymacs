@@ -13,7 +13,7 @@
 for window_keymap in fc.space_fn_window_keymap_list:
 
     # スペースを連続して入力するためのキーの設定
-    replicate_key(window_keymap, "U0-s", "O-Space")
+    replicate_key(window_keymap, "U0-s", "Space")
 
     # キーの複製
     for key1, key0 in [["j", "Left"],
