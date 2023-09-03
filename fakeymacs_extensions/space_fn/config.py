@@ -34,17 +34,6 @@ except:
     # （True: 使う、False: 使わない）
     fc.space_fn_use_one_shot_function = True
 
-def getKeyAction(key):
-    key_list = kbd(key)[0]
-    pos_list = keyPos(key_list)[0]
-    if len(pos_list) == 1:
-        key_cond = keyhac_keymap.KeyCondition.fromString(pos_list[0])
-        func = lambda: keymap._keyAction(key_cond)
-    else:
-        func = lambda: None
-
-    return func
-
 replace_key = "(200)"
 fakeymacs.is_space_fn_mode = None
 
