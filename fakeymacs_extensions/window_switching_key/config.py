@@ -14,7 +14,7 @@ except:
 def windowList():
     process_name = keymap.getWindow().getProcessName()
     window_list = []
-    for window in getWindowList(None): # 最小化されているウィンドウも含めループする
+    for window in getWindowList(): # 最小化されているウィンドウも含めループする
         if window.getProcessName() == process_name:
             window_list.append(window)
     return window_list
