@@ -79,7 +79,7 @@ keymap.defineWindowKeymap(check_func=replace_space_fn_key)
 
 keymap.defineModifier(user_key, "User0")
 
-# fc.space_fn_key を使う全てのキーを user_key を使うキーに複製する
+# fc.space_fn_key を使う全てのキーの設定を user_key を使うキーに複製する
 for window_keymap in keymap.window_keymap_list:
     for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
         mod = mod1 + mod2 + mod3 + mod4
@@ -91,7 +91,7 @@ func = getKeyAction(fc.space_fn_key)
 
 for window_keymap in fc.space_fn_window_keymap_list:
 
-    # 全てのキーの入力パターンを SpaceFN 用のモディファイアキーを使うキーに複製する
+    # 全てのキーの入力パターンを SpaceFN 用のモディファイアキーを使うキーに設定する
     for vkey in vkeys():
         key = vkToStr(vkey)
         for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
