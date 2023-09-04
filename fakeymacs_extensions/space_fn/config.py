@@ -35,6 +35,7 @@ except:
     fc.space_fn_use_one_shot_function = True
 
 user_key = "(200)"
+is_space_fn_mode = False
 
 def define_key_fn(window_keymap, keys, command):
     func = getKeyAction(keys.replace("U0-", ""))
