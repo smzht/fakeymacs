@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20230904_01"
+fakeymacs_version = "20230904_02"
 
 import time
 import os.path
@@ -792,7 +792,7 @@ def configure(keymap):
                 keymap_base[d_ctrl] = d_ctrl
 
         if (process_name in fc.transparent_target or
-            process_name in fc.transparent_target_class or
+            class_name in fc.transparent_target_class or
             any(checkWindow(*app, window=window) if type(app) is list else
                 checkWindow(app, window=window) for app in fc.game_app_list)):
             fakeymacs.is_keymap_decided = True
