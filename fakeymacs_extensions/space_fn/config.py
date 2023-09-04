@@ -34,7 +34,7 @@ except:
     # （True: 使う、False: 使わない）
     fc.space_fn_use_one_shot_function = True
 
-space_fn_user_key = "(200)"
+user_key = "(200)"
 
 def define_key_fn(window_keymap, keys, command):
     func = getKeyAction(keys.replace("U0-", ""))
@@ -42,9 +42,9 @@ def define_key_fn(window_keymap, keys, command):
     def _func():
         global is_space_fn_mode
 
-        if fakeymacs.last_keys[1] == space_fn_user_key:
+        if fakeymacs.last_keys[1] == user_key:
             is_space_fn_mode = True
-        elif space_fn_user_key in fakeymacs.last_keys[1]:
+        elif user_key in fakeymacs.last_keys[1]:
             is_space_fn_mode = False
 
         if is_space_fn_mode:
@@ -65,7 +65,7 @@ def replace_space_fn_key(window):
 
     if fakeymacs.is_base_target:
         if not is_space_fn_key_replaced:
-            keymap.replaceKey(fc.space_fn_key, space_fn_user_key)
+            keymap.replaceKey(fc.space_fn_key, user_key)
             is_space_fn_key_replaced = True
     else:
         if is_space_fn_key_replaced:
@@ -76,15 +76,15 @@ def replace_space_fn_key(window):
 
 keymap.defineWindowKeymap(check_func=replace_space_fn_key)
 
-keymap.defineModifier(space_fn_user_key, "User0")
+keymap.defineModifier(user_key, "User0")
 
-# fc.space_fn_key を使う全てのキーを space_fn_user_key を使うキーに複製する
+# fc.space_fn_key を使う全てのキーを user_key を使うキーに複製する
 for window_keymap in keymap.window_keymap_list:
     for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
         mod = mod1 + mod2 + mod3 + mod4
         func = getKeyCommand(window_keymap,  mod + fc.space_fn_key)
         if func:
-            define_key(window_keymap, mod + space_fn_user_key, func)
+            define_key(window_keymap, mod + user_key, func)
 
 func = getKeyAction(fc.space_fn_key)
 
@@ -100,8 +100,8 @@ for window_keymap in fc.space_fn_window_keymap_list:
 
     # SpaceFN 用のワンショットモディファイアキーの設定を行う
     if fc.space_fn_use_one_shot_function:
-        define_key(window_keymap, "O-" + space_fn_user_key, func)
-    define_key(window_keymap, space_fn_user_key, lambda: None)
+        define_key(window_keymap, "O-" + user_key, func)
+    define_key(window_keymap, user_key, lambda: None)
 
 ## config_personal.py ファイルの読み込み
 exec(readConfigExtension(r"space_fn\config_personal.py", msg=False), dict(globals(), **locals()))
