@@ -57,7 +57,16 @@ def replicate_key(window_keymap, keys, original_key):
     func = getKeyAction(original_key)
     define_key_fn(window_keymap, keys, func)
 
-keymap.replaceKey(fc.space_fn_key, replace_key)
+def replace_space_fn_key(window):
+    if fakeymacs.is_base_target:
+       keymap.replaceKey(fc.space_fn_key, replace_key)
+    else:
+       keymap.replaceKey(fc.space_fn_key, fc.space_fn_key)
+
+    return False
+
+keymap.defineWindowKeymap(check_func=replace_space_fn_key)
+
 keymap.defineModifier(replace_key, "User0")
 
 # fc.space_fn_key を使う全てのキーを replace_key を使うキーに複製する
