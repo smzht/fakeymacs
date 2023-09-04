@@ -13,7 +13,7 @@ except:
                      ]
 
 def is_menu_target(window):
-    if (fakeymacs.keybind == "not_emacs" and
+    if (fakeymacs.is_emacs_target == False and
         window.getProcessName() in fc.menu_target):
         return True
     else:

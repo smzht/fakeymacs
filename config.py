@@ -832,11 +832,11 @@ def configure(keymap):
             (class_name not in fc.emacs_target_class and
              (process_name in fakeymacs.not_emacs_keybind or
               process_name in fc.not_emacs_target))):
-            fakeymacs.keybind = "not_emacs"
+            fakeymacs.is_emacs_target = False
             return False
         else:
+            fakeymacs.is_emacs_target = True
             fakeymacs.is_keymap_decided = True
-            fakeymacs.keybind = "emacs"
             return True
 
     def is_ime_target(window):
@@ -2877,7 +2877,7 @@ def configure(keymap):
     ##################################################
 
     def lw_newline():
-        if fakeymacs.keybind == "emacs":
+        if fakeymacs.is_emacs_target == True:
             self_insert_command("Enter")()
         else:
             self_insert_command("S-Enter")()
