@@ -12,12 +12,7 @@ except:
     fc.window_switching_key2 = [["A-S-p", "A-S-n"]]
 
 def windowList():
-    process_name = keymap.getWindow().getProcessName()
-    window_list = []
-    for window in getWindowList(): # 最小化されているウィンドウも含めループする
-        if window.getProcessName() == process_name:
-            window_list.append(window)
-    return window_list
+    return getWindowList(None, keymap.getWindow().getProcessName())
 
 for previous_key, next_key in fc.window_switching_key2:
     define_key(keymap_global, previous_key, previous_window(windowList))

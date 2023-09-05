@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20230906_01"
+fakeymacs_version = "20230906_02"
 
 import time
 import os.path
@@ -2543,45 +2543,47 @@ def configure(keymap):
             fakeymacs.window_list = []
         return _func
 
-    def getWindowList(minimized_window=None):
+    def getWindowList(minimized_window=None, process_name=None):
         def _makeWindowList(window, arg):
             nonlocal window_title
 
             if window.isVisible() and not window.getOwner():
                 process_name = window.getProcessName()
-                class_name = window.getClassName()
-                title = re.sub(r".* ‎- ", r"", window.getText())
 
-                # RemoteApp を利用する際のおまじない
-                if (process_name == "mstsc.exe" and
-                    class_name == "RAIL_WINDOW" and
-                    title == " (リモート)"):
-                    pass
+                if arg is None or arg == process_name:
+                    class_name = window.getClassName()
+                    title = re.sub(r".* ‎- ", r"", window.getText())
 
-                elif class_name == "Emacs" or title != "":
-                    if (not re.match(fc.window_operation_exclusion_class, class_name) and
-                        not re.match(fc.window_operation_exclusion_process, process_name)):
+                    # RemoteApp を利用する際のおまじない
+                    if (process_name == "mstsc.exe" and
+                        class_name == "RAIL_WINDOW" and
+                        title == " (リモート)"):
+                        pass
 
-                        # バックグラウンドで起動している UWPアプリが window_list に登録されるのを抑制する
-                        # （http://mrxray.on.coocan.jp/Delphi/plSamples/320_AppList.htm）
-                        # （http://mrxray.on.coocan.jp/Delphi/plSamples/324_CheckRun_UWPApp.htm）
+                    elif class_name == "Emacs" or title != "":
+                        if (not re.match(fc.window_operation_exclusion_class, class_name) and
+                            not re.match(fc.window_operation_exclusion_process, process_name)):
 
-                        if class_name == "Windows.UI.Core.CoreWindow":
-                            window_title = title
+                            # バックグラウンドで起動している UWPアプリが window_list に登録されるのを抑制する
+                            # （http://mrxray.on.coocan.jp/Delphi/plSamples/320_AppList.htm）
+                            # （http://mrxray.on.coocan.jp/Delphi/plSamples/324_CheckRun_UWPApp.htm）
 
-                        elif class_name == "ApplicationFrameWindow":
-                            if title != "Cortana":
-                                if (title != window_title or window.isMinimized() or
-                                    window in fakeymacs.window_list): # UWPアプリの仮想デスクトップ対策
-                                    window_list.append(window)
-                            window_title = None
-                        else:
-                            window_list.append(window)
+                            if class_name == "Windows.UI.Core.CoreWindow":
+                                window_title = title
+
+                            elif class_name == "ApplicationFrameWindow":
+                                if title != "Cortana":
+                                    if (title != window_title or window.isMinimized() or
+                                        window in fakeymacs.window_list): # UWPアプリの仮想デスクトップ対策
+                                        window_list.append(window)
+                                window_title = None
+                            else:
+                                window_list.append(window)
             return True
 
         window_title = None
         window_list = []
-        Window.enum(_makeWindowList, None)
+        Window.enum(_makeWindowList, process_name)
 
         if minimized_window is None:
             window_list2 = window_list
