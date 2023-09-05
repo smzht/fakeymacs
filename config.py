@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20230906_02"
+fakeymacs_version = "20230906_03"
 
 import time
 import os.path
@@ -2548,21 +2548,21 @@ def configure(keymap):
             nonlocal window_title
 
             if window.isVisible() and not window.getOwner():
-                process_name = window.getProcessName()
+                process_name2 = window.getProcessName()
 
-                if arg is None or arg == process_name:
+                if process_name is None or process_name == process_name2:
                     class_name = window.getClassName()
                     title = re.sub(r".* ‎- ", r"", window.getText())
 
                     # RemoteApp を利用する際のおまじない
-                    if (process_name == "mstsc.exe" and
+                    if (process_name2 == "mstsc.exe" and
                         class_name == "RAIL_WINDOW" and
                         title == " (リモート)"):
                         pass
 
                     elif class_name == "Emacs" or title != "":
                         if (not re.match(fc.window_operation_exclusion_class, class_name) and
-                            not re.match(fc.window_operation_exclusion_process, process_name)):
+                            not re.match(fc.window_operation_exclusion_process, process_name2)):
 
                             # バックグラウンドで起動している UWPアプリが window_list に登録されるのを抑制する
                             # （http://mrxray.on.coocan.jp/Delphi/plSamples/320_AppList.htm）
@@ -2583,7 +2583,7 @@ def configure(keymap):
 
         window_title = None
         window_list = []
-        Window.enum(_makeWindowList, process_name)
+        Window.enum(_makeWindowList, None)
 
         if minimized_window is None:
             window_list2 = window_list
