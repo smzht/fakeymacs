@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20230904_05"
+fakeymacs_version = "20230905_01"
 
 import time
 import os.path
@@ -2610,12 +2610,12 @@ def configure(keymap):
 
     def previous_window(func):
         def _func():
-            switchWindows(func, "previous")
+            keymap.delayedCall(lambda: switchWindows(func, "previous"), 0)
         return _func
 
     def next_window(func):
         def _func():
-            switchWindows(func, "next")
+            keymap.delayedCall(lambda: switchWindows(func, "next"), 0)
         return _func
 
     def move_window_to_previous_display():
