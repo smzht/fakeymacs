@@ -2488,27 +2488,29 @@ def configure(keymap):
 
     ## Alt+数字キー列の設定
     if fc.use_alt_digit_key_for_f1_to_f12:
+        mkey = "A-"
         for i in range(10):
-            define_key(keymap_global, f"A-{(i + 1) % 10}", self_insert_command(vkToStr(VK_F1 + i)))
+            define_key(keymap_global, mkey + f"{(i + 1) % 10}", self_insert_command(vkToStr(VK_F1 + i)))
 
-        define_key(keymap_global, "A--", self_insert_command(vkToStr(VK_F11)))
+        define_key(keymap_global, mkey + "-", self_insert_command(vkToStr(VK_F11)))
 
         if is_japanese_keyboard:
-            define_key(keymap_global, "A-^", self_insert_command(vkToStr(VK_F12)))
+            define_key(keymap_global, mkey + "^", self_insert_command(vkToStr(VK_F12)))
         else:
-            define_key(keymap_global, "A-=", self_insert_command(vkToStr(VK_F12)))
+            define_key(keymap_global, mkey + "=", self_insert_command(vkToStr(VK_F12)))
 
     ## Alt+Shift+数字キー列の設定
     if fc.use_alt_shift_digit_key_for_f13_to_f24:
+        mkey = "A-S-"
         for i in range(10):
-            define_key(keymap_global, f"A-S-{(i + 1) % 10}", self_insert_command(vkToStr(VK_F13 + i)))
+            define_key(keymap_global, mkey + f"{(i + 1) % 10}", self_insert_command(vkToStr(VK_F13 + i)))
 
-        define_key(keymap_global, "A-S--", self_insert_command(vkToStr(VK_F23)))
+        define_key(keymap_global, mkey + "-", self_insert_command(vkToStr(VK_F23)))
 
         if is_japanese_keyboard:
-            define_key(keymap_global, "A-S-^", self_insert_command(vkToStr(VK_F24)))
+            define_key(keymap_global, mkey + "^", self_insert_command(vkToStr(VK_F24)))
         else:
-            define_key(keymap_global, "A-S-=", self_insert_command(vkToStr(VK_F24)))
+            define_key(keymap_global, mkey + "=", self_insert_command(vkToStr(VK_F24)))
 
 
     ###########################################################################
