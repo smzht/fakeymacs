@@ -79,13 +79,22 @@ keymap.defineWindowKeymap(check_func=replace_space_fn_key)
 
 keymap.defineModifier(user_key, "User0")
 
-# fc.space_fn_key を使う全てのキーの設定を user_key を使うキーに複製する
+# fc.space_fn_key を使うキーに割り当てられている設定を user_key を使うキーに設定する
 for window_keymap in keymap.window_keymap_list:
     for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
-        mod = mod1 + mod2 + mod3 + mod4
-        func = getKeyCommand(window_keymap,  mod + fc.space_fn_key)
+        mkey0 = mod1 + mod2 + mod3 + mod4 + fc.space_fn_key
+        mkey1 = mod1 + mod2 + mod3 + mod4 + user_key
+        func = getKeyCommand(window_keymap,  mkey0)
         if func:
-            define_key(window_keymap, mod + user_key, func)
+            define_key(window_keymap, mkey1, func)
+
+# fc.space_fn_key を使う全てのキーの入力パターンを keymap_base の user_key を使うキーに設定する
+for mod1, mod2, mod3, mod4 in itertools.product(["", "LW-", "RW-"], ["", "LA-", "RA-"],
+                                                ["", "LC-", "RC-"], ["", "S-"]):
+    mkey0 = mod1 + mod2 + mod3 + mod4 + fc.space_fn_key
+    mkey1 = mod1 + mod2 + mod3 + mod4 + user_key
+    if not getKeyCommand(keymap_base,  mkey1):
+        define_key(keymap_base, mkey1, self_insert_command(mkey0))
 
 func = getKeyAction(fc.space_fn_key)
 
