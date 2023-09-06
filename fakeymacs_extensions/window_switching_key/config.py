@@ -10,6 +10,7 @@ try:
 except:
     # ウィンドウを切り替えるキーの組み合わせ（前、後 の順）を指定する（複数指定可）
     fc.window_switching_key2 = [["A-S-p", "A-S-n"]]
+    # fc.window_switching_key2 = [["W-Tab", "W-S-Tab"]]
 
 window_list = []
 process_name = ""
