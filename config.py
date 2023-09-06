@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20230907_01"
+fakeymacs_version = "20230907_02"
 
 import time
 import os.path
@@ -2596,15 +2596,18 @@ def configure(keymap):
 
         return window_list2
 
-    fakeymacs.window_list2 = []
-    fakeymacs.unix_time = 0
+    window_list = []
+    unix_time = 0
 
     def windowList():
-        if time.time() - fakeymacs.unix_time > 1.5:
-            fakeymacs.window_list2 = getWindowList(False)
+        nonlocal window_list
+        nonlocal unix_time
 
-        fakeymacs.unix_time = time.time()
-        return fakeymacs.window_list2
+        if time.time() - unix_time > 1.5:
+            window_list = getWindowList(False)
+
+        unix_time = time.time()
+        return window_list
 
     def switchWindows(window_list_func, direction):
         window_list = window_list_func()
