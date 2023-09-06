@@ -2596,16 +2596,8 @@ def configure(keymap):
 
         return window_list2
 
-    fakeymacs.unix_time = 0
-
     def windowList():
-        if time.time() - fakeymacs.unix_time > 2:
-            window_list = getWindowList(False)
-        else:
-            window_list = fakeymacs.window_list
-
-        fakeymacs.unix_time = time.time()
-        return window_list
+        return getWindowList(False)
 
     def switchWindows(func, direction):
         window_list = func()
