@@ -22,7 +22,7 @@ def windowList():
     global unix_time
 
     if (process_name != keymap.getWindow().getProcessName() or
-        (time.time() - unix_time > 1)):
+        (time.time() - unix_time > 1.5)):
         process_name = keymap.getWindow().getProcessName()
         window_list = getWindowList(None, process_name)
 
