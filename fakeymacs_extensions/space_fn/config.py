@@ -102,7 +102,7 @@ for vkey in vkeys():
     for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
         mkey0 =         mod1 + mod2 + mod3 + mod4 + key
         mkey1 = "U0-" + mod1 + mod2 + mod3 + mod4 + key
-        define_key_fn(keymap_base, mkey1, self_insert_command(mkey0)) # Windows 本来のキーを発行する
+        define_key_fn(keymap_base, mkey1, self_insert_command(mkey0))
 
 func = getKeyAction(fc.space_fn_key)
 
