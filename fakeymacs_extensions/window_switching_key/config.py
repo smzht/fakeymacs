@@ -12,21 +12,21 @@ except:
     fc.window_switching_key2 = [["A-S-p", "A-S-n"]]
     # fc.window_switching_key2 = [["W-Tab", "W-S-Tab"]]
 
-window_list = []
 process_name = ""
-unix_time = 0
+window_list = []
+window_switching_time = 0
 
 def windowList():
-    global window_list
     global process_name
-    global unix_time
+    global window_list
+    global window_switching_time
 
     if (process_name != keymap.getWindow().getProcessName() or
-        (time.time() - unix_time > 1.5)):
+        (time.time() - window_switching_time > 1)):
         process_name = keymap.getWindow().getProcessName()
         window_list = getWindowList(None, process_name)
 
-    unix_time = time.time()
+    window_switching_time = time.time()
     return window_list
 
 for previous_key, next_key in fc.window_switching_key2:
