@@ -88,21 +88,36 @@ for window_keymap in keymap.window_keymap_list:
         if func:
             define_key(window_keymap, mkey1, func)
 
-#  keymap_base に対し、fc.space_fn_key を使う全てのキーの入力パターンを user_key を使うキーに設定する
-for mod1, mod2, mod3, mod4 in itertools.product(["", "LW-", "RW-"], ["", "LA-", "RA-"],
-                                                ["", "LC-", "RC-"], ["", "S-"]):
+# fc.space_fn_key を使う全てのキーの入力パターンを user_key を使うキーに設定する
+for mod1, mod2, mod3, mod4 in itertools.product(["", "LW-", "RW-"],
+                                                ["", "LA-", "RA-"],
+                                                ["", "LC-", "RC-"],
+                                                ["", "S-"]):
     mkey0 = mod1 + mod2 + mod3 + mod4 + fc.space_fn_key
     mkey1 = mod1 + mod2 + mod3 + mod4 + user_key
     if not getKeyCommand(keymap_base,  mkey1):
         define_key(keymap_base, mkey1, self_insert_command(mkey0))
 
-# keymap_base に対し、全てのキーの入力パターンを SpaceFN 用のモディファイアキーを使うキーに設定する
+# 全てのキーの入力パターンを SpaceFN 用のモディファイアキーを使うキーに設定する
 for vkey in vkeys():
     key = vkToStr(vkey)
     for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
         mkey0 =         mod1 + mod2 + mod3 + mod4 + key
         mkey1 = "U0-" + mod1 + mod2 + mod3 + mod4 + key
         define_key_fn(keymap_base, mkey1, self_insert_command(mkey0))
+
+# US と JIS のキーボード変換の機能を有効にしている場合は、変換が必要となるキーを、左右両方の
+# モディファイアキーの全てのパターンで SpaceFN 用のモディファイアキーを使うキーに設定する
+if use_usjis_keyboard_conversion:
+    for us_key, jis_list in usjis_key_table.items():
+        if jis_list[0]:
+            for mod1, mod2, mod3 in itertools.product(["", "LW-", "RW-"],
+                                                      ["", "LA-", "RA-"],
+                                                      ["", "LC-", "RC-"]):
+                mkey0 =         mod1 + mod2 + mod3 + us_key
+                mkey1 = "U0-" + mod1 + mod2 + mod3 + us_key
+                if not getKeyCommand(keymap_base, mkey1):
+                    define_key_fn(keymap_base, mkey1, self_insert_command(mkey0))
 
 func = getKeyAction(fc.space_fn_key)
 
