@@ -88,7 +88,7 @@ for window_keymap in keymap.window_keymap_list:
         if func:
             define_key(window_keymap, mkey1, func)
 
-# fc.space_fn_key を使う全てのキーの入力パターンを keymap_base の user_key を使うキーに設定する
+#  keymap_base に対し、fc.space_fn_key を使う全てのキーの入力パターンを user_key を使うキーに設定する
 for mod1, mod2, mod3, mod4 in itertools.product(["", "LW-", "RW-"], ["", "LA-", "RA-"],
                                                 ["", "LC-", "RC-"], ["", "S-"]):
     mkey0 = mod1 + mod2 + mod3 + mod4 + fc.space_fn_key
@@ -96,19 +96,18 @@ for mod1, mod2, mod3, mod4 in itertools.product(["", "LW-", "RW-"], ["", "LA-", 
     if not getKeyCommand(keymap_base,  mkey1):
         define_key(keymap_base, mkey1, self_insert_command(mkey0))
 
+# keymap_base に対し、全てのキーの入力パターンを SpaceFN 用のモディファイアキーを使うキーに設定する
+for vkey in vkeys():
+    key = vkToStr(vkey)
+    for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
+        mkey0 =         mod1 + mod2 + mod3 + mod4 + key
+        mkey1 = "U0-" + mod1 + mod2 + mod3 + mod4 + key
+        define_key_fn(keymap_base, mkey1, self_insert_command(mkey0)) # Windows 本来のキーを発行する
+
 func = getKeyAction(fc.space_fn_key)
 
+# SpaceFN 用のワンショットモディファイアキーの設定を行う
 for window_keymap in fc.space_fn_window_keymap_list:
-
-    # 全てのキーの入力パターンを SpaceFN 用のモディファイアキーを使うキーに設定する
-    for vkey in vkeys():
-        key = vkToStr(vkey)
-        for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
-            mkey0 =         mod1 + mod2 + mod3 + mod4 + key
-            mkey1 = "U0-" + mod1 + mod2 + mod3 + mod4 + key
-            define_key_fn(window_keymap, mkey1, self_insert_command(mkey0)) # Windows 本来のキーを発行する
-
-    # SpaceFN 用のワンショットモディファイアキーの設定を行う
     if fc.space_fn_use_one_shot_function:
         define_key(window_keymap, "O-" + user_key, func)
     define_key(window_keymap, user_key, lambda: None)
