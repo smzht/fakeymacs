@@ -117,7 +117,7 @@ if use_usjis_keyboard_conversion:
                 mkey0 =         mod1 + mod2 + mod3 + us_key
                 mkey1 = "U0-" + mod1 + mod2 + mod3 + us_key
                 if not getKeyCommand(keymap_base, mkey1):
-                    define_key_fn(keymap_base, mkey1, self_insert_command(mkey0))
+                    define_key(keymap_base, mkey1, self_insert_command(mkey0))
 
 func = getKeyAction(fc.space_fn_key)
 
