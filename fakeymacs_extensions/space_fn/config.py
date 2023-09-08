@@ -35,6 +35,8 @@ except:
     fc.space_fn_use_one_shot_function = True
 
 user_key = "(200)"
+space_fn_key_func = getKeyAction(fc.space_fn_key)
+
 is_space_fn_mode = False
 
 def define_key_fn(window_keymap, keys, command):
@@ -56,8 +58,7 @@ def define_key_fn(window_keymap, keys, command):
     define_key(window_keymap, keys, _func)
 
 def replicate_key(window_keymap, keys, original_key):
-    func = getKeyAction(original_key)
-    define_key_fn(window_keymap, keys, func)
+    define_key_fn(window_keymap, keys, getKeyAction(original_key))
 
 is_space_fn_key_replaced = False
 
@@ -79,11 +80,13 @@ keymap.defineWindowKeymap(check_func=replace_space_fn_key)
 
 keymap.defineModifier(user_key, "User0")
 
-# fc.space_fn_key を使うキーに割り当てられている設定を user_key を使うキーに設定する
 for window_keymap in keymap.window_keymap_list:
+
+    # fc.space_fn_key を使うキーに割り当てられている設定を user_key を使うキーに設定する
     for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
-        mkey0 = mod1 + mod2 + mod3 + mod4 + fc.space_fn_key
-        mkey1 = mod1 + mod2 + mod3 + mod4 + user_key
+        mod   = mod1 + mod2 + mod3 + mod4
+        mkey0 = mod + fc.space_fn_key
+        mkey1 = mod + user_key
         func = getKeyCommand(window_keymap,  mkey0)
         if func:
             define_key(window_keymap, mkey1, func)
@@ -93,8 +96,9 @@ for mod1, mod2, mod3, mod4 in itertools.product(["", "LW-", "RW-"],
                                                 ["", "LA-", "RA-"],
                                                 ["", "LC-", "RC-"],
                                                 ["", "S-"]):
-    mkey0 = mod1 + mod2 + mod3 + mod4 + fc.space_fn_key
-    mkey1 = mod1 + mod2 + mod3 + mod4 + user_key
+    mod   = mod1 + mod2 + mod3 + mod4
+    mkey0 = mod + fc.space_fn_key
+    mkey1 = mod + user_key
     if not getKeyCommand(keymap_base,  mkey1):
         define_key(keymap_base, mkey1, self_insert_command(mkey0))
 
@@ -102,8 +106,9 @@ for mod1, mod2, mod3, mod4 in itertools.product(["", "LW-", "RW-"],
 for vkey in vkeys():
     key = vkToStr(vkey)
     for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
-        mkey0 =         mod1 + mod2 + mod3 + mod4 + key
-        mkey1 = "U0-" + mod1 + mod2 + mod3 + mod4 + key
+        mod   = mod1 + mod2 + mod3 + mod4
+        mkey0 =         mod + key
+        mkey1 = "U0-" + mod + key
         define_key_fn(keymap_base, mkey1, self_insert_command(mkey0))
 
 # US と JIS のキーボード変換の機能を有効にしている場合は、変換が必要となるキーを、左右両方の
@@ -114,17 +119,17 @@ if use_usjis_keyboard_conversion:
             for mod1, mod2, mod3 in itertools.product(["", "LW-", "RW-"],
                                                       ["", "LA-", "RA-"],
                                                       ["", "LC-", "RC-"]):
-                mkey0 =         mod1 + mod2 + mod3 + us_key
-                mkey1 = "U0-" + mod1 + mod2 + mod3 + us_key
+                mod   = mod1 + mod2 + mod3
+                mkey0 =         mod + us_key
+                mkey1 = "U0-" + mod + us_key
                 if not getKeyCommand(keymap_base, mkey1):
                     define_key(keymap_base, mkey1, self_insert_command(mkey0))
 
-func = getKeyAction(fc.space_fn_key)
-
-# SpaceFN 用のワンショットモディファイアキーの設定を行う
 for window_keymap in fc.space_fn_window_keymap_list:
+
+    # SpaceFN 用のワンショットモディファイアキーの設定を行う
     if fc.space_fn_use_one_shot_function:
-        define_key(window_keymap, "O-" + user_key, func)
+        define_key(window_keymap, "O-" + user_key, space_fn_key_func)
     define_key(window_keymap, user_key, lambda: None)
 
 ## config_personal.py ファイルの読み込み
