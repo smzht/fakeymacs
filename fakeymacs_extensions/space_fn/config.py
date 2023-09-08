@@ -105,8 +105,8 @@ for mod1, mod2, mod3, mod4 in itertools.product(["", "LW-", "RW-"],
 # 全てのキーの入力パターンを SpaceFN 用のモディファイアキーを使うキーに設定する
 for vkey in vkeys():
     key = vkToStr(vkey)
-    for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
-        mod   = mod1 + mod2 + mod3 + mod4
+    for mod1, mod2, mod3 in itertools.product(["", "A-"], ["", "C-"], ["", "S-"]):
+        mod   = mod1 + mod2 + mod3
         mkey0 =         mod + key
         mkey1 = "U0-" + mod + key
         define_key_fn(keymap_base, mkey1, self_insert_command(mkey0))
@@ -116,9 +116,7 @@ for vkey in vkeys():
 if use_usjis_keyboard_conversion:
     for us_key, jis_list in usjis_key_table.items():
         if jis_list[0]:
-            for mod1, mod2, mod3 in itertools.product(["", "LW-", "RW-"],
-                                                      ["", "LA-", "RA-"],
-                                                      ["", "LC-", "RC-"]):
+            for mod1, mod2 in itertools.product(["", "LA-", "RA-"], ["", "LC-", "RC-"]):
                 mod   = mod1 + mod2 + mod3
                 mkey0 =         mod + us_key
                 mkey1 = "U0-" + mod + us_key
