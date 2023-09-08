@@ -117,7 +117,7 @@ if use_usjis_keyboard_conversion:
     for us_key, jis_list in usjis_key_table.items():
         if jis_list[0]:
             for mod1, mod2 in itertools.product(["", "LA-", "RA-"], ["", "LC-", "RC-"]):
-                mod   = mod1 + mod2 + mod3
+                mod   = mod1 + mod2
                 mkey0 =         mod + us_key
                 mkey1 = "U0-" + mod + us_key
                 if not getKeyCommand(keymap_base, mkey1):
