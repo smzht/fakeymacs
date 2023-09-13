@@ -41,7 +41,7 @@ _config_personal_2.py は、この機能を利用する場合の設定サンプ�
 
 ● SpaceFN 用のモディファイアキーと組み合わせ可能なモディファイアキーは、Ctrl キー、
 Alt キー、Shift キーとします（Win キーは除きます）。
-これは、Keyhac に登録可能はキーの上限を超えてエラーが発生するようになったことによる
+これは、Keyhac に登録可能なキーの上限を超えてエラーが発生するようになったことによる
 制限事項となります。
 
 ● 本拡張機能の SpaceFN は、初期値として keymap_emacs、keymap_im 及び keymap_vscode
@@ -50,15 +50,15 @@ fc.space_fn_window_keymap_list 変数の指定ににより、SpaceFN を適用�
 変更することができます。
 
 ● 本拡張機能の SpaceFN は、SpaceFN 用のモディファイアキーが押下されてから
-fc.space_fn_delay_seconds に指定した秒数（初期値：0.15秒）後に次のキーが押された場合に、
+fc.space_fn_delay_seconds 変数に指定した秒数（初期値：0.15秒）後に次のキーが押された場合に、
 SpaceFN の機能が働くようにしています。
-fc.space_fn_delay_seconds に指定した秒数より前に次のキーを押下した場合は、その押下した
+fc.space_fn_delay_seconds 変数に指定した秒数より前に次のキーを押下した場合は、その押下した
 キーがそのまま入力される仕様としており、key rollover の対策としています。
 
 ● 本拡張機能の SpaceFN を利用する場合は、必ず SpaceFN 用のモディファイアキー（初期値は
 Space）から入力するようにしてください。本拡張機能の SpaceFN は、Shift や Ctrl などその他の
 モディファイアキーと組み合わせて利用することもできますが、その他のモディファイアキーを
-最初に入力した場合には、SpaceFN 用のモディファイアキーを入力した時点で、キーの入力が
+最初に入力した場合には、SpaceFN 用のモディファイアキーを入力した時点でキーの入力が
 確定する仕様としています。（これは、Ctrl+Space や Shift+Space を遅延なく入力できるように
 する対策です。）
 
