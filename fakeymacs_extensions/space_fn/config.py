@@ -45,14 +45,9 @@ except:
 user_key = "(200)"
 space_fn_key_action = getKeyAction(fc.space_fn_key)
 
-is_space_fn_mode = False
-space_fn_key_oneshot = False
-space_fn_key_down_time = 0
-
 def space_fn_key_down():
     global space_fn_key_oneshot
     global space_fn_key_down_time
-
     space_fn_key_oneshot = True
     space_fn_key_down_time = time.time()
 
@@ -63,7 +58,6 @@ def space_fn_key_up():
 def space_fn_command(func):
     def _func():
         global space_fn_key_oneshot
-
         space_fn_key_oneshot = False
         func()
     return _func
@@ -71,7 +65,7 @@ def space_fn_command(func):
 def define_key_fn(window_keymap, key, command, space_fn_key_output=False):
     func = getKeyAction(key.replace("U0-", ""))
 
-    def _func():
+    def _keyCommand():
         global is_space_fn_mode
         global space_fn_key_oneshot
 
@@ -106,7 +100,7 @@ def define_key_fn(window_keymap, key, command, space_fn_key_output=False):
         else:
             func()
 
-    define_key(window_keymap, key, _func)
+    define_key(window_keymap, key, _keyCommand)
 
 def replicate_key(window_keymap, key, original_key):
     define_key_fn(window_keymap, key, getKeyAction(original_key))
