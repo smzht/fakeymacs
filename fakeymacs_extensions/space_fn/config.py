@@ -154,7 +154,7 @@ for vkey in vkeys():
         mkey1 = "U0-" + mod + key
         define_key_fn(keymap_base, mkey1, self_insert_command(mkey0))
 
-# SpaceFN を使うキーマップに対し、N-key rollover の対策を行う
+# SpaceFN を使うキーマップに対し、key rollover の対策を行う
 for window_keymap in fc.space_fn_window_keymap_list:
     for vkey in vkeys():
         key = vkToStr(vkey)
