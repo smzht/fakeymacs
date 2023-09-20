@@ -97,6 +97,7 @@ def define_key_fn(window_keymap, key, command, space_fn_key_output=False):
                     if fakeymacs.last_keys[1] == user_key:
                         space_fn_key_action()
                 func()
+                is_space_fn_mode = False
         else:
             func()
 
