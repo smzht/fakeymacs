@@ -17,15 +17,6 @@ try:
 except:
     # SpaceFN を適用するキーマップを指定する
     fc.space_fn_window_keymap_list = [keymap_emacs, keymap_ime]
-    # fc.space_fn_window_keymap_list = [keymap_emacs, keymap_ime, keymap_ei]
-
-    try:
-        # vscode_key Extension は有効か？
-        fakeymacs.keymap_vscode
-
-        fc.space_fn_window_keymap_list += [fakeymacs.keymap_vscode]
-    except:
-        pass
 
 try:
     # 設定されているか？

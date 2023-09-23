@@ -113,8 +113,8 @@ Alt キー、Shift キーとします（Win キーは除きます）。
 これは、Keyhac に登録可能なキーの上限を超えてエラーが発生するようになったことによる
 制限事項となります。
 
-● 本拡張機能の SpaceFN は、初期値として keymap_emacs、keymap_im 及び keymap_vscode
-（vscode Extension を利用している場合）のキーマップのみで動作するようにしています。
+● 本拡張機能の SpaceFN は、初期値として keymap_emacs と keymap_im のキーマップのみで
+動作するようにしています。
 fc.space_fn_window_keymap_list 変数の指定ににより、SpaceFN を適用するキーマップを
 変更することができます。
 
