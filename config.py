@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20230907_03"
+fakeymacs_version = "20230923_01"
 
 import time
 import os.path
@@ -1411,15 +1411,7 @@ def configure(keymap):
                 fakeymacs.is_undo_mode = True
 
     def kill_emacs():
-        # # Excel のファイルを開いた直後一回目、kill_emacs が正常に動作しない。その対策。
-        # self_insert_command("D-Alt", "F4")()
-        # delay(0.1)
-        # self_insert_command("U-Alt")()
-
-        # 別な問題（ダイアログで S や N の入力ができない）が発生するようになったので、
-        # 元の設定に戻して様子を見る
         self_insert_command("A-F4")()
-
 
     def universal_argument():
         if fakeymacs.is_universal_argument:
