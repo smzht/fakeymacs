@@ -33,21 +33,22 @@ SpaceFN を実現する設定を行う拡張機能です。
 
 **** ● SpaceFN 主要キーの設定
 
-|----------+-----------------+-------------|
-| Keybind  | replacement key | Description |
-|----------+-----------------+-------------|
-| U0-<m>-j | <m>-Left        |             |
-| U0-<m>-l | <m>-Right       |             |
-| U0-<m>-i | <m>-Up          |             |
-| U0-<m>-k | <m>-Down        |             |
-| U0-<m>-u | <m>-Home        |             |
-| U0-<m>-o | <m>-End         |             |
-| U0-<m>-y | <m>-Insert      |             |
-| U0-<m>-p | <m>-Back        |             |
-| U0-<m>-m | <m>-Delete      |             |
-| U0-<m>-h | <m>-PageUp      |             |
-| U0-<m>-n | <m>-PageDown    |             |
-|----------+-----------------+-------------|
+|------------+-----------------+-------------|
+| Keybind    | replacement key | Description |
+|------------+-----------------+-------------|
+| U0-<m>-j   | <m>-Left        |             |
+| U0-<m>-l   | <m>-Right       |             |
+| U0-<m>-i   | <m>-Up          |             |
+| U0-<m>-k   | <m>-Down        |             |
+| U0-<m>-u   | <m>-Home        |             |
+| U0-<m>-o   | <m>-End         |             |
+| U0-<m>-y   | <m>-Insert      |             |
+| U0-<m>-p   | <m>-Back        |             |
+| U0-<m>-m   | <m>-Delete      |             |
+| U0-<m>-h   | <m>-PageUp      |             |
+| U0-<m>-n   | <m>-PageDown    |             |
+| U0-<m>-Esc | <m>-`           |             |
+|------------+-----------------+-------------|
 
 - _config_personal-1.py のサンプル設定では、<m> は <空>、<A->、<C->、<S-> の全ての組み合わせパターン
 - _config_personal-2.py のサンプル設定では、<m> は <空> か <S-> のどちらかのパターン

@@ -28,6 +28,7 @@ for window_keymap in fc.space_fn_window_keymap_list:
                        ["m", "Delete"],
                        ["h", "PageUp"],
                        ["n", "PageDown"],
+                       ["Esc", "`"],
                        ]:
         for mod1, mod2, mod3 in itertools.product(["", "A-"],  # Win キーは複製できないものが
                                                   ["", "C-"],  # あるため対象としない
