@@ -431,8 +431,8 @@ def create_terminal():
 def toggle_terminal():
     if fc.use_direct_input_in_vscode_terminal:
         if fakeymacs_vscode.vscode_focus == "not_terminal":
-            # VSCode Command : Terminal: Focus on Terminal View
-            vscodeExecuteCommand2("terminal.focus")()
+            # VSCode Command : Terminal: Focus Terminal
+            vscodeExecuteCommand2("workbench.action.terminal.focus")()
 
             fakeymacs_vscode.vscode_focus = "terminal"
         else:
