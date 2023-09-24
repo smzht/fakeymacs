@@ -36,6 +36,10 @@ except:
 user_key = "(200)"
 space_fn_key_action = getKeyAction(fc.space_fn_key)
 
+is_space_fn_mode = False
+space_fn_key_oneshot = False
+space_fn_key_down_time = 0
+
 def space_fn_key_down():
     global space_fn_key_oneshot
     global space_fn_key_down_time

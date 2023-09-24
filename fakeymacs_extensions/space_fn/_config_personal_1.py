@@ -13,22 +13,25 @@
 
 for window_keymap in fc.space_fn_window_keymap_list:
 
-    # スペースを連続して入力するためのキーの設定
-    replicate_key(window_keymap, "U0-s", "Space")
-
-    # キーの複製
-    for key1, key0 in [["j", "Left"],
-                       ["l", "Right"],
-                       ["i", "Up"],
-                       ["k", "Down"],
-                       ["u", "Home"],
-                       ["o", "End"],
-                       ["y", "Insert"],
-                       ["p", "Back"],
-                       ["m", "Delete"],
-                       ["h", "PageUp"],
-                       ["n", "PageDown"],
-                       ["Esc", "`"],
+    # SpaceFN 主要キーの設定
+    for key1, key0 in [["j",    "Left"],
+                       ["l",    "Right"],
+                       ["i",    "Up"],
+                       ["k",    "Down"],
+                       ["u",    "Home"],
+                       ["o",    "End"],
+                       ["h",    "PageUp"],
+                       ["n",    "PageDown"],
+                       ["Esc",  "`"],
+                       ["Back", "Delete"],
+                       ["p",    "PrintScreen"],
+                       ["[",    "ScrollLock"],
+                       ["]",    "Pause"],
+                       ["\\",   "Insert"],
+                       ["b",    "Space"],
+                       ["m",    "`"],
+                       [",",    "S-`"],
+                       ["/",    "Apps"],
                        ]:
         for mod1, mod2, mod3 in itertools.product(["", "A-"],  # Win キーは複製できないものが
                                                   ["", "C-"],  # あるため対象としない
