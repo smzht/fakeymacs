@@ -92,6 +92,9 @@ SpaceFN キーの設定が複雑になるためです。
 
 *** 留意事項
 
+● 現在のところ、SpaceFN キーを使ったマルチストロークキーの設定には対応していません。
+これは、マルチストロークキーを使う場合の key rollover の対策が難しいためです。
+
 ● 初期の設定では、SpaceFN を実現するベースの設定のみを行っています。SpaceFN のキー設定を
 行う際は、_config_personal_1.py もしくは _config_personal_2.py を config_personal.py
 に複写し、そのファイルの中で行うようにしてください。
