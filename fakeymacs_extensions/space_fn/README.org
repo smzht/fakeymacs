@@ -28,28 +28,28 @@ SpaceFN キーの設定が複雑になるためです。
 
 **** ● SpaceFN 主要キーの設定
 
-|-------------+-----------------+-------------|
-| Keybind     | replacement key | Description |
-|-------------+-----------------+-------------|
-| U0-<m>-j    | <m>-Left        |             |
-| U0-<m>-l    | <m>-Right       |             |
-| U0-<m>-i    | <m>-Up          |             |
-| U0-<m>-k    | <m>-Down        |             |
-| U0-<m>-u    | <m>-Home        |             |
-| U0-<m>-o    | <m>-End         |             |
-| U0-<m>-h    | <m>-PageUp      |             |
-| U0-<m>-n    | <m>-PageDown    |             |
-| U0-<m>-Esc  | <m>-`           |             |
-| U0-<m>-Back | <m>-Delete      |             |
-| U0-<m>-p    | <m>-PrintScreen |             |
-| U0-<m>-[    | <m>-ScrollLock  |             |
-| U0-<m>-]    | <m>-Pause       |             |
-| U0-<m>-\    | <m>-Insert      |             |
-| U0-<m>-b    | <m>-Space       |             |
-| U0-<m>-m    | <m>-`           |             |
-| U0-<m>-,    | <m>-S-`         |             |
-| U0-<m>-/    | <m>-Apps        |             |
-|-------------+-----------------+-------------|
+|-------------+-----------------+-------------------|
+| Keybind     | replacement key | Description       |
+|-------------+-----------------+-------------------|
+| U0-<m>-j    | <m>-Left        |                   |
+| U0-<m>-l    | <m>-Right       |                   |
+| U0-<m>-i    | <m>-Up          |                   |
+| U0-<m>-k    | <m>-Down        |                   |
+| U0-<m>-u    | <m>-Home        |                   |
+| U0-<m>-o    | <m>-End         |                   |
+| U0-<m>-h    | <m>-PageUp      |                   |
+| U0-<m>-n    | <m>-PageDown    |                   |
+| U0-<m>-Esc  | <m>-`           |                   |
+| U0-<m>-Back | <m>-Delete      |                   |
+| U0-<m>-p    | <m>-PrintScreen |                   |
+| U0-<m>-[    | <m>-ScrollLock  |                   |
+| U0-<m>-]    | <m>-Pause       |                   |
+| U0-<m>-\    | <m>-Insert      |                   |
+| U0-<m>-b    | <m>-Space       |                   |
+| U0-<m>-m    | <m>-`           |                   |
+| U0-<m>-,    | <m>-S-`         | S-` は ~          |
+| U0-<m>-/    | <m>-Apps        | Apps は Menu キー |
+|-------------+-----------------+-------------------|
 
 - 「U0」は fc.space_fn_key 変数に設定した SpaceFN 用のモディファイアキー
 - _config_personal-1.py のサンプル設定では、<m> は <空>、<A->、<C->、<S-> の全ての組み合わせパターン
