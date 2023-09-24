@@ -14,6 +14,7 @@ SpaceFN を実現する設定を行う拡張機能です。
 | fc.space_fn_key                  | SpaceFN 用のモディファイアキーを指定する                                                           |
 | fc.space_fn_window_keymap_list   | SpaceFN を適用するキーマップを指定する                                                             |
 | fc.space_fn_use_oneshot_function | SpaceFN 用のモディファイアキーの単押しで、元のキーの機能を利用するかどうかを指定する               |
+| fc.space_fn_delay_seconds        | SpaceFN 用のモディファイアキーが押下されてから、SpacdFN の機能が働くようになるまでの秒数を指定する |
 |----------------------------------+----------------------------------------------------------------------------------------------------|
 
 *** サンプル設定ファイル（_config_personal-1.py、_config_personal-2.py）で設定しているキーバインド
@@ -127,6 +128,16 @@ fc.space_fn_window_keymap_list 変数の指定ににより、SpaceFN を適用�
 
 ● 本拡張機能の SpaceFN は、key rollover の対策を行っており、SpaceFN でよく言われる
 1KRO の問題を極力回避する実装をしています。
+
+● 本拡張機能の SpaceFN は、SpaceFN 用のモディファイアキーが押下されてから
+fc.space_fn_delay_seconds 変数に指定した秒数（初期値：0.15秒）後に次のキーが押された場合に、
+SpaceFN の機能が働くようにしています。
+fc.space_fn_delay_seconds 変数に指定した秒数より前に次のキーを押下した場合は、その押下した
+キーがそのまま入力される仕様としており、key rollover の対策としています。
+（本当は、SpaceFN 用のモディファイアキーとその次のキーが押下され、指定した短い時間以内に
+SpaceFN 用のモディファイアキーが離されたら押下したキーがそのまま入力される仕様にしたい
+のですが、現在のところそれを Keyhac で実現する方法が分かっておりません。TouchCursor は
+この方法で key rollover の対策を行っているようです。）
 
 ● 本拡張機能の SpaceFN を利用する場合は、必ず SpaceFN 用のモディファイアキー（初期値は
 Space）から入力するようにしてください。本拡張機能の SpaceFN は、Shift や Ctrl などその他の
