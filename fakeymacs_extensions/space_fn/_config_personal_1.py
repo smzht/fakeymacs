@@ -34,14 +34,17 @@ for window_keymap in fc.space_fn_window_keymap_list:
                        ["/",    "Apps"],
                        ]:
         for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
-            mkey0 =         mod1 + mod2 + mod3 + mod4 + key0
-            mkey1 = "U0-" + mod1 + mod2 + mod3 + mod4 + key1
+            mod   = mod1 + mod2 + mod3 + mod4
+            mkey0 =         mod + key0
+            mkey1 = "U0-" + mod + key1
             replicate_key(window_keymap, mkey1, mkey0)
 
     # ファンクションキーの設定
     for mod1, mod2, mod3 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"]):
-        mkey0 =         mod1 + mod2 + mod3
-        mkey1 = "U0-" + mod1 + mod2 + mod3
+        mod   = mod1 + mod2 + mod3
+
+        mkey0 =         mod
+        mkey1 = "U0-" + mod
         for i in range(10):
             define_key_fn(window_keymap,
                           mkey1 + f"{(i + 1) % 10}", self_insert_command(mkey0 + vkToStr(VK_F1 + i)))
@@ -53,8 +56,8 @@ for window_keymap in fc.space_fn_window_keymap_list:
         else:
             define_key_fn(window_keymap, mkey1 + "=", self_insert_command(mkey0 + vkToStr(VK_F12)))
 
-        mkey0 =           mod1 + mod2
-        mkey1 = "U0-S-" + mod1 + mod2
+        mkey0 =           mod
+        mkey1 = "U0-S-" + mod
         for i in range(10):
             define_key_fn(window_keymap,
                           mkey1 + f"{(i + 1) % 10}", self_insert_command(mkey0 + vkToStr(VK_F13 + i)))
