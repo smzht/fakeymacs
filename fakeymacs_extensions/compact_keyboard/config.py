@@ -11,7 +11,7 @@ if not is_japanese_keyboard:
     define_key(keymap_base, "S-Back", keymap.defineMultiStrokeKeymap("S-Back"))
 
     for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
-        mkey  = mod1 + mod2 + mod3 + mod4
-        mkey1 = mkey + "Back"
-        mkey2 = mkey + "BackQuote"
+        mod   = mod1 + mod2 + mod3 + mod4
+        mkey1 = mod + "Back"
+        mkey2 = mod + "BackQuote"
         define_key(keymap_base, f"S-Back {mkey1}", getKeyAction(mkey2))
