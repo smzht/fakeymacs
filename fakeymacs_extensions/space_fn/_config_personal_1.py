@@ -6,8 +6,8 @@
 # 本サンプルコードは、次のページの設定に準拠しています。
 # https://martin-stone.github.io/touchcursor/help.html
 
-# 本サンプルコードは、Ctrl キーや Alt キーとの組み合わせも含め、できるだけ完全なキーの複製を行う
-# バージョンです。
+# 本サンプルコードは、Ctrl キー、Alt キー、Win キーとの組み合わせも含め、できるだけ完全なキーの
+# 複製を行うバージョンです。
 
 # --------------------------------------------------------------------------------------------------
 
@@ -33,18 +33,15 @@ for window_keymap in fc.space_fn_window_keymap_list:
                        [",",    "S-`"],
                        ["/",    "Apps"],
                        ]:
-        for mod1, mod2, mod3 in itertools.product(["", "A-"],  # Win キーは複製できないものが
-                                                  ["", "C-"],  # あるため対象としない
-                                                  ["", "S-"]):
-            mkey0 =         mod1 + mod2 + mod3 + key0
-            mkey1 = "U0-" + mod1 + mod2 + mod3 + key1
+        for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
+            mkey0 =         mod1 + mod2 + mod3 + mod4 + key0
+            mkey1 = "U0-" + mod1 + mod2 + mod3 + mod4 + key1
             replicate_key(window_keymap, mkey1, mkey0)
 
     # ファンクションキーの設定
-    for mod1, mod2 in itertools.product(["", "A-"],
-                                        ["", "C-"]):
-        mkey0 =         mod1 + mod2
-        mkey1 = "U0-" + mod1 + mod2
+    for mod1, mod2, mod3 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"]):
+        mkey0 =         mod1 + mod2 + mod3
+        mkey1 = "U0-" + mod1 + mod2 + mod3
         for i in range(10):
             define_key_fn(window_keymap,
                           mkey1 + f"{(i + 1) % 10}", self_insert_command(mkey0 + vkToStr(VK_F1 + i)))
