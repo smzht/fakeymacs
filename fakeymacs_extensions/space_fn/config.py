@@ -99,16 +99,16 @@ def define_key_fn(window_keymap, keys, command, space_fn_key_output=False):
             # print(time.time() - space_fn_key_down_time)
 
             if is_space_fn_mode:
-                if time.time() - space_fn_key_down_time >= fc.space_fn_delay_seconds:
-                    if space_fn_key_output:
-                        if fc.space_fn_use_oneshot_function:
-                            if fakeymacs.last_keys[1] == user0_key:
-                                space_fn_key_action()
+                if not fc.space_fn_use_oneshot_function:
                     _command1()
-                else:
-                    if fc.space_fn_use_oneshot_function:
+
+                elif time.time() - space_fn_key_down_time >= fc.space_fn_delay_seconds:
+                    if space_fn_key_output:
                         if fakeymacs.last_keys[1] == user0_key:
                             space_fn_key_action()
+                    _command1()
+                else:
+                    space_fn_key_action()
                     func()
                     is_space_fn_mode = False
             else:
