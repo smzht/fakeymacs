@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20230923_01"
+fakeymacs_version = "20230930_01"
 
 import time
 import os.path
@@ -1127,11 +1127,11 @@ def configure(keymap):
         delay()
         kill_region()
 
-    def kill_line(repeat=1):
+    def kill_line(repeat=1, kill_whole_line=False):
         resetRegion()
         fakeymacs.is_marked = True
 
-        if repeat == 1:
+        if repeat == 1 and not kill_whole_line:
             mark(move_end_of_line, True)()
             delay()
 
