@@ -24,8 +24,8 @@ SpaceFN を実現する設定を行う拡張機能です。
 - https://geekhack.org/index.php?topic=51069.0
 
 このサイトの設定例の内、Esc を割り当てている e キーの設定のみ除外しています。
-（keymap_emacs キーマップでは、Esc をマルチストロークキー（Meta キー）とする設定を選択できますが、
-本拡張機能では SpaceFN キーへのマルチストロークキーの割当てには対応していないため、除外しています。）
+（keymap_emacs キーマップでは、Esc をマルチストロークキー（Meta キー）として設定をしている場合があり、
+複数のキーマップに渡って単純にキーの置き換えとする設定ができないため、除外しています。）
 
 **** ● SpaceFN 主要キーの設定
 
@@ -93,8 +93,24 @@ SpaceFN を実現する設定を行う拡張機能です。
 
 *** 留意事項
 
-● 本拡張機能では、SpaceFN キーへのマルチストロークキーの割当てには対応していません。
-これは、SpaceFN キーにマルチストロークキーを設定した場合の key rollover の対策が難しいためです。
+● 本拡張機能では、SpaceFN 用のモディファイアキーとして User0（U0）を利用している他、内部で User3（U3）
+を利用しています。この２つのユーザモディファイアキーは利用者側で定義しないようにしてください。
+
+● 本拡張機能では、SpaceFN キーへのマルチストロークキーの割当てに対応しています。
+マルチストロークキーを使う場合の key rollover の対策が難しかったのですが、対応しました。
+SpaceFN キーをマルチストロークキーとして利用する場合のサンプルコードは次のようなものとなります。
+
+#+BEGIN_EXAMPLE
+define_key_fn(keymap_emacs, "U0-d", keymap.defineMultiStrokeKeymap("U0-d"))
+
+def kill_line2(repeat):
+    move_beginning_of_line()
+    kill_line(repeat, kill_whole_line=True)
+
+# Vim の一行削除をイメージ
+define_key_fn(keymap_emacs, "U0-d U0-d",
+              reset_search(reset_undo(reset_counter(reset_mark(repeat3(kill_line2))))))
+#+END_EXAMPLE
 
 ● 初期の設定では、SpaceFN を実現するベースの設定のみを行っています。SpaceFN のキー設定を
 行う際は、_config_personal_1.py もしくは _config_personal_2.py を config_personal.py
