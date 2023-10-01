@@ -75,8 +75,8 @@ def replicate_key(window_keymap, keys, original_key):
 - https://geekhack.org/index.php?topic=51069.0
 
 このサイトの設定例の内、Esc を割り当てている e キーの設定のみ除外しています。
-（keymap_emacs キーマップでは、Esc をマルチストロークキー（Meta キー）として設定する場合がありますが、
-この場合、複数のキーマップに渡るキーの置き換えが単純ではなくなるため、除外しています。）
+（keymap_emacs キーマップでは、Esc をマルチストロークキー（Meta キー）として設定する場合があります。
+この場合、複数のキーマップに渡るキーの置き換えが単純ではなくなるため、サンプル設定では除外しています。）
 
 **** ● SpaceFN 主要キーの設定
 
