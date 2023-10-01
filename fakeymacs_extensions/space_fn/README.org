@@ -21,7 +21,7 @@ SpaceFN を実現する設定を行う拡張機能です。
 
 **** ■ define_key_fn
 
-キーマップにキーを定義する
+キーマップに SpaceFN 用のキーを定義する
 
 ***** Function
 
