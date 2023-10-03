@@ -155,8 +155,10 @@ SpaceFN キーをマルチストロークキーとして利用する場合のサ
 define_key_fn(keymap_emacs, "U0-d", keymap.defineMultiStrokeKeymap("U0-d"))
 
 def kill_line2(repeat):
-    move_beginning_of_line()
-    kill_line(repeat, kill_whole_line=True)
+    def _func():
+        move_beginning_of_line()
+        kill_line(repeat, kill_whole_line=True)
+    keymap.delayedCall(_func, 0)
 
 # Vim の一行削除をイメージ
 define_key_fn(keymap_emacs, "U0-d U0-d",
