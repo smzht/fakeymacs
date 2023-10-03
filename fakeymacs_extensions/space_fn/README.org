@@ -166,7 +166,7 @@ define_key_fn(keymap_emacs, "U0-d U0-d",
 
 # 数引数のサポート
 for n in range(10):
-    define_key(keymap_emacs, f"U0-n", digit2(n))
+    define_key(keymap_emacs, f"U0-{n}", digit2(n))
 #+END_EXAMPLE
 
 ● 初期の設定では、SpaceFN を実現するベースの設定のみを行っています。SpaceFN のキー設定を
