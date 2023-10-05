@@ -118,8 +118,8 @@ def define_key_fn(window_keymap, keys, command, space_fn_key_output=False):
     else:
         define_key(window_keymap, keys1, _command1)
 
-def replicate_key(window_keymap, keys, original_key):
-    define_key_fn(window_keymap, keys, getKeyAction(original_key))
+def replicate_key(window_keymap, key, original_key):
+    define_key_fn(window_keymap, key, getKeyAction(original_key))
 
 is_space_fn_key_replaced = False
 

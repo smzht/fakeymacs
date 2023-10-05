@@ -51,7 +51,7 @@ SpaceFN 用にキーを複製する
 ***** Function
 
 #+BEGIN_EXAMPLE
-def replicate_key(window_keymap, keys, original_key):
+def replicate_key(window_keymap, key, original_key):
 #+END_EXAMPLE
 
 ***** Parameters
@@ -60,7 +60,7 @@ def replicate_key(window_keymap, keys, original_key):
 | Parameter     | Description                                                      |
 |---------------+------------------------------------------------------------------|
 | window_keymap | WindowKeymapオブジェクト                                         |
-| keys          | SpaceFN 用に設定するキー（keys の初めのキーには U0- を含むこと） |
+| key           | SpaceFN 用に設定するキー（keys の初めのキーには U0- を含むこと） |
 | original_key  | 複製する元のキー                                                 |
 |---------------+------------------------------------------------------------------|
 
