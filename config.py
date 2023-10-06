@@ -2318,8 +2318,8 @@ def configure(keymap):
             disable_emacs_ime_mode()
             disable_input_method()
 
-        def ei_enable_input_method2(window_keymap, key):
-            func = getKeyCommand(window_keymap, key)
+        def ei_enable_input_method2(key, command):
+            func = command
             if func is None:
                 if key.startswith("O-"):
                     func = self_insert_command("(28)") # <変換> キーを発行
@@ -2335,8 +2335,8 @@ def configure(keymap):
                     func()
             return _func
 
-        def ei_disable_input_method2(window_keymap, key):
-            func = getKeyCommand(window_keymap, key)
+        def ei_disable_input_method2(key, command):
+            func = command
             if func is None:
                 if key.startswith("O-"):
                     func = self_insert_command("(29)") # <無変換> キーを発行
@@ -2436,19 +2436,28 @@ def configure(keymap):
         for replace_key, original_key in fc.emacs_ime_mode_key:
             define_key(keymap_ei, replace_key, self_insert_command(original_key))
 
-        # この時点の keymap_ei を複製する
-        keymap_ei_dup = copy.deepcopy(keymap_ei)
+        # この時点の command を保存する
+        command_keep = {}
+        for key in fc.toggle_input_method_key:
+            command_keep[key] = getKeyCommand(keymap_ei, key)
+        for disable_key, enable_key in fc.set_input_method_key:
+            if disable_key:
+                command_keep[disable_key] = getKeyCommand(keymap_ei, disable_key)
+            if enable_key:
+                command_keep[enable_key] = getKeyCommand(keymap_ei, enable_key)
 
         ## 「IME の切り替え」のキー設定
         for key in fc.toggle_input_method_key:
-            define_key(keymap_ei, key, ei_disable_input_method2(keymap_ei_dup, key))
+            define_key(keymap_ei, key, ei_disable_input_method2(key, command_keep[key]))
 
         ## 「IME の切り替え」のキー設定
         for disable_key, enable_key in fc.set_input_method_key:
             if disable_key:
-                define_key(keymap_ei, disable_key, ei_disable_input_method2(keymap_ei_dup, disable_key))
+                define_key(keymap_ei, disable_key,
+                           ei_disable_input_method2(disable_key, command_keep[disable_key]))
             if enable_key:
-                define_key(keymap_ei, enable_key,  ei_enable_input_method2(keymap_ei_dup, enable_key))
+                define_key(keymap_ei, enable_key,
+                           ei_enable_input_method2(enable_key, command_keep[enable_key]))
 
 
     ###########################################################################
