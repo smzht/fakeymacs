@@ -490,16 +490,6 @@ define_key_v("M-",     keymap.defineMultiStrokeKeymap("Esc"))
 define_key_v("M-g",    keymap.defineMultiStrokeKeymap("M-g"))
 define_key_v("M-g M-", keymap.defineMultiStrokeKeymap("M-g Esc"))
 
-def mergeEmacsMultiStrokeKeymap():
-    mergeMultiStrokeKeymap(keymap_vscode, keymap_emacs, "Ctl-x")
-    mergeMultiStrokeKeymap(keymap_vscode, keymap_emacs, "M-")
-    mergeMultiStrokeKeymap(keymap_vscode, keymap_emacs, "M-g")
-    mergeMultiStrokeKeymap(keymap_vscode, keymap_emacs, "M-g M-")
-    keymap_vscode.applying_func = None
-
-## keymap_emacs キーマップのマルチストロークキーの設定を keymap_vscode キーマップにマージする
-keymap_vscode.applying_func = mergeEmacsMultiStrokeKeymap
-
 ## プレフィックスキーの設定
 for pkey1, pkey2 in fc.vscode_prefix_key:
     define_key_v(pkey2, keymap.defineMultiStrokeKeymap(f"<VSCode> {pkey1}"))
@@ -610,3 +600,9 @@ exec(readConfigExtension(r"vscode_extensions\config.py"), dict(globals(), **loca
 
 ## config_personal.py ファイルの読み込み
 exec(readConfigExtension(r"vscode_key\config_personal.py", msg=False), dict(globals(), **locals()))
+
+## keymap_emacs キーマップのマルチストロークキーの設定を keymap_vscode キーマップにマージする
+mergeMultiStrokeKeymap(keymap_vscode, keymap_emacs, "Ctl-x")
+mergeMultiStrokeKeymap(keymap_vscode, keymap_emacs, "M-")
+mergeMultiStrokeKeymap(keymap_vscode, keymap_emacs, "M-g")
+mergeMultiStrokeKeymap(keymap_vscode, keymap_emacs, "M-g M-")
