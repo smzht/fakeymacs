@@ -129,12 +129,21 @@ def replace_space_fn_key(replace):
 
     return False
 
-keymap_space_fn = keymap.defineWindowKeymap(check_func=lambda wnd: replace_space_fn_key(False))
+keymap_space_fn = keymap.defineWindowKeymap()
+keymap_space_fn.applying_func = lambda: replace_space_fn_key(False)
+
 keymap.window_keymap_list.remove(keymap_space_fn)
 keymap.window_keymap_list.insert(0, keymap_space_fn)
 
 for window_keymap in fc.space_fn_window_keymap_list:
-    window_keymap.applying_func = lambda: replace_space_fn_key(True)
+    if window_keymap.applying_func:
+        window_keymap.applying_func_original = window_keymap.applying_func
+        def applying_func():
+            window_keymap.applying_func_original()
+            replace_space_fn_key(True)
+        window_keymap.applying_func = applying_func
+    else:
+        window_keymap.applying_func = lambda: replace_space_fn_key(True)
 
 # すべてのキーマップに対し、fc.space_fn_key を使うキーに割り当てられている設定を user0_key を使うキーに設定する
 for window_keymap in keymap.window_keymap_list:
