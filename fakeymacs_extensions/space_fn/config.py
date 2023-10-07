@@ -135,13 +135,14 @@ keymap_space_fn.applying_func = lambda: replace_space_fn_key(False)
 keymap.window_keymap_list.remove(keymap_space_fn)
 keymap.window_keymap_list.insert(0, keymap_space_fn)
 
+def applying_func(func):
+    def _func():
+        func()
+        replace_space_fn_key(True)
+    return _func
+
 for window_keymap in fc.space_fn_window_keymap_list:
     if window_keymap.applying_func:
-        def applying_func(func):
-            def _func():
-                func()
-                replace_space_fn_key(True)
-            return _func
         window_keymap.applying_func = applying_func(window_keymap.applying_func)
     else:
         window_keymap.applying_func = lambda: replace_space_fn_key(True)
