@@ -38,7 +38,6 @@ user3_key = "(201)"
 space_fn_key_action = getKeyAction(fc.space_fn_key)
 
 keymap.defineModifier(user0_key, "User0")
-keymap.defineModifier(user3_key, "User3")
 
 is_space_fn_mode = False
 space_fn_key_oneshot = False
@@ -67,7 +66,7 @@ def define_key_fn(window_keymap, keys, command, space_fn_key_output=False):
     if "U0-" not in key_list[0]:
         return
 
-    keys1 = keys.replace("U0-", "U1-", 1)
+    keys1 = keys.replace("U0-", "U3-", 1)
 
     if callable(command):
         _command1 = command
