@@ -34,7 +34,6 @@ except:
     fc.space_fn_delay_seconds = 0.15
 
 user0_key = "(200)"
-user3_key = "(201)"
 space_fn_key_action = getKeyAction(fc.space_fn_key)
 
 keymap.defineModifier(user0_key, "User0")
