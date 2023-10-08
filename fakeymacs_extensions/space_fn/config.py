@@ -119,31 +119,23 @@ def define_key_fn(window_keymap, keys, command, space_fn_key_output=False):
 def replicate_key(window_keymap, key, original_key):
     define_key_fn(window_keymap, key, getKeyAction(original_key))
 
-def replace_space_fn_key(replace):
-    if replace:
-        keymap.replaceKey(fc.space_fn_key, user0_key)
+is_space_fn_key_replaced = False
+
+def replace_space_fn_key(window):
+    global is_space_fn_key_replaced
+
+    if fakeymacs.is_base_target:
+        if not is_space_fn_key_replaced:
+            keymap.replaceKey(fc.space_fn_key, user0_key)
+            is_space_fn_key_replaced = True
     else:
-        keymap.replaceKey(fc.space_fn_key, fc.space_fn_key)
+        if is_space_fn_key_replaced:
+            keymap.replaceKey(fc.space_fn_key, fc.space_fn_key)
+            is_space_fn_key_replaced = False
 
     return False
 
-keymap_space_fn = keymap.defineWindowKeymap()
-keymap_space_fn.applying_func = lambda: replace_space_fn_key(False)
-
-keymap.window_keymap_list.remove(keymap_space_fn)
-keymap.window_keymap_list.insert(0, keymap_space_fn)
-
-def applying_func(func):
-    def _func():
-        func()
-        replace_space_fn_key(True)
-    return _func
-
-for window_keymap in fc.space_fn_window_keymap_list:
-    if window_keymap.applying_func:
-        window_keymap.applying_func = applying_func(window_keymap.applying_func)
-    else:
-        window_keymap.applying_func = lambda: replace_space_fn_key(True)
+keymap.defineWindowKeymap(check_func=replace_space_fn_key)
 
 # すべてのキーマップに対し、fc.space_fn_key を使うキーに割り当てられている設定を user0_key を使うキーに設定する
 for window_keymap in keymap.window_keymap_list:
