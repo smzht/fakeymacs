@@ -119,23 +119,46 @@ def define_key_fn(window_keymap, keys, command, space_fn_key_output=False):
 def replicate_key(window_keymap, key, original_key):
     define_key_fn(window_keymap, key, getKeyAction(original_key))
 
-is_space_fn_key_replaced = False
+space_fn_replace_key = False
 
-def replace_space_fn_key(window):
-    global is_space_fn_key_replaced
-
-    if fakeymacs.is_base_target:
-        if not is_space_fn_key_replaced:
+def replace_space_fn_key(replace):
+    global space_fn_replace_key
+    if replace:
+        if not space_fn_replace_key:
             keymap.replaceKey(fc.space_fn_key, user0_key)
-            is_space_fn_key_replaced = True
+            space_fn_replace_key = True
     else:
-        if is_space_fn_key_replaced:
+        if space_fn_replace_key:
             keymap.replaceKey(fc.space_fn_key, fc.space_fn_key)
-            is_space_fn_key_replaced = False
-
+            space_fn_replace_key = False
     return False
 
-keymap.defineWindowKeymap(check_func=replace_space_fn_key)
+def set_space_fn_replace_key(replace):
+    fakeymacs.space_fn_replace_key = replace
+    return False
+
+keymap_space_fn1 = keymap.defineWindowKeymap(check_func=lambda wnd: set_space_fn_replace_key(False))
+keymap.window_keymap_list.remove(keymap_space_fn1)
+keymap.window_keymap_list.insert(0, keymap_space_fn1)
+keymap_space_fn2 = keymap.defineWindowKeymap(check_func=lambda wnd: replace_space_fn_key(fakeymacs.space_fn_replace_key))
+
+def applying_func(func):
+    def _func():
+        func()
+        set_space_fn_replace_key(True)
+    return _func
+
+if fc.use_emacs_ime_mode:
+    if (keymap_emacs in fc.space_fn_window_keymap_list or
+        keymap_ime   in fc.space_fn_window_keymap_list or
+        keymap_ei    in fc.space_fn_window_keymap_list):
+    space_fn_window_keymap_list = set(fc.space_fn_window_keymap_list + [keymap_emacs, keymap_ime, keymap_ei])
+
+for window_keymap in space_fn_window_keymap_list:
+    if window_keymap.applying_func:
+        window_keymap.applying_func = applying_func(window_keymap.applying_func)
+    else:
+        window_keymap.applying_func = lambda: set_space_fn_replace_key(True)
 
 # すべてのキーマップに対し、fc.space_fn_key を使うキーに割り当てられている設定を user0_key を使うキーに設定する
 for window_keymap in keymap.window_keymap_list:
