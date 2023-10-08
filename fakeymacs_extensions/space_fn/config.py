@@ -148,11 +148,13 @@ def applying_func(func):
         set_space_fn_replace_key(True)
     return _func
 
+space_fn_window_keymap_list = fc.space_fn_window_keymap_list
+
 if fc.use_emacs_ime_mode:
     if (keymap_emacs in fc.space_fn_window_keymap_list or
         keymap_ime   in fc.space_fn_window_keymap_list or
         keymap_ei    in fc.space_fn_window_keymap_list):
-    space_fn_window_keymap_list = set(fc.space_fn_window_keymap_list + [keymap_emacs, keymap_ime, keymap_ei])
+        space_fn_window_keymap_list = set(space_fn_window_keymap_list + [keymap_emacs, keymap_ime, keymap_ei])
 
 for window_keymap in space_fn_window_keymap_list:
     if window_keymap.applying_func:
