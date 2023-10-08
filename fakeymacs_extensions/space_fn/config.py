@@ -119,11 +119,15 @@ def define_key_fn(window_keymap, keys, command, space_fn_key_output=False):
 def replicate_key(window_keymap, key, original_key):
     define_key_fn(window_keymap, key, getKeyAction(original_key))
 
+def set_space_fn_key_replacement(replace):
+    fakeymacs.space_fn_key_replacement = replace
+    return False
+
 space_fn_key_replacement = False
 
-def replace_space_fn_key(replace):
+def replace_space_fn_key():
     global space_fn_key_replacement
-    if replace:
+    if fakeymacs.space_fn_key_replacement:
         if not space_fn_key_replacement:
             keymap.replaceKey(fc.space_fn_key, user0_key)
             space_fn_key_replacement = True
@@ -133,14 +137,10 @@ def replace_space_fn_key(replace):
             space_fn_key_replacement = False
     return False
 
-def set_space_fn_key_replacement(replace):
-    fakeymacs.space_fn_key_replacement = replace
-    return False
-
 keymap_spacefn1 = keymap.defineWindowKeymap(check_func=lambda wnd: set_space_fn_key_replacement(False))
 keymap.window_keymap_list.remove(keymap_spacefn1)
 keymap.window_keymap_list.insert(0, keymap_spacefn1)
-keymap_spacefn2 = keymap.defineWindowKeymap(check_func=lambda wnd: replace_space_fn_key(fakeymacs.space_fn_key_replacement))
+keymap_spacefn2 = keymap.defineWindowKeymap(check_func=lambda wnd: replace_space_fn_key())
 
 def applying_func(func):
     def _func():
