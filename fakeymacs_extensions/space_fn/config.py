@@ -142,12 +142,6 @@ keymap.window_keymap_list.remove(keymap_spacefn1)
 keymap.window_keymap_list.insert(0, keymap_spacefn1)
 keymap_spacefn2 = keymap.defineWindowKeymap(check_func=lambda wnd: replace_space_fn_key())
 
-def applying_func(func):
-    def _func():
-        func()
-        set_space_fn_key_replacement(True)
-    return _func
-
 space_fn_window_keymap_list = fc.space_fn_window_keymap_list
 
 if fc.use_emacs_ime_mode:
@@ -155,6 +149,12 @@ if fc.use_emacs_ime_mode:
         keymap_ime   in fc.space_fn_window_keymap_list or
         keymap_ei    in fc.space_fn_window_keymap_list):
         space_fn_window_keymap_list = set(space_fn_window_keymap_list + [keymap_emacs, keymap_ime, keymap_ei])
+
+def applying_func(func):
+    def _func():
+        func()
+        set_space_fn_key_replacement(True)
+    return _func
 
 for window_keymap in space_fn_window_keymap_list:
     if window_keymap.applying_func:
