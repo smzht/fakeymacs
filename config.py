@@ -836,7 +836,6 @@ def configure(keymap):
     def is_ime_target(window):
         if window is not fakeymacs.last_window:
             process_name = window.getProcessName()
-
             fakeymacs.last_window = window
 
             if (fakeymacs.is_keymap_decided == False and
