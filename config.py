@@ -2648,20 +2648,10 @@ def configure(keymap):
         if display_cnt == 2:
             def _transpose_windows():
                 window_list = getWindowList()
-
-                process_name_length = max(map(len, map(Window.getProcessName, window_list)))
-                formatter = f"{{0:{process_name_length}}} | {{1}}"
-                print("================================================================================")
-                for window in window_list:
-                    print(formatter.format(window.getProcessName(), window.getText()))
-                print("--------------------------------------------------------------------------------")
-
                 if len(window_list) >= 2:
                     first_window = None
                     for window in window_list:
                         window_rect = window.getRect()
-                        print(formatter.format(window.getProcessName(), window.getText()))
-                        print(window_rect)
                         for display_area in display_areas:
                             if (window_rect[0] >= display_area[0] - 16 and
                                 window_rect[1] >= display_area[1] - 16 and
@@ -2669,7 +2659,6 @@ def configure(keymap):
                                 window_rect[3] <= display_area[3] + 16):
                                 if first_window:
                                     if display_area != first_window:
-                                        print("-second-")
                                         popWindow(window)()
                                         delay()
                                         move_window_to_previous_display()
@@ -2681,7 +2670,6 @@ def configure(keymap):
                                     popWindow(window)()
                                     delay()
                                     first_window = display_area
-                                    print("-first-")
                                 break
 
             keymap.delayedCall(_transpose_windows, 0)
