@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20231007_01"
+fakeymacs_version = "20231012_01"
 
 import time
 import os.path
@@ -758,10 +758,10 @@ def configure(keymap):
     fakeymacs.window_list = []
 
     def is_base_target(window):
-        process_name = window.getProcessName()
-        class_name   = window.getClassName()
-
         if window is not fakeymacs.last_window:
+            process_name = window.getProcessName()
+            class_name   = window.getClassName()
+
             if (process_name in fc.not_clipboard_target or
                 any(checkWindow(None, c, window=window) for c in fc.not_clipboard_target_class)):
                 # クリップボードの監視用のフックを無効にする
@@ -791,63 +791,62 @@ def configure(keymap):
             else:
                 keymap_base[d_ctrl] = d_ctrl
 
-        if (process_name in fc.transparent_target or
-            class_name in fc.transparent_target_class or
-            any(checkWindow(*app, window=window) if type(app) is list else
-                checkWindow(app, window=window) for app in fc.game_app_list)):
-            fakeymacs.is_base_target = False
-            fakeymacs.is_keymap_decided = True
-            return False
-        else:
-            fakeymacs.is_base_target = True
-            fakeymacs.is_keymap_decided = False
-            return True
+            if (process_name in fc.transparent_target or
+                class_name in fc.transparent_target_class or
+                any(checkWindow(*app, window=window) if type(app) is list else
+                    checkWindow(app, window=window) for app in fc.game_app_list)):
+                fakeymacs.is_base_target = False
+                fakeymacs.is_keymap_decided = True
+            else:
+                fakeymacs.is_base_target = True
+                fakeymacs.is_keymap_decided = False
+
+        return fakeymacs.is_base_target
 
     def is_emacs_target(window):
-        last_window  = fakeymacs.last_window
-        process_name = window.getProcessName()
-        class_name   = window.getClassName()
-
-        if window is not last_window:
-            if process_name in fc.emacs_exclusion_key:
-                fakeymacs.exclution_key = [keyStrNormalization(addSideOfModifierKey(specialCharToKeyStr(key)))
-                                           for key in fc.emacs_exclusion_key[process_name]]
-            else:
-                fakeymacs.exclution_key = []
-
+        if window is not fakeymacs.last_window:
             reset_undo(reset_counter(reset_mark(lambda: None)))()
             fakeymacs.ime_cancel = False
-            fakeymacs.last_window = window
+            fakeymacs.exclution_key = []
 
-        if is_task_switching_window(window):
-            fakeymacs.is_keymap_decided = True
-            return False
+            if is_task_switching_window(window) or is_list_window(window):
+                fakeymacs.is_emacs_target = False
+                fakeymacs.is_keymap_decided = True
+            else:
+                process_name = window.getProcessName()
+                class_name   = window.getClassName()
 
-        if is_list_window(window):
-            fakeymacs.is_keymap_decided = True
-            return False
+                if process_name in fc.emacs_exclusion_key:
+                    fakeymacs.exclution_key = [keyStrNormalization(addSideOfModifierKey(specialCharToKeyStr(key)))
+                                               for key in fc.emacs_exclusion_key[process_name]]
 
-        if window is not last_window:
-            showImeStatus(window.getImeStatus(), window=window)
+                showImeStatus(window.getImeStatus(), window=window)
 
-        if (fakeymacs.is_keymap_decided == True or
-            (class_name not in fc.emacs_target_class and
-             (process_name in fakeymacs.not_emacs_keybind or
-              process_name in fc.not_emacs_target))):
-            fakeymacs.is_emacs_target = False
-            return False
-        else:
-            fakeymacs.is_emacs_target = True
-            fakeymacs.is_keymap_decided = True
-            return True
+                if (fakeymacs.is_keymap_decided == True or
+                    (class_name not in fc.emacs_target_class and
+                     (process_name in fakeymacs.not_emacs_keybind or
+                      process_name in fc.not_emacs_target))):
+                    fakeymacs.is_emacs_target = False
+                else:
+                    fakeymacs.is_emacs_target = True
+                    fakeymacs.is_keymap_decided = True
+
+        return fakeymacs.is_emacs_target
 
     def is_ime_target(window):
-        if (fakeymacs.is_keymap_decided == False and
-            (window.getProcessName() in fakeymacs.not_emacs_keybind or
-             window.getProcessName() in fc.ime_target)):
-            return True
-        else:
-            return False
+        if window is not fakeymacs.last_window:
+            process_name = window.getProcessName()
+
+            fakeymacs.last_window = window
+
+            if (fakeymacs.is_keymap_decided == False and
+                (process_name in fakeymacs.not_emacs_keybind or
+                 process_name in fc.ime_target)):
+                fakeymacs.is_ime_target = True
+            else:
+                fakeymacs.is_ime_target = False
+
+        return fakeymacs.is_ime_target
 
     keymap_base = keymap.defineWindowKeymap(check_func=is_base_target)
 
@@ -920,6 +919,7 @@ def configure(keymap):
                 fakeymacs.not_emacs_keybind.append(process_name)
                 keymap.popBalloon("keybind", "[Disable Emacs keybind]", 1000)
 
+            fakeymacs.last_window = None
             keymap.updateKeymap()
 
     ##################################################
@@ -2648,10 +2648,20 @@ def configure(keymap):
         if display_cnt == 2:
             def _transpose_windows():
                 window_list = getWindowList()
+
+                process_name_length = max(map(len, map(Window.getProcessName, window_list)))
+                formatter = f"{{0:{process_name_length}}} | {{1}}"
+                print("================================================================================")
+                for window in window_list:
+                    print(formatter.format(window.getProcessName(), window.getText()))
+                print("--------------------------------------------------------------------------------")
+
                 if len(window_list) >= 2:
                     first_window = None
                     for window in window_list:
                         window_rect = window.getRect()
+                        print(formatter.format(window.getProcessName(), window.getText()))
+                        print(window_rect)
                         for display_area in display_areas:
                             if (window_rect[0] >= display_area[0] - 16 and
                                 window_rect[1] >= display_area[1] - 16 and
@@ -2659,6 +2669,7 @@ def configure(keymap):
                                 window_rect[3] <= display_area[3] + 16):
                                 if first_window:
                                     if display_area != first_window:
+                                        print("-second-")
                                         popWindow(window)()
                                         delay()
                                         move_window_to_previous_display()
@@ -2670,6 +2681,7 @@ def configure(keymap):
                                     popWindow(window)()
                                     delay()
                                     first_window = display_area
+                                    print("-first-")
                                 break
 
             keymap.delayedCall(_transpose_windows, 0)
