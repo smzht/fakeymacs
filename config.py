@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20231012_01"
+fakeymacs_version = "20231014_01"
 
 import time
 import os.path
@@ -791,13 +791,18 @@ def configure(keymap):
             else:
                 keymap_base[d_ctrl] = d_ctrl
 
-            if (process_name in fc.transparent_target or
+            if is_task_switching_window(window) or is_list_window(window):
+                fakeymacs.is_base_target = True
+                fakeymacs.is_keymap_decided = True
+
+            elif (process_name in fc.transparent_target or
                 class_name in fc.transparent_target_class or
                 any(checkWindow(*app, window=window) if type(app) is list else
                     checkWindow(app, window=window) for app in fc.game_app_list)):
                 fakeymacs.is_base_target = False
                 fakeymacs.is_keymap_decided = True
             else:
+                showImeStatus(window.getImeStatus(), window=window)
                 fakeymacs.is_base_target = True
                 fakeymacs.is_keymap_decided = False
 
@@ -805,31 +810,24 @@ def configure(keymap):
 
     def is_emacs_target(window):
         if window is not fakeymacs.last_window:
+            process_name = window.getProcessName()
+            class_name   = window.getClassName()
+
             reset_undo(reset_counter(reset_mark(lambda: None)))()
             fakeymacs.ime_cancel = False
             fakeymacs.exclution_key = []
 
-            if is_task_switching_window(window) or is_list_window(window):
+            if (fakeymacs.is_keymap_decided == True or
+                (class_name not in fc.emacs_target_class and
+                 (process_name in fakeymacs.not_emacs_keybind or
+                  process_name in fc.not_emacs_target))):
                 fakeymacs.is_emacs_target = False
-                fakeymacs.is_keymap_decided = True
             else:
-                process_name = window.getProcessName()
-                class_name   = window.getClassName()
-
                 if process_name in fc.emacs_exclusion_key:
                     fakeymacs.exclution_key = [keyStrNormalization(addSideOfModifierKey(specialCharToKeyStr(key)))
                                                for key in fc.emacs_exclusion_key[process_name]]
-
-                showImeStatus(window.getImeStatus(), window=window)
-
-                if (fakeymacs.is_keymap_decided == True or
-                    (class_name not in fc.emacs_target_class and
-                     (process_name in fakeymacs.not_emacs_keybind or
-                      process_name in fc.not_emacs_target))):
-                    fakeymacs.is_emacs_target = False
-                else:
-                    fakeymacs.is_emacs_target = True
-                    fakeymacs.is_keymap_decided = True
+                fakeymacs.is_emacs_target = True
+                fakeymacs.is_keymap_decided = True
 
         return fakeymacs.is_emacs_target
 
