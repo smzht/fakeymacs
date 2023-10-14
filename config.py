@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20231014_03"
+fakeymacs_version = "20231015_01"
 
 import time
 import os.path
@@ -803,6 +803,7 @@ def configure(keymap):
                 fakeymacs.keymap_decided = True
             else:
                 showImeStatus(window.getImeStatus(), window=window)
+
                 fakeymacs.is_base_target = True
                 fakeymacs.keymap_decided = False
 
@@ -813,20 +814,22 @@ def configure(keymap):
             process_name = window.getProcessName()
             class_name   = window.getClassName()
 
-            reset_undo(reset_counter(reset_mark(lambda: None)))()
-            fakeymacs.ime_cancel = False
-            fakeymacs.emacs_exclution_key = []
-
             if (fakeymacs.keymap_decided == True or
                 (class_name not in fc.emacs_target_class and
                  (process_name in fakeymacs.not_emacs_keybind or
                   process_name in fc.not_emacs_target))):
                 fakeymacs.is_emacs_target = False
             else:
+                reset_undo(reset_counter(reset_mark(lambda: None)))()
+                fakeymacs.ime_cancel = False
+
                 if process_name in fc.emacs_exclusion_key:
                     fakeymacs.emacs_exclution_key = [
                         keyStrNormalization(addSideOfModifierKey(specialCharToKeyStr(key)))
                         for key in fc.emacs_exclusion_key[process_name]]
+                else:
+                    fakeymacs.emacs_exclution_key = []
+
                 fakeymacs.is_emacs_target = True
                 fakeymacs.keymap_decided = True
 
