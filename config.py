@@ -796,9 +796,9 @@ def configure(keymap):
                 fakeymacs.is_keymap_decided = True
 
             elif (process_name in fc.transparent_target or
-                class_name in fc.transparent_target_class or
-                any(checkWindow(*app, window=window) if type(app) is list else
-                    checkWindow(app, window=window) for app in fc.game_app_list)):
+                  class_name in fc.transparent_target_class or
+                  any(checkWindow(*app, window=window) if type(app) is list else
+                      checkWindow(app, window=window) for app in fc.game_app_list)):
                 fakeymacs.is_base_target = False
                 fakeymacs.is_keymap_decided = True
             else:
