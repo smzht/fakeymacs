@@ -60,7 +60,7 @@ def replicate_key(window_keymap, key, original_key):
 | Parameter     | Description                                                      |
 |---------------+------------------------------------------------------------------|
 | window_keymap | WindowKeymapオブジェクト                                         |
-| key           | SpaceFN 用に設定するキー（keys の初めのキーには U0- を含むこと） |
+| key           | SpaceFN 用に設定するキー（key の初めのキーには U0- を含むこと）  |
 | original_key  | 複製する元のキー                                                 |
 |---------------+------------------------------------------------------------------|
 
