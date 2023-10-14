@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20231014_02"
+fakeymacs_version = "20231014_03"
 
 import time
 import os.path
@@ -793,18 +793,18 @@ def configure(keymap):
 
             if is_task_switching_window(window) or is_list_window(window):
                 fakeymacs.is_base_target = True
-                fakeymacs.is_keymap_decided = True
+                fakeymacs.keymap_decided = True
 
             elif (process_name in fc.transparent_target or
                   class_name in fc.transparent_target_class or
                   any(checkWindow(*app, window=window) if type(app) is list else
                       checkWindow(app, window=window) for app in fc.game_app_list)):
                 fakeymacs.is_base_target = False
-                fakeymacs.is_keymap_decided = True
+                fakeymacs.keymap_decided = True
             else:
                 showImeStatus(window.getImeStatus(), window=window)
                 fakeymacs.is_base_target = True
-                fakeymacs.is_keymap_decided = False
+                fakeymacs.keymap_decided = False
 
         return fakeymacs.is_base_target
 
@@ -817,7 +817,7 @@ def configure(keymap):
             fakeymacs.ime_cancel = False
             fakeymacs.emacs_exclution_key = []
 
-            if (fakeymacs.is_keymap_decided == True or
+            if (fakeymacs.keymap_decided == True or
                 (class_name not in fc.emacs_target_class and
                  (process_name in fakeymacs.not_emacs_keybind or
                   process_name in fc.not_emacs_target))):
@@ -828,7 +828,7 @@ def configure(keymap):
                         keyStrNormalization(addSideOfModifierKey(specialCharToKeyStr(key)))
                         for key in fc.emacs_exclusion_key[process_name]]
                 fakeymacs.is_emacs_target = True
-                fakeymacs.is_keymap_decided = True
+                fakeymacs.keymap_decided = True
 
         return fakeymacs.is_emacs_target
 
@@ -837,7 +837,7 @@ def configure(keymap):
             process_name = window.getProcessName()
             fakeymacs.last_window = window
 
-            if (fakeymacs.is_keymap_decided == False and
+            if (fakeymacs.keymap_decided == False and
                 (process_name in fakeymacs.not_emacs_keybind or
                  process_name in fc.ime_target)):
                 fakeymacs.is_ime_target = True
