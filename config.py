@@ -923,7 +923,7 @@ def configure(keymap):
                 fakeymacs.not_emacs_keybind.append(process_name)
                 keymap.popBalloon("keybind", "[Disable Emacs keybind]", 1000)
 
-            updateKeymap()
+            updateKeymap(True)
 
     ##################################################
     ## IME の操作
@@ -1446,8 +1446,8 @@ def configure(keymap):
     ## 共通関数
     ##################################################
 
-    def updateKeymap():
-        fakeymacs.force_update = True
+    def updateKeymap(force_update=False):
+        fakeymacs.force_update = force_update
         keymap.updateKeymap()
 
     def delay(sec=0.02):
