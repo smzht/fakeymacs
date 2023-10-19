@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20231015_01"
+fakeymacs_version = "20231019_01"
 
 import time
 import os.path
@@ -752,13 +752,14 @@ def configure(keymap):
     fakeymacs.not_emacs_keybind = []
     fakeymacs.ime_cancel = False
     fakeymacs.last_window = None
+    fakeymacs.force_update = False
     fakeymacs.clipboard_hook = True
     fakeymacs.last_keys = [None, None]
     fakeymacs.correct_ime_status = False
     fakeymacs.window_list = []
 
     def is_base_target(window):
-        if window is not fakeymacs.last_window:
+        if window is not fakeymacs.last_window or fakeymacs.force_update:
             process_name = window.getProcessName()
             class_name   = window.getClassName()
 
@@ -802,7 +803,8 @@ def configure(keymap):
                 fakeymacs.is_base_target = False
                 fakeymacs.keymap_decided = True
             else:
-                showImeStatus(window.getImeStatus(), window=window)
+                if not fakeymacs.force_update:
+                    showImeStatus(window.getImeStatus(), window=window)
 
                 fakeymacs.is_base_target = True
                 fakeymacs.keymap_decided = False
@@ -810,7 +812,7 @@ def configure(keymap):
         return fakeymacs.is_base_target
 
     def is_emacs_target(window):
-        if window is not fakeymacs.last_window:
+        if window is not fakeymacs.last_window or fakeymacs.force_update:
             process_name = window.getProcessName()
             class_name   = window.getClassName()
 
@@ -836,9 +838,10 @@ def configure(keymap):
         return fakeymacs.is_emacs_target
 
     def is_ime_target(window):
-        if window is not fakeymacs.last_window:
+        if window is not fakeymacs.last_window or fakeymacs.force_update:
             process_name = window.getProcessName()
             fakeymacs.last_window = window
+            fakeymacs.force_update = False
 
             if (fakeymacs.keymap_decided == False and
                 (process_name in fakeymacs.not_emacs_keybind or
@@ -920,8 +923,7 @@ def configure(keymap):
                 fakeymacs.not_emacs_keybind.append(process_name)
                 keymap.popBalloon("keybind", "[Disable Emacs keybind]", 1000)
 
-            fakeymacs.last_window = None
-            keymap.updateKeymap()
+            updateKeymap()
 
     ##################################################
     ## IME の操作
@@ -1443,6 +1445,10 @@ def configure(keymap):
     ##################################################
     ## 共通関数
     ##################################################
+
+    def updateKeymap():
+        fakeymacs.force_update = True
+        keymap.updateKeymap()
 
     def delay(sec=0.02):
         time.sleep(sec)
