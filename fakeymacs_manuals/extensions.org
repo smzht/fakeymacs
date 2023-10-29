@@ -75,4 +75,5 @@ Fakeymacs には以下の機能拡張を同梱しています。
 | [[/fakeymacs_extensions/everything][everything]]              | Everything を起動するキーを指定する                                                           |            |
 | [[/fakeymacs_extensions/menu_key][menu_key]]                | Emacs キーバインドを利用しない設定のアプリで、メニューの操作用の Emacs キーバインドを設定する |            |
 | [[/fakeymacs_extensions/window_switching_key][window_switching_key]]    | 現在アクティブなウィンドウと同じプロセスのウィンドウを順に切り替えるキーを設定する            |            |
+| [[/fakeymacs_extensions/youtube_space_key][youtube_space_key]]       | YouTube で Space による停止、再生が正しく機能しないことの暫定的な対策を行う                   |            |
 |-------------------------+-----------------------------------------------------------------------------------------------+------------|
