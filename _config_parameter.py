@@ -701,6 +701,7 @@ if 1:
     exec(readConfigExtension(r"youtube_space_key\config.py"), dict(globals(), **locals()))
 
 # --------------------------------------------------------------------------------------------------
+
 # SpaceFN を実現する設定を行う
 # （本機能を有効にする場合は、上記の YouTube の対策の拡張機能は OFF としてください）
 if 0:
