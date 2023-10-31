@@ -48,9 +48,13 @@ def space_fn_key_down():
     space_fn_key_oneshot = True
     space_fn_key_down_time = time.time()
 
+fakeymacs.space_fn_key_up = False
+
 def space_fn_key_up():
     if space_fn_key_oneshot:
+        fakeymacs.space_fn_key_up = True
         space_fn_key_action()
+        fakeymacs.space_fn_key_up = False
 
 def space_fn_command(func):
     def _func():

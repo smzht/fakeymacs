@@ -19,7 +19,13 @@ def space():
         fakeymacs.forward_direction is None):
         if (keymap.getWindow().getProcessName() in fc.youtube_browser_list and
             " - YouTube " in keymap.getWindow().getText()):
-            self_insert_command("D-Space")()
+            try:
+                if fakeymacs.space_fn_key_up:
+                    self_insert_command("Space")()
+                else:
+                    self_insert_command("D-Space")()
+            except:
+                self_insert_command("D-Space")()
         else:
             self_insert_command("Space")()
     else:
