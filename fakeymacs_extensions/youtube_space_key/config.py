@@ -14,21 +14,24 @@ except:
                                "firefox.exe",
                                ]
 
-def space():
+def is_youtube():
+    if (keymap.getWindow().getProcessName() in fc.youtube_browser_list and
+        " - YouTube " in keymap.getWindow().getText()):
+        return True
+    else:
+        return False
+
+def youtube_space():
     if (fc.ime_reconv_key is None or
         fakeymacs.forward_direction is None):
-        if (keymap.getWindow().getProcessName() in fc.youtube_browser_list and
-            " - YouTube " in keymap.getWindow().getText()):
-            try:
-                if fakeymacs.space_fn_key_up:
-                    self_insert_command("Space")()
-                else:
-                    self_insert_command("D-Space")()
-            except:
+        try:
+            if fakeymacs.space_fn_key_up:
+                self_insert_command("Space")()
+            else:
                 self_insert_command("D-Space")()
-        else:
-            self_insert_command("Space")()
+        except:
+            self_insert_command("D-Space")()
     else:
         reconversion()
 
-define_key(keymap_emacs, "Space", reset_undo(reset_counter(reset_mark(repeat(space)))))
+define_key3(keymap_emacs, "Space", reset_undo(reset_counter(reset_mark(repeat(youtube_space)))), is_youtube)
