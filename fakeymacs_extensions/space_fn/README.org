@@ -168,8 +168,8 @@ for n in range(10):
 #+END_EXAMPLE
 
 ● 初期の設定では、SpaceFN を実現するベースの設定のみを行っています。SpaceFN のキー設定を
-行う際は、_config_personal_1.py もしくは _config_personal_2.py を config_personal.py
-に複写し、そのファイルの中で行うようにしてください。
+行う際は、_config_personal_1.py もしくは _config_personal_2.py を 同じフォルダ上で
+config_personal.py という名称のファイルに複写し、そのファイルの中で行うようにしてください。
 
 ● _config_personal_1.py は、Ctrl キー、Alt キー、Win キーとの組み合わせも含め、
 できるだけ完全なキーの複製を行う設定サンプルです。
