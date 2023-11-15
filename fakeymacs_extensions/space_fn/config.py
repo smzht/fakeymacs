@@ -30,7 +30,7 @@ try:
     # 設定されているか？
     fc.space_fn_delay_seconds
 except:
-    # SpaceFN 用のモディファイアキーが押下されてから、SpacdFN の機能が働くようになるまでの秒数を指定する
+    # SpaceFN 用のモディファイアキーが押下されてから、SpaceFN の機能が働くようになるまでの秒数を指定する
     fc.space_fn_delay_seconds = 0.15
 
 user0_key = "(200)"
