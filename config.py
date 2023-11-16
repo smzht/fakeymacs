@@ -3157,13 +3157,12 @@ def configure(keymap):
     ####################################################################################################
 
     # キーマップの優先順位を調整する
-    keymap.window_keymap_list.remove(keymap_global)
     keymap.window_keymap_list.remove(keymap_tsw)
     keymap.window_keymap_list.remove(keymap_lw)
-    keymap.window_keymap_list.append(keymap_global)
+    keymap.window_keymap_list.remove(keymap_global)
     keymap.window_keymap_list.append(keymap_tsw)
     keymap.window_keymap_list.append(keymap_lw)
+    keymap.window_keymap_list.append(keymap_global)
 
     # 個人設定ファイルのセクション [section-extension-space_fn] を読み込んで実行する
     exec(readConfigPersonal("[section-extension-space_fn]"), dict(globals(), **locals()))
-            
