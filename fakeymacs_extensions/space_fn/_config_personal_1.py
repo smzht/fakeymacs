@@ -29,8 +29,6 @@ for window_keymap in fc.space_fn_window_keymap_list:
                        ["]",    "Pause"],
                        ["\\",   "Insert"],
                        ["b",    "Space"],
-                       ["m",    "`"],
-                       [",",    "S-`"],
                        ["/",    "Apps"],
                        ]:
         for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):

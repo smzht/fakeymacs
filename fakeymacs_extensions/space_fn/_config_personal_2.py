@@ -30,8 +30,6 @@ for window_keymap in fc.space_fn_window_keymap_list:
                        ["]",    "Pause"],
                        ["\\",   "Insert"],
                        ["b",    "Space"],
-                       ["m",    "`"],
-                       [",",    "S-`"],
                        ["/",    "Apps"],
                        ]:
         for mod in ["", "S-"]:
