@@ -16,7 +16,7 @@ try:
     fc.space_fn_window_keymap_list
 except:
     # SpaceFN を適用するキーマップを指定する
-    fc.space_fn_window_keymap_list = [keymap_emacs, keymap_ime]
+    fc.space_fn_window_keymap_list = [keymap_emacs]
 
 try:
     # 設定されているか？
@@ -146,21 +146,13 @@ keymap.window_keymap_list.remove(keymap_spacefn1)
 keymap.window_keymap_list.insert(0, keymap_spacefn1)
 keymap_spacefn2 = keymap.defineWindowKeymap(check_func=lambda wnd: replace_space_fn_key(wnd))
 
-space_fn_window_keymap_list = fc.space_fn_window_keymap_list
-
-if fc.use_emacs_ime_mode:
-    if (keymap_emacs in fc.space_fn_window_keymap_list or
-        keymap_ime   in fc.space_fn_window_keymap_list or
-        keymap_ei    in fc.space_fn_window_keymap_list):
-        space_fn_window_keymap_list = set(space_fn_window_keymap_list + [keymap_emacs, keymap_ime, keymap_ei])
-
 def applying_func(func):
     def _func():
         func()
         set_space_fn_key_replacement(True)
     return _func
 
-for window_keymap in space_fn_window_keymap_list:
+for window_keymap in fc.space_fn_window_keymap_list:
     if window_keymap.applying_func:
         window_keymap.applying_func = applying_func(window_keymap.applying_func)
     else:
