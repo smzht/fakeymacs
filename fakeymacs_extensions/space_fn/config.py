@@ -131,16 +131,14 @@ space_fn_key_replacement = False
 
 def replace_space_fn_key(window):
     global space_fn_key_replacement
-    if (not fakeymacs.space_fn_key_replacement or
-        any(checkWindow(*app, window=window) if type(app) is list else
-            checkWindow(app, window=window) for app in fc.game_app_list)):
-        if space_fn_key_replacement:
-            keymap.replaceKey(fc.space_fn_key, fc.space_fn_key)
-            space_fn_key_replacement = False
-    else:
+    if fakeymacs.is_base_target and fakeymacs.space_fn_key_replacement:
         if not space_fn_key_replacement:
             keymap.replaceKey(fc.space_fn_key, user0_key)
             space_fn_key_replacement = True
+    else:
+        if space_fn_key_replacement:
+            keymap.replaceKey(fc.space_fn_key, fc.space_fn_key)
+            space_fn_key_replacement = False
     return False
 
 keymap_spacefn1 = keymap.defineWindowKeymap(check_func=lambda wnd: set_space_fn_key_replacement(False))
