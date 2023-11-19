@@ -188,8 +188,8 @@ Windows 本来のキーの機能を利用するために Ctrl+q を前置する�
 機能を用いることで、同等の機能を実現することができます。
 _config_personal_2.py は、この機能を利用する場合の設定サンプルとしてご利用ください。
 
-● 本拡張機能の SpaceFN は、初期値として keymap_emacs と keymap_im のキーマップのみで
-動作するようにしています。
+● 本拡張機能の SpaceFN は、初期値として keymap_emacs のキーマップのみで動作するように
+しています。
 fc.space_fn_window_keymap_list 変数の指定ににより、SpaceFN を適用するキーマップを
 変更することができます。
 
