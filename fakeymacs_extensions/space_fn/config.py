@@ -138,7 +138,6 @@ def replace_space_fn_key(window):
     else:
         if space_fn_key_replacement:
             keymap.modifier &= ~keyhac_keymap.MODKEY_USER0_L
-            keymap.modifier &= ~keyhac_keymap.MODKEY_USER3_L
             keymap.replaceKey(fc.space_fn_key, fc.space_fn_key)
             space_fn_key_replacement = False
     return False
