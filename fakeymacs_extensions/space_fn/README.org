@@ -195,9 +195,9 @@ fc.space_fn_window_keymap_list 変数の指定ににより、SpaceFN を適用�
 ● 本拡張機能の SpaceFN は、SpaceFN 用のモディファイアキーが押下されてから
 fc.space_fn_delay_seconds 変数に指定した秒数（初期値：0.2秒）後に次のキーが押された場合に、
 SpaceFN の機能が必ず働くようにしています。
-fc.space_fn_delay_seconds 変数に指定した秒数より前に次のキーを押下した場合は、一定の時間
-（0.15秒）前に SpaceFN 用のモディファイアキーが離されると押下したキーがそのまま入力される
-仕様にしており、key rollover の対策としています。
+fc.space_fn_delay_seconds 変数に指定した秒数より前に次のキーを押下した場合は、最後のキーが
+押されてから一定の時間（0.15秒）内に SpaceFN 用のモディファイアキーが離されると、
+押下したキーがそのまま入力される仕様にしており、key rollover の対策としています。
 
 ● 本拡張機能の SpaceFN を利用する場合は、必ず SpaceFN 用のモディファイアキー（初期値は
 Space）から入力するようにしてください。本拡張機能の SpaceFN は、Shift や Ctrl などその他の
