@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20231119_01"
+fakeymacs_version = "20231130_01"
 
 import time
 import os.path
@@ -757,6 +757,7 @@ def configure(keymap):
     fakeymacs.last_keys = [None, None]
     fakeymacs.correct_ime_status = False
     fakeymacs.window_list = []
+    fakeymacs.delayed_command = None
 
     def is_base_target(window):
         if window is not fakeymacs.last_window or fakeymacs.force_update:
@@ -1724,13 +1725,26 @@ def configure(keymap):
 
         def _keyCommand2(key_list):
             _command1 = _keyCommand1(key_list)
+            up_key = key_list[0].startswith("U-")
 
             if callable(_command1):
                 def _command2():
+                    if not up_key:
+                        if fakeymacs.delayed_command:
+                            _command = fakeymacs.delayed_command
+                            fakeymacs.delayed_command = None
+                            _command()
+
                     fakeymacs.update_last_keys = True
                     _command1()
                     if fakeymacs.update_last_keys:
                         fakeymacs.last_keys = [window_keymap, keys]
+
+                    if up_key:
+                        if fakeymacs.delayed_command:
+                            _command = fakeymacs.delayed_command
+                            fakeymacs.delayed_command = None
+                            _command()
 
                 def _command3():
                     if fakeymacs.repeat_counter == 1 or fakeymacs.is_playing_kmacro:
