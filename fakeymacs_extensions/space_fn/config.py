@@ -44,9 +44,11 @@ space_fn_key_down_time = 0
 space_fn_key_outputted = False
 
 def space_fn_key_down():
+    global space_fn_delay_seconds
     global space_fn_key_oneshot
     global space_fn_key_down_time
     global space_fn_key_outputted
+    space_fn_delay_seconds = fc.space_fn_delay_seconds
     space_fn_key_oneshot = True
     space_fn_key_down_time = time.time()
     space_fn_key_outputted = False
@@ -93,6 +95,7 @@ def define_key_fn(window_keymap, keys, command, space_fn_key_output=False):
 
         def _command2():
             global is_space_fn_mode
+            global space_fn_delay_seconds
             global space_fn_key_oneshot
 
             space_fn_key_oneshot = False
@@ -126,9 +129,10 @@ def define_key_fn(window_keymap, keys, command, space_fn_key_output=False):
                 if not fc.space_fn_use_oneshot_function:
                     _command1()
 
-                elif (time.time() - space_fn_key_down_time) < fc.space_fn_delay_seconds:
+                elif (time.time() - space_fn_key_down_time) < space_fn_delay_seconds:
                     fakeymacs.delayed_command = _command3
                     keymap.delayedCall(execute_delayed_command, 150)
+                    space_fn_delay_seconds = 0
                 else:
                     _command3()
             else:

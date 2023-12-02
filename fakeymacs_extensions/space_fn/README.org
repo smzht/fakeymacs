@@ -160,12 +160,16 @@ def kill_line2(repeat):
 # Vim の一行削除をイメージ
 define_key_fn(keymap_emacs, "U0-d U0-d",
               lambda: keymap.delayedCall(
-                  reset_search(reset_undo(reset_counter(reset_mark(repeat3(kill_line2))))), 0))
+                  reset_search(reset_undo(reset_counter(reset_mark(repeat3(kill_line2))))), 50))
 
 # 数引数のサポート
 for n in range(10):
     define_key_fn(keymap_emacs, f"U0-{n}", digit2(n))
 #+END_EXAMPLE
+
+※ SpaceFN 用のモディファイアキーを使ったマルチストロークキーを利用する際には、
+SpaceFN 用のモディファイアキーを押してから、fc.space_fn_delay_seconds 変数に指定した秒数
+（初期値：0.2秒）待って、次のキーを押す必要があります。
 
 ● 初期の設定では、SpaceFN を実現するベースの設定のみを行っています。SpaceFN のキー設定を
 行う際は、_config_personal_1.py もしくは _config_personal_2.py を 同じフォルダ上で
