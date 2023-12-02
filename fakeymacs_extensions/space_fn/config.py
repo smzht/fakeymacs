@@ -39,6 +39,7 @@ space_fn_key_action = getKeyAction(fc.space_fn_key)
 keymap.defineModifier(user0_key, "User0")
 
 is_space_fn_mode = False
+space_fn_delay_seconds = fc.space_fn_delay_seconds
 space_fn_key_oneshot = False
 space_fn_key_down_time = 0
 space_fn_key_outputted = False
