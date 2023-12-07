@@ -284,7 +284,7 @@ Emacs のキーバインドとも十分に共存が可能なものとなって�
 
 HHKB Studio で Fakeymacs を使う際の、キーマップの設定例について紹介します。
 
-- [[fakeymacs_manuals/HHKB_Studio_keymap.org][HHKB Studio keymap sample]]
+- [[fakeymacs_manuals/HHKB_Studio_keymap_sample.org][HHKB Studio keymap sample]]
 
 HHKB Studio は Fakeymacs と相性の良いキーボードなので、キーボードをお持ちの方は参考にして
 いただければと思います。
