@@ -24,7 +24,7 @@ HHKB Studio で Fakeymacs を使う際の、キーマップの設定例につい
 
 - 標準レイヤーと同じキー配置のレイヤーです。
 - Ctrl、Alt、Win のモディファイアキーのみ、左右逆の配置としています。
-- Fakeymacs の設定により、左側にある右（R）のモディファイアーを使うことで、Windows ショートカットキーが使えるレイヤーとなります。
+- Fakeymacs の設定により、左側にある右（R）のモディファイアーを使うことで、Windows ショートカットキーが使えるレイヤーとなっています。
 
 [[/fakeymacs_manuals/HHKB_Studio_keymap_sample/Fn2_layer.png]]
 
