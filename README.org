@@ -59,7 +59,7 @@ IME のショートカットキーが利用できるようになります。
 
 本設定で利用している主なキーマップのレイヤー構成は次の図のとおりです。
 
-[[/fakeymacs_manuals/keymap_layer.png]]
+[[/fakeymacs_manuals/keymap_layer/keymap_layer.png]]
 
 入力したキーはキーマップの上位の層からサーチされ、キーがマッチすれば、そのキーに定義された
 コマンドを実行し、サーチを終了します。
