@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20231130_01"
+fakeymacs_version = "20231215_01"
 
 import time
 import os.path
@@ -2457,7 +2457,10 @@ def configure(keymap):
 
         # 「IME のショートカットの置き換え」のキー設定
         for replace_key, original_key in fc.emacs_ime_mode_key:
-            define_key(keymap_ei, replace_key, self_insert_command(original_key))
+            if type(original_key) is list:
+                define_key(keymap_ei, replace_key, self_insert_command(*original_key))
+            else:
+                define_key(keymap_ei, replace_key, self_insert_command(original_key))
 
         # この時点の command を保存する
         command_keep = {}
