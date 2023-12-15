@@ -319,7 +319,7 @@ fc.emacs_ime_mode_key += [["C-j", "F6"], # ひらがなに変換
                           ["C-k", "F7"], # 全角カタカナに変換
                           ["C-l", "F9"], # 全角英数に表示切替
                           ["C-;", "F8"]] # 半角に変換
-        
+
 if is_japanese_keyboard:
     fc.emacs_ime_mode_key += [["C-:", "F10"]] # 半角英数に表示切替
 else:
