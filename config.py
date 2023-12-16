@@ -2457,10 +2457,7 @@ def configure(keymap):
 
         # 「IME のショートカットの置き換え」のキー設定
         for replace_key, original_key in fc.emacs_ime_mode_key:
-            if type(original_key) is list:
-                define_key(keymap_ei, replace_key, self_insert_command(*original_key))
-            else:
-                define_key(keymap_ei, replace_key, self_insert_command(original_key))
+            define_key(keymap_ei, replace_key, self_insert_command(original_key))
 
         # この時点の command を保存する
         command_keep = {}
