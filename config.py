@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20231215_02"
+fakeymacs_version = "20231216_01"
 
 import time
 import os.path
@@ -412,20 +412,12 @@ def configure(keymap):
     # （「ことえり」のキーバインドを利用するための設定例です。Google 日本語入力で「ことえり」の
     #   キー設定になっている場合には不要ですが、設定を行っていても問題はありません。）
     fc.emacs_ime_mode_key = []
-
-    if fc.ime == "old_Microsoft_IME":
-        # 旧 Microsoft IME を利用する場合、chrome 系ブラウザで日本語入力時に文節長を変更すると
-        # その表示が正しく行われない。その対策。
-        fc.emacs_ime_mode_key += [["C-i", ["S-Left", "Right", "Left"]],  # 文節を縮める
-                                  ["C-o", ["S-Right", "Left", "Right"]]] # 文節を伸ばす
-    else:
-        fc.emacs_ime_mode_key += [["C-i", "S-Left"],  # 文節を縮める
-                                  ["C-o", "S-Right"]] # 文節を伸ばす
-
-    fc.emacs_ime_mode_key += [["C-j", "F6"], # ひらがなに変換
-                              ["C-k", "F7"], # 全角カタカナに変換
-                              ["C-l", "F9"], # 全角英数に表示切替
-                              ["C-;", "F8"]] # 半角に変換
+    fc.emacs_ime_mode_key += [["C-i", "S-Left"],  # 文節を縮める
+                              ["C-o", "S-Right"], # 文節を伸ばす
+                              ["C-j", "F6"],      # ひらがなに変換
+                              ["C-k", "F7"],      # 全角カタカナに変換
+                              ["C-l", "F9"],      # 全角英数に表示切替
+                              ["C-;", "F8"]]      # 半角に変換
 
     if is_japanese_keyboard:
         fc.emacs_ime_mode_key += [["C-:", "F10"]] # 半角英数に表示切替
