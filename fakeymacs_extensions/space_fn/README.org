@@ -213,4 +213,3 @@ Space）から入力するようにしてください。本拡張機能の Space
 ● 本拡張機能の特徴については、次の issue にも記載しています。
 
 - https://github.com/smzht/fakeymacs/issues/30
-
