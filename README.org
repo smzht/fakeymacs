@@ -164,7 +164,6 @@ _config_personal.py ファイルを config_personal.pyという名称に変更�
 *** 8) 拡張機能の設定を行う
 
 config_personal.py には、Fakeymacs の拡張機能を有効化／無効化するための設定も含まれています。
-（初期設定では、vscode_key Extension のみ有効にしています。）
 
 次のページを参照して、使いたい拡張機能があればその設定を行ってください。
 （拡張機能を有効化する場合には、if 0: を if 1: にしてください。
