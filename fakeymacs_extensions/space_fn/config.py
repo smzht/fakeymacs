@@ -141,7 +141,7 @@ def define_key_fn(window_keymap, keys, command, space_fn_key_output=False):
 
                 elif (time.time() - space_fn_key_down_time) < space_fn_function_time1:
                     fakeymacs.delayed_command = _command3
-                    keymap.delayedCall(execute_delayed_command, int(space_fn_function_time2 * 1000))
+                    keymap.delayedCall(execute_delayed_command, int(fc.space_fn_function_time2 * 1000))
                     space_fn_function_time1 = 0
                 else:
                     _command3()
