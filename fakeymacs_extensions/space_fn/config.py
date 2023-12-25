@@ -31,7 +31,7 @@ try:
     fc.space_fn_function_time1
 except:
     # SpaceFN 用のモディファイアキーが押されてから次のキーが押されるまでの時間で、SpaceFN の機能が
-    # 必ず働くようになる時間を秒数を指定する
+    # 必ず働くようになる時間を秒数で指定する
     fc.space_fn_function_time1 = 0.2
 
 try:
@@ -39,7 +39,7 @@ try:
     fc.space_fn_function_time2
 except:
     # SpaceFN 用のモディファイアキーと別なキーが同時に押された場合に、SpaceFN 用のモディファイアキー
-    # が離されないことで SpaceFN の機能が働くようになるまでの時間を秒数を指定する
+    # が離されないことで SpaceFN の機能が働くようになるまでの時間を秒数で指定する
     fc.space_fn_function_time2 = 0.15
 
 user0_key = "(200)"
