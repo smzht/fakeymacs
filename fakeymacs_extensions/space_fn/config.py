@@ -28,10 +28,19 @@ except:
 
 try:
     # 設定されているか？
-    fc.space_fn_delay_seconds
+    fc.space_fn_function_time1
 except:
-    # SpaceFN 用のモディファイアキーが押されてから、SpaceFN の機能が必ず働くようになるまでの秒数を指定する
-    fc.space_fn_delay_seconds = 0.2
+    # SpaceFN 用のモディファイアキーが押されてから次のキーが押されるまでの時間で、SpaceFN の機能が
+    # 必ず働くようになる時間を秒数を指定する
+    fc.space_fn_function_time1 = 0.2
+
+try:
+    # 設定されているか？
+    fc.space_fn_function_time2
+except:
+    # SpaceFN 用のモディファイアキーと別なキーが同時に押された場合に、SpaceFN 用のモディファイアキー
+    # が離されないことで SpaceFN の機能が働くようになるまでの時間を秒数を指定する
+    fc.space_fn_function_time2 = 0.15
 
 user0_key = "(200)"
 space_fn_key_action = getKeyAction(fc.space_fn_key)
@@ -39,17 +48,17 @@ space_fn_key_action = getKeyAction(fc.space_fn_key)
 keymap.defineModifier(user0_key, "User0")
 
 is_space_fn_mode = False
-space_fn_delay_seconds = fc.space_fn_delay_seconds
+space_fn_function_time1 = fc.space_fn_function_time1
 space_fn_key_oneshot = False
 space_fn_key_down_time = 0
 space_fn_key_outputted = False
 
 def space_fn_key_down():
-    global space_fn_delay_seconds
+    global space_fn_function_time1
     global space_fn_key_oneshot
     global space_fn_key_down_time
     global space_fn_key_outputted
-    space_fn_delay_seconds = fc.space_fn_delay_seconds
+    space_fn_function_time1 = fc.space_fn_function_time1
     space_fn_key_oneshot = True
     space_fn_key_down_time = time.time()
     space_fn_key_outputted = False
@@ -96,7 +105,7 @@ def define_key_fn(window_keymap, keys, command, space_fn_key_output=False):
 
         def _command2():
             global is_space_fn_mode
-            global space_fn_delay_seconds
+            global space_fn_function_time1
             global space_fn_key_oneshot
 
             space_fn_key_oneshot = False
@@ -130,10 +139,10 @@ def define_key_fn(window_keymap, keys, command, space_fn_key_output=False):
                 if not fc.space_fn_use_oneshot_function:
                     _command1()
 
-                elif (time.time() - space_fn_key_down_time) < space_fn_delay_seconds:
+                elif (time.time() - space_fn_key_down_time) < space_fn_function_time1:
                     fakeymacs.delayed_command = _command3
-                    keymap.delayedCall(execute_delayed_command, 150)
-                    space_fn_delay_seconds = 0
+                    keymap.delayedCall(execute_delayed_command, int(space_fn_function_time2 * 1000))
+                    space_fn_function_time1 = 0
                 else:
                     _command3()
             else:
