@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20231216_01"
+fakeymacs_version = "20240116_01"
 
 import time
 import os.path
@@ -2581,7 +2581,7 @@ def configure(keymap):
                     # RemoteApp を利用する際のおまじない
                     if (process_name2 == "mstsc.exe" and
                         class_name == "RAIL_WINDOW" and
-                        title == " (リモート)"):
+                        window.getText() == " (リモート)"):
                         pass
 
                     elif class_name == "Emacs" or title != "":
