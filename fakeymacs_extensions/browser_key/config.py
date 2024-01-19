@@ -53,7 +53,7 @@ def browser_popup(key, ime_status, browser_list=fc.browser_list):
         if keymap.getWindow().getProcessName() in browser_list:
             _inputKey()
         else:
-            for window in getWindowList()[1:]:
+            for window in getWindowList():
                 if window.getProcessName() in browser_list:
                     popWindow(window)()
                     keymap.delayedCall(_inputKey, 50)
