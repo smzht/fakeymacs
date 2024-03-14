@@ -77,4 +77,5 @@ Fakeymacs には以下の機能拡張を同梱しています。
 | [[/fakeymacs_extensions/window_switching_key][window_switching_key]]    | 現在アクティブなウィンドウと同じプロセスのウィンドウを順に切り替えるキーを設定する            |            |
 | [[/fakeymacs_extensions/youtube_space_key][youtube_space_key]]       | YouTube で Space による停止、再生が正しく機能しないことの暫定的な対策を行う                   |            |
 | [[/fakeymacs_extensions/bunsetsu_correction][bunsetsu_correction]]     | 旧 Microsoft IME を使って文節長を変更した際、文節の表示が正しく行われないアプリの対策を行う   |            |
+| [[/fakeymacs_extensions/boss][boss]]                    | Boss だ！                                                                                     |            |
 |-------------------------+-----------------------------------------------------------------------------------------------+------------|
