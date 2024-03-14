@@ -51,3 +51,14 @@ define_key(keymap_real_emacs, "(29)",   self_insert_command("C-F1")) # <無変�
 define_key(keymap_real_emacs, "(28)",   self_insert_command("C-F2")) # <変換> キー
 # define_key(keymap_real_emacs, "O-LAlt", self_insert_command("C-F1")) # 左 Alt キーの単押し
 # define_key(keymap_real_emacs, "O-RAlt", self_insert_command("C-F2")) # 右 Alt キーの単押し
+
+def real_emacs_kill_region():
+    self_insert_command("C-w")()
+    keymap.delayedCall(pushToClipboardList, 10)
+
+def real_emacs_kill_ring_save():
+    self_insert_command("A-w")()
+    keymap.delayedCall(pushToClipboardList, 10)
+
+define_key(keymap_real_emacs, "C-w", real_emacs_kill_region)
+define_key(keymap_real_emacs, "A-w", real_emacs_kill_ring_save)

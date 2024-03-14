@@ -2,9 +2,12 @@
 
 * Fakeymacs extension
 
-** ■ Emacs の場合、IME 切り替え用のキーを C-\ に置き換える
+** ■ Emacs を利用する際のキーバインドの調整を行う
 
-Emacs にフォーカスがあるときに IME 切り替え用のキーを C-\ に置き換えるための拡張機能です。
+Emacs にフォーカスがあるときに、次のキーバインドを調整する拡張機能です。
+
+- IME 切り替え用のキーを C-\ に置き換える
+- C-w、A-w が入力された際に、クリップボードの内容を Keyhac のクリップボードリストに格納する
 
 NTEmacs（gnupack 含む）と Windows の Xサーバで動く Emacs で動作するように設定しています。
 
@@ -25,6 +28,8 @@ NTEmacs（gnupack 含む）と Windows の Xサーバで動く Emacs で動作�
 | <半角／全角> | keymap.InputKeyCommand("C-Yen") |             |
 | <無変換>     | keymap.InputKeyCommand("C-F1")  |             |
 | <変換>       | keymap.InputKeyCommand("C-F2")  |             |
+| C-w          | real_emacs_kill_region          |             |
+| A-w          | real_emacs_kill_ring_save       |             |
 |--------------+---------------------------------+-------------|
 
 ※ Emacs 側での C-F1 と C-F2 の設定については、次のページを参照してください。
