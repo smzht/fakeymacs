@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240409_01"
+fakeymacs_version = "20240415_01"
 
 import time
 import os.path
@@ -812,8 +812,12 @@ def configure(keymap):
 
         return fakeymacs.is_base_target
 
+    fakeymacs.is_emacs_target = False
+
     def is_emacs_target(window):
         if window is not fakeymacs.last_window or fakeymacs.force_update:
+            fakeymacs.is_emacs_target_in_previous_window = fakeymacs.is_emacs_target
+
             process_name = window.getProcessName()
             class_name   = window.getClassName()
 
@@ -2925,7 +2929,7 @@ def configure(keymap):
     ##################################################
 
     def lw_newline():
-        if fakeymacs.is_emacs_target == True:
+        if fakeymacs.is_emacs_target_in_previous_window:
             self_insert_command("Enter")()
         else:
             self_insert_command("S-Enter")()
