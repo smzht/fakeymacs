@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240415_01"
+fakeymacs_version = "20240417_01"
 
 import time
 import os.path
@@ -1843,7 +1843,6 @@ def configure(keymap):
         if usjis_conv:
             key_list = keyInput(key_list)
 
-        func = keymap.InputKeyCommand(*key_list)
         def _func():
             # 「define_key(keymap_base, "W-S-m", self_insert_command("W-S-m"))」のような設定を
             # した場合、 Shift に RShift を使うと正常に動作しない。その対策。
@@ -1852,9 +1851,13 @@ def configure(keymap):
                  keymap.modifier & (keyhac_keymap.MODKEY_ALT_L | keyhac_keymap.MODKEY_ALT_R)) and
                 "S-" in key_list[-1]):
                 key_list[-1] = re.sub(r"(^|-)(S-)", r"\1R\2", key_list[-1])
-                keymap.InputKeyCommand(*key_list)()
+
+            if fakeymacs.shift_down:
+                key_list2 = ["D-LShift", "D-RShift"] + key_list + ["U-LShift", "U-RShift"]
             else:
-                func()
+                key_list2 = key_list
+
+            keymap.InputKeyCommand(*key_list2)()
 
             # Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrl キーの単押しによりサブウインドウが
             # 開く機能がある。その挙動を抑制するための対策。
@@ -1913,17 +1916,14 @@ def configure(keymap):
             digit_argument(number)
         return _func
 
+    fakeymacs.shift_down = False
+
     def mark(func, forward_direction):
-        # M-< や M-> 押下時に D-Shift が解除されないようにする対策
-        func_d_shift = self_insert_command("D-LShift", "D-RShift")
-        func_u_shift = self_insert_command("U-LShift", "U-RShift")
         def _func():
             if fakeymacs.is_marked:
-                func_d_shift()
-                # Windows 11 で遅延が顕著に発生するようになったので一旦コメント化（必要かもしれないが..）
-                # delay()
+                fakeymacs.shift_down = True
                 func()
-                func_u_shift()
+                fakeymacs.shift_down = False
 
                 # fakeymacs.forward_direction が未設定の場合、設定する
                 if fakeymacs.forward_direction is None:
