@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240417_01"
+fakeymacs_version = "20240417_02"
 
 import time
 import os.path
@@ -1853,7 +1853,7 @@ def configure(keymap):
                 key_list[-1] = re.sub(r"(^|-)(S-)", r"\1R\2", key_list[-1])
 
             if fakeymacs.shift_down:
-                key_list2 = ["D-LShift", "D-RShift"] + key_list + ["U-LShift", "U-RShift"]
+                key_list2 = ["D-Shift"] + key_list + ["U-Shift"]
             else:
                 key_list2 = key_list
 
