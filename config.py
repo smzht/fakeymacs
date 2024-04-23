@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240417_02"
+fakeymacs_version = "20240423_01"
 
 import time
 import os.path
@@ -568,15 +568,17 @@ def configure(keymap):
                                ["POWERPNT.EXE", "mdiClass"],
                                ]
 
-    # ゲームなど、キーバインドの設定を極力行いたくないアプリケーションソフト（プロセス名称と
-    # クラス名称の組み合わせ（ワイルドカード指定可））を指定する
+    # ゲームなど、キーバインドの設定を極力行いたくないアプリケーションソフト（プロセス名称のみ、
+    # もしくは、プロセス名称、クラス名称、ウィンドウタイトルのリスト（ワイルドカード指定可、
+    # リストの後半の項目から省略可））を指定する
     # （keymap_global 以外のすべてのキーマップをスルーします。ゲームなど、Keyhac によるキー設定と
     #   相性が悪いアプリケーションソフトを指定してください。keymap_base の設定もスルーするため、
     #   英語 -> 日本語キーボード変換の機能が働かなくなることにご留意ください。）
     # （msrdc.exe の行の有効化の必要性については、次のコミットの説明を参照してください。
     #   https://github.com/smzht/fakeymacs/commit/5ceb921bd754ce348f9cd79b6606086916520945）
-    fc.game_app_list        = [["ffxiv_dx11.exe", "*"],            # FINAL FANTASY XIV
-                               # ["msrdc.exe",      "RAIL_WINDOW"],  # WSLg
+    fc.game_app_list        = ["ffxiv_dx11.exe",              # FINAL FANTASY XIV
+                               # ["msrdc.exe", "RAIL_WINDOW"],  # WSLg
+                               # ["chrome.exe", "Chrome_WidgetWin_1", "（ウィンドウタイトル）"],
                                ]
 
     # 個人設定ファイルのセクション [section-base-1] を読み込んで実行する
