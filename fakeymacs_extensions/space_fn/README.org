@@ -177,7 +177,8 @@ def replicate_key(window_keymap, key, original_key):
 この２つのユーザモディファイアキーは利用者側で定義しないようにしてください。
 
 ● 本拡張機能の SpaceFN は、初期値として keymap_emacs のキーマップのみで動作するように
-しています。
+しています。Emacs 日本語入力モードを利用している場合、keymap_ei キーマップ移行時も
+SpaceFN の機能が無効となることにご留意ください。
 fc.space_fn_window_keymap_list 変数の指定ににより、SpaceFN を適用するキーマップを
 変更することができます。
 
