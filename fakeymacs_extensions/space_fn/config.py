@@ -32,7 +32,7 @@ try:
     fc.space_fn_function_time1
 except:
     # SpaceFN 用のモディファイアキーが押されてから次のキーが押されるまでの時間で、SpaceFN の機能が
-    # 必ず働くようになる時間を秒数で指定する
+    # 必ず働くようになるまでの時間を秒数を指定する
     fc.space_fn_function_time1 = 0.2
 
 try:
@@ -49,36 +49,36 @@ space_fn_key_action = getKeyAction(fc.space_fn_key)
 
 keymap.defineModifier(user0_key, "User0")
 
-is_space_fn_mode = False
-space_fn_function_time1 = fc.space_fn_function_time1
-space_fn_key_oneshot = False
-space_fn_key_down_time = 0
-space_fn_key_outputted = False
+class FakeymacsSpaceFN:
+    pass
+
+fakeymacs_space_fn = FakeymacsSpaceFN()
+
+fakeymacs_space_fn.is_space_fn_mode = False
+fakeymacs_space_fn.function_time1 = fc.space_fn_function_time1
+fakeymacs_space_fn.fn_key_oneshot = False
+fakeymacs_space_fn.fn_key_down_time = 0
+fakeymacs_space_fn.fn_key_output = False
+fakeymacs_space_fn.fn_key_replacement = False
 
 def space_fn_key_down():
-    global space_fn_function_time1
-    global space_fn_key_oneshot
-    global space_fn_key_down_time
-    global space_fn_key_outputted
-    space_fn_function_time1 = fc.space_fn_function_time1
-    space_fn_key_oneshot = True
-    space_fn_key_down_time = time.time()
-    space_fn_key_outputted = False
+    fakeymacs_space_fn.function_time1 = fc.space_fn_function_time1
+    fakeymacs_space_fn.fn_key_oneshot = True
+    fakeymacs_space_fn.fn_key_down_time = time.time()
+    fakeymacs_space_fn.fn_key_output = False
 
 fakeymacs.space_fn_key_up = False
 
 def space_fn_key_up():
-    global space_fn_key_down_time
-    space_fn_key_down_time = 0
-    if space_fn_key_oneshot:
+    fakeymacs_space_fn.fn_key_down_time = 0
+    if fakeymacs_space_fn.fn_key_oneshot:
         fakeymacs.space_fn_key_up = True
         space_fn_key_action()
         fakeymacs.space_fn_key_up = False
 
 def space_fn_command(func):
     def _func():
-        global space_fn_key_oneshot
-        space_fn_key_oneshot = False
+        fakeymacs_space_fn.fn_key_oneshot = False
         func()
     return _func
 
@@ -106,45 +106,39 @@ def define_key_fn(window_keymap, keys, command, space_fn_key_output=False):
         func = getKeyAction(keys.replace("U0-", ""))
 
         def _command2():
-            global is_space_fn_mode
-            global space_fn_function_time1
-            global space_fn_key_oneshot
-
-            space_fn_key_oneshot = False
+            fakeymacs_space_fn.fn_key_oneshot = False
 
             # fc.space_fn_key から押した場合
             if fakeymacs.last_keys[1] == user0_key:
-                is_space_fn_mode = True
+                fakeymacs_space_fn.is_space_fn_mode = True
 
             # fc.space_fn_key 以外のモディファイアキーから押した場合
             elif user0_key in fakeymacs.last_keys[1]:
-                is_space_fn_mode = False
+                fakeymacs_space_fn.is_space_fn_mode = False
 
             # 上記のどちらかの状態の継続
             else:
                 pass
 
             def _command3():
-                global space_fn_key_outputted
-
-                if space_fn_key_down_time == 0:
+                if fakeymacs_space_fn.fn_key_down_time == 0:
                     space_fn_key_action()
                     func()
                 else:
-                    if not space_fn_key_outputted:
+                    if not fakeymacs_space_fn.fn_key_output:
                         if space_fn_key_output:
                             space_fn_key_action()
-                        space_fn_key_outputted = True
+                        fakeymacs_space_fn.fn_key_output = True
                     _command1()
 
-            if is_space_fn_mode:
+            if fakeymacs_space_fn.is_space_fn_mode:
                 if not fc.space_fn_use_oneshot_function:
                     _command1()
 
-                elif (time.time() - space_fn_key_down_time) < space_fn_function_time1:
+                elif (time.time() - fakeymacs_space_fn.fn_key_down_time) < fakeymacs_space_fn.function_time1:
                     fakeymacs.delayed_command = _command3
                     keymap.delayedCall(execute_delayed_command, int(fc.space_fn_function_time2 * 1000))
-                    space_fn_function_time1 = 0
+                    fakeymacs_space_fn.function_time1 = 0
                 else:
                     _command3()
             else:
@@ -161,19 +155,16 @@ def set_space_fn_key_replacement(replace):
     fakeymacs.space_fn_key_replacement = replace
     return False
 
-space_fn_key_replacement = False
-
 def replace_space_fn_key(window):
-    global space_fn_key_replacement
     if fakeymacs.is_base_target and fakeymacs.space_fn_key_replacement:
-        if not space_fn_key_replacement:
+        if not fakeymacs_space_fn.fn_key_replacement:
             keymap.replaceKey(fc.space_fn_key, user0_key)
-            space_fn_key_replacement = True
+            fakeymacs_space_fn.fn_key_replacement = True
     else:
-        if space_fn_key_replacement:
+        if fakeymacs_space_fn.fn_key_replacement:
             keymap.modifier &= ~keyhac_keymap.MODKEY_USER0_L
             keymap.replaceKey(fc.space_fn_key, fc.space_fn_key)
-            space_fn_key_replacement = False
+            fakeymacs_space_fn.fn_key_replacement = False
     return False
 
 keymap_spacefn1 = keymap.defineWindowKeymap(check_func=lambda wnd: set_space_fn_key_replacement(False))
