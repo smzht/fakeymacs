@@ -1,10 +1,7 @@
 ﻿# -*- mode: python; coding: utf-8-with-signature-dos -*-
 
-# 本ファイルは、config_personal.py というファイル名にすることで space_fn Extension の
+# 本ファイルは、config_personal.py というファイル名称に複写することで space_fn Extension の
 # 機能拡張ファイルとして機能します。以下はサンプルコードです。
-
-# 本サンプルコードは、次のページの設定に準拠しています。
-# https://martin-stone.github.io/touchcursor/help.html
 
 # 本サンプルコードは、Ctrl キー、Alt キー、Win キーとの組み合わせも含め、できるだけ完全なキーの
 # 複製を行うバージョンです。
