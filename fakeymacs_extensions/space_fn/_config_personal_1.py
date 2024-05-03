@@ -1,6 +1,6 @@
 ﻿# -*- mode: python; coding: utf-8-with-signature-dos -*-
 
-# 本ファイルは、config_personal.py というファイル名称に複写することで space_fn Extension の
+# 本ファイルは、config_personal.py という名称のファイルに複写することで space_fn Extension の
 # 機能拡張ファイルとして機能します。以下はサンプルコードです。
 
 # 本サンプルコードは、Ctrl キー、Alt キー、Win キーとの組み合わせも含め、できるだけ完全なキーの
