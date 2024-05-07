@@ -9,7 +9,7 @@ try:
     fc.boss_key
 except:
     # 本機能を利用するためのキーを指定する
-    fc.boss_key = "W-Esc"
+    fc.boss_key = "W-a"
 
 try:
     # 設定されているか？
