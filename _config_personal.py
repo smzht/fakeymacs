@@ -236,8 +236,8 @@ fc.game_app_list        = ["ffxiv_dx11.exe",              # FINAL FANTASY XIV
 
 # Grave Escape をエミュレーションする設定
 # （https://github.com/qmk/qmk_firmware/blob/master/docs/feature_grave_esc.md）
-# define_key(keymap_global, "S-Esc", self_insert_command("~"))
-# define_key(keymap_global, "W-Esc", self_insert_command("`"))
+# define_key(keymap_base, "S-Esc", self_insert_command("~"))
+# define_key(keymap_base, "W-Esc", self_insert_command("`"))
 
 ####################################################################################################
 ## クリップボードリストの設定
