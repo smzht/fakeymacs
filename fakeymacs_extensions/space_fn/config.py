@@ -190,7 +190,7 @@ for window_keymap in keymap.window_keymap_list:
         mod   = mod1 + mod2 + mod3 + mod4
         mkey0 = mod + fc.space_fn_key
         mkey1 = mod + user0_key
-        func = getKeyCommand(window_keymap,  mkey0)
+        func = getKeyCommand(window_keymap, mkey0)
         if func:
             define_key(window_keymap, mkey1, space_fn_command(func))
 
@@ -200,7 +200,7 @@ for mod1, mod2, mod3, mod4 in itertools.product(["", "LW-", "RW-"], ["", "LA-", 
     mod   = mod1 + mod2 + mod3 + mod4
     mkey0 = mod + fc.space_fn_key
     mkey1 = mod + user0_key
-    if not getKeyCommand(keymap_base,  mkey1):
+    if not getKeyCommand(keymap_base, mkey1):
         define_key(keymap_base, mkey1, space_fn_command(self_insert_command(mkey0)))
 
 # keymap_base キーマップに対し、全てのキーの入力パターンを SpaceFN 用のモディファイアキーを使うキーに設定する
