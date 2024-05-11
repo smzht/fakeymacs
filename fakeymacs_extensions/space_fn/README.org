@@ -222,6 +222,14 @@ Space）から入力するようにしてください。本拡張機能の Space
 確定する仕様としています。（これは、Ctrl+Space や Shift+Space を遅延なく入力できるように
 する対策です。）
 
+● 本拡張機能の設定を行うと、設定を行わない場合より Keyhac のコンソールに
+「Time stamp inversion happened.」という表示がより頻度高く表示されるようになります。
+これは、以下のページの留意事項の最後に記載しているとおり、レジストリの設定変更である程度の
+回避はできるようです。ただし、この設定により生ずる影響は分かっていませんので、試す場合は
+各自の責任でお願いします。
+
+- https://github.com/smzht/fakeymacs
+
 ● 本拡張機能の特徴については、次の issue にも記載しています。
 
 - https://github.com/smzht/fakeymacs/issues/30
