@@ -591,9 +591,7 @@ def configure(keymap):
 
     # IME の状態をテキスト カーソル インジケーターの色で表現するときに必要となる設定
     # （https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwineventhook）
-    # （https://sites.google.com/site/agkh6mze/howto/winevent）
     # （https://stackoverflow.com/questions/15849564/how-to-use-winapi-setwineventhook-in-python）
-    # （https://github.com/Danesprite/windows-fun/blob/master/window%20change%20listener.py）
     # （https://tutorialmore.com/questions-652366.htm）
     # （https://www.nicovideo.jp/watch/sm20797948）
 
