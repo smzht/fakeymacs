@@ -94,6 +94,25 @@ except:
     # fc.window_movement_key_for_desktops += [["W-p", "W-n"]]
     # fc.window_movement_key_for_desktops += [["W-Up", "W-Down"]]
 
+def minimize_window():
+    window = getTopLevelWindow()
+    if window and not window.isMinimized():
+        window.minimize()
+        delay()
+        window_list = getWindowList()
+        if window in window_list:
+            if window is window_list[-1]:
+                fakeymacs.reverse_window_to_restore = False
+            else:
+                fakeymacs.reverse_window_to_restore = True
+
+def restore_minimized_window():
+    window_list = getWindowList(True)
+    if window_list:
+        if not fakeymacs.reverse_window_to_restore:
+            window_list.reverse()
+        window_list[0].restore()
+
 display_areas = [monitor[1] for monitor in pyauto.Window.getMonitorInfo()]
 display_cnt = len(display_areas)
 
@@ -152,25 +171,6 @@ def maximize_window():
 
 def restore_maximized_window():
     resize_window(False)
-
-def minimize_window():
-    window = getTopLevelWindow()
-    if window and not window.isMinimized():
-        window.minimize()
-        delay()
-        window_list = getWindowList()
-        if window in window_list:
-            if window is window_list[-1]:
-                fakeymacs.reverse_window_to_restore = False
-            else:
-                fakeymacs.reverse_window_to_restore = True
-
-def restore_minimized_window():
-    window_list = getWindowList(True)
-    if window_list:
-        if not fakeymacs.reverse_window_to_restore:
-            window_list.reverse()
-        window_list[0].restore()
 
 window_list = []
 window_switching_time = 0
@@ -273,15 +273,15 @@ def move_window_to_previous_desktop():
 def move_window_to_next_desktop():
     self_insert_command("LW-LC-LA-Right")()
 
-# ウィンドウの最大化、リストア
-for restore_key, maximize_key in fc.window_maximize_key:
-    define_key(keymap_global, restore_key,  restore_maximized_window)
-    define_key(keymap_global, maximize_key, maximize_window)
-
 # ウィンドウの最小化、リストア
 for restore_key, minimize_key in fc.window_minimize_key:
     define_key(keymap_global, restore_key,  restore_minimized_window)
     define_key(keymap_global, minimize_key, minimize_window)
+
+# ウィンドウの最大化、リストア
+for restore_key, maximize_key in fc.window_maximize_key:
+    define_key(keymap_global, restore_key,  restore_maximized_window)
+    define_key(keymap_global, maximize_key, maximize_window)
 
 # アクティブウィンドウの切り替え
 for previous_key, next_key in fc.window_switching_key:
