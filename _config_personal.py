@@ -201,11 +201,6 @@ fc.clipboardList_key = "A-y"
 # ランチャーリストを起動するキーを指定する
 fc.lancherList_key = "A-l"
 
-# Microsoft Excel のセル内で改行を選択可能かを指定する（True: 選択可、False: 選択不可）
-# （kill_line 関数の挙動を変えるための変数です。Microsoft Excel 2019 以降では True にして
-#   ください。）
-fc.is_newline_selectable_in_Excel = True
-
 # ゲームなど、キーバインドの設定を極力行いたくないアプリケーションソフト（プロセス名称のみ、
 # もしくは、プロセス名称、クラス名称、ウィンドウタイトルのリスト（ワイルドカード指定可、
 # リストの後ろの項目から省略可））を指定する
