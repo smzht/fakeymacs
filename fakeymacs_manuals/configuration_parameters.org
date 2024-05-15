@@ -39,9 +39,9 @@ Fakeymacs をカスタマイズするために、以下のコンフィグレー�
 | fc.use_ime_status_cursor_color            | IME の状態をテキスト カーソル インジケーターの色で表現するかどうかを指定する                                               |
 | fc.ime_on_cursor_color                    | IME が ON のときのテキスト カーソル インジケーターの色を指定する                                                           |
 | fc.ime_off_cursor_color                   | IME が OFF のときのテキスト カーソル インジケーターの色を指定する                                                          |
-| fc.toggle_input_method_key                | IME をトグルで切り替えるキーを指定する                                                                                     |
-| fc.set_input_method_key                   | IME を切り替えるキーの組み合わせ（disable、enable の順）を指定する                                                         |
-| fc.reconversion_key                       | IME の「再変換」を行うキーを指定する                                                                                       |
+| fc.toggle_input_method_key                | IME をトグルで切り替えるキーを指定する（複数指定可）                                                                       |
+| fc.set_input_method_key                   | IME を切り替えるキーの組み合わせ（disable、enable の順）を指定する（複数指定可）                                           |
+| fc.reconversion_key                       | IME の「再変換」を行うキーを指定する（複数指定可）                                                                         |
 | fc.emacs_ime_mode_key                     | Emacs 日本語入力モードを利用する際に、IME のショートカットを置き換えるキーの組み合わせ（置き換え先、置き換え元）を指定する |
 | fc.word_register_key                      | IME の「単語登録」プログラムを起動するキーを指定する                                                                       |
 | fc.toggle_emacs_keybind_key               | Emacs キーバインドを切り替えるキーを指定する                                                                               |
@@ -50,15 +50,8 @@ Fakeymacs をカスタマイズするために、以下のコンフィグレー�
 | fc.use_alt_digit_key_for_f1_to_f12        | F1 から F12 を Alt+数字キー列として使うかを指定する                                                                        |
 | fc.use_alt_shift_digit_key_for_f13_to_f24 | F13 から F24 を Alt-Shift+数字キー列として使うかを指定する                                                                 |
 | fc.other_window_key                       | 表示しているウィンドウの中で、一番最近までフォーカスがあったウィンドウに移動するキーを指定する                             |
-| fc.window_switching_key                   | アクティブウィンドウを切り替えるキーの組み合わせ（前、後 の順）を指定する                                                  |
-| fc.window_movement_key_for_displays       | アクティブウィンドウをディスプレイ間で移動するキーの組み合わせ（前、後 の順）を指定する                                    |
-| fc.transpose_windows_key                  | デュアルディスプレイにそれぞれ表示されているウィンドウを入れ替えるキーを指定する                                           |
-| fc.window_maximize_key                    | ウィンドウを最大化、リストアするキーの組み合わせ（リストア、最大化 の順）を指定する（複数指定可）                          |
-| fc.window_minimize_key                    | ウィンドウを最小化、リストアするキーの組み合わせ（リストア、最小化 の順）を指定する                                        |
-| fc.desktop_switching_key                  | 仮想デスクトップを切り替えるキーの組み合わせ（前、後 の順）を指定する                                                      |
-| fc.window_movement_key_for_desktops       | アクティブウィンドウを仮想デスクトップ間で移動するキーの組み合わせ（前、後 の順）を指定する                                |
-| fc.window_operation_exclusion_class       | ウィンドウ操作（other_window、restore_window など）の対象としたくないアプリケーションソフトの“クラス名称”を指定する      |
-| fc.window_operation_exclusion_process     | ウィンドウ操作（other_window、restore_window など）の対象としたくないアプリケーションソフトの“プロセス名称”を指定する    |
+| fc.window_operation_exclusion_class       | ウィンドウ操作（other_window など）の対象としたくないアプリケーションソフトの“クラス名称”を指定する                      |
+| fc.window_operation_exclusion_process     | ウィンドウ操作（other_window など）の対象としたくないアプリケーションソフトの“プロセス名称”を指定する                    |
 | fc.clipboardList_key                      | クリップボードリストを起動するキーを指定する                                                                               |
 | fc.clipboardList_listers                  | クリップボードリストの利用アイテムを指定する                                                                               |
 | fc.lancherList_key                        | ランチャーリストを起動するキーを指定する                                                                                   |

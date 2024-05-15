@@ -195,29 +195,11 @@ fc.use_ctrl_digit_key_for_digit_argument = False
 # 表示しているウィンドウの中で、一番最近までフォーカスがあったウィンドウに移動するキーを指定する
 fc.other_window_key = "A-o"
 
-# アクティブウィンドウを切り替えるキーの組み合わせ（前、後 の順）を指定する（複数指定可）
-# （A-Esc キーの動作とは異なり、仮想デスクトップを跨ぎ、最小化されていないウィンドウを順に切り替え
-#   ます。初期設定は ["A-p", "A-n"] としていますが、Emacs の shell-mode のキーバインドなどと設定が
-#   被る場合には、["A-S-p", "A-S-n"] などの異なる設定とするか、Emacs 側に次の設定を入れて、Emacs 側
-#   のキーの設定を置き換えてご利用ください。
-#     (define-key key-translation-map (kbd "M-S-p") (kbd "M-p"))
-#     (define-key key-translation-map (kbd "M-S-n") (kbd "M-n"))
-#  ）
-fc.window_switching_key = []
-fc.window_switching_key += [["A-p", "A-n"]]
-# fc.window_switching_key += [["A-S-p", "A-S-n"]]
-# fc.window_switching_key += [["A-Up", "A-Down"]]
-
 # クリップボードリストを起動するキーを指定する
 fc.clipboardList_key = "A-y"
 
 # ランチャーリストを起動するキーを指定する
 fc.lancherList_key = "A-l"
-
-# Microsoft Excel のセル内で改行を選択可能かを指定する（True: 選択可、False: 選択不可）
-# （kill_line 関数の挙動を変えるための変数です。Microsoft Excel 2019 以降では True にして
-#   ください。）
-fc.is_newline_selectable_in_Excel = True
 
 # ゲームなど、キーバインドの設定を極力行いたくないアプリケーションソフト（プロセス名称のみ、
 # もしくは、プロセス名称、クラス名称、ウィンドウタイトルのリスト（ワイルドカード指定可、
@@ -323,6 +305,12 @@ fc.lancherList_listers = [
 # [section-extensions] -----------------------------------------------------------------------------
 
 # https://github.com/smzht/fakeymacs/blob/master/fakeymacs_manuals/extensions.org
+
+# --------------------------------------------------------------------------------------------------
+
+## ウィンドウ操作のための設定を行う
+if 1:
+    exec(readConfigExtension(r"window_operation\config.py"), dict(globals(), **locals()))
 
 # --------------------------------------------------------------------------------------------------
 
@@ -451,12 +439,6 @@ if 0:
     fc.menu_target= ["ttermpro.exe", # TeraTerm
                      ]
     exec(readConfigExtension(r"menu_key\config.py"), dict(globals(), **locals()))
-
-# --------------------------------------------------------------------------------------------------
-
-# 現在アクティブなウィンドウと同じプロセスのウィンドウを順に切り替えるキーを設定する
-if 0:
-    exec(readConfigExtension(r"window_switching_key\config.py"), dict(globals(), **locals()))
 
 # --------------------------------------------------------------------------------------------------
 
