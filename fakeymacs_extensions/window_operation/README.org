@@ -100,6 +100,14 @@
 | fc.window_movement_key_for_desktops[n][1] の設定値 | move_window_to_next_desktop     | 初期値：無し（Default key：W-C-Right） |
 |----------------------------------------------------+---------------------------------+----------------------------------------|
 
-※ この機能を利用するためには、SylphyHornPlus のインストールが必要です。詳しくは次のページを参照してください。
+※ この機能を利用するためには、SylphyHornPlus のインストールが必要です。次のページから
+SylphyHornPlus をインストールしてください。
+（SylphyHornPlus は、Microsoft Store からインストール可能な SylphyHorn の Fork で、Windows 11
+の対応など、改良が加えられたものとなっています。）
 
-- https://github.com/smzht/fakeymacs#11-sylphyhorn-%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%82%92%E8%A1%8C%E3%81%86%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3
+- https://github.com/hwtnb/SylphyHornPlusWin11/releases
+
+※ SylphyHorn の仮想デスクトップ切り替え時に表示される通知機能は、テキスト カーソル インジケーター
+と相性が悪いようです（インジケーターが消えてしまいます）。
+SylphyHorn とテキスト カーソル インジケーターの機能を同時に利用する場合には、SylphyHorn の通知機能を
+OFF にし、代わりに「デスクトップの番号をタスクトレイに表示する」機能を利用するようにしてください。
