@@ -357,14 +357,6 @@ if 0:
 # ■ ブラウザ関連
 # --------------------------------------------------------------------------------------------------
 
-# chromium 系ブラウザでショートカットキーが設定されていないメニューコマンドにキーを設定する
-if 0:
-    fc.chrome_command = [[35024, "C-A-r"], # 現在のタブの右側に新たなタブを開く
-                         ]
-    exec(readConfigExtension(r"chromium_key\config.py"), dict(globals(), **locals()))
-
-# --------------------------------------------------------------------------------------------------
-
 # ブラウザをポップアップしてから、ブラウザのショートカットキーを入力するキーを設定する
 if 0:
     fc.browser_list= ["chrome.exe",
@@ -410,6 +402,14 @@ if 0:
     # fc.bash_options = []
     fc.bash_options = ["-l"]
     exec(readConfigExtension(r"shell_command_on_region\config.py"), dict(globals(), **locals()))
+
+# --------------------------------------------------------------------------------------------------
+
+# Emacs キーバインドを利用しない設定のアプリで、メニューの操作用の Emacs キーバインドを設定する
+if 0:
+    fc.menu_target= ["ttermpro.exe", # TeraTerm
+                     ]
+    exec(readConfigExtension(r"menu_key\config.py"), dict(globals(), **locals()))
 
 # --------------------------------------------------------------------------------------------------
 # ■ Emacs 関連
@@ -468,6 +468,15 @@ if 1:
 # ■ その他
 # --------------------------------------------------------------------------------------------------
 
+# アプリでショートカットキーが設定されていないメニューコマンドにキーを設定する
+if 0:
+    fc.menu_command_key = [[["chrome.exe",
+                             "msedge.exe"], 35024, "C-A-r"], # 現在のタブの右側に新たなタブを開く
+                           ]
+    exec(readConfigExtension(r"menu_command_key\config.py"), dict(globals(), **locals()))
+
+# --------------------------------------------------------------------------------------------------
+
 # 指定したアプリケーションソフトに F2（編集モード移行）を割り当てるキーを設定する
 if 0:
     exec(readConfigExtension(r"edit_mode\config.py"), dict(globals(), **locals()))
@@ -477,14 +486,6 @@ if 0:
 # Everything を起動するキーを指定する
 if 0:
     exec(readConfigExtension(r"everything\config.py"), dict(globals(), **locals()))
-
-# --------------------------------------------------------------------------------------------------
-
-# Emacs キーバインドを利用しない設定のアプリで、メニューの操作用の Emacs キーバインドを設定する
-if 0:
-    fc.menu_target= ["ttermpro.exe", # TeraTerm
-                     ]
-    exec(readConfigExtension(r"menu_key\config.py"), dict(globals(), **locals()))
 
 # --------------------------------------------------------------------------------------------------
 
