@@ -26,4 +26,4 @@ except:
 for command_id, key in fc.chromium_command:
     define_key3(keymap_global, key,
                 lambda: keymap.getWindow().postMessage(0x0111, command_id),
-                lambda: keymap.getWindow().getProcessName() in fc.chrome_list)
+                lambda: keymap.getWindow().getProcessName() in fc.chromium_list)
