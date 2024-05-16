@@ -311,7 +311,7 @@ fc.lancherList_listers = [
 # --------------------------------------------------------------------------------------------------
 
 # ウィンドウ操作のための設定を行う
-if 1:
+if 0:
     fc.window_minimize_key   = [["A-S-m", "A-m"]]
     fc.window_maximize_key   = [["W-S-q", "W-q"]]
     fc.window_switching_key  = [["A-p", "A-n"]]
@@ -327,7 +327,7 @@ if 1:
 # --------------------------------------------------------------------------------------------------
 
 # VSCode 用のキーの設定を行う
-if 1:
+if 0:
     fc.vscode_target  = ["Code.exe"]
     fc.vscode_target += ["chrome.exe",
                          "msedge.exe",
