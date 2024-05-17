@@ -10,6 +10,7 @@ try:
 except:
     # 実行するアプリ、メニューのコマンドID、割り当てるキーの組み合わせを指定する（複数指定可）
     fc.menu_command_key = [["chrome.exe", 35024, "C-A-r"], # 現在のタブの右隣に新しいタブを開く
+                           ["msedge.exe", 35024, "C-A-r"], # 現在のタブの右隣に新しいタブを開く
                            ]
 
 for process_name, command_id, key in fc.menu_command_key:
