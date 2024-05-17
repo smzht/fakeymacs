@@ -672,13 +672,14 @@ if 1:
 if 1:
     exec(readConfigExtension(r"bunsetsu_correction\config.py"), dict(globals(), **locals()))
 
+
 # --------------------------------------------------------------------------------------------------
 # ■ その他
 # --------------------------------------------------------------------------------------------------
 
 # アプリでショートカットキーが設定されていないメニューコマンドにキーを設定する
 if 0:
-    fc.menu_command_key = [["chrome.exe", 35024, "C-A-r"], # 現在のタブの右側に新たなタブを開く
+    fc.menu_command_key = [["chrome.exe", 35024, "C-A-r"], # 現在のタブの右隣に新しいタブを開く
                            ]
     exec(readConfigExtension(r"menu_command_key\config.py"), dict(globals(), **locals()))
 
