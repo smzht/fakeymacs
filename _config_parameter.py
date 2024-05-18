@@ -370,14 +370,12 @@ fc.use_alt_shift_digit_key_for_f13_to_f24 = False
 # 表示しているウィンドウの中で、一番最近までフォーカスがあったウィンドウに移動するキーを指定する
 fc.other_window_key = "A-o"
 
-# ウィンドウ操作（other_window、restore_window など）の対象としたくないアプリケーションソフトの
-# “クラス名称”を指定する
+# ウィンドウ操作（other_window など）の対象としたくないアプリケーションソフトの“クラス名称”を指定する
 # （re.match 関数（先頭からのマッチ）の正規表現に「|」を使って繋げて指定してください。
 #   完全マッチとするためには $ の指定が必要です。）
 fc.window_operation_exclusion_class = r"Progman$"
 
-# ウィンドウ操作（other_window、restore_window など）の対象としたくないアプリケーションソフトの
-# “プロセス名称”を指定する
+# ウィンドウ操作（other_window など）の対象としたくないアプリケーションソフトの“プロセス名称”を指定する
 # （re.match 関数（先頭からのマッチ）の正規表現に「|」を使って繋げて指定してください。
 #   完全マッチとするためには $ の指定が必要です。）
 fc.window_operation_exclusion_process = r"RocketDock\.exe$"  # サンプルとして RocketDock.exe を登録
@@ -671,7 +669,6 @@ if 1:
 # 旧 Microsoft IME を使って文節長を変更した際、文節の表示が正しく行われないアプリの対策を行う
 if 1:
     exec(readConfigExtension(r"bunsetsu_correction\config.py"), dict(globals(), **locals()))
-
 
 # --------------------------------------------------------------------------------------------------
 # ■ その他
