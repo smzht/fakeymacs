@@ -518,14 +518,14 @@ fc.lancherList_listers = [
 
 # ウィンドウ操作のための設定を行う
 if 0:
-    fc.window_minimize_key   = [["A-S-m", "A-m"]]
-    fc.window_maximize_key   = [["W-S-q", "W-q"]]
-    fc.window_switching_key  = [["A-p", "A-n"]]
-    fc.window_switching_key2 = [["A-S-p", "A-S-n"]]
-    fc.window_movement_key_for_displays = [[None, "W-o"]]
+    fc.minimize_window_key = [["A-S-m", "A-m"]]
+    fc.maximize_window_key = [["W-S-q", "W-q"]]
+    fc.switch_windows_key  = [["A-p", "A-n"]]
+    fc.switch_windows_key2 = [["A-S-p", "A-S-n"]]
+    fc.move_window_key_for_displays = [[None, "W-o"]]
     fc.transpose_windows_key = "W-t"
-    fc.desktop_switching_key = [["W-b", "W-f"]]
-    fc.window_movement_key_for_desktops = []
+    fc.switch_desktops_key = [["W-b", "W-f"]]
+    fc.move_window_key_for_desktops = []
     exec(readConfigExtension(r"window_operation\config.py"), dict(globals(), **locals()))
 
 # --------------------------------------------------------------------------------------------------
