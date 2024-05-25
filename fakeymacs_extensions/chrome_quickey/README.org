@@ -14,7 +14,7 @@ Chrome の拡張機能 QuicKey については、次のページを参照して�
 Search box keyboard shortcus で次の設定を変更すると、使い勝手がよくなります。
 
 - Press space to: で Insert a space in ther search query を選択する
-- Press home or end to: で Move the cursor to the beginning or end of the search box を選択すｒ
+- Press home or end to: で Move the cursor to the beginning or end of the search box を選択する
 
 *** コンフィグレーションパラメータ
 
