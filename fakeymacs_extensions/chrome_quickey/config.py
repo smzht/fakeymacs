@@ -1,7 +1,7 @@
 ﻿# -*- mode: python; coding: utf-8-with-signature-dos -*-
 
 ####################################################################################################
-## Chrome 系ブラウザで Ctl-x C-b を入力した際、Chrome の拡張機能 QuickKey を起動する
+## Chrome 系ブラウザで Ctl-x C-b を入力した際、Chrome の拡張機能 QuicKey を起動する
 ####################################################################################################
 
 try:
@@ -16,7 +16,7 @@ try:
     # 設定されているか？
     fc.quickey_shortcut_key
 except:
-    # Quick Tabs を起動するショートカットキーを指定する
+    # QuicKey を起動するショートカットキーを指定する
     fc.quickey_shortcut_key = "A-q"
 
 define_key3(keymap_emacs, "Ctl-x C-b",
