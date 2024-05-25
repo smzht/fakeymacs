@@ -11,7 +11,7 @@ Chrome の拡張機能 QuicKey については、次のページを参照して�
 
 - https://github.com/fwextensions/QuicKey
 
-オプション設定の「Search box keyboard shortcus」で次の設定を変更すると、使い勝手が
+オプション設定の「Search box keyboard shortcus」で、次の設定を変更すると使い勝手が
 良くなります。
 
 - 「Press space to:」で「Insert a space in ther search query」を選択する
