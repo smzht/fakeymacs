@@ -6,11 +6,11 @@
 # --------------------------------------------------------------------------------------------------
 
 try:
-    # chrome_quick_tabs Extension が有効になっているか？
-    fc.quick_tabs_shortcut_key
+    # chrome_quickey Extension が有効になっているか？
+    fc.quickey_shortcut_key
 
-    # ブラウザをポップアップしてから Quick Tabs を起動する
-    define_key(keymap_global, "C-A-;", browser_popup(fc.quick_tabs_shortcut_key, 0, fc.chrome_list))
+    # ブラウザをポップアップしてから QuicKey を起動する
+    define_key(keymap_global, "C-A-;", browser_popup(fc.quickey_shortcut_key, 0, fc.chrome_list))
 except:
     pass
 

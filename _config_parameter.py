@@ -532,21 +532,21 @@ if 0:
 # ■ ブラウザ関連
 # --------------------------------------------------------------------------------------------------
 
+# Chrome 系ブラウザで Ctl-x C-b を入力した際、Chrome の拡張機能 QuicKey を起動する
+if 0:
+    fc.chrome_list= ["msedge.exe",
+                     "chrome.exe"]
+    fc.quickey_shortcut_key = "A-q"
+    exec(readConfigExtension(r"chrome_quickey\config.py"), dict(globals(), **locals()))
+
+# --------------------------------------------------------------------------------------------------
+
 # ブラウザをポップアップしてから、ブラウザのショートカットキーを入力するキーを設定する
 if 0:
     fc.browser_list= ["chrome.exe",
                       "msedge.exe",
                       "firefox.exe"]
     exec(readConfigExtension(r"browser_key\config.py"), dict(globals(), **locals()))
-
-# --------------------------------------------------------------------------------------------------
-
-# Chrome 系ブラウザで Ctl-x C-b を入力した際、Chrome の拡張機能 Quick Tabs を起動する
-if 0:
-    fc.chrome_list= ["chrome.exe",
-                     "msedge.exe"]
-    fc.quick_tabs_shortcut_key = "A-q"
-    exec(readConfigExtension(r"chrome_quick_tabs\config.py"), dict(globals(), **locals()))
 
 # --------------------------------------------------------------------------------------------------
 # ■ Emacs キーバインド関連

@@ -1,0 +1,34 @@
+#+STARTUP: showall indent
+
+* Fakeymacs extension
+
+** ■ Chrome 系ブラウザで Ctl-x C-b を入力した際、Chrome の拡張機能 QuicKey を起動する
+
+Chrome 系ブラウザで Ctrl-x C-b を入力した時に、Chrome の拡張機能 QuicKey を起動する
+拡張機能です。
+
+Chrome の拡張機能 QuicKey については、次のページを参照してください。
+
+- https://github.com/fwextensions/QuicKey
+
+Search box keyboard shortcus で次の設定を変更すると、使い勝手がよくなります。
+
+- Press space to: で Insert a space in ther search query を選択する
+- Press home or end to: で Move the cursor to the beginning or end of the search box を選択すｒ
+
+*** コンフィグレーションパラメータ
+
+|-------------------------+----------------------------------------------------|
+| Configuration parameter | Description                                        |
+|-------------------------+----------------------------------------------------|
+| fc.chrome_list          | 本機能を適用するブラウザのプログラム名称を指定する |
+| fc.quickey_shortcut_key | QuickKey を起動するショートカットキーを指定する    |
+|-------------------------+----------------------------------------------------|
+
+*** キーバインド
+
+|-----------+-----------------------------------------------+-------------|
+| Keybind   | Function                                      | Description |
+|-----------+-----------------------------------------------+-------------|
+| Ctl-x C-b | self_insert_command3(fc.quickey_shortcut_key) |             |
+|-----------+-----------------------------------------------+-------------|

@@ -1,7 +1,7 @@
 ﻿# -*- mode: python; coding: utf-8-with-signature-dos -*-
 
 ####################################################################################################
-## Chrome 系ブラウザで Ctl-x C-b を入力した際、Chrome の拡張機能 Quick Tabs を起動する
+## Chrome 系ブラウザで Ctl-x C-b を入力した際、Chrome の拡張機能 QuickKey を起動する
 ####################################################################################################
 
 try:
@@ -14,11 +14,11 @@ except:
 
 try:
     # 設定されているか？
-    fc.quick_tabs_shortcut_key
+    fc.quickey_shortcut_key
 except:
     # Quick Tabs を起動するショートカットキーを指定する
-    fc.quick_tabs_shortcut_key = "A-q"
+    fc.quickey_shortcut_key = "A-q"
 
 define_key3(keymap_emacs, "Ctl-x C-b",
-            reset_search(reset_undo(reset_counter(reset_mark(self_insert_command3(fc.quick_tabs_shortcut_key))))),
+            reset_search(reset_undo(reset_counter(reset_mark(self_insert_command3(fc.quickey_shortcut_key))))),
             lambda: keymap.getWindow().getProcessName() in fc.chrome_list)
