@@ -529,6 +529,48 @@ if 0:
     exec(readConfigExtension(r"window_operation\config.py"), dict(globals(), **locals()))
 
 # --------------------------------------------------------------------------------------------------
+# ■ ブラウザ関連
+# --------------------------------------------------------------------------------------------------
+
+# ブラウザをポップアップしてから、ブラウザのショートカットキーを入力するキーを設定する
+if 0:
+    fc.browser_list= ["chrome.exe",
+                      "msedge.exe",
+                      "firefox.exe"]
+    exec(readConfigExtension(r"browser_key\config.py"), dict(globals(), **locals()))
+
+# --------------------------------------------------------------------------------------------------
+
+# Chrome 系ブラウザで Ctl-x C-b を入力した際、Chrome の拡張機能 Quick Tabs を起動する
+if 0:
+    fc.chrome_list= ["chrome.exe",
+                     "msedge.exe"]
+    fc.quick_tabs_shortcut_key = "A-q"
+    exec(readConfigExtension(r"chrome_quick_tabs\config.py"), dict(globals(), **locals()))
+
+# --------------------------------------------------------------------------------------------------
+# ■ Emacs キーバインド関連
+# --------------------------------------------------------------------------------------------------
+
+# Emacs の shell-command-on-region の機能をサポートする
+if 0:
+    fc.unix_tool = "WSL"
+    # fc.unix_tool = "MSYS2"
+    # fc.unix_tool = "Cygwin"
+    # fc.unix_tool = "BusyBox"
+    # fc.bash_options = []
+    fc.bash_options = ["-l"]
+    exec(readConfigExtension(r"shell_command_on_region\config.py"), dict(globals(), **locals()))
+
+# --------------------------------------------------------------------------------------------------
+
+# Emacs キーバインドを利用しない設定のアプリで、メニューの操作用の Emacs キーバインドを設定する
+if 0:
+    fc.menu_target= ["ttermpro.exe", # TeraTerm
+                     ]
+    exec(readConfigExtension(r"menu_key\config.py"), dict(globals(), **locals()))
+
+# --------------------------------------------------------------------------------------------------
 # ■ VSCode 関連
 # --------------------------------------------------------------------------------------------------
 
@@ -560,26 +602,6 @@ if 0:
     # vscode_extensions\config.py は、vscode_key\config.py 内部から呼ばれている
 
 # --------------------------------------------------------------------------------------------------
-# ■ ブラウザ関連
-# --------------------------------------------------------------------------------------------------
-
-# ブラウザをポップアップしてから、ブラウザのショートカットキーを入力するキーを設定する
-if 0:
-    fc.browser_list= ["chrome.exe",
-                      "msedge.exe",
-                      "firefox.exe"]
-    exec(readConfigExtension(r"browser_key\config.py"), dict(globals(), **locals()))
-
-# --------------------------------------------------------------------------------------------------
-
-# Chrome 系ブラウザで Ctl-x C-b を入力した際、Chrome の拡張機能 Quick Tabs を起動する
-if 0:
-    fc.chrome_list= ["chrome.exe",
-                     "msedge.exe"]
-    fc.quick_tabs_shortcut_key = "A-q"
-    exec(readConfigExtension(r"chrome_quick_tabs\config.py"), dict(globals(), **locals()))
-
-# --------------------------------------------------------------------------------------------------
 # ■ IME 関連
 # --------------------------------------------------------------------------------------------------
 
@@ -594,28 +616,6 @@ if 0:
     fc.pop_ime_balloon_key = ["C-;"]
     # fc.pop_ime_balloon_key = ["O-" + fc.side_of_ctrl_key + "Ctrl"] # Ctrl キーの単押し
     exec(readConfigExtension(r"pop_ime_balloon\config.py"), dict(globals(), **locals()))
-
-# --------------------------------------------------------------------------------------------------
-# ■ Emacs キーバインド関連
-# --------------------------------------------------------------------------------------------------
-
-# Emacs の shell-command-on-region の機能をサポートする
-if 0:
-    fc.unix_tool = "WSL"
-    # fc.unix_tool = "MSYS2"
-    # fc.unix_tool = "Cygwin"
-    # fc.unix_tool = "BusyBox"
-    # fc.bash_options = []
-    fc.bash_options = ["-l"]
-    exec(readConfigExtension(r"shell_command_on_region\config.py"), dict(globals(), **locals()))
-
-# --------------------------------------------------------------------------------------------------
-
-# Emacs キーバインドを利用しない設定のアプリで、メニューの操作用の Emacs キーバインドを設定する
-if 0:
-    fc.menu_target= ["ttermpro.exe", # TeraTerm
-                     ]
-    exec(readConfigExtension(r"menu_key\config.py"), dict(globals(), **locals()))
 
 # --------------------------------------------------------------------------------------------------
 # ■ Emacs 関連
