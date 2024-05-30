@@ -37,3 +37,9 @@ HHKB Studio で Fakeymacs を使う際の、キーマップの設定例につい
 - マウスキー左ボタンは RButton に置き換えています。「マウスキー右ボタン（Fn3）を押す」→「マウスキー左ボタン（RButton）を押す」→「マウスキー右ボタン（Fn3）を離す」の後にポインティングスティックを動かすことで、RButton によるマウスドラッグも利用可能となっています。
 
 [[/fakeymacs_manuals/HHKB_Studio_keymap_sample/Fn3_layer.png]]
+
+** HHKB Studio のキーマップ設定ファイル
+
+以上の設定例の設定ファイル（キーマップ変更ツールで出力したもの）は次のとおりとなります。
+
+- [[[[/fakeymacs_manuals/HHKB_Studio_keymap_sample/HHKB_Studio_Setting.hks]]][HHKB_Studio_Setting.hks]]]]
