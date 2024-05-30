@@ -42,4 +42,4 @@ HHKB Studio で Fakeymacs を使う際の、キーマップの設定例につい
 
 以上の設定例の設定ファイル（キーマップ変更ツールで出力したもの）は次のとおりとなります。
 
-- [[[[/fakeymacs_manuals/HHKB_Studio_keymap_sample/HHKB_Studio_Setting.hks]]][HHKB_Studio_Setting.hks]]]]
+- [[/fakeymacs_manuals/HHKB_Studio_keymap_sample/HHKB_Studio_Setting.hks][HHKB_Studio_Setting.hks]]
