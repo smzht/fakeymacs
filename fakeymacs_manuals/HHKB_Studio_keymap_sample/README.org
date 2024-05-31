@@ -40,6 +40,6 @@ HHKB Studio で Fakeymacs を使う際の、キーマップの設定例につい
 
 ** HHKB Studio のキーマップ設定ファイル
 
-以上の設定例をキーマップ変更ツールで設定ファイルに出力しました。
+以上の設定例をキーマップ変更ツールで設定ファイルに出力したものは以下となります。
 
 - [[/fakeymacs_manuals/HHKB_Studio_keymap_sample/HHKB_Studio_Setting.hks][HHKB_Studio_Setting.hks]]
