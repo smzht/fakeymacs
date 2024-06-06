@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240530_01"
+fakeymacs_version = "20240606_01"
 
 import time
 import os.path
@@ -330,6 +330,9 @@ def configure(keymap):
 
     # IME の状態を表示するバルーンメッセージの組み合わせ（英数入力、日本語入力）を指定する
     fc.ime_status_balloon_message = ["[A]", "[あ]"]
+
+    # ウィンドウが切り替わった際、IME の状態をリセット（英数入力）にするかを指定する
+    fc.use_ime_status_reset = False
 
     # IME をトグルで切り替えるキーを指定する（複数指定可）
     fc.toggle_input_method_key = []
@@ -752,6 +755,8 @@ def configure(keymap):
                 fakeymacs.keymap_decided = True
             else:
                 if not fakeymacs.force_update:
+                    if fc.use_ime_status_reset:
+                        setImeStatus(0)
                     showImeStatus(window.getImeStatus(), window=window)
 
                 fakeymacs.is_base_target = True

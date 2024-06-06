@@ -39,6 +39,7 @@ Fakeymacs をカスタマイズするために、以下のコンフィグレー�
 | fc.use_ime_status_cursor_color            | IME の状態をテキスト カーソル インジケーターの色で表現するかどうかを指定する                                               |
 | fc.ime_on_cursor_color                    | IME が ON のときのテキスト カーソル インジケーターの色を指定する                                                           |
 | fc.ime_off_cursor_color                   | IME が OFF のときのテキスト カーソル インジケーターの色を指定する                                                          |
+| fc.use_ime_status_reset                   | ウィンドウが切り替わった際、IME の状態をリセット（英数入力）にするかを指定する                                             |
 | fc.toggle_input_method_key                | IME をトグルで切り替えるキーを指定する（複数指定可）                                                                       |
 | fc.set_input_method_key                   | IME を切り替えるキーの組み合わせ（disable、enable の順）を指定する（複数指定可）                                           |
 | fc.reconversion_key                       | IME の「再変換」を行うキーを指定する（複数指定可）                                                                         |
