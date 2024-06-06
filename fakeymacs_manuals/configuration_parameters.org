@@ -14,6 +14,9 @@ Fakeymacs をカスタマイズするために、以下のコンフィグレー�
 | fc.ime                                    | 利用している IME を指定する                                                                                                |
 | fc.correct_ime_status                     | Chromium 系ブラウザで発生する問題の対策を行うかどうかを指定する                                                            |
 | fc.use_usjis_keyboard_conversion          | 日本語キーボード設定をした OS 上で英語キーボードを利用するかどうかを指定する                                               |
+| fc.use_ime_status_cursor_color            | IME の状態をテキスト カーソル インジケーターの色で表現するかどうかを指定する                                               |
+| fc.ime_on_cursor_color                    | IME が ON のときのテキスト カーソル インジケーターの色を指定する                                                           |
+| fc.ime_off_cursor_color                   | IME が OFF のときのテキスト カーソル インジケーターの色を指定する                                                          |
 | fc.chromium_browser_list                  | Chromium 系ブラウザのプログラム名称を指定する                                                                              |
 | fc.transparent_target                     | すべてのキーマップを透過（スルー）するアプリケーションソフトを指定する（全ての設定に優先する）                             |
 | fc.transparent_target_class               | すべてのキーマップを透過（スルー）するアプリケーションソフトを指定する（全ての設定に優先する）                             |
@@ -36,9 +39,6 @@ Fakeymacs をカスタマイズするために、以下のコンフィグレー�
 | fc.emacs_ime_mode_balloon_message         | Emacs 日本語入力モードが有効なときに表示するバルーンメッセージを指定する                                                   |
 | fc.use_ime_status_balloon                 | IME の状態を表示するバルーンメッセージを表示するかどうかを指定する                                                         |
 | fc.ime_status_balloon_message             | IME の状態を表示するバルーンメッセージの組み合わせ（英数入力、日本語入力）を指定する                                       |
-| fc.use_ime_status_cursor_color            | IME の状態をテキスト カーソル インジケーターの色で表現するかどうかを指定する                                               |
-| fc.ime_on_cursor_color                    | IME が ON のときのテキスト カーソル インジケーターの色を指定する                                                           |
-| fc.ime_off_cursor_color                   | IME が OFF のときのテキスト カーソル インジケーターの色を指定する                                                          |
 | fc.use_ime_status_reset                   | ウィンドウが切り替わった際、IME の状態をリセット（英数入力）するかを指定する                                               |
 | fc.toggle_input_method_key                | IME をトグルで切り替えるキーを指定する（複数指定可）                                                                       |
 | fc.set_input_method_key                   | IME を切り替えるキーの組み合わせ（disable、enable の順）を指定する（複数指定可）                                           |
