@@ -431,6 +431,12 @@ fc.game_app_list        = ["ffxiv_dx11.exe",              # FINAL FANTASY XIV
 # define_key(keymap_base, "S-Esc", self_insert_command("~"))
 # define_key(keymap_base, "W-Esc", self_insert_command("`"))
 
+# A-Tab で起動するタスク切り替え画面で、Alt+j,l,i,k のキーを使ってタスクを移動するための設定
+# define_key(keymap_tsw, "A-j", self_insert_command("A-Left"))
+# define_key(keymap_tsw, "A-l", self_insert_command("A-Right"))
+# define_key(keymap_tsw, "A-i", self_insert_command("A-Up"))
+# define_key(keymap_tsw, "A-k", self_insert_command("A-Down"))
+
 ####################################################################################################
 ## クリップボードリストの設定
 ####################################################################################################
