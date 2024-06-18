@@ -48,8 +48,7 @@ Fakeymacs をカスタマイズするために、以下のコンフィグレー�
 | fc.toggle_emacs_keybind_key               | Emacs キーバインドを切り替えるキーを指定する                                                                               |
 | fc.application_key                        | アプリケーションキーとして利用するキーを指定する                                                                           |
 | fc.use_ctrl_digit_key_for_digit_argument  | 数引数の指定に Ctrl+数字キーを使うかを指定する                                                                             |
-| fc.use_alt_digit_key_for_f1_to_f12        | F1 から F12 を Alt+数字キー列として使うかを指定する                                                                        |
-| fc.use_alt_shift_digit_key_for_f13_to_f24 | F13 から F24 を Alt-Shift+数字キー列として使うかを指定する                                                                 |
+| fc.use_alt_digit_key_for_f1_to_f12        | 数字キー列が Alt キーと一緒に押されたとき、F1 から F12 のファンクションキーとして使うかを指定する                          |
 | fc.other_window_key                       | 表示しているウィンドウの中で、一番最近までフォーカスがあったウィンドウに移動するキーを指定する                             |
 | fc.window_operation_exclusion_class       | ウィンドウ操作（other_window など）の対象としたくないアプリケーションソフトの“クラス名称”を指定する                      |
 | fc.window_operation_exclusion_process     | ウィンドウ操作（other_window など）の対象としたくないアプリケーションソフトの“プロセス名称”を指定する                    |

@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240610_01"
+fakeymacs_version = "20240619_01"
 
 import time
 import os.path
@@ -472,11 +472,9 @@ def configure(keymap):
     # （False に指定しても、C-u 数字キーで数引数を指定することができます）
     fc.use_ctrl_digit_key_for_digit_argument = False
 
-    # F1 から F12 を Alt+数字キー列として使うかを指定する（True: 使う、False: 使わない）
+    # 数字キー列が Alt キーと一緒に押されたとき、F1 から F12 のファンクションキーとして使うかを指定する
+    # （True: 使う、False: 使わない）
     fc.use_alt_digit_key_for_f1_to_f12 = False
-
-    # F13 から F24 を Alt-Shift+数字キー列として使うかを指定する（True: 使う、False: 使わない）
-    fc.use_alt_shift_digit_key_for_f13_to_f24 = False
 
     # 表示しているウィンドウの中で、一番最近までフォーカスがあったウィンドウに移動するキーを指定する
     fc.other_window_key = "A-o"
@@ -2470,31 +2468,21 @@ def configure(keymap):
     ## ファンクションキーの設定
     ###########################################################################
 
-    ## Alt+数字キー列の設定
     if fc.use_alt_digit_key_for_f1_to_f12:
-        mkey = "A-"
-        for i in range(10):
-            define_key(keymap_global, mkey + f"{(i + 1) % 10}", self_insert_command(vkToStr(VK_F1 + i)))
+        for mod1, mod2, mod3 in itertools.product(["", "W-"], ["", "C-"], ["", "S-"]):
+            mod = mod1 + mod2 + mod3
 
-        define_key(keymap_global, mkey + "-", self_insert_command(vkToStr(VK_F11)))
+            mkey = "A-" + mod
+            for i in range(10):
+                define_key(keymap_global,
+                           mkey + f"{(i + 1) % 10}", self_insert_command(mod + vkToStr(VK_F1 + i)))
 
-        if is_japanese_keyboard:
-            define_key(keymap_global, mkey + "^", self_insert_command(vkToStr(VK_F12)))
-        else:
-            define_key(keymap_global, mkey + "=", self_insert_command(vkToStr(VK_F12)))
+            define_key(keymap_global, mkey + "-", self_insert_command(mod + vkToStr(VK_F11)))
 
-    ## Alt+Shift+数字キー列の設定
-    if fc.use_alt_shift_digit_key_for_f13_to_f24:
-        mkey = "A-S-"
-        for i in range(10):
-            define_key(keymap_global, mkey + f"{(i + 1) % 10}", self_insert_command(vkToStr(VK_F13 + i)))
-
-        define_key(keymap_global, mkey + "-", self_insert_command(vkToStr(VK_F23)))
-
-        if is_japanese_keyboard:
-            define_key(keymap_global, mkey + "^", self_insert_command(vkToStr(VK_F24)))
-        else:
-            define_key(keymap_global, mkey + "=", self_insert_command(vkToStr(VK_F24)))
+            if is_japanese_keyboard:
+                define_key(keymap_global, mkey + "^", self_insert_command(mod + vkToStr(VK_F12)))
+            else:
+                define_key(keymap_global, mkey + "=", self_insert_command(mod + vkToStr(VK_F12)))
 
 
     ###########################################################################

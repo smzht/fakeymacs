@@ -35,33 +35,19 @@ for window_keymap in fc.space_fn_window_keymap_list:
             replicate_key(window_keymap, mkey1, mkey0)
 
     # ファンクションキーの設定
-    for mod1, mod2, mod3 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"]):
-        mod   = mod1 + mod2 + mod3
+    for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
+        mod = mod1 + mod2 + mod3 + mod4
 
-        mkey0 =         mod
-        mkey1 = "U0-" + mod
+        mkey = "U0-" + mod
         for i in range(10):
             define_key_fn(window_keymap,
-                          mkey1 + f"{(i + 1) % 10}", self_insert_command(mkey0 + vkToStr(VK_F1 + i)))
+                          mkey + f"{(i + 1) % 10}", self_insert_command(mod + vkToStr(VK_F1 + i)))
 
-        define_key_fn(window_keymap, mkey1 + "-", self_insert_command(mkey0 + vkToStr(VK_F11)))
-
-        if is_japanese_keyboard:
-            define_key_fn(window_keymap, mkey1 + "^", self_insert_command(mkey0 + vkToStr(VK_F12)))
-        else:
-            define_key_fn(window_keymap, mkey1 + "=", self_insert_command(mkey0 + vkToStr(VK_F12)))
-
-        mkey0 =           mod
-        mkey1 = "U0-S-" + mod
-        for i in range(10):
-            define_key_fn(window_keymap,
-                          mkey1 + f"{(i + 1) % 10}", self_insert_command(mkey0 + vkToStr(VK_F13 + i)))
-
-        define_key_fn(window_keymap, mkey1 + "-", self_insert_command(mkey0 + vkToStr(VK_F23)))
+        define_key_fn(window_keymap, mkey + "-", self_insert_command(mod + vkToStr(VK_F11)))
 
         if is_japanese_keyboard:
-            define_key_fn(window_keymap, mkey1 + "^", self_insert_command(mkey0 + vkToStr(VK_F24)))
+            define_key_fn(window_keymap, mkey + "^", self_insert_command(mod + vkToStr(VK_F12)))
         else:
-            define_key_fn(window_keymap, mkey1 + "=", self_insert_command(mkey0 + vkToStr(VK_F24)))
+            define_key_fn(window_keymap, mkey + "=", self_insert_command(mod + vkToStr(VK_F12)))
 
 # --------------------------------------------------------------------------------------------------
