@@ -226,7 +226,7 @@ fc.ime_status_balloon_message = ["[A]", "[あ]"]
 
 # ウィンドウが切り替わった際、IME の状態をリセット（英数入力）するかを指定する（True: する、False: しない）
 fc.use_ime_status_reset = False
-        
+
 # IME をトグルで切り替えるキーを指定する（複数指定可）
 fc.toggle_input_method_key = []
 fc.toggle_input_method_key += ["C-Yen"]
