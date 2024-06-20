@@ -1221,9 +1221,9 @@ def configure(keymap):
             setClipboardText("")
             self_insert_command("C-c")()
 
-        self_insert_command("Delete")()
+        self_insert_command("Back")() # Delete は誤動作のもととなるので使わない
+
         backward_char()
-        delay(0.05) # 次の行のヤンクが正しく動作しない場合があることの対策
         yank()
         forward_char()
 
