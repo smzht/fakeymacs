@@ -1223,7 +1223,7 @@ def configure(keymap):
 
         self_insert_command("Delete")()
         backward_char()
-        delay() # 次の行のヤンクが正しく動作しない場合があることの対策
+        delay(0.05) # 次の行のヤンクが正しく動作しない場合があることの対策
         yank()
         forward_char()
 
