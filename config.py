@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240620_01"
+fakeymacs_version = "20240621_01"
 
 import time
 import os.path
@@ -1226,6 +1226,7 @@ def configure(keymap):
         backward_char()
         yank()
         forward_char()
+        delay() # この delay を入れると、動作が安定する
 
         if fakeymacs.clipboard_hook:
             # クリップボードの監視用のフックを有効にする
