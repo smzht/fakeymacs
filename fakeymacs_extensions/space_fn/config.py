@@ -29,6 +29,14 @@ except:
 
 try:
     # 設定されているか？
+    fc.space_fn_use_repeat_function
+except:
+    # SpaceFN 用のモディファイアキーの長押しで、元のキーのリピート入力を行うかどうかを指定する
+    # （True: 行う、False: 行わない）
+    fc.space_fn_use_repeat_function = False
+
+try:
+    # 設定されているか？
     fc.space_fn_function_time1
 except:
     # SpaceFN 用のモディファイアキーが押されてから次のキーが押されるまでの時間で、SpaceFN の機能が
@@ -224,6 +232,8 @@ for window_keymap in fc.space_fn_window_keymap_list:
     define_key(window_keymap, user0_key, space_fn_key_down)
     if fc.space_fn_use_oneshot_function:
         define_key(window_keymap, "U-" + user0_key, space_fn_key_up)
+        if fc.space_fn_use_repeat_function:
+            define_key(window_keymap, "U0-" + user0_key, space_fn_command(space_fn_key_action))
 
 ## config_personal.py ファイルの読み込み
 exec(readConfigExtension(r"space_fn\config_personal.py", msg=False), dict(globals(), **locals()))
