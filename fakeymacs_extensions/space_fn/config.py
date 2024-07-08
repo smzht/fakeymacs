@@ -65,6 +65,7 @@ fakeymacs_spacefn = FakeymacsSpaceFN()
 fakeymacs_spacefn.is_space_fn_mode = False
 fakeymacs_spacefn.function_time1 = fc.space_fn_function_time1
 fakeymacs_spacefn.fn_key_oneshot = False
+fakeymacs_spacefn.fn_key_repeat = False
 fakeymacs_spacefn.fn_key_down_time = 0
 fakeymacs_spacefn.fn_key_up_time = 0
 fakeymacs_spacefn.fn_key_output = False
@@ -75,6 +76,14 @@ def space_fn_key_down():
     fakeymacs_spacefn.fn_key_oneshot = True
     fakeymacs_spacefn.fn_key_down_time = time.time()
     fakeymacs_spacefn.fn_key_output = False
+
+    if (fc.space_fn_use_repeat_function == 1 or
+        (fc.space_fn_use_repeat_function == 2 and
+         fakeymacs.last_keys[1] == "U-" + user0_key and
+         (time.time() - fakeymacs_spacefn.fn_key_up_time) < fc.space_fn_function_time1)):
+        fakeymacs_spacefn.fn_key_repeat = True
+    else:
+        fakeymacs_spacefn.fn_key_repeat = False
 
 fakeymacs.space_fn_key_up = False
 
@@ -88,11 +97,7 @@ def space_fn_key_up():
 
 def space_fn_key_repeat():
     if fakeymacs_spacefn.fn_key_oneshot:
-        if (fc.space_fn_use_repeat_function == 1 or
-            (fc.space_fn_use_repeat_function == 2 and
-             fakeymacs.last_keys[1] == user0_key and
-             # 秒数の 1.2 にはキーリピートが始まる待ち時間も含む
-             (time.time() - fakeymacs_spacefn.fn_key_up_time) < 1.2)):
+        if fakeymacs_spacefn.fn_key_repeat:
             space_fn_command(space_fn_key_action)()
     else:
         space_fn_key_action()
