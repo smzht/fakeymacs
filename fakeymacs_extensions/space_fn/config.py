@@ -65,7 +65,6 @@ fakeymacs_spacefn = FakeymacsSpaceFN()
 fakeymacs_spacefn.is_space_fn_mode = False
 fakeymacs_spacefn.function_time1 = fc.space_fn_function_time1
 fakeymacs_spacefn.fn_key_oneshot = False
-fakeymacs_spacefn.fn_key_repeat = False
 fakeymacs_spacefn.fn_key_down_time = 0
 fakeymacs_spacefn.fn_key_up_time = 0
 fakeymacs_spacefn.fn_key_output = False
@@ -74,7 +73,6 @@ fakeymacs_spacefn.fn_key_replacement = False
 def space_fn_key_down():
     fakeymacs_spacefn.function_time1 = fc.space_fn_function_time1
     fakeymacs_spacefn.fn_key_oneshot = True
-    fakeymacs_spacefn.fn_key_repeat = False
     fakeymacs_spacefn.fn_key_down_time = time.time()
     fakeymacs_spacefn.fn_key_output = False
 
@@ -96,7 +94,6 @@ def space_fn_key_repeat():
              # 秒数の 1.2 にはキーリピートが始まる待ち時間も含む
              (time.time() - fakeymacs_spacefn.fn_key_up_time) < 1.2)):
             space_fn_command(space_fn_key_action)()
-            fakeymacs_spacefn.fn_key_repeat = True
     else:
         space_fn_key_action()
 
@@ -130,11 +127,9 @@ def define_key_fn(window_keymap, keys, command, space_fn_key_output=False):
         func = getKeyAction(keys.replace("U0-", ""))
 
         def _command2():
-            fakeymacs_spacefn.fn_key_oneshot = False
-
             # fc.space_fn_key から押した場合で fc.space_fn_key のリピート入力がされていない場合
             if (fakeymacs.last_keys[1] in [user0_key, "U0-" + user0_key] and
-                fakeymacs_spacefn.fn_key_repeat == False):
+                fakeymacs_spacefn.fn_key_oneshot):
                 fakeymacs_spacefn.is_space_fn_mode = True
 
             # fc.space_fn_key 以外のモディファイアキーから押した場合
@@ -144,6 +139,8 @@ def define_key_fn(window_keymap, keys, command, space_fn_key_output=False):
             # 上記のどちらかの状態の継続
             else:
                 pass
+
+            fakeymacs_spacefn.fn_key_oneshot = False
 
             def _command3():
                 if fakeymacs_spacefn.fn_key_down_time == 0:
