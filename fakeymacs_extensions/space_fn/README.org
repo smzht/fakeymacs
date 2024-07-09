@@ -160,8 +160,9 @@ def replicate_key(window_keymap, key, original_key):
 |-------------+-----------------+--------------------------|
 
 - 「U0」は fc.space_fn_key 変数に設定した SpaceFN 用のモディファイアキー
-- _config_personal-1.py のサンプル設定では、<m> は <空>、<W->、<A->、<C->、<S-> の全ての組み合わせパターン
-- _config_personal-2.py のサンプル設定では、<m> は <空> か <S-> のどちらかのパターン
+- _config_personal-1.py のサンプル設定では、<m> は 空、W、A、C、S の全ての組み合わせパターン
+- _config_personal-2.py のサンプル設定では、<m> は 空 か S
+ のどちらかのパターン
 
 **** ● ファンクションキーの設定
 
@@ -183,7 +184,7 @@ def replicate_key(window_keymap, key, original_key):
 |-----------------------------+-----------------+-------------|
 
 - 「U0」は fc.space_fn_key 変数に設定した SpaceFN 用のモディファイアキー
-- <m> は <空>、<W->、<A->、<C->、<S-> の全ての組み合わせパターン
+- <m> は 空、W、A、C、S の全ての組み合わせパターン
 
 *** 留意事項
 

@@ -343,41 +343,24 @@ Emacs 日本語入力モードは、次の操作で終了します。
 
 **** ● ファンクションキーの設定（use_alt_digit_key_for_f1_to_f12 が True の場合）
 
-|----------------------+----------------------------------------+-------------|
-| Keybind              | Function                               | Description |
-|----------------------+----------------------------------------+-------------|
-| A-1                  | self_insert_command("(<VK_F1  の値>)") |             |
-| A-2                  | self_insert_command("(<VK_F2  の値>)") |             |
-| A-3                  | self_insert_command("(<VK_F3  の値>)") |             |
-| A-4                  | self_insert_command("(<VK_F4  の値>)") |             |
-| A-5                  | self_insert_command("(<VK_F5  の値>)") |             |
-| A-6                  | self_insert_command("(<VK_F6  の値>)") |             |
-| A-7                  | self_insert_command("(<VK_F7  の値>)") |             |
-| A-8                  | self_insert_command("(<VK_F8  の値>)") |             |
-| A-9                  | self_insert_command("(<VK_F9  の値>)") |             |
-| A-0                  | self_insert_command("(<VK_F10 の値>)") |             |
-| A-<上記の右隣のキー> | self_insert_command("(<VK_F11 の値>)") |             |
-| A-<上記の右隣のキー> | self_insert_command("(<VK_F12 の値>)") |             |
-|----------------------+----------------------------------------+-------------|
+|--------------------------+--------------------------------+-------------|
+| Keybind                  | Function                       | Description |
+|--------------------------+--------------------------------+-------------|
+| A-<m>-1                  | self_insert_command("<m>-F1")  |             |
+| A-<m>-2                  | self_insert_command("<m>-F2")  |             |
+| A-<m>-3                  | self_insert_command("<m>-F3")  |             |
+| A-<m>-4                  | self_insert_command("<m>-F4")  |             |
+| A-<m>-5                  | self_insert_command("<m>-F5")  |             |
+| A-<m>-6                  | self_insert_command("<m>-F6")  |             |
+| A-<m>-7                  | self_insert_command("<m>-F7")  |             |
+| A-<m>-8                  | self_insert_command("<m>-F8")  |             |
+| A-<m>-9                  | self_insert_command("<m>-F9")  |             |
+| A-<m>-0                  | self_insert_command("<m>-F10") |             |
+| A-<m>-<上記の右隣のキー> | self_insert_command("<m>-F11") |             |
+| A-<m>-<上記の右隣のキー> | self_insert_command("<m>-F12") |             |
+|--------------------------+--------------------------------+-------------|
 
-**** ● ファンクションキーの設定（use_alt_shift_digit_key_for_f13_to_f24 が True の場合）
-
-|------------------------+----------------------------------------+-------------|
-| Keybind                | Function                               | Description |
-|------------------------+----------------------------------------+-------------|
-| A-S-1                  | self_insert_command("(<VK_F13 の値>)") |             |
-| A-S-2                  | self_insert_command("(<VK_F14 の値>)") |             |
-| A-S-3                  | self_insert_command("(<VK_F15 の値>)") |             |
-| A-S-4                  | self_insert_command("(<VK_F16 の値>)") |             |
-| A-S-5                  | self_insert_command("(<VK_F17 の値>)") |             |
-| A-S-6                  | self_insert_command("(<VK_F18 の値>)") |             |
-| A-S-7                  | self_insert_command("(<VK_F19 の値>)") |             |
-| A-S-8                  | self_insert_command("(<VK_F20 の値>)") |             |
-| A-S-9                  | self_insert_command("(<VK_F21 の値>)") |             |
-| A-S-0                  | self_insert_command("(<VK_F22 の値>)") |             |
-| A-S-<上記の右隣のキー> | self_insert_command("(<VK_F23 の値>)") |             |
-| A-S-<上記の右隣のキー> | self_insert_command("(<VK_F24 の値>)") |             |
-|------------------------+----------------------------------------+-------------|
+- <m> は 空、W、C、S の全ての組み合わせパターン
 
 **** ● デスクトップに関するキー設定
 
