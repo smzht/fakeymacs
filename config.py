@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240621_01"
+fakeymacs_version = "20240724_01"
 
 import time
 import os.path
@@ -308,6 +308,9 @@ def configure(keymap):
     # C-[ キーを Meta キーとして使うかどうかを指定する（True: 使う、False: 使わない）
     # （True（Meta キーとして使う）に設定されている場合、C-[ の二回押下で ESC が入力されます）
     fc.use_ctrl_openbracket_as_meta = True
+
+    # CapsLock キーを Ctrl キーとして使うかどうかを指定する（True: 使う、False: 使わない）
+    fc.use_capslock_as_ctrl  = False
 
     # Ctl-x プレフィックスキーに使うキーを指定する
     # （Ctl-x プレフィックスキーのモディファイアキーは、Ctrl または Alt のいずれかから指定してください）
@@ -1407,6 +1410,19 @@ def configure(keymap):
     ## 共通関数
     ##################################################
 
+    def shiftDown():
+        self_insert_command("D-Shift")()
+
+    def shiftUp():
+        self_insert_command("U-Shift")()
+
+    def shiftCommand(func):
+        def _func():
+            shiftUp()
+            func()
+            shiftDown()
+        return _func
+
     def updateKeymap(force_update=False):
         fakeymacs.force_update = force_update
         keymap.updateKeymap()
@@ -1553,7 +1569,9 @@ def configure(keymap):
             key_list0 = []
             key_list1 = []
             key_list2 = []
+            key_list3 = []
             key_lists0 = []
+            key_lists1 = []
 
             for key in map(specialCharToKeyStr, keys.split()):
                 if key == "Ctl-x":
@@ -1599,9 +1617,24 @@ def configure(keymap):
                 if key_list0 != key_list2:
                     key_lists0.append(key_list2)
 
+            if key_list3:
+                if key_list0 != key_list3:
+                    key_lists0.append(key_list3)
+
             for key_list in key_lists0:
                 key_list[0] = addSideOfModifierKey(key_list[0])
-                key_lists.append(list(map(keyStrNormalization, key_list)))
+                key_lists1.append(list(map(keyStrNormalization, key_list)))
+
+            for key_list in key_lists1:
+                key_lists.append(key_list)
+
+                if fc.use_capslock_as_ctrl:
+                    if ("CapsLock" not in key_list[-1] and
+                        re.search(rf"(^|-|{fc.side_of_ctrl_key})C-", key_list[-1])):
+                        key_list0 = copy.copy(key_list)
+                        key_list0[-1] = re.sub(rf"(^|-|{fc.side_of_ctrl_key})C-", r"\1C-", key_list0[-1])
+                        key_list0[-1] = key_list0[-1].replace("C-", "U2-")
+                        key_lists.append(key_list0)
 
         return key_lists
 
@@ -1679,7 +1712,10 @@ def configure(keymap):
                 else:
                     _command1 = command
 
-                return _command1
+                if fc.use_capslock_as_ctrl and os_keyboard_type == "JP" and "U2-" in key_list[-1]:
+                    return shiftCommand(_command1)
+                else:
+                    return _command1
             else:
                 return command
 
@@ -2526,7 +2562,13 @@ def configure(keymap):
 
                 if process_name is None or process_name == process_name2:
                     class_name = window.getClassName()
-                    title = re.sub(r".* ‎- ", r"", window.getText())
+                    # title = re.sub(r".* ‎- ", r"", window.getText())
+
+                    title = window.getText()
+                    # title = re.sub(r".* ‎- ", r"", title)
+                    # title = re.sub(r".* .?- ", r"", title)
+                    # if title != window.getText():
+                    #     print("\n## " + process_name2 + " : " + window.getText())
 
                     # RemoteApp を利用する際のおまじない
                     if (process_name2 == "mstsc.exe" and
@@ -2543,9 +2585,11 @@ def configure(keymap):
                             # （http://mrxray.on.coocan.jp/Delphi/plSamples/324_CheckRun_UWPApp.htm）
 
                             if class_name == "Windows.UI.Core.CoreWindow":
+                                # print("Windows.UI.Core.CoreWindow : " + title + " : " + str(window.isMinimized()))
                                 window_title = title
 
                             elif class_name == "ApplicationFrameWindow":
+                                # print("ApplicationFrameWindow     : " + title + " : " + str(window.isMinimized()))
                                 if title != "Cortana":
                                     if (title != window_title or window.isMinimized() or
                                         window in fakeymacs.window_list): # UWPアプリの仮想デスクトップ対策
@@ -2935,3 +2979,40 @@ def configure(keymap):
 
     # 個人設定ファイルのセクション [section-extension-space_fn] を読み込んで実行する
     exec(readConfigPersonal("[section-extension-space_fn]"), dict(globals(), **locals()))
+
+    # CapsLock キーを Ctrl キーとして使うための設定を行う
+    if fc.use_capslock_as_ctrl:
+        keymap.defineModifier("CapsLock", "User2")
+
+        if os_keyboard_type == "JP":
+            ctrl = fc.side_of_ctrl_key + "Ctrl"
+            alt = fc.side_of_alt_key + "Alt"
+            win = fc.side_of_win_key + "Win"
+
+            def postProcessing():
+                shiftUp()
+                keymap.modifier &= ~keymap.vk_mod_map[VK_CAPITAL]
+                pyauto.Input.send([pyauto.KeyUp(VK_CAPITAL)])
+                pyauto.Input.send([pyauto.KeyUp(strToVk(ctrl))])
+                pyauto.Input.send([pyauto.KeyUp(strToVk(alt))])
+                pyauto.Input.send([pyauto.KeyUp(strToVk(win))])
+
+            keymap.replaceKey("(240)", "CapsLock")
+
+            keymap_global["CapsLock"] = shiftDown
+            keymap_global["U-CapsLock"] = shiftUp
+
+            keymap_global["S-CapsLock"] = lambda: None
+
+            keymap_global["C-CapsLock"] = shiftDown
+            keymap_global["U-U2-" + ctrl] = postProcessing
+
+            keymap_global["A-CapsLock"] = shiftDown
+            keymap_global["U-U2-" + alt] = postProcessing
+
+            keymap_global["W-CapsLock"] = shiftDown
+            keymap_global["U-U2-" + win] = postProcessing
+        else:
+            keymap_global["CapsLock"] = lambda: None
+            keymap_global["W-CapsLock"] = lambda: None
+            keymap_global["S-(240)"] = lambda: None
