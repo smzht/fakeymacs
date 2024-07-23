@@ -3001,5 +3001,5 @@ def configure(keymap):
             keymap_global["U-U2-" + win] = postProcessing
         else:
             keymap_global["CapsLock"] = lambda: None
-            keymap_global["W-CapsLock"] = lambda: None
+            keymap_global["W-CapsLock"] = "W-Ctrl"
             keymap_global["S-(240)"] = lambda: None
