@@ -1569,7 +1569,6 @@ def configure(keymap):
             key_list0 = []
             key_list1 = []
             key_list2 = []
-            key_list3 = []
             key_lists0 = []
             key_lists1 = []
 
@@ -1616,10 +1615,6 @@ def configure(keymap):
             if key_list2:
                 if key_list0 != key_list2:
                     key_lists0.append(key_list2)
-
-            if key_list3:
-                if key_list0 != key_list3:
-                    key_lists0.append(key_list3)
 
             for key_list in key_lists0:
                 key_list[0] = addSideOfModifierKey(key_list[0])
@@ -2562,13 +2557,7 @@ def configure(keymap):
 
                 if process_name is None or process_name == process_name2:
                     class_name = window.getClassName()
-                    # title = re.sub(r".* ‎- ", r"", window.getText())
-
-                    title = window.getText()
-                    # title = re.sub(r".* ‎- ", r"", title)
-                    # title = re.sub(r".* .?- ", r"", title)
-                    # if title != window.getText():
-                    #     print("\n## " + process_name2 + " : " + window.getText())
+                    title = re.sub(r".* ‎- ", r"", window.getText())
 
                     # RemoteApp を利用する際のおまじない
                     if (process_name2 == "mstsc.exe" and
@@ -2585,11 +2574,9 @@ def configure(keymap):
                             # （http://mrxray.on.coocan.jp/Delphi/plSamples/324_CheckRun_UWPApp.htm）
 
                             if class_name == "Windows.UI.Core.CoreWindow":
-                                # print("Windows.UI.Core.CoreWindow : " + title + " : " + str(window.isMinimized()))
                                 window_title = title
 
                             elif class_name == "ApplicationFrameWindow":
-                                # print("ApplicationFrameWindow     : " + title + " : " + str(window.isMinimized()))
                                 if title != "Cortana":
                                     if (title != window_title or window.isMinimized() or
                                         window in fakeymacs.window_list): # UWPアプリの仮想デスクトップ対策
