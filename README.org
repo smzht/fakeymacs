@@ -69,7 +69,7 @@ CapsLock のキーの置き換えは Keyhac ではできませんので、KeySwa
 変更後、Windows の再ログインを行ってください。
 
 なお、管理権限を持たない PC を利用している場合は、Fakeymacs の機能で CapsLock キーを
-Control キーとして利用する方法があります。詳しくは、7) の項を参照してください。
+Control キーとして利用することができます。詳しくは、7) の項を参照してください。
 
 *** 2) IMEを切り替えるショートカットキーを無効化する
 
@@ -157,8 +157,8 @@ _config_personal.py ファイルを config_personal.pyという名称に変更�
 変更する必要があります。この場合、左 Control キーは従来どおり Windows ショートカット用
 のキーとして利用できます。
 
-※ 管理権限を持たない PC を利用している場合でレジストリによるキーの置き換えができない場合には、
-fc.use_capslock_as_ctrl を True にすることで、CapsLock キーが Control キーとして利用できるようになります。
+※ 管理権限を持たない PC を利用している場合でレジストリによるキーの置き換えができない場合、
+fc.use_capslock_as_ctrl を True にすることで、CapsLock キーを Control キーとして利用することができます。
 この機能を利用する場合、次の点に留意してください。
 - fc.transparent_target に指定したアプリにはこの機能は適用されません
 - CapsLock キーをマウスと組み合せて利用することができません
