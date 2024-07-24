@@ -2976,7 +2976,6 @@ def configure(keymap):
 
         if os_keyboard_type == "JP":
             keymap.replaceKey("(240)", "CapsLock")
-
             keymap_global["CapsLock"]   = "D-Shift"
             keymap_global["U-CapsLock"] = "U-Shift"
         else:
