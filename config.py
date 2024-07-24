@@ -2968,38 +2968,42 @@ def configure(keymap):
     exec(readConfigPersonal("[section-extension-space_fn]"), dict(globals(), **locals()))
 
     # CapsLock キーを Ctrl キーとして使うための設定を行う
-    if fc.use_capslock_as_ctrl:
-        keymap.defineModifier("CapsLock", "User2")
+    keymap.defineModifier("CapsLock", "User2")
 
-        if os_keyboard_type == "JP":
-            ctrl = fc.side_of_ctrl_key + "Ctrl"
-            alt = fc.side_of_alt_key + "Alt"
-            win = fc.side_of_win_key + "Win"
+    ctrl = fc.side_of_ctrl_key + "Ctrl"
+    alt = fc.side_of_alt_key + "Alt"
+    win = fc.side_of_win_key + "Win"
 
-            def postProcessing():
-                shiftUp()
-                keymap.modifier &= ~keymap.vk_mod_map[VK_CAPITAL]
-                pyauto.Input.send([pyauto.KeyUp(VK_CAPITAL)])
-                pyauto.Input.send([pyauto.KeyUp(strToVk(ctrl))])
-                pyauto.Input.send([pyauto.KeyUp(strToVk(alt))])
-                pyauto.Input.send([pyauto.KeyUp(strToVk(win))])
+    def postProcessing():
+        keymap.modifier &= ~keymap.vk_mod_map[VK_CAPITAL]
+        pyauto.Input.send([pyauto.KeyUp(VK_CAPITAL)])
+        pyauto.Input.send([pyauto.KeyUp(strToVk(ctrl))])
+        pyauto.Input.send([pyauto.KeyUp(strToVk(alt))])
+        pyauto.Input.send([pyauto.KeyUp(strToVk(win))])
+        pyauto.Input.send([pyauto.KeyUp(VK_LSHIFT)])
+        pyauto.Input.send([pyauto.KeyUp(VK_RSHIFT)])
 
-            keymap.replaceKey("(240)", "CapsLock")
+    if os_keyboard_type == "JP":
+        keymap.replaceKey("(240)", "CapsLock")
 
-            keymap_global["CapsLock"] = shiftDown
-            keymap_global["U-CapsLock"] = shiftUp
+        keymap_global["CapsLock"] = shiftDown
+        keymap_global["U-CapsLock"] = shiftUp
+    else:
+        keymap_global["CapsLock"] = lambda: None
+        keymap_global["S-(240)"] = lambda: None
 
-            keymap_global["S-CapsLock"] = lambda: None
+    keymap_global["S-CapsLock"] = lambda: None
+    keymap_global["U-U2-LShift"] = postProcessing
+    keymap_global["U-U2-RShift"] = postProcessing
 
-            keymap_global["C-CapsLock"] = shiftDown
-            keymap_global["U-U2-" + ctrl] = postProcessing
+    keymap_global["C-CapsLock"] = lambda: None
+    keymap_global["U-U2-" + ctrl] = postProcessing
 
-            keymap_global["A-CapsLock"] = shiftDown
-            keymap_global["U-U2-" + alt] = postProcessing
+    keymap_global["A-CapsLock"] = lambda: None
+    keymap_global["U-U2-" + alt] = postProcessing
 
-            keymap_global["W-CapsLock"] = shiftDown
-            keymap_global["U-U2-" + win] = postProcessing
-        else:
-            keymap_global["CapsLock"] = lambda: None
-            keymap_global["W-CapsLock"] = "W-Ctrl"
-            keymap_global["S-(240)"] = lambda: None
+    keymap_global["W-CapsLock"] = "W-Ctrl"
+    keymap_global["U-U2-" + win] = postProcessing
+
+    keymap_global["U2-CapsLock"] = lambda: None
+    
