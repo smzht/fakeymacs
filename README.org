@@ -158,7 +158,7 @@ _config_personal.py ファイルを config_personal.pyという名称に変更�
 のキーとして利用できます。
 
 ※ 管理権限を持たない PC を利用している場合でレジストリによるキーの置き換えができない場合、
-fc.use_capslock_as_ctrl を True にすることで、CapsLock キーを Control キーとして利用することができます。
+fc.use_capslock_as_ctrl を True にすることで CapsLock キーを Control キーとして利用することができます。
 この機能を利用する場合、次の点に留意してください。
 - fc.transparent_target に指定したアプリにはこの機能は適用されません
 - CapsLock キーをマウスと組み合せて利用することができません
