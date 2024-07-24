@@ -2963,14 +2963,14 @@ def configure(keymap):
         keymap.defineModifier("CapsLock", "User2")
 
         def postProcessing():
+            pyauto.Input.send([pyauto.KeyUp(VK_LSHIFT)])
+            pyauto.Input.send([pyauto.KeyUp(VK_RSHIFT)])
             pyauto.Input.send([pyauto.KeyUp(VK_RCONTROL)])
             pyauto.Input.send([pyauto.KeyUp(VK_LCONTROL)])
             pyauto.Input.send([pyauto.KeyUp(VK_LMENU)])
             pyauto.Input.send([pyauto.KeyUp(VK_RMENU)])
             pyauto.Input.send([pyauto.KeyUp(VK_LWIN)])
             pyauto.Input.send([pyauto.KeyUp(VK_RWIN)])
-            pyauto.Input.send([pyauto.KeyUp(VK_LSHIFT)])
-            pyauto.Input.send([pyauto.KeyUp(VK_RSHIFT)])
             pyauto.Input.send([pyauto.KeyUp(VK_CAPITAL)])
             keymap.modifier &= ~keymap.vk_mod_map[VK_CAPITAL]
 
