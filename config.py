@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240724_03"
+fakeymacs_version = "20240724_04"
 
 import time
 import os.path
@@ -2962,36 +2962,38 @@ def configure(keymap):
     if fc.use_capslock_as_ctrl:
         keymap.defineModifier("CapsLock", "User2")
 
-        ctl = fc.side_of_ctrl_key + "Ctrl"
-        alt = fc.side_of_alt_key + "Alt"
-        win = fc.side_of_win_key + "Win"
-
         def postProcessing():
-            keymap.modifier &= ~keymap.vk_mod_map[VK_CAPITAL]
-            pyauto.Input.send([pyauto.KeyUp(VK_CAPITAL)])
-            pyauto.Input.send([pyauto.KeyUp(strToVk(ctl))])
-            pyauto.Input.send([pyauto.KeyUp(strToVk(alt))])
-            pyauto.Input.send([pyauto.KeyUp(strToVk(win))])
+            pyauto.Input.send([pyauto.KeyUp(VK_RCONTROL)])
+            pyauto.Input.send([pyauto.KeyUp(VK_LCONTROL)])
+            pyauto.Input.send([pyauto.KeyUp(VK_LMENU)])
+            pyauto.Input.send([pyauto.KeyUp(VK_RMENU)])
+            pyauto.Input.send([pyauto.KeyUp(VK_LWIN)])
+            pyauto.Input.send([pyauto.KeyUp(VK_RWIN)])
             pyauto.Input.send([pyauto.KeyUp(VK_LSHIFT)])
             pyauto.Input.send([pyauto.KeyUp(VK_RSHIFT)])
+            pyauto.Input.send([pyauto.KeyUp(VK_CAPITAL)])
+            keymap.modifier &= ~keymap.vk_mod_map[VK_CAPITAL]
 
         if os_keyboard_type == "JP":
             keymap.replaceKey("(240)", "CapsLock")
 
-            keymap_global["CapsLock"] = "D-Shift"
+            keymap_global["CapsLock"]   = "D-Shift"
             keymap_global["U-CapsLock"] = "U-Shift"
         else:
             keymap_global["CapsLock"] = lambda: None
-            keymap_global["S-(240)"] = lambda: None
+            keymap_global["S-(240)"]  = lambda: None
 
-        keymap_global["S-CapsLock"] = lambda: None
-        keymap_global["C-CapsLock"] = lambda: None
-        keymap_global["A-CapsLock"] = lambda: None
-        keymap_global["W-CapsLock"] = "W-Ctrl"
+        keymap_global["S-CapsLock"]  = lambda: None
+        keymap_global["C-CapsLock"]  = lambda: None
+        keymap_global["A-CapsLock"]  = lambda: None
+        keymap_global["W-CapsLock"]  = "W-Ctrl"
         keymap_global["U2-CapsLock"] = lambda: None
 
         keymap_global["U-U2-LShift"] = postProcessing
         keymap_global["U-U2-RShift"] = postProcessing
-        keymap_global["U-U2-" + ctl] = postProcessing
-        keymap_global["U-U2-" + alt] = postProcessing
-        keymap_global["U-U2-" + win] = postProcessing
+        keymap_global["U-U2-LCtrl"]  = postProcessing
+        keymap_global["U-U2-RCtrl"]  = postProcessing
+        keymap_global["U-U2-LAlt"]   = postProcessing
+        keymap_global["U-U2-RAlt"]   = postProcessing
+        keymap_global["U-U2-LWin"]   = postProcessing
+        keymap_global["U-U2-RWin"]   = postProcessing
