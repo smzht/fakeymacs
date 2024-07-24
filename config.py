@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240724_01"
+fakeymacs_version = "20240724_02"
 
 import time
 import os.path
@@ -2971,14 +2971,14 @@ def configure(keymap):
     if fc.use_capslock_as_ctrl:
         keymap.defineModifier("CapsLock", "User2")
 
-        ctrl = fc.side_of_ctrl_key + "Ctrl"
+        ctl = fc.side_of_ctrl_key + "Ctrl"
         alt = fc.side_of_alt_key + "Alt"
         win = fc.side_of_win_key + "Win"
 
         def postProcessing():
             keymap.modifier &= ~keymap.vk_mod_map[VK_CAPITAL]
             pyauto.Input.send([pyauto.KeyUp(VK_CAPITAL)])
-            pyauto.Input.send([pyauto.KeyUp(strToVk(ctrl))])
+            pyauto.Input.send([pyauto.KeyUp(strToVk(ctl))])
             pyauto.Input.send([pyauto.KeyUp(strToVk(alt))])
             pyauto.Input.send([pyauto.KeyUp(strToVk(win))])
             pyauto.Input.send([pyauto.KeyUp(VK_LSHIFT)])
@@ -2994,16 +2994,13 @@ def configure(keymap):
             keymap_global["S-(240)"] = lambda: None
 
         keymap_global["S-CapsLock"] = lambda: None
+        keymap_global["C-CapsLock"] = lambda: None
+        keymap_global["A-CapsLock"] = lambda: None
+        keymap_global["W-CapsLock"] = "W-Ctrl"
+        keymap_global["U2-CapsLock"] = lambda: None
+
         keymap_global["U-U2-LShift"] = postProcessing
         keymap_global["U-U2-RShift"] = postProcessing
-
-        keymap_global["C-CapsLock"] = lambda: None
-        keymap_global["U-U2-" + ctrl] = postProcessing
-
-        keymap_global["A-CapsLock"] = lambda: None
+        keymap_global["U-U2-" + ctl] = postProcessing
         keymap_global["U-U2-" + alt] = postProcessing
-
-        keymap_global["W-CapsLock"] = "W-Ctrl"
         keymap_global["U-U2-" + win] = postProcessing
-
-        keymap_global["U2-CapsLock"] = lambda: None
