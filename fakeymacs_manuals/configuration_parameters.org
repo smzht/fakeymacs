@@ -8,57 +8,58 @@ Fakeymacs をカスタマイズするために、以下のコンフィグレー�
 
 コンフィグレーションパラメータの初期値および詳細の説明は、config.py の内容を参照してください。
 
-|-------------------------------------------+----------------------------------------------------------------------------------------------------------------------------|
-| Configuration parameter                   | Description                                                                                                                |
-|-------------------------------------------+----------------------------------------------------------------------------------------------------------------------------|
-| fc.ime                                    | 利用している IME を指定する                                                                                                |
-| fc.use_usjis_keyboard_conversion          | 日本語キーボード設定をした OS 上で英語キーボードを利用するかどうかを指定する                                               |
-| fc.use_ime_status_cursor_color            | IME の状態をテキスト カーソル インジケーターの色で表現するかどうかを指定する                                               |
-| fc.ime_on_cursor_color                    | IME が ON のときのテキスト カーソル インジケーターの色を指定する                                                           |
-| fc.ime_off_cursor_color                   | IME が OFF のときのテキスト カーソル インジケーターの色を指定する                                                          |
-| fc.correct_ime_status                     | Chromium 系ブラウザで発生する問題の対策を行うかどうかを指定する                                                            |
-| fc.chromium_browser_list                  | Chromium 系ブラウザのプログラム名称を指定する                                                                              |
-| fc.transparent_target                     | すべてのキーマップを透過（スルー）するアプリケーションソフトを指定する（全ての設定に優先する）                             |
-| fc.transparent_target_class               | すべてのキーマップを透過（スルー）するアプリケーションソフトを指定する（全ての設定に優先する）                             |
-| fc.emacs_target_class                     | Emacs のキーバインドにするウィンドウのクラスネームを指定する（fc.not_emacs_target の設定より優先する）                     |
-| fc.not_emacs_target                       | Emacs のキーバインドに“したくない”アプリケーションソフトを指定する                                                       |
-| fc.ime_target                             | IME の切り替え“のみをしたい”アプリケーションソフトを指定する                                                             |
-| fc.skip_settings_key                      | キーマップ毎にキー設定をスキップするキーを指定する                                                                         |
-| fc.emacs_exclusion_key                    | Emacs のキーバインドにするアプリケーションソフトで、Emacs キーバインドから除外するキーを指定する                           |
-| fc.not_clipboard_target                   | clipboard 監視の対象外とするアプリケーションソフトを指定する                                                               |
-| fc.not_clipboard_target_class             | clipboard 監視の対象外とするウィンドウのクラスネームを指定する（ワイルドカードの指定可）                                   |
-| fc.side_of_ctrl_key                       | 左右どちらの Ctrl キーを使うかを指定する                                                                                   |
-| fc.side_of_alt_key                        | 左右どちらの Alt キーを使うかを指定する                                                                                    |
-| fc.side_of_win_key                        | 左右どちらの Win キーを使うかを指定する                                                                                    |
-| fc.use_ctrl_i_as_tab                      | C-i キーを Tab キーとして使うかどうかを指定する                                                                            |
-| fc.use_esc_as_meta                        | Esc キーを Meta キーとして使うかどうかを指定する                                                                           |
-| fc.use_ctrl_openbracket_as_meta           | C-[ キーを Meta キーとして使うかどうかを指定する                                                                           |
-| fc.ctl_x_prefix_key                       | Ctl-x プレフィックスキーに使うキーを指定する                                                                               |
-| fc.scroll_key                             | スクロールに使うキーの組み合わせ（Up、Down の順）を指定する                                                                |
-| fc.use_emacs_ime_mode                     | Emacs 日本語入力モードを使うかどうかを指定する                                                                             |
-| fc.emacs_ime_mode_balloon_message         | Emacs 日本語入力モードが有効なときに表示するバルーンメッセージを指定する                                                   |
-| fc.use_ime_status_balloon                 | IME の状態を表示するバルーンメッセージを表示するかどうかを指定する                                                         |
-| fc.ime_status_balloon_message             | IME の状態を表示するバルーンメッセージの組み合わせ（英数入力、日本語入力）を指定する                                       |
-| fc.use_ime_status_reset                   | ウィンドウが切り替わった際、IME の状態をリセット（英数入力）するかを指定する                                               |
-| fc.toggle_input_method_key                | IME をトグルで切り替えるキーを指定する（複数指定可）                                                                       |
-| fc.set_input_method_key                   | IME を切り替えるキーの組み合わせ（disable、enable の順）を指定する（複数指定可）                                           |
-| fc.reconversion_key                       | IME の「再変換」を行うキーを指定する（複数指定可）                                                                         |
-| fc.emacs_ime_mode_key                     | Emacs 日本語入力モードを利用する際に、IME のショートカットを置き換えるキーの組み合わせ（置き換え先、置き換え元）を指定する |
-| fc.word_register_key                      | IME の「単語登録」プログラムを起動するキーを指定する                                                                       |
-| fc.toggle_emacs_keybind_key               | Emacs キーバインドを切り替えるキーを指定する                                                                               |
-| fc.application_key                        | アプリケーションキーとして利用するキーを指定する                                                                           |
-| fc.use_ctrl_digit_key_for_digit_argument  | 数引数の指定に Ctrl+数字キーを使うかを指定する                                                                             |
-| fc.use_alt_digit_key_for_f1_to_f12        | 数字キー列が Alt キーと一緒に押されたとき、F1 から F12 のファンクションキーとして使うかを指定する                          |
-| fc.other_window_key                       | 表示しているウィンドウの中で、一番最近までフォーカスがあったウィンドウに移動するキーを指定する                             |
-| fc.window_operation_exclusion_class       | ウィンドウ操作（other_window など）の対象としたくないアプリケーションソフトの“クラス名称”を指定する                      |
-| fc.window_operation_exclusion_process     | ウィンドウ操作（other_window など）の対象としたくないアプリケーションソフトの“プロセス名称”を指定する                    |
-| fc.clipboardList_key                      | クリップボードリストを起動するキーを指定する                                                                               |
-| fc.clipboardList_listers                  | クリップボードリストの利用アイテムを指定する                                                                               |
-| fc.lancherList_key                        | ランチャーリストを起動するキーを指定する                                                                                   |
-| fc.lancherList_listers                    | ランチャーリストの利用アイテムを指定する                                                                                   |
-| fc.command_name                           | shell_command 関数で起動するアプリケーションソフトを指定する                                                               |
-| fc.repeat_max                             | コマンドのリピート回数の最大値を指定する                                                                                   |
-| fc.is_newline_selectable_in_Excel         | Microsoft Excel のセル内で改行を選択可能かを指定する                                                                       |
-| fc.ctrl_button_app_list                   | Ctrl キー単押しで開く Ctrl ボタンを持つアプリケーションソフトを指定する                                                    |
-| fc.game_app_list                          | ゲームなど、キーバインドの設定を極力行いたくないアプリケーションソフトを指定する                                           |
-|-------------------------------------------+----------------------------------------------------------------------------------------------------------------------------|
+|------------------------------------------+----------------------------------------------------------------------------------------------------------------------------|
+| Configuration parameter                  | Description                                                                                                                |
+|------------------------------------------+----------------------------------------------------------------------------------------------------------------------------|
+| fc.ime                                   | 利用している IME を指定する                                                                                                |
+| fc.use_usjis_keyboard_conversion         | 日本語キーボード設定をした OS 上で英語キーボードを利用するかどうかを指定する                                               |
+| fc.use_ime_status_cursor_color           | IME の状態をテキスト カーソル インジケーターの色で表現するかどうかを指定する                                               |
+| fc.ime_on_cursor_color                   | IME が ON のときのテキスト カーソル インジケーターの色を指定する                                                           |
+| fc.ime_off_cursor_color                  | IME が OFF のときのテキスト カーソル インジケーターの色を指定する                                                          |
+| fc.correct_ime_status                    | Chromium 系ブラウザで発生する問題の対策を行うかどうかを指定する                                                            |
+| fc.chromium_browser_list                 | Chromium 系ブラウザのプログラム名称を指定する                                                                              |
+| fc.transparent_target                    | すべてのキーマップを透過（スルー）するアプリケーションソフトを指定する（全ての設定に優先する）                             |
+| fc.transparent_target_class              | すべてのキーマップを透過（スルー）するアプリケーションソフトを指定する（全ての設定に優先する）                             |
+| fc.emacs_target_class                    | Emacs のキーバインドにするウィンドウのクラスネームを指定する（fc.not_emacs_target の設定より優先する）                     |
+| fc.not_emacs_target                      | Emacs のキーバインドに“したくない”アプリケーションソフトを指定する                                                       |
+| fc.ime_target                            | IME の切り替え“のみをしたい”アプリケーションソフトを指定する                                                             |
+| fc.skip_settings_key                     | キーマップ毎にキー設定をスキップするキーを指定する                                                                         |
+| fc.emacs_exclusion_key                   | Emacs のキーバインドにするアプリケーションソフトで、Emacs キーバインドから除外するキーを指定する                           |
+| fc.not_clipboard_target                  | clipboard 監視の対象外とするアプリケーションソフトを指定する                                                               |
+| fc.not_clipboard_target_class            | clipboard 監視の対象外とするウィンドウのクラスネームを指定する（ワイルドカードの指定可）                                   |
+| fc.side_of_ctrl_key                      | 左右どちらの Ctrl キーを使うかを指定する                                                                                   |
+| fc.side_of_alt_key                       | 左右どちらの Alt キーを使うかを指定する                                                                                    |
+| fc.side_of_win_key                       | 左右どちらの Win キーを使うかを指定する                                                                                    |
+| fc.use_ctrl_i_as_tab                     | C-i キーを Tab キーとして使うかどうかを指定する                                                                            |
+| fc.use_esc_as_meta                       | Esc キーを Meta キーとして使うかどうかを指定する                                                                           |
+| fc.use_ctrl_openbracket_as_meta          | C-[ キーを Meta キーとして使うかどうかを指定する                                                                           |
+| fc.use_capslock_as_ctrl                  | CapsLock キーを Ctrl キーとして使うかどうかを指定する                                                                      |
+| fc.ctl_x_prefix_key                      | Ctl-x プレフィックスキーに使うキーを指定する                                                                               |
+| fc.scroll_key                            | スクロールに使うキーの組み合わせ（Up、Down の順）を指定する                                                                |
+| fc.use_emacs_ime_mode                    | Emacs 日本語入力モードを使うかどうかを指定する                                                                             |
+| fc.emacs_ime_mode_balloon_message        | Emacs 日本語入力モードが有効なときに表示するバルーンメッセージを指定する                                                   |
+| fc.use_ime_status_balloon                | IME の状態を表示するバルーンメッセージを表示するかどうかを指定する                                                         |
+| fc.ime_status_balloon_message            | IME の状態を表示するバルーンメッセージの組み合わせ（英数入力、日本語入力）を指定する                                       |
+| fc.use_ime_status_reset                  | ウィンドウが切り替わった際、IME の状態をリセット（英数入力）するかを指定する                                               |
+| fc.toggle_input_method_key               | IME をトグルで切り替えるキーを指定する（複数指定可）                                                                       |
+| fc.set_input_method_key                  | IME を切り替えるキーの組み合わせ（disable、enable の順）を指定する（複数指定可）                                           |
+| fc.reconversion_key                      | IME の「再変換」を行うキーを指定する（複数指定可）                                                                         |
+| fc.emacs_ime_mode_key                    | Emacs 日本語入力モードを利用する際に、IME のショートカットを置き換えるキーの組み合わせ（置き換え先、置き換え元）を指定する |
+| fc.word_register_key                     | IME の「単語登録」プログラムを起動するキーを指定する                                                                       |
+| fc.toggle_emacs_keybind_key              | Emacs キーバインドを切り替えるキーを指定する                                                                               |
+| fc.application_key                       | アプリケーションキーとして利用するキーを指定する                                                                           |
+| fc.use_ctrl_digit_key_for_digit_argument | 数引数の指定に Ctrl+数字キーを使うかを指定する                                                                             |
+| fc.use_alt_digit_key_for_f1_to_f12       | 数字キー列が Alt キーと一緒に押されたとき、F1 から F12 のファンクションキーとして使うかを指定する                          |
+| fc.other_window_key                      | 表示しているウィンドウの中で、一番最近までフォーカスがあったウィンドウに移動するキーを指定する                             |
+| fc.window_operation_exclusion_class      | ウィンドウ操作（other_window など）の対象としたくないアプリケーションソフトの“クラス名称”を指定する                      |
+| fc.window_operation_exclusion_process    | ウィンドウ操作（other_window など）の対象としたくないアプリケーションソフトの“プロセス名称”を指定する                    |
+| fc.clipboardList_key                     | クリップボードリストを起動するキーを指定する                                                                               |
+| fc.clipboardList_listers                 | クリップボードリストの利用アイテムを指定する                                                                               |
+| fc.lancherList_key                       | ランチャーリストを起動するキーを指定する                                                                                   |
+| fc.lancherList_listers                   | ランチャーリストの利用アイテムを指定する                                                                                   |
+| fc.command_name                          | shell_command 関数で起動するアプリケーションソフトを指定する                                                               |
+| fc.repeat_max                            | コマンドのリピート回数の最大値を指定する                                                                                   |
+| fc.is_newline_selectable_in_Excel        | Microsoft Excel のセル内で改行を選択可能かを指定する                                                                       |
+| fc.ctrl_button_app_list                  | Ctrl キー単押しで開く Ctrl ボタンを持つアプリケーションソフトを指定する                                                    |
+| fc.game_app_list                         | ゲームなど、キーバインドの設定を極力行いたくないアプリケーションソフトを指定する                                           |
+|------------------------------------------+----------------------------------------------------------------------------------------------------------------------------|
