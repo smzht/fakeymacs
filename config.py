@@ -2979,8 +2979,9 @@ def configure(keymap):
             keymap_global["CapsLock"]   = "D-Shift"
             keymap_global["U-CapsLock"] = "U-Shift"
         else:
+            keymap.replaceKey("(240)", "CapsLock")
+            keymap.replaceKey("(241)", "CapsLock")
             keymap_global["CapsLock"] = lambda: None
-            keymap_global["S-(240)"]  = lambda: None
 
         keymap_global["S-CapsLock"]  = lambda: None
         keymap_global["C-CapsLock"]  = lambda: None
