@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240724_02"
+fakeymacs_version = "20240724_03"
 
 import time
 import os.path
@@ -1410,19 +1410,6 @@ def configure(keymap):
     ## 共通関数
     ##################################################
 
-    def shiftDown():
-        self_insert_command("D-Shift")()
-
-    def shiftUp():
-        self_insert_command("U-Shift")()
-
-    def shiftCommand(func):
-        def _func():
-            shiftUp()
-            func()
-            shiftDown()
-        return _func
-
     def updateKeymap(force_update=False):
         fakeymacs.force_update = force_update
         keymap.updateKeymap()
@@ -1708,7 +1695,11 @@ def configure(keymap):
                     _command1 = command
 
                 if fc.use_capslock_as_ctrl and os_keyboard_type == "JP" and "U2-" in key_list[-1]:
-                    return shiftCommand(_command1)
+                    def _command4():
+                        InputKeyCommand("U-Shift")()
+                        _command1()
+                        InputKeyCommand("D-Shift")()
+                    return _command4
                 else:
                     return _command1
             else:
@@ -2987,8 +2978,8 @@ def configure(keymap):
         if os_keyboard_type == "JP":
             keymap.replaceKey("(240)", "CapsLock")
 
-            keymap_global["CapsLock"] = shiftDown
-            keymap_global["U-CapsLock"] = shiftUp
+            keymap_global["CapsLock"] = "D-Shift"
+            keymap_global["U-CapsLock"] = "U-Shift"
         else:
             keymap_global["CapsLock"] = lambda: None
             keymap_global["S-(240)"] = lambda: None
