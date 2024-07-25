@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240621_01"
+fakeymacs_version = "20240724_04"
 
 import time
 import os.path
@@ -308,6 +308,9 @@ def configure(keymap):
     # C-[ キーを Meta キーとして使うかどうかを指定する（True: 使う、False: 使わない）
     # （True（Meta キーとして使う）に設定されている場合、C-[ の二回押下で ESC が入力されます）
     fc.use_ctrl_openbracket_as_meta = True
+
+    # CapsLock キーを Ctrl キーとして使うかどうかを指定する（True: 使う、False: 使わない）
+    fc.use_capslock_as_ctrl  = False
 
     # Ctl-x プレフィックスキーに使うキーを指定する
     # （Ctl-x プレフィックスキーのモディファイアキーは、Ctrl または Alt のいずれかから指定してください）
@@ -1554,6 +1557,7 @@ def configure(keymap):
             key_list1 = []
             key_list2 = []
             key_lists0 = []
+            key_lists1 = []
 
             for key in map(specialCharToKeyStr, keys.split()):
                 if key == "Ctl-x":
@@ -1601,7 +1605,18 @@ def configure(keymap):
 
             for key_list in key_lists0:
                 key_list[0] = addSideOfModifierKey(key_list[0])
-                key_lists.append(list(map(keyStrNormalization, key_list)))
+                key_lists1.append(list(map(keyStrNormalization, key_list)))
+
+            for key_list in key_lists1:
+                key_lists.append(key_list)
+
+                if fc.use_capslock_as_ctrl:
+                    if ("CapsLock" not in key_list[-1] and
+                        re.search(rf"(^|-|{fc.side_of_ctrl_key})C-", key_list[-1])):
+                        key_list0 = copy.copy(key_list)
+                        key_list0[-1] = re.sub(rf"(^|-|{fc.side_of_ctrl_key})C-", r"\1C-", key_list0[-1])
+                        key_list0[-1] = key_list0[-1].replace("C-", "U2-")
+                        key_lists.append(key_list0)
 
         return key_lists
 
@@ -1679,7 +1694,14 @@ def configure(keymap):
                 else:
                     _command1 = command
 
-                return _command1
+                if fc.use_capslock_as_ctrl and os_keyboard_type == "JP" and "U2-" in key_list[-1]:
+                    def _command4():
+                        InputKeyCommand("U-Shift")()
+                        _command1()
+                        InputKeyCommand("D-Shift")()
+                    return _command4
+                else:
+                    return _command1
             else:
                 return command
 
@@ -2935,3 +2957,48 @@ def configure(keymap):
 
     # 個人設定ファイルのセクション [section-extension-space_fn] を読み込んで実行する
     exec(readConfigPersonal("[section-extension-space_fn]"), dict(globals(), **locals()))
+
+    # CapsLock キーを Ctrl キーとして使うための設定を行う
+    if fc.use_capslock_as_ctrl:
+        keymap.defineModifier("CapsLock", "User2")
+
+        def postProcessing():
+            pyauto.Input.send([pyauto.KeyUp(VK_LSHIFT)])
+            pyauto.Input.send([pyauto.KeyUp(VK_RSHIFT)])
+            pyauto.Input.send([pyauto.KeyUp(VK_RCONTROL)])
+            pyauto.Input.send([pyauto.KeyUp(VK_LCONTROL)])
+            pyauto.Input.send([pyauto.KeyUp(VK_LMENU)])
+            pyauto.Input.send([pyauto.KeyUp(VK_RMENU)])
+            pyauto.Input.send([pyauto.KeyUp(VK_LWIN)])
+            pyauto.Input.send([pyauto.KeyUp(VK_RWIN)])
+            pyauto.Input.send([pyauto.KeyUp(VK_CAPITAL)])
+            keymap.modifier &= ~keymap.vk_mod_map[VK_CAPITAL]
+
+        if os_keyboard_type == "JP":
+            keymap.replaceKey("(240)", "CapsLock")
+            keymap_global["CapsLock"]   = "D-Shift"
+            keymap_global["U-CapsLock"] = "U-Shift"
+        else:
+            keymap.replaceKey("(240)", "CapsLock")
+            keymap.replaceKey("(241)", "CapsLock")
+            keymap_global["CapsLock"] = lambda: None
+
+        for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
+            mod = mod1 + mod2 + mod3 + mod4
+            if mod:
+                keymap_global[mod + "CapsLock"] = lambda: None
+
+        keymap_global["W-CapsLock"]  = "W-Ctrl"
+        keymap_global["U2-CapsLock"] = lambda: None # CapsLock の長押し
+        keymap_global["U0-CapsLock"] = lambda: None
+        keymap_global["U1-CapsLock"] = lambda: None
+        keymap_global["U3-CapsLock"] = lambda: None
+
+        keymap_global["U-U2-LShift"] = postProcessing
+        keymap_global["U-U2-RShift"] = postProcessing
+        keymap_global["U-U2-LCtrl"]  = postProcessing
+        keymap_global["U-U2-RCtrl"]  = postProcessing
+        keymap_global["U-U2-LAlt"]   = postProcessing
+        keymap_global["U-U2-RAlt"]   = postProcessing
+        keymap_global["U-U2-LWin"]   = postProcessing
+        keymap_global["U-U2-RWin"]   = postProcessing

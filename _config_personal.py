@@ -112,6 +112,9 @@ fc.use_esc_as_meta = False
 # （True（Meta キーとして使う）に設定されている場合、C-[ の二回押下で ESC が入力されます）
 fc.use_ctrl_openbracket_as_meta = True
 
+# CapsLock キーを Ctrl キーとして使うかどうかを指定する（True: 使う、False: 使わない）
+fc.use_capslock_as_ctrl  = False
+
 # Ctl-x プレフィックスキーに使うキーを指定する
 # （Ctl-x プレフィックスキーのモディファイアキーは、Ctrl または Alt のいずれかから指定してください）
 fc.ctl_x_prefix_key = "C-x"
