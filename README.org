@@ -158,7 +158,7 @@ _config_personal.py ファイルを config_personal.pyという名称に変更�
 のキーとして利用できます。
 
 ※ 管理権限を持たない PC を利用している場合でレジストリによるキーの置き換えができない場合、
-fc.use_capslock_as_ctrl を True にすることで CapsLock キーを Control キーとして利用することができます。  
+fc.use_capslock_as_ctrl を True にすることで CapsLock キーを Control キーとして利用することができます。\\
 この機能の仕組みの説明は、次の Issue を参照してください。
  - https://github.com/smzht/fakeymacs/issues/42#issuecomment-2249829516
 また、この機能を利用する場合、次の点に留意してください。
