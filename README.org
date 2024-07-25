@@ -159,9 +159,9 @@ _config_personal.py ファイルを config_personal.pyという名称に変更�
 
 ※ 管理権限を持たない PC を利用している場合でレジストリによるキーの置き換えができない場合、
 fc.use_capslock_as_ctrl を True にすることで CapsLock キーを Control キーとして利用することができます。\\
-　この機能の仕組みの説明は、次の Issue を参照してください。
- - https://github.com/smzht/fakeymacs/issues/42#issuecomment-2249829516
-　また、この機能を利用する場合、次の点に留意してください。
+ この機能の仕組みの説明は、次の Issue を参照してください。
+ - https://github.com/smzht/fakeymacs/issues/42
+ また、この機能を利用する場合、次の点に留意してください。
 - fc.transparent_target に指定したアプリにはこの機能は適用されません
 - CapsLock キーをマウスと組み合せて利用することできない制限事項があります
 - 日本語キーボード設定となっている OS を利用している場合には、次の Issue のコメントに記載している制限事項があります。
