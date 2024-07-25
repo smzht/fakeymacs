@@ -2990,6 +2990,9 @@ def configure(keymap):
 
         keymap_global["W-CapsLock"]  = "W-Ctrl"
         keymap_global["U2-CapsLock"] = lambda: None # CapsLock の長押し
+        keymap_global["U0-CapsLock"] = lambda: None
+        keymap_global["U1-CapsLock"] = lambda: None
+        keymap_global["U3-CapsLock"] = lambda: None
 
         keymap_global["U-U2-LShift"] = postProcessing
         keymap_global["U-U2-RShift"] = postProcessing
