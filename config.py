@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240724_04"
+fakeymacs_version = "20240725_01"
 
 import time
 import os.path
@@ -1694,14 +1694,7 @@ def configure(keymap):
                 else:
                     _command1 = command
 
-                if fc.use_capslock_as_ctrl and os_keyboard_type == "JP" and "U2-" in key_list[-1]:
-                    def _command4():
-                        InputKeyCommand("U-Shift")()
-                        _command1()
-                        InputKeyCommand("D-Shift")()
-                    return _command4
-                else:
-                    return _command1
+                return _command1
             else:
                 return command
 
@@ -1830,6 +1823,9 @@ def configure(keymap):
                 key_list2 = ["D-Shift"] + key_list + ["U-Shift"]
             else:
                 key_list2 = key_list
+
+            if fakeymacs.capslock_down:
+                key_list2 = ["U-Shift"] + key_list2 + ["D-Shift"]
 
             keymap.InputKeyCommand(*key_list2)()
 
@@ -2958,9 +2954,28 @@ def configure(keymap):
     # 個人設定ファイルのセクション [section-extension-space_fn] を読み込んで実行する
     exec(readConfigPersonal("[section-extension-space_fn]"), dict(globals(), **locals()))
 
+    fakeymacs.capslock_down = False
+
     # CapsLock キーを Ctrl キーとして使うための設定を行う
     if fc.use_capslock_as_ctrl:
         keymap.defineModifier("CapsLock", "User2")
+
+        def capslockDown():
+            keymap.InputKeyCommand("D-Shift")()
+            fakeymacs.capslock_down = True
+
+        def capslockUp():
+            keymap.InputKeyCommand("U-Shift")()
+            fakeymacs.capslock_down = False
+
+        if os_keyboard_type == "JP":
+            keymap.replaceKey("(240)", "CapsLock")
+            keymap_global["CapsLock"]   = capslockDown
+            keymap_global["U-CapsLock"] = capslockUp
+        else:
+            keymap.replaceKey("(240)", "CapsLock")
+            keymap.replaceKey("(241)", "CapsLock")
+            keymap_global["CapsLock"] = lambda: None
 
         def postProcessing():
             pyauto.Input.send([pyauto.KeyUp(VK_LSHIFT)])
@@ -2973,15 +2988,7 @@ def configure(keymap):
             pyauto.Input.send([pyauto.KeyUp(VK_RWIN)])
             pyauto.Input.send([pyauto.KeyUp(VK_CAPITAL)])
             keymap.modifier &= ~keymap.vk_mod_map[VK_CAPITAL]
-
-        if os_keyboard_type == "JP":
-            keymap.replaceKey("(240)", "CapsLock")
-            keymap_global["CapsLock"]   = "D-Shift"
-            keymap_global["U-CapsLock"] = "U-Shift"
-        else:
-            keymap.replaceKey("(240)", "CapsLock")
-            keymap.replaceKey("(241)", "CapsLock")
-            keymap_global["CapsLock"] = lambda: None
+            fakeymacs.capslock_down = False
 
         for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
             mod = mod1 + mod2 + mod3 + mod4
