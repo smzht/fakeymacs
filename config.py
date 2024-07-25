@@ -1295,6 +1295,7 @@ def configure(keymap):
 
     def kmacro_end_macro():
         keymap.command_RecordStop()
+
         # キーボードマクロの終了キー「Ctl-x プレフィックスキー + ")"」の Ctl-x プレフィックスキーがマクロに
         # 記録されてしまうのを対策する（キーボードマクロの終了キーの前提を「Ctl-xプレフィックスキー + ")"」
         # としていることについては、とりあえず了承ください。）
@@ -1316,6 +1317,26 @@ def configure(keymap):
                    else:
                        # コントロール系の入力が連続して行われる場合があるための対処
                        keymap.record_seq.append((ctl_x_prefix_vkey[0], True))
+
+            elif (fc.use_capslock_as_ctrl and
+                  ctl_x_prefix_vkey[0] in [VK_LCONTROL, VK_RCONTROL] and
+                  (((keymap.record_seq[-1] == (VK_CAPITAL, True) and
+                     keymap.record_seq[-2] == (ctl_x_prefix_vkey[1], True)) or
+                    (keymap.record_seq[-1] == (ctl_x_prefix_vkey[1], True) and
+                     keymap.record_seq[-2] == (VK_CAPITAL, True))) and
+                   keymap.record_seq[-3] == (ctl_x_prefix_vkey[1], False))):
+                   keymap.record_seq.pop()
+                   keymap.record_seq.pop()
+                   keymap.record_seq.pop()
+                   if keymap.record_seq[-1] == (VK_CAPITAL, False):
+                       for i in range(len(keymap.record_seq) - 1, -1, -1):
+                           if keymap.record_seq[i] == (VK_CAPITAL, False):
+                               keymap.record_seq.pop()
+                           else:
+                               break
+                   else:
+                       # コントロール系の入力が連続して行われる場合があるための対処
+                       keymap.record_seq.append((VK_CAPITAL, True))
 
     def kmacro_end_and_call_macro():
         def _kmacro_end_and_call_macro():
