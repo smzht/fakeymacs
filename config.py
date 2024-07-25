@@ -2983,11 +2983,13 @@ def configure(keymap):
             keymap.replaceKey("(241)", "CapsLock")
             keymap_global["CapsLock"] = lambda: None
 
-        keymap_global["S-CapsLock"]  = lambda: None
-        keymap_global["C-CapsLock"]  = lambda: None
-        keymap_global["A-CapsLock"]  = lambda: None
+        for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
+            mod = mod1 + mod2 + mod3 + mod4
+            if mod:
+                keymap_global[mod + "CapsLock"] = lambda: None
+
         keymap_global["W-CapsLock"]  = "W-Ctrl"
-        keymap_global["U2-CapsLock"] = lambda: None
+        keymap_global["U2-CapsLock"] = lambda: None # CapsLock の長押し
 
         keymap_global["U-U2-LShift"] = postProcessing
         keymap_global["U-U2-RShift"] = postProcessing
