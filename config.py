@@ -1299,15 +1299,15 @@ def configure(keymap):
         # 記録されてしまうのを対策する（キーボードマクロの終了キーの前提を「Ctl-xプレフィックスキー + ")"」
         # としていることについては、とりあえず了承ください。）
         if fc.ctl_x_prefix_key and len(keymap.record_seq) >= 4:
-            if (((keymap.record_seq[len(keymap.record_seq) - 1] == (ctl_x_prefix_vkey[0], True) and
-                  keymap.record_seq[len(keymap.record_seq) - 2] == (ctl_x_prefix_vkey[1], True)) or
-                 (keymap.record_seq[len(keymap.record_seq) - 1] == (ctl_x_prefix_vkey[1], True) and
-                  keymap.record_seq[len(keymap.record_seq) - 2] == (ctl_x_prefix_vkey[0], True))) and
-                keymap.record_seq[len(keymap.record_seq) - 3] == (ctl_x_prefix_vkey[1], False)):
+            if (((keymap.record_seq[-1] == (ctl_x_prefix_vkey[0], True) and
+                  keymap.record_seq[-2] == (ctl_x_prefix_vkey[1], True)) or
+                 (keymap.record_seq[-1] == (ctl_x_prefix_vkey[1], True) and
+                  keymap.record_seq[-2] == (ctl_x_prefix_vkey[0], True))) and
+                keymap.record_seq[-3] == (ctl_x_prefix_vkey[1], False)):
                    keymap.record_seq.pop()
                    keymap.record_seq.pop()
                    keymap.record_seq.pop()
-                   if keymap.record_seq[len(keymap.record_seq) - 1] == (ctl_x_prefix_vkey[0], False):
+                   if keymap.record_seq[-1] == (ctl_x_prefix_vkey[0], False):
                        for i in range(len(keymap.record_seq) - 1, -1, -1):
                            if keymap.record_seq[i] == (ctl_x_prefix_vkey[0], False):
                                keymap.record_seq.pop()
