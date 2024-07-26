@@ -2999,14 +2999,7 @@ def configure(keymap):
             keymap_global["CapsLock"] = lambda: None
 
         def postProcessing():
-            pyauto.Input.send([pyauto.KeyUp(VK_LSHIFT)])
-            pyauto.Input.send([pyauto.KeyUp(VK_RSHIFT)])
-            pyauto.Input.send([pyauto.KeyUp(VK_RCONTROL)])
-            pyauto.Input.send([pyauto.KeyUp(VK_LCONTROL)])
-            pyauto.Input.send([pyauto.KeyUp(VK_LMENU)])
-            pyauto.Input.send([pyauto.KeyUp(VK_RMENU)])
-            pyauto.Input.send([pyauto.KeyUp(VK_LWIN)])
-            pyauto.Input.send([pyauto.KeyUp(VK_RWIN)])
+            keymap._releaseModifierAll()
             pyauto.Input.send([pyauto.KeyUp(VK_CAPITAL)])
             keymap.modifier &= ~keymap.vk_mod_map[VK_CAPITAL]
             fakeymacs.capslock_down = False
