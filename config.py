@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240724_04"
+fakeymacs_version = "20240725_01"
 
 import time
 import os.path
@@ -1295,19 +1295,20 @@ def configure(keymap):
 
     def kmacro_end_macro():
         keymap.command_RecordStop()
+
         # キーボードマクロの終了キー「Ctl-x プレフィックスキー + ")"」の Ctl-x プレフィックスキーがマクロに
         # 記録されてしまうのを対策する（キーボードマクロの終了キーの前提を「Ctl-xプレフィックスキー + ")"」
         # としていることについては、とりあえず了承ください。）
         if fc.ctl_x_prefix_key and len(keymap.record_seq) >= 4:
-            if (((keymap.record_seq[len(keymap.record_seq) - 1] == (ctl_x_prefix_vkey[0], True) and
-                  keymap.record_seq[len(keymap.record_seq) - 2] == (ctl_x_prefix_vkey[1], True)) or
-                 (keymap.record_seq[len(keymap.record_seq) - 1] == (ctl_x_prefix_vkey[1], True) and
-                  keymap.record_seq[len(keymap.record_seq) - 2] == (ctl_x_prefix_vkey[0], True))) and
-                keymap.record_seq[len(keymap.record_seq) - 3] == (ctl_x_prefix_vkey[1], False)):
+            if (((keymap.record_seq[-1] == (ctl_x_prefix_vkey[0], True) and
+                  keymap.record_seq[-2] == (ctl_x_prefix_vkey[1], True)) or
+                 (keymap.record_seq[-1] == (ctl_x_prefix_vkey[1], True) and
+                  keymap.record_seq[-2] == (ctl_x_prefix_vkey[0], True))) and
+                keymap.record_seq[-3] == (ctl_x_prefix_vkey[1], False)):
                    keymap.record_seq.pop()
                    keymap.record_seq.pop()
                    keymap.record_seq.pop()
-                   if keymap.record_seq[len(keymap.record_seq) - 1] == (ctl_x_prefix_vkey[0], False):
+                   if keymap.record_seq[-1] == (ctl_x_prefix_vkey[0], False):
                        for i in range(len(keymap.record_seq) - 1, -1, -1):
                            if keymap.record_seq[i] == (ctl_x_prefix_vkey[0], False):
                                keymap.record_seq.pop()
@@ -1316,6 +1317,26 @@ def configure(keymap):
                    else:
                        # コントロール系の入力が連続して行われる場合があるための対処
                        keymap.record_seq.append((ctl_x_prefix_vkey[0], True))
+
+            elif (fc.use_capslock_as_ctrl and
+                  ctl_x_prefix_vkey[0] in [VK_LCONTROL, VK_RCONTROL] and
+                  (((keymap.record_seq[-1] == (VK_CAPITAL, True) and
+                     keymap.record_seq[-2] == (ctl_x_prefix_vkey[1], True)) or
+                    (keymap.record_seq[-1] == (ctl_x_prefix_vkey[1], True) and
+                     keymap.record_seq[-2] == (VK_CAPITAL, True))) and
+                   keymap.record_seq[-3] == (ctl_x_prefix_vkey[1], False))):
+                   keymap.record_seq.pop()
+                   keymap.record_seq.pop()
+                   keymap.record_seq.pop()
+                   if keymap.record_seq[-1] == (VK_CAPITAL, False):
+                       for i in range(len(keymap.record_seq) - 1, -1, -1):
+                           if keymap.record_seq[i] == (VK_CAPITAL, False):
+                               keymap.record_seq.pop()
+                           else:
+                               break
+                   else:
+                       # コントロール系の入力が連続して行われる場合があるための対処
+                       keymap.record_seq.append((VK_CAPITAL, True))
 
     def kmacro_end_and_call_macro():
         def _kmacro_end_and_call_macro():
@@ -1694,14 +1715,7 @@ def configure(keymap):
                 else:
                     _command1 = command
 
-                if fc.use_capslock_as_ctrl and os_keyboard_type == "JP" and "U2-" in key_list[-1]:
-                    def _command4():
-                        InputKeyCommand("U-Shift")()
-                        _command1()
-                        InputKeyCommand("D-Shift")()
-                    return _command4
-                else:
-                    return _command1
+                return _command1
             else:
                 return command
 
@@ -1830,6 +1844,9 @@ def configure(keymap):
                 key_list2 = ["D-Shift"] + key_list + ["U-Shift"]
             else:
                 key_list2 = key_list
+
+            if fakeymacs.capslock_down:
+                key_list2 = ["U-Shift"] + key_list2 + ["D-Shift"]
 
             keymap.InputKeyCommand(*key_list2)()
 
@@ -2958,30 +2975,34 @@ def configure(keymap):
     # 個人設定ファイルのセクション [section-extension-space_fn] を読み込んで実行する
     exec(readConfigPersonal("[section-extension-space_fn]"), dict(globals(), **locals()))
 
+    fakeymacs.capslock_down = False
+
     # CapsLock キーを Ctrl キーとして使うための設定を行う
     if fc.use_capslock_as_ctrl:
         keymap.defineModifier("CapsLock", "User2")
 
-        def postProcessing():
-            pyauto.Input.send([pyauto.KeyUp(VK_LSHIFT)])
-            pyauto.Input.send([pyauto.KeyUp(VK_RSHIFT)])
-            pyauto.Input.send([pyauto.KeyUp(VK_RCONTROL)])
-            pyauto.Input.send([pyauto.KeyUp(VK_LCONTROL)])
-            pyauto.Input.send([pyauto.KeyUp(VK_LMENU)])
-            pyauto.Input.send([pyauto.KeyUp(VK_RMENU)])
-            pyauto.Input.send([pyauto.KeyUp(VK_LWIN)])
-            pyauto.Input.send([pyauto.KeyUp(VK_RWIN)])
-            pyauto.Input.send([pyauto.KeyUp(VK_CAPITAL)])
-            keymap.modifier &= ~keymap.vk_mod_map[VK_CAPITAL]
+        def capslockDown():
+            keymap.InputKeyCommand("D-Shift")()
+            fakeymacs.capslock_down = True
+
+        def capslockUp():
+            keymap.InputKeyCommand("U-Shift")()
+            fakeymacs.capslock_down = False
 
         if os_keyboard_type == "JP":
             keymap.replaceKey("(240)", "CapsLock")
-            keymap_global["CapsLock"]   = "D-Shift"
-            keymap_global["U-CapsLock"] = "U-Shift"
+            keymap_global["CapsLock"]   = capslockDown
+            keymap_global["U-CapsLock"] = capslockUp
         else:
             keymap.replaceKey("(240)", "CapsLock")
             keymap.replaceKey("(241)", "CapsLock")
             keymap_global["CapsLock"] = lambda: None
+
+        def postProcessing():
+            keymap._releaseModifierAll()
+            pyauto.Input.send([pyauto.KeyUp(VK_CAPITAL)])
+            keymap.modifier &= ~keymap.vk_mod_map[VK_CAPITAL]
+            fakeymacs.capslock_down = False
 
         for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
             mod = mod1 + mod2 + mod3 + mod4
