@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240727_01"
+fakeymacs_version = "20240728_01"
 
 import time
 import os.path
@@ -2996,12 +2996,18 @@ def configure(keymap):
             keymap.replaceKey("(240)", "CapsLock")
             keymap.replaceKey("(241)", "CapsLock")
             keymap_global["CapsLock"] = lambda: None
+            keymap_global["C-(242)"] = "CapsLock" # CapsLock の切り替え
 
         def postProcessing():
             keymap._releaseModifierAll()
             pyauto.Input.send([pyauto.KeyUp(VK_CAPITAL)])
             keymap.modifier &= ~keymap.vk_mod_map[VK_CAPITAL]
             fakeymacs.capslock_down = False
+
+        def postProcessing2():
+            postProcessing()
+            if os_keyboard_type == "JP":
+                keymap.InputKeyCommand("S-CapsLock")() # CapsLock の切り替え
 
         for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
             mod = mod1 + mod2 + mod3 + mod4
@@ -3016,8 +3022,8 @@ def configure(keymap):
 
         keymap_global["U-U2-LShift"] = postProcessing
         keymap_global["U-U2-RShift"] = postProcessing
-        keymap_global["U-U2-LCtrl"]  = postProcessing
-        keymap_global["U-U2-RCtrl"]  = postProcessing
+        keymap_global["U-U2-LCtrl"]  = postProcessing2
+        keymap_global["U-U2-RCtrl"]  = postProcessing2
         keymap_global["U-U2-LAlt"]   = postProcessing
         keymap_global["U-U2-RAlt"]   = postProcessing
         keymap_global["U-U2-LWin"]   = postProcessing
