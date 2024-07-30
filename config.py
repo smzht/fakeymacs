@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240729_01"
+fakeymacs_version = "20240730_02"
 
 import time
 import os.path
@@ -694,6 +694,80 @@ def configure(keymap):
                     key = key.replace(us_key, jis_input_key)
                     break
         return key
+
+
+    ###########################################################################
+    ## CapsLock キーを Ctrl キーとして使うための設定
+    ###########################################################################
+
+    def is_global_target(window):
+        if (window.getProcessName() in fc.transparent_target or
+            window.getProcessName() in fc.transparent_target_class):
+            return False
+        else:
+            return True
+
+    keymap_global = keymap.defineWindowKeymap(check_func=is_global_target)
+
+    fakeymacs.capslock_down = False
+
+    if fc.use_capslock_as_ctrl:
+        keymap.defineModifier("CapsLock", "User2")
+
+        def capslockDown():
+            keymap.InputKeyCommand("D-Shift")()
+            fakeymacs.capslock_down = True
+
+        def capslockUp():
+            keymap.InputKeyCommand("U-Shift")()
+            fakeymacs.capslock_down = False
+
+        def postProcessing():
+            keymap._releaseModifierAll()
+            pyauto.Input.send([pyauto.KeyUp(VK_CAPITAL)])
+            keymap.modifier &= ~keymap.vk_mod_map[VK_CAPITAL]
+            fakeymacs.capslock_down = False
+
+        def postProcessing2():
+            postProcessing()
+            if os_keyboard_type == "JP":
+                keymap.InputKeyCommand("S-CapsLock")() # CapsLock の切り替え
+
+        def capslockSet(window_keymap):
+            if os_keyboard_type == "JP":
+                window_keymap["CapsLock"]   = capslockDown
+                window_keymap["U-CapsLock"] = capslockUp
+            else:
+                window_keymap["CapsLock"] = lambda: None
+                window_keymap["C-(242)"] = "CapsLock" # CapsLock の切り替え
+
+            for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
+                mod = mod1 + mod2 + mod3 + mod4
+                if mod:
+                    window_keymap[mod + "CapsLock"] = lambda: None
+
+            window_keymap["W-CapsLock"]  = "W-Ctrl"
+            window_keymap["U2-CapsLock"] = lambda: None # CapsLock の長押し
+            window_keymap["U0-CapsLock"] = lambda: None
+            window_keymap["U1-CapsLock"] = lambda: None
+            window_keymap["U3-CapsLock"] = lambda: None
+
+            window_keymap["U-U2-LShift"] = postProcessing
+            window_keymap["U-U2-RShift"] = postProcessing
+            window_keymap["U-U2-LCtrl"]  = postProcessing2
+            window_keymap["U-U2-RCtrl"]  = postProcessing2
+            window_keymap["U-U2-LAlt"]   = postProcessing
+            window_keymap["U-U2-RAlt"]   = postProcessing
+            window_keymap["U-U2-LWin"]   = postProcessing
+            window_keymap["U-U2-RWin"]   = postProcessing
+
+        if os_keyboard_type == "JP":
+            keymap.replaceKey("(240)", "CapsLock")
+        else:
+            keymap.replaceKey("(240)", "CapsLock")
+            keymap.replaceKey("(241)", "CapsLock")
+
+        capslockSet(keymap_global)
 
 
     ###########################################################################
@@ -1512,7 +1586,7 @@ def configure(keymap):
     def vkeys():
         vkeys = list(usjisFilter(lambda: keyhac_keymap.KeyCondition.vk_str_table))
         for vkey in [VK_MENU, VK_LMENU, VK_RMENU, VK_CONTROL, VK_LCONTROL, VK_RCONTROL,
-                     VK_SHIFT, VK_LSHIFT, VK_RSHIFT, VK_LWIN, VK_RWIN]:
+                     VK_SHIFT, VK_LSHIFT, VK_RSHIFT, VK_LWIN, VK_RWIN, VK_CAPITAL]:
             vkeys.remove(vkey)
         return vkeys
 
@@ -1632,8 +1706,7 @@ def configure(keymap):
                 key_lists.append(key_list)
 
                 if fc.use_capslock_as_ctrl:
-                    if ("CapsLock" not in key_list[-1] and
-                        re.search(rf"(^|-)({fc.side_of_ctrl_key}|)C-", key_list[-1])):
+                    if re.search(rf"(^|-)({fc.side_of_ctrl_key}|)C-", key_list[-1]):
                         key_list0 = copy.copy(key_list)
                         key_list0[-1] = re.sub(rf"(^|-)({fc.side_of_ctrl_key}|)C-", r"\1U2-", key_list0[-1])
                         key_lists.append(key_list0)
@@ -1759,6 +1832,10 @@ def configure(keymap):
                 for key in pos_list[:-1]:
                     w_keymap = w_keymap[key]
                 w_keymap[pos_list[-1]] = _keyCommand2(key_list)
+
+                if fc.use_capslock_as_ctrl:
+                    if not callable(w_keymap[pos_list[-1]]):
+                        capslockSet(w_keymap[pos_list[-1]])
 
                 if len(pos_list) == 1:
                     # Alt キーを単押しした際に、カーソルがメニューへ移動しないようにするための対策
@@ -2485,15 +2562,6 @@ def configure(keymap):
     ## 「Emacs キーバインドの切り替え」のキー設定
     ###########################################################################
 
-    def is_global_target(window):
-        if (window.getProcessName() in fc.transparent_target or
-            window.getProcessName() in fc.transparent_target_class):
-            return False
-        else:
-            return True
-
-    keymap_global = keymap.defineWindowKeymap(check_func=is_global_target)
-
     define_key(keymap_global, fc.toggle_emacs_keybind_key, toggle_emacs_keybind)
 
 
@@ -2973,58 +3041,3 @@ def configure(keymap):
 
     # 個人設定ファイルのセクション [section-extension-space_fn] を読み込んで実行する
     exec(readConfigPersonal("[section-extension-space_fn]"), dict(globals(), **locals()))
-
-    fakeymacs.capslock_down = False
-
-    # CapsLock キーを Ctrl キーとして使うための設定を行う
-    if fc.use_capslock_as_ctrl:
-        keymap.defineModifier("CapsLock", "User2")
-
-        def capslockDown():
-            keymap.InputKeyCommand("D-Shift")()
-            fakeymacs.capslock_down = True
-
-        def capslockUp():
-            keymap.InputKeyCommand("U-Shift")()
-            fakeymacs.capslock_down = False
-
-        if os_keyboard_type == "JP":
-            keymap.replaceKey("(240)", "CapsLock")
-            keymap_global["CapsLock"]   = capslockDown
-            keymap_global["U-CapsLock"] = capslockUp
-        else:
-            keymap.replaceKey("(240)", "CapsLock")
-            keymap.replaceKey("(241)", "CapsLock")
-            keymap_global["CapsLock"] = lambda: None
-            keymap_global["C-(242)"] = "CapsLock" # CapsLock の切り替え
-
-        def postProcessing():
-            keymap._releaseModifierAll()
-            pyauto.Input.send([pyauto.KeyUp(VK_CAPITAL)])
-            keymap.modifier &= ~keymap.vk_mod_map[VK_CAPITAL]
-            fakeymacs.capslock_down = False
-
-        def postProcessing2():
-            postProcessing()
-            if os_keyboard_type == "JP":
-                keymap.InputKeyCommand("S-CapsLock")() # CapsLock の切り替え
-
-        for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
-            mod = mod1 + mod2 + mod3 + mod4
-            if mod:
-                keymap_global[mod + "CapsLock"] = lambda: None
-
-        keymap_global["W-CapsLock"]  = "W-Ctrl"
-        keymap_global["U2-CapsLock"] = lambda: None # CapsLock の長押し
-        keymap_global["U0-CapsLock"] = lambda: None
-        keymap_global["U1-CapsLock"] = lambda: None
-        keymap_global["U3-CapsLock"] = lambda: None
-
-        keymap_global["U-U2-LShift"] = postProcessing
-        keymap_global["U-U2-RShift"] = postProcessing
-        keymap_global["U-U2-LCtrl"]  = postProcessing2
-        keymap_global["U-U2-RCtrl"]  = postProcessing2
-        keymap_global["U-U2-LAlt"]   = postProcessing
-        keymap_global["U-U2-RAlt"]   = postProcessing
-        keymap_global["U-U2-LWin"]   = postProcessing
-        keymap_global["U-U2-RWin"]   = postProcessing
