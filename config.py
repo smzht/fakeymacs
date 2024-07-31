@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240730_02"
+fakeymacs_version = "20240731_01"
 
 import time
 import os.path
@@ -503,7 +503,8 @@ def configure(keymap):
     fc.command_name = r"cmd.exe"
 
     # コマンドのリピート回数の最大値を指定する
-    fc.repeat_max = 1024
+    # （数値を大きくしていくと「Time stamp inversion happened.」が発生するので注意）
+    fc.repeat_max = 128
 
     # Microsoft Excel のセル内で改行を選択可能かを指定する（True: 選択可、False: 選択不可）
     # （kill_line 関数の挙動を変えるための変数です。Microsoft Excel 2019 以降では True にして
@@ -1719,32 +1720,6 @@ def configure(keymap):
     def keyInput(key_list):
         return list(map(usjisInput, key_list))
 
-    def commandPlay(command):
-        # モディファイアを離す（keymap.command_RecordPlay 関数を参考）
-        modifier = keymap.modifier
-        input_seq = []
-        for vk_mod in keymap.vk_mod_map.items():
-            if keymap.modifier & vk_mod[1]:
-                input_seq.append(pyauto.KeyUp(vk_mod[0]))
-        pyauto.Input.send(input_seq)
-        keymap.modifier = 0
-
-        command()
-
-        # モディファイアを戻す（keymap.command_RecordPlay 関数を参考）
-        keymap.modifier = 0
-        input_seq = []
-        for vk_mod in keymap.vk_mod_map.items():
-            # 「Time stamp Inversion happend.」メッセージがでると、キーの繰り返し入力後にShift キーが
-            # 押されたままの状態となる。根本的な対策ではないが、Shift キーの 押下の状態の復元を除外する
-            # ことで、暫定的な対策とする。（Shift キーは押しっぱなしにするキーではないので、押した状態
-            # を復元しなくともほとんどの場合、問題は起きない）
-            if vk_mod[0] not in [VK_LSHIFT, VK_RSHIFT]:
-                if modifier & vk_mod[1]:
-                    input_seq.append(pyauto.KeyDown(vk_mod[0]))
-                    keymap.modifier |= vk_mod[1]
-        pyauto.Input.send(input_seq)
-
     command_dict = {}
 
     def define_key(window_keymap, keys, command, skip_check=True):
@@ -1814,13 +1789,7 @@ def configure(keymap):
                             fakeymacs.delayed_command = None
                             _command()
 
-                def _command3():
-                    if fakeymacs.repeat_counter == 1 or fakeymacs.is_playing_kmacro:
-                        _command2()
-                    else:
-                        keymap.delayedCall(lambda: commandPlay(_command2), 0)
-
-                return _command3
+                return _command2
             else:
                 return _command1
 
