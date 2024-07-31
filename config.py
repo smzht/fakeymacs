@@ -2007,7 +2007,7 @@ def configure(keymap):
     def repeat(func):
         def _func():
             if fakeymacs.repeat_counter > fc.repeat_max:
-                print("コマンドのリピート回数の最大値を超えています")
+                print(f"コマンドのリピート回数の最大値 {fc.repeat_max} を超えています")
                 repeat_counter = fc.repeat_max
             else:
                 repeat_counter = fakeymacs.repeat_counter
