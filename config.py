@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240731_02"
+fakeymacs_version = "20240801_01"
 
 import time
 import os.path
@@ -859,9 +859,14 @@ def configure(keymap):
                 fakeymacs.ime_cancel = False
 
                 if process_name in fc.emacs_exclusion_key:
-                    fakeymacs.emacs_exclusion_key = [
+                    fakeymacs.emacs_exclusion_key = {
                         keyStrNormalization(addSideOfModifierKey(specialCharToKeyStr(key)))
-                        for key in fc.emacs_exclusion_key[process_name]]
+                        for key in fc.emacs_exclusion_key[process_name]}
+
+                    if fc.use_capslock_as_ctrl:
+                        fakeymacs.emacs_exclusion_key |= {
+                            re.sub(rf"(^|-){fc.side_of_ctrl_key}C-", r"\1U2-", key)
+                                for key in fakeymacs.emacs_exclusion_key}
                 else:
                     fakeymacs.emacs_exclusion_key = []
 
@@ -1756,7 +1761,7 @@ def configure(keymap):
                     def _command1():
                         key = key_list[0]
                         if key in fakeymacs.emacs_exclusion_key:
-                            InputKeyCommand(key)()
+                            getKeyCommand(keymap_base, key)()
                         else:
                             command()
                 else:
