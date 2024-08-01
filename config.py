@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240801_01"
+fakeymacs_version = "20240801_02"
 
 import time
 import os.path
@@ -859,14 +859,9 @@ def configure(keymap):
                 fakeymacs.ime_cancel = False
 
                 if process_name in fc.emacs_exclusion_key:
-                    fakeymacs.emacs_exclusion_key = {
+                    fakeymacs.emacs_exclusion_key = [
                         keyStrNormalization(addSideOfModifierKey(specialCharToKeyStr(key)))
-                        for key in fc.emacs_exclusion_key[process_name]}
-
-                    if fc.use_capslock_as_ctrl:
-                        fakeymacs.emacs_exclusion_key |= {
-                            re.sub(rf"(^|-){fc.side_of_ctrl_key}C-", r"\1U2-", key)
-                                for key in fakeymacs.emacs_exclusion_key}
+                        for key in fc.emacs_exclusion_key[process_name]]
                 else:
                     fakeymacs.emacs_exclusion_key = []
 
@@ -1658,7 +1653,6 @@ def configure(keymap):
             key_list1 = []
             key_list2 = []
             key_lists0 = []
-            key_lists1 = []
 
             for key in map(specialCharToKeyStr, keys.split()):
                 if key == "Ctl-x":
@@ -1706,16 +1700,7 @@ def configure(keymap):
 
             for key_list in key_lists0:
                 key_list[0] = addSideOfModifierKey(key_list[0])
-                key_lists1.append(list(map(keyStrNormalization, key_list)))
-
-            for key_list in key_lists1:
-                key_lists.append(key_list)
-
-                if fc.use_capslock_as_ctrl:
-                    if re.search(rf"(^|-)({fc.side_of_ctrl_key}|)C-", key_list[-1]):
-                        key_list0 = copy.copy(key_list)
-                        key_list0[-1] = re.sub(rf"(^|-)({fc.side_of_ctrl_key}|)C-", r"\1U2-", key_list0[-1])
-                        key_lists.append(key_list0)
+                key_lists.append(list(map(keyStrNormalization, key_list)))
 
         return key_lists
 
@@ -1808,6 +1793,10 @@ def configure(keymap):
                 w_keymap[pos_list[-1]] = _keyCommand2(key_list)
 
                 if fc.use_capslock_as_ctrl:
+                    if re.search(rf"(^|-)({fc.side_of_ctrl_key}|)C-", pos_list[-1]):
+                        pos = re.sub(rf"(^|-)({fc.side_of_ctrl_key}|)C-", r"\1U2-", pos_list[-1])
+                        w_keymap[pos] = _keyCommand2(key_list)
+
                     if not callable(w_keymap[pos_list[-1]]):
                         capslockSet(w_keymap[pos_list[-1]])
 
