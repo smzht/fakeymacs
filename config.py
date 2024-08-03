@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240803_02"
+fakeymacs_version = "20240803_03"
 
 import time
 import os.path
@@ -723,16 +723,19 @@ def configure(keymap):
             keymap.InputKeyCommand("U-Shift")()
             fakeymacs.capslock_down = False
 
-        def postProcessing():
-            keymap._releaseModifierAll()
-            pyauto.Input.send([pyauto.KeyUp(VK_CAPITAL)])
-            keymap.modifier &= ~keymap.vk_mod_map[VK_CAPITAL]
-            fakeymacs.capslock_down = False
+        def postProcessing(mod):
+            def _func():
+                if mod:
+                    keymap.InputKeyCommand(mod)()
+                keymap.InputKeyCommand("U-Shift")()
 
-        def postProcessing2():
-            postProcessing()
-            if os_keyboard_type == "JP":
-                keymap.InputKeyCommand("S-CapsLock")() # CapsLock の切り替え
+                keymap.modifier &= ~keymap.vk_mod_map[VK_CAPITAL]
+                fakeymacs.capslock_down = False
+
+                if os_keyboard_type == "JP" and "Ctrl" in mod:
+                    keymap.InputKeyCommand("S-CapsLock")() # CapsLock の切り替え
+
+            return _func
 
         def capslockSet(window_keymap):
             if os_keyboard_type == "JP":
@@ -753,15 +756,15 @@ def configure(keymap):
             window_keymap["U1-CapsLock"] = lambda: None
             window_keymap["U3-CapsLock"] = lambda: None
 
-            window_keymap["U-U2-LShift"] = postProcessing
-            window_keymap["U-U2-RShift"] = postProcessing
-            window_keymap["U-U2-LCtrl"]  = postProcessing2
-            window_keymap["U-U2-RCtrl"]  = postProcessing2
-            window_keymap["U-U2-LAlt"]   = postProcessing
-            window_keymap["U-U2-RAlt"]   = postProcessing
-            window_keymap["U-U2-LWin"]   = postProcessing
-            window_keymap["U-U2-RWin"]   = postProcessing
-            window_keymap["U-U2-(200)"]  = postProcessing # for space_fn extension
+            window_keymap["U-U2-LShift"] = postProcessing("U-LShift")
+            window_keymap["U-U2-RShift"] = postProcessing("U-RShift")
+            window_keymap["U-U2-LCtrl"]  = postProcessing("U-LCtrl")
+            window_keymap["U-U2-RCtrl"]  = postProcessing("U-RCtrl")
+            window_keymap["U-U2-LAlt"]   = postProcessing("U-LAlt")
+            window_keymap["U-U2-RAlt"]   = postProcessing("U-RAlt")
+            window_keymap["U-U2-LWin"]   = postProcessing("U-LWin")
+            window_keymap["U-U2-RWin"]   = postProcessing("U-RWin")
+            window_keymap["U-U2-(200)"]  = postProcessing(None) # for space_fn extension
 
         if os_keyboard_type == "JP":
             keymap.replaceKey("(240)", "CapsLock")
