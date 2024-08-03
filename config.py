@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240802_01"
+fakeymacs_version = "20240803_01"
 
 import time
 import os.path
@@ -703,7 +703,7 @@ def configure(keymap):
 
     def is_global_target(window):
         if (window.getProcessName() in fc.transparent_target or
-            window.getProcessName() in fc.transparent_target_class):
+            window.getClassName() in fc.transparent_target_class):
             return False
         else:
             return True
@@ -769,6 +769,9 @@ def configure(keymap):
             keymap.replaceKey("(241)", "CapsLock")
 
         capslockSet(keymap_global)
+
+        keymap_remotedesktop = keymap.defineWindowKeymap(class_name="IHWindowClass")
+        capslockSet(keymap_remotedesktop)
 
 
     ###########################################################################
