@@ -734,7 +734,6 @@ def configure(keymap):
 
                 if os_keyboard_type == "JP" and "Ctrl" in mod:
                     keymap.InputKeyCommand("S-CapsLock")() # CapsLock の切り替え
-
             return _func
 
         def capslockSet(window_keymap):
