@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240803_01"
+fakeymacs_version = "20240803_02"
 
 import time
 import os.path
@@ -761,6 +761,7 @@ def configure(keymap):
             window_keymap["U-U2-RAlt"]   = postProcessing
             window_keymap["U-U2-LWin"]   = postProcessing
             window_keymap["U-U2-RWin"]   = postProcessing
+            window_keymap["U-U2-(200)"]  = postProcessing # for space_fn extension
 
         if os_keyboard_type == "JP":
             keymap.replaceKey("(240)", "CapsLock")
