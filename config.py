@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240804_01"
+fakeymacs_version = "20240804_02"
 
 import time
 import os.path
@@ -731,8 +731,9 @@ def configure(keymap):
                 capslockUp()
                 keymap.modifier &= ~keymap.vk_mod_map[VK_CAPITAL]
 
-                if os_keyboard_type == "JP" and "Ctrl" in mod:
-                    keymap.InputKeyCommand("S-CapsLock")() # CapsLock の切り替え
+                if os_keyboard_type == "JP":
+                    if mod and "Ctrl" in mod:
+                        keymap.InputKeyCommand("S-CapsLock")() # CapsLock の切り替え
             return _func
 
         def capslockSet(window_keymap):
