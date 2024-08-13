@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240805_01"
+fakeymacs_version = "20240807_01"
 
 import time
 import os.path
@@ -713,7 +713,7 @@ def configure(keymap):
     fakeymacs.capslock_down = False
 
     if fc.use_capslock_as_ctrl:
-        user2_key = "(201)"
+        user2_key = "(236)" # リモートデスクトップ接続先に渡る仮想キーコードを選択する必要有り
 
         keymap.replaceKey("CapsLock", user2_key)
         keymap.replaceKey("(240)", user2_key)
@@ -725,25 +725,33 @@ def configure(keymap):
         keymap.defineModifier(user2_key, "User2")
 
         def capslockDown():
+            if keymap.debug: print("--------------------------------------------------------")
+            if keymap.debug: print(f"########### Down : U-{user2_key}")
             keymap.InputKeyCommand("D-Shift")()
             fakeymacs.capslock_down = True
+            keymap.InputKeyCommand(f"D-{user2_key}")() # リモートデスクトップで検知させるため必要
 
         def capslockUp():
-            keymap.InputKeyCommand("U-Shift")()
-            fakeymacs.capslock_down = False
+            if keymap.debug: print("--------------------------------------------------------")
+            if keymap.debug: print(f"########### Up : U-{user2_key}")
+            keymap.InputKeyCommand(f"U-{user2_key}")() # リモートデスクトップで検知させるため必要
+            if fakeymacs.capslock_down:
+                keymap.InputKeyCommand("U-Shift")()
+                fakeymacs.capslock_down = False
 
         def postProcessing(mod):
             def _func():
+                if keymap.debug: print("--------------------------------------------------------")
+                if keymap.debug: print("########### Post : " + str(mod))
                 if mod:
                     keymap.InputKeyCommand(mod)()
-
                 capslockUp()
                 keymap.modifier &= ~keymap.vk_mod_map[keyhac_keymap.KeyCondition.strToVk(user2_key)]
             return _func
 
         def capslockSet(window_keymap):
             if os_keyboard_type == "JP":
-                window_keymap[user2_key] = capslockDown
+                window_keymap[     user2_key  ] = capslockDown
                 window_keymap[f"U-{user2_key}"] = capslockUp
                 window_keymap[f"C-{user2_key}"] = "S-CapsLock" # CapsLock の切り替え
             else:
@@ -760,12 +768,26 @@ def configure(keymap):
             window_keymap["U-U2-RAlt"]   = postProcessing("U-RAlt")
             window_keymap["U-U2-LWin"]   = postProcessing("U-LWin")
             window_keymap["U-U2-RWin"]   = postProcessing("U-RWin")
-            window_keymap["U-U2-(200)"]  = postProcessing(None) # for space_fn extension
+            # window_keymap["U-U2-(200)"]  = postProcessing(None) # for space_fn extension
 
-        capslockSet(keymap_global)
+            # for vk_mod in keymap.vk_mod_map.items():
+            #     mod = keyhac_keymap.KeyCondition.vkToStr(vk_mod[0])
+            #     window_keymap[f"U-U2-{mod}"] = postProcessing(f"U-{mod}")
 
-        keymap_remotedesktop = keymap.defineWindowKeymap(class_name="IHWindowClass")
-        capslockSet(keymap_remotedesktop)
+            #     if "Shift" not in mod and "(" not in mod:
+            #         window_keymap[f"U-U2-{mod}"] = postProcessing(f"U-{mod}")
+
+            # #     if "(" not in mod:
+            # #         window_keymap[f"U-U2-{mod}"] = postProcessing(f"U-{mod}")
+
+        # 上記のShiftを除外するコードはリモートデスクトップ接続先のみで必要なもの
+
+        # SpaceFN が有効なときに CapsLock+Space に続けて CapsLock+f は有効でない
+
+        # D-CapsLock -> D-Shift -> U-CapsLock -> U-Shift のときに capslock_down 変数が True
+        # になっているのの対策が必要
+
+        # vkeys() で VK_CAPITAL を追加したことが正解だったか再検討
 
 
     ###########################################################################
@@ -1371,6 +1393,7 @@ def configure(keymap):
         # キーボードマクロの終了キー「Ctl-x プレフィックスキー + ")"」の Ctl-x プレフィックスキーがマクロに
         # 記録されてしまうのを対策する（キーボードマクロの終了キーの前提を「Ctl-xプレフィックスキー + ")"」
         # としていることについては、とりあえず了承ください。）
+        # print(keymap.record_seq)
         if fc.ctl_x_prefix_key:
             if (len(keymap.record_seq) >= 4 and
                 ((keymap.record_seq[-1] == (ctl_x_prefix_vkey[0], True) and
@@ -1405,6 +1428,7 @@ def configure(keymap):
                             keymap.record_seq.pop()
                         else:
                             break
+        # print(keymap.record_seq)
 
     def kmacro_end_and_call_macro():
         def _kmacro_end_and_call_macro():
@@ -1737,6 +1761,7 @@ def configure(keymap):
                     window_keymap is locals()["keymap_emacs"]):
 
                     def _command1():
+                        if keymap.debug: print("--------------------------------------------------------")
                         key = key_list[0]
                         if key in fakeymacs.emacs_exclusion_key:
                             getKeyCommand(keymap_base, key)()
@@ -2588,6 +2613,8 @@ def configure(keymap):
 
                 if process_name is None or process_name == process_name2:
                     class_name = window.getClassName()
+
+                    # ハイフンの前に見えない文字がある場合の対策
                     title = re.sub(r".* ‎- ", r"", window.getText())
 
                     # RemoteApp を利用する際のおまじない
@@ -2997,3 +3024,16 @@ def configure(keymap):
 
     # 個人設定ファイルのセクション [section-extension-space_fn] を読み込んで実行する
     exec(readConfigPersonal("[section-extension-space_fn]"), dict(globals(), **locals()))
+
+    if fc.use_capslock_as_ctrl:
+        capslockSet(keymap_global)
+
+        keymap_remotedesktop = keymap.defineWindowKeymap(class_name="IHWindowClass")
+
+        for vkey in vkeys():
+            key = vkToStr(vkey)
+            for mod1, mod2, mod3 in itertools.product(["", "W-"], ["", "A-"], ["", "S-"]):
+                mkey = "U2-" + mod1 + mod2 + mod3 + key
+                keymap_remotedesktop[mkey] = "U-Shift", mkey, "D-Shift"
+
+        capslockSet(keymap_remotedesktop)
