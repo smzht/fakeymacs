@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240807_01"
+fakeymacs_version = "20240814_01"
 
 import time
 import os.path
@@ -770,25 +770,6 @@ def configure(keymap):
             window_keymap["U-U2-RWin"]   = postProcessing("U-RWin")
             # window_keymap["U-U2-(200)"]  = postProcessing(None) # for space_fn extension
 
-            # for vk_mod in keymap.vk_mod_map.items():
-            #     mod = keyhac_keymap.KeyCondition.vkToStr(vk_mod[0])
-            #     window_keymap[f"U-U2-{mod}"] = postProcessing(f"U-{mod}")
-
-            #     if "Shift" not in mod and "(" not in mod:
-            #         window_keymap[f"U-U2-{mod}"] = postProcessing(f"U-{mod}")
-
-            # #     if "(" not in mod:
-            # #         window_keymap[f"U-U2-{mod}"] = postProcessing(f"U-{mod}")
-
-        # 上記のShiftを除外するコードはリモートデスクトップ接続先のみで必要なもの
-
-        # SpaceFN が有効なときに CapsLock+Space に続けて CapsLock+f は有効でない
-
-        # D-CapsLock -> D-Shift -> U-CapsLock -> U-Shift のときに capslock_down 変数が True
-        # になっているのの対策が必要
-
-        # vkeys() で VK_CAPITAL を追加したことが正解だったか再検討
-
 
     ###########################################################################
     ## 基本機能の設定
@@ -1393,7 +1374,6 @@ def configure(keymap):
         # キーボードマクロの終了キー「Ctl-x プレフィックスキー + ")"」の Ctl-x プレフィックスキーがマクロに
         # 記録されてしまうのを対策する（キーボードマクロの終了キーの前提を「Ctl-xプレフィックスキー + ")"」
         # としていることについては、とりあえず了承ください。）
-        # print(keymap.record_seq)
         if fc.ctl_x_prefix_key:
             if (len(keymap.record_seq) >= 4 and
                 ((keymap.record_seq[-1] == (ctl_x_prefix_vkey[0], True) and
@@ -1428,7 +1408,6 @@ def configure(keymap):
                             keymap.record_seq.pop()
                         else:
                             break
-        # print(keymap.record_seq)
 
     def kmacro_end_and_call_macro():
         def _kmacro_end_and_call_macro():
