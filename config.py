@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240818_01"
+fakeymacs_version = "20240818_02"
 
 import time
 import os.path
@@ -700,15 +700,6 @@ def configure(keymap):
     ###########################################################################
     ## CapsLock キーを Ctrl キーとして使うための設定
     ###########################################################################
-
-    def is_global_target(window):
-        if (window.getProcessName() in fc.transparent_target or
-            window.getClassName() in fc.transparent_target_class):
-            return False
-        else:
-            return True
-
-    keymap_global = keymap.defineWindowKeymap(check_func=is_global_target)
 
     fakeymacs.shift_down2 = False
 
@@ -2532,6 +2523,15 @@ def configure(keymap):
     ###########################################################################
     ## 「Emacs キーバインドの切り替え」のキー設定
     ###########################################################################
+
+    def is_global_target(window):
+        if (window.getProcessName() in fc.transparent_target or
+            window.getClassName() in fc.transparent_target_class):
+            return False
+        else:
+            return True
+
+    keymap_global = keymap.defineWindowKeymap(check_func=is_global_target)
 
     define_key(keymap_global, fc.toggle_emacs_keybind_key, toggle_emacs_keybind)
 
