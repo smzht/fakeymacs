@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240818_03"
+fakeymacs_version = "20240818_04"
 
 import time
 import os.path
@@ -3016,14 +3016,14 @@ def configure(keymap):
     exec(readConfigPersonal("[section-extension-space_fn]"), dict(globals(), **locals()))
 
     if fc.use_capslock_as_ctrl:
-        capslockSet(keymap_global)
+        capslockSet(keymap_base)
 
-        keymap_remotedesktop = keymap.defineWindowKeymap(class_name="IHWindowClass")
+        keymap_remote = keymap.defineWindowKeymap(class_name="IHWindowClass")
 
         for vkey in vkeys():
             key = vkToStr(vkey)
             for mod1, mod2, mod3 in itertools.product(["", "W-"], ["", "A-"], ["", "S-"]):
                 mkey = "U2-" + mod1 + mod2 + mod3 + key
-                keymap_remotedesktop[mkey] = "U-Shift", mkey, "D-Shift"
+                keymap_remote[mkey] = "U-Shift", mkey, "D-Shift"
 
-        capslockSet(keymap_remotedesktop)
+        capslockSet(keymap_remote)
