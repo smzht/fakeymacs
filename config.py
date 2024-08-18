@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240814_01"
+fakeymacs_version = "20240818_01"
 
 import time
 import os.path
@@ -710,7 +710,7 @@ def configure(keymap):
 
     keymap_global = keymap.defineWindowKeymap(check_func=is_global_target)
 
-    fakeymacs.capslock_down = False
+    fakeymacs.shift_down2 = False
 
     if fc.use_capslock_as_ctrl:
         user2_key = "(236)" # リモートデスクトップ接続先に渡る仮想キーコードを選択する必要有り
@@ -724,35 +724,42 @@ def configure(keymap):
 
         keymap.defineModifier(user2_key, "User2")
 
-        def capslockDown():
-            if keymap.debug: print("--------------------------------------------------------")
-            if keymap.debug: print(f"########### Down : U-{user2_key}")
-            keymap.InputKeyCommand("D-Shift")()
-            fakeymacs.capslock_down = True
-            keymap.InputKeyCommand(f"D-{user2_key}")() # リモートデスクトップで検知させるため必要
-
-        def capslockUp():
-            if keymap.debug: print("--------------------------------------------------------")
-            if keymap.debug: print(f"########### Up : U-{user2_key}")
-            keymap.InputKeyCommand(f"U-{user2_key}")() # リモートデスクトップで検知させるため必要
-            if fakeymacs.capslock_down:
-                keymap.InputKeyCommand("U-Shift")()
-                fakeymacs.capslock_down = False
-
-        def postProcessing(mod):
+        def shiftDown(key):
             def _func():
                 if keymap.debug: print("--------------------------------------------------------")
-                if keymap.debug: print("########### Post : " + str(mod))
-                if mod:
-                    keymap.InputKeyCommand(mod)()
-                capslockUp()
+                if keymap.debug: print(f"########### Down : {key}")
+                keymap.InputKeyCommand(key)()
+                keymap.InputKeyCommand("D-Shift")()
+                fakeymacs.shift_down2 = True
+            return _func
+
+        def shiftUp(key):
+            def _func():
+                if keymap.debug: print("--------------------------------------------------------")
+                if keymap.debug: print(f"########### Up : {key}")
+                keymap.InputKeyCommand(key)()
+                if fakeymacs.shift_down2:
+                    keymap.InputKeyCommand("U-Shift")()
+                    fakeymacs.shift_down2 = False
+            return _func
+
+        def postProcessing(key):
+            def _func():
+                if keymap.debug: print("--------------------------------------------------------")
+                if keymap.debug: print(f"########### Post : {key}")
+                keymap.InputKeyCommand(key)()
+                shiftUp(f"U-{user2_key}")()
                 keymap.modifier &= ~keymap.vk_mod_map[keyhac_keymap.KeyCondition.strToVk(user2_key)]
             return _func
 
         def capslockSet(window_keymap):
             if os_keyboard_type == "JP":
-                window_keymap[     user2_key  ] = capslockDown
-                window_keymap[f"U-{user2_key}"] = capslockUp
+                window_keymap[       user2_key  ] = shiftDown( f"D-{user2_key}")
+                window_keymap[  f"U-{user2_key}"] = shiftUp(   f"U-{user2_key}")
+                window_keymap[f"U-S-{user2_key}"] = shiftUp( f"U-S-{user2_key}")
+                window_keymap[f"U-W-{user2_key}"] = shiftUp( f"U-W-{user2_key}")
+                window_keymap[ f"U0-{user2_key}"] = shiftDown(f"U0-{user2_key}") # for space_fn extension
+
                 window_keymap[f"C-{user2_key}"] = "S-CapsLock" # CapsLock の切り替え
             else:
                 window_keymap[f"C-{user2_key}"] = "CapsLock" # CapsLock の切り替え
@@ -760,15 +767,19 @@ def configure(keymap):
             window_keymap[f"W-{user2_key}"] = "W-Ctrl"
             window_keymap[f"A-{user2_key}"] = "A-Ctrl"
 
-            window_keymap["U-U2-LShift"] = postProcessing("U-LShift")
-            window_keymap["U-U2-RShift"] = postProcessing("U-RShift")
-            window_keymap["U-U2-LCtrl"]  = postProcessing("U-LCtrl")
-            window_keymap["U-U2-RCtrl"]  = postProcessing("U-RCtrl")
-            window_keymap["U-U2-LAlt"]   = postProcessing("U-LAlt")
-            window_keymap["U-U2-RAlt"]   = postProcessing("U-RAlt")
-            window_keymap["U-U2-LWin"]   = postProcessing("U-LWin")
-            window_keymap["U-U2-RWin"]   = postProcessing("U-RWin")
-            # window_keymap["U-U2-(200)"]  = postProcessing(None) # for space_fn extension
+            window_keymap[f"U2-LAlt"] = "C-LAlt"
+            window_keymap[f"U2-RAlt"] = "C-RAlt"
+            window_keymap[f"U2-LWin"] = "C-LWin"
+            window_keymap[f"U2-RWin"] = "C-RWin"
+
+            window_keymap["U-U2-LShift"] = postProcessing("U-U2-LShift")
+            window_keymap["U-U2-RShift"] = postProcessing("U-U2-RShift")
+            window_keymap["U-U2-LCtrl"]  = postProcessing("U-U2-LCtrl")
+            window_keymap["U-U2-RCtrl"]  = postProcessing("U-U2-RCtrl")
+            window_keymap["U-U2-LAlt"]   = postProcessing("U-U2-LAlt")
+            window_keymap["U-U2-RAlt"]   = postProcessing("U-U2-RAlt")
+            window_keymap["U-U2-LWin"]   = postProcessing("U-U2-LWin")
+            window_keymap["U-U2-RWin"]   = postProcessing("U-U2-RWin")
 
 
     ###########################################################################
@@ -1881,7 +1892,7 @@ def configure(keymap):
             else:
                 key_list2 = key_list
 
-            if fakeymacs.capslock_down:
+            if fakeymacs.shift_down2:
                 key_list2 = ["U-Shift"] + key_list2 + ["D-Shift"]
 
             keymap.InputKeyCommand(*key_list2)()
