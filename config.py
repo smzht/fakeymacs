@@ -3004,6 +3004,7 @@ def configure(keymap):
     # 個人設定ファイルのセクション [section-extension-space_fn] を読み込んで実行する
     exec(readConfigPersonal("[section-extension-space_fn]"), dict(globals(), **locals()))
 
+    # CapsLock キーを Ctrl キーとして使うための設定を行う
     if fc.use_capslock_as_ctrl:
         capslockSet(keymap_base)
 
