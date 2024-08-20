@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240819_02"
+fakeymacs_version = "20240820_01"
 
 import time
 import os.path
@@ -1575,7 +1575,7 @@ def configure(keymap):
     def vkeys():
         vkeys = list(usjisFilter(lambda: keyhac_keymap.KeyCondition.vk_str_table))
         for vkey in [VK_MENU, VK_LMENU, VK_RMENU, VK_CONTROL, VK_LCONTROL, VK_RCONTROL,
-                     VK_SHIFT, VK_LSHIFT, VK_RSHIFT, VK_LWIN, VK_RWIN, VK_CAPITAL]:
+                     VK_SHIFT, VK_LSHIFT, VK_RSHIFT, VK_LWIN, VK_RWIN]:
             vkeys.remove(vkey)
         return vkeys
 
@@ -3030,3 +3030,4 @@ def configure(keymap):
             keymap_remote[f"U-{mkey}"] = f"U-{mkey}"
 
         capslockSet(keymap_remote)
+        keymap_remote[f"C-{user2_key}"] = f"C-{user2_key}" # CapsLock の切り替え
