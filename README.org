@@ -173,7 +173,6 @@ fc.use_capslock_as_ctrl を True にすることで CapsLock キーを Control �
  - リモートデスクトップ接続先でこの機能を利用する場合には、接続元、接続先に同じバージョンの Fakeymacs をインストールし、リモートデスクトップ接続のオプションのローカルリソース->キーボードで「このコンピューター」を選択してから接続してください。またこの選択をする場合、接続先での一部のキーバインドが変更となることにご留意ください。
   - https://www.yellowhouse.jp/windows10remote-desktop-option/#toc13
   - https://atmarkit.itmedia.co.jp/ait/articles/0508/27/news022.html
- - リモートデスクトップ接続先では、C-CapsLock による CapsLock の切り替えは機能しません。
  - VcXsrv などの X ウィンドウサーバソフトで、カーソル移動が遅くなる場合があります。（WSLg は問題なし）
 
 ※ コンフィグレーションパラメータの設定例にある次の行を有効にすると、alt-ime-ahk と同等の機能が
