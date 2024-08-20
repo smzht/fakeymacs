@@ -739,8 +739,8 @@ def configure(keymap):
 
         def capslockSet(window_keymap):
             if os_keyboard_type == "JP":
-                window_keymap[       user2_key  ] = shiftDown( f"D-{user2_key}")
-                window_keymap[  f"U-{user2_key}"] = shiftUp(   f"U-{user2_key}")
+                window_keymap[     user2_key  ] = shiftDown(f"D-{user2_key}")
+                window_keymap[f"U-{user2_key}"] = shiftUp(  f"U-{user2_key}")
 
                 window_keymap["U-U2-LShift"] = shiftDown("U-U2-LShift")
                 window_keymap["U-U2-RShift"] = shiftDown("U-U2-RShift")
