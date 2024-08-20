@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240820_01"
+fakeymacs_version = "20240820_02"
 
 import time
 import os.path
@@ -741,9 +741,6 @@ def configure(keymap):
             if os_keyboard_type == "JP":
                 window_keymap[       user2_key  ] = shiftDown( f"D-{user2_key}")
                 window_keymap[  f"U-{user2_key}"] = shiftUp(   f"U-{user2_key}")
-                window_keymap[f"U-S-{user2_key}"] = shiftUp( f"U-S-{user2_key}")
-                window_keymap[f"U-W-{user2_key}"] = shiftUp( f"U-W-{user2_key}")
-                window_keymap[ f"U0-{user2_key}"] = shiftDown(f"U0-{user2_key}") # for space_fn extension
 
                 window_keymap["U-U2-LShift"] = shiftDown("U-U2-LShift")
                 window_keymap["U-U2-RShift"] = shiftDown("U-U2-RShift")
