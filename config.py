@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240820_02"
+fakeymacs_version = "20240822_01"
 
 import time
 import os.path
@@ -1384,19 +1384,40 @@ def configure(keymap):
                     keymap.record_seq.append((ctl_x_prefix_vkey[0], True))
 
             elif (fc.use_capslock_as_ctrl and
-                  ctl_x_prefix_vkey[0] in [VK_LCONTROL, VK_RCONTROL] and
-                  len(keymap.record_seq) >= 2):
-                if keymap.record_seq[-1] == (VK_CAPITAL, True):
-                    keymap.record_seq.pop()
-                if (keymap.record_seq[-1] == (ctl_x_prefix_vkey[1], True) and
-                    keymap.record_seq[-2] == (ctl_x_prefix_vkey[1], False)):
-                    keymap.record_seq.pop()
-                    keymap.record_seq.pop()
-                    for i in range(len(keymap.record_seq) - 1, -1, -1):
-                        if keymap.record_seq[i] == (VK_CAPITAL, False):
+                  ctl_x_prefix_vkey[0] in [VK_LCONTROL, VK_RCONTROL]):
+
+                if os_keyboard_type == "US":
+                    if len(keymap.record_seq) >= 4:
+                        if (((keymap.record_seq[-1] == (VK_CAPITAL, True) and
+                              keymap.record_seq[-2] == (ctl_x_prefix_vkey[1], True)) or
+                             (keymap.record_seq[-1] == (ctl_x_prefix_vkey[1], True) and
+                              keymap.record_seq[-2] == (VK_CAPITAL, True))) and
+                            keymap.record_seq[-3] == (ctl_x_prefix_vkey[1], False)):
                             keymap.record_seq.pop()
-                        else:
-                            break
+                            keymap.record_seq.pop()
+                            keymap.record_seq.pop()
+                            if keymap.record_seq[-1] == (VK_CAPITAL, False):
+                                for i in range(len(keymap.record_seq) - 1, -1, -1):
+                                    if keymap.record_seq[i] == (VK_CAPITAL, False):
+                                        keymap.record_seq.pop()
+                                    else:
+                                        break
+                            else:
+                                # CapsLock の入力が連続して行われる場合があるための対処
+                                keymap.record_seq.append((VK_CAPITAL, True))
+                else:
+                    if len(keymap.record_seq) >= 2:
+                        if keymap.record_seq[-1] == (VK_CAPITAL, True):
+                            keymap.record_seq.pop()
+                        if (keymap.record_seq[-1] == (ctl_x_prefix_vkey[1], True) and
+                            keymap.record_seq[-2] == (ctl_x_prefix_vkey[1], False)):
+                            keymap.record_seq.pop()
+                            keymap.record_seq.pop()
+                            for i in range(len(keymap.record_seq) - 1, -1, -1):
+                                if keymap.record_seq[i] == (VK_CAPITAL, False):
+                                    keymap.record_seq.pop()
+                                else:
+                                    break
 
     def kmacro_end_and_call_macro():
         def _kmacro_end_and_call_macro():
