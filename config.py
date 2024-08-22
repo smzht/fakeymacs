@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240822_01"
+fakeymacs_version = "20240823_01"
 
 import time
 import os.path
@@ -704,14 +704,15 @@ def configure(keymap):
     fakeymacs.shift_down2 = False
 
     if fc.use_capslock_as_ctrl:
-        user2_key = "(236)" # リモートデスクトップ接続先に渡る仮想キーコードを選択する必要有り
+        user2_vkey = 236 # リモートデスクトップ接続先に渡る仮想キーコードを選択する必要有り
+        user2_key = keyhac_keymap.KeyCondition.vkToStr(user2_vkey)
 
         keymap.replaceKey("CapsLock", user2_key)
-        keymap.replaceKey("(240)", user2_key)
+        keymap.replaceKey(240, user2_key)
 
         if os_keyboard_type == "US":
-            keymap.replaceKey("(241)", user2_key)
-            keymap.replaceKey("(242)", user2_key)
+            keymap.replaceKey(241, user2_key)
+            keymap.replaceKey(242, user2_key)
 
         keymap.defineModifier(user2_key, "User2")
 
@@ -734,7 +735,7 @@ def configure(keymap):
             def _func():
                 keymap.InputKeyCommand(key)()
                 shiftUp(f"U-{user2_key}")()
-                keymap.modifier &= ~keymap.vk_mod_map[keyhac_keymap.KeyCondition.strToVk(user2_key)]
+                keymap.modifier &= ~keymap.vk_mod_map[user2_vkey]
             return _func
 
         def capslockSet(window_keymap):
