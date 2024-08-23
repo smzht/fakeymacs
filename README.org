@@ -159,9 +159,7 @@ _config_personal.py ファイルを config_personal.pyという名称に変更�
 
 ※ 管理権限を持たない PC を利用している場合でレジストリによるキーの置き換えができない場合、
 fc.use_capslock_as_ctrl を True にすることで CapsLock キーを Control キーとして利用することができます。\\
-この機能の仕組みの説明は、次の Issue を参照してください。
- - https://github.com/smzht/fakeymacs/issues/42
-また、この機能を利用する場合、次の点に留意してください。
+　また、この機能を利用する場合、次の点に留意してください。
 - 本機能を利用する場合、モディファイアキーとして User2（U2）が利用されます。
 - fc.transparent_target や fc.game_app_list に指定したアプリにはこの機能は適用されません。
 - fc.side_of_ctrl_key を "R" に設定することで CapsLock キーを右コントロールキーとして Emacs キーバインド用のキーとして利用することができます。この場合、左下にあるコントロールキーは Windows ショートカットキーやマウスとの連携用のキーとして使うことができます。
