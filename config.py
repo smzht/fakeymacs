@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240826_01"
+fakeymacs_version = "20240828_01"
 
 import time
 import os.path
@@ -1397,9 +1397,8 @@ def configure(keymap):
                              (keymap.record_seq[-1] == (ctl_x_prefix_vkey[1], True) and
                               keymap.record_seq[-2] == (VK_CAPITAL, True))) and
                             keymap.record_seq[-3] == (ctl_x_prefix_vkey[1], False)):
-                            keymap.record_seq.pop()
-                            keymap.record_seq.pop()
-                            keymap.record_seq.pop()
+                            for _ in range(3):
+                                keymap.record_seq.pop()
                             if keymap.record_seq[-1] == (VK_CAPITAL, False):
                                 for i in range(len(keymap.record_seq) - 1, -1, -1):
                                     if keymap.record_seq[i] == (VK_CAPITAL, False):
@@ -1409,19 +1408,40 @@ def configure(keymap):
                             else:
                                 # CapsLock の入力が連続して行われる場合があるための対処
                                 keymap.record_seq.append((VK_CAPITAL, True))
+                        else:
+                            # Remote Desktop を利用する場合の対策
+                            if (keymap.record_seq[-1] == (user2_vkey, True) and
+                                keymap.record_seq[-2] == (ctl_x_prefix_vkey[1], True) and
+                                keymap.record_seq[-3] == (ctl_x_prefix_vkey[1], False) and
+                                keymap.record_seq[-4] == (user2_vkey, False)):
+                                for _ in range(4):
+                                    keymap.record_seq.pop()
                 else:
                     if len(keymap.record_seq) >= 2:
                         if keymap.record_seq[-1] == (VK_CAPITAL, True):
                             keymap.record_seq.pop()
                         if (keymap.record_seq[-1] == (ctl_x_prefix_vkey[1], True) and
                             keymap.record_seq[-2] == (ctl_x_prefix_vkey[1], False)):
-                            keymap.record_seq.pop()
-                            keymap.record_seq.pop()
+                            for _ in range(2):
+                                keymap.record_seq.pop()
                             for i in range(len(keymap.record_seq) - 1, -1, -1):
                                 if keymap.record_seq[i] == (VK_CAPITAL, False):
                                     keymap.record_seq.pop()
                                 else:
                                     break
+                        else:
+                            # Remote Desktop を利用する場合の対策
+                            if len(keymap.record_seq) >= 8:
+                                if (keymap.record_seq[-1] == (VK_LSHIFT, True) and
+                                    keymap.record_seq[-2] == (user2_vkey, True) and
+                                    keymap.record_seq[-3] == (VK_LSHIFT, False) and
+                                    keymap.record_seq[-4] == (ctl_x_prefix_vkey[1], True) and
+                                    keymap.record_seq[-5] == (ctl_x_prefix_vkey[1], False) and
+                                    keymap.record_seq[-6] == (VK_LSHIFT, True) and
+                                    keymap.record_seq[-7] == (VK_LSHIFT, False) and
+                                    keymap.record_seq[-8] == (user2_vkey, False)):
+                                    for _ in range(8):
+                                        keymap.record_seq.pop()
 
     def kmacro_end_and_call_macro():
         def _kmacro_end_and_call_macro():
