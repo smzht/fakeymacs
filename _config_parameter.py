@@ -397,7 +397,7 @@ fc.command_name = r"cmd.exe"
 
 # コマンドのリピート回数の最大値を指定する
 # （数値を大きくしていくと「Time stamp inversion happened.」が発生するので注意してください）
-fc.repeat_max _ 128
+fc.repeat_max = 128
 
 # Microsoft Excel のセル内で改行を選択可能かを指定する（True: 選択可、False: 選択不可）
 # （kill_line 関数の挙動を変えるための変数です。Microsoft Excel 2019 以降では True にして
