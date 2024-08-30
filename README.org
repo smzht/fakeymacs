@@ -45,7 +45,7 @@ IME のショートカットキーが利用できるようになります。
 「ことえり」のキーバインドを利用できるようにしています。
 詳しくは、次の Fakeymacs key bindings manual の「■ 「Emacs 日本語入力モード」のキーバインド」
 の項を参照してください。
-- https'//github.com/smzht/fakeymacs/blob/master/fakeymacs_manuals/key_bindings.org
+- https://github.com/smzht/fakeymacs/blob/master/fakeymacs_manuals/key_bindings.org
 
 ** キーマップのレイヤー構成
 
