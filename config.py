@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240828_01"
+fakeymacs_version = "20240831_01"
 
 import time
 import os.path
@@ -2580,19 +2580,18 @@ def configure(keymap):
 
     if fc.use_alt_digit_key_for_f1_to_f12:
         for mod1, mod2, mod3 in itertools.product(["", "W-"], ["", "C-"], ["", "S-"]):
-            mod = mod1 + mod2 + mod3
+            mod = "A-" + mod1 + mod2 + mod3
 
-            mkey = "A-" + mod
             for i in range(10):
                 define_key(keymap_global,
-                           mkey + f"{(i + 1) % 10}", self_insert_command(mod + vkToStr(VK_F1 + i)))
+                           mod + f"{(i + 1) % 10}", self_insert_command(mod + vkToStr(VK_F1 + i)))
 
-            define_key(keymap_global, mkey + "-", self_insert_command(mod + vkToStr(VK_F11)))
+            define_key(keymap_global, mod + "-", self_insert_command(mod + vkToStr(VK_F11)))
 
             if is_japanese_keyboard:
-                define_key(keymap_global, mkey + "^", self_insert_command(mod + vkToStr(VK_F12)))
+                define_key(keymap_global, mod + "^", self_insert_command(mod + vkToStr(VK_F12)))
             else:
-                define_key(keymap_global, mkey + "=", self_insert_command(mod + vkToStr(VK_F12)))
+                define_key(keymap_global, mod + "=", self_insert_command(mod + vkToStr(VK_F12)))
 
 
     ###########################################################################
