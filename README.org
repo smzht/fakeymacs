@@ -45,7 +45,8 @@ IME のショートカットキーが利用できるようになります。
 「ことえり」のキーバインドを利用できるようにしています。
 詳しくは、次の Fakeymacs key bindings manual の「■ 「Emacs 日本語入力モード」のキーバインド」
 の項を参照してください。
-- https://github.com/smzht/fakeymacs/blob/master/fakeymacs_manuals/key_bindings.org
+
+- [[/fakeymacs_manuals/key_bindings.org#-emacs-日本語入力モードのキーバインド]]
 
 ** キーマップのレイヤー構成
 
@@ -191,7 +192,7 @@ config_personal.py には、Fakeymacs の拡張機能を有効化／無効化す
 （拡張機能を有効化する場合には、if 0: を if 1: にしてください。
 また、必要であれば、コンフィグレーションパラメータの設定も行ってください。）
 
-- https://github.com/smzht/fakeymacs/blob/master/fakeymacs_manuals/extensions.org
+- [[/fakeymacs_manuals/extensions.org]]
 
 VSCode を利用する場合には、次の vscode_key Extension 用のコンフィグレーションパラメータの設定は
 確認してください。
@@ -220,7 +221,7 @@ fc.use_usjis_keyboard_conversion 変数を True に設定してください。
 英語配列では使わないキーを英語キーボードのキー配置にあるキーに再割当てすることで、
 日本語キーボードを英語キーボードのキー配置により近い形で利用することが可能となります。
 
-- https://github.com/smzht/fakeymacs/tree/master/fakeymacs_extensions/change_keyboard2
+- [[/fakeymacs_extensions/change_keyboard2]]
 
 *** 10) テキスト カーソル インジケーターの設定を行う（オプション）
 
