@@ -55,8 +55,10 @@ IME のショートカットキーが利用できるようになります。
 
 [[/fakeymacs_manuals/keymap_layer/keymap_layer.png]]
 
-※ keymap_remote レイヤーは、fc.use_capslock_as_ctrl 変数が True の時に機能するレイヤーです。\\
-※ keymap_vscode レイヤーは、vscode_key Extension を有効にしたときに機能するレイヤーです。\\
+※ keymap_remote レイヤーは、fc.use_capslock_as_ctrl 変数が True の時に機能するレイヤーです。
+
+※ keymap_vscode レイヤーは、vscode_key Extension を有効にしたときに機能するレイヤーです。
+
 ※ keymap_ei レイヤーは、fc.use_emacs_ime_mode 変数が True の時に機能するレイヤーです。
 
 ** 使い方
