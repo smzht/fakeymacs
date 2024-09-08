@@ -6,10 +6,10 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240901_01"
+fakeymacs_version = "20240908_01"
 
 import time
-import os.path
+import os
 import re
 import fnmatch
 import copy
@@ -1825,7 +1825,7 @@ def configure(keymap):
                 if fc.use_capslock_as_ctrl:
                     if re.search(rf"(^|-)({fc.side_of_ctrl_key}|)C-", pos_list[-1]):
                         pos = re.sub(rf"(^|-)({fc.side_of_ctrl_key}|)C-", r"\1U2-", pos_list[-1])
-                        w_keymap[pos] = _keyCommand2(key_list)
+                        w_keymap[pos] = w_keymap[pos_list[-1]]
 
                     if not callable(w_keymap[pos_list[-1]]):
                         capslockSet(w_keymap[pos_list[-1]])
