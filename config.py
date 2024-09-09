@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240909_01"
+fakeymacs_version = "20240910_01"
 
 import time
 import os
@@ -1374,9 +1374,8 @@ def configure(keymap):
                  (keymap.record_seq[-1] == (ctl_x_prefix_vkey[1], True) and
                   keymap.record_seq[-2] == (ctl_x_prefix_vkey[0], True))) and
                 keymap.record_seq[-3] == (ctl_x_prefix_vkey[1], False)):
-                keymap.record_seq.pop()
-                keymap.record_seq.pop()
-                keymap.record_seq.pop()
+                for _ in range(3):
+                    keymap.record_seq.pop()
                 if keymap.record_seq[-1] == (ctl_x_prefix_vkey[0], False):
                     for i in range(len(keymap.record_seq) - 1, -1, -1):
                         if keymap.record_seq[i] == (ctl_x_prefix_vkey[0], False):
