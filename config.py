@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240910_03"
+fakeymacs_version = "20240910_04"
 
 import time
 import os
@@ -704,8 +704,6 @@ def configure(keymap):
     fakeymacs.shift_down2 = False
 
     if fc.use_capslock_as_ctrl:
-        fakeymacs.capslock_down = False
-
         user2_vkey = 236 # リモートデスクトップ接続先に渡る仮想キーコードを選択する必要有り
         user2_key = keyhac_keymap.KeyCondition.vkToStr(user2_vkey)
 
@@ -717,14 +715,6 @@ def configure(keymap):
             keymap.replaceKey(242, user2_key)
 
         keymap.defineModifier(user2_key, "User2")
-
-        def capslockDown():
-            shiftDown(f"D-{user2_key}")()
-            fakeymacs.capslock_down = True
-
-        def capslockUp():
-            shiftUp(f"U-{user2_key}")()
-            fakeymacs.capslock_down = False
 
         def shiftDown(key):
             def _func():
@@ -744,22 +734,17 @@ def configure(keymap):
         def postProcessing(key):
             def _func():
                 keymap.InputKeyCommand(key)()
-                capslockUp()
+                shiftUp(f"U-{user2_key}")()
                 keymap.modifier &= ~keymap.vk_mod_map[user2_vkey]
-            return _func
-
-        def postProcessing2(key):
-            def _func():
-                keymap.InputKeyCommand(key)()
-                if not fakeymacs.capslock_down:
-                    capslockUp()
-                    keymap.modifier &= ~keymap.vk_mod_map[user2_vkey]
             return _func
 
         def capslockSet(window_keymap):
             if os_keyboard_type == "JP":
-                window_keymap[     user2_key  ] = capslockDown
-                window_keymap[f"U-{user2_key}"] = capslockUp
+                window_keymap[     user2_key  ] = shiftDown(f"D-{user2_key}")
+                window_keymap[f"U-{user2_key}"] = shiftUp(  f"U-{user2_key}")
+
+                window_keymap[  f"U0-{user2_key}"] = shiftDown(f"D-U0-{user2_key}")
+                window_keymap[f"U-U0-{user2_key}"] = shiftUp(  f"U-U0-{user2_key}")
 
                 window_keymap["U-LShift"] = shiftUp("U-LShift") # for Remote Desktop
                 window_keymap["U-RShift"] = shiftUp("U-RShift") # for Remote Desktop
@@ -780,7 +765,6 @@ def configure(keymap):
             window_keymap["U-U2-RAlt"]  = postProcessing("U-U2-RAlt")
             window_keymap["U-U2-LWin"]  = postProcessing("U-U2-LWin")
             window_keymap["U-U2-RWin"]  = postProcessing("U-U2-RWin")
-            window_keymap["U-U2-(200)"] = postProcessing2("U-U2-(200)") # for space_fn Extension
 
 
     ###########################################################################
