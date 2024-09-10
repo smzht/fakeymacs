@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240910_01"
+fakeymacs_version = "20240910_02"
 
 import time
 import os
@@ -1897,19 +1897,24 @@ def configure(keymap):
         if usjis_conv:
             key_list = keyInput(key_list)
 
+        if "S-" in key_list[-1]:
+            shift_check = True
+        else:
+            shift_check = False
+
         def _func():
-            # 「define_key(keymap_base, "W-S-m", self_insert_command("W-S-m"))」のような設定を
-            # した場合、 Shift に RShift を使うと正常に動作しない。その対策。
-            if (keymap.modifier & keyhac_keymap.MODKEY_SHIFT_R and
-                (keymap.modifier & (keyhac_keymap.MODKEY_WIN_L | keyhac_keymap.MODKEY_WIN_R) or
-                 keymap.modifier & (keyhac_keymap.MODKEY_ALT_L | keyhac_keymap.MODKEY_ALT_R)) and
-                "S-" in key_list[-1]):
-                key_list[-1] = re.sub(r"(^|-)(S-)", r"\1R\2", key_list[-1])
+            key_list2 = list(key_list)
+
+            if shift_check:
+                # 「define_key(keymap_base, "W-S-m", self_insert_command("W-S-m"))」のような設定を
+                # した場合、 Shift に RShift を使うと正常に動作しない。その対策。
+                if (keymap.modifier & keyhac_keymap.MODKEY_SHIFT_R and
+                    (keymap.modifier & (keyhac_keymap.MODKEY_WIN_L | keyhac_keymap.MODKEY_WIN_R) or
+                     keymap.modifier & (keyhac_keymap.MODKEY_ALT_L | keyhac_keymap.MODKEY_ALT_R))):
+                    key_list2[-1] = re.sub(r"(^|-)(S-)", r"\1R\2", key_list2[-1])
 
             if fakeymacs.shift_down:
-                key_list2 = ["D-Shift"] + key_list + ["U-Shift"]
-            else:
-                key_list2 = key_list
+                key_list2 = ["D-Shift"] + key_list2 + ["U-Shift"]
 
             if fakeymacs.shift_down2:
                 key_list2 = ["U-Shift"] + key_list2 + ["D-Shift"]
