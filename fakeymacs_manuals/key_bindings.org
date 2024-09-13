@@ -30,11 +30,6 @@ Fakeymacs で利用できるキーバインドは以下のとおりです。
 
 ※ fc.use_ctrl_openbracket_as_meta が False の場合、M（Meta）キーとして C-[ は利用できません。
 
-※ fc.use_capslock_as_ctrl を True にすると、CapsLock キーが Ctrl キーとして利用できるようになります。
-利用する際の留意事項は次のページの 7) を参照ください。
-
-- [[/README.org#7-コンフィグレーションパラメータをカスタマイズする]]
-
 ※ キーの記述方法は次のページを参照してください。
 
 - http://crftwr.github.io/keyhac/doc/ja/
