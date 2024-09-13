@@ -1649,7 +1649,6 @@ def configure(keymap):
                     window_keymap is locals()["keymap_emacs"]):
 
                     def _command1():
-                        if keymap.debug: print("--------------------------------------------------------")
                         key = key_list[0]
                         if key in fakeymacs.emacs_exclusion_key:
                             getKeyCommand(keymap_base, key)()
