@@ -43,6 +43,8 @@ except:
     fc.BusyBox_path = dataPath() + r"\fakeymacs_extensions\shell_command_on_region"
     # fc.BusyBox_path = r"C:\busybox64"
 
+# --------------------------------------------------------------------------------------------------
+
 import subprocess
 
 def shell_command_inputbox():

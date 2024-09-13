@@ -19,6 +19,8 @@ except:
     # QuicKey を起動するショートカットキーを指定する
     fc.quickey_shortcut_key = "A-q"
 
+# --------------------------------------------------------------------------------------------------
+
 define_key3(keymap_emacs, "Ctl-x C-b",
             reset_search(reset_undo(reset_counter(reset_mark(self_insert_command3(fc.quickey_shortcut_key))))),
             lambda: keymap.getWindow().getProcessName() in fc.chrome_list)

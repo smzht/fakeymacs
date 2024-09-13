@@ -42,6 +42,8 @@ except:
     # ブラウザをポップアップし、新しいウィンドウを開くキーを指定する（IME は OFF）
     fc.browser_key3 = "C-A-o" # C-A-n は VSCode Extension で利用しているため使わない
 
+# --------------------------------------------------------------------------------------------------
+
 # ブラウザをポップアップしてから指定したキーを実行する
 def browser_popup(key, ime_status, browser_list=fc.browser_list):
     def _func():

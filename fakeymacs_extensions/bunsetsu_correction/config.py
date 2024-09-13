@@ -12,6 +12,8 @@ except:
     fc.bunsetsu_correction_app_list = ["chrome.exe",
                                        "msedge.exe"]
 
+# --------------------------------------------------------------------------------------------------
+
 if fc.use_emacs_ime_mode:
     if fc.ime == "old_Microsoft_IME":
         command_keep = {}

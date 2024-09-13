@@ -18,6 +18,8 @@ except:
     # Everything プログラムを指定する
     fc.everything_name = r"C:\Program Files\Everything\everything.exe"
 
+# --------------------------------------------------------------------------------------------------
+
 def everything():
     keymap.ShellExecuteCommand(None, fc.everything_name, "", "")()
 

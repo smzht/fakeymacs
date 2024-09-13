@@ -14,6 +14,8 @@ except:
                                "firefox.exe",
                                ]
 
+# --------------------------------------------------------------------------------------------------
+
 def is_youtube():
     if (keymap.getWindow().getProcessName() in fc.youtube_browser_list and
         " - YouTube " in keymap.getWindow().getText()):

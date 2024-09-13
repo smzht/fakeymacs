@@ -11,6 +11,8 @@ except:
     # 本機能を利用するためのキーを指定する
     fc.zenkaku_hankaku_key = "C-Enter"
 
+# --------------------------------------------------------------------------------------------------
+
 if fc.use_emacs_ime_mode:
 
     def hankaku_henkan():

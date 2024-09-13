@@ -12,6 +12,8 @@ except:
     fc.menu_target= ["ttermpro.exe", # TeraTerm
                      ]
 
+# --------------------------------------------------------------------------------------------------
+
 def is_menu_target(window):
     if (fakeymacs.is_emacs_target == False and
         window.getProcessName() in fc.menu_target):

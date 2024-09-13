@@ -52,6 +52,8 @@ except:
     # 仕様としており、その時間を秒数で指定する
     fc.space_fn_function_time2 = 0.1
 
+# --------------------------------------------------------------------------------------------------
+
 user0_key = "(200)"
 space_fn_key_action = getKeyAction(fc.space_fn_key)
 

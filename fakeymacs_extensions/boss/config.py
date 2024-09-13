@@ -21,6 +21,8 @@ except:
     # fc.boss_open_app = "notepad.exe"
     # fc.boss_open_app = None
 
+# --------------------------------------------------------------------------------------------------
+
 def boss():
     # 全てのウィンドウを最小化する
     self_insert_command("W-d")()

@@ -94,6 +94,8 @@ except:
     # fc.move_window_key_for_desktops += [["W-p", "W-n"]]
     # fc.move_window_key_for_desktops += [["W-Up", "W-Down"]]
 
+# --------------------------------------------------------------------------------------------------
+
 def minimize_window():
     window = getTopLevelWindow()
     if window and not window.isMinimized():

@@ -22,6 +22,8 @@ except:
                         "Xpra-Launcher.exe",      # Xpra
                         ]
 
+# --------------------------------------------------------------------------------------------------
+
 def is_real_emacs(window):
     if (window.getClassName() == "Emacs" or
         (any(checkWindow(app, window=window) for app in fc.x_window_apps) and

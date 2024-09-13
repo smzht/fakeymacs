@@ -13,6 +13,8 @@ except:
                            ["msedge.exe", 35024, "C-A-r"], # 現在のタブの右隣に新しいタブを開く
                            ]
 
+# --------------------------------------------------------------------------------------------------
+
 for process_name, command_id, key in fc.menu_command_key:
     define_key3(keymap_global, key,
                 lambda x=command_id:   keymap.getWindow().postMessage(0x0111, x),
