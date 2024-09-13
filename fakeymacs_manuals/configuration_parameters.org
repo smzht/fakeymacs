@@ -33,7 +33,6 @@ Fakeymacs をカスタマイズするために、以下のコンフィグレー�
 | fc.use_ctrl_i_as_tab                     | C-i キーを Tab キーとして使うかどうかを指定する                                                                            |
 | fc.use_esc_as_meta                       | Esc キーを Meta キーとして使うかどうかを指定する                                                                           |
 | fc.use_ctrl_openbracket_as_meta          | C-[ キーを Meta キーとして使うかどうかを指定する                                                                           |
-| fc.use_capslock_as_ctrl                  | CapsLock キーを Ctrl キーとして使うかどうかを指定する                                                                      |
 | fc.ctl_x_prefix_key                      | Ctl-x プレフィックスキーに使うキーを指定する                                                                               |
 | fc.scroll_key                            | スクロールに使うキーの組み合わせ（Up、Down の順）を指定する                                                                |
 | fc.use_emacs_ime_mode                    | Emacs 日本語入力モードを使うかどうかを指定する                                                                             |

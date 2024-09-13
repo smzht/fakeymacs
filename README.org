@@ -55,7 +55,7 @@ IME のショートカットキーが利用できるようになります。
 
 [[/fakeymacs_manuals/keymap_layer/keymap_layer.png]]
 
-※ keymap_remote レイヤーは、fc.use_capslock_as_ctrl 変数が True の時に機能するレイヤーです。
+※ keymap_remote レイヤーは、capslock_key Extension を有効にしたときに機能するレイヤーです。
 
 ※ keymap_vscode レイヤーは、vscode_key Extension を有効にしたときに機能するレイヤーです。
 
@@ -76,7 +76,8 @@ CapsLock のキーの置き換えは Keyhac ではできませんので、KeySwa
 変更後、Windows の再ログインを行ってください。
 
 なお、管理権限を持たない PC を利用している場合は、Fakeymacs の機能で CapsLock キーを
-Control キーとして利用することができます。詳しくは、7) の項を参照してください。
+Control キーとして利用することができます。詳しくは、以降にある「CapsLock キーを
+ Ctrl キーとして使う機能について」の項を参照してください。
 
 *** 2) IMEを切り替えるショートカットキーを無効化する
 
@@ -153,7 +154,6 @@ _config_personal.py ファイルを config_personal.pyという名称に変更�
 | fc.ime_target              | IME の切り替え“のみをしたい”アプリケーションソフトを指定する                   |
 | fc.side_of_ctrl_key        | 左右どちらの Ctrl キーを使うかを指定する                                         |
 | fc.use_esc_as_meta         | Esc キーを Meta キーとして使うかどうかを指定する                                 |
-| fc.use_capslock_as_ctrl    | CapsLock キーを Ctrl キーとして使うかどうかを指定する                            |
 | fc.use_emacs_ime_mode      | Emacs 日本語入力モードを使うかどうかを指定する                                   |
 | fc.toggle_input_method_key | IME をトグルで切り替えるキーを指定する                                           |
 | fc.set_input_method_key    | IME を切り替えるキーの組み合わせ（disable、enable の順）を指定する               |
@@ -163,22 +163,6 @@ _config_personal.py ファイルを config_personal.pyという名称に変更�
 ※ 1) で CapsLock に右 Control キーを割り当てた場合には、fc.side_of_ctrl_key 変数を "R" に
 変更する必要があります。この場合、左 Control キーは従来どおり Windows ショートカット用
 のキーとして利用できます。
-
-※ 管理権限を持たない PC を利用している場合でレジストリによるキーの置き換えができない場合、
-fc.use_capslock_as_ctrl 変数を True にすることで CapsLock キーを Control キーとして利用することができます。\\
-　この機能を利用する場合、次の点にご留意ください。
-- 本機能を利用する場合、モディファイアキーとして User2（U2）が利用されます。
-- fc.transparent_target 変数や fc.game_app_list 変数に指定したアプリにはこの機能は適用されません。
-- fc.side_of_ctrl_key 変数を "R" に設定することで CapsLock キーを右コントロールキーとして Emacs キーバインド用のキーとして利用することができます。この場合、左下にあるコントロールキーは Windows ショートカットキーやマウスとの連携用のキーとして使うことができます。
-- C-CapsLock で CapsLock の切り替えを可能としています。
-- 次の制約事項がありますので、ご理解の上ご利用ください。
- - CapsLock キーをマウスと組み合せて利用することはできません。
- - CapsLock キーと他のモディファイアキーを複合して使うキーバインドを入力した後、何れかの一部のモディファイアキーを離して次のキーバインドを入力することはできません。（例えば、CapsLock+Alt+l を押下した後、Alt と l のみを離して d を入力するということはできません。）
- - OS の設定が日本語キーボードの場合、キーボードマクロの記録の際に CapsLock キーを用いたキーバインドを使うことはできません。（キーボードマクロの記録の開始、終了のキーバインドで CapsLock キーを利用することは可能です。）
- - リモートデスクトップ接続先でこの機能を利用する場合には、接続元、接続先に同じバージョンの Fakeymacs をインストールし、両側で fc.use_capslock_as_ctrl 変数を True に設定し、リモートデスクトップ接続の「オプション」の「ローカルリソース」->「キーボード」で「このコンピューター」を選択してから接続してください。またこの選択をする場合、接続先での一部のキーバインドが変更となることにご留意ください。
-  - https://www.yellowhouse.jp/windows10remote-desktop-option/#toc13
-  - https://atmarkit.itmedia.co.jp/ait/articles/0508/27/news022.html
- - VcXsrv などの X ウィンドウサーバソフトで、カーソル移動が遅くなる場合があります。（WSLg は問題なし）
 
 ※ コンフィグレーションパラメータの設定例にある次の行を有効にすると、alt-ime-ahk と同等の機能が
 働くようになります。
@@ -300,6 +284,17 @@ Fakeymacs は、次の拡張機能で SpaceFN の機能もサポートしてい�
 Ctrl+Space（set-mark-command）を入力する際に Space が Fn キーとして認識されてしまう問題を、
 Fakeymacs 独自の方法で解決しています。
 Emacs のキーバインドとも十分に共存が可能なものとなっていますので、一度お試しいただければと思います。
+
+** CapsLock キーを Ctrl キーとして使う機能について
+
+管理権限を持たない PC を利用している場合でレジストリによるキーの置き換えができない場合に
+CapsLock キーを Ctrl キーとして使うための設定を行う機能を有しています。
+
+|----------------+-----------------------------------------------------|
+| Extension name | Description                                         |
+|----------------+-----------------------------------------------------|
+| [[/fakeymacs_extensions/capslock_key][capslock_key]]   | CapsLock キーを Ctrl キーとして使うための設定を行う |
+|----------------+-----------------------------------------------------|
 
 ** HHKB Studio のキーマップ設定例について
 
