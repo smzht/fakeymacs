@@ -95,17 +95,30 @@ def setCapslock(window_keymap):
     window_keymap["U-U2-RWin"]  = postProcessing("U-U2-RWin")
     window_keymap["U-U2-(200)"] = postProcessing2("U-U2-(200)") # for space_fn Extension
 
+wk_history = set()
+pattern = re.compile(rf"(^|-)({fc.side_of_ctrl_key}|)C-")
+
 def replicateKey(window_keymap):
+    wk_history.add(window_keymap)
+
     for key in list(window_keymap.keymap):
         key = str(key)
         command = window_keymap[key]
-        if re.search(rf"(^|-)({fc.side_of_ctrl_key}|)C-", key):
-            key2 = re.sub(rf"(^|-)({fc.side_of_ctrl_key}|)C-", r"\1U2-", key)
-            window_keymap[key2] = command
+
+        if pattern.search(key):
+            key2 = pattern.sub(r"\1U2-", key)
+
+            if type(command) is str:
+                window_keymap[key2] = InputKeyCommand(command, usjis_conv=False)
+            elif type(command) in [list, tuple]:
+                window_keymap[key2] = InputKeyCommand(*command, usjis_conv=False)
+            else:
+                window_keymap[key2] = command
 
         if isinstance(command, keyhac_keymap.WindowKeymap):
-            replicateKey(command)
-            setCapslock(command)
+            if command not in wk_history:
+                replicateKey(command)
+                setCapslock(command)
 
 for window_keymap in keymap.window_keymap_list:
     replicateKey(window_keymap)
