@@ -103,22 +103,22 @@ def replicateKey(window_keymap):
 
     for key in list(window_keymap.keymap):
         key = str(key)
-        command = window_keymap[key]
+        handler = window_keymap[key]
 
         if pattern.search(key):
             key2 = pattern.sub(r"\1U2-", key)
 
-            if type(command) is str:
-                window_keymap[key2] = InputKeyCommand(command, usjis_conv=False)
-            elif type(command) in [list, tuple]:
-                window_keymap[key2] = InputKeyCommand(*command, usjis_conv=False)
+            if type(handler) is str:
+                window_keymap[key2] = InputKeyCommand(handler, usjis_conv=False)
+            elif type(handler) in [list, tuple]:
+                window_keymap[key2] = InputKeyCommand(*handler, usjis_conv=False)
             else:
-                window_keymap[key2] = command
+                window_keymap[key2] = handler
 
-        if isinstance(command, keyhac_keymap.WindowKeymap):
-            if command not in wk_history:
-                replicateKey(command)
-                setCapslock(command)
+        if isinstance(handler, keyhac_keymap.WindowKeymap):
+            if handler not in wk_history:
+                replicateKey(handler)
+                setCapslock(handler)
 
 for window_keymap in keymap.window_keymap_list:
     replicateKey(window_keymap)
