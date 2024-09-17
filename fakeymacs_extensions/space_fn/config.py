@@ -54,10 +54,10 @@ except:
 
 # --------------------------------------------------------------------------------------------------
 
-user0_key = "(200)"
+user_key = "(200)"
 space_fn_key_action = getKeyAction(fc.space_fn_key)
 
-keymap.defineModifier(user0_key, "User0")
+keymap.defineModifier(user_key, "LUser0")
 
 class FakeymacsSpaceFN:
     pass
@@ -81,7 +81,7 @@ def space_fn_key_down():
 
     if (fc.space_fn_use_repeat_function == 1 or
         (fc.space_fn_use_repeat_function == 2 and
-         fakeymacs.last_keys[1] == "U-" + user0_key and
+         fakeymacs.last_keys[1] == "U-" + user_key and
          (time.time() - fakeymacs_spacefn.fn_key_up_time) < fc.space_fn_function_time1)):
         fakeymacs_spacefn.fn_key_repeat = True
     else:
@@ -122,7 +122,7 @@ def define_key_fn(window_keymap, keys, command, space_fn_key_output=False):
     if "U0-" not in key_list[0]:
         return
 
-    keys1 = keys.replace("U0-", "U3-", 1)
+    keys1 = keys.replace("U0-", "RU0-", 1)
 
     if callable(command):
         _command1 = command
@@ -135,12 +135,12 @@ def define_key_fn(window_keymap, keys, command, space_fn_key_output=False):
 
         def _command2():
             # fc.space_fn_key から押した場合で fc.space_fn_key のリピート入力がされていない場合
-            if (fakeymacs.last_keys[1] in [user0_key, "U0-" + user0_key] and
+            if (fakeymacs.last_keys[1] in [user_key, "U0-" + user_key] and
                 fakeymacs_spacefn.fn_key_oneshot):
                 fakeymacs_spacefn.is_space_fn_mode = True
 
             # fc.space_fn_key 以外のモディファイアキーから押した場合
-            elif user0_key in fakeymacs.last_keys[1]:
+            elif user_key in fakeymacs.last_keys[1]:
                 fakeymacs_spacefn.is_space_fn_mode = False
 
             # 上記のどちらかの状態の継続
@@ -187,7 +187,7 @@ def set_space_fn_key_replacement(replace):
 def replace_space_fn_key(window):
     if fakeymacs.is_base_target and fakeymacs.space_fn_key_replacement:
         if not fakeymacs_spacefn.fn_key_replacement:
-            keymap.replaceKey(fc.space_fn_key, user0_key)
+            keymap.replaceKey(fc.space_fn_key, user_key)
             fakeymacs_spacefn.fn_key_replacement = True
     else:
         if fakeymacs_spacefn.fn_key_replacement:
@@ -213,22 +213,22 @@ for window_keymap in fc.space_fn_window_keymap_list:
     else:
         window_keymap.applying_func = lambda: set_space_fn_key_replacement(True)
 
-# すべてのキーマップに対し、fc.space_fn_key を使うキーに割り当てられている設定を user0_key を使うキーに設定する
+# すべてのキーマップに対し、fc.space_fn_key を使うキーに割り当てられている設定を user_key を使うキーに設定する
 for window_keymap in keymap.window_keymap_list:
     for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
         mod   = mod1 + mod2 + mod3 + mod4
         mkey0 = mod + fc.space_fn_key
-        mkey1 = mod + user0_key
+        mkey1 = mod + user_key
         func = getKeyCommand(window_keymap, mkey0)
         if func:
             define_key(window_keymap, mkey1, space_fn_command(func))
 
-# keymap_base キーマップに対し、fc.space_fn_key を使う全てのキーの入力パターンを user0_key を使うキーに設定する
+# keymap_base キーマップに対し、fc.space_fn_key を使う全てのキーの入力パターンを user_key を使うキーに設定する
 for mod1, mod2, mod3, mod4 in itertools.product(["", "LW-", "RW-"], ["", "LA-", "RA-"],
                                                 ["", "LC-", "RC-"], ["", "S-"]):
     mod   = mod1 + mod2 + mod3 + mod4
     mkey0 = mod + fc.space_fn_key
-    mkey1 = mod + user0_key
+    mkey1 = mod + user_key
     if not getKeyCommand(keymap_base, mkey1):
         define_key(keymap_base, mkey1, space_fn_command(self_insert_command(mkey0)))
 
@@ -250,11 +250,11 @@ for window_keymap in fc.space_fn_window_keymap_list:
             mkey1 = "U0-" + mod + key
             define_key_fn(window_keymap, mkey1, self_insert_command(mkey0), True)
 
-    define_key(window_keymap, user0_key, space_fn_key_down)
+    define_key(window_keymap, user_key, space_fn_key_down)
     if fc.space_fn_use_oneshot_function:
-        define_key(window_keymap, "U-" + user0_key, space_fn_key_up)
+        define_key(window_keymap, "U-" + user_key, space_fn_key_up)
         if fc.space_fn_use_repeat_function != 3:
-            define_key(window_keymap, "U0-" + user0_key, space_fn_key_repeat)
+            define_key(window_keymap, "U0-" + user_key, space_fn_key_repeat)
 
 ## config_personal.py ファイルの読み込み
 exec(readConfigExtension(r"space_fn\config_personal.py", msg=False), dict(globals(), **locals()))

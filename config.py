@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240913_01"
+fakeymacs_version = "20240917_01"
 
 import time
 import os
@@ -1548,6 +1548,7 @@ def configure(keymap):
         key = re.sub(r"(^|-)(C-)", rf"\1{fc.side_of_ctrl_key}\2", key)
         key = re.sub(r"(^|-)(A-)", rf"\1{fc.side_of_alt_key}\2", key)
         key = re.sub(r"(^|-)(W-)", rf"\1{fc.side_of_win_key}\2", key)
+        key = re.sub(r"(^|-)(U.-)", rf"\1L\2", key)
         return key
 
     def kbd(keys):
