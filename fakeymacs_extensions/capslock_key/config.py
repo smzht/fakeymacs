@@ -65,8 +65,8 @@ def setCapslock(window_keymap):
         window_keymap[     user_key  ] = capslockDown(shiftDown(f"D-{user_key}"))
         window_keymap[f"U-{user_key}"] = capslockUp  (shiftUp  (f"U-{user_key}"))
 
-        window_keymap[  f"U0-{user_key}"] = capslockDown(shiftDown(f"D-U0-{user_key}"))
-        window_keymap[f"U-U0-{user_key}"] = capslockUp  (shiftUp  (f"U-U0-{user_key}"))
+        window_keymap[  f"LU0-{user_key}"] = capslockDown(shiftDown(f"D-LU0-{user_key}"))
+        window_keymap[f"U-LU0-{user_key}"] = capslockUp  (shiftUp  (f"U-LU0-{user_key}"))
 
         window_keymap["U-LShift"] = shiftUp("U-LShift") # for Remote Desktop
         window_keymap["U-RShift"] = shiftUp("U-RShift") # for Remote Desktop
@@ -79,8 +79,8 @@ def setCapslock(window_keymap):
         window_keymap[     user_key  ] = capslockDown(keymap.InputKeyCommand(f"D-{user_key}"))
         window_keymap[f"U-{user_key}"] = capslockUp  (keymap.InputKeyCommand(f"U-{user_key}"))
 
-        window_keymap[  f"U0-{user_key}"] = capslockDown(keymap.InputKeyCommand(f"D-U0-{user_key}"))
-        window_keymap[f"U-U0-{user_key}"] = capslockUp  (keymap.InputKeyCommand(f"U-U0-{user_key}"))
+        window_keymap[  f"LU0-{user_key}"] = capslockDown(keymap.InputKeyCommand(f"D-LU0-{user_key}"))
+        window_keymap[f"U-LU0-{user_key}"] = capslockUp  (keymap.InputKeyCommand(f"U-LU0-{user_key}"))
 
         window_keymap["U-RU3-LShift"] = postProcessing("U-RU3-LShift")
         window_keymap["U-RU3-RShift"] = postProcessing("U-RU3-RShift")
