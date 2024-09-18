@@ -57,7 +57,7 @@ except:
 user_key = "(200)"
 space_fn_key_action = getKeyAction(fc.space_fn_key)
 
-keymap.defineModifier(user_key, "LUser0")
+keymap.defineModifier(user_key, "User0")
 
 class FakeymacsSpaceFN:
     pass
