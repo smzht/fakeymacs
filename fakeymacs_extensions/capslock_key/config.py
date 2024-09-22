@@ -18,6 +18,9 @@ keymap.defineModifier(user_key, "RUser3")
 
 fakeymacs.capslock_down = False
 
+def inputKey(*key):
+    return keymap.InputKeyCommand(*key)
+
 def capslockDown(func):
     def _func():
         func()
@@ -30,70 +33,69 @@ def capslockUp(func):
         fakeymacs.capslock_down = False
     return _func
 
-def shiftDown(key):
+def shiftDown(func):
     def _func():
-        keymap.InputKeyCommand(key)()
-        keymap.InputKeyCommand("D-Shift")()
+        func()
+        inputKey("D-Shift")()
         fakeymacs.shift_down2 = True
     return _func
 
-def shiftUp(key):
+def shiftUp(func):
     def _func():
-        keymap.InputKeyCommand(key)()
+        func()
         if fakeymacs.shift_down2:
-            keymap.InputKeyCommand("U-Shift")()
+            inputKey("U-Shift")()
             fakeymacs.shift_down2 = False
     return _func
 
-def postProcessing(key):
+def postProcessing(func):
     def _func():
-        keymap.InputKeyCommand(key)()
-        capslockUp(shiftUp(f"U-{user_key}"))()
+        func()
+        capslockUp(shiftUp(inputKey(f"U-{user_key}")))()
         keymap.modifier &= ~keymap.vk_mod_map[user_vkey]
     return _func
 
-def postProcessing2(key):
+def postProcessing2(func):
      def _func():
-         keymap.InputKeyCommand(key)()
+         func()
          if not fakeymacs.capslock_down:
-             capslockUp(shiftUp(f"U-{user_key}"))()
+             capslockUp(shiftUp(inputKey(f"U-{user_key}")))()
              keymap.modifier &= ~keymap.vk_mod_map[user_vkey]
      return _func
 
 def setCapslock(window_keymap):
     if os_keyboard_type == "JP":
-        window_keymap[     user_key  ] = capslockDown(shiftDown(f"D-{user_key}"))
-        window_keymap[f"U-{user_key}"] = capslockUp  (shiftUp  (f"U-{user_key}"))
+        window_keymap[     user_key  ] = capslockDown(shiftDown(inputKey(f"D-{user_key}")))
+        window_keymap[f"U-{user_key}"] = capslockUp  (shiftUp  (inputKey(f"U-{user_key}")))
 
-        window_keymap[  f"LU0-{user_key}"] = capslockDown(shiftDown(f"D-LU0-{user_key}"))
-        window_keymap[f"U-LU0-{user_key}"] = capslockUp  (shiftUp  (f"U-LU0-{user_key}"))
+        window_keymap[  f"LU0-{user_key}"] = capslockDown(shiftDown(inputKey(f"D-LU0-{user_key}")))
+        window_keymap[f"U-LU0-{user_key}"] = capslockUp  (shiftUp  (inputKey(f"U-LU0-{user_key}")))
 
-        window_keymap["U-LShift"] = shiftUp("U-LShift") # for Remote Desktop
-        window_keymap["U-RShift"] = shiftUp("U-RShift") # for Remote Desktop
+        window_keymap["U-LShift"] = shiftUp(inputKey("U-LShift")) # for Remote Desktop
+        window_keymap["U-RShift"] = shiftUp(inputKey("U-RShift")) # for Remote Desktop
 
-        window_keymap["U-RU3-LShift"] = shiftDown("U-RU3-LShift")
-        window_keymap["U-RU3-RShift"] = shiftDown("U-RU3-RShift")
+        window_keymap["U-RU3-LShift"] = shiftDown(inputKey("U-RU3-LShift"))
+        window_keymap["U-RU3-RShift"] = shiftDown(inputKey("U-RU3-RShift"))
 
         window_keymap[f"C-{user_key}"] = "S-CapsLock" # CapsLock の切り替え
     else:
-        window_keymap[     user_key  ] = capslockDown(keymap.InputKeyCommand(f"D-{user_key}"))
-        window_keymap[f"U-{user_key}"] = capslockUp  (keymap.InputKeyCommand(f"U-{user_key}"))
+        window_keymap[     user_key  ] = capslockDown(inputKey(f"D-{user_key}"))
+        window_keymap[f"U-{user_key}"] = capslockUp  (inputKey(f"U-{user_key}"))
 
-        window_keymap[  f"LU0-{user_key}"] = capslockDown(keymap.InputKeyCommand(f"D-LU0-{user_key}"))
-        window_keymap[f"U-LU0-{user_key}"] = capslockUp  (keymap.InputKeyCommand(f"U-LU0-{user_key}"))
+        window_keymap[  f"LU0-{user_key}"] = capslockDown(inputKey(f"D-LU0-{user_key}"))
+        window_keymap[f"U-LU0-{user_key}"] = capslockUp  (inputKey(f"U-LU0-{user_key}"))
 
-        window_keymap["U-RU3-LShift"] = postProcessing("U-RU3-LShift")
-        window_keymap["U-RU3-RShift"] = postProcessing("U-RU3-RShift")
+        window_keymap["U-RU3-LShift"] = postProcessing(inputKey("U-RU3-LShift"))
+        window_keymap["U-RU3-RShift"] = postProcessing(inputKey("U-RU3-RShift"))
 
         window_keymap[f"C-{user_key}"] = "CapsLock" # CapsLock の切り替え
 
-    window_keymap["U-RU3-LCtrl"] = postProcessing("U-RU3-LCtrl")
-    window_keymap["U-RU3-RCtrl"] = postProcessing("U-RU3-RCtrl")
-    window_keymap["U-RU3-LAlt"]  = postProcessing("U-RU3-LAlt")
-    window_keymap["U-RU3-RAlt"]  = postProcessing("U-RU3-RAlt")
-    window_keymap["U-RU3-LWin"]  = postProcessing("U-RU3-LWin")
-    window_keymap["U-RU3-RWin"]  = postProcessing("U-RU3-RWin")
-    window_keymap["U-RU3-(200)"] = postProcessing2("U-RU3-(200)") # for space_fn Extension
+    for mod in ["Ctrl", "Alt", "Win"]:
+        for side in ["L", "R"]:
+            key = f"U-RU3-{side}{mod}"
+            window_keymap[key] = postProcessing(inputKey(key))
+
+    window_keymap["U-RU3-(200)"] = postProcessing2(inputKey("U-RU3-(200)")) # for space_fn Extension
 
 wk_history = set()
 pattern = re.compile(rf"(^|-)({fc.side_of_ctrl_key}|)C-")
@@ -134,7 +136,7 @@ def remote_command(key):
         key_list = [key]
         if fakeymacs.shift_down2:
             key_list = ["U-Shift"] + key_list + ["D-Shift"]
-        keymap.InputKeyCommand(*key_list)()
+        inputKey(*key_list)()
     return _func
 
 for vkey in vkeys():
