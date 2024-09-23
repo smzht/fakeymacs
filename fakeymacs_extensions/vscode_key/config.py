@@ -119,7 +119,7 @@ def define_key_v(keys, command, skip_check=True):
 
     if callable(command):
         command = makeKeyCommand(keymap_emacs, keys, command,
-                                 lambda: (not keymap.getWindow() in fc.vscode_browser_target or
+                                 lambda: (keymap.getWindow() not in fc.vscode_browser_target or
                                           checkWindow(text="* - Visual Studio Code*")))
 
     define_key(keymap_vscode, keys, command, False)
