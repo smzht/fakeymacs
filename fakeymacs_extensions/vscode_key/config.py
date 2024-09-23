@@ -8,7 +8,7 @@ try:
     # 設定されているか？
     fc.vscode_target
 except:
-    # VSCode 用のキーバインドを利用するアプリケーションソフト（ブラウザを除く）を指定する
+    # VSCode 用のキーバインドを利用するアプリケーションソフト（ブラウザアプリを除く）を指定する
     fc.vscode_target = ["Code.exe", "Cursor.exe"]
 
 try:
