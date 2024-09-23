@@ -8,13 +8,20 @@ try:
     # 設定されているか？
     fc.vscode_target
 except:
-    # VSCode 用のキーバインドを利用するアプリケーションソフトを指定する
-    # （ブラウザを指定した場合には、VS Code Web の画面で利用可能となります）
-    fc.vscode_target  = ["Code.exe"]
-    fc.vscode_target += ["chrome.exe",
-                         "msedge.exe",
-                         "firefox.exe",
-                         ]
+    # VSCode 用のキーバインドを利用するアプリケーションソフト（ブラウザを除く）を指定する
+    fc.vscode_target = ["Code.exe", "Cursor.exe"]
+
+try:
+    # 設定されているか？
+    fc.vscode_browser_target
+except:
+    # VS Code Web の画面で VSCode 用のキーバインドを利用するブラウザアプリを指定する
+    fc.vscode_browser_target = ["chrome.exe",
+                                "msedge.exe",
+                                "firefox.exe",
+                                ]
+
+fc.vscode_target += fc.vscode_browser_target
 
 # fc.vscode_target に設定しているアプリケーションソフトが fc.not_emacs_target に設定してある場合、
 # それを除外する
@@ -112,7 +119,7 @@ def define_key_v(keys, command, skip_check=True):
 
     if callable(command):
         command = makeKeyCommand(keymap_emacs, keys, command,
-                                 lambda: (checkWindow(process_name="Code.exe") or
+                                 lambda: (not keymap.getWindow() in fc.vscode_browser_target or
                                           checkWindow(text="* - Visual Studio Code*")))
 
     define_key(keymap_vscode, keys, command, False)

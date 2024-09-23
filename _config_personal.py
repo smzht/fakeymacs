@@ -383,11 +383,11 @@ if 0:
 
 # VSCode 用のキーの設定を行う
 if 0:
-    fc.vscode_target  = ["Code.exe"]
-    fc.vscode_target += ["chrome.exe",
-                         "msedge.exe",
-                         "firefox.exe",
-                         ]
+    fc.vscode_target = ["Code.exe", "Cursor.exe"]
+    fc.vscode_browser_target = ["chrome.exe",
+                                "msedge.exe",
+                                "firefox.exe",
+                                ]
 
     # fc.vscode_prefix_key = [["C-;", "C-A-;"]]
     fc.use_ctrl_atmark_for_mark = False
