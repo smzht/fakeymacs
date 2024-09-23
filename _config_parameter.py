@@ -725,7 +725,7 @@ if 0:
     # fc.space_fn_window_keymap_list += [fakeymacs.keymap_vscode]
     exec(readConfigExtension(r"space_fn\config.py"), dict(globals(), **locals()))
 
-# [section-extension-capslock_key] -------------------------------------------------------------
+# [section-extension-capslock_key] -----------------------------------------------------------------
 
 # CapsLock キーを Ctrl キーとして使うための設定を行う
 if 0:
