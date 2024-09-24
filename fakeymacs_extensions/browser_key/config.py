@@ -11,7 +11,8 @@ except:
     # 本機能を適用するブラウザのプログラム名称を指定する
     fc.browser_list= ["chrome.exe",
                       "msedge.exe",
-                      "firefox.exe"]
+                      "firefox.exe",
+                      ]
 
 try:
     # 設定されているか？

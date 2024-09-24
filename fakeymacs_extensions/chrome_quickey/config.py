@@ -10,7 +10,8 @@ try:
 except:
     # 本機能を適用するブラウザのプログラム名称を指定する
     fc.chrome_list = ["chrome.exe",
-                      "msedge.exe"]
+                      "msedge.exe",
+                      ]
 
 try:
     # 設定されているか？
