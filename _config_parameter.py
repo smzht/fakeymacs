@@ -131,6 +131,7 @@ fc.ime_target           = ["wsl.exe",                # WSL
                            "ubuntu1804.exe",         # WSL
                            "ubuntu2004.exe",         # WSL
                            "ubuntu2204.exe",         # WSL
+                           "ubuntu2404.exe",         # WSL
                            "debian.exe",             # WSL
                            "kali.exe",               # WSL
                            "SLES-12.exe",            # WSL
