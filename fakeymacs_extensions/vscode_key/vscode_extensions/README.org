@@ -90,12 +90,12 @@ VSCode Extension 用のキーの設定を行う拡張機能です。
 
 - https://marketplace.visualstudio.com/items?itemName=tomoki1207.vscode-input-sequence
 
-|---------+----------------+--------------------------+-------------------------------------------------------|
-| Keybind | Function       | VSCode Command           | Description                                           |
-|---------+----------------+--------------------------+-------------------------------------------------------|
-| C-A-0   | input_sequence | Insert Sequential number | use_ctrl_digit_key_for_digit_argument が False の場合 |
-| C-A-k 0 | input_sequence | Insert Sequential number |                                                       |
-|---------+----------------+--------------------------+-------------------------------------------------------|
+|---------+----------------+--------------------------+----------------------------------------------------------|
+| Keybind | Function       | VSCode Command           | Description                                              |
+|---------+----------------+--------------------------+----------------------------------------------------------|
+| C-A-0   | input_sequence | Insert Sequential number | fc.use_ctrl_digit_key_for_digit_argument が False の場合 |
+| C-A-k 0 | input_sequence | Insert Sequential number |                                                          |
+|---------+----------------+--------------------------+----------------------------------------------------------|
 
 **** ● vscode_insert_numbers
 
