@@ -14,3 +14,19 @@ def toggle_panel():
 define_key_v("Ctl-x C-j", toggle_panel)
 
 # --------------------------------------------------------------------------------------------------
+
+# VSCode Extension 用のキーの設定を行う
+if 1:
+    fc.vscode_dired = False
+    fc.vscode_recenter = False
+    fc.vscode_recenter2 = False
+    fc.vscode_occur = False
+    fc.vscode_quick_select = True
+    fc.vscode_input_sequence = True
+    fc.vscode_insert_numbers = True
+    fc.vscode_keyboard_macro = False
+    fc.vscode_filter_text = False
+
+    exec(readConfigExtension(r"vscode_key\vscode_extensions\config.py"), dict(globals(), **locals()))
+
+# --------------------------------------------------------------------------------------------------

@@ -601,19 +601,7 @@ if 0:
     fc.use_direct_input_in_vscode_terminal = False
     fc.esc_mode_in_keyboard_quit = 1
 
-    # VSCode Extension 用のキーの設定を行う
-    fc.vscode_dired = False
-    fc.vscode_recenter = False
-    fc.vscode_recenter2 = False
-    fc.vscode_occur = False
-    fc.vscode_quick_select = True
-    fc.vscode_input_sequence = True
-    fc.vscode_insert_numbers = True
-    fc.vscode_keyboard_macro = False
-    fc.vscode_filter_text = False
-
     exec(readConfigExtension(r"vscode_key\config.py"), dict(globals(), **locals()))
-    # vscode_extensions\config.py は、vscode_key\config.py 内部から呼ばれている
 
 # --------------------------------------------------------------------------------------------------
 # ■ IME 関連

@@ -303,10 +303,21 @@ def vscodeExecuteCommand(command, esc=False):
 
 - 引数で指定したコマンドを実行する関数
 
+*** 拡張機能（Extensions）
+
+本拡張機能では、さらに以下の拡張機能が利用できます。
+
+|-------------------+---------------------------------------|
+| Extension name    | Description                           |
+|-------------------+---------------------------------------|
+| [[/fakeymacs_extensions/vscode_key/vscode_extensions][vscode_extensions]] | VSCode Extension 用のキーの設定を行う |
+|-------------------+---------------------------------------|
+
 *** 留意事項
 
-● 本フォルダにある _config_personal.py を config_personal.py というファイル名にすることで
+● 本フォルダにある _config_personal.py を config_personal.py というファイル名にすることで、
 機能拡張ファイルとして機能します。vscode_key Extension の機能を拡張する際にご利用ください。
+また、上記で説明している拡張機能（vscode_extensions）もこの機能拡張ファイルの中から読み込まれます。
 
 ● fc.side_of_ctrl_key 変数で設定した側でない Ctrl キーを使う、C-q を前置する、fc.vscode_prefix_key
 で指定した Fakeymacs 用のプレフィックスキーを使うことで、VSCode 本来のショートカットキーを

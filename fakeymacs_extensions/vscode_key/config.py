@@ -620,8 +620,5 @@ else:
 if use_usjis_keyboard_conversion:
     define_key_v("C-=", zoom_in)
 
-## vscode_extensions 拡張機能の読み込み
-exec(readConfigExtension(r"vscode_extensions\config.py"), dict(globals(), **locals()))
-
 ## config_personal.py ファイルの読み込み
 exec(readConfigExtension(r"vscode_key\config_personal.py", msg=False), dict(globals(), **locals()))
