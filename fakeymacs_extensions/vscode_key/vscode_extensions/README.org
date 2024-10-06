@@ -1,6 +1,6 @@
 #+STARTUP: showall indent
 
-* vscode_key extension
+* vscode_key extension - vscode_extensions -
 
 ** ■ VSCode Extension 用のキーの設定を行う
 
