@@ -1,6 +1,6 @@
 #+STARTUP: showall indent
 
-* Fakeymacs extension
+* Fakeymacs extension - pop_ime_balloon -
 
 ** ■ 指定したキーを押下したときに IME の状態を表示する
 

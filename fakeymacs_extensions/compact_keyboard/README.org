@@ -1,6 +1,6 @@
 #+STARTUP: showall indent
 
-* Fakeymacs extension
+* Fakeymacs extension - compact_keyboard -
 
 ** ■ 60% US キーボードのキー不足（Delete キー、Backquote キー不足）の対策を行う
 

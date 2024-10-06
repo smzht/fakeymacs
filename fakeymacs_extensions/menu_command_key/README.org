@@ -1,6 +1,6 @@
 #+STARTUP: showall indent
 
-* Fakeymacs extension
+* Fakeymacs extension - menu_command_key -
 
 ** ■ アプリでショートカットキーが設定されていないメニューコマンドにキーを設定する
 

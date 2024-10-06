@@ -1,6 +1,6 @@
 #+STARTUP: showall indent
 
-* Fakeymacs extension
+* Fakeymacs extension - bunsetsu_correction -
 
 ** ■ 旧 Microsoft IME を使って文節長を変更した際、文節の表示が正しく行われないアプリの対策を行う
 

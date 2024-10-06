@@ -1,6 +1,6 @@
 #+STARTUP: showall indent
 
-* Fakeymacs extension
+* Fakeymacs extension - youtube_space_key -
 
 ** ■ YouTube で Space による停止、再生が正しく機能しないことの暫定的な対策を行う
 

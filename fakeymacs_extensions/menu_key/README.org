@@ -1,6 +1,6 @@
 #+STARTUP: showall indent
 
-* Fakeymacs extension
+* Fakeymacs extension - menu_key -
 
 ** ■ Emacs キーバインドを利用しない設定のアプリで、メニューの操作用の Emacs キーバインドを設定する
 

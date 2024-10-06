@@ -1,6 +1,6 @@
 #+STARTUP: showall indent
 
-* Fakeymacs extension
+* Fakeymacs extension - change_keyboard -
 
 ** ■ 英語キーボード設定をした OS 上で日本語キーボードを利用する場合の設定を行う
 

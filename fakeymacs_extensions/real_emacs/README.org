@@ -1,6 +1,6 @@
 #+STARTUP: showall indent
 
-* Fakeymacs extension
+* Fakeymacs extension - real_emacs -
 
 ** ■ Emacs を利用する際のキーバインドの調整を行う
 

@@ -1,6 +1,6 @@
 #+STARTUP: showall indent
 
-* Fakeymacs extension
+* Fakeymacs extension - shell_command_on_region -
 
 ** ■ Emacs の shell-command-on-region の機能をサポートする
 
