@@ -1,5 +1,6 @@
 {
-  "ToolVersion": "1.0.3.3",
+  "ToolVersion": "1.1.0.4",
+  "SettingFileVersion": "1.0.0.0",
   "KeyboardLayout": 1,
   "TypeNumber": "PD-ID100B",
   "DipSwitch": [
