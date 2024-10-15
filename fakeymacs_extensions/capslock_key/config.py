@@ -4,7 +4,7 @@
 ## CapsLock キーを Ctrl キーとして使うための設定を行う
 ####################################################################################################
 
-user_vkey = 236 # リモートデスクトップ接続先に渡る仮想キーコードを選択する必要有り
+user_vkey = VK_F23 # リモートデスクトップ接続先に渡る仮想キーコードを選択する必要有り
 user_key = keyhac_keymap.KeyCondition.vkToStr(user_vkey)
 
 keymap.replaceKey("CapsLock", user_key)
