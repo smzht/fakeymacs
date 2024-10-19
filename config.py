@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20241019_02"
+fakeymacs_version = "20241019_03"
 
 import time
 import os
@@ -1261,7 +1261,14 @@ def configure(keymap):
         if checkWindow("powershell.exe", "ConsoleWindowClass"): # PowerShell
             self_insert_command({"backward":"C-r", "forward":"C-s"}[direction])()
         else:
-            if fakeymacs.is_searching:
+            if fakeymacs.is_searching is None:
+                self_insert_command("C-f")()
+
+                if checkWindow("TeXworks.exe", "Qt661QWindowIcon"): # TeXworks
+                    self_insert_command("Tab", "Tab")()
+
+                fakeymacs.is_searching = False
+            else:
                 if checkWindow("EXCEL.EXE"): # Microsoft Excel
                     if checkWindow(None, "EDTBX"): # 検索ウィンドウ
                         self_insert_command({"backward":"A-S-f", "forward":"A-f"}[direction])()
@@ -1272,13 +1279,6 @@ def configure(keymap):
                     self_insert_command("C-g")()
                 else:
                     self_insert_command({"backward":"S-F3", "forward":"F3"}[direction])()
-            else:
-                self_insert_command("C-f")()
-
-                if checkWindow("TeXworks.exe", "Qt661QWindowIcon"): # TeXworks
-                    self_insert_command("Tab", "Tab")()
-
-                fakeymacs.is_searching = False
 
     def isearch_backward():
         isearch("backward")
