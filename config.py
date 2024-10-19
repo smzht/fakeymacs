@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20240928_01"
+fakeymacs_version = "20241019_01"
 
 import time
 import os
@@ -826,8 +826,8 @@ def configure(keymap):
     # リージョンを拡張する際に、順方向に拡張すると True、逆方向に拡張すると False になる
     fakeymacs.forward_direction = None
 
-    # 検索が開始されると True になる
-    fakeymacs.is_searching = False
+    # 検索画面が表示されるとされると False になり、検索が開始されると True になる
+    fakeymacs.is_searching = None
 
     # キーボードマクロの play 中 は True になる
     fakeymacs.is_playing_kmacro = False
@@ -949,10 +949,10 @@ def configure(keymap):
     def popImeBalloon(ime_status, force=False, window=None):
         if not fakeymacs.is_playing_kmacro:
             if force or fc.use_ime_status_balloon:
-                # LINE アプリなど、Qt5152QWindowIcon にマッチするクラスをもつアプリは入力文字に
+                # LINE アプリなど、Qt*QWindowIcon にマッチするクラスをもつアプリは入力文字に
                 # バルーンヘルプが被るので、バルーンヘルプの表示対象から外す
                 # （ただし、force が True の場合は除く）
-                if force or not checkWindow(None, "Qt5152QWindowIcon", window=window):
+                if force or not checkWindow(None, "Qt*QWindowIcon", window=window):
                     if ime_status:
                         message = fc.ime_status_balloon_message[1]
                     else:
@@ -1040,6 +1040,9 @@ def configure(keymap):
         if (checkWindow("sakura.exe", "EditorClient") or # Sakura Editor
             checkWindow("sakura.exe", "SakuraView*")):   # Sakura Editor
             self_insert_command3("C-j")()
+
+        elif checkWindow("TeXworks.exe", "Qt661QWindowIcon"): # TeXworks
+            self_insert_command3("C-l")()
         else:
             self_insert_command3("C-g")()
 
@@ -1236,7 +1239,10 @@ def configure(keymap):
     ##################################################
 
     def kill_buffer():
-        self_insert_command("C-F4")()
+        if checkWindow("TeXworks.exe", "Qt661QWindowIcon"): # TeXworks
+            self_insert_command("C-w")()
+        else:
+            self_insert_command("C-F4")()
 
     def switch_to_buffer():
         self_insert_command("C-Tab")()
@@ -1261,11 +1267,18 @@ def configure(keymap):
                         self_insert_command({"backward":"A-S-f", "forward":"A-f"}[direction])()
                     else:
                         self_insert_command("C-f")()
+
+                elif checkWindow("TeXworks.exe", "Qt661QWindowIcon"): # TeXworks
+                    self_insert_command("C-g")()
                 else:
                     self_insert_command({"backward":"S-F3", "forward":"F3"}[direction])()
             else:
                 self_insert_command("C-f")()
-                fakeymacs.is_searching = True
+
+                if checkWindow("TeXworks.exe", "Qt661QWindowIcon"): # TeXworks
+                    self_insert_command("Tab", "Tab")()
+
+                fakeymacs.is_searching = False
 
     def isearch_backward():
         isearch("backward")
@@ -1274,9 +1287,10 @@ def configure(keymap):
         isearch("forward")
 
     def query_replace():
-        if (checkWindow("sakura.exe", "EditorClient") or  # Sakura Editor
-            checkWindow("sakura.exe", "SakuraView*")  or  # Sakura Editor
-            checkWindow(None, "HM32CLIENT")):             # Hidemaru Software
+        if (checkWindow("sakura.exe", "EditorClient") or      # Sakura Editor
+            checkWindow("sakura.exe", "SakuraView*") or       # Sakura Editor
+            checkWindow(None, "HM32CLIENT") or                # Hidemaru Software
+            checkWindow("TeXworks.exe", "Qt661QWindowIcon")): # TeXworks
             self_insert_command("C-r")()
         else:
             self_insert_command("C-h")()
@@ -1345,6 +1359,9 @@ def configure(keymap):
             if getImeStatus():
                 fakeymacs.ime_cancel = True
 
+        if fakeymacs.is_searching is False:
+            fakeymacs.is_searching = True
+
     def newline_and_indent():
         self_insert_command("Enter", "Tab")()
 
@@ -1373,6 +1390,9 @@ def configure(keymap):
                 fakeymacs.is_undo_mode = False
             else:
                 fakeymacs.is_undo_mode = True
+
+        if fakeymacs.is_searching is False:
+            fakeymacs.is_searching = None
 
     def kill_emacs():
         self_insert_command("A-F4")()
@@ -1890,7 +1910,9 @@ def configure(keymap):
     def reset_search(func):
         def _func():
             func()
-            fakeymacs.is_searching = False
+
+            if fakeymacs.is_searching:
+                fakeymacs.is_searching = None
         return _func
 
     def repeat(func):
@@ -2328,9 +2350,9 @@ def configure(keymap):
         def ei_popBalloon(ime_mode_status):
             if not fakeymacs.is_playing_kmacro:
                 if fc.emacs_ime_mode_balloon_message:
-                    # Qt5*QWindowIcon にマッチするクラスをもつアプリは入力文字にバルーンヘルプが
-                    # 被るので、バルーンヘルプの表示対象から外す
-                    if not checkWindow(None, "Qt5*QWindowIcon"):
+                    # LINE アプリなど、Qt*QWindowIcon にマッチするクラスをもつアプリは入力文字に
+                    # バルーンヘルプが被るので、バルーンヘルプの表示対象から外す
+                    if not checkWindow(None, "Qt*QWindowIcon"):
                         if ime_mode_status:
                             try:
                                 keymap.popBalloon("emacs_ime_mode", fc.emacs_ime_mode_balloon_message)
