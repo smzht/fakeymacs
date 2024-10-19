@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20241019_01"
+fakeymacs_version = "20241019_02"
 
 import time
 import os
@@ -1287,11 +1287,14 @@ def configure(keymap):
         isearch("forward")
 
     def query_replace():
-        if (checkWindow("sakura.exe", "EditorClient") or      # Sakura Editor
-            checkWindow("sakura.exe", "SakuraView*") or       # Sakura Editor
-            checkWindow(None, "HM32CLIENT") or                # Hidemaru Software
-            checkWindow("TeXworks.exe", "Qt661QWindowIcon")): # TeXworks
+        if (checkWindow("sakura.exe", "EditorClient") or  # Sakura Editor
+            checkWindow("sakura.exe", "SakuraView*")  or  # Sakura Editor
+            checkWindow(None, "HM32CLIENT")):             # Hidemaru Software
             self_insert_command("C-r")()
+
+        elif checkWindow("TeXworks.exe", "Qt661QWindowIcon"): # TeXworks
+            self_insert_command("C-r")()
+            self_insert_command("Tab", "Tab", "Tab")()
         else:
             self_insert_command("C-h")()
 
@@ -1359,7 +1362,7 @@ def configure(keymap):
             if getImeStatus():
                 fakeymacs.ime_cancel = True
 
-        if fakeymacs.is_searching is False:
+        if fakeymacs.is_searching == False:
             fakeymacs.is_searching = True
 
     def newline_and_indent():
@@ -1391,7 +1394,7 @@ def configure(keymap):
             else:
                 fakeymacs.is_undo_mode = True
 
-        if fakeymacs.is_searching is False:
+        if fakeymacs.is_searching == False:
             fakeymacs.is_searching = None
 
     def kill_emacs():
