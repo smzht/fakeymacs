@@ -307,6 +307,19 @@ HHKB Studio は Fakeymacs と相性の良いキーボードなので、キーボ
 
 ** 留意事項
 
+● Mouse without Borders というアプリを利用している場合、Ctrl+Shift+S というショートカットキーの
+設定がされています。これが、一般的な Windows アプリの「名前を付けて保存」の機能のショートカットキー
+を上書きしてしまいます。Mouse without Borders アプリを利用している場合は、Mouse without Borders
+アプリ側でこのショートカットキーを変更するか無効とするかなどの対策をお願いします。
+
+- https://www.sriproot.net/blog/ctrl-shift-s-saveas-922
+
+また、現在このアプリは PowerToys というアプリの「境界線のないマウス」という機能に統合されている
+ようです。こちらの機能ではショートカットキーの見直しがされているようですので、PowerToys への
+切り替えも検討ください。
+
+- https://learn.microsoft.com/ja-jp/windows/powertoys/mouse-without-borders
+
 ● Microsoft Excel や Word などの Office系アプリを使ってコピー＆ペーストをした際、「Ctrl」と表示
 される「貼り付けオプション」ボタンが表示される場合があります。
 この「貼り付けオプション」ボタンは、fc.side_of_ctrl_key 変数で指定している側の Ctrl キーではオープン
