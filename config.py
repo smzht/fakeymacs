@@ -1913,7 +1913,6 @@ def configure(keymap):
     def reset_search(func):
         def _func():
             func()
-
             if fakeymacs.is_searching:
                 fakeymacs.is_searching = None
         return _func
