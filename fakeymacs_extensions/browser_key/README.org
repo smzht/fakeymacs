@@ -29,7 +29,7 @@
 |--------------------------+-------------------------+---------------|
 | Keybind                  | Function                | Description   |
 |--------------------------+-------------------------+---------------|
-| fc.browser_key1 の設定値 | browser_popup("C-l", 0) | 初期値：C-A-l |
+| fc.browser_key1 の設定値 | browser_popup("C-l", 0) | 初期値：C-A-i |
 | fc.browser_key2 の設定値 | browser_popup("C-t", 0) | 初期値：C-A-t |
 | fc.browser_key3 の設定値 | browser_popup("C-n", 0) | 初期値：C-A-o |
 |--------------------------+-------------------------+---------------|

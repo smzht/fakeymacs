@@ -27,7 +27,7 @@ try:
     fc.browser_key1
 except:
     # ブラウザをポップアップし、アドレスバーに移動するキーを指定する（IME は OFF）
-    fc.browser_key1 = "C-A-l"
+    fc.browser_key1 = "C-A-i" # C-A-l は VSCode Extension で利用しているため使わない
 
 try:
     # 設定されているか？
