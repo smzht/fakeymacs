@@ -13,11 +13,11 @@ VSCode 用のキーの設定を行う拡張機能です。AI Code Editor の Cur
 |----------------------------------------+-------------------------------------------------------------------------------------------------------|
 | fc.vscode_target                       | VSCode 用のキーバインドを利用するアプリケーションソフト（ブラウザアプリを除く）を指定する             |
 | fc.cursor_target                       | Cursor 用のキーバインドを利用するアプリケーションソフトを指定する                                     |
-| fc.vscode_replace_key                  | 置き換えするキーの組み合わせ（VSCode のキー、Fakeymacs のキー）を指定する（複数指定可）               |
-| fc.cursor_replace_key                  | 置き換えするキーの組み合わせ（Cursor のキー、Fakeymacs のキー）を指定する（複数指定可）               |
 | fc.vscode_browser_target               | VS Code Web の画面で VSCode 用のキーバインドを利用するブラウザアプリを指定する                        |
 | fc.vscode_prefix_key                   | 置き換えするプレフィックスキーの組み合わせ（VSCode のキー、Fakeymacs のキー）を指定する（複数指定可） |
 | fc.cursor_prefix_key                   | 置き換えするプレフィックスキーの組み合わせ（Cursor のキー、Fakeymacs のキー）を指定する（複数指定可） |
+| fc.vscode_replace_key                  | 置き換えするキーの組み合わせ（VSCode のキー、Fakeymacs のキー）を指定する（複数指定可）               |
+| fc.cursor_replace_key                  | 置き換えするキーの組み合わせ（Cursor のキー、Fakeymacs のキー）を指定する（複数指定可）               |
 | fc.use_ctrl_atmark_for_mark            | 日本語キーボードを利用する際、VSCode で  C-@ をマーク用のキーとして使うかどうかを指定する             |
 | fc.use_direct_input_in_vscode_terminal | パネルのターミナル内で４つのキー（C-k、C-r、C-s、C-y）のダイレクト入力機能を使うかどうかを指定する    |
 | fc.terminal_list_for_direct_input      | ターミナルをエディタ領域で使う際、ダイレクト入力機能を使うターミナルの種類を指定する                  |
