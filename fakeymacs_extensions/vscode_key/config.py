@@ -49,10 +49,7 @@ except:
     #   キーが全角文字で入力されることが無くなります）
     # （同じキーを指定することもできます）
     # （Fakeymacs のキーに Meta キー（M-）は指定できません）
-    fc.vscode_prefix_key  = []
-
-# プレフィックスキー C-k は デフォルトで C-A-k に置き換えられるものとする
-fc.vscode_prefix_key += [["C-k", "C-A-k"]]
+    fc.vscode_prefix_key = [["C-k", "C-A-k"]]
 
 try:
     # 設定されているか？
@@ -63,10 +60,25 @@ except:
     #   キーが全角文字で入力されることが無くなります）
     # （同じキーを指定することもできます）
     # （Fakeymacs のキーに Meta キー（M-）は指定できません）
-    fc.cursor_prefix_key  = []
+    fc.cursor_prefix_key = [["C-m", "C-A-m"]]
 
-# プレフィックスキー C-m は デフォルトで C-A-m に置き換えられるものとする
-fc.cursor_prefix_key += [["C-m", "C-A-m"]]
+try:
+    # 設定されているか？
+    fc.vscode_replace_key
+except:
+    # 置き換えするキーの組み合わせ（VSCode のキー、Fakeymacs のキー）を指定する（複数指定可）
+    # （Fakeymacs のキーに Meta キー（M-）は指定できません）
+    fc.vscode_replace_key = []
+
+try:
+    # 設定されているか？
+    fc.cursor_replace_key
+except:
+    # 置き換えするキーの組み合わせ（Cursor のキー、Fakeymacs のキー）を指定する（複数指定可）
+    # （Fakeymacs のキーに Meta キー（M-）は指定できません）
+    fc.cursor_replace_key = [["C-k", "C-A-k"],
+                             ["C-l", "C-A-l"],
+                             ]
 
 try:
     # 設定されているか？
@@ -645,6 +657,10 @@ else:
 if use_usjis_keyboard_conversion:
     define_key_v("C-=", zoom_in)
 
+## キーの置き換え設定
+for key1, key2 in fc.vscode_replace_key:
+    define_key_v(key2, self_insert_command(key1))
+
 # --------------------------------------------------------------------------------------------------
 
 # Cursor 用の追加設定
@@ -672,8 +688,8 @@ for pkey1, pkey2 in fc.cursor_prefix_key:
             define_key(keymap_cursor, f"{pkey2} {mkey}", self_insert_command_v(pkey1, mkey))
 
 ## キーの置き換え設定
-define_key(keymap_cursor, "C-A-k", self_insert_command("C-k"))
-define_key(keymap_cursor, "C-A-l", self_insert_command("C-l"))
+for key1, key2 in fc.cursor_replace_key:
+    define_key(keymap_cursor, key2, self_insert_command(key1))
 
 # --------------------------------------------------------------------------------------------------
 
