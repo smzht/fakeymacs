@@ -187,7 +187,7 @@ def replicate_key(window_keymap, key, original_key):
 
 *** 留意事項
 
-● 本拡張機能では、SpaceFN 用のモディファイアキーとして LUser0 を利用している他、
+● 本拡張機能では、SpaceFN 用のモディファイアキーとして LUser0 を利用しているほか、
 内部で RUser0 を利用しています。
 このため、User0 のユーザモディファイアキーは利用者側で定義しないようにしてください。
 

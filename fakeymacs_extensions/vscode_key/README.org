@@ -266,8 +266,8 @@ True にした場合に Esc を入力するには、Esc を二回押下してく
 
 *** Cursor 専用のキーバインド
 
-Cursor を利用する場合、Cursor には VSCode 用のキーマップ keymap_vscode が適用される他に Cursor
-用のキーマップ keymap_cursor が適用されます。このキーマップには、次の設定が行われています。
+Cursor を利用する場合、Cursor には VSCode 用のキーマップ keymap_vscode が適用されるほか、Cursor
+用のキーマップ keymap_cursor も適用されます。このキーマップには、次の設定が行われています。
 
 **** ● Cursor 用プレフィックスキーの置き換え設定
 
