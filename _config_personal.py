@@ -394,7 +394,6 @@ if 0:
     fc.use_ctrl_atmark_for_mark = False
     fc.use_direct_input_in_vscode_terminal = False
     fc.esc_mode_in_keyboard_quit = 1
-
     exec(readConfigExtension(r"vscode_key\config.py"), dict(globals(), **locals()))
 
 # --------------------------------------------------------------------------------------------------
