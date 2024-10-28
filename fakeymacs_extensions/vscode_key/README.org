@@ -53,10 +53,6 @@ True に設定した場合でも Toggle Terminal 用のキーとして C-<半角
 設定値 2 の利用は、VSCode で Jupyter Notebook を使う場合などを想定しています。
 設定値 1 の場合でも、C-A-g キーにより Esc キーを発行しない keyboard_quit を利用できます。
 
-※ fc.esc_mode_in_keyboard_quit 変数の設定は、fc.vscode_target 変数および fc.vscode_browser_target
-変数に指定する全てのアプリケーションソフトに影響します。fc.vscode_browser_target 変数に指定した
-ブラウザアプリにも影響しますので、ご留意ください。
-
 *** VSCode 全般のキーバインド
 
 **** ● VSCode 用プレフィックスキーの置き換え設定
