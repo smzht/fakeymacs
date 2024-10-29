@@ -139,13 +139,13 @@ if fc.vscode_quick_select:
                             }
 
     for key in quick_select_command:
+        quick_select = vscodeExecuteCommand(quick_select_command[key][1])
+
         if vscode_prefix_key:
-            define_key_v(f"{vscode_prefix_key} {key}",
-                         reset_rect(region(vscodeExecuteCommand(quick_select_command[key][1]))))
+            define_key_v(f"{vscode_prefix_key} {key}", reset_rect(region(quick_select)))
 
         if cursor_prefix_key:
-            define_key_c(f"{cursor_prefix_key} {key}",
-                         reset_rect(region(vscodeExecuteCommand(quick_select_command[key][1]))))
+            define_key_c(f"{cursor_prefix_key} {key}", reset_rect(region(quick_select)))
 
 # --------------------------------------------------------------------------------------------------
 
