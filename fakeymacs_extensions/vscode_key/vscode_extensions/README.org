@@ -88,7 +88,7 @@ VSCode Extension 用のキーの設定を行う拡張機能です。
 | <vscode_prefix_key> > | vscodeExecuteCommand("QSSita")  | Quick Select: Select inside tag              |             |
 |-----------------------+---------------------------------+----------------------------------------------+-------------|
 
-※ <vscode_prefix_key> は、VSCode 利用時は fc.vscode_prefix_key[0][1]、Cursor 利用時は fc.cursor_prefix_key[0][1]となる。
+※ <vscode_prefix_key> は、VSCode 利用時は fc.vscode_prefix_key[0][1]、Cursor 利用時は fc.cursor_prefix_key[0][1] となる。
 
 **** ● vscode_input_sequence
 
@@ -101,7 +101,7 @@ VSCode Extension 用のキーの設定を行う拡張機能です。
 | <vscode_prefix_key> 0 | input_sequence | Insert Sequential number |                                                       |
 |-----------------------+----------------+--------------------------+-------------------------------------------------------|
 
-※ <vscode_prefix_key> は、VSCode 利用時は fc.vscode_prefix_key[0][1]、Cursor 利用時は fc.cursor_prefix_key[0][1]となる。
+※ <vscode_prefix_key> は、VSCode 利用時は fc.vscode_prefix_key[0][1]、Cursor 利用時は fc.cursor_prefix_key[0][1] となる。
 
 **** ● vscode_insert_numbers
 
@@ -113,7 +113,7 @@ VSCode Extension 用のキーの設定を行う拡張機能です。
 | <vscode_prefix_key> n | insert_numbers | Insert Numbers |             |
 |-----------------------+----------------+----------------+-------------|
 
-※ <vscode_prefix_key> は、VSCode 利用時は fc.vscode_prefix_key[0][1]、Cursor 利用時は fc.cursor_prefix_key[0][1]となる。
+※ <vscode_prefix_key> は、VSCode 利用時は fc.vscode_prefix_key[0][1]、Cursor 利用時は fc.cursor_prefix_key[0][1] となる。
 
 **** ● vscode_keyboard_macro
 
