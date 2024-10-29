@@ -665,6 +665,9 @@ for key1, key2 in fc.vscode_replace_key:
 
 # Cursor 用の追加設定
 
+def define_key_c(keys, command):
+    define_key(keymap_cursor, keys, command)
+
 def is_cursor_target(window):
     if (fakeymacs.is_vscode_target == True and
         window.getProcessName() in fc.cursor_target):
@@ -679,17 +682,17 @@ else:
 
 ## Cursor 用プレフィックスキーの置き換え設定
 for pkey1, pkey2 in fc.cursor_prefix_key:
-    define_key(keymap_cursor, pkey2, keymap.defineMultiStrokeKeymap(f"<Cursor> {pkey1}"))
+    define_key_c(pkey2, keymap.defineMultiStrokeKeymap(f"<Cursor> {pkey1}"))
 
     for vkey in vkeys():
         key = vkToStr(vkey)
         for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
             mkey = mod1 + mod2 + mod3 + mod4 + key
-            define_key(keymap_cursor, f"{pkey2} {mkey}", self_insert_command_v(pkey1, mkey))
+            define_key_c(f"{pkey2} {mkey}", self_insert_command_v(pkey1, mkey))
 
 ## キーの置き換え設定
 for key1, key2 in fc.cursor_replace_key:
-    define_key(keymap_cursor, key2, self_insert_command(key1))
+    define_key_c(key2, self_insert_command(key1))
 
 # --------------------------------------------------------------------------------------------------
 

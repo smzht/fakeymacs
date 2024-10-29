@@ -69,6 +69,18 @@ except:
 
 # --------------------------------------------------------------------------------------------------
 
+try:
+    vscode_prefix_key = fc.vscode_prefix_key[0][1]
+except:
+    vscode_prefix_key = None
+
+try:
+    cursor_prefix_key = fc.cursor_prefix_key[0][1]
+except:
+    cursor_prefix_key = None
+
+# --------------------------------------------------------------------------------------------------
+
 if fc.vscode_dired:
     def dired():
         # VSCode Command : Open dired buffer
@@ -110,32 +122,30 @@ if fc.vscode_occur:
 # --------------------------------------------------------------------------------------------------
 
 if fc.vscode_quick_select:
-    # 日本語キーボードのキー設定に齟齬があるようなので、それを是正する
-    quick_select_jis_keys = {'"' : "S-Caret",
-                             "'" : "Caret",
-                             ";" : "Colon",
-                             ":" : "S-Colon",
-                             "`" : "Atmark",
-                             "(" : "S-9",
-                             ")" : "S-0",
-                             "[" : "OpenBracket",
-                             "]" : "CloseBracket",
-                             "{" : "S-OpenBracket",
-                             "}" : "S-CloseBracket",
-                             "<" : "S-Comma",
-                             ">" : "S-Period",
-                             }
+    # Command Title と省略形
+    quick_select_command = {'"' : ["Quick Select: Select inside double quote",     "QSSIdq" ],
+                            "'" : ["Quick Select: Select inside single quote",     "QSSisiq"],
+                            ";" : ["Quick Select: Select inside either quote",     "QSSieq" ],
+                            ":" : ["Quick Select: Switch quotes",                  "QSSwq"  ],
+                            "`" : ["Quick Select: Select inside back tick",        "QSSibt" ],
+                            "(" : ["Quick Select: Select inside parenthesis",      "QSSip"  ],
+                            ")" : ["Quick Select: Select outside parenthesis",     "QSSop"  ],
+                            "[" : ["Quick Select: Select inside square brackets",  "QSSisb" ],
+                            "]" : ["Quick Select: Select outside square brackets", "QSSosb" ],
+                            "{" : ["Quick Select: Select inside curly brackets",   "QSSicb" ],
+                            "}" : ["Quick Select: Select outside curly brackets",  "QSSocb" ],
+                            "<" : ["Quick Select: Select inside angled brackets",  "QSSiab" ],
+                            ">" : ["Quick Select: Select inside tag",              "QSSita" ],
+                            }
 
-    for key in quick_select_jis_keys:
-        if os_keyboard_type == "JP":
-            ikey = quick_select_jis_keys[key]
-            usjis_conv = False
-        else:
-            ikey = key
-            usjis_conv = True
+    for key in quick_select_command:
+        if vscode_prefix_key:
+            define_key_v(f"{vscode_prefix_key} {key}",
+                         reset_rect(region(vscodeExecuteCommand(quick_select_command[key][1]))))
 
-        define_key_v(f"C-A-k {key}",
-                     reset_rect(region(self_insert_command_v("C-k", ikey, usjis_conv=usjis_conv))))
+        if cursor_prefix_key:
+            define_key_c(f"{cursor_prefix_key} {key}",
+                         reset_rect(region(vscodeExecuteCommand(quick_select_command[key][1]))))
 
 # --------------------------------------------------------------------------------------------------
 
@@ -147,7 +157,11 @@ if fc.vscode_input_sequence:
     if not fc.use_ctrl_digit_key_for_digit_argument:
         define_key_v("C-A-0", reset_rect(input_sequence))
 
-    define_key_v("C-A-k 0", reset_rect(input_sequence))
+    if vscode_prefix_key:
+        define_key_v(f"{vscode_prefix_key} 0", reset_rect(input_sequence))
+
+    if cursor_prefix_key:
+        define_key_c(f"{cursor_prefix_key} 0", reset_rect(input_sequence))
 
 # --------------------------------------------------------------------------------------------------
 
@@ -156,7 +170,11 @@ if fc.vscode_insert_numbers:
         fakeymacs_vscode.post_processing = lambda: region(lambda: None)()
         self_insert_command3("C-A-n")()
 
-    define_key_v("C-A-k n", reset_rect(insert_numbers))
+    if vscode_prefix_key:
+        define_key_v(f"{vscode_prefix_key} n", reset_rect(insert_numbers))
+
+    if cursor_prefix_key:
+        define_key_c(f"{cursor_prefix_key} n", reset_rect(insert_numbers))
 
 # --------------------------------------------------------------------------------------------------
 
@@ -183,7 +201,8 @@ if fc.vscode_keyboard_macro:
 if fc.vscode_filter_text:
     def filter_text_in_place():
         # VSCode Command : FilterText: Filter text in-place
-        self_insert_command("C-k", "C-f")()
+        vscodeExecuteCommand("FFtip")()
+        # self_insert_command("C-k", "C-f")() # Cursor の prefix key は C-m になるので利用しない
         # vscodeExecuteCommand("extension.filterTextInplace")()
 
     def run_filter_through_selected_text():

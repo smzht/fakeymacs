@@ -70,44 +70,50 @@ VSCode Extension 用のキーの設定を行う拡張機能です。
 
 - https://marketplace.visualstudio.com/items?itemName=dbankier.vscode-quick-select
 
-|---------+-----------------------------------+----------------------------------------------+-------------|
-| Keybind | Function                          | VSCode Command                               | Description |
-|---------+-----------------------------------+----------------------------------------------+-------------|
-| C-A-k " | self_insert_command_v("C-k", '"') | Quick Select: Select inside double quote     |             |
-| C-A-k ' | self_insert_command_v("C-k", "'") | Quick Select: Select inside single quote     |             |
-| C-A-k ; | self_insert_command_v("C-k", ";") | Quick Select: Select inside either quote     |             |
-| C-A-k : | self_insert_command_v("C-k", ":") | Quick Select: Switch quotes                  |             |
-| C-A-k ` | self_insert_command_v("C-k", "`") | Quick Select: Select inside back ticks       |             |
-| C-A-k ( | self_insert_command_v("C-k", "(") | Quick Select: Select inside parenthesis      |             |
-| C-A-k ) | self_insert_command_v("C-k", ")") | Quick Select: Select outside parenthesis     |             |
-| C-A-k [ | self_insert_command_v("C-k", "[") | Quick Select: Select inside square brackets  |             |
-| C-A-k ] | self_insert_command_v("C-k", "]") | Quick Select: Select outside square brackets |             |
-| C-A-k { | self_insert_command_v("C-k", "{") | Quick Select: Select inside curly brackets   |             |
-| C-A-k } | self_insert_command_v("C-k", "}") | Quick Select: Select outside curly brackets  |             |
-| C-A-k < | self_insert_command_v("C-k", "<") | Quick Select: Select inside angled brackets  |             |
-| C-A-k > | self_insert_command_v("C-k", ">") | Quick Select: Select inside tag              |             |
-|---------+-----------------------------------+----------------------------------------------+-------------|
+|-----------------------+---------------------------------+----------------------------------------------+-------------|
+| Keybind               | Function                        | VSCode Command                               | Description |
+|-----------------------+---------------------------------+----------------------------------------------+-------------|
+| <vscode_prefix_key> " | vscodeExecuteCommand("QSSIdq")  | Quick Select: Select inside double quote     |             |
+| <vscode_prefix_key> ' | vscodeExecuteCommand("QSSisiq") | Quick Select: Select inside single quote     |             |
+| <vscode_prefix_key> ; | vscodeExecuteCommand("QSSieq")  | Quick Select: Select inside either quote     |             |
+| <vscode_prefix_key> : | vscodeExecuteCommand("QSSwq")   | Quick Select: Switch quotes                  |             |
+| <vscode_prefix_key> ` | vscodeExecuteCommand("QSSibt")  | Quick Select: Select inside back ticks       |             |
+| <vscode_prefix_key> ( | vscodeExecuteCommand("QSSip")   | Quick Select: Select inside parenthesis      |             |
+| <vscode_prefix_key> ) | vscodeExecuteCommand("QSSop")   | Quick Select: Select outside parenthesis     |             |
+| <vscode_prefix_key> [ | vscodeExecuteCommand("QSSisb")  | Quick Select: Select inside square brackets  |             |
+| <vscode_prefix_key> ] | vscodeExecuteCommand("QSSosb")  | Quick Select: Select outside square brackets |             |
+| <vscode_prefix_key> { | vscodeExecuteCommand("QSSicb")  | Quick Select: Select inside curly brackets   |             |
+| <vscode_prefix_key> } | vscodeExecuteCommand("QSSocb")  | Quick Select: Select outside curly brackets  |             |
+| <vscode_prefix_key> < | vscodeExecuteCommand("QSSiab")  | Quick Select: Select inside angled brackets  |             |
+| <vscode_prefix_key> > | vscodeExecuteCommand("QSSita")  | Quick Select: Select inside tag              |             |
+|-----------------------+---------------------------------+----------------------------------------------+-------------|
+
+※ <vscode_prefix_key> は、VSCode 利用時は fc.vscode_prefix_key[0][1]、Cursor 利用時は fc.cursor_prefix_key[0][1]となる。
 
 **** ● vscode_input_sequence
 
 - https://marketplace.visualstudio.com/items?itemName=tomoki1207.vscode-input-sequence
 
-|---------+----------------+--------------------------+----------------------------------------------------------|
-| Keybind | Function       | VSCode Command           | Description                                              |
-|---------+----------------+--------------------------+----------------------------------------------------------|
-| C-A-0   | input_sequence | Insert Sequential number | fc.use_ctrl_digit_key_for_digit_argument が False の場合 |
-| C-A-k 0 | input_sequence | Insert Sequential number |                                                          |
-|---------+----------------+--------------------------+----------------------------------------------------------|
+|-----------------------+----------------+--------------------------+-------------------------------------------------------|
+| Keybind               | Function       | VSCode Command           | Description                                           |
+|-----------------------+----------------+--------------------------+-------------------------------------------------------|
+| C-A-0                 | input_sequence | Insert Sequential number | use_ctrl_digit_key_for_digit_argument が False の場合 |
+| <vscode_prefix_key> 0 | input_sequence | Insert Sequential number |                                                       |
+|-----------------------+----------------+--------------------------+-------------------------------------------------------|
+
+※ <vscode_prefix_key> は、VSCode 利用時は fc.vscode_prefix_key[0][1]、Cursor 利用時は fc.cursor_prefix_key[0][1]となる。
 
 **** ● vscode_insert_numbers
 
 - https://marketplace.visualstudio.com/items?itemName=Asuka.insertnumbers
 
-|---------+----------------+----------------+-------------|
-| Keybind | Function       | VSCode Command | Description |
-|---------+----------------+----------------+-------------|
-| C-A-k n | insert_numbers | Insert Numbers |             |
-|---------+----------------+----------------+-------------|
+|-----------------------+----------------+----------------+-------------|
+| Keybind               | Function       | VSCode Command | Description |
+|-----------------------+----------------+----------------+-------------|
+| <vscode_prefix_key> n | insert_numbers | Insert Numbers |             |
+|-----------------------+----------------+----------------+-------------|
+
+※ <vscode_prefix_key> は、VSCode 利用時は fc.vscode_prefix_key[0][1]、Cursor 利用時は fc.cursor_prefix_key[0][1]となる。
 
 **** ● vscode_keyboard_macro
 
