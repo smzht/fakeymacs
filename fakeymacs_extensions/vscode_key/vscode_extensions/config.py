@@ -202,7 +202,7 @@ if fc.vscode_filter_text:
     def filter_text_in_place():
         # VSCode Command : FilterText: Filter text in-place
         vscodeExecuteCommand("FFtip")()
-        # self_insert_command("C-k", "C-f")() # Cursor の prefix key は C-m になるので利用しない
+        # self_insert_command("C-k", "C-f")()
         # vscodeExecuteCommand("extension.filterTextInplace")()
 
     def run_filter_through_selected_text():
