@@ -591,7 +591,7 @@ if 0:
     fc.vscode_prefix_key  = [["C-k", "C-A-k"]]
     fc.cursor_prefix_key  = [["C-m", "C-A-m"]]
     fc.vscode_replace_key = []
-    fc.cursor_replace_key = [["C-k", "C-A-k"],
+    fc.cursor_replace_key = [["C-e", "C-A-e"],
                              ["C-l", "C-A-l"],
                              ]
     fc.use_ctrl_atmark_for_mark = False

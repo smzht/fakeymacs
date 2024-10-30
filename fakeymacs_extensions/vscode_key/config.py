@@ -76,7 +76,7 @@ try:
 except:
     # 置き換えするキーの組み合わせ（Cursor のキー、Fakeymacs のキー）を指定する（複数指定可）
     # （Fakeymacs のキーに Meta キー（M-）は指定できません）
-    fc.cursor_replace_key = [["C-k", "C-A-k"],
+    fc.cursor_replace_key = [["C-e", "C-A-e"],
                              ["C-l", "C-A-l"],
                              ]
 
