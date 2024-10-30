@@ -144,9 +144,6 @@ if fc.vscode_quick_select:
         if vscode_prefix_key:
             define_key_v(f"{vscode_prefix_key} {key}", reset_rect(region(quick_select)))
 
-        if cursor_prefix_key:
-            define_key_c(f"{cursor_prefix_key} {key}", reset_rect(region(quick_select)))
-
 # --------------------------------------------------------------------------------------------------
 
 if fc.vscode_input_sequence:
@@ -160,9 +157,6 @@ if fc.vscode_input_sequence:
     if vscode_prefix_key:
         define_key_v(f"{vscode_prefix_key} 0", reset_rect(input_sequence))
 
-    if cursor_prefix_key:
-        define_key_c(f"{cursor_prefix_key} 0", reset_rect(input_sequence))
-
 # --------------------------------------------------------------------------------------------------
 
 if fc.vscode_insert_numbers:
@@ -172,9 +166,6 @@ if fc.vscode_insert_numbers:
 
     if vscode_prefix_key:
         define_key_v(f"{vscode_prefix_key} n", reset_rect(insert_numbers))
-
-    if cursor_prefix_key:
-        define_key_c(f"{cursor_prefix_key} n", reset_rect(insert_numbers))
 
 # --------------------------------------------------------------------------------------------------
 
