@@ -304,7 +304,7 @@ Cursor の Preferences: Open Keyboard Shortcuts (JSON) の機能で keybindings.
 #+END_EXAMPLE
 
 また、Cursor には VSCode 用のキーマップ keymap_vscode が適用される他に、Cursor 用のキーマップ
-keymap_cursor が適用されます。このキーマップには、次の設定が行われています。
+keymap_cursor が適用されます。このキーマップでは、次の設定により、キーの置き換えが可能となっています。
 
 **** ● Cursor 用プレフィックスキーの置き換え設定
 
