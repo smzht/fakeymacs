@@ -269,8 +269,8 @@ True にした場合に Esc を入力するには、Esc を二回押下してく
 Cursor を利用する場合、AI のインラインアシスタント機能を起動するショートカットキー Ctrl+k が
 Emacs キーバインドと重複するため、キーの変更が必要となります。
 Cursor の Preferences: Open Keyboard Shortcuts (JSON) の機能で keybindings.json を開き、次の設定
-（Ctrl+k を Ctrl+e に変更する設定）をマージしてください。本拡張機能は、Cursor にこの設定が追加
-されていること前提に、調整が行われています。
+（Ctrl+k を Ctrl+e に変更する設定）をマージしてください。本拡張機能は、Cursor にこの設定がマージ
+されていることを前提に、調整が行われています。
 
 #+BEGIN_EXAMPLE
 // Place your key bindings in this file to override the defaults
