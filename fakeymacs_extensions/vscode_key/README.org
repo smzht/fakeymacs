@@ -281,11 +281,6 @@ Cursor の Preferences: Open Keyboard Shortcuts (JSON) の機能で keybindings.
         "when": "editorFocus && !composerBarIsVisible && !composerControlPanelIsVisible"
     },
     {
-        "key": "ctrl+shift+k",
-        "command": "-aipopup.action.modal.generate",
-        "when": "editorFocus && !composerBarIsVisible && !composerControlPanelIsVisible"
-    },
-    {
         "key": "ctrl+e",
         "command": "aipopup.action.modal.generate",
         "when": "editorFocus && !composerBarIsVisible && !composerControlPanelIsVisible"
