@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20241019_03"
+fakeymacs_version = "20241207_01"
 
 import time
 import os
@@ -170,15 +170,18 @@ def configure(keymap):
     ## カスタマイズパラメータの設定
     ###########################################################################
 
-    # すべてのキーマップを透過（スルー）するアプリケーションソフトを指定する（全ての設定に優先する）
+    # すべてのキーマップを透過（スルー）するアプリケーションソフト（ワイルドカード指定可）を指定する
+    # （全ての設定に優先します）
     # （keymap_base、keymap_global を含むすべてのキーマップをスルーします）
     fc.transparent_target       = []
 
-    # すべてのキーマップを透過（スルー）するウィンドウのクラスネームを指定する（全ての設定に優先する）
+    # すべてのキーマップを透過（スルー）するウィンドウのクラスネーム（ワイルドカード指定可）を指定する
+    # （全ての設定に優先します）
     # （keymap_base、keymap_global を含むすべてのキーマップをスルーします）
     fc.transparent_target_class = ["IHWindowClass"]      # Remote Desktop
 
-    # Emacs のキーバインドにするウィンドウのクラスネームを指定する（fc.not_emacs_target の設定より優先する）
+    # Emacs のキーバインドにするウィンドウのクラスネーム（ワイルドカード指定可）を指定する
+    # （fc.not_emacs_target の設定より優先します）
     fc.emacs_target_class   = ["Edit",                   # テキスト入力フィールドなどが該当
                                "Button",                 # ボタン
                                "ComboBox",               # コンボボックス
@@ -186,25 +189,22 @@ def configure(keymap):
                                ]
 
     # Emacs のキーバインドに“したくない”アプリケーションソフトを指定する
-    # （Keyhac のメニューから「内部ログ」を ON にすると processname や classname を確認することができます）
+    # （アプリケーションソフトは、プロセス名称のみ（ワイルドカード指定可）、もしくは、プロセス名称、
+    #   クラス名称、ウィンドウタイトルのリスト（ワイルドカード指定可、リストの後ろの項目から省略可）
+    #   を指定してください）
+    # （Keyhac のメニューから「内部ログ」を ON にすると、processname や classname を確認することが
+    #   できます）
     fc.not_emacs_target     = ["wsl.exe",                # WSL
                                "bash.exe",               # WSL
-                               "ubuntu.exe",             # WSL
-                               "ubuntu1604.exe",         # WSL
-                               "ubuntu1804.exe",         # WSL
-                               "ubuntu2004.exe",         # WSL
-                               "ubuntu2204.exe",         # WSL
-                               "ubuntu2404.exe",         # WSL
+                               "ubuntu*.exe",            # WSL
                                "debian.exe",             # WSL
                                "kali.exe",               # WSL
-                               "SLES-12.exe",            # WSL
-                               "openSUSE-42.exe",        # WSL
-                               "openSUSE-Leap-15-1.exe", # WSL
+                               "SLES-*.exe",             # WSL
+                               "openSUSE-*.exe",         # WSL
                                "WindowsTerminal.exe",    # Windows Terminal
                                "mintty.exe",             # mintty
                                "Cmder.exe",              # Cmder
-                               "ConEmu.exe",             # ConEmu
-                               "ConEmu64.exe",           # ConEmu
+                               "ConEmu*.exe",            # ConEmu
                                "emacs.exe",              # Emacs
                                "emacs-X11.exe",          # Emacs
                                "emacs-w32.exe",          # Emacs
@@ -212,50 +212,45 @@ def configure(keymap):
                                "xyzzy.exe",              # xyzzy
                                "msrdc.exe",              # WSLg
                                "XWin.exe",               # Cygwin/X
-                               "XWin_MobaX.exe",         # MobaXterm/X
-                               "XWin_MobaX_1.16.3.exe",  # MobaXterm/X
-                               "XWin_MobaX_1.20.4.exe",  # MobaXterm/X
-                               "XWin_Cygwin_1.14.5.exe", # MobaXterm/X
-                               "XWin_Cygwin_1.16.3.exe", # MobaXterm/X
+                               "XWin_MobaX*.exe",        # MobaXterm/X
+                               "XWin_Cygwin*.exe",       # MobaXterm/X
                                "Xming.exe",              # Xming
                                "vcxsrv.exe",             # VcXsrv
-                               "GWSL_vcxsrv.exe",        # GWSL
-                               "GWSL_vcxsrv_lowdpi.exe", # GWSL
+                               "GWSL_vcxsrv*.exe",       # GWSL
                                "X410.exe",               # X410
                                "Xpra-Launcher.exe",      # Xpra
                                "putty.exe",              # PuTTY
                                "ttermpro.exe",           # TeraTerm
                                "MobaXterm.exe",          # MobaXterm
                                "TurboVNC.exe",           # TurboVNC
-                               "vncviewer.exe",          # UltraVNC
-                               "vncviewer64.exe",        # UltraVNC
+                               "vncviewer*.exe",         # UltraVNC
+                               ["chrome.exe", "Chrome_WidgetWin_1", "さくらのクラウドシェル"],
+                               ["msedge.exe", "Chrome_WidgetWin_1", "さくらのクラウドシェル"],
                                ]
 
     # IME の切り替え“のみをしたい”アプリケーションソフトを指定する
+    # （アプリケーションソフトは、プロセス名称のみ（ワイルドカード指定可）、もしくは、プロセス名称、
+    #   クラス名称、ウィンドウタイトルのリスト（ワイルドカード指定可、リストの後ろの項目から省略可）
+    #   を指定してください）
     # （指定できるアプリケーションソフトは、not_emacs_target で（除外）指定したものからのみとなります）
     fc.ime_target           = ["wsl.exe",                # WSL
                                "bash.exe",               # WSL
-                               "ubuntu.exe",             # WSL
-                               "ubuntu1604.exe",         # WSL
-                               "ubuntu1804.exe",         # WSL
-                               "ubuntu2004.exe",         # WSL
-                               "ubuntu2204.exe",         # WSL
-                               "ubuntu2404.exe",         # WSL
+                               "ubuntu*.exe",            # WSL
                                "debian.exe",             # WSL
                                "kali.exe",               # WSL
-                               "SLES-12.exe",            # WSL
-                               "openSUSE-42.exe",        # WSL
-                               "openSUSE-Leap-15-1.exe", # WSL
+                               "SLES-*.exe",             # WSL
+                               "openSUSE-*.exe",         # WSL
                                "WindowsTerminal.exe",    # Windows Terminal
                                "mintty.exe",             # mintty
                                "Cmder.exe",              # Cmder
-                               "ConEmu.exe",             # ConEmu
-                               "ConEmu64.exe",           # ConEmu
+                               "ConEmu*.exe",            # ConEmu
                                "gvim.exe",               # GVim
                                "xyzzy.exe",              # xyzzy
                                "putty.exe",              # PuTTY
                                "ttermpro.exe",           # TeraTerm
                                "MobaXterm.exe",          # MobaXterm
+                               ["chrome.exe", "Chrome_WidgetWin_1", "さくらのクラウドシェル"],
+                               ["msedge.exe", "Chrome_WidgetWin_1", "さくらのクラウドシェル"],
                                ]
 
     # キーマップ毎にキー設定をスキップするキーを指定する
@@ -282,11 +277,11 @@ def configure(keymap):
                                "Code.exe"         : ["C-S-b", "C-S-f", "C-S-p", "C-S-n", "C-S-a", "C-S-e"],
                                }
 
-    # clipboard 監視の対象外とするアプリケーションソフトを指定する
+    # clipboard 監視の対象外とするアプリケーションソフト（ワイルドカード指定可）を指定する
     fc.not_clipboard_target = []
     fc.not_clipboard_target += ["EXCEL.EXE"] # Microsoft Excel
 
-    # clipboard 監視の対象外とするウィンドウのクラスネームを指定する（ワイルドカードの指定可）
+    # clipboard 監視の対象外とするウィンドウのクラスネーム（ワイルドカード指定可）を指定する
     fc.not_clipboard_target_class = []
     fc.not_clipboard_target_class += ["HwndWrapper*"] # WPF アプリ
 
@@ -518,9 +513,10 @@ def configure(keymap):
                                ["POWERPNT.EXE", "mdiClass"],
                                ]
 
-    # ゲームなど、キーバインドの設定を極力行いたくないアプリケーションソフト（プロセス名称のみ、
-    # もしくは、プロセス名称、クラス名称、ウィンドウタイトルのリスト（ワイルドカード指定可、
-    # リストの後ろの項目から省略可））を指定する
+    # ゲームなど、キーバインドの設定を極力行いたくないアプリケーションソフトを指定する
+    # （アプリケーションソフトは、プロセス名称のみ（ワイルドカード指定可）、もしくは、プロセス名称、
+    #   クラス名称、ウィンドウタイトルのリスト（ワイルドカード指定可、リストの後ろの項目から省略可）
+    #   を指定してください）
     # （keymap_global 以外のすべてのキーマップをスルーします。ゲームなど、Keyhac によるキー設定と
     #   相性が悪いアプリケーションソフトを指定してください。keymap_base の設定もスルーするため、
     #   英語 -> 日本語キーボード変換の機能が働かなくなることにご留意ください。）
@@ -528,7 +524,6 @@ def configure(keymap):
     #   https://github.com/smzht/fakeymacs/commit/5ceb921bd754ce348f9cd79b6606086916520945）
     fc.game_app_list        = ["ffxiv_dx11.exe",              # FINAL FANTASY XIV
                                # ["msrdc.exe", "RAIL_WINDOW"],  # WSLg
-                               # ["chrome.exe", "Chrome_WidgetWin_1", "（ウィンドウタイトル）"],
                                ]
 
     # 個人設定ファイルのセクション [section-base-1] を読み込んで実行する
@@ -716,8 +711,8 @@ def configure(keymap):
             process_name = window.getProcessName()
             class_name   = window.getClassName()
 
-            if (process_name in fc.not_clipboard_target or
-                any(checkWindow(None, c, window=window) for c in fc.not_clipboard_target_class)):
+            if (any(checkWindow(p, window=window) for p in fc.not_clipboard_target) or
+                any(checkWindow(class_name=c, window=window) for c in fc.not_clipboard_target_class)):
                 # クリップボードの監視用のフックを無効にする
                 keymap.clipboard_history.enableHook(False)
                 fakeymacs.clipboard_hook = False
@@ -749,10 +744,10 @@ def configure(keymap):
                 fakeymacs.is_base_target = True
                 fakeymacs.keymap_decided = True
 
-            elif (process_name in fc.transparent_target or
-                  class_name in fc.transparent_target_class or
+            elif (any(checkWindow(p, window=window) for p in fc.transparent_target) or
+                  any(checkWindow(class_name=c, window=window) for c in fc.transparent_target_class) or
                   any(checkWindow(*app, window=window) if type(app) is list else
-                      checkWindow(app, window=window) for app in fc.game_app_list)):
+                      checkWindow( app, window=window) for app in fc.game_app_list)):
                 fakeymacs.is_base_target = False
                 fakeymacs.keymap_decided = True
             else:
@@ -776,9 +771,10 @@ def configure(keymap):
             class_name   = window.getClassName()
 
             if (fakeymacs.keymap_decided == True or
-                (class_name not in fc.emacs_target_class and
+                (not any(checkWindow(class_name=c, window=window) for c in fc.emacs_target_class) and
                  (process_name in fakeymacs.not_emacs_keybind or
-                  process_name in fc.not_emacs_target))):
+                  any(checkWindow(*app, window=window) if type(app) is list else
+                      checkWindow( app, window=window) for app in fc.not_emacs_target)))):
                 fakeymacs.is_emacs_target = False
             else:
                 reset_undo(reset_counter(reset_mark(lambda: None)))()
@@ -804,7 +800,8 @@ def configure(keymap):
 
             if (fakeymacs.keymap_decided == False and
                 (process_name in fakeymacs.not_emacs_keybind or
-                 process_name in fc.ime_target)):
+                 any(checkWindow(*app, window=window) if type(app) is list else
+                     checkWindow( app, window=window) for app in fc.ime_target))):
                 fakeymacs.is_ime_target = True
             else:
                 fakeymacs.is_ime_target = False
@@ -873,8 +870,9 @@ def configure(keymap):
         class_name   = keymap.getWindow().getClassName()
         process_name = keymap.getWindow().getProcessName()
 
-        if (class_name not in fc.emacs_target_class and
-            process_name not in fc.not_emacs_target):
+        if (not any(checkWindow(class_name=c, window=window) for c in fc.emacs_target_class) and
+            not any(checkWindow(*app, window=window) if type(app) is list else
+                    checkWindow( app, window=window) for app in fc.not_emacs_target)):
             if process_name in fakeymacs.not_emacs_keybind:
                 fakeymacs.not_emacs_keybind.remove(process_name)
                 keymap.popBalloon("keybind", "[Enable Emacs keybind]", 1000)
@@ -952,7 +950,7 @@ def configure(keymap):
                 # LINE アプリなど、Qt*QWindowIcon にマッチするクラスをもつアプリは入力文字に
                 # バルーンヘルプが被るので、バルーンヘルプの表示対象から外す
                 # （ただし、force が True の場合は除く）
-                if force or not checkWindow(None, "Qt*QWindowIcon", window=window):
+                if force or not checkWindow(class_name="Qt*QWindowIcon", window=window):
                     if ime_status:
                         message = fc.ime_status_balloon_message[1]
                     else:
@@ -1103,7 +1101,7 @@ def configure(keymap):
                 checkWindow("powershell.exe", "ConsoleWindowClass")): # PowerShell
                 kill_region()
 
-            elif checkWindow(None, "HM32CLIENT"): # Hidemaru Software
+            elif checkWindow(class_name="HM32CLIENT"): # Hidemaru Software
                 kill_region()
                 delay()
                 if getClipboardText() == "":
@@ -1181,7 +1179,7 @@ def configure(keymap):
             fakeymacs.forward_direction = False
 
         elif (checkWindow("EXCEL.EXE", "EXCEL*") or # Microsoft Excel
-              checkWindow(None, "Edit")):           # Edit クラス
+              checkWindow(class_name="Edit")):      # Edit クラス
             self_insert_command("C-End", "C-S-Home")()
             fakeymacs.forward_direction = False
         else:
@@ -1270,7 +1268,7 @@ def configure(keymap):
                 fakeymacs.is_searching = False
             else:
                 if checkWindow("EXCEL.EXE"): # Microsoft Excel
-                    if checkWindow(None, "EDTBX"): # 検索ウィンドウ
+                    if checkWindow(class_name="EDTBX"): # 検索ウィンドウ
                         self_insert_command({"backward":"A-S-f", "forward":"A-f"}[direction])()
                     else:
                         self_insert_command("C-f")()
@@ -1289,7 +1287,7 @@ def configure(keymap):
     def query_replace():
         if (checkWindow("sakura.exe", "EditorClient") or  # Sakura Editor
             checkWindow("sakura.exe", "SakuraView*")  or  # Sakura Editor
-            checkWindow(None, "HM32CLIENT")):             # Hidemaru Software
+            checkWindow(class_name="HM32CLIENT")):        # Hidemaru Software
             self_insert_command("C-r")()
 
         elif checkWindow("TeXworks.exe", "Qt661QWindowIcon"): # TeXworks
@@ -1464,7 +1462,7 @@ def configure(keymap):
     def resetRegion():
         if fakeymacs.forward_direction is not None:
 
-            if checkWindow(None, "Edit"): # Edit クラス
+            if checkWindow(class_name="Edit"): # Edit クラス
                 # 選択されているリージョンのハイライトを解除するためにカーソルキーを発行する
                 if fakeymacs.forward_direction:
                     self_insert_command("Right")()
@@ -2354,7 +2352,7 @@ def configure(keymap):
                 if fc.emacs_ime_mode_balloon_message:
                     # LINE アプリなど、Qt*QWindowIcon にマッチするクラスをもつアプリは入力文字に
                     # バルーンヘルプが被るので、バルーンヘルプの表示対象から外す
-                    if not checkWindow(None, "Qt*QWindowIcon"):
+                    if not checkWindow(class_name="Qt*QWindowIcon"):
                         if ime_mode_status:
                             try:
                                 keymap.popBalloon("emacs_ime_mode", fc.emacs_ime_mode_balloon_message)
@@ -2445,8 +2443,8 @@ def configure(keymap):
     ###########################################################################
 
     def is_global_target(window):
-        if (window.getProcessName() in fc.transparent_target or
-            window.getClassName() in fc.transparent_target_class):
+        if (any(checkWindow(p, window=window) for p in fc.transparent_target) or
+            any(checkWindow(class_name=c, window=window) for c in fc.transparent_target_class)):
             return False
         else:
             return True

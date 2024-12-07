@@ -18,15 +18,15 @@ Fakeymacs をカスタマイズするために、以下のコンフィグレー�
 | fc.ime_off_cursor_color                  | IME が OFF のときのテキスト カーソル インジケーターの色を指定する                                                          |
 | fc.correct_ime_status                    | Chromium 系ブラウザで発生する問題の対策を行うかどうかを指定する                                                            |
 | fc.chromium_browser_list                 | Chromium 系ブラウザのプログラム名称を指定する                                                                              |
-| fc.transparent_target                    | すべてのキーマップを透過（スルー）するアプリケーションソフトを指定する（全ての設定に優先する）                             |
-| fc.transparent_target_class              | すべてのキーマップを透過（スルー）するアプリケーションソフトを指定する（全ての設定に優先する）                             |
+| fc.transparent_target                    | すべてのキーマップを透過（スルー）するアプリケーションソフト（ワイルドカード指定可）を指定する                             |
+| fc.transparent_target_class              | すべてのキーマップを透過（スルー）するウィンドウのクラスネーム（ワイルドカード指定可）を指定する                           |
 | fc.emacs_target_class                    | Emacs のキーバインドにするウィンドウのクラスネームを指定する（fc.not_emacs_target の設定より優先する）                     |
 | fc.not_emacs_target                      | Emacs のキーバインドに“したくない”アプリケーションソフトを指定する                                                       |
 | fc.ime_target                            | IME の切り替え“のみをしたい”アプリケーションソフトを指定する                                                             |
 | fc.skip_settings_key                     | キーマップ毎にキー設定をスキップするキーを指定する                                                                         |
 | fc.emacs_exclusion_key                   | Emacs のキーバインドにするアプリケーションソフトで、Emacs キーバインドから除外するキーを指定する                           |
-| fc.not_clipboard_target                  | clipboard 監視の対象外とするアプリケーションソフトを指定する                                                               |
-| fc.not_clipboard_target_class            | clipboard 監視の対象外とするウィンドウのクラスネームを指定する（ワイルドカードの指定可）                                   |
+| fc.not_clipboard_target                  | clipboard 監視の対象外とするアプリケーションソフト（ワイルドカード指定可）を指定する                                       |
+| fc.not_clipboard_target_class            | clipboard 監視の対象外とするウィンドウのクラスネーム（ワイルドカード指定可） を指定する                                    |
 | fc.side_of_ctrl_key                      | 左右どちらの Ctrl キーを使うかを指定する                                                                                   |
 | fc.side_of_alt_key                       | 左右どちらの Alt キーを使うかを指定する                                                                                    |
 | fc.side_of_win_key                       | 左右どちらの Win キーを使うかを指定する                                                                                    |
