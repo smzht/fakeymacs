@@ -100,7 +100,7 @@ fc.not_emacs_target     = ["wsl.exe",                # WSL
                            "gvim.exe",               # GVim
                            "xyzzy.exe",              # xyzzy
                            "msrdc.exe",              # WSLg
-                           "XWin*.exe",               # XWin
+                           "XWin*.exe",              # XWin
                            "Xming.exe",              # Xming
                            "vcxsrv.exe",             # VcXsrv
                            "GWSL_vcxsrv*.exe",       # GWSL
