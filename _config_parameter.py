@@ -96,15 +96,11 @@ fc.not_emacs_target     = ["wsl.exe",                # WSL
                            "mintty.exe",             # mintty
                            "Cmder.exe",              # Cmder
                            "ConEmu*.exe",            # ConEmu
-                           "emacs.exe",              # Emacs
-                           "emacs-X11.exe",          # Emacs
-                           "emacs-w32.exe",          # Emacs
+                           "emacs*.exe",             # Emacs
                            "gvim.exe",               # GVim
                            "xyzzy.exe",              # xyzzy
                            "msrdc.exe",              # WSLg
-                           "XWin.exe",               # Cygwin/X
-                           "XWin_MobaX*.exe",        # MobaXterm/X
-                           "XWin_Cygwin*.exe",       # MobaXterm/X
+                           "XWin*.exe",               # XWin
                            "Xming.exe",              # Xming
                            "vcxsrv.exe",             # VcXsrv
                            "GWSL_vcxsrv*.exe",       # GWSL
