@@ -115,8 +115,8 @@ fc.not_emacs_target     = ["wsl.exe",                # WSL
                            "MobaXterm.exe",          # MobaXterm
                            "TurboVNC.exe",           # TurboVNC
                            "vncviewer*.exe",         # UltraVNC
-                           ["chrome.exe", "Chrome_WidgetWin_1", "さくらのクラウドシェル"],
-                           ["msedge.exe", "Chrome_WidgetWin_1", "さくらのクラウドシェル"],
+                           ["chrome.exe", "Chrome_WidgetWin_1", "さくらのクラウドシェル*"],
+                           ["msedge.exe", "Chrome_WidgetWin_1", "さくらのクラウドシェル*"],
                            ]
 
 # IME の切り替え“のみをしたい”アプリケーションソフトを指定する
@@ -140,8 +140,8 @@ fc.ime_target           = ["wsl.exe",                # WSL
                            "putty.exe",              # PuTTY
                            "ttermpro.exe",           # TeraTerm
                            "MobaXterm.exe",          # MobaXterm
-                           ["chrome.exe", "Chrome_WidgetWin_1", "さくらのクラウドシェル"],
-                           ["msedge.exe", "Chrome_WidgetWin_1", "さくらのクラウドシェル"],
+                           ["chrome.exe", "Chrome_WidgetWin_1", "さくらのクラウドシェル*"],
+                           ["msedge.exe", "Chrome_WidgetWin_1", "さくらのクラウドシェル*"],
                            ]
 
 # キーマップ毎にキー設定をスキップするキーを指定する
