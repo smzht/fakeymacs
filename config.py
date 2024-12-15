@@ -861,12 +861,11 @@ def configure(keymap):
     ##################################################
 
     def toggle_emacs_keybind():
-        class_name   = keymap.getWindow().getClassName()
         process_name = keymap.getWindow().getProcessName()
 
-        if (not any(checkWindow(class_name=c, window=window) for c in fc.emacs_target_class) and
-            not any(checkWindow(*app, window=window) if type(app) is list else
-                    checkWindow( app, window=window) for app in fc.not_emacs_target)):
+        if (not any(checkWindow(class_name=c) for c in fc.emacs_target_class) and
+            not any(checkWindow(*app) if type(app) is list else
+                    checkWindow( app) for app in fc.not_emacs_target)):
             if process_name in fakeymacs.not_emacs_keybind:
                 fakeymacs.not_emacs_keybind.remove(process_name)
                 keymap.popBalloon("keybind", "[Enable Emacs keybind]", 1000)
