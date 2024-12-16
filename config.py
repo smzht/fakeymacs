@@ -470,14 +470,12 @@ def configure(keymap):
     fc.other_window_key = "A-o"
 
     # ウィンドウ操作（other_window など）の対象としたくないアプリケーションソフトの“クラス名称”を指定する
-    # （re.match 関数（先頭からのマッチ）の正規表現に「|」を使って繋げて指定してください。
-    #   完全マッチとするためには $ の指定が必要です。）
-    fc.window_operation_exclusion_class = r"Progman$"
+    # （正規表現で指定してください（複数指定する場合は「|」で連結してください））
+    fc.window_operation_exclusion_class = r"Progman"
 
     # ウィンドウ操作（other_window など）の対象としたくないアプリケーションソフトの“プロセス名称”を指定する
-    # （re.match 関数（先頭からのマッチ）の正規表現に「|」を使って繋げて指定してください。
-    #   完全マッチとするためには $ の指定が必要です。）
-    fc.window_operation_exclusion_process = r"RocketDock\.exe$"  # サンプルとして RocketDock.exe を登録
+    # （正規表現で指定してください（複数指定する場合は「|」で連結してください））
+    fc.window_operation_exclusion_process = r"RocketDock\.exe"  # サンプルとして RocketDock.exe を登録
 
     # クリップボードリストを起動するキーを指定する
     fc.clipboardList_key = "A-y"
@@ -1745,10 +1743,10 @@ def configure(keymap):
                 if len(pos_list) == 1:
                     # Alt キーを単押しした際に、カーソルがメニューへ移動しないようにするための対策
                     # （https://www.haijin-boys.com/discussions/4583）
-                    if re.match(r"O-LAlt$", pos_list[0], re.IGNORECASE):
+                    if re.fullmatch(r"O-LAlt", pos_list[0], re.IGNORECASE):
                         window_keymap["D-LAlt"] = "D-LAlt", "(255)"
 
-                    elif re.match(r"O-RAlt$", pos_list[0], re.IGNORECASE):
+                    elif re.fullmatch(r"O-RAlt", pos_list[0], re.IGNORECASE):
                         window_keymap["D-RAlt"] = "D-RAlt", "(255)"
 
     def define_key2(window_keymap, keys, command):
@@ -2560,8 +2558,8 @@ def configure(keymap):
                         pass
 
                     elif class_name == "Emacs" or title != "":
-                        if (not re.match(fc.window_operation_exclusion_class, class_name) and
-                            not re.match(fc.window_operation_exclusion_process, process_name2)):
+                        if (not re.fullmatch(fc.window_operation_exclusion_class, class_name) and
+                            not re.fullmatch(fc.window_operation_exclusion_process, process_name2)):
 
                             # バックグラウンドで起動している UWPアプリが window_list に登録されるのを抑制する
                             # （http://mrxray.on.coocan.jp/Delphi/plSamples/320_AppList.htm）

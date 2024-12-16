@@ -363,14 +363,12 @@ fc.use_alt_digit_key_for_f1_to_f12 = False
 fc.other_window_key = "A-o"
 
 # ウィンドウ操作（other_window など）の対象としたくないアプリケーションソフトの“クラス名称”を指定する
-# （re.match 関数（先頭からのマッチ）の正規表現に「|」を使って繋げて指定してください。
-#   完全マッチとするためには $ の指定が必要です。）
-fc.window_operation_exclusion_class = r"Progman$"
+# （正規表現で指定してください（複数指定する場合は「|」で連結してください））
+fc.window_operation_exclusion_class = r"Progman"
 
 # ウィンドウ操作（other_window など）の対象としたくないアプリケーションソフトの“プロセス名称”を指定する
-# （re.match 関数（先頭からのマッチ）の正規表現に「|」を使って繋げて指定してください。
-#   完全マッチとするためには $ の指定が必要です。）
-fc.window_operation_exclusion_process = r"RocketDock\.exe$"  # サンプルとして RocketDock.exe を登録
+# （正規表現で指定してください（複数指定する場合は「|」で連結してください））
+fc.window_operation_exclusion_process = r"RocketDock\.exe"  # サンプルとして RocketDock.exe を登録
 
 # クリップボードリストを起動するキーを指定する
 fc.clipboardList_key = "A-y"
