@@ -2472,8 +2472,8 @@ def configure(keymap):
     ###########################################################################
 
     def is_global_target(window):
-        if (any(checkWindow(p, window=window) for p in fc.transparent_target) or
-            any(checkWindow(class_name=c, window=window) for c in fc.transparent_target_class)):
+        if (transparent_target.match(window.getProcessName()) or
+            transparent_target_class.match(window.getClassName())):
             return False
         else:
             return True
