@@ -61,12 +61,12 @@ fc.chromium_browser_list = ["chrome.exe",
 ####################################################################################################
 # [section-base-1] ---------------------------------------------------------------------------------
 
-# すべてのキーマップを透過（スルー）するアプリケーションソフト（ワイルドカード指定可）を指定する
+# すべてのキーマップを透過するアプリケーションソフトのプロセス名称（ワイルドカード指定可）を指定する
 # （全ての設定に優先します）
 # （keymap_base、keymap_global を含むすべてのキーマップをスルーします）
 fc.transparent_target       = []
 
-# すべてのキーマップを透過（スルー）するウィンドウのクラス名称（ワイルドカード指定可）を指定する
+# すべてのキーマップを透過するウィンドウのクラス名称（ワイルドカード指定可）を指定する
 # （全ての設定に優先します）
 # （keymap_base、keymap_global を含むすべてのキーマップをスルーします）
 fc.transparent_target_class = ["IHWindowClass"]      # Remote Desktop
@@ -164,7 +164,7 @@ fc.emacs_exclusion_key  = {"chrome.exe"       : ["C-l", "C-t"],
                            "Code.exe"         : ["C-S-b", "C-S-f", "C-S-p", "C-S-n", "C-S-a", "C-S-e"],
                            }
 
-# clipboard 監視の対象外とするアプリケーションソフト（ワイルドカード指定可）を指定する
+# clipboard 監視の対象外とするアプリケーションソフトのプロセス名称（ワイルドカード指定可）を指定する
 fc.not_clipboard_target = []
 fc.not_clipboard_target += ["EXCEL.EXE"] # Microsoft Excel
 
