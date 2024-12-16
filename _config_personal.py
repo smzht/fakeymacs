@@ -57,12 +57,12 @@ fc.ime_off_cursor_color = 0x0000FF # 赤
 # （keymap_base、keymap_global を含むすべてのキーマップをスルーします）
 fc.transparent_target       += []
 
-# すべてのキーマップを透過（スルー）するウィンドウのクラスネーム（ワイルドカード指定可）を指定する
+# すべてのキーマップを透過（スルー）するウィンドウのクラス名称（ワイルドカード指定可）を指定する
 # （全ての設定に優先します）
 # （keymap_base、keymap_global を含むすべてのキーマップをスルーします）
 fc.transparent_target_class += []
 
-# Emacs のキーバインドにするウィンドウのクラスネーム（ワイルドカード指定可）を指定する
+# Emacs のキーバインドにするウィンドウのクラス名称（ワイルドカード指定可）を指定する
 # （fc.not_emacs_target の設定より優先します）
 fc.emacs_target_class  += []
 
