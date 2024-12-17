@@ -1,6 +1,6 @@
 #+STARTUP: showall indent
 
-* Fakeymacs extension - menu_key -
+* Fakeymacs extension - emacs_terminal -
 
 ** ■ Emacs をターミナルで動かす場合に event-apply-modifier を使ってキーの置き換えを行う
 
