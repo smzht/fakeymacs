@@ -606,6 +606,17 @@ if 0:
 # ■ Emacs 関連
 # --------------------------------------------------------------------------------------------------
 
+# Emacs をターミナルで動かす場合に event-apply-modifier を使ってキーの置き換えを行う
+if 0:
+    fc.emacs_terminal = ["ubuntu*.exe",
+                         [None, None,  "さくらのクラウドシェル (リモート)"],
+                         ]
+    fc.emacs_replace_key = [["C-;", "C-x @ c ;"],
+                            ]
+    exec(readConfigExtension(r"emacs_terminal\config.py"), dict(globals(), **locals()))
+
+# --------------------------------------------------------------------------------------------------
+
 # Emacs を利用する際のキーバインドの調整を行う
 if 0:
     exec(readConfigExtension(r"real_emacs\config.py"), dict(globals(), **locals()))
