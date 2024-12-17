@@ -37,7 +37,7 @@ fc.vscode_target += fc.vscode_browser_target
 # fc.vscode_target に設定しているアプリケーションソフトが fc.not_emacs_target に設定してある場合、
 # それを除外する
 for target in fc.vscode_target:
-    if target in fc.not_emacs_target:
+    if any(fnmatch.fnmatch(target, app) for app in fc.not_emacs_target if type(app) is str):
         fc.vscode_target.remove(target)
 
 try:
