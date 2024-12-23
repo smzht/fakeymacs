@@ -4,7 +4,7 @@
 
 ** ■ Emacs をターミナルソフトで動かす場合に event-apply-modifier を使ってキーの置き換えを行う
 
-Emacs をターミナルソフトで動かす場合、X Window で Emacs を動かした場合に使える C-; などの一部のキーが
+Emacs をターミナルソフトで動かした場合、X Window で Emacs を動かした場合に使える C-; などの一部のキーが
 利用できません。これを Emacs の event-apply-modifier の機能を使って解決するための拡張機能です。
 
 *** コンフィグレーションパラメータ
