@@ -255,14 +255,13 @@ Fakeymacs では、Python のクロージャの機能を多用しています。
 
 ** VSCode の機能強化について
 
-VSCode については、次の２つの拡張機能により、機能強化を図っています。
+VSCode については、次の拡張機能により、機能強化を図っています。
 
-|-------------------+---------------------------------------|
-| Extension name    | Description                           |
-|-------------------+---------------------------------------|
-| [[/fakeymacs_extensions/vscode_key][vscode_key]]        | VSCode 用のキーの設定を行う           |
-| [[/fakeymacs_extensions/vscode_extensions][vscode_extensions]] | VSCode Extension 用のキーの設定を行う |
-|-------------------+---------------------------------------|
+|----------------+-----------------------------|
+| Extension name | Description                 |
+|----------------+-----------------------------|
+| [[/fakeymacs_extensions/vscode_key][vscode_key]]     | VSCode 用のキーの設定を行う |
+|----------------+-----------------------------|
 
 VSCode の Emacs Keymap Extension と比較した本機能の特徴は、次のページの *<2021/02/23 追記>*
 の箇所に記載しています。参考としてください。
