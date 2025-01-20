@@ -222,8 +222,11 @@ def post(func):
     return _func
 
 def is_terminal_for_direct_input():
+    if re.search(r" - Terminal$", keymap.getWindow().getText()):
+        return True
+
     for terminal in fc.terminal_list_for_direct_input:
-        if re.search(rf"(^| - ){re.escape(terminal)} - ", keymap.getWindow().getText()):
+        if re.search(rf"^{re.escape(terminal)} - ", keymap.getWindow().getText()):
             return True
     return False
 
