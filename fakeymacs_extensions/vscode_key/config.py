@@ -96,6 +96,8 @@ try:
 except:
     # パネルのターミナル内で４つのキー（C-k、C-r、C-s、C-y）のダイレクト入力機能を使うかどうかを
     # 指定する（True: 使う、False: 使わない）
+    # （この設定は現在非推奨です。README に記載しているとおり、VSCode の settings.jsonで
+    #   window.title の設定を行ってください）
     fc.use_direct_input_in_vscode_terminal = False
 
 try:
