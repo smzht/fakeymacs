@@ -199,9 +199,8 @@ VSCode の settings.json に次の window.title の設定を追加してくだ�
 ※ fc.use_direct_input_in_vscode_terminal 変数を True にすることでも、同様の機能を利用することが
 できます。この機能を利用する場合は、上記のいずれかのキーを押下してターミナルに移行するように
 してください。
-ただし、window.title の設定を行った場合の方法の方がマウスでビューを切り替えられるなどメリットが
-多いため、fc.use_direct_input_in_vscode_terminal 変数を True にする方法は、現在非推奨の方法と
-なりました。
+ただし、window.title の設定を行う方法の方がマウスでビューを切り替えられるなどメリットが多いため、
+fc.use_direct_input_in_vscode_terminal 変数を True にする方法は、非推奨の方法となりました。
 
 ※ ターミナルで C-k を利用できるようにするには、VSCode の 設定で terminal.integrated.allowChords
 を false にする必要があります。
