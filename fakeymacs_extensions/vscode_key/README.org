@@ -218,8 +218,8 @@ VSCode の settings.json に次のとおりに window.title の設定を追加�
 ※ fc.use_direct_input_in_vscode_terminal 変数を True にしている場合、ターミナルから抜けるには
 次のキーを利用するようにしてください。先に説明した４つのキーが VSCode のショートカットキーとして
 認識されるように戻ります。
-また、マウスのクリックでカーソル位置の変更したり、ターミナルのシェルを終了してパネルをクロースした
-場合などに、現在の場所の認識に齟齬が発生することがあります。
+また、マウスでビューの変更をしたり、ターミナルのシェルを終了してパネルをクロースした場合などに、
+現在の場所の認識に齟齬が発生することがあります。
 その場合も次のいずれかのキーを押下することにより、Fakeymacs に現在の場所を再認識させるようにしてください。
 （これらの利用上の制約は、fc.use_direct_input_in_vscode_terminal 変数を False にして、window.title
 の設定を行った場合には発生しません。このため、fc.use_direct_input_in_vscode_terminal 変数を True
