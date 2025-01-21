@@ -221,11 +221,11 @@ def post(func):
             fakeymacs_vscode.post_processing = None
     return _func
 
-regex = "|".join([r" - Terminal$"] +
-                 [rf"^{re.escape(t)} - " for t in fc.terminal_list_for_direct_input])
+pattern = re.compile("|".join([r" - Terminal$"] +
+                              [rf"^{re.escape(t)} - " for t in fc.terminal_list_for_direct_input]))
 
 def is_terminal_for_direct_input():
-    if re.search(regex, keymap.getWindow().getText()):
+    if pattern.search(keymap.getWindow().getText()):
         return True
     return False
 
