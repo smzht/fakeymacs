@@ -190,7 +190,7 @@ keyboard_quit（C-A-g）を利用してください。（fc.esc_mode_in_keyboard
 ※ C-@ は、fc.use_ctrl_atmark_for_mark 変数が False の場合に機能します。
 
 ※ ターミナルで４つのキー（C-k、C-r、C-s、C-y）のダイレクト入力をできるようにするためには、
-VSCode の settings.json に次のとおりに window.title の設定を追加してください。
+VSCode の settings.json に次の window.title の設定を追加してください。
 
 #+BEGIN_EXAMPLE
 "window.title": "${activeEditorShort}${separator}${rootName}${separator}${focusedView}"
@@ -199,9 +199,9 @@ VSCode の settings.json に次のとおりに window.title の設定を追加�
 ※ fc.use_direct_input_in_vscode_terminal 変数を True にすることでも、同様の機能を利用することが
 できます。この機能を利用する場合は、上記のいずれかのキーを押下してターミナルに移行するように
 してください。
-ただし、上記の window.title の設定を行った場合の方法の方がマウスでビューを切り替えられるなど
-メリットが多いため、fc.use_direct_input_in_vscode_terminal 変数を True にする方法は、現在非推奨
-の方法となりました。
+ただし、window.title の設定を行った場合の方法の方がマウスでビューを切り替えられるなどメリットが
+多いため、fc.use_direct_input_in_vscode_terminal 変数を True にする方法は、現在非推奨の方法と
+なりました。
 
 ※ ターミナルで C-k を利用できるようにするには、VSCode の 設定で terminal.integrated.allowChords
 を false にする必要があります。
