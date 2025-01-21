@@ -221,7 +221,7 @@ def post(func):
             fakeymacs_vscode.post_processing = None
     return _func
 
-pattern1 = re.compile(rf" - Terminal$")
+pattern1 = re.compile(r" - Terminal$")
 pattern2 = re.compile("|".join([rf"^{t} - " for t in fc.terminal_list_for_direct_input]))
 
 def is_terminal_for_direct_input():
