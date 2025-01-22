@@ -223,12 +223,12 @@ def post(func):
             fakeymacs_vscode.post_processing = None
     return _func
 
-pattern1 = re.compile(r" - Terminal$")
-pattern2 = re.compile("|".join([rf"^{t} - " for t in fc.terminal_list_for_direct_input]))
+pattern1 = re.compile("|".join([rf" - {v}$" for v in ["Terminal", "ターミナル"]]))
+pattern2 = re.compile("|".join([rf"^{t} .* -$" for t in fc.terminal_list_for_direct_input]))
 
 def is_terminal_for_direct_input():
     title = keymap.getWindow().getText()
-    if pattern1.search(title) or (title.count(" - ") == 1 and pattern2.search(title)):
+    if pattern1.search(title) or pattern2.search(title):
         return True
     return False
 

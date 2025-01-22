@@ -576,7 +576,7 @@ if 0:
 # VSCode 用のキーの設定を行う
 if 0:
     # VSCode の settings.json に次の行の設定を追加してご利用ください
-    # "window.title": "${activeEditorShort}${separator}${rootName}${separator}${focusedView}"
+    # "window.title": "${activeEditorShort}${separator}${rootName} - ${focusedView}"
 
     fc.vscode_prefix_key  = [["C-k", "C-A-k"]]
     fc.cursor_prefix_key  = [["C-m", "C-A-m"]]
