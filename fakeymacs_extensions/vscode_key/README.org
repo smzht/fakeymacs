@@ -193,7 +193,7 @@ keyboard_quit（C-A-g）を利用してください。（fc.esc_mode_in_keyboard
 VSCode の settings.json に次の window.title の設定を追加してください。
 
 #+BEGIN_EXAMPLE
-"window.title": "${activeEditorShort}${separator}${rootName} - ${focusedView}"
+"window.title": "${dirty}${activeEditorShort}${separator}${rootName}${separator}${appName} - ${focusedView}"
 #+END_EXAMPLE
 
 ※ fc.use_direct_input_in_vscode_terminal 変数を True にすることでも、同様の機能を利用することが
