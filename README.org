@@ -224,6 +224,19 @@ keyhac.exe を起動すると、タスクバー（＾アイコンの中）に Ke
 必要に応じて、通知領域に表示するようにしてください。
 このアイコンを左クリックするとコンソールが表示され、右クリックすると機能の一覧が表示されます。
 
+*** 12) レジストリ LowLevelHooksTimeout の設定を行う
+
+Fakeymacs を利用して、文字が二重に入力されたり、Keyhac のコンソールに「Time stamp inversion happened.」
+と何度も表示される場合には、レジストリ HKEY_CURRENT_USER\Control Panel\Desktop\LowLevelHooksTimeout
+をDWORD 形式で作成し、そこに ms の値（10進数で 3000 などの数値）を設定して PC を再起動してください。
+この対応で状況はかなり改善すると思われますが、この設定により生ずる影響は分かっていませんので、
+設定を行う場合は各自の責任でお願いします。（私はこの設定をしてかなりの期間利用していますが、
+今のところ問題となるような事象は発生しておりません。）
+
+- https://apollo440.hatenablog.com/entries/2010/12/21
+- https://nazochu.blogspot.com/2011/08/windows7.html
+- https://blogs.msdn.microsoft.com/alejacma/2010/10/14/global-hooks-getting-lost-on-windows-7/
+
 ** 個人設定ファイル（config_personal.py）
 
 _config_personal.py というファイルを config_personal.py というファイル名にすることで個人設定ファイル
@@ -338,13 +351,3 @@ HHKB Studio は Fakeymacs と相性の良いキーボードなので、キーボ
 ● Logicool のマウス で SetPoint アプリによりキーストロークの割当を行った場合、Keyhac のフックを
 OFF にしてから割当をしないと正常に動作しませんでした。他のキーストロークを設定するソフトの場合
 にも同様の問題が発生する可能性があると思いますので、ご留意ください。
-
-● Windows 11 にしたら、Keyhac のコンソールに「Time stamp inversion happened.」と表示される頻度が
-高くなりました。これは、レジストリ HKEY_CURRENT_USER\Control Panel\Desktop\LowLevelHooksTimeout を
-DWORD 形式で作成し、そこに ms の値（10進数で 3000 などの数値）を設定して再起動することで、
-ある程度の回避ができるようです。また、この設定は、文字が二重に出力される場合にも効果があるようです。
-ただし、この設定により生ずる影響は分かっていませんので、試す場合は各自の責任でお願いします。
-
-- https://apollo440.hatenablog.com/entries/2010/12/21
-- https://nazochu.blogspot.com/2011/08/windows7.html
-- https://blogs.msdn.microsoft.com/alejacma/2010/10/14/global-hooks-getting-lost-on-windows-7/
