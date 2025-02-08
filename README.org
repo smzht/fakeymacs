@@ -224,7 +224,7 @@ keyhac.exe を起動すると、タスクバー（＾アイコンの中）に Ke
 必要に応じて、通知領域に表示するようにしてください。
 このアイコンを左クリックするとコンソールが表示され、右クリックすると機能の一覧が表示されます。
 
-*** 12) レジストリ LowLevelHooksTimeout の設定を行う（オプション）
+*** 12) レジストリ LowLevelHooksTimeout の設定を行う（必要であれば）
 
 Fakeymacs を利用して、文字が二重に入力されたり、Keyhac のコンソールに「Time stamp inversion happened.」
 と何度も表示される場合には、レジストリ HKEY_CURRENT_USER\Control Panel\Desktop\LowLevelHooksTimeout
