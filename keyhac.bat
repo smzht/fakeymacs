@@ -1,4 +1,4 @@
 @echo off
 
-start "" /HIGH "%~dp0\keyhac.exe"
+start "" /D %~dp0 /HIGH keyhac.exe
 exit
