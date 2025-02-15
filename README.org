@@ -306,7 +306,7 @@ CapsLock キーを Ctrl キーとして使うための機能を提供してい�
 
 ** HHKB Studio のキーマップ設定例について
 
-HHKB Studio で Fakeymacs を使う際の、キーマップの設定例について紹介します。
+HHKB Studio で Fakeymacs を使う際の、キーマップの設定例について紹介しています。
 
 - [[fakeymacs_manuals/HHKB_Studio_keymap_sample/README.org][HHKB Studio keymap sample]]
 
