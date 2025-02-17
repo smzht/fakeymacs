@@ -104,12 +104,13 @@ Alt+Shift や Ctrl+Shift のキー操作により IME の切り替えが行わ�
 
 - https://docs.microsoft.com/ja-JP/cpp/windows/latest-supported-vc-redist?view=msvc-170
 
-※ Keyhac for Windows v1.82（旧版）をインストールする場合は、 Windows OS が x64版 でも
+※ Keyhac for Windows v1.82（旧版）を利用する場合、 Windows OS が x64版 でも
 「Microsoft Visual C++ 再頒布可能パッケージ」は x86版 をインストールする必要があります。
 
-※ Keyhac for Windows v1.83（最新版）をインストールする場合は、「Microsoft Visual C++
-再頒布可能パッケージ」のインストールは不要と思われますが、もしインストールが必要な場合は
-x64 版をインストールする必要があると思われます（未確認）。
+※ Keyhac for Windows v1.83（最新版）を利用する場合、「Microsoft Visual C++ 再頒布可能
+パッケージ」のインストールは不要と思われます。ただし、もし dll load エラーが発生し、
+パッケージのインストールが必要と判断する場合には、x64 版をインストールする必要があると
+思われます（未確認）。
 
 *** 4) Fakeymacs をダウンロードする
 
