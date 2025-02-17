@@ -5,7 +5,7 @@
 Fakeymacs は、Windows の操作を Emacs のキーバインドで行えるようにするための
 Keyhac の設定です。
 
-Keyhac for Windows ver 1.82 以上のバージョンでご利用ください。
+Keyhac for Windows v1.82 以上のバージョンでご利用ください（最新版は v1.83 です）。
 
 - https://sites.google.com/site/craftware/keyhac-ja
 
@@ -98,21 +98,18 @@ Alt+Shift や Ctrl+Shift のキー操作により IME の切り替えが行わ�
 - https://sites.google.com/site/craftware/keyhac-ja
 
 起動時に dll load エラーが発生する場合は、「Microsoft Visual C++ 再頒布可能パッケージ」を
-インストールする必要があります。上記のサイトにリンクしてあるものは少し古いバージョンですので、
+インストールする必要があります。
 次のサイトから最新の「Visual Studio 2015、2017、2019、および2022の Microsoft Visual C++
 再頒布可能パッケージ」をダウンロードし、インストールしてください。
 
 - https://docs.microsoft.com/ja-JP/cpp/windows/latest-supported-vc-redist?view=msvc-170
 
-※ Windows OS が x64版 でも、「Microsoft Visual C++ 再頒布可能パッケージ」は x86版 を
-インストールする必要があります。
+※ Keyhac for Windows v1.82（旧版）をインストールする場合は、 Windows OS が x64版 でも
+「Microsoft Visual C++ 再頒布可能パッケージ」は x86版 をインストールする必要があります。
 
-※ dll load エラーが発生しない場合でも、「Microsoft Visual C++ 再頒布可能パッケージ」の
-最新版をインストールすることは意味のあることかもしれません。
-
-※ 上記でインストールされる C:\Windows\SysWOW64\msvcp140.dll を keyhac.exe と同じフォルダに
-置けば、再頒布可能パッケージをインストールしていない PC でも Keyhac を動かすことができる
-ようになります。
+※ Keyhac for Windows v1.83（最新版）をインストールする場合は、「Microsoft Visual C++
+再頒布可能パッケージ」のインストールは不要と思われますが、もしインストールが必要な場合は
+x64 版をインストールする必要があると思われます（未確認）。
 
 *** 4) Fakeymacs をダウンロードする
 
