@@ -24,6 +24,7 @@ Preferences: Open User Settings (JSON) の機能で settings.json を開き、 �
 
 #+BEGIN_EXAMPLE
     "terminal.integrated.allowChords": false,
+    "editor.find.seedSearchStringFromSelection": "never",
     "window.title": "${dirty}${activeEditorShort}${separator}${rootName}${separator}${appName} - ${focusedView}",
 #+END_EXAMPLE
 
@@ -510,12 +511,6 @@ Ctl-x b を使い分けるようにしてください。
 アプリ化すると、先の２つの問題を回避することができます。お試しください。
 
 - https://kiritsume.com/microsoft-edge-install-as-an-app-feature/
-
-● proxy サーバ配下の環境にある PC で Remote-WSL を使った場合、WSL に接続するまでに時間が
-掛かる問題が発生していました。次のページで紹介してある設定を行ったところ改善しましたので、
-紹介しておきます。
-
-- https://github.com/microsoft/vscode-remote-release/issues/4888
 
 ● VSCode の検索機能では、検索した後にカーソルを移動して再度検索を行うと、検索する文字列が
 移動したカーソルの場所にある単語に置き換えられてしまいます。
