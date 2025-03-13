@@ -6,6 +6,81 @@
 
 VSCode 用のキーの設定を行う拡張機能です。AI Code Editor の Cursor にも対応しています。
 
+*** 環境設定
+
+本拡張機能を使うために、次の設定を行ってください。
+
+**** 1) 必要に応じて config_personal.py ファイルを作成する
+
+本フォルダにある _config_personal.py を config_personal.py というファイル名にすることで、
+機能拡張ファイルとして機能します。
+以降で説明している拡張機能（vscode_extensions）もこの機能拡張ファイルの中から
+読み込まれます。
+
+**** 2) VSCode または Cursor に対する共通の設定を行う
+
+Preferences: Open User Settings (JSON) の機能で settings.json を開き、 次の設定を
+追加してください。
+
+#+BEGIN_EXAMPLE
+    "terminal.integrated.allowChords": false,
+    "window.title": "${dirty}${activeEditorShort}${separator}${rootName}${separator}${appName} - ${focusedView}",
+#+END_EXAMPLE
+
+**** 3) Cursor を使う場合の設定を行う
+
+Cursor を利用する場合、AI のインラインアシスタント機能を起動するショートカットキー Ctrl+k が
+Emacs キーバインドと重複するため、キーの変更が必要となります。
+Cursor の Preferences: Open Keyboard Shortcuts (JSON) の機能で keybindings.json を開き、
+次の設定（Ctrl+k を Ctrl+e に変更する設定）を追加してください。
+
+#+BEGIN_EXAMPLE
+    {
+        "key": "ctrl+k",
+        "command": "-aipopup.action.modal.generate",
+        "when": "editorFocus && !composerBarIsVisible && !composerControlPanelIsVisible"
+    },
+    {
+        "key": "ctrl+e",
+        "command": "aipopup.action.modal.generate",
+        "when": "editorFocus && !composerBarIsVisible && !composerControlPanelIsVisible"
+    },
+    {
+        "key": "ctrl+k",
+        "command": "-cursorai.action.generateInTerminal",
+        "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported"
+    },
+    {
+        "key": "ctrl+e",
+        "command": "cursorai.action.generateInTerminal",
+        "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported"
+    }
+#+END_EXAMPLE
+
+**** 4) PowerShell を Emacs キーバインドで使うための設定を行う
+
+PowerShell を Emacs キーバインドで使うためには、PoserShell で $profile という
+文字列を実行した際に表示されるパスのファイルに次の設定を追加してください。
+
+#+BEGIN_EXAMPLE
+Set-PSReadLineOption -EditMode Emacs
+#+END_EXAMPLE
+
+作成した PowerShell スクリプトの実行権限については、以下を参照してください。
+
+- https://atmarkit.itmedia.co.jp/ait/articles/0805/16/news139.html
+
+**** 5) WSL を使う場合の設定を行う
+
+Remote Development 拡張機能を使って WSL を使う場合には、.bashrc に次の設定を追加
+してください。
+
+#+BEGIN_EXAMPLE
+if [ -t 1 ]; then
+    stty stop undef
+fi
+#+END_EXAMPLE
+
 *** コンフィグレーションパラメータ
 
 |----------------------------------------+-------------------------------------------------------------------------------------------------------|
@@ -195,7 +270,7 @@ VSCode の Preferences: Open User Settings (JSON) の機能で settings.json を
 次の設定を追加してください。
 
 #+BEGIN_EXAMPLE
-"window.title": "${dirty}${activeEditorShort}${separator}${rootName}${separator}${appName} - ${focusedView}"
+    "window.title": "${dirty}${activeEditorShort}${separator}${rootName}${separator}${appName} - ${focusedView}"
 #+END_EXAMPLE
 
 ※ fc.use_direct_input_in_vscode_terminal 変数を True にすることでも、同様の機能を利用することが
@@ -207,7 +282,7 @@ fc.use_direct_input_in_vscode_terminal 変数を True にする方法は、非�
 ※ ターミナルで C-k を利用できるようにするには、VSCode の 設定で terminal.integrated.allowChords
 を false にする必要があります。
 
-- https://code.visualstudio.com/docs/editor/integrated-terminal#_chord-keybindings-in-the-terminal
+- https://code.visualstudio.com/docs/terminal/advanced
 
 ※ bash のターミナルで C-s を利用できるようにするには、bash で stty stop undef の設定をする必要が
 あります。この設定をしないでこのキーを押下すると stop から戻れなくなりますのでご注意ください。
@@ -215,6 +290,10 @@ fc.use_direct_input_in_vscode_terminal 変数を True にする方法は、非�
 ※ PowerShell のターミナルで emacs キーバインドを使うためには、次のページを参照してください。
 
 - https://note.com/kokoronopython/n/nbf09b3b5db46
+
+また、作成した PowerShell スクリプトの実行権限については、次のページを参照してください。
+
+- https://atmarkit.itmedia.co.jp/ait/articles/0805/16/news139.html
 
 ※ fc.use_direct_input_in_vscode_terminal 変数を True にしている場合、ターミナルから抜けるには
 次のキーを利用するようにしてください。先に説明した４つのキーがターミナル外で機能するキーバインド
@@ -273,13 +352,11 @@ True にした場合に Esc を入力するには、Esc を二回押下してく
 
 Cursor を利用する場合、AI のインラインアシスタント機能を起動するショートカットキー Ctrl+k が
 Emacs キーバインドと重複するため、キーの変更が必要となります。
-Cursor の Preferences: Open Keyboard Shortcuts (JSON) の機能で keybindings.json を開き、次の設定
-（Ctrl+k を Ctrl+e に変更する設定）をマージしてください。本拡張機能は、Cursor にこの設定がマージ
-されていることを前提に、調整が行われています。
+Cursor の Preferences: Open Keyboard Shortcuts (JSON) の機能で keybindings.json を開き、
+次の設定（Ctrl+k を Ctrl+e に変更する設定）を追加してください。
+本拡張機能は、Cursor にこの設定が追加されていることを前提に、調整が行われています。
 
 #+BEGIN_EXAMPLE
-// Place your key bindings in this file to override the defaults
-[
     {
         "key": "ctrl+k",
         "command": "-aipopup.action.modal.generate",
@@ -300,7 +377,6 @@ Cursor の Preferences: Open Keyboard Shortcuts (JSON) の機能で keybindings.
         "command": "cursorai.action.generateInTerminal",
         "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported"
     }
-]
 #+END_EXAMPLE
 
 また、Cursor には VSCode 用のキーマップ keymap_vscode が適用される他に、Cursor 用のキーマップ
@@ -394,10 +470,6 @@ def vscodeExecuteCommand(command, esc=False):
 |-------------------+---------------------------------------|
 
 *** 留意事項
-
-● 本フォルダにある _config_personal.py を config_personal.py というファイル名にすることで、
-機能拡張ファイルとして機能します。vscode_key Extension の機能を拡張する際にご利用ください。
-また、上記で説明している拡張機能（vscode_extensions）もこの機能拡張ファイルの中から読み込まれます。
 
 ● fc.side_of_ctrl_key 変数で設定した側でない Ctrl キーを使う、C-q を前置する、fc.vscode_prefix_key
 変数や fc.cursor_prefix_key 変数で指定した Fakeymacs 用のプレフィックスキーを使うことで、
