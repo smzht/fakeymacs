@@ -54,7 +54,7 @@ Cursor の Preferences: Open Keyboard Shortcuts (JSON) の機能で keybindings.
         "key": "ctrl+e",
         "command": "cursorai.action.generateInTerminal",
         "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported"
-    }
+    },
 #+END_EXAMPLE
 
 **** 4) PowerShell を Emacs キーバインドで使うための設定を行う
@@ -376,7 +376,7 @@ Cursor の Preferences: Open Keyboard Shortcuts (JSON) の機能で keybindings.
         "key": "ctrl+e",
         "command": "cursorai.action.generateInTerminal",
         "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported"
-    }
+    },
 #+END_EXAMPLE
 
 また、Cursor には VSCode 用のキーマップ keymap_vscode が適用される他に、Cursor 用のキーマップ
