@@ -39,12 +39,12 @@ Cursor の Preferences: Open Keyboard Shortcuts (JSON) の機能で keybindings.
     {
         "key": "ctrl+k",
         "command": "-aipopup.action.modal.generate",
-        "when": "editorFocus && !composerBarIsVisible && !composerControlPanelIsVisible"
+        "when": "editorFocus && !composerBarIsVisible"
     },
     {
         "key": "ctrl+e",
         "command": "aipopup.action.modal.generate",
-        "when": "editorFocus && !composerBarIsVisible && !composerControlPanelIsVisible"
+        "when": "editorFocus && !composerBarIsVisible"
     },
     {
         "key": "ctrl+k",
@@ -366,12 +366,12 @@ Cursor の Preferences: Open Keyboard Shortcuts (JSON) の機能で keybindings.
     {
         "key": "ctrl+k",
         "command": "-aipopup.action.modal.generate",
-        "when": "editorFocus && !composerBarIsVisible && !composerControlPanelIsVisible"
+        "when": "editorFocus && !composerBarIsVisible"
     },
     {
         "key": "ctrl+e",
         "command": "aipopup.action.modal.generate",
-        "when": "editorFocus && !composerBarIsVisible && !composerControlPanelIsVisible"
+        "when": "editorFocus && !composerBarIsVisible"
     },
     {
         "key": "ctrl+k",
