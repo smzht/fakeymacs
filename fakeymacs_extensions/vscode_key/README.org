@@ -31,7 +31,7 @@ Preferences: Open User Settings (JSON) の機能で settings.json を開き、 �
 **** 3) Cursor を使う場合の設定を行う
 
 Cursor を利用する場合、AI のインラインアシスタント機能を起動するショートカットキー Ctrl+k が
-プレフィックスキーとして設定されているままのものの存在（Cursor ではプレフィックスキーが
+プレフィックスキーとして設定されているままのものがあること（Cursor ではプレフィックスキーが
 Ctrl+m に置き換えられていますが、拡張機能の一部で Ctrl+k がプレフィックスキーとして設定されて
 いるものがあります）やターミナルで kill-line のキーと重複するため、キーの変更が必要となります。
 Cursor の Preferences: Open Keyboard Shortcuts (JSON) の機能で keybindings.json を開き、
@@ -359,7 +359,7 @@ True にした場合に Esc を入力するには、Esc を二回押下してく
 *** Cursor AI 専用のキーバインド
 
 Cursor を利用する場合、AI のインラインアシスタント機能を起動するショートカットキー Ctrl+k が
-プレフィックスキーとして設定されているままのものの存在（Cursor ではプレフィックスキーが
+プレフィックスキーとして設定されているままのものがあること（Cursor ではプレフィックスキーが
 Ctrl+m に置き換えられていますが、拡張機能の一部で Ctrl+k がプレフィックスキーとして設定されて
 いるものがあります）やターミナルで kill-line のキーと重複するため、キーの変更が必要となります。
 Cursor の Preferences: Open Keyboard Shortcuts (JSON) の機能で keybindings.json を開き、
