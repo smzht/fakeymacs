@@ -32,7 +32,7 @@ Preferences: Open User Settings (JSON) の機能で settings.json を開き、 �
 
 Cursor を利用する場合、AI のインラインアシスタント機能を起動するショートカットキー Ctrl+k が
 プレフィックスキーとして使われているものの残存（Cursor ではプレフィックスキーが Ctrl+m
-に置き換えられていますが、拡張機能の一部で Ctrl+k を使うものがあります）やターミナルの
+に置き換えられていますが、拡張機能の一部で Ctrl+k を使うものがあります）やターミナルで
 kill-line のキーと重複するため、キーの変更が必要となります。
 Cursor の Preferences: Open Keyboard Shortcuts (JSON) の機能で keybindings.json を開き、
 次の設定（Ctrl+k を Ctrl+e に変更する設定）を追加してください。
@@ -360,7 +360,7 @@ True にした場合に Esc を入力するには、Esc を二回押下してく
 
 Cursor を利用する場合、AI のインラインアシスタント機能を起動するショートカットキー Ctrl+k が
 プレフィックスキーとして使われているものの残存（Cursor ではプレフィックスキーが Ctrl+m
-に置き換えられていますが、拡張機能の一部で Ctrl+k を使うものがあります）やターミナルの
+に置き換えられていますが、拡張機能の一部で Ctrl+k を使うものがあります）やターミナルで
 kill-line のキーと重複するため、キーの変更が必要となります。
 Cursor の Preferences: Open Keyboard Shortcuts (JSON) の機能で keybindings.json を開き、
 次の設定（Ctrl+k を Ctrl+e に変更する設定）を追加してください。
