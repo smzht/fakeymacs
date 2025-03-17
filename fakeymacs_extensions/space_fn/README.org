@@ -12,6 +12,7 @@ Space キーを Fn キーとして、次のようなキーマップのレイヤ�
 
 この設定は、次のサイトの設定例を参考としています。
 
+- https://harikatsu.net/spacefn/
 - https://geekhack.org/index.php?topic=51069.0
 - https://kbd.news/The-SpaceFN-concept-2315.html
 
