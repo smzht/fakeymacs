@@ -220,6 +220,7 @@ True の場合（C-<数字キー> は数引数の指定用として使われる�
 | C-A-S-f | mark_forward_word          | cursorWordRightSelect                        |                                    |
 | C-A-a   | mark_beginning_of_line     | cursorHomeSelect                             |                                    |
 | C-A-e   | mark_end_of_line           | cursorEndSelect                              |                                    |
+| C-A-S-e | mark_end_of_line           | cursorEndSelect                              | Cursor 利用時の C-A-e の代替用     |
 | C-A-d   | mark_next_like_this        | Add Selection To Next Find Match             |                                    |
 | C-A-S-d | mark_all_like_this         | Select All Occurrences of Find Match         |                                    |
 | C-A-s   | skip_to_next_like_this     | Move Last Selection To Next Find Match       |                                    |
@@ -230,6 +231,9 @@ True の場合（C-<数字キー> は数引数の指定用として使われる�
 | C-A-r   | cursor_redo                | Cursor Redo                                  |                                    |
 | C-A-g   | keyboard_quit2             | -                                            | Esc キーを発行しない keyboard_quit |
 |---------+----------------------------+----------------------------------------------+------------------------------------|
+
+※ Cursor を利用する場合、C-A-e はインラインアシスタント機能を起動するキーの初期値と同じキー
+となっています。このため、代替用のキーとして C-A-S-e を設定しています。
 
 ※ マルチカーソルを維持したまま選択したリージョンを解除するには、Esc キーを発行しない
 keyboard_quit（C-A-g）を利用してください。（fc.esc_mode_in_keyboard_quit 変数が 2 の場合は、

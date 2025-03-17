@@ -620,6 +620,7 @@ define_key_v("C-A-S-b", reset_search(reset_undo(reset_counter(reset_rect(repeat(
 define_key_v("C-A-S-f", reset_search(reset_undo(reset_counter(reset_rect(repeat(mark_forward_word))))))
 define_key_v("C-A-a",   reset_search(reset_undo(reset_counter(reset_rect(mark_beginning_of_line)))))
 define_key_v("C-A-e",   reset_search(reset_undo(reset_counter(reset_rect(mark_end_of_line)))))
+define_key_v("C-A-S-e", reset_search(reset_undo(reset_counter(reset_rect(mark_end_of_line)))))
 define_key_v("C-A-d",   reset_search(reset_undo(reset_counter(reset_rect(mark_next_like_this)))))
 define_key_v("C-A-S-d", reset_search(reset_undo(reset_counter(reset_rect(mark_all_like_this)))))
 define_key_v("C-A-s",   reset_search(reset_undo(reset_counter(reset_rect(skip_to_next_like_this)))))
