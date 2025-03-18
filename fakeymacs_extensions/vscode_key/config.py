@@ -749,7 +749,7 @@ if fc.use_emacs_ime_mode:
 else:
     keymap_windsurf = keymap.defineWindowKeymap(check_func=is_windsurf_target)
 
-## Cursor 用プレフィックスキーの置き換え設定
+## Windsurf 用プレフィックスキーの置き換え設定
 for pkey1, pkey2 in fc.windsurf_prefix_key:
     define_key_w(pkey2, keymap.defineMultiStrokeKeymap(f"<Windsurf> {pkey1}"))
 
