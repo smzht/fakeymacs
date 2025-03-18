@@ -395,16 +395,6 @@ if 0:
 
 # VSCode 用のキーの設定を行う
 if 0:
-    # VSCode の settings.json に次の行の設定を追加してご利用ください
-    # "window.title": "${dirty}${activeEditorShort}${separator}${rootName}${separator}${appName} - ${focusedView}"
-
-    fc.vscode_prefix_key  = [["C-k", "C-A-k"]]
-    fc.cursor_prefix_key  = [["C-m", "C-A-m"]]
-    fc.vscode_replace_key = []
-    fc.cursor_replace_key = [["C-e", "C-A-e"],
-                             ["C-l", "C-A-l"],
-                             ]
-    fc.use_ctrl_atmark_for_mark = False
     fc.esc_mode_in_keyboard_quit = 1
     exec(readConfigExtension(r"vscode_key\config.py"), dict(globals(), **locals()))
 

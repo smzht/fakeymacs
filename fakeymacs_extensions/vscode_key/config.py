@@ -24,6 +24,16 @@ fc.vscode_target += fc.cursor_target
 
 try:
     # 設定されているか？
+    fc.windsurf_target
+except:
+    # Cursor 用のキーバインドを利用するアプリケーションソフトを指定する
+    fc.windsurf_target = ["Windsurf.exe",
+                          ]
+
+fc.vscode_target += fc.windsurf_target
+
+try:
+    # 設定されているか？
     fc.vscode_browser_target
 except:
     # VS Code Web の画面で VSCode 用のキーバインドを利用するブラウザアプリを指定する
@@ -64,6 +74,17 @@ except:
 
 try:
     # 設定されているか？
+    fc.windsurf_prefix_key
+except:
+    # 置き換えするプレフィックスキーの組み合わせ（Windsurf のキー、Fakeymacs のキー）を指定する（複数指定可）
+    # （置き換えた Fakeymacs のプレフィックスキーを利用することにより、プレフィックスキーの後に入力する
+    #   キーが全角文字で入力されることが無くなります）
+    # （同じキーを指定することもできます）
+    # （Fakeymacs のキーに Meta キー（M-）は指定できません）
+    fc.windsurf_prefix_key = []
+
+try:
+    # 設定されているか？
     fc.vscode_replace_key
 except:
     # 置き換えするキーの組み合わせ（VSCode のキー、Fakeymacs のキー）を指定する（複数指定可）
@@ -79,6 +100,15 @@ except:
     fc.cursor_replace_key = [["C-e", "C-A-e"],
                              ["C-l", "C-A-l"],
                              ]
+
+try:
+    # 設定されているか？
+    fc.windsurf_replace_key
+except:
+    # 置き換えするキーの組み合わせ（Windsurf のキー、Fakeymacs のキー）を指定する（複数指定可）
+    # （Fakeymacs のキーに Meta キー（M-）は指定できません）
+    fc.windsurf_replace_key = [["C-l", "C-A-l"],
+                               ]
 
 try:
     # 設定されているか？
@@ -699,6 +729,39 @@ for pkey1, pkey2 in fc.cursor_prefix_key:
 ## キーの置き換え設定
 for key1, key2 in fc.cursor_replace_key:
     define_key_c(key2, self_insert_command(key1))
+
+# --------------------------------------------------------------------------------------------------
+
+# Windsurf 用の追加設定
+
+def define_key_w(keys, command):
+    define_key(keymap_windsurf, keys, command)
+
+def is_windsurf_target(window):
+    if (fakeymacs.is_vscode_target == True and
+        window.getProcessName() in fc.windsurf_target):
+        return True
+    else:
+        return False
+
+if fc.use_emacs_ime_mode:
+    keymap_windsurf = keymap.defineWindowKeymap(check_func=lambda wnd: is_windsurf_target(wnd) and not is_emacs_ime_mode(wnd))
+else:
+    keymap_windsurf = keymap.defineWindowKeymap(check_func=is_windsurf_target)
+
+## Cursor 用プレフィックスキーの置き換え設定
+for pkey1, pkey2 in fc.windsurf_prefix_key:
+    define_key_w(pkey2, keymap.defineMultiStrokeKeymap(f"<Windsurf> {pkey1}"))
+
+    for vkey in vkeys():
+        key = vkToStr(vkey)
+        for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
+            mkey = mod1 + mod2 + mod3 + mod4 + key
+            define_key_w(f"{pkey2} {mkey}", self_insert_command_v(pkey1, mkey))
+
+## キーの置き換え設定
+for key1, key2 in fc.windsurf_replace_key:
+    define_key_w(key2, self_insert_command(key1))
 
 # --------------------------------------------------------------------------------------------------
 
