@@ -26,7 +26,7 @@ try:
     # 設定されているか？
     fc.windsurf_target
 except:
-    # Cursor 用のキーバインドを利用するアプリケーションソフトを指定する
+    # Windsurf 用のキーバインドを利用するアプリケーションソフトを指定する
     fc.windsurf_target = ["Windsurf.exe",
                           ]
 
