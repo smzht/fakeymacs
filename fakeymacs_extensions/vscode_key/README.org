@@ -12,10 +12,10 @@ VSCode 用のキーの設定を行う拡張機能です。AI Code Editor の Cur
 
 **** 1) 必要に応じて config_personal.py ファイルを作成する
 
-本フォルダにある _config_personal.py を config_personal.py というファイル名にすることで、
-機能拡張ファイルとして機能します。
-以降で説明している拡張機能（vscode_extensions）もこの機能拡張ファイルの中から
-読み込まれます。
+必要に応じて、本フォルダにある _config_personal.py を config_personal.py というファイル名
+に複写し作成してください。
+config_personal.py を作成することで、本拡張機能の個人設定ファイルとして機能します。
+以降で説明している拡張機能（vscode_extensions）もこの個人設定ファイルの中から読み込まれます。
 
 **** 2) VSCode、Cursor、Windsurf 共通の設定を行う
 
