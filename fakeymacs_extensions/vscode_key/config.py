@@ -145,8 +145,8 @@ try:
     # 設定されているか？
     fc.esc_mode_in_keyboard_quit
 except:
-    # keyboard_quit 関数コール時の Esc キーの発行方法を指定する
-    # （1：Esc キーを常に発行する
+    # keyboard_quit 関数実行時（C-g 押下時）の Esc キーの発行方法を指定する
+    # （1：C-g を押下した際、常に Esc キーを発行する
     #   2：C-g を２回連続して押下した場合に Esc キーを発行する）
     fc.esc_mode_in_keyboard_quit = 1
 

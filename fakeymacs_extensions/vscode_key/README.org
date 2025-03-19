@@ -107,7 +107,7 @@ fi
 | fc.use_ctrl_atmark_for_mark            | 日本語キーボードを利用する際、VSCode で  C-@ をマーク用のキーとして使うかどうかを指定する               |
 | fc.use_direct_input_in_vscode_terminal | パネルのターミナル内で４つのキー（C-k、C-r、C-s、C-y）のダイレクト入力機能を使うかどうかを指定する      |
 | fc.terminal_list_for_direct_input      | ターミナルをエディタ領域で使う際、ダイレクト入力機能を使うターミナルの種類を指定する                    |
-| fc.esc_mode_in_keyboard_quit           | keyboard_quit 関数コール時の Esc キーの発行方法を指定する                                               |
+| fc.esc_mode_in_keyboard_quit           | keyboard_quit 関数実行時（C-g 押下時）の Esc キーの発行方法を指定する                                   |
 |----------------------------------------+---------------------------------------------------------------------------------------------------------|
 
 ※ fc.vscode_browser_target 変数は、ブラウザで VS Code Web の画面にアクセスした際（vscode.dev にアクセス
@@ -129,7 +129,7 @@ True に設定した場合でも Toggle Terminal 用のキーとして C-<半角
 の設定についても以降の説明を参照してください。
 
 ※ fc.esc_mode_in_keyboard_quit 変数の設定値には、次のいずれかの値を指定できます。
-- 1：Esc キーを常に発行する
+- 1：C-g を押下した際、常に Esc キーを発行する
 - 2：C-g を２回連続して押下した場合に Esc キーを発行する
 設定値 2 の利用は、VSCode で Jupyter Notebook を使う場合などを想定しています。
 設定値 1 の場合でも、C-A-g キーにより Esc キーを発行しない keyboard_quit を利用できます。
