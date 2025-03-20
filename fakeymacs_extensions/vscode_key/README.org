@@ -13,7 +13,7 @@ VSCode 用のキーの設定を行う拡張機能です。AI Code Editor の Cur
 **** 1) 必要に応じて config_personal.py ファイルを作成する
 
 必要に応じて、本フォルダにある _config_personal.py を config_personal.py というファイル名
-に複写し作成してください。
+に複写して作成してください。
 config_personal.py を作成することで、本拡張機能の個人設定ファイルとして機能します。
 以降で説明している拡張機能（vscode_extensions）もこの個人設定ファイルの中から読み込まれます。
 
@@ -33,7 +33,8 @@ Preferences: Open User Settings (JSON) の機能で settings.json を開き、 �
 Cursor を利用する場合、AI のインラインアシスタント機能を起動するショートカットキー Ctrl+k が
 拡張機能でプレフィックスキーとして設定されているものがあること（Cursor ではプレフィックスキーが
 Ctrl+m に置き換えられていますが、拡張機能の一部でプレフィックスキーが置き換えられずに Ctrl+k
-キーが使われています）やターミナルで kill-line のキーと競合しているため、キーの変更が必要となります。
+キーのまま使われています）やターミナルで kill-line のキーと競合しているため、キーの変更が必要
+となります。
 Cursor の Preferences: Open Keyboard Shortcuts (JSON) の機能で keybindings.json を開き、
 次の設定（Ctrl+k を Ctrl+e に変更する設定）を追加してください。
 
