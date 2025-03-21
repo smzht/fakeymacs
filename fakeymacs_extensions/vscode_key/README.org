@@ -25,6 +25,7 @@ Preferences: Open User Settings (JSON) の機能で settings.json を開き、 �
 #+BEGIN_EXAMPLE
     "terminal.integrated.allowChords": false,
     "editor.find.seedSearchStringFromSelection": "never",
+    "editor.wordSegmenterLocales": ["ja"]
     "window.title": "${dirty}${activeEditorShort}${separator}${rootName}${separator}${appName} - ${focusedView}",
 #+END_EXAMPLE
 
