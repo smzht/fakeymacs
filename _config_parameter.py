@@ -111,7 +111,7 @@ fc.not_emacs_target     = ["wsl.exe",                # WSL
                            "MobaXterm.exe",          # MobaXterm
                            "TurboVNC.exe",           # TurboVNC
                            "vncviewer*.exe",         # UltraVNC
-                           [None, None, "さくらのクラウドシェル (リモート)"],
+                           [None, None, "さくらのクラウドシェル*"],
                            ]
 
 # IME の切り替え“のみをしたい”アプリケーションソフトを指定する
@@ -135,7 +135,7 @@ fc.ime_target           = ["wsl.exe",                # WSL
                            "putty.exe",              # PuTTY
                            "ttermpro.exe",           # TeraTerm
                            "MobaXterm.exe",          # MobaXterm
-                           [None, None, "さくらのクラウドシェル (リモート)"],
+                           [None, None, "さくらのクラウドシェル*"],
                            ]
 
 # キーマップ毎にキー設定をスキップするキーを指定する

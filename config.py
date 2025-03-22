@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20241216_01"
+fakeymacs_version = "20250322_01"
 
 import time
 import os
@@ -220,7 +220,7 @@ def configure(keymap):
                                "MobaXterm.exe",          # MobaXterm
                                "TurboVNC.exe",           # TurboVNC
                                "vncviewer*.exe",         # UltraVNC
-                               [None, None, "さくらのクラウドシェル (リモート)"],
+                               [None, None, "さくらのクラウドシェル*"],
                                ]
 
     # IME の切り替え“のみをしたい”アプリケーションソフトを指定する
@@ -244,7 +244,7 @@ def configure(keymap):
                                "putty.exe",              # PuTTY
                                "ttermpro.exe",           # TeraTerm
                                "MobaXterm.exe",          # MobaXterm
-                               [None, None, "さくらのクラウドシェル (リモート)"],
+                               [None, None, "さくらのクラウドシェル*"],
                                ]
 
     # キーマップ毎にキー設定をスキップするキーを指定する
