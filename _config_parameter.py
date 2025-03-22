@@ -601,7 +601,7 @@ if 0:
 # Emacs をターミナルで動かす場合に event-apply-modifier を使ってキーの置き換えを行う
 if 0:
     fc.emacs_terminal = ["ubuntu*.exe",
-                         [None, None,  "さくらのクラウドシェル (リモート)"],
+                         [None, None,  "さくらのクラウドシェル*"],
                          ]
     fc.emacs_replace_key = [["C-;", "C-x @ c ;"],
                             ]
