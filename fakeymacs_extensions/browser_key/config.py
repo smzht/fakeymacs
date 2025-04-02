@@ -24,24 +24,13 @@ except:
 
 try:
     # 設定されているか？
-    fc.browser_key1
+    fc.browser_key
 except:
-    # ブラウザをポップアップし、アドレスバーに移動するキーを指定する（IME は OFF）
-    fc.browser_key1 = "C-A-i" # C-A-l は VSCode Extension で利用しているため使わない
-
-try:
-    # 設定されているか？
-    fc.browser_key2
-except:
-    # ブラウザをポップアップし、新しいタブを開くキーを指定する（IME は OFF）
-    fc.browser_key2 = "C-A-t"
-
-try:
-    # 設定されているか？
-    fc.browser_key3
-except:
-    # ブラウザをポップアップし、新しいウィンドウを開くキーを指定する（IME は OFF）
-    fc.browser_key3 = "C-A-o" # C-A-n は VSCode Extension で利用しているため使わない
+    # 利用するキーの組み合わせ（利用者が入力するキー、ブラウザに発行するキー、IME の遷移）を指定する
+    fc.browser_key = [["C-A-i", "C-l", 0], # アドレスバーに移動する（IME は OFF）
+                      ["C-A-t", "C-t", 0], # 新しいタブを開く（IME は OFF）
+                      ["C-A-o", "C-n", 0], # 新しいウィンドウを開く（IME は OFF）
+                      ]
 
 # --------------------------------------------------------------------------------------------------
 
@@ -66,9 +55,8 @@ def browser_popup(key, ime_status, browser_list=fc.browser_list):
                 keymap.ShellExecuteCommand(None, fc.browser_url, "", "")()
     return _func
 
-define_key(keymap_global, fc.browser_key1, browser_popup("C-l", 0))
-define_key(keymap_global, fc.browser_key2, browser_popup("C-t", 0))
-define_key(keymap_global, fc.browser_key3, browser_popup("C-n", 0))
+for key1, key2, ime in fc.browser_key:
+    define_key(keymap_global, key1, browser_popup(key2, ime))
 
 ## config_personal.py ファイルの読み込み
 exec(readConfigExtension(r"browser_key\config_personal.py", msg=False), dict(globals(), **locals()))
