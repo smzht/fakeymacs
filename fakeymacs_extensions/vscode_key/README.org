@@ -5,6 +5,8 @@
 ** ■ VSCode 用のキーの設定を行う
 
 VSCode 用のキーの設定を行う拡張機能です。AI Code Editor の Cursor や Windsurf にも対応しています。
+また、ブラウザで動作する VS Code Web にも対応しており、vscode.dev、github.dev、Firebase Studio
+などでも利用可能です。
 
 *** 環境設定
 
@@ -116,6 +118,12 @@ if [ -t 1 ]; then
     stty stop undef
 fi
 #+END_EXAMPLE
+
+**** 7) ブラウザで動作する VS Code Web を使う場合の設定を行う
+
+ブラウザで動作する VS Code Web を使う場合には、VS Code Web の画面をアプリ化してください。
+ブラウザ側にショートカットキーを奪われるのを防ぐことができます。設定の仕方は、このページの
+最後にある留意事項を参照してください。
 
 *** コンフィグレーションパラメータ
 
