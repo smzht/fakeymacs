@@ -74,11 +74,6 @@ try:
 except:
     vscode_prefix_key = None
 
-try:
-    cursor_prefix_key = fc.cursor_prefix_key[0][1]
-except:
-    cursor_prefix_key = None
-
 # --------------------------------------------------------------------------------------------------
 
 if fc.vscode_dired:
