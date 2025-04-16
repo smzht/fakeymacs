@@ -149,8 +149,8 @@ fi
 ※ fc.vscode_browser_target 変数は、ブラウザで VS Code Web の画面にアクセスした際（vscode.dev にアクセス
 したとき等）に、VSCode 用のキーバインドを利用できるようにするための設定です。
 
-※ fc.vscode_prefix_key 変数、fc.cursor_prefix_key 変数、fc.windsurf_prefix_key 変数は、プレフィックスキー
-を使う際、後に入力した文字が全角文字で入力されることがある問題を対策するために設けた設定です。
+※ fc.vscode_prefix_key 変数、fc.cursor_prefix_key 変数、fc.windsurf_prefix_key 変数は、
+プレフィッスクキーの後に入力するキーが Fakeymacs で置き換えられないようにするために設けた設定です。
 
 ※ fc.use_ctrl_atmark_for_mark 変数は、VSCode で C-@ を Toggle Terminal 用のキーとして使えるように
 するために設けた設定です。
