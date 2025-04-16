@@ -52,7 +52,8 @@ except:
     # （プレフィッスクキーの後に入力するキーが、Fakeymacs で置き換えられないようにする対策です）
     # （同じキーを指定することもできます）
     # （Fakeymacs のキーに Meta キー（M-）は指定できません）
-    fc.vscode_prefix_key = [["C-k", "C-A-k"]]
+    fc.vscode_prefix_key = [["C-k", "C-A-k"],
+                            ]
 
 try:
     # 設定されているか？
@@ -62,7 +63,8 @@ except:
     # （プレフィッスクキーの後に入力するキーが、Fakeymacs で置き換えられないようにする対策です）
     # （同じキーを指定することもできます）
     # （Fakeymacs のキーに Meta キー（M-）は指定できません）
-    fc.cursor_prefix_key = [["C-m", "C-A-m"]]
+    fc.cursor_prefix_key = [["C-m", "C-A-m"],
+                            ]
 
 try:
     # 設定されているか？
