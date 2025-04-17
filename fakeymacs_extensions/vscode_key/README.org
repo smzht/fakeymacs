@@ -131,9 +131,10 @@ fi
 | Configuration parameter                | Description                                                                                             |
 |----------------------------------------+---------------------------------------------------------------------------------------------------------|
 | fc.vscode_target                       | VSCode 用のキーバインドを利用するアプリケーションソフト（ブラウザアプリを除く）を指定する               |
+| fc.vscode_browser_target               | VS Code Web の画面で VSCode 用のキーバインドを利用するブラウザアプリを指定する                          |
+| fc.vscode_browser_title                | VS Code Web の画面で VSCode 用のキーバインドを利用するブラウザタブのタイトルを指定する                  |
 | fc.cursor_target                       | Cursor 用のキーバインドを利用するアプリケーションソフトを指定する                                       |
 | fc.windsurf_target                     | Windsurf 用のキーバインドを利用するアプリケーションソフトを指定する                                     |
-| fc.vscode_browser_target               | VS Code Web の画面で VSCode 用のキーバインドを利用するブラウザアプリを指定する                          |
 | fc.vscode_prefix_key                   | 置き換えするプレフィックスキーの組み合わせ（VSCode のキー、Fakeymacs のキー）を指定する（複数指定可）   |
 | fc.cursor_prefix_key                   | 置き換えするプレフィックスキーの組み合わせ（Cursor のキー、Fakeymacs のキー）を指定する（複数指定可）   |
 | fc.windsurf_prefix_key                 | 置き換えするプレフィックスキーの組み合わせ（Windsurf のキー、Fakeymacs のキー）を指定する（複数指定可） |

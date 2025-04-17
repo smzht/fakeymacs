@@ -14,6 +14,28 @@ except:
 
 try:
     # 設定されているか？
+    fc.vscode_browser_target
+except:
+    # VS Code Web の画面で VSCode 用のキーバインドを利用するブラウザアプリを指定する
+    fc.vscode_browser_target = ["chrome.exe",
+                                "msedge.exe",
+                                "firefox.exe",
+                                "mstsc.exe", # RemoteApp 経由でブラウザを使う場合
+                                ]
+
+fc.vscode_target += fc.vscode_browser_target
+
+try:
+    # 設定されているか？
+    fc.vscode_browser_title
+except:
+    # VS Code Web の画面で VSCode 用のキーバインドを利用するブラウザタブのタイトルを指定する
+    fc.vscode_browser_title = ["* - Visual Studio Code*",
+                               "* - Firebase Studio*",
+                               ]
+
+try:
+    # 設定されているか？
     fc.cursor_target
 except:
     # Cursor 用のキーバインドを利用するアプリケーションソフトを指定する
@@ -31,18 +53,6 @@ except:
                           ]
 
 fc.vscode_target += fc.windsurf_target
-
-try:
-    # 設定されているか？
-    fc.vscode_browser_target
-except:
-    # VS Code Web の画面で VSCode 用のキーバインドを利用するブラウザアプリを指定する
-    fc.vscode_browser_target = ["chrome.exe",
-                                "msedge.exe",
-                                "firefox.exe",
-                                ]
-
-fc.vscode_target += fc.vscode_browser_target
 
 try:
     # 設定されているか？
@@ -184,8 +194,7 @@ def define_key_v(keys, command, skip_check=True):
     if callable(command):
         command = makeKeyCommand(keymap_emacs, keys, command,
                                  lambda: (keymap.getWindow().getProcessName() not in fc.vscode_browser_target or
-                                          checkWindow(text="* - Visual Studio Code*") or
-                                          checkWindow(text="* - Firebase Studio*")))
+                                          any(checkWindow(text=title) for title in fc.vscode_browser_title)))
 
     define_key(keymap_vscode, keys, command, False)
 
