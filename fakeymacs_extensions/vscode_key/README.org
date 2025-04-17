@@ -99,7 +99,7 @@ Cursor の Preferences: Open Keyboard Shortcuts (JSON) の機能で keybindings.
 されています。このキーの機能を利用するためには、次の３つの方法があります。
 - C-i の代わりに C-q C-i を入力する（Cursor や Windsurf でも使える方法です）
 - Fakeymacs の config_peronal.py で、fc.use_ctrl_i_as_tab を False にする
-- Fakeymacs の config_peronal.py で、fc.vscode_replace_key を次のとおりに設定する
+- Fakeymacs の config_peronal.py で、fc.vscode_replace_key を次のとおりに設定し、C-A-i キーを使う
 #+BEGIN_EXAMPLE
 fc.vscode_replace_key = [["C-i", "C-A-i"],
                          ]
