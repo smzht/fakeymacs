@@ -27,7 +27,7 @@ try:
     fc.browser_key
 except:
     # 利用するキーの組み合わせ（利用者が入力するキー、ブラウザに発行するキー、IME の状態）を指定する
-    fc.browser_key = [["C-A-i", "C-l", 0], # アドレスバーに移動する（IME は OFF）
+    fc.browser_key = [["C-A-j", "C-l", 0], # アドレスバーに移動する（IME は OFF）
                       ["C-A-t", "C-t", 0], # 新しいタブを開く（IME は OFF）
                       ["C-A-o", "C-n", 0], # 新しいウィンドウを開く（IME は OFF）
                       ]
