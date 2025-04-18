@@ -92,7 +92,8 @@ try:
 except:
     # 置き換えするキーの組み合わせ（VSCode のキー、Fakeymacs のキー）を指定する（複数指定可）
     # （Fakeymacs のキーに Meta キー（M-）は指定できません）
-    fc.vscode_replace_key = []
+    fc.vscode_replace_key = [["C-i", "C-A-i"],
+                             ]
 
 try:
     # 設定されているか？
