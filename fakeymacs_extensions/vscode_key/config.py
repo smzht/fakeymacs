@@ -92,7 +92,7 @@ try:
 except:
     # 置き換えするキーの組み合わせ（VSCode のキー、Fakeymacs のキー）を指定する（複数指定可）
     # （Fakeymacs のキーに Meta キー（M-）は指定できません）
-    fc.vscode_replace_key = [["C-i", "C-A-i"],
+    fc.vscode_replace_key = [["C-i", "C-i"], # C-i を Tab ではなく、C-i として利用する
                              ]
 
 try:
@@ -101,7 +101,8 @@ try:
 except:
     # 置き換えするキーの組み合わせ（Cursor のキー、Fakeymacs のキー）を指定する（複数指定可）
     # （Fakeymacs のキーに Meta キー（M-）は指定できません）
-    fc.cursor_replace_key = [["C-e", "C-A-e"],
+    fc.cursor_replace_key = [["C-i", "C-A-i"],
+                             ["C-e", "C-A-e"],
                              ["C-l", "C-A-l"],
                              ]
 
@@ -111,7 +112,8 @@ try:
 except:
     # 置き換えするキーの組み合わせ（Windsurf のキー、Fakeymacs のキー）を指定する（複数指定可）
     # （Fakeymacs のキーに Meta キー（M-）は指定できません）
-    fc.windsurf_replace_key = [["C-l", "C-A-l"],
+    fc.windsurf_replace_key = [["C-i", "C-A-i"],
+                               ["C-l", "C-A-l"],
                                ]
 
 try:
