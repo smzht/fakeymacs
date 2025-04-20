@@ -31,6 +31,9 @@ Preferences: Open User Settings (JSON) の機能で settings.json を開き、 �
     "window.title": "${dirty}${activeEditorShort}${separator}${rootName}${separator}${appName} - ${focusedView}",
 #+END_EXAMPLE
 
+window.title は、ターミナルで４つのキー（C-k、C-r、C-s、C-y）のダイレクト入力をできるように
+するために必要な設定となります。
+
 **** 3) Cursor を使う場合の設定を行う
 
 Cursor を利用する場合、AI のインラインアシスタント機能を起動するショートカットキー Ctrl+k が
