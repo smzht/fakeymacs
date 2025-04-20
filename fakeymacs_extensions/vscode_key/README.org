@@ -101,7 +101,6 @@ Cursor の Preferences: Open Keyboard Shortcuts (JSON) の機能で keybindings.
 
 ※ Cursor では、3) で置き換えた C-e キーをさらに C-A-e キーに置き換えをしています。
 最終的に Cursor の C-k キーの機能を使うには、C-A-e キーを入力する必要があります。
-その他、C-l キーは、C-A-l キーに置き換えをしています。
 
 **** 5) PowerShell を Emacs キーバインドで使うための設定を行う
 
