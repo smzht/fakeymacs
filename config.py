@@ -289,7 +289,7 @@ def configure(keymap):
     fc.side_of_win_key = "L"
 
     # C-i キーを Tab キーとして使うかどうかを指定する（True: 使う、False: 使わない）
-    fc.use_ctrl_i_as_tab = False
+    fc.use_ctrl_i_as_tab = True
 
     # Esc キーを Meta キーとして使うかどうかを指定する（True: 使う、False: 使わない）
     # （True（Meta キーとして使う）に設定されている場合、ESC の二回押下で ESC が入力されます）
