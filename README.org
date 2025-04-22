@@ -218,6 +218,9 @@ keyhac.exe を起動すると、タスクバー（＾アイコンの中）に Ke
 Fakeymacs を利用して、文字が二重に入力されたり、Keyhac のコンソールに「Time stamp inversion happened.」
 と何度も表示される場合には、レジストリ HKEY_CURRENT_USER\Control Panel\Desktop\LowLevelHooksTimeout
 をDWORD形式で作成し、そこに 10進数で 1000（ms の値）を設定して PC を再起動してください。
+（fakeymacs_tools フォルダ配下にある、LowLevelHooksTimeout.reg を実行することでも登録することが
+できます。）
+
 この対応で状況はかなり改善すると思われますが、この設定により生ずる影響は分かっていませんので、
 設定を行う場合は各自の責任でお願いします。（私はこの設定をしてかなりの期間利用していますが、
 今のところ問題となるような事象は発生しておりません。）
