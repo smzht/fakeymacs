@@ -1081,6 +1081,10 @@ def configure(keymap):
         if (checkWindow("sakura.exe", "EditorClient") or # Sakura Editor
             checkWindow("sakura.exe", "SakuraView*")):   # Sakura Editor
             self_insert_command("C-h")()
+        else:
+            # else の場合は、recenter のデフォルトキーバインドの C-l を発行する
+            # （発行するキーを C-l と決め打ちにしているのは、ご了承ください）
+            self_insert_command("C-l")()
 
     ##################################################
     ## カット / コピー / 削除 / アンドゥ
