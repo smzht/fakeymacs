@@ -132,8 +132,8 @@ try:
 except:
     # パネルのターミナル内で４つのキー（C-k、C-r、C-s、C-y）のダイレクト入力機能を使うかどうかを
     # 指定する（True: 使う、False: 使わない）
-    # （この設定は現在非推奨です。README に記載しているとおり、VSCode の settings.json に
-    #   window.title の設定を行ってご利用ください）
+    # （この設定は、VSCode の settings.json に設定した window.title が有効に機能しないアプリ
+    #   （Firebase Studio など）での利用を想定しています。）
     fc.use_direct_input_in_vscode_terminal = False
 
 try:

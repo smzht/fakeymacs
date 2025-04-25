@@ -330,14 +330,14 @@ VSCode の Preferences: Open User Settings (JSON) の機能で settings.json を
 次の設定を追加してください。
 
 #+BEGIN_EXAMPLE
-    "window.title": "${dirty}${activeEditorShort}${separator}${rootName}${separator}${appName} - ${focusedView}"
+    "window.title": "${dirty}${activeEditorShort}${separator}${rootName}${separator}${appName}${separator}${focusedView}"
 #+END_EXAMPLE
 
 ※ fc.use_direct_input_in_vscode_terminal 変数を True にすることでも、同様の機能を利用することが
 できます。この機能を利用する場合は、上記のいずれかのキーを押下してターミナルに移行するように
 してください。
 ただし、window.title の設定を行う方法の方がマウスでビューを切り替えられるなどメリットが多いため、
-fc.use_direct_input_in_vscode_terminal 変数を True にする方法は、非推奨の方法となりました。
+この設定は、window.title が有効に機能しないアプリ（Firebase Studio など）での利用を想定しています。
 
 ※ ターミナルで C-k を利用できるようにするには、VSCode の 設定で terminal.integrated.allowChords
 を false にする必要があります。
@@ -362,7 +362,6 @@ fc.use_direct_input_in_vscode_terminal 変数を True にする方法は、非�
 現在の場所の認識に齟齬が発生することがあります。
 その場合も次のいずれかのキーを押下することにより、Fakeymacs に現在の場所を再認識させるようにして
 ください。なお、これらの利用上の制約は、window.title の設定を行う方法の場合には発生しません。
-このため、fc.use_direct_input_in_vscode_terminal 変数を True にする方法は非推奨となりました。
 
 |----------------+------------------------------+-------------------------------------+---------------------|
 | Keybind        | Function                     | VSCode Command                      | Description         |
