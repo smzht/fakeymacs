@@ -31,7 +31,8 @@ try:
 except:
     # VS Code Web の画面で VSCode 用のキーバインドを利用するブラウザタブのタイトルを指定する
     fc.vscode_browser_title = ["* - Visual Studio Code*",
-                               "* - Firebase Studio*",
+                               "Codespaces - *",
+                               "Firebase Studio - *",
                                ]
 
 try:
