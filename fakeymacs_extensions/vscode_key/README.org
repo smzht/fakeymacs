@@ -28,7 +28,7 @@ Preferences: Open User Settings (JSON) の機能で settings.json を開き、 �
     "editor.wordSegmenterLocales": ["ja"],
     "editor.find.seedSearchStringFromSelection": "never",
     "terminal.integrated.allowChords": false,
-    "window.title": "${dirty}${activeEditorShort}${separator}${rootName}${separator}${appName} - ${focusedView}",
+    "window.title": "${dirty}${activeEditorShort}${separator}${rootName}${separator}${appName}${separator}${focusedView}",
 #+END_EXAMPLE
 
 window.title は、ターミナルで４つのキー（C-k、C-r、C-s、C-y）のダイレクト入力をできるように
