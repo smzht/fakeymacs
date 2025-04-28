@@ -101,13 +101,13 @@ Cursor の Preferences: Open Keyboard Shortcuts (JSON) の機能で keybindings.
 
 ※ VSCode の GitHub Copilot や Firabase Studio では、AI のインラインアシスタント機能用キー
 として C-i が利用されています。このキーの機能を利用するためには、次の３つの方法があります。
- - C-i の代わりに C-q C-i を入力する（Cursor や Windsurf でも使える方法です）
- - Fakeymacs の config_peronal.py で fc.use_ctrl_i_as_tab を False に設定し、C-i キーを使う
- - Fakeymacs の config_peronal.py の vscode_key 拡張機能呼び出し箇所で fc.vscode_replace_key を次のとおりに設定し、C-i キーを使う
- #+BEGIN_EXAMPLE
- fc.vscode_replace_key = [["C-i", "C-i"],
-                          ]
- #+END_EXAMPLE
+- C-i の代わりに C-q C-i を入力する（Cursor や Windsurf でも使える方法です）
+- Fakeymacs の config_peronal.py で fc.use_ctrl_i_as_tab を False に設定し、C-i キーを使う
+- Fakeymacs の config_peronal.py の vscode_key 拡張機能呼び出し箇所で fc.vscode_replace_key を次のとおりに設定し、C-i キーを使う
+#+BEGIN_EXAMPLE
+fc.vscode_replace_key = [["C-i", "C-i"],
+                         ]
+#+END_EXAMPLE
 
 **** 5) PowerShell を Emacs キーバインドで使うための設定を行う
 
