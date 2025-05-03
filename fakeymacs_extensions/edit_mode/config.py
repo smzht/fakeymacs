@@ -24,10 +24,10 @@ except:
 # --------------------------------------------------------------------------------------------------
 
 def is_edit_mode_target(window):
-    for app in fc.edit_mode_target:
-        if checkWindow(*app, window=window):
-            return True
-    return False
+    if any(checkWindow(*app, window=window) for app in fc.edit_mode_target):
+        return True
+    else:
+        return False
 
 keymap_edit_mode = keymap.defineWindowKeymap(check_func=is_edit_mode_target)
 

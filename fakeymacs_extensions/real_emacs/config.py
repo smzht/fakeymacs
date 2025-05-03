@@ -24,9 +24,13 @@ except:
 
 # --------------------------------------------------------------------------------------------------
 
+regex = "|".join([fnmatch.translate(p) for p in fc.x_window_apps])
+if regex == "": regex = "$." # 絶対にマッチしない正規表現
+x_window_apps = re.compile(regex)
+
 def is_real_emacs(window):
     if (window.getClassName() == "Emacs" or
-        (any(checkWindow(app, window=window) for app in fc.x_window_apps) and
+        (x_window_apps.match(window.getProcessName()) and
          # ウィンドウのタイトルを検索する正規表現を指定する
          # Emacs を起動しているウィンドウを検索できるように、Emacs の frame-title-format 変数を
          # 次のように設定するなどして、識別できるようにする
@@ -49,10 +53,10 @@ define_key(keymap_real_emacs, "(244)",   self_insert_command("C-Yen")) # <半角
 define_key(keymap_real_emacs, "C-(243)", self_insert_command("C-Yen")) # C-<半角／全角> キー
 define_key(keymap_real_emacs, "C-(244)", self_insert_command("C-Yen")) # C-<半角／全角> キー
 
-define_key(keymap_real_emacs, "(29)",   self_insert_command("C-F1")) # <無変換> キー
-define_key(keymap_real_emacs, "(28)",   self_insert_command("C-F2")) # <変換> キー
-# define_key(keymap_real_emacs, "O-LAlt", self_insert_command("C-F1")) # 左 Alt キーの単押し
-# define_key(keymap_real_emacs, "O-RAlt", self_insert_command("C-F2")) # 右 Alt キーの単押し
+define_key(keymap_real_emacs, "(29)",    self_insert_command("C-F1")) # <無変換> キー
+define_key(keymap_real_emacs, "(28)",    self_insert_command("C-F2")) # <変換> キー
+# define_key(keymap_real_emacs, "O-LAlt",  self_insert_command("C-F1")) # 左 Alt キーの単押し
+# define_key(keymap_real_emacs, "O-RAlt",  self_insert_command("C-F2")) # 右 Alt キーの単押し
 
 def real_emacs_kill_region():
     self_insert_command("C-w")()
