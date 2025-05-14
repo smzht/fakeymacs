@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20250422_01"
+fakeymacs_version = "20250514_01"
 
 import time
 import os
@@ -797,13 +797,22 @@ def configure(keymap):
             process_name = window.getProcessName()
             class_name   = window.getClassName()
 
-            if (fakeymacs.keymap_decided == True or
-                (not emacs_target_class.match(window.getClassName()) and
-                 (process_name in fakeymacs.not_emacs_keybind or
-                  not_emacs_target1.match(window.getProcessName()) or
-                  any(checkWindow(*app, window=window) for app in not_emacs_target2)))):
-                fakeymacs.is_emacs_target = False
+            if fakeymacs.keymap_decided == False:
+                if emacs_target_class.match(class_name):
+                    fakeymacs.is_emacs_target = True
+
+                elif process_name in fakeymacs.not_emacs_keybind:
+                    fakeymacs.is_emacs_target = False
+
+                elif (not_emacs_target1.match(process_name) or
+                      any(checkWindow(*app, window=window) for app in not_emacs_target2)):
+                    fakeymacs.is_emacs_target = False
+                else:
+                    fakeymacs.is_emacs_target = True
             else:
+                fakeymacs.is_emacs_target = False
+
+            if fakeymacs.is_emacs_target == True:
                 reset_undo(reset_counter(reset_mark(lambda: None)))()
                 fakeymacs.ime_cancel = False
 
@@ -814,22 +823,30 @@ def configure(keymap):
                 else:
                     fakeymacs.emacs_exclusion_key = []
 
-                fakeymacs.is_emacs_target = True
                 fakeymacs.keymap_decided = True
 
         return fakeymacs.is_emacs_target
 
     def is_ime_target(window):
         if window is not fakeymacs.last_window or fakeymacs.force_update:
-            process_name = window.getProcessName()
             fakeymacs.last_window = window
             fakeymacs.force_update = False
 
-            if (fakeymacs.keymap_decided == False and
-                (process_name in fakeymacs.not_emacs_keybind or
-                 ime_target1.match(window.getProcessName()) or
-                 any(checkWindow(*app, window=window) for app in ime_target2))):
-                fakeymacs.is_ime_target = True
+            process_name = window.getProcessName()
+
+            if fakeymacs.keymap_decided == False:
+                if (ime_target1.match(process_name) or
+                    any(checkWindow(*app, window=window) for app in ime_target2)):
+                    fakeymacs.is_ime_target = True
+
+                elif process_name in fakeymacs.not_emacs_keybind:
+                    if (not_emacs_target1.match(process_name) or
+                        any(checkWindow(*app, window=window) for app in not_emacs_target2)):
+                        fakeymacs.is_ime_target = False
+                    else:
+                        fakeymacs.is_ime_target = True
+                else:
+                    fakeymacs.is_ime_target = False
             else:
                 fakeymacs.is_ime_target = False
 
