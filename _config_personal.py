@@ -515,13 +515,7 @@ if 0:
 
 # SpaceFN を実現する設定を行う
 if 0:
-    fc.space_fn_key = "Space"
     # fc.space_fn_key = "(29)" # 「無変換」キー
-    # fc.space_fn_window_keymap_list = [keymap_emacs]
-    # fc.space_fn_window_keymap_list += [keymap_lw]
-    # fc.space_fn_window_keymap_list += [keymap_ime]
-    # fc.space_fn_window_keymap_list += [keymap_ei]
-    # fc.space_fn_window_keymap_list += [fakeymacs.keymap_vscode]
     exec(readConfigExtension(r"space_fn\config.py"), dict(globals(), **locals()))
 
 # [section-extension-capslock_key] -----------------------------------------------------------------

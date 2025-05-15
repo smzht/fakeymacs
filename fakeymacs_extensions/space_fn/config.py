@@ -17,6 +17,7 @@ try:
 except:
     # SpaceFN を適用するキーマップを指定する
     fc.space_fn_window_keymap_list = [keymap_emacs]
+    fc.space_fn_window_keymap_list += [keymap_ime]
     fc.space_fn_window_keymap_list += [keymap_lw]
 
 try:
