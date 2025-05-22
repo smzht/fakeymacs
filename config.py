@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20250514_01"
+fakeymacs_version = "20250522_01"
 
 import time
 import os
@@ -1444,7 +1444,10 @@ def configure(keymap):
             fakeymacs.is_searching = None
 
     def kill_emacs():
-        self_insert_command("A-F4")()
+        if checkWindow("edit.exe", "ConsoleWindowClass"): # Microsoft Edit
+            self_insert_command("C-q")()
+        else:
+            self_insert_command("A-F4")()
 
     def universal_argument():
         if fakeymacs.is_universal_argument:
