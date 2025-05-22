@@ -579,11 +579,11 @@ def configure(keymap):
         keymap.fakeymacs_hook = user32.SetWinEventHook(
             EVENT_SYSTEM_FOREGROUND,
             EVENT_SYSTEM_FOREGROUND,
-            0,
+            None,
             WinEventProc,
             0,
             0,
-            WINEVENT_OUTOFCONTEXT | WINEVENT_SKIPOWNPROCESS
+            WINEVENT_OUTOFCONTEXT
         )
 
     # ウィンドウが切り替わるときのイベントフックを設定する
