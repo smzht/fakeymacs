@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20250522_01"
+fakeymacs_version = "20250524_01"
 
 import time
 import os
@@ -181,14 +181,26 @@ def configure(keymap):
     fc.transparent_target_class = ["IHWindowClass"]      # Remote Desktop
 
     # Emacs のキーバインドにするウィンドウのクラス名称（ワイルドカード指定可）を指定する
-    # （fc.not_emacs_target の設定より優先します）
+    # （fc.emacs_target、fc.not_emacs_target の設定より優先します）
     fc.emacs_target_class   = ["Edit",                   # テキスト入力フィールドなどが該当
                                "Button",                 # ボタン
                                "ComboBox",               # コンボボックス
                                "ListBox",                # リストボックス
                                ]
 
-    # Emacs のキーバインドに“したくない”アプリケーションソフトを指定する
+    # Emacs のキーバインドに“する”アプリケーションソフトを指定する
+    # （アプリケーションソフトは、プロセス名称のみ（ワイルドカード指定可）、もしくは、プロセス名称、
+    #   クラス名称、ウィンドウタイトルのリスト（ワイルドカード指定可、リストの後ろの項目から省略可）
+    #   を指定してください）
+    # （fc.not_emacs_target の設定より優先します）
+    # （Keyhac のメニューから「内部ログ」を ON にすると、processname や classname を確認することが
+    #   できます）
+    fc.emacs_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "コマンド プロンプト"],
+                       ["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "Windows PowerShell"],
+                       ["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "* - edit"],
+                       ]
+
+    # Emacs のキーバインドに“しない”アプリケーションソフトを指定する
     # （アプリケーションソフトは、プロセス名称のみ（ワイルドカード指定可）、もしくは、プロセス名称、
     #   クラス名称、ウィンドウタイトルのリスト（ワイルドカード指定可、リストの後ろの項目から省略可）
     #   を指定してください）
@@ -445,13 +457,17 @@ def configure(keymap):
         fc.word_register_param = None
     #---------------------------------------------------------------------------------------------------
 
+    # キーマップを再設定するキーを指定する
+    fc.update_keymap_key = "A-S-Enter"
+
     # Emacs キーバインドを切り替えるキーを指定する
     # （Emacs キーバインドを利用するアプリケーションソフトでかつフォーカスが当たっているソフトに対して
     #   切り替えが機能します。また、Emacs キーバインドを OFF にしても、IME の切り替えは ime_target に
     #   登録したアプリケーションソフトと同様に機能するようにしています。）
     # （fc.emacs_target_class 変数に指定したクラスに該当するアプリケーションソフト（Windows10版 Notepad など）
     #   は、Emacs キーバインドを切り替えの対象となりません（常に Emacs キーバインドとなります）。）
-    fc.toggle_emacs_keybind_key = "C-S-Space"
+    # fc.toggle_emacs_keybind_key = "C-S-Space"
+    fc.toggle_emacs_keybind_key = "A-S-Space"
 
     # アプリケーションキーとして利用するキーを指定する
     # （修飾キーに Alt は使えないようです）
@@ -718,6 +734,11 @@ def configure(keymap):
     if regex == "": regex = "$." # 絶対にマッチしない正規表現
     emacs_target_class = re.compile(regex)
 
+    regex = "|".join([fnmatch.translate(app) for app in fc.emacs_target if type(app) is str])
+    if regex == "": regex = "$." # 絶対にマッチしない正規表現
+    emacs_target1 = re.compile(regex)
+    emacs_target2 = [app for app in fc.emacs_target if type(app) is list]
+
     regex = "|".join([fnmatch.translate(app) for app in fc.not_emacs_target if type(app) is str])
     if regex == "": regex = "$." # 絶対にマッチしない正規表現
     not_emacs_target1 = re.compile(regex)
@@ -804,6 +825,10 @@ def configure(keymap):
                 elif process_name in fakeymacs.not_emacs_keybind:
                     fakeymacs.is_emacs_target = False
 
+                elif (emacs_target1.match(process_name) or
+                      any(checkWindow(*app, window=window) for app in emacs_target2)):
+                    fakeymacs.is_emacs_target = True
+
                 elif (not_emacs_target1.match(process_name) or
                       any(checkWindow(*app, window=window) for app in not_emacs_target2)):
                     fakeymacs.is_emacs_target = False
@@ -840,7 +865,11 @@ def configure(keymap):
                     fakeymacs.is_ime_target = True
 
                 elif process_name in fakeymacs.not_emacs_keybind:
-                    if (not_emacs_target1.match(process_name) or
+                    if (emacs_target1.match(process_name) or
+                        any(checkWindow(*app, window=window) for app in emacs_target2)):
+                        fakeymacs.is_ime_target = True
+
+                    elif (not_emacs_target1.match(process_name) or
                         any(checkWindow(*app, window=window) for app in not_emacs_target2)):
                         fakeymacs.is_ime_target = False
                     else:
@@ -907,6 +936,14 @@ def configure(keymap):
             print("Ctl-x プレフィックスキーのモディファイアキーは、Ctrl または Alt のいずれかから指定してください")
 
     ##################################################
+    ## キーマップを再読み込み
+    ##################################################
+
+    def update_keymap():
+        keymap.popBalloon("keymap", "[Update keymap]", 1000)
+        updateKeymap(True)
+
+    ##################################################
     ## Emacs キーバインドの切り替え
     ##################################################
 
@@ -915,8 +952,11 @@ def configure(keymap):
         process_name = keymap.getWindow().getProcessName()
 
         if (not emacs_target_class.match(class_name) and
-            not (not_emacs_target1.match(process_name) or
-                 any(checkWindow(*app) for app in not_emacs_target2))):
+            ((emacs_target1.match(process_name) or
+              any(checkWindow(*app) for app in emacs_target2)) or
+             not (not_emacs_target1.match(process_name) or
+                  any(checkWindow(*app) for app in not_emacs_target2)))):
+
             if process_name in fakeymacs.not_emacs_keybind:
                 fakeymacs.not_emacs_keybind.remove(process_name)
                 keymap.popBalloon("keybind", "[Enable Emacs keybind]", 1000)
@@ -1065,9 +1105,9 @@ def configure(keymap):
 
     def move_end_of_line():
         self_insert_command("End")()
-        if (checkWindow("WINWORD.EXE", "_WwG") or      # Microsoft Word
-            checkWindow("POWERPNT.EXE", "mdiClass") or # Microsoft PowerPoint
-            (checkWindow("EXCEL.EXE", "EXCEL*") and    # Microsoft Excel
+        if (checkWindow("WINWORD.EXE", "_WwG") or
+            checkWindow("POWERPNT.EXE", "mdiClass") or
+            (checkWindow("EXCEL.EXE", "EXCEL*") and
              fc.is_newline_selectable_in_Excel)):
             if fakeymacs.is_marked:
                 self_insert_command("Left")()
@@ -1079,11 +1119,11 @@ def configure(keymap):
         self_insert_command("C-End")()
 
     def goto_line():
-        if (checkWindow("sakura.exe", "EditorClient") or # Sakura Editor
-            checkWindow("sakura.exe", "SakuraView*")):   # Sakura Editor
+        if (checkWindow("sakura.exe", "EditorClient") or
+            checkWindow("sakura.exe", "SakuraView*")):
             self_insert_command3("C-j")()
 
-        elif checkWindow("TeXworks.exe", "Qt661QWindowIcon"): # TeXworks
+        elif checkWindow("TeXworks.exe", "Qt661QWindowIcon"):
             self_insert_command3("C-l")()
         else:
             self_insert_command3("C-g")()
@@ -1095,8 +1135,8 @@ def configure(keymap):
         self_insert_command("PageDown")()
 
     def recenter():
-        if (checkWindow("sakura.exe", "EditorClient") or # Sakura Editor
-            checkWindow("sakura.exe", "SakuraView*")):   # Sakura Editor
+        if (checkWindow("sakura.exe", "EditorClient") or
+            checkWindow("sakura.exe", "SakuraView*")):
             self_insert_command("C-h")()
         else:
             # else の場合は、recenter のデフォルトキーバインドの C-l を発行する
@@ -1115,7 +1155,7 @@ def configure(keymap):
 
     def backward_kill_word(repeat=1):
         resetRegion()
-        fakeymacs.is_marked = True
+        setMark()
 
         def _move_beginning_of_region():
             for _ in range(repeat):
@@ -1127,7 +1167,7 @@ def configure(keymap):
 
     def kill_word(repeat=1):
         resetRegion()
-        fakeymacs.is_marked = True
+        setMark()
 
         def _move_end_of_region():
             for _ in range(repeat):
@@ -1139,14 +1179,16 @@ def configure(keymap):
 
     def kill_line(repeat=1, kill_whole_line=False):
         resetRegion()
-        fakeymacs.is_marked = True
+        setMark()
 
         if repeat == 1 and not kill_whole_line:
             mark(move_end_of_line, True)()
             delay()
 
-            if (checkWindow("cmd.exe", "ConsoleWindowClass") or       # Cmd
-                checkWindow("powershell.exe", "ConsoleWindowClass")): # PowerShell
+            if (checkWindow("cmd.exe", "ConsoleWindowClass", "*コマンド プロンプト") or
+                checkWindow("powershell.exe", "ConsoleWindowClass", "Windows PowerShell") or
+                checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "コマンド プロンプト") or
+                checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "Windows PowerShell")):
                 kill_region()
 
             elif checkWindow(class_name="HM32CLIENT"): # Hidemaru Software
@@ -1160,7 +1202,7 @@ def configure(keymap):
                 self_insert_command("Delete")()
         else:
             def _move_end_of_region():
-                if checkWindow("WINWORD.EXE", "_WwG"): # Microsoft Word
+                if checkWindow("WINWORD.EXE", "_WwG"):
                     for _ in range(repeat):
                         next_line()
                     move_beginning_of_line()
@@ -1176,7 +1218,8 @@ def configure(keymap):
 
     def kill_region():
         # コマンドプロンプトには Cut に対応するショートカットがない。その対策。
-        if checkWindow("cmd.exe", "ConsoleWindowClass"): # Cmd
+        if (checkWindow("cmd.exe", "ConsoleWindowClass", "*コマンド プロンプト") or
+            checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "コマンド プロンプト")):
             copyRegion()
 
             if fakeymacs.forward_direction is not None:
@@ -1193,7 +1236,8 @@ def configure(keymap):
 
     def kill_ring_save():
         copyRegion()
-        resetRegion()
+        if not checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "コマンド プロンプト"):
+            resetRegion()
 
     def yank():
         self_insert_command("C-v")()
@@ -1211,23 +1255,31 @@ def configure(keymap):
     def set_mark_command():
         if fakeymacs.is_marked or fakeymacs.forward_direction is not None:
             resetRegion()
-            fakeymacs.is_marked = False
-            fakeymacs.forward_direction = None
+            resetMark()
         else:
-            fakeymacs.is_marked = True
+            setMark()
 
     def mark_whole_buffer():
-        if checkWindow("cmd.exe", "ConsoleWindowClass"): # Cmd
+        if checkWindow("cmd.exe", "ConsoleWindowClass", "*コマンド プロンプト"):
             # "Home", "C-a" では上手く動かない場合がある
             self_insert_command("Home", "S-End")()
             fakeymacs.forward_direction = True # 逆の設定にする
 
-        elif checkWindow("powershell.exe", "ConsoleWindowClass"): # PowerShell
+        elif checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "コマンド プロンプト"):
+            if fakeymacs.is_marked or fakeymacs.forward_direction is not None:
+                self_insert_command("Esc")()
+
+            # "Home", "C-a" では上手く動かない場合がある
+            self_insert_command("Home", "C-S-m", "S-End")()
+            fakeymacs.forward_direction = True # 逆の設定にする
+
+        elif (checkWindow("powershell.exe", "ConsoleWindowClass", "Windows PowerShell") or
+              checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "Windows PowerShell")):
             self_insert_command("End", "S-Home")()
             fakeymacs.forward_direction = False
 
-        elif (checkWindow("EXCEL.EXE", "EXCEL*") or # Microsoft Excel
-              checkWindow(class_name="Edit")):      # Edit クラス
+        elif (checkWindow("EXCEL.EXE", "EXCEL*") or
+              checkWindow(class_name="Edit")):
             self_insert_command("C-End", "C-S-Home")()
             fakeymacs.forward_direction = False
         else:
@@ -1285,13 +1337,20 @@ def configure(keymap):
     ##################################################
 
     def kill_buffer():
-        if checkWindow("TeXworks.exe", "Qt661QWindowIcon"): # TeXworks
+        if checkWindow("TeXworks.exe", "Qt661QWindowIcon"):
             self_insert_command("C-w")()
+
+        elif (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "コマンド プロンプト") or
+              checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "Windows PowerShell")):
+            self_insert_command("C-S-w")()
         else:
             self_insert_command("C-F4")()
 
+        updateKeymap(True)
+
     def switch_to_buffer():
         self_insert_command("C-Tab")()
+        updateKeymap(True)
 
     def other_window():
         window_list = getWindowList(False)
@@ -1304,25 +1363,32 @@ def configure(keymap):
     ##################################################
 
     def isearch(direction):
-        if checkWindow("powershell.exe", "ConsoleWindowClass"): # PowerShell
+        if (checkWindow("powershell.exe", "ConsoleWindowClass", "Windows PowerShell") or
+            checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "Windows PowerShell")):
             self_insert_command({"backward":"C-r", "forward":"C-s"}[direction])()
         else:
             if fakeymacs.is_searching is None:
                 self_insert_command("C-f")()
 
-                if checkWindow("TeXworks.exe", "Qt661QWindowIcon"): # TeXworks
+                if checkWindow("TeXworks.exe", "Qt661QWindowIcon"):
                     self_insert_command("Tab", "Tab")()
 
                 fakeymacs.is_searching = False
             else:
-                if checkWindow("EXCEL.EXE"): # Microsoft Excel
+                if checkWindow("EXCEL.EXE"):
                     if checkWindow(class_name="EDTBX"): # 検索ウィンドウ
                         self_insert_command({"backward":"A-S-f", "forward":"A-f"}[direction])()
                     else:
                         self_insert_command("C-f")()
 
-                elif checkWindow("TeXworks.exe", "Qt661QWindowIcon"): # TeXworks
+                elif checkWindow("TeXworks.exe", "Qt661QWindowIcon"):
                     self_insert_command("C-g")()
+
+                elif (checkWindow("edit.exe", "ConsoleWindowClass") or
+                      checkWindow("cmd.exe", "ConsoleWindowClass", "* - edit") or
+                      checkWindow("powershell.exe", "ConsoleWindowClass", "* - edit") or
+                      checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "* - edit")):
+                    self_insert_command({"backward":"S-Enter", "forward":"Enter"}[direction])()
                 else:
                     self_insert_command({"backward":"S-F3", "forward":"F3"}[direction])()
 
@@ -1333,12 +1399,16 @@ def configure(keymap):
         isearch("forward")
 
     def query_replace():
-        if (checkWindow("sakura.exe", "EditorClient") or  # Sakura Editor
-            checkWindow("sakura.exe", "SakuraView*")  or  # Sakura Editor
-            checkWindow(class_name="HM32CLIENT")):        # Hidemaru Software
+        if (checkWindow("edit.exe", "ConsoleWindowClass") or
+            checkWindow("cmd.exe", "ConsoleWindowClass", "* - edit") or
+            checkWindow("powershell.exe", "ConsoleWindowClass", "* - edit") or
+            checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "* - edit") or
+            checkWindow("sakura.exe", "EditorClient") or
+            checkWindow("sakura.exe", "SakuraView*")  or
+            checkWindow(class_name="HM32CLIENT")):
             self_insert_command("C-r")()
 
-        elif checkWindow("TeXworks.exe", "Qt661QWindowIcon"): # TeXworks
+        elif checkWindow("TeXworks.exe", "Qt661QWindowIcon"):
             self_insert_command("C-r")()
             self_insert_command("Tab", "Tab", "Tab")()
         else:
@@ -1425,11 +1495,13 @@ def configure(keymap):
 
         if esc:
             # Esc を発行して問題ないアプリケーションソフトには Esc を発行する
-            if not (checkWindow("cmd.exe", "ConsoleWindowClass") or        # Cmd
-                    checkWindow("powershell.exe", "ConsoleWindowClass") or # PowerShell
-                    checkWindow("EXCEL.EXE", "EXCEL*", "") or              # Microsoft Excel のセル編集
-                    checkWindow("Evernote.exe", "WebViewHost") or          # Evernote
-                    checkWindow("Notepad.exe", "RichEditD2DPT")):          # Windows 11版 Notepad
+            if not (checkWindow("EXCEL.EXE", "EXCEL*", "") or      # Microsoft Excel のセル編集
+                    checkWindow("Evernote.exe", "WebViewHost") or
+                    checkWindow("Notepad.exe", "RichEditD2DPT") or # Windows 11版 Notepad
+                    checkWindow("cmd.exe", "ConsoleWindowClass", "*コマンド プロンプト") or
+                    checkWindow("powershell.exe", "ConsoleWindowClass", "Windows PowerShell") or
+                    checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "コマンド プロンプト") or
+                    checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "Windows PowerShell")):
                 escape()
 
         keymap.command_RecordStop()
@@ -1444,7 +1516,10 @@ def configure(keymap):
             fakeymacs.is_searching = None
 
     def kill_emacs():
-        if checkWindow("edit.exe", "ConsoleWindowClass"): # Microsoft Edit
+        if (checkWindow("edit.exe", "ConsoleWindowClass") or
+            checkWindow("cmd.exe", "ConsoleWindowClass", "* - edit") or
+            checkWindow("powershell.exe", "ConsoleWindowClass", "* - edit") or
+            checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "* - edit")):
             self_insert_command("C-q")()
         else:
             self_insert_command("A-F4")()
@@ -1486,6 +1561,15 @@ def configure(keymap):
     def delay(sec=0.02):
         time.sleep(sec)
 
+    def setMark():
+        if checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "コマンド プロンプト"):
+            self_insert_command("C-S-m")()
+        fakeymacs.is_marked = True
+
+    def resetMark():
+        fakeymacs.is_marked = False
+        fakeymacs.forward_direction = None
+
     def copyRegion():
         self_insert_command("C-c")()
         # C-k (kill_line) したときに k 文字が混在することがあるため delayedCall とする
@@ -1511,38 +1595,33 @@ def configure(keymap):
                 keymap.clipboard_history._push(clipboard_text)
 
     def resetRegion():
-        if fakeymacs.forward_direction is not None:
+        if checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "コマンド プロンプト"):
+            if fakeymacs.is_marked or fakeymacs.forward_direction is not None:
+                self_insert_command("Esc")()
 
-            if checkWindow(class_name="Edit"): # Edit クラス
+        elif fakeymacs.forward_direction is not None:
+            if checkWindow(class_name="Edit"):
                 # 選択されているリージョンのハイライトを解除するためにカーソルキーを発行する
                 if fakeymacs.forward_direction:
                     self_insert_command("Right")()
                 else:
                     self_insert_command("Left")()
 
-            elif (checkWindow("cmd.exe", "ConsoleWindowClass") or # Cmd
-                  checkWindow("EXCEL.EXE", "EXCEL*", "?*")):      # Microsoft Excel のセル編集でない場合
+            elif (checkWindow("EXCEL.EXE", "EXCEL*", "?*") or # Microsoft Excel のセル編集でない場合
+                  checkWindow("cmd.exe", "ConsoleWindowClass", "*コマンド プロンプト")):
                 # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
                 if fakeymacs.forward_direction:
                     self_insert_command("Right", "Left")()
                 else:
                     self_insert_command("Left", "Right")()
 
-            elif checkWindow("powershell.exe", "ConsoleWindowClass"): # PowerShell
+            elif (checkWindow("powershell.exe", "ConsoleWindowClass", "Windows PowerShell") or
+                  checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "Windows PowerShell")):
                 # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
                 if fakeymacs.forward_direction:
                     self_insert_command("Left", "Right")()
                 else:
                     self_insert_command("Right", "Left")()
-
-            # Microsoft Excel 2019 より前のバージョンでは必要な設定の可能性あり
-            # elif checkWindow("EXCEL.EXE"): # Microsoft Excel
-            #     # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
-            #     if fakeymacs.forward_direction:
-            #         self_insert_command("Left", "Right")()
-            #     else:
-            #         self_insert_command("Right", "Left")()
-
             else:
                 # 選択されているリージョンのハイライトを解除するためにカーソルキーを発行する
                 if fakeymacs.forward_direction:
@@ -1553,6 +1632,11 @@ def configure(keymap):
     def checkWindow(process_name=None, class_name=None, text=None, window=None):
         if window is None:
             window = keymap.getWindow()
+
+        if (window.getProcessName() == "WindowsTerminal.exe" and
+            window.getClassName() == "Windows.UI.Input.InputSite.WindowClass"):
+            window = window.getParent().getParent()
+
         return ((process_name is None or fnmatch.fnmatch(window.getProcessName(), process_name)) and
                 (class_name is None or fnmatch.fnmatchcase(window.getClassName(), class_name)) and
                 (text is None or fnmatch.fnmatchcase(window.getText(), text)))
@@ -1941,8 +2025,7 @@ def configure(keymap):
     def reset_mark(func):
         def _func():
             func()
-            fakeymacs.is_marked = False
-            fakeymacs.forward_direction = None
+            resetMark()
         return _func
 
     def reset_counter(func):
@@ -2490,7 +2573,7 @@ def configure(keymap):
 
 
     ###########################################################################
-    ## 「Emacs キーバインドの切り替え」のキー設定
+    ## 「キーマップの再設定」のキー設定
     ###########################################################################
 
     def is_global_target(window):
@@ -2502,7 +2585,21 @@ def configure(keymap):
 
     keymap_global = keymap.defineWindowKeymap(check_func=is_global_target)
 
+    define_key(keymap_global, fc.update_keymap_key, update_keymap)
+
+
+    ###########################################################################
+    ## 「Emacs キーバインドの切り替え」のキー設定
+    ###########################################################################
+
     define_key(keymap_global, fc.toggle_emacs_keybind_key, toggle_emacs_keybind)
+
+
+    ###########################################################################
+    ## Ctrl-Tab キーの設定
+    ###########################################################################
+
+    define_key(keymap_global, "C-Tab", switch_to_buffer)
 
 
     ###########################################################################

@@ -72,14 +72,26 @@ fc.transparent_target       = []
 fc.transparent_target_class = ["IHWindowClass"]      # Remote Desktop
 
 # Emacs のキーバインドにするウィンドウのクラス名称（ワイルドカード指定可）を指定する
-# （fc.not_emacs_target の設定より優先します）
+# （fc.emacs_target、fc.not_emacs_target の設定より優先します）
 fc.emacs_target_class   = ["Edit",                   # テキスト入力フィールドなどが該当
                            "Button",                 # ボタン
                            "ComboBox",               # コンボボックス
                            "ListBox",                # リストボックス
                            ]
 
-# Emacs のキーバインドに“したくない”アプリケーションソフトを指定する
+# Emacs のキーバインドに“する”アプリケーションソフトを指定する
+# （アプリケーションソフトは、プロセス名称のみ（ワイルドカード指定可）、もしくは、プロセス名称、
+#   クラス名称、ウィンドウタイトルのリスト（ワイルドカード指定可、リストの後ろの項目から省略可）
+#   を指定してください）
+# （fc.not_emacs_target の設定より優先します）
+# （Keyhac のメニューから「内部ログ」を ON にすると、processname や classname を確認することが
+#   できます）
+fc.emacs_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "コマンド プロンプト"],
+                   ["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "Windows PowerShell"],
+                   ["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "* - edit"],
+                   ]
+
+# Emacs のキーバインドに“しない”アプリケーションソフトを指定する
 # （アプリケーションソフトは、プロセス名称のみ（ワイルドカード指定可）、もしくは、プロセス名称、
 #   クラス名称、ウィンドウタイトルのリスト（ワイルドカード指定可、リストの後ろの項目から省略可）
 #   を指定してください）
@@ -338,13 +350,17 @@ else:
     fc.word_register_param = None
 #---------------------------------------------------------------------------------------------------
 
+# キーマップを再設定するキーを指定する
+fc.update_keymap_key = "A-S-Enter"
+
 # Emacs キーバインドを切り替えるキーを指定する
 # （Emacs キーバインドを利用するアプリケーションソフトでかつフォーカスが当たっているソフトに対して
 #   切り替えが機能します。また、Emacs キーバインドを OFF にしても、IME の切り替えは ime_target に
 #   登録したアプリケーションソフトと同様に機能するようにしています。）
 # （fc.emacs_target_class 変数に指定したクラスに該当するアプリケーションソフト（Windows10版 Notepad など）
 #   は、Emacs キーバインドを切り替えの対象となりません（常に Emacs キーバインドとなります）。）
-fc.toggle_emacs_keybind_key = "C-S-Space"
+# fc.toggle_emacs_keybind_key = "C-S-Space"
+fc.toggle_emacs_keybind_key = "A-S-Space"
 
 # アプリケーションキーとして利用するキーを指定する
 # （修飾キーに Alt は使えないようです）
