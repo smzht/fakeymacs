@@ -91,7 +91,7 @@ fc.emacs_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "コ
                    ["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "* - edit"],
                    ]
 
-# Emacs のキーバインドに“したくない”アプリケーションソフトを指定する
+# Emacs のキーバインドに“しない”アプリケーションソフトを指定する
 # （アプリケーションソフトは、プロセス名称のみ（ワイルドカード指定可）、もしくは、プロセス名称、
 #   クラス名称、ウィンドウタイトルのリスト（ワイルドカード指定可、リストの後ろの項目から省略可）
 #   を指定してください）
