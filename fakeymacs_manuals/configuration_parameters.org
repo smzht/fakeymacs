@@ -21,7 +21,8 @@ Fakeymacs をカスタマイズするために、以下のコンフィグレー�
 | fc.transparent_target                    | すべてのキーマップを透過するアプリケーションソフトのプロセス名称（ワイルドカード指定可）を指定する                         |
 | fc.transparent_target_class              | すべてのキーマップを透過するウィンドウのクラス名称（ワイルドカード指定可）を指定する                                       |
 | fc.emacs_target_class                    | Emacs のキーバインドにするウィンドウのクラス名称を指定する（fc.not_emacs_target の設定より優先する）                       |
-| fc.not_emacs_target                      | Emacs のキーバインドに“したくない”アプリケーションソフトを指定する                                                       |
+| fc.emacs_target                          | Emacs のキーバインドに“する”アプリケーションソフトを指定する                                                             |
+| fc.not_emacs_target                      | Emacs のキーバインドに“しない”アプリケーションソフトを指定する                                                           |
 | fc.ime_target                            | IME の切り替え“のみをしたい”アプリケーションソフトを指定する                                                             |
 | fc.skip_settings_key                     | キーマップ毎にキー設定をスキップするキーを指定する                                                                         |
 | fc.emacs_exclusion_key                   | Emacs のキーバインドにするアプリケーションソフトで、Emacs キーバインドから除外するキーを指定する                           |
@@ -45,6 +46,7 @@ Fakeymacs をカスタマイズするために、以下のコンフィグレー�
 | fc.reconversion_key                      | IME の「再変換」を行うキーを指定する（複数指定可）                                                                         |
 | fc.emacs_ime_mode_key                    | Emacs 日本語入力モードを利用する際に、IME のショートカットを置き換えるキーの組み合わせ（置き換え先、置き換え元）を指定する |
 | fc.word_register_key                     | IME の「単語登録」プログラムを起動するキーを指定する                                                                       |
+| fc.update_keymap_key                     | キーマップを再読み込みするキーを指定する                                                                                   |
 | fc.toggle_emacs_keybind_key              | Emacs キーバインドを切り替えるキーを指定する                                                                               |
 | fc.application_key                       | アプリケーションキーとして利用するキーを指定する                                                                           |
 | fc.use_ctrl_digit_key_for_digit_argument | 数引数の指定に Ctrl+数字キーを使うかを指定する                                                                             |
