@@ -2967,14 +2967,13 @@ def configure(keymap):
 
     # アプリケーションソフト
     fc.application_items = [
-        ["Notepad",         keymap.ShellExecuteCommand(None, r"notepad.exe", "", "")],
-        ["Explorer",        keymap.ShellExecuteCommand(None, r"explorer.exe", "", "")],
-        ["Cmd",             keymap.ShellExecuteCommand(None, r"cmd.exe", "", "")],
-        ["WindowsTerminal", keymap.ShellExecuteCommand(None, r"WindowsTermianl.exe", "", "")],
-        ["MSEdge",          keymap.ShellExecuteCommand(None, r"msedge.exe", "", "")],
-        ["Chrome",          keymap.ShellExecuteCommand(None, r"chrome.exe", "", "")],
-        ["Firefox",         keymap.ShellExecuteCommand(None, r"firefox.exe", "", "")],
-        ["Thunderbird",     keymap.ShellExecuteCommand(None, r"thunderbird.exe", "", "")],
+        ["Notepad",     keymap.ShellExecuteCommand(None, r"notepad.exe", "", "")],
+        ["Explorer",    keymap.ShellExecuteCommand(None, r"explorer.exe", "", "")],
+        ["Cmd",         keymap.ShellExecuteCommand(None, r"cmd.exe", "", "")],
+        ["MSEdge",      keymap.ShellExecuteCommand(None, r"msedge.exe", "", "")],
+        ["Chrome",      keymap.ShellExecuteCommand(None, r"chrome.exe", "", "")],
+        ["Firefox",     keymap.ShellExecuteCommand(None, r"firefox.exe", "", "")],
+        ["Thunderbird", keymap.ShellExecuteCommand(None, r"thunderbird.exe", "", "")],
     ]
     fc.application_items[0][0] = list_formatter.format(fc.application_items[0][0])
 
