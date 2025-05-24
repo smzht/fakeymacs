@@ -1185,7 +1185,7 @@ def configure(keymap):
             mark(move_end_of_line, True)()
             delay()
 
-            if (checkWindow("cmd.exe", "ConsoleWindowClass", "コマンド プロンプト") or
+            if (checkWindow("cmd.exe", "ConsoleWindowClass", "*コマンド プロンプト") or
                 checkWindow("powershell.exe", "ConsoleWindowClass", "Windows PowerShell") or
                 checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "コマンド プロンプト") or
                 checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "Windows PowerShell")):
@@ -1218,7 +1218,7 @@ def configure(keymap):
 
     def kill_region():
         # コマンドプロンプトには Cut に対応するショートカットがない。その対策。
-        if (checkWindow("cmd.exe", "ConsoleWindowClass", "コマンド プロンプト") or
+        if (checkWindow("cmd.exe", "ConsoleWindowClass", "*コマンド プロンプト") or
             checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "コマンド プロンプト")):
             copyRegion()
 
@@ -1260,7 +1260,7 @@ def configure(keymap):
             setMark()
 
     def mark_whole_buffer():
-        if checkWindow("cmd.exe", "ConsoleWindowClass", "コマンド プロンプト"):
+        if checkWindow("cmd.exe", "ConsoleWindowClass", "*コマンド プロンプト"):
             # "Home", "C-a" では上手く動かない場合がある
             self_insert_command("Home", "S-End")()
             fakeymacs.forward_direction = True # 逆の設定にする
@@ -1498,7 +1498,7 @@ def configure(keymap):
             if not (checkWindow("EXCEL.EXE", "EXCEL*", "") or      # Microsoft Excel のセル編集
                     checkWindow("Evernote.exe", "WebViewHost") or
                     checkWindow("Notepad.exe", "RichEditD2DPT") or # Windows 11版 Notepad
-                    checkWindow("cmd.exe", "ConsoleWindowClass", "コマンド プロンプト") or
+                    checkWindow("cmd.exe", "ConsoleWindowClass", "*コマンド プロンプト") or
                     checkWindow("powershell.exe", "ConsoleWindowClass", "Windows PowerShell") or
                     checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "コマンド プロンプト") or
                     checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "Windows PowerShell")):
@@ -1608,7 +1608,7 @@ def configure(keymap):
                     self_insert_command("Left")()
 
             elif (checkWindow("EXCEL.EXE", "EXCEL*", "?*") or # Microsoft Excel のセル編集でない場合
-                  checkWindow("cmd.exe", "ConsoleWindowClass", "コマンド プロンプト")):
+                  checkWindow("cmd.exe", "ConsoleWindowClass", "*コマンド プロンプト")):
                 # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
                 if fakeymacs.forward_direction:
                     self_insert_command("Right", "Left")()
