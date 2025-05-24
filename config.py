@@ -581,7 +581,7 @@ def configure(keymap):
 
         def _callback(hWinEventHook, event, hwnd, idObject, idChild, dwEventThread, dwmsEventTime):
             if keymap.hook_enabled:
-                delay(0.02)
+                delay()
                 keymap._updateFocusWindow()
             else:
                 setCursorColor(False)
