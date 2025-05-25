@@ -254,7 +254,8 @@ _config_personal.py というファイルを config_personal.py というファ�
 
 config.py のコンフィグレーションパラメータ等の設定を変更したい内容は、config_personal.py に記載して
 管理することで、config.py のバージョンアップに容易に対応できるようになります。以降で紹介している
-拡張機能も初期値では無効となっていますので、有効にする場合は config_personal.py で設定を行ってください。
+拡張機能も config_personal.py で有効／無効の設定を行う仕組みとしており、初期値では無効としていますので、
+有効にする場合は config_personal.py 中で設定を行ってください。
 （config_personal.py の後半に拡張機能を設定する箇所があるので、if 0: を if 1: に変更してください。）
 
 ** クロージャについて
