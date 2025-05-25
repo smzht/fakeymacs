@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20250525_01"
+fakeymacs_version = "20250525_02"
 
 import time
 import os
@@ -1337,20 +1337,23 @@ def configure(keymap):
     ##################################################
 
     def kill_buffer():
-        if checkWindow("TeXworks.exe", "Qt661QWindowIcon"):
-            self_insert_command("C-w")()
-
-        elif (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "Windows PowerShell") or
-              checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "コマンド プロンプト")):
+        if (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "Windows PowerShell") or
+            checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "コマンド プロンプト")):
             self_insert_command("C-S-w")()
+
+        elif checkWindow("TeXworks.exe", "Qt661QWindowIcon"):
+            self_insert_command("C-w")()
         else:
             self_insert_command("C-F4")()
 
-        updateKeymap(True)
+        if checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS"):
+            updateKeymap(True)
 
     def switch_to_buffer():
         self_insert_command("C-Tab")()
-        updateKeymap(True)
+
+        if checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS"):
+            updateKeymap(True)
 
     def other_window():
         window_list = getWindowList(False)
