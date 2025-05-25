@@ -169,7 +169,7 @@ _config_personal.py ファイルを config_personal.pyという名称に変更�
 config_personal.py には、Fakeymacs の拡張機能を有効化／無効化するための設定も含まれています。
 
 次のページを参照して、使いたい拡張機能があればその設定を行ってください。
-（拡張機能を有効化する場合には、if 0: を if 1: にしてください。
+（拡張機能を有効化する場合には、if 0: を if 1: に変更してください。
 また、必要であれば、コンフィグレーションパラメータの設定も行ってください。）
 
 - [[/fakeymacs_manuals/extensions.org]]
@@ -253,10 +253,11 @@ _config_personal.py というファイルを config_personal.py というファ�
 ところを検索して確認してください。）
 
 config.py のコンフィグレーションパラメータ等の設定を変更したい内容は、config_personal.py に記載して
-管理することで、config.py のバージョンアップに容易に対応できるようになります。以降で紹介している
-拡張機能も config_personal.py で有効／無効の設定を行う仕組みとしており、初期値では無効としていますので、
-有効にする場合は config_personal.py 中で設定を行ってください。
-（config_personal.py の後半に拡張機能を設定する箇所があるので、if 0: を if 1: に変更してください。）
+管理することで、config.py のバージョンアップに容易に対応できるようになります。
+拡張機能も config_personal.py の中で有効化／無効化する設定を行う仕組みとしていますので、有効化する
+場合は config_personal.py の設定を変更してください。
+（config_personal.py の後半に拡張機能を設定する箇所があるので、有効化する場合には、if 0: を if 1: に
+変更してください。）
 
 ** クロージャについて
 
