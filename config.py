@@ -277,10 +277,11 @@ def configure(keymap):
     # （リストに指定するキーは、Keyhac で指定可能なマルチストロークではないキーとしてください。
     #   Fakeymacs の記法の "M-f" や "Ctl-x d" などの指定はできません。"A-v"、"C-v" などが指定可能です。）
     # （ここで指定しなくとも、左右のモディファイアキーを使い分けることで入力することは可能です）
-    fc.emacs_exclusion_key  = {"chrome.exe"       : ["C-l", "C-t"],
-                               "msedge.exe"       : ["C-l", "C-t"],
-                               "firefox.exe"      : ["C-l", "C-t"],
-                               "Code.exe"         : ["C-S-b", "C-S-f", "C-S-p", "C-S-n", "C-S-a", "C-S-e"],
+    fc.emacs_exclusion_key  = {"chrome.exe"          : ["C-l", "C-t"],
+                               "msedge.exe"          : ["C-l", "C-t"],
+                               "firefox.exe"         : ["C-l", "C-t"],
+                               "Code.exe"            : ["C-S-b", "C-S-f", "C-S-p", "C-S-n", "C-S-a", "C-S-e"],
+                               "WindowsTerminal.exe" : ["C-S-b", "C-S-f", "C-S-p", "C-S-n", "C-S-a", "C-S-e"],
                                }
 
     # clipboard 監視の対象外とするアプリケーションソフトのプロセス名称（ワイルドカード指定可）を指定する
