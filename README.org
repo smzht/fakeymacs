@@ -230,15 +230,40 @@ Fakeymacs を利用して、文字が二重に入力されたり、Keyhac のコ
 - https://blogs.msdn.microsoft.com/alejacma/2010/10/14/global-hooks-getting-lost-on-windows-7/
 - https://learn.microsoft.com/ja-jp/windows/win32/winmsg/lowlevelkeyboardproc
 
-** Windows Terminal を利用する場合の留意事項について
+** 個人設定ファイル（config_personal.py）
 
-Windows Terminal を利用する場合は、設定 -> 操作 メニューより、「貼り付けるときに末尾の空白を削除する」
-をオフに設定してください。Microsoft Edit を使う際に複数行のコピペが正しく機能するようになります。
+_config_personal.py というファイルを config_personal.py というファイル名にすることで個人設定ファイル
+として機能します。本ファイルの設定には [ ] で括られたセクション名が定義されており、その単位で config.py
+の中に設定が取り込まれ、exec 関数により実行されます。
+（何のセクションがどこで読み込まれるかについては、config.py ファイル内の exec 関数をコールしている
+ところを検索して確認してください。）
 
-また、タブを切り替えた際にキーマップの再設定をしたい場合は、fc.update_keymap_key に設定した
-キー（初期値：A-S-Enter）を入力してください。キーマップは C-Tab キーでタブを切り替えた際にも
-再設定を行うようにしていますが、ターミナルの新規作成や削除により、開いているターミナルのキーマップ
-に不整合が発生する場合があります。このような場合にこのキーをご利用ください。
+config.py のコンフィグレーションパラメータ等の設定を変更したい内容は、config_personal.py に記載して
+管理することで、config.py のバージョンアップに容易に対応できるようになります。
+拡張機能も config_personal.py の中で有効化／無効化する設定を行う仕組みとしていますので、有効化する
+場合は config_personal.py の設定を変更してください。
+（config_personal.py の後半に拡張機能を設定する箇所があるので、有効化する場合には、if 0: を if 1: に
+変更してください。）
+
+** クロージャについて
+
+Fakeymacs では、Python のクロージャの機能を多用しています。次のページを読むと、クロージャの理解が
+深まり、Fakeymacs の設定も読みやすくなると思います。
+
+- https://www.lifewithpython.com/2014/09/python-use-closures.html
+
+** Windows Terminal の対応について
+
+Windows Terminal では、複数の種類のターミナルをタブで個別に開くことができます。Fakeymacs では
+ウインドウ毎に使うキーバインドを決定しているため、Fakeymacs で Emacs キーバインドの割り当てを
+行っているコマンドプロンプトや PowerShell と、Emacs キーバインドの割り当てを行わない Ubuntu
+シェルなどが混在すると、適切なキーバインドの設定ができません。このため、適切なキーバインドの
+再設定を行うためのキーを fc.update_keymap_key 変数に設定したキー（初期値：A-S-Enter）として
+用意しました。また、このキーの機能は、C-Tab でタブを切り替える際にも自動で働くようにしています。
+新しいターミナルを開いて適切なキーバインドが設定されていない場合には A-S-Enter を押し、その後は
+C-Tab でターミナルを切り替えれば、それぞれのターミナルに適切なキーバインドが適用されます。
+当然、ウィンドウの切り替えを行えば、その時点で開いているターミナルには適切なキーバインドが適用
+されます（こちらは、従来からの機能です）。
 
 このキーの新設により、Emacs キーバインドのオン／オフを切り替えるキーを C-S-Space から
 A-S-Space に変更しました。Shift キーとの組み合わせは、Alt キーの方が使いやすいという判断からです。
@@ -263,28 +288,9 @@ vim のようなエディタとして使うことができるようになりま�
 
 - https://github.com/microsoft/edit/releases
 
-
-** 個人設定ファイル（config_personal.py）
-
-_config_personal.py というファイルを config_personal.py というファイル名にすることで個人設定ファイル
-として機能します。本ファイルの設定には [ ] で括られたセクション名が定義されており、その単位で config.py
-の中に設定が取り込まれ、exec 関数により実行されます。
-（何のセクションがどこで読み込まれるかについては、config.py ファイル内の exec 関数をコールしている
-ところを検索して確認してください。）
-
-config.py のコンフィグレーションパラメータ等の設定を変更したい内容は、config_personal.py に記載して
-管理することで、config.py のバージョンアップに容易に対応できるようになります。
-拡張機能も config_personal.py の中で有効化／無効化する設定を行う仕組みとしていますので、有効化する
-場合は config_personal.py の設定を変更してください。
-（config_personal.py の後半に拡張機能を設定する箇所があるので、有効化する場合には、if 0: を if 1: に
-変更してください。）
-
-** クロージャについて
-
-Fakeymacs では、Python のクロージャの機能を多用しています。次のページを読むと、クロージャの理解が
-深まり、Fakeymacs の設定も読みやすくなると思います。
-
-- https://www.lifewithpython.com/2014/09/python-use-closures.html
+なお、Microsoft Edit を Windows Terminal を利用する場合は、設定 -> 操作 メニューより、
+「貼り付けるときに末尾の空白を削除する」をオフに設定してください。
+Microsoft Edit を使う際に複数行のコピペが正しく機能するようになります。
 
 ** ウィンドウ操作の機能強化について
 
