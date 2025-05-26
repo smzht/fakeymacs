@@ -702,6 +702,7 @@ def configure(keymap):
     ###########################################################################
 
     fakeymacs.not_emacs_keybind = []
+    fakeymacs.not_ime_keybind = []
     fakeymacs.ime_cancel = False
     fakeymacs.last_window = None
     fakeymacs.force_update = False
@@ -859,7 +860,10 @@ def configure(keymap):
             process_name = window.getProcessName()
 
             if fakeymacs.keymap_decided == False:
-                if (ime_target1.match(process_name) or
+                if process_name in fakeymacs.not_ime_keybind:
+                    fakeymacs.is_ime_target = False
+
+                elif (ime_target1.match(process_name) or
                     any(checkWindow(*app, window=window) for app in ime_target2)):
                     fakeymacs.is_ime_target = True
 
@@ -950,18 +954,29 @@ def configure(keymap):
         class_name   = keymap.getWindow().getClassName()
         process_name = keymap.getWindow().getProcessName()
 
-        if (not emacs_target_class.match(class_name) and
-            ((emacs_target1.match(process_name) or
-              any(checkWindow(*app) for app in emacs_target2)) or
-             not (not_emacs_target1.match(process_name) or
-                  any(checkWindow(*app) for app in not_emacs_target2)))):
+        if not emacs_target_class.match(class_name):
+            if ((emacs_target1.match(process_name) or
+                 any(checkWindow(*app) for app in emacs_target2)) or
+                not (not_emacs_target1.match(process_name) or
+                     any(checkWindow(*app) for app in not_emacs_target2))):
 
-            if process_name in fakeymacs.not_emacs_keybind:
-                fakeymacs.not_emacs_keybind.remove(process_name)
-                keymap.popBalloon("keybind", "[Enable Emacs keybind]", 1000)
-            else:
-                fakeymacs.not_emacs_keybind.append(process_name)
-                keymap.popBalloon("keybind", "[Disable Emacs keybind]", 1000)
+                if process_name in fakeymacs.not_emacs_keybind:
+                    fakeymacs.not_emacs_keybind.remove(process_name)
+                    keymap.popBalloon("keybind", "[Enable Emacs keybind]", 1000)
+                else:
+                    fakeymacs.not_emacs_keybind.append(process_name)
+                    keymap.popBalloon("keybind", "[Disable Emacs keybind]", 1000)
+
+            elif (ime_target1.match(process_name) or
+                  any(checkWindow(*app) for app in ime_target2)):
+
+                if process_name in fakeymacs.not_ime_keybind:
+                    fakeymacs.not_ime_keybind.remove(process_name)
+                    keymap.popBalloon("keybind", "[Enable IME keybind]", 1000)
+                else:
+                    setImeStatus(0)
+                    fakeymacs.not_ime_keybind.append(process_name)
+                    keymap.popBalloon("keybind", "[Disable IME keybind]", 1000)
 
             updateKeymap(True)
 
