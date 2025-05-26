@@ -197,6 +197,7 @@ def configure(keymap):
     #   できます）
     fc.emacs_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
                         ["Windows PowerShell", "コマンド プロンプト", "* - edit"]],
+                       [None, "ConsoleWindowClass", "* - edit"],
                        ]
 
     # Emacs のキーバインドに“しない”アプリケーションソフトを指定する
