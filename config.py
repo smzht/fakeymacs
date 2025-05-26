@@ -196,7 +196,7 @@ def configure(keymap):
     # （Keyhac のメニューから「内部ログ」を ON にすると、processname や classname を確認することが
     #   できます）
     fc.emacs_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
-                        ["Windows PowerShell","コマンド プロンプト", "* - edit"]],
+                        ["Windows PowerShell", "コマンド プロンプト", "* - edit"]],
                        ]
 
     # Emacs のキーバインドに“しない”アプリケーションソフトを指定する
