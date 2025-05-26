@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20250525_02"
+fakeymacs_version = "20250526_02"
 
 import time
 import os
@@ -190,20 +190,19 @@ def configure(keymap):
 
     # Emacs のキーバインドに“する”アプリケーションソフトを指定する
     # （アプリケーションソフトは、プロセス名称のみ（ワイルドカード指定可）、もしくは、プロセス名称、
-    #   クラス名称、ウィンドウタイトルのリスト（ワイルドカード指定可、リストの後ろの項目から省略可）
-    #   を指定してください）
+    #   クラス名称、ウィンドウタイトル（リストによる複数指定可）のリスト（ワイルドカード指定可、
+    #   リストの後ろの項目から省略可）を指定してください）
     # （fc.not_emacs_target の設定より優先します）
     # （Keyhac のメニューから「内部ログ」を ON にすると、processname や classname を確認することが
     #   できます）
-    fc.emacs_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "Windows PowerShell"],
-                       ["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "コマンド プロンプト"],
-                       ["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "* - edit"],
+    fc.emacs_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
+                        ["Windows PowerShell","コマンド プロンプト", "* - edit"]],
                        ]
 
     # Emacs のキーバインドに“しない”アプリケーションソフトを指定する
     # （アプリケーションソフトは、プロセス名称のみ（ワイルドカード指定可）、もしくは、プロセス名称、
-    #   クラス名称、ウィンドウタイトルのリスト（ワイルドカード指定可、リストの後ろの項目から省略可）
-    #   を指定してください）
+    #   クラス名称、ウィンドウタイトル（リストによる複数指定可）のリスト（ワイルドカード指定可、
+    #   リストの後ろの項目から省略可）を指定してください）
     # （Keyhac のメニューから「内部ログ」を ON にすると、processname や classname を確認することが
     #   できます）
     fc.not_emacs_target     = ["wsl.exe",                # WSL
@@ -237,8 +236,8 @@ def configure(keymap):
 
     # IME の切り替え“のみをしたい”アプリケーションソフトを指定する
     # （アプリケーションソフトは、プロセス名称のみ（ワイルドカード指定可）、もしくは、プロセス名称、
-    #   クラス名称、ウィンドウタイトルのリスト（ワイルドカード指定可、リストの後ろの項目から省略可）
-    #   を指定してください）
+    #   クラス名称、ウィンドウタイトル（リストによる複数指定可）のリスト（ワイルドカード指定可、
+    #   リストの後ろの項目から省略可）を指定してください）
     # （指定できるアプリケーションソフトは、not_emacs_target で（除外）指定したものからのみとなります）
     fc.ime_target           = ["wsl.exe",                # WSL
                                "bash.exe",               # WSL
@@ -1185,8 +1184,8 @@ def configure(keymap):
             mark(move_end_of_line, True)()
             delay()
 
-            if (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "Windows PowerShell") or
-                checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "コマンド プロンプト") or
+            if (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
+                            ["Windows PowerShell", "コマンド プロンプト"]) or
                 checkWindow("powershell.exe", "ConsoleWindowClass", "Windows PowerShell") or
                 checkWindow("cmd.exe", "ConsoleWindowClass", "*コマンド プロンプト")):
                 kill_region()
@@ -1337,8 +1336,8 @@ def configure(keymap):
     ##################################################
 
     def kill_buffer():
-        if (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "Windows PowerShell") or
-            checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "コマンド プロンプト")):
+        if (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
+                        ["Windows PowerShell", "コマンド プロンプト"])):
             self_insert_command("C-S-w")()
 
         elif checkWindow("TeXworks.exe", "Qt661QWindowIcon"):
@@ -1494,8 +1493,8 @@ def configure(keymap):
 
         if esc:
             # Esc を発行して問題ないアプリケーションソフトには Esc を発行する
-            if not (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "Windows PowerShell") or
-                    checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "コマンド プロンプト") or
+            if not (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
+                                ["Windows PowerShell", "コマンド プロンプト"]) or
                     checkWindow("powershell.exe", "ConsoleWindowClass", "Windows PowerShell") or
                     checkWindow("cmd.exe", "ConsoleWindowClass", "*コマンド プロンプト") or
                     checkWindow("EXCEL.EXE", "EXCEL*", "") or      # Microsoft Excel のセル編集
