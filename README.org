@@ -261,7 +261,7 @@ Linux 版の Edit は、次からダウンロードできます。一つのバ�
 これを edit というファイル名に置き換え、~/bin などのパスの通ったディレクトリに格納すると、
 vim のようなエディタとして使うことができるようになります。
 
-- https://github.com/microsoft/edit/releases/tag/v1.0.0
+- https://github.com/microsoft/edit/releases
 
 
 ** 個人設定ファイル（config_personal.py）
