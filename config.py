@@ -1633,9 +1633,18 @@ def configure(keymap):
             window.getClassName() == "Windows.UI.Input.InputSite.WindowClass"):
             window = window.getParent().getParent()
 
-        return ((process_name is None or fnmatch.fnmatch(window.getProcessName(), process_name)) and
-                (class_name is None or fnmatch.fnmatchcase(window.getClassName(), class_name)) and
-                (text is None or fnmatch.fnmatchcase(window.getText(), text)))
+        if ((process_name is None or fnmatch.fnmatch(window.getProcessName(), process_name)) and
+            (class_name is None or fnmatch.fnmatchcase(window.getClassName(), class_name))):
+            if text is None:
+                return True
+            else:
+                if type(text) is list:
+                    title = window.getText()
+                    return any(fnmatch.fnmatchcase(title, t) for t in text)
+                else:
+                    return fnmatch.fnmatchcase(window.getText(), text)
+        else:
+            return False
 
     def vkeys():
         vkeys = list(usjisFilter(lambda: keyhac_keymap.KeyCondition.vk_str_table))
