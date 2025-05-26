@@ -244,6 +244,26 @@ Windows Terminal を利用する場合は、設定 -> 操作 メニューより�
 A-S-Space に変更しました。Shift キーとの組み合わせは、Alt キーの方が使いやすいという判断からです。
 キーは、fc.toggle_emacs_keybind_key 変数の設定により、変更することができます。
 
+** Microsoft Edit の対応について
+
+Fakeymacs は Microsoft Edit に対応しています。Microsoft Edit は、ターミナルで起動すると、その
+ターミナルのタイトルを「ファイル名 - edit」に置き換える機能をもっています。この機能により、
+Fakeymacs がターミナルで Edit を起動中であることを認識することができます。これは、Windows 版の
+Edit でも Linux 版の Edit でも同様に機能し、さらには ssh で接続した先で Edit を起動した場合でも
+同様に機能します。
+
+Edit をコマンドプロンプトや Windows PowerShall で起動した場合は、すぐに Emacs キーバインドが
+使えるエディタとして機能します。Ubuntu シェルなど Linux で Edit を起動した場合は、一度 A-S-Enter
+を入力することで、Emacs キーバインドで使えるようになります。
+Edit 終了後は、再度 A-S-Enter を入力することで、キーバインドを元にもどすことができます。
+
+Linux 版の Edit は、次からダウンロードできます。一つのバイナリファイルとなっていますので、
+これを edit というファイル名に置き換え、~/bin などのパスの通ったディレクトリに格納すると、
+vim のようなエディタとして使うことができるようになります。
+
+- https://github.com/microsoft/edit/releases/tag/v1.0.0
+
+
 ** 個人設定ファイル（config_personal.py）
 
 _config_personal.py というファイルを config_personal.py というファイル名にすることで個人設定ファイル
