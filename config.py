@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20250526_04"
+fakeymacs_version = "20250527_01"
 
 import time
 import os
@@ -862,6 +862,7 @@ def configure(keymap):
 
             if fakeymacs.keymap_decided == False:
                 if process_name in fakeymacs.not_ime_keybind:
+                    setImeStatus(0)
                     fakeymacs.is_ime_target = False
 
                 elif (ime_target1.match(process_name) or
@@ -978,7 +979,6 @@ def configure(keymap):
                     fakeymacs.not_ime_keybind.remove(process_name)
                     keymap.popBalloon("keybind", "[Enable IME keybind]", 1000)
                 else:
-                    setImeStatus(0)
                     fakeymacs.not_ime_keybind.append(process_name)
                     keymap.popBalloon("keybind", "[Disable IME keybind]", 1000)
 
