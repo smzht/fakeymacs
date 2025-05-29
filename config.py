@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20250527_02"
+fakeymacs_version = "20250529_01"
 
 import time
 import os
@@ -196,7 +196,7 @@ def configure(keymap):
     # （Keyhac のメニューから「内部ログ」を ON にすると、processname や classname を確認することが
     #   できます）
     fc.emacs_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
-                        ["Windows PowerShell", "コマンド プロンプト", "* - edit"]],
+                        ["Windows PowerShell", "コマンド プロンプト", "* - edit", "設定"]],
                        [None, "ConsoleWindowClass", "* - edit"],
                        ]
 
@@ -1205,8 +1205,7 @@ def configure(keymap):
 
             if (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
                             ["Windows PowerShell", "コマンド プロンプト"]) or
-                checkWindow("powershell.exe", "ConsoleWindowClass", "Windows PowerShell") or
-                checkWindow("cmd.exe", "ConsoleWindowClass", "*コマンド プロンプト")):
+                checkWindow(None, "ConsoleWindowClass", ["Windows PowerShell", "コマンド プロンプト"])):
                 kill_region()
 
             elif checkWindow(class_name="HM32CLIENT"): # Hidemaru Software
@@ -1514,8 +1513,7 @@ def configure(keymap):
             # Esc を発行して問題ないアプリケーションソフトには Esc を発行する
             if not (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
                                 ["Windows PowerShell", "コマンド プロンプト"]) or
-                    checkWindow("powershell.exe", "ConsoleWindowClass", "Windows PowerShell") or
-                    checkWindow("cmd.exe", "ConsoleWindowClass", "*コマンド プロンプト") or
+                    checkWindow(None, "ConsoleWindowClass", ["Windows PowerShell", "コマンド プロンプト"]) or
                     checkWindow("EXCEL.EXE", "EXCEL*", "") or      # Microsoft Excel のセル編集
                     checkWindow("Notepad.exe", "RichEditD2DPT") or # Windows 11版 Notepad
                     checkWindow("Evernote.exe", "WebViewHost")):
