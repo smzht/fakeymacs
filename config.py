@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20250529_01"
+fakeymacs_version = "20250530_01"
 
 import time
 import os
@@ -550,22 +550,27 @@ def configure(keymap):
 
     def setWinEventHook():
         EVENT_SYSTEM_FOREGROUND = 0x0003
+        EVENT_OBJECT_NAMECHANGE = 0x800C
         WINEVENT_OUTOFCONTEXT   = 0x0000
-        WINEVENT_SKIPOWNPROCESS = 0x0002
 
         user32 = ctypes.windll.user32
         ole32 = ctypes.windll.ole32
 
         try:
-            # 設定されているか？
-            keymap.fakeymacs_hook
-
-            # reload 時の対策
-            user32.UnhookWinEvent(keymap.fakeymacs_hook)
-            ole32.CoUninitialize()
+            # 変数が設定されていて０でない場合、イベントフックを解除する
+            if keymap.fakeymacs_hook2 != 0:
+                user32.UnhookWinEvent(keymap.fakeymacs_hook1)
         except:
             pass
 
+        try:
+            # 変数が設定されていて０でない場合、イベントフックを解除する
+            if keymap.fakeymacs_hook2 != 0:
+                user32.UnhookWinEvent(keymap.fakeymacs_hook2)
+        except:
+            pass
+
+        ole32.CoUninitialize()
         ole32.CoInitialize(None)
 
         WinEventProcType = ctypes.WINFUNCTYPE(
@@ -581,8 +586,15 @@ def configure(keymap):
 
         def _callback(hWinEventHook, event, hwnd, idObject, idChild, dwEventThread, dwmsEventTime):
             if keymap.hook_enabled:
-                delay()
-                keymap._updateFocusWindow()
+                if event == EVENT_SYSTEM_FOREGROUND:
+                    delay()
+                    keymap._updateFocusWindow()
+
+                elif event == EVENT_OBJECT_NAMECHANGE:
+                    if hwnd == user32.GetForegroundWindow():
+                        if idChild == 0:
+                            if keymap.getWindow().getProcessName() in ["WindowsTerminal.exe"]:
+                                updateKeymap(True)
             else:
                 setCursorColor(False)
 
@@ -592,9 +604,20 @@ def configure(keymap):
         WinEventProc = WinEventProcType(_callback)
 
         user32.SetWinEventHook.restype = ctypes.wintypes.HANDLE
-        keymap.fakeymacs_hook = user32.SetWinEventHook(
+
+        keymap.fakeymacs_hook1 = user32.SetWinEventHook(
             EVENT_SYSTEM_FOREGROUND,
             EVENT_SYSTEM_FOREGROUND,
+            None,
+            WinEventProc,
+            0,
+            0,
+            WINEVENT_OUTOFCONTEXT
+        )
+
+        keymap.fakeymacs_hook2 = user32.SetWinEventHook(
+            EVENT_OBJECT_NAMECHANGE,
+            EVENT_OBJECT_NAMECHANGE,
             None,
             WinEventProc,
             0,
@@ -756,7 +779,7 @@ def configure(keymap):
     game_app_list2 = [app for app in fc.game_app_list if type(app) is list]
 
     def is_base_target(window):
-        if window is not fakeymacs.last_window or fakeymacs.force_update:
+        if window is not fakeymacs.last_window:
             process_name = window.getProcessName()
             class_name   = window.getClassName()
 
@@ -791,14 +814,14 @@ def configure(keymap):
 
             if is_task_switching_window(window) or is_list_window(window):
                 fakeymacs.is_base_target = True
-                fakeymacs.keymap_decided = True
+                fakeymacs.keymap_selected1 = True
 
             elif (transparent_target.match(window.getProcessName()) or
                   transparent_target_class.match(window.getClassName()) or
                   game_app_list1.match(window.getProcessName()) or
                   any(checkWindow(*app, window=window) for app in game_app_list2)):
                 fakeymacs.is_base_target = False
-                fakeymacs.keymap_decided = True
+                fakeymacs.keymap_selected1 = True
             else:
                 if not fakeymacs.force_update:
                     if fc.use_ime_status_reset:
@@ -806,7 +829,7 @@ def configure(keymap):
                     showImeStatus(window.getImeStatus(), window=window)
 
                 fakeymacs.is_base_target = True
-                fakeymacs.keymap_decided = False
+                fakeymacs.keymap_selected1 = False
 
         return fakeymacs.is_base_target
 
@@ -819,7 +842,9 @@ def configure(keymap):
             process_name = window.getProcessName()
             class_name   = window.getClassName()
 
-            if fakeymacs.keymap_decided == False:
+            fakeymacs.keymap_selected2 = fakeymacs.keymap_selected1
+
+            if fakeymacs.keymap_selected2 == False:
                 if emacs_target_class.match(class_name):
                     fakeymacs.is_emacs_target = True
 
@@ -849,7 +874,7 @@ def configure(keymap):
                 else:
                     fakeymacs.emacs_exclusion_key = []
 
-                fakeymacs.keymap_decided = True
+                fakeymacs.keymap_selected2 = True
 
         return fakeymacs.is_emacs_target
 
@@ -860,7 +885,7 @@ def configure(keymap):
 
             process_name = window.getProcessName()
 
-            if fakeymacs.keymap_decided == False:
+            if fakeymacs.keymap_selected2 == False:
                 if process_name in fakeymacs.not_ime_keybind:
                     setImeStatus(0)
                     fakeymacs.is_ime_target = False
@@ -1363,14 +1388,8 @@ def configure(keymap):
         else:
             self_insert_command("C-F4")()
 
-        if checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS"):
-            updateKeymap(True)
-
     def switch_to_buffer():
         self_insert_command("C-Tab")()
-
-        if checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS"):
-            updateKeymap(True)
 
     def other_window():
         window_list = getWindowList(False)
