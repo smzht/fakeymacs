@@ -6,27 +6,6 @@
 
 try:
     # 設定されているか？
-    fc.vscode_target
-except:
-    # VSCode 用のキーバインドを利用するアプリケーションソフト（ブラウザアプリを除く）を指定する
-    fc.vscode_target = ["Code.exe",
-                        ]
-
-try:
-    # 設定されているか？
-    fc.vscode_browser_target
-except:
-    # VS Code Web の画面で VSCode 用のキーバインドを利用するブラウザアプリを指定する
-    fc.vscode_browser_target = ["chrome.exe",
-                                "msedge.exe",
-                                "firefox.exe",
-                                "mstsc.exe", # RemoteApp 経由でブラウザを使う場合
-                                ]
-
-fc.vscode_target += fc.vscode_browser_target
-
-try:
-    # 設定されているか？
     fc.vscode_browser_title
 except:
     # VS Code Web の画面で VSCode 用のキーバインドを利用するブラウザタブのタイトルを指定する
@@ -37,9 +16,27 @@ except:
 
 try:
     # 設定されているか？
+    fc.vscode_target
+except:
+    # VSCode 用のキーバインドを利用するアプリケーションソフトを指定する
+    # （アプリケーションソフトは、プロセス名称のみ（ワイルドカード指定可）、もしくは、プロセス名称、
+    #   クラス名称、ウィンドウタイトル（リストによる複数指定可）のリスト（ワイルドカード指定可、
+    #   リストの後ろの項目から省略可）を指定してください）
+    fc.vscode_target = ["Code.exe",
+                        ["chrome.exe",  "Chrome_WidgetWin_1", fc.vscode_browser_title],
+                        ["msedge.exe",  "Chrome_WidgetWin_1", fc.vscode_browser_title],
+                        ["firefox.exe", "MozillaWindowClass", fc.vscode_browser_title],
+                        ["mstsc.exe",   "RAIL_WINDOW",        fc.vscode_browser_title],
+                        ]
+
+try:
+    # 設定されているか？
     fc.cursor_target
 except:
     # Cursor 用のキーバインドを利用するアプリケーションソフトを指定する
+    # （アプリケーションソフトは、プロセス名称のみ（ワイルドカード指定可）、もしくは、プロセス名称、
+    #   クラス名称、ウィンドウタイトル（リストによる複数指定可）のリスト（ワイルドカード指定可、
+    #   リストの後ろの項目から省略可）を指定してください）
     fc.cursor_target = ["Cursor.exe",
                         ]
 
@@ -50,6 +47,9 @@ try:
     fc.windsurf_target
 except:
     # Windsurf 用のキーバインドを利用するアプリケーションソフトを指定する
+    # （アプリケーションソフトは、プロセス名称のみ（ワイルドカード指定可）、もしくは、プロセス名称、
+    #   クラス名称、ウィンドウタイトル（リストによる複数指定可）のリスト（ワイルドカード指定可、
+    #   リストの後ろの項目から省略可）を指定してください）
     fc.windsurf_target = ["Windsurf.exe",
                           ]
 
@@ -167,10 +167,15 @@ fakeymacs_vscode.vscode_focus = "not_terminal"
 fakeymacs_vscode.rectangle_mode = False
 fakeymacs_vscode.post_processing = None
 
+regex = "|".join([fnmatch.translate(app) for app in fc.vscode_target if type(app) is str])
+if regex == "": regex = "$." # 絶対にマッチしない正規表現
+vscode_target1 = re.compile(regex)
+vscode_target2 = [app for app in fc.vscode_target if type(app) is list]
+
 def is_vscode_target(window):
     if (fakeymacs.is_emacs_target == True and
-        window.getProcessName() in fc.vscode_target and
-        window.getClassName() in ["Chrome_WidgetWin_1", "MozillaWindowClass", "RAIL_WINDOW"]):
+        (vscode_target1.match(window.getProcessName()) or
+         any(checkWindow(*app, window=window) for app in vscode_target2))):
         fakeymacs.is_vscode_target = True
         return True
     else:
@@ -193,11 +198,6 @@ def define_key_v(keys, command, skip_check=True):
                 if fnmatch.fnmatch(keys, skey):
                     print(f"skip settings key : [keymap_vscode] {keys}")
                     return
-
-    if callable(command):
-        command = makeKeyCommand(keymap_emacs, keys, command,
-                                 lambda: (keymap.getWindow().getProcessName() not in fc.vscode_browser_target or
-                                          any(checkWindow(text=title) for title in fc.vscode_browser_title)))
 
     define_key(keymap_vscode, keys, command, False)
 
@@ -710,9 +710,15 @@ for key1, key2 in fc.vscode_replace_key:
 def define_key_c(keys, command):
     define_key(keymap_cursor, keys, command)
 
+regex = "|".join([fnmatch.translate(app) for app in fc.cursor_target if type(app) is str])
+if regex == "": regex = "$." # 絶対にマッチしない正規表現
+cursor_target1 = re.compile(regex)
+cursor_target2 = [app for app in fc.cursor_target if type(app) is list]
+
 def is_cursor_target(window):
     if (fakeymacs.is_vscode_target == True and
-        window.getProcessName() in fc.cursor_target):
+        (cursor_target1.match(window.getProcessName()) or
+         any(checkWindow(*app, window=window) for app in cursor_target2))):
         return True
     else:
         return False
@@ -743,9 +749,15 @@ for key1, key2 in fc.cursor_replace_key:
 def define_key_w(keys, command):
     define_key(keymap_windsurf, keys, command)
 
+regex = "|".join([fnmatch.translate(app) for app in fc.windsurf_target if type(app) is str])
+if regex == "": regex = "$." # 絶対にマッチしない正規表現
+windsurf_target1 = re.compile(regex)
+windsurf_target2 = [app for app in fc.windsurf_target if type(app) is list]
+
 def is_windsurf_target(window):
     if (fakeymacs.is_vscode_target == True and
-        window.getProcessName() in fc.windsurf_target):
+        (windsurf_target1.match(window.getProcessName()) or
+         any(checkWindow(*app, window=window) for app in windsurf_target2))):
         return True
     else:
         return False

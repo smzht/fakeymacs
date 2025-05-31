@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20250530_01"
+fakeymacs_version = "20250531_01"
 
 import time
 import os
@@ -534,6 +534,12 @@ def configure(keymap):
                                # ["msrdc.exe", "RAIL_WINDOW"],  # WSLg
                                ]
 
+    # ウィンドウのタイトルが変わった時にキーバインドの再設定を行うアプリケーションソフトの
+    # プロセス名称（ワイルドカード指定可）を指定する
+    fc.name_change_app_list = ["WindowsTerminal.exe",
+                               "ubuntu*.exe",
+                               ]
+
     # 個人設定ファイルのセクション [section-base-1] を読み込んで実行する
     exec(readConfigPersonal("[section-base-1]"), dict(globals(), **locals()))
 
@@ -584,6 +590,10 @@ def configure(keymap):
             ctypes.wintypes.DWORD
         )
 
+        regex = "|".join([fnmatch.translate(p) for p in fc.name_change_app_list])
+        if regex == "": regex = "$." # 絶対にマッチしない正規表現
+        name_change_app = re.compile(regex)
+
         def _callback(hWinEventHook, event, hwnd, idObject, idChild, dwEventThread, dwmsEventTime):
             if keymap.hook_enabled:
                 if event == EVENT_SYSTEM_FOREGROUND:
@@ -593,7 +603,7 @@ def configure(keymap):
                 elif event == EVENT_OBJECT_NAMECHANGE:
                     if hwnd == user32.GetForegroundWindow():
                         if idChild == 0:
-                            if keymap.getWindow().getProcessName() in ["WindowsTerminal.exe"]:
+                            if name_change_app.match(keymap.getWindow().getProcessName()):
                                 updateKeymap(True)
             else:
                 setCursorColor(False)

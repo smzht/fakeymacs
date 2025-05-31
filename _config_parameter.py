@@ -427,6 +427,12 @@ fc.game_app_list        = ["ffxiv_dx11.exe",              # FINAL FANTASY XIV
                            # ["msrdc.exe", "RAIL_WINDOW"],  # WSLg
                            ]
 
+# ウィンドウのタイトルが変わった時にキーバインドの再設定を行うアプリケーションソフトを指定する
+# （判定時の性能を重視するため、ワイルドカードの指定は不可としている）
+fc.name_change_app_list = ["WindowsTerminal.exe",
+                           "ubuntu2404.exe",
+                           ]
+
 # [section-base-2] ---------------------------------------------------------------------------------
 
 # Grave Escape をエミュレーションする設定
