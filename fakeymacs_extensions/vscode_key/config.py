@@ -173,14 +173,17 @@ vscode_target1 = re.compile(regex)
 vscode_target2 = [app for app in fc.vscode_target if type(app) is list]
 
 def is_vscode_target(window):
-    if (fakeymacs.is_emacs_target == True and
-        (vscode_target1.match(window.getProcessName()) or
-         any(checkWindow(*app, window=window) for app in vscode_target2))):
-        fakeymacs.is_vscode_target = True
-        return True
-    else:
-        fakeymacs.is_vscode_target = False
-        return False
+    global vscode_status
+
+    if window is not fakeymacs.last_window or fakeymacs.force_update:
+        if (fakeymacs.is_emacs_target == True and
+            (vscode_target1.match(window.getProcessName()) or
+             any(checkWindow(*app, window=window) for app in vscode_target2))):
+            vscode_status = True
+        else:
+            vscode_status = False
+
+    return vscode_status
 
 if fc.use_emacs_ime_mode:
     keymap_vscode = keymap.defineWindowKeymap(check_func=lambda wnd: is_vscode_target(wnd) and not is_emacs_ime_mode(wnd))
@@ -716,12 +719,17 @@ cursor_target1 = re.compile(regex)
 cursor_target2 = [app for app in fc.cursor_target if type(app) is list]
 
 def is_cursor_target(window):
-    if (fakeymacs.is_vscode_target == True and
-        (cursor_target1.match(window.getProcessName()) or
-         any(checkWindow(*app, window=window) for app in cursor_target2))):
-        return True
-    else:
-        return False
+    global cursor_status
+
+    if window is not fakeymacs.last_window or fakeymacs.force_update:
+        if (fakeymacs.is_vscode_target == True and
+            (cursor_target1.match(window.getProcessName()) or
+             any(checkWindow(*app, window=window) for app in cursor_target2))):
+            cursor_status = True
+        else:
+            cursor_status = False
+
+    return cursor_status
 
 if fc.use_emacs_ime_mode:
     keymap_cursor = keymap.defineWindowKeymap(check_func=lambda wnd: is_cursor_target(wnd) and not is_emacs_ime_mode(wnd))
@@ -755,12 +763,17 @@ windsurf_target1 = re.compile(regex)
 windsurf_target2 = [app for app in fc.windsurf_target if type(app) is list]
 
 def is_windsurf_target(window):
-    if (fakeymacs.is_vscode_target == True and
-        (windsurf_target1.match(window.getProcessName()) or
-         any(checkWindow(*app, window=window) for app in windsurf_target2))):
-        return True
-    else:
-        return False
+    global winsurf_status
+
+    if window is not fakeymacs.last_window or fakeymacs.force_update:
+        if (fakeymacs.is_vscode_target == True and
+            (windsurf_target1.match(window.getProcessName()) or
+             any(checkWindow(*app, window=window) for app in windsurf_target2))):
+            winsurf_status = True
+        else:
+            winsurf_status = False
+
+    return winsurf_status
 
 if fc.use_emacs_ime_mode:
     keymap_windsurf = keymap.defineWindowKeymap(check_func=lambda wnd: is_windsurf_target(wnd) and not is_emacs_ime_mode(wnd))

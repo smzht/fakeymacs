@@ -29,17 +29,22 @@ if regex == "": regex = "$." # 絶対にマッチしない正規表現
 x_window_apps = re.compile(regex)
 
 def is_real_emacs(window):
-    if (window.getClassName() == "Emacs" or
-        (x_window_apps.match(window.getProcessName()) and
-         # ウィンドウのタイトルを検索する正規表現を指定する
-         # Emacs を起動しているウィンドウを検索できるように、Emacs の frame-title-format 変数を
-         # 次のように設定するなどして、識別できるようにする
-         # (setq frame-title-format (format "emacs-%s - %%b " emacs-version))
-         # （別途公開している sglstart コマンドを利用している場合、%%b の後のスペースは必要）
-         re.search(r"^emacs-", window.getText()))):
-        return True
-    else:
-        return False
+    global real_emacs_status
+
+    if window is not fakeymacs.last_window:
+        if (window.getClassName() == "Emacs" or
+            (x_window_apps.match(window.getProcessName()) and
+             # ウィンドウのタイトルを検索する正規表現を指定する
+             # Emacs を起動しているウィンドウを検索できるように、Emacs の frame-title-format 変数を
+             # 次のように設定するなどして、識別できるようにする
+             # (setq frame-title-format (format "emacs-%s - %%b " emacs-version))
+             # （別途公開している sglstart コマンドを利用している場合、%%b の後のスペースは必要）
+             re.search(r"^emacs-", window.getText()))):
+            real_emacs_status = True
+        else:
+            real_emacs_status = False
+
+    return real_emacs_status
 
 keymap_real_emacs = keymap.defineWindowKeymap(check_func=is_real_emacs)
 
