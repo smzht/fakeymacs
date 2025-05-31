@@ -144,9 +144,8 @@ fi
 |----------------------------------------+---------------------------------------------------------------------------------------------------------|
 | Configuration parameter                | Description                                                                                             |
 |----------------------------------------+---------------------------------------------------------------------------------------------------------|
-| fc.vscode_target                       | VSCode 用のキーバインドを利用するアプリケーションソフト（ブラウザアプリを除く）を指定する               |
-| fc.vscode_browser_target               | VS Code Web の画面で VSCode 用のキーバインドを利用するブラウザアプリを指定する                          |
 | fc.vscode_browser_title                | VS Code Web の画面で VSCode 用のキーバインドを利用するブラウザタブのタイトルを指定する                  |
+| fc.vscode_target                       | VSCode 用のキーバインドを利用するアプリケーションソフトを指定する                                       |
 | fc.cursor_target                       | Cursor 用のキーバインドを利用するアプリケーションソフトを指定する                                       |
 | fc.windsurf_target                     | Windsurf 用のキーバインドを利用するアプリケーションソフトを指定する                                     |
 | fc.vscode_prefix_key                   | 置き換えするプレフィックスキーの組み合わせ（VSCode のキー、Fakeymacs のキー）を指定する（複数指定可）   |
@@ -556,6 +555,13 @@ def vscodeExecuteCommand(command, esc=False):
 |-------------------+---------------------------------------|
 
 *** 留意事項
+
+● ブラウザで VS Code Web 画面を開いた際に本拡張機能の vscode キーバインドを利用するためには、
+次の３つの方法があります。
+
+1. 以降に紹介している VS Code Web をアプリ化する方法などにより、専用のウィンドウで開くようにする
+2. ブラウザで VS Code Web 画面を開いた後に、fc.update_keymap_key 変数で指定したキー（初期値：A-S-Enter）を入力する
+3. fc.name_change_app_list 変数にブラウザアプリを登録し、タブの切替時にキーバインドの再設定が動作するようにする
 
 ● fc.side_of_ctrl_key 変数で設定した側でない Ctrl キーを使う、C-q を前置する、fc.vscode_prefix_key
 変数や fc.cursor_prefix_key 変数で指定した Fakeymacs 用のプレフィックスキーを使うことで、
