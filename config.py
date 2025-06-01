@@ -2637,9 +2637,6 @@ def configure(keymap):
             else:
                 global_target_status = True
 
-        fakeymacs.last_window = window
-        fakeymacs.force_update = False
-
         return global_target_status
 
     keymap_global = keymap.defineWindowKeymap(check_func=is_global_target)
@@ -2852,6 +2849,9 @@ def configure(keymap):
                 list_window_status = True
             else:
                 list_window_status = False
+
+        fakeymacs.last_window = window
+        fakeymacs.force_update = False
 
         return list_window_status
 
