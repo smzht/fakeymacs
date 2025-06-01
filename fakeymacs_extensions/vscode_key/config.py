@@ -722,7 +722,7 @@ def is_cursor_target(window):
     global cursor_status
 
     if window is not fakeymacs.last_window or fakeymacs.force_update:
-        if (fakeymacs.is_vscode_target == True and
+        if (vscode_status == True and
             (cursor_target1.match(window.getProcessName()) or
              any(checkWindow(*app, window=window) for app in cursor_target2))):
             cursor_status = True
@@ -766,7 +766,7 @@ def is_windsurf_target(window):
     global winsurf_status
 
     if window is not fakeymacs.last_window or fakeymacs.force_update:
-        if (fakeymacs.is_vscode_target == True and
+        if (vscode_status == True and
             (windsurf_target1.match(window.getProcessName()) or
              any(checkWindow(*app, window=window) for app in windsurf_target2))):
             winsurf_status = True
