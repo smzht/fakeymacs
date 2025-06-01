@@ -28,11 +28,16 @@ except:
 # --------------------------------------------------------------------------------------------------
 
 def is_emacs_terminal(window):
-    if any(checkWindow(*app, window=window) if type(app) is list else
-           checkWindow( app, window=window) for app in fc.emacs_terminal):
-        return True
-    else:
-        return False
+    global emacs_terminal_status
+
+    if window is not fakeymacs.last_window:
+        if any(checkWindow(*app, window=window) if type(app) is list else
+               checkWindow( app, window=window) for app in fc.emacs_terminal):
+            emacs_terminal_status = True
+        else:
+            emacs_terminal_status = False
+
+    return emacs_terminal_status
 
 keymap_et = keymap.defineWindowKeymap(check_func=is_emacs_terminal)
 

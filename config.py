@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20250601_01"
+fakeymacs_version = "20250601_02"
 
 import time
 import os
@@ -2629,14 +2629,19 @@ def configure(keymap):
     ###########################################################################
 
     def is_global_target(window):
+        global global_target_status
+
+        if window is not fakeymacs.last_window:
+            if (transparent_target.match(window.getProcessName()) or
+                transparent_target_class.match(window.getClassName())):
+                global_target_status = False
+            else:
+                global_target_status = True
+
         fakeymacs.last_window = window
         fakeymacs.force_update = False
 
-        if (transparent_target.match(window.getProcessName()) or
-            transparent_target_class.match(window.getClassName())):
-            return False
-        else:
-            return True
+        return global_target_status
 
     keymap_global = keymap.defineWindowKeymap(check_func=is_global_target)
 
@@ -2786,14 +2791,19 @@ def configure(keymap):
     ###########################################################################
 
     def is_task_switching_window(window):
-        if (window.getProcessName() == "explorer.exe" and
-            window.getClassName() in ["MultitaskingViewFrame",
-                                      "TaskSwitcherWnd",
-                                      "Windows.UI.Core.CoreWindow",
-                                      "Windows.UI.Input.InputSite.WindowClass"]):
-            return True
-        else:
-            return False
+        global task_switching_window_status
+
+        if window is not fakeymacs.last_window:
+            if (window.getProcessName() == "explorer.exe" and
+                window.getClassName() in ["MultitaskingViewFrame",
+                                          "TaskSwitcherWnd",
+                                          "Windows.UI.Core.CoreWindow",
+                                          "Windows.UI.Input.InputSite.WindowClass"]):
+                task_switching_window_status = True
+            else:
+                task_switching_window_status = False
+
+        return task_switching_window_status
 
     keymap_tsw = keymap.defineWindowKeymap(check_func=is_task_switching_window)
 
@@ -2835,11 +2845,16 @@ def configure(keymap):
     # ※ C-Enter（引用記号付で貼り付け）の置き換えは、対応が複雑となるため行っておりません。
 
     def is_list_window(window):
-        if window.getClassName() == "KeyhacWindowClass" and window.getText() != "Keyhac":
-            fakeymacs.lw_is_searching = False
-            return True
-        else:
-            return False
+        global list_window_status
+
+        if window is not fakeymacs.last_window:
+            if window.getClassName() == "KeyhacWindowClass" and window.getText() != "Keyhac":
+                fakeymacs.lw_is_searching = False
+                list_window_status = True
+            else:
+                list_window_status = False
+
+        return list_window_status
 
     keymap_lw = keymap.defineWindowKeymap(check_func=is_list_window)
 

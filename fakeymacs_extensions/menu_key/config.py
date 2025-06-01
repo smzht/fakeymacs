@@ -15,11 +15,16 @@ except:
 # --------------------------------------------------------------------------------------------------
 
 def is_menu_target(window):
-    if (fakeymacs.is_emacs_target == False and
-        window.getProcessName() in fc.menu_target):
-        return True
-    else:
-        return False
+    global menu_target_status
+
+    if window is not fakeymacs.last_window or fakeymacs.force_update:
+        if (fakeymacs.is_emacs_target == False and
+            window.getProcessName() in fc.menu_target):
+            menu_target_status = True
+        else:
+            menu_target_status = False
+
+    return menu_target_status
 
 keymap_menu = keymap.defineWindowKeymap(check_func=is_menu_target)
 

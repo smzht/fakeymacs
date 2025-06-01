@@ -24,10 +24,15 @@ except:
 # --------------------------------------------------------------------------------------------------
 
 def is_edit_mode_target(window):
-    if any(checkWindow(*app, window=window) for app in fc.edit_mode_target):
-        return True
-    else:
-        return False
+    global edit_mode_target_status
+
+    if window is not fakeymacs.last_window:
+        if any(checkWindow(*app, window=window) for app in fc.edit_mode_target):
+            edit_mode_target_status = True
+        else:
+            edit_mode_target_status = False
+
+    return edit_mode_target_status
 
 keymap_edit_mode = keymap.defineWindowKeymap(check_func=is_edit_mode_target)
 

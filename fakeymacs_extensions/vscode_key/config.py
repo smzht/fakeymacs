@@ -173,17 +173,17 @@ vscode_target1 = re.compile(regex)
 vscode_target2 = [app for app in fc.vscode_target if type(app) is list]
 
 def is_vscode_target(window):
-    global vscode_status
+    global vscode_target_status
 
     if window is not fakeymacs.last_window or fakeymacs.force_update:
         if (fakeymacs.is_emacs_target == True and
             (vscode_target1.match(window.getProcessName()) or
              any(checkWindow(*app, window=window) for app in vscode_target2))):
-            vscode_status = True
+            vscode_target_status = True
         else:
-            vscode_status = False
+            vscode_target_status = False
 
-    return vscode_status
+    return vscode_target_status
 
 if fc.use_emacs_ime_mode:
     keymap_vscode = keymap.defineWindowKeymap(check_func=lambda wnd: is_vscode_target(wnd) and not is_emacs_ime_mode(wnd))
@@ -269,7 +269,8 @@ def is_terminal_for_direct_input():
     title = keymap.getWindow().getText()
     if pattern1.search(title) or pattern2.search(title):
         return True
-    return False
+    else:
+        return False
 
 ## ファイル操作
 def find_directory():
@@ -719,17 +720,17 @@ cursor_target1 = re.compile(regex)
 cursor_target2 = [app for app in fc.cursor_target if type(app) is list]
 
 def is_cursor_target(window):
-    global cursor_status
+    global cursor_target_status
 
     if window is not fakeymacs.last_window or fakeymacs.force_update:
-        if (vscode_status == True and
+        if (vscode_target_status == True and
             (cursor_target1.match(window.getProcessName()) or
              any(checkWindow(*app, window=window) for app in cursor_target2))):
-            cursor_status = True
+            cursor_target_status = True
         else:
-            cursor_status = False
+            cursor_target_status = False
 
-    return cursor_status
+    return cursor_target_status
 
 if fc.use_emacs_ime_mode:
     keymap_cursor = keymap.defineWindowKeymap(check_func=lambda wnd: is_cursor_target(wnd) and not is_emacs_ime_mode(wnd))
@@ -763,17 +764,17 @@ windsurf_target1 = re.compile(regex)
 windsurf_target2 = [app for app in fc.windsurf_target if type(app) is list]
 
 def is_windsurf_target(window):
-    global winsurf_status
+    global winsurf_target_status
 
     if window is not fakeymacs.last_window or fakeymacs.force_update:
-        if (vscode_status == True and
+        if (vscode_target_status == True and
             (windsurf_target1.match(window.getProcessName()) or
              any(checkWindow(*app, window=window) for app in windsurf_target2))):
-            winsurf_status = True
+            winsurf_target_status = True
         else:
-            winsurf_status = False
+            winsurf_target_status = False
 
-    return winsurf_status
+    return winsurf_target_status
 
 if fc.use_emacs_ime_mode:
     keymap_windsurf = keymap.defineWindowKeymap(check_func=lambda wnd: is_windsurf_target(wnd) and not is_emacs_ime_mode(wnd))
