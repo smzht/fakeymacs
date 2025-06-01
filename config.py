@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20250601_03"
+fakeymacs_version = "20250601_04"
 
 import time
 import os
@@ -603,7 +603,7 @@ def configure(keymap):
                 elif event == EVENT_OBJECT_NAMECHANGE:
                     if hwnd == user32.GetForegroundWindow():
                         if idChild == 0:
-                            wnd = Window.fromHWND(hwnd)
+                            wnd = keymap.getWindow()
                             if wnd:
                                 if name_change_app.match(wnd.getProcessName()):
                                     updateKeymap(True)
