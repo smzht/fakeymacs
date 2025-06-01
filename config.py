@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20250601_04"
+fakeymacs_version = "20250602_01"
 
 import time
 import os
@@ -2637,6 +2637,9 @@ def configure(keymap):
             else:
                 global_target_status = True
 
+        fakeymacs.last_window = window
+        fakeymacs.force_update = False
+
         return global_target_status
 
     keymap_global = keymap.defineWindowKeymap(check_func=is_global_target)
@@ -2787,19 +2790,14 @@ def configure(keymap):
     ###########################################################################
 
     def is_task_switching_window(window):
-        global task_switching_window_status
-
-        if window is not fakeymacs.last_window:
-            if (window.getProcessName() == "explorer.exe" and
-                window.getClassName() in ["MultitaskingViewFrame",
-                                          "TaskSwitcherWnd",
-                                          "Windows.UI.Core.CoreWindow",
-                                          "Windows.UI.Input.InputSite.WindowClass"]):
-                task_switching_window_status = True
-            else:
-                task_switching_window_status = False
-
-        return task_switching_window_status
+        if (window.getProcessName() == "explorer.exe" and
+            window.getClassName() in ["MultitaskingViewFrame",
+                                      "TaskSwitcherWnd",
+                                      "Windows.UI.Core.CoreWindow",
+                                      "Windows.UI.Input.InputSite.WindowClass"]):
+            return True
+        else:
+            return False
 
     keymap_tsw = keymap.defineWindowKeymap(check_func=is_task_switching_window)
 
@@ -2841,19 +2839,11 @@ def configure(keymap):
     # ※ C-Enter（引用記号付で貼り付け）の置き換えは、対応が複雑となるため行っておりません。
 
     def is_list_window(window):
-        global list_window_status
-
-        if window is not fakeymacs.last_window:
-            if window.getClassName() == "KeyhacWindowClass" and window.getText() != "Keyhac":
-                fakeymacs.lw_is_searching = False
-                list_window_status = True
-            else:
-                list_window_status = False
-
-        fakeymacs.last_window = window
-        fakeymacs.force_update = False
-
-        return list_window_status
+        if window.getClassName() == "KeyhacWindowClass" and window.getText() != "Keyhac":
+            fakeymacs.lw_is_searching = False
+            return True
+        else:
+            return False
 
     keymap_lw = keymap.defineWindowKeymap(check_func=is_list_window)
 
