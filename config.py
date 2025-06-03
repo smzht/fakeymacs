@@ -215,7 +215,7 @@ def configure(keymap):
                                "SLES-*.exe",             # WSL
                                "openSUSE-*.exe",         # WSL
                                "WindowsTerminal.exe",    # Windows Terminal
-                               "powershell.exe",         # Window PowerShell
+                               "powershell.exe",         # Windows PowerShell
                                "cmd.exe",                # コマンドプロンプト
                                "mintty.exe",             # mintty
                                "Cmder.exe",              # Cmder
@@ -251,7 +251,7 @@ def configure(keymap):
                                "SLES-*.exe",             # WSL
                                "openSUSE-*.exe",         # WSL
                                "WindowsTerminal.exe",    # Windows Terminal
-                               "powershell.exe",         # Window PowerShell
+                               "powershell.exe",         # Windows PowerShell
                                "cmd.exe",                # コマンドプロンプト
                                "mintty.exe",             # mintty
                                "Cmder.exe",              # Cmder
