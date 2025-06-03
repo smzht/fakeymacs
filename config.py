@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20250602_01"
+fakeymacs_version = "20250603_01"
 
 import time
 import os
@@ -197,7 +197,6 @@ def configure(keymap):
     #   できます）
     fc.emacs_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
                         ["Windows PowerShell", "コマンド プロンプト", "* - edit", "設定"]],
-                       [None, "ConsoleWindowClass", "* - edit"],
                        ]
 
     # Emacs のキーバインドに“しない”アプリケーションソフトを指定する
@@ -1239,7 +1238,7 @@ def configure(keymap):
 
             if (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
                             ["Windows PowerShell", "コマンド プロンプト"]) or
-                checkWindow(None, "ConsoleWindowClass", ["Windows PowerShell", "コマンド プロンプト"])):
+                checkWindow(None, "ConsoleWindowClass", ["Windows PowerShell", "*コマンド プロンプト"])):
                 kill_region()
 
             elif checkWindow(class_name="HM32CLIENT"): # Hidemaru Software
@@ -1541,7 +1540,7 @@ def configure(keymap):
             # Esc を発行して問題ないアプリケーションソフトには Esc を発行する
             if not (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
                                 ["Windows PowerShell", "コマンド プロンプト"]) or
-                    checkWindow(None, "ConsoleWindowClass", ["Windows PowerShell", "コマンド プロンプト"]) or
+                    checkWindow(None, "ConsoleWindowClass", ["Windows PowerShell", "*コマンド プロンプト"]) or
                     checkWindow("EXCEL.EXE", "EXCEL*", "") or      # Microsoft Excel のセル編集
                     checkWindow("Notepad.exe", "RichEditD2DPT") or # Windows 11版 Notepad
                     checkWindow("Evernote.exe", "WebViewHost")):
