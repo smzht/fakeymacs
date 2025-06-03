@@ -88,8 +88,9 @@ fc.emacs_target_class   = ["Edit",                   # テキスト入力フィ�
 #   できます）
 fc.emacs_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
                     ["Windows PowerShell", "コマンド プロンプト", "* - edit"]],
-                   [None, "ConsoleWindowClass", "* - edit"],
-                   ]
+                   ["powershell.exe", "ConsoleWindowClass", ["Windows PowerShell", "* - edit"]],
+                   ["cmd.exe", "ConsoleWindowClass", ["*コマンド プロンプト", "* - edit"]],
+                  ]
 
 # Emacs のキーバインドに“しない”アプリケーションソフトを指定する
 # （アプリケーションソフトは、プロセス名称のみ（ワイルドカード指定可）、もしくは、プロセス名称、
@@ -105,6 +106,8 @@ fc.not_emacs_target     = ["wsl.exe",                # WSL
                            "SLES-*.exe",             # WSL
                            "openSUSE-*.exe",         # WSL
                            "WindowsTerminal.exe",    # Windows Terminal
+                           "powershell.exe",         # Windows PowerShell
+                           "cmd.exe",                # コマンドプロンプト
                            "mintty.exe",             # mintty
                            "Cmder.exe",              # Cmder
                            "ConEmu*.exe",            # ConEmu
@@ -139,6 +142,8 @@ fc.ime_target           = ["wsl.exe",                # WSL
                            "SLES-*.exe",             # WSL
                            "openSUSE-*.exe",         # WSL
                            "WindowsTerminal.exe",    # Windows Terminal
+                           "powershell.exe",         # Windows PowerShell
+                           "cmd.exe",                # コマンドプロンプト
                            "mintty.exe",             # mintty
                            "Cmder.exe",              # Cmder
                            "ConEmu*.exe",            # ConEmu
@@ -430,6 +435,8 @@ fc.game_app_list        = ["ffxiv_dx11.exe",              # FINAL FANTASY XIV
 # ウィンドウのタイトルが変わった時にキーバインドの再設定を行うアプリケーションソフトの
 # プロセス名称（ワイルドカード指定可）を指定する
 fc.name_change_app_list = ["WindowsTerminal.exe",
+                           "powershell.exe",
+                           "cmd.exe",
                            "ubuntu*.exe",
                            ]
 
