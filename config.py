@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20250603_01"
+fakeymacs_version = "20250603_02"
 
 import time
 import os
@@ -197,7 +197,8 @@ def configure(keymap):
     #   できます）
     fc.emacs_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
                         ["Windows PowerShell", "コマンド プロンプト", "* - edit", "設定"]],
-                       [None, "ConsoleWindowClass", "* - edit"],
+                       [None, "ConsoleWindowClass",
+                        ["Windows PowerShell", "コマンド プロンプト"]],
                        ]
 
     # Emacs のキーバインドに“しない”アプリケーションソフトを指定する
@@ -214,6 +215,8 @@ def configure(keymap):
                                "SLES-*.exe",             # WSL
                                "openSUSE-*.exe",         # WSL
                                "WindowsTerminal.exe",    # Windows Terminal
+                               "powershell.exe",         # Window PowerShell
+                               "cmd.exe",                # コマンドプロンプト
                                "mintty.exe",             # mintty
                                "Cmder.exe",              # Cmder
                                "ConEmu*.exe",            # ConEmu
@@ -248,6 +251,8 @@ def configure(keymap):
                                "SLES-*.exe",             # WSL
                                "openSUSE-*.exe",         # WSL
                                "WindowsTerminal.exe",    # Windows Terminal
+                               "powershell.exe",         # Window PowerShell
+                               "cmd.exe",                # コマンドプロンプト
                                "mintty.exe",             # mintty
                                "Cmder.exe",              # Cmder
                                "ConEmu*.exe",            # ConEmu
@@ -537,6 +542,8 @@ def configure(keymap):
     # ウィンドウのタイトルが変わった時にキーバインドの再設定を行うアプリケーションソフトの
     # プロセス名称（ワイルドカード指定可）を指定する
     fc.name_change_app_list = ["WindowsTerminal.exe",
+                               "powershell.exe",
+                               "cmd.exe",
                                "ubuntu*.exe",
                                ]
 
