@@ -88,7 +88,7 @@ fc.emacs_target_class   = ["Edit",                   # テキスト入力フィ�
 #   できます）
 fc.emacs_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
                     ["Windows PowerShell", "コマンド プロンプト", "* - edit"]],
-                   ["powershell.exe", "ConsoleWindowClass", ["Windows PowerShell", "* - edit"]],
+                   ["powershell.exe", "ConsoleWindowClass", ["Windows PowerShell*", "* - edit"]],
                    ["cmd.exe", "ConsoleWindowClass", ["*コマンド プロンプト", "* - edit"]],
                   ]
 

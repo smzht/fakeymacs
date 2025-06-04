@@ -197,7 +197,7 @@ def configure(keymap):
     #   できます）
     fc.emacs_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
                         ["Windows PowerShell", "コマンド プロンプト", "* - edit", "設定"]],
-                       ["powershell.exe", "ConsoleWindowClass", ["Windows PowerShell", "* - edit"]],
+                       ["powershell.exe", "ConsoleWindowClass", ["Windows PowerShell*", "* - edit"]],
                        ["cmd.exe", "ConsoleWindowClass", ["*コマンド プロンプト", "* - edit"]],
                        ]
 
@@ -1246,7 +1246,7 @@ def configure(keymap):
 
             if (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
                             ["Windows PowerShell", "コマンド プロンプト"]) or
-                checkWindow(None, "ConsoleWindowClass", ["Windows PowerShell", "*コマンド プロンプト"])):
+                checkWindow(None, "ConsoleWindowClass", ["Windows PowerShell*", "*コマンド プロンプト"])):
                 kill_region()
 
             elif checkWindow(class_name="HM32CLIENT"): # Hidemaru Software
@@ -1332,7 +1332,7 @@ def configure(keymap):
             fakeymacs.forward_direction = True # 逆の設定にする
 
         elif (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "Windows PowerShell") or
-              checkWindow("powershell.exe", "ConsoleWindowClass", "Windows PowerShell")):
+              checkWindow("powershell.exe", "ConsoleWindowClass", "Windows PowerShell*")):
             self_insert_command("End", "S-Home")()
             fakeymacs.forward_direction = False
 
@@ -1419,7 +1419,7 @@ def configure(keymap):
 
     def isearch(direction):
         if (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "Windows PowerShell") or
-            checkWindow("powershell.exe", "ConsoleWindowClass", "Windows PowerShell")):
+            checkWindow("powershell.exe", "ConsoleWindowClass", "Windows PowerShell*")):
             self_insert_command({"backward":"C-r", "forward":"C-s"}[direction])()
         else:
             if fakeymacs.is_searching is None:
@@ -1548,7 +1548,8 @@ def configure(keymap):
             # Esc を発行して問題ないアプリケーションソフトには Esc を発行する
             if not (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
                                 ["Windows PowerShell", "コマンド プロンプト"]) or
-                    checkWindow(None, "ConsoleWindowClass", ["Windows PowerShell", "*コマンド プロンプト"]) or
+                    checkWindow("powershell.exe", "ConsoleWindowClass", "Windows PowerShell*") or
+                    checkWindow("cmd.exe", "ConsoleWindowClass", "*コマンド プロンプト") or
                     checkWindow("EXCEL.EXE", "EXCEL*", "") or      # Microsoft Excel のセル編集
                     checkWindow("Notepad.exe", "RichEditD2DPT") or # Windows 11版 Notepad
                     checkWindow("Evernote.exe", "WebViewHost")):
@@ -1665,7 +1666,7 @@ def configure(keymap):
                     self_insert_command("Left", "Right")()
 
             elif (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "Windows PowerShell") or
-                  checkWindow("powershell.exe", "ConsoleWindowClass", "Windows PowerShell")):
+                  checkWindow("powershell.exe", "ConsoleWindowClass", "Windows PowerShell*")):
                 # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
                 if fakeymacs.forward_direction:
                     self_insert_command("Left", "Right")()
