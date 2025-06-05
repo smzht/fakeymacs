@@ -290,9 +290,11 @@ Windows 版は以下からダウンロード可能です。
 
 Midnight Commander は Emacs like のキーバインドを持ち、ウィンドウタイトルを変更する
 機能ももっているので、Windows Terminal などのターミナル上で Fakeymacs と共存して
-利用可能です。EDITOR 環境変数を設定する方法などにより、利用するエディタを先に紹介
-した Microsoft Edit にすると、シームレスに Emacs キーバインドの環境を利用することが
-できます。お試しください。
+利用可能です。次のページに書かれている方法で利用するエディタを先に紹介した
+Microsoft Edit にすると、シームレスに Emacs キーバインドの環境を利用することが
+できます。是非お試しください。
+
+- https://hiroom2.jimdoweb.com/2015/09/06/midnight-commander%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%8B/#sec-3-4
 
 ** ウィンドウ操作の機能強化について
 
