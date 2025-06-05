@@ -276,6 +276,23 @@ Linux 版の Edit は、次からダウンロードすることができます�
 「貼り付けるときに末尾の空白を削除する」をオフに設定してください。
 Microsoft Edit を使う際に改行を含む行のコピペが正しく機能するようになります。
 
+** Midnight Commander の対応について
+
+Midnight Commander は、Linux、Windows どちらでも動く、テキストベースのファイルマネージャ
+です。
+
+- https://midnight-commander.org
+
+Ubuntu で動かす場合は、sudo apt install mc でインストールが可能です。
+Windows 版は以下からダウンロード可能です。
+
+- https://github.com/adamyg/mcwin32
+
+Midnight Commander は Emacs like のキーバインドを持ち、ウィンドウタイトルも変更する
+機能をもっているので、Windows Terminal などのターミナル上で Fakeymacs と共存して
+利用可能です。EDITOR 環境変数の設定する方法などにより、利用するエディタを先に紹介
+した Microsoft Edit にすると、とても使い勝手が良いです。お試しください。
+
 ** ウィンドウ操作の機能強化について
 
 ウィンドウ操作については、次の拡張機能により、機能強化を図っています。
