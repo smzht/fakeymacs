@@ -279,7 +279,8 @@ Microsoft Edit を使う際に改行を含む行のコピペが正しく機能�
 ** Midnight Commander の対応について
 
 Midnight Commander は、Linux、Windows どちらでも動く、テキストベースのファイルマネージャ
-です。
+です。Emacs like のキーバインドを持ち、ウィンドウタイトルを変更する機能ももっているので、
+Windows Terminal などのターミナル上で Fakeymacs と共存して利用可能です。
 
 - https://midnight-commander.org
 
@@ -288,21 +289,17 @@ Windows 版は以下からダウンロード可能です。
 
 - https://github.com/adamyg/mcwin32
 
-Midnight Commander は Emacs like のキーバインドを持ち、ウィンドウタイトルを変更する
-機能ももっているので、Windows Terminal などのターミナル上で Fakeymacs と共存して
-利用可能です。次のページに書かれている方法で利用するエディタを先に紹介した
-Microsoft Edit にすると、シームレスに Emacs キーバインドの環境を利用することが
-できます。是非お試しください。
+次のページに書かれている方法で、利用するエディタを先に紹介したMicrosoft Edit にすると、
+シームレスに Emacs キーバインドの環境を利用することができます。
 
 - https://hiroom2.jimdoweb.com/2015/09/06/midnight-commander%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%8B/#sec-3-4
 
-
-なお、Midnight Commander の使い方は、次のページが参考となります。
+Midnight Commander の使い方は次のページに紹介されていますので、是非一度お試しください。
 
 - https://bioinfo-dojo.net/2020/08/31/%e7%ab%af%e6%9c%ab%e7%94%a8-cui-%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%83%9e%e3%83%8d%e3%83%bc%e3%82%b8%e3%83%a3%e3%83%bc-midnight-commander-mc-%e4%bd%bf%e3%81%84%e6%96%b9-%e5%9f%ba%e6%9c%ac/
 
-ファンクションキーの無い 60% キーボードなどをお使いの場合は、以降に紹介している
-space_fn 拡張機能との併用も検討ください。
+なお、ファンクションキーの無い 60% キーボードなどをお使いの場合は、以降に紹介している
+space_fn 拡張機能との併用も検討してください。
 
 ** ウィンドウ操作の機能強化について
 
