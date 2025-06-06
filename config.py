@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20250603_02"
+fakeymacs_version = "20250607_01"
 
 import time
 import os
@@ -1246,7 +1246,8 @@ def configure(keymap):
 
             if (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
                             ["Windows PowerShell", "コマンド プロンプト"]) or
-                checkWindow(None, "ConsoleWindowClass", ["Windows PowerShell*", "*コマンド プロンプト"])):
+                checkWindow("powershell.exe", "ConsoleWindowClass", "Windows PowerShell*") or
+                checkWindow("cmd.exe", "ConsoleWindowClass", "*コマンド プロンプト")):
                 kill_region()
 
             elif checkWindow(class_name="HM32CLIENT"): # Hidemaru Software
