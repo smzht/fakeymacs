@@ -608,6 +608,7 @@ def configure(keymap):
         name_change_app = re.compile(regex)
 
         def _callback(hWinEventHook, event, hwnd, idObject, idChild, dwEventThread, dwmsEventTime):
+            nonlocal window
             nonlocal process_name
 
             if keymap.hook_enabled:
