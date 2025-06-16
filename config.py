@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20250616_02"
+fakeymacs_version = "20250616_03"
 
 import time
 import os
@@ -565,6 +565,7 @@ def configure(keymap):
     # （https://www.nicovideo.jp/watch/sm20797948）
 
     def setWinEventHook():
+        window = None
         process_name = None
 
         EVENT_SYSTEM_FOREGROUND = 0x0003
@@ -613,13 +614,16 @@ def configure(keymap):
                 if event == EVENT_SYSTEM_FOREGROUND:
                     delay()
                     keymap._updateFocusWindow()
-                    process_name = keymap.getWindow().getProcessName()
+                    window = keymap.getWindow()
+                    if window:
+                        process_name = window.getProcessName()
 
                 elif event == EVENT_OBJECT_NAMECHANGE:
                     if hwnd == user32.GetForegroundWindow():
                         if idChild == 0:
-                            if name_change_app.match(process_name):
-                                updateKeymap(True)
+                            if window:
+                                if name_change_app.match(process_name):
+                                    updateKeymap(True)
             else:
                 setCursorColor(False)
 
