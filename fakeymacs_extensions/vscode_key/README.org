@@ -570,12 +570,13 @@ def vscodeExecuteCommand(command, esc=False):
 3. トップフォルダの config_personal.py 内で、次のように fc.name_change_app_list 変数にブラウザアプリを登録し、タブの切替時にキーバインドの再設定が動作するようにする
 
 #+BEGIN_EXAMPLE
-fc.name_change_app_list += ["chrome.exe"
+fc.name_change_app_list += ["chrome.exe",
                             "msedge.exe",
-                            "firefox.exe"
+                            "firefox.exe",
                             ]
 #+END_EXAMPLE
 
+※ （2025/06/16）上記の 3 を config.py での初期設定値とするように見直しました。
 
 ● fc.side_of_ctrl_key 変数で設定した側でない Ctrl キーを使う、C-q を前置する、fc.vscode_prefix_key
 変数や fc.cursor_prefix_key 変数で指定した Fakeymacs 用のプレフィックスキーを使うことで、

@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20250616_01"
+fakeymacs_version = "20250616_02"
 
 import time
 import os
@@ -541,7 +541,10 @@ def configure(keymap):
 
     # ウィンドウのタイトルが変わった時にキーバインドの再設定を行うアプリケーションソフトの
     # プロセス名称（ワイルドカード指定可）を指定する
-    fc.name_change_app_list = ["WindowsTerminal.exe",
+    fc.name_change_app_list = ["chrome.exe",
+                               "msedge.exe",
+                               "firefox.exe",
+                               "WindowsTerminal.exe",
                                "powershell.exe",
                                "cmd.exe",
                                "ubuntu*.exe",
