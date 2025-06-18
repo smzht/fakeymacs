@@ -565,8 +565,6 @@ def configure(keymap):
     # （https://www.nicovideo.jp/watch/sm20797948）
 
     def setWinEventHook():
-        is_name_change_app = False
-
         EVENT_SYSTEM_FOREGROUND = 0x0003
         EVENT_OBJECT_NAMECHANGE = 0x800C
         WINEVENT_OUTOFCONTEXT   = 0x0000
@@ -605,6 +603,8 @@ def configure(keymap):
         regex = "|".join([fnmatch.translate(p) for p in fc.name_change_app_list])
         if regex == "": regex = "$." # 絶対にマッチしない正規表現
         name_change_app = re.compile(regex)
+
+        is_name_change_app = False
 
         def _callback(hWinEventHook, event, hwnd, idObject, idChild, dwEventThread, dwmsEventTime):
             nonlocal is_name_change_app
