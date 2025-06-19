@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20250618_01"
+fakeymacs_version = "20250619_01"
 
 import time
 import os
@@ -196,9 +196,10 @@ def configure(keymap):
     # （Keyhac のメニューから「内部ログ」を ON にすると、processname や classname を確認することが
     #   できます）
     fc.emacs_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
-                        ["Windows PowerShell", "コマンド プロンプト", "* - edit", "設定"]],
-                       ["powershell.exe", "ConsoleWindowClass", ["Windows PowerShell*", "* - edit"]],
-                       ["cmd.exe", "ConsoleWindowClass", ["*コマンド プロンプト", "* - edit"]],
+                        ["*PowerShell*", "*コマンド プロンプト*", "*Command Prompt*", "* - edit", "設定"]],
+                       ["powershell.exe", "ConsoleWindowClass", ["*PowerShell*", "* - edit"]],
+                       ["cmd.exe", "ConsoleWindowClass",
+                        ["*コマンド プロンプト*", "*Command Prompt*", "* - edit"]],
                        ]
 
     # Emacs のキーバインドに“しない”アプリケーションソフトを指定する
@@ -1255,9 +1256,10 @@ def configure(keymap):
             delay()
 
             if (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
-                            ["Windows PowerShell", "コマンド プロンプト"]) or
-                checkWindow("powershell.exe", "ConsoleWindowClass", "Windows PowerShell*") or
-                checkWindow("cmd.exe", "ConsoleWindowClass", "*コマンド プロンプト")):
+                            ["*PowerShell*", "*コマンド プロンプト*", "*Command Prompt*"]) or
+                checkWindow("powershell.exe", "ConsoleWindowClass", "*PowerShell*") or
+                checkWindow("cmd.exe", "ConsoleWindowClass",
+                            ["*コマンド プロンプト*", "*Command Prompt*"])):
                 kill_region()
 
             elif checkWindow(class_name="HM32CLIENT"): # Hidemaru Software
@@ -1287,8 +1289,10 @@ def configure(keymap):
 
     def kill_region():
         # コマンドプロンプトには Cut に対応するショートカットがない。その対策。
-        if (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "コマンド プロンプト") or
-            checkWindow("cmd.exe", "ConsoleWindowClass", "*コマンド プロンプト")):
+        if (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
+                        ["*コマンド プロンプト*", "*Command Prompt*"]) or
+            checkWindow("cmd.exe", "ConsoleWindowClass",
+                        ["*コマンド プロンプト*", "*Command Prompt*"])):
             copyRegion()
 
             if fakeymacs.forward_direction is not None:
@@ -1305,7 +1309,8 @@ def configure(keymap):
 
     def kill_ring_save():
         copyRegion()
-        if not checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "コマンド プロンプト"):
+        if not checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
+                           ["*コマンド プロンプト*", "*Command Prompt*"]):
             resetRegion()
 
     def yank():
@@ -1329,12 +1334,14 @@ def configure(keymap):
             setMark()
 
     def mark_whole_buffer():
-        if checkWindow("cmd.exe", "ConsoleWindowClass", "*コマンド プロンプト"):
+        if checkWindow("cmd.exe", "ConsoleWindowClass",
+                       ["*コマンド プロンプト*", "*Command Prompt*"]):
             # "Home", "C-a" では上手く動かない場合がある
             self_insert_command("Home", "S-End")()
             fakeymacs.forward_direction = True # 逆の設定にする
 
-        elif checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "コマンド プロンプト"):
+        elif checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
+                         ["*コマンド プロンプト*", "*Command Prompt*"]):
             if fakeymacs.is_marked or fakeymacs.forward_direction is not None:
                 self_insert_command("Esc")()
 
@@ -1342,8 +1349,8 @@ def configure(keymap):
             self_insert_command("Home", "C-S-m", "S-End")()
             fakeymacs.forward_direction = True # 逆の設定にする
 
-        elif (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "Windows PowerShell") or
-              checkWindow("powershell.exe", "ConsoleWindowClass", "Windows PowerShell*")):
+        elif (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "*PowerShell*") or
+              checkWindow("powershell.exe", "ConsoleWindowClass", "*PowerShell*")):
             self_insert_command("End", "S-Home")()
             fakeymacs.forward_direction = False
 
@@ -1407,7 +1414,7 @@ def configure(keymap):
 
     def kill_buffer():
         if (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
-                        ["Windows PowerShell", "コマンド プロンプト"])):
+                        ["*PowerShell*", "*コマンド プロンプト*", "*Command Prompt*"])):
             self_insert_command("C-S-w")()
 
         elif checkWindow("TeXworks.exe", "Qt661QWindowIcon"):
@@ -1429,8 +1436,8 @@ def configure(keymap):
     ##################################################
 
     def isearch(direction):
-        if (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "Windows PowerShell") or
-            checkWindow("powershell.exe", "ConsoleWindowClass", "Windows PowerShell*")):
+        if (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "*PowerShell*") or
+            checkWindow("powershell.exe", "ConsoleWindowClass", "*PowerShell*")):
             self_insert_command({"backward":"C-r", "forward":"C-s"}[direction])()
         else:
             if fakeymacs.is_searching is None:
@@ -1558,9 +1565,10 @@ def configure(keymap):
         if esc:
             # Esc を発行して問題ないアプリケーションソフトには Esc を発行する
             if not (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
-                                ["Windows PowerShell", "コマンド プロンプト"]) or
-                    checkWindow("powershell.exe", "ConsoleWindowClass", "Windows PowerShell*") or
-                    checkWindow("cmd.exe", "ConsoleWindowClass", "*コマンド プロンプト") or
+                                ["*PowerShell*", "*コマンド プロンプト*", "*Command Prompt*"]) or
+                    checkWindow("powershell.exe", "ConsoleWindowClass", "*PowerShell*") or
+                    checkWindow("cmd.exe", "ConsoleWindowClass",
+                                ["*コマンド プロンプト*", "*Command Prompt*"]) or
                     checkWindow("EXCEL.EXE", "EXCEL*", "") or      # Microsoft Excel のセル編集
                     checkWindow("Notepad.exe", "RichEditD2DPT") or # Windows 11版 Notepad
                     checkWindow("Evernote.exe", "WebViewHost")):
@@ -1623,7 +1631,8 @@ def configure(keymap):
         time.sleep(sec)
 
     def setMark():
-        if checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "コマンド プロンプト"):
+        if checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
+                       ["*コマンド プロンプト*", "*Command Prompt*"]):
             self_insert_command("C-S-m")()
         fakeymacs.is_marked = True
 
@@ -1656,7 +1665,8 @@ def configure(keymap):
                 keymap.clipboard_history._push(clipboard_text)
 
     def resetRegion():
-        if checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "コマンド プロンプト"):
+        if checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
+                       ["*コマンド プロンプト*", "*Command Prompt*"]):
             if fakeymacs.is_marked or fakeymacs.forward_direction is not None:
                 self_insert_command("Esc")()
 
@@ -1669,15 +1679,16 @@ def configure(keymap):
                     self_insert_command("Left")()
 
             elif (checkWindow("EXCEL.EXE", "EXCEL*", "?*") or # Microsoft Excel のセル編集でない場合
-                  checkWindow("cmd.exe", "ConsoleWindowClass", "*コマンド プロンプト")):
+                  checkWindow("cmd.exe", "ConsoleWindowClass",
+                              ["*コマンド プロンプト*", "*Command Prompt*"])):
                 # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
                 if fakeymacs.forward_direction:
                     self_insert_command("Right", "Left")()
                 else:
                     self_insert_command("Left", "Right")()
 
-            elif (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "Windows PowerShell") or
-                  checkWindow("powershell.exe", "ConsoleWindowClass", "Windows PowerShell*")):
+            elif (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "*PowerShell*") or
+                  checkWindow("powershell.exe", "ConsoleWindowClass", "*PowerShell*")):
                 # 選択されているリージョンのハイライトを解除するためにカーソルを移動する
                 if fakeymacs.forward_direction:
                     self_insert_command("Left", "Right")()
