@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20250619_01"
+fakeymacs_version = "20250624_01"
 
 import time
 import os
@@ -813,8 +813,8 @@ def configure(keymap):
             process_name = window.getProcessName()
             class_name   = window.getClassName()
 
-            if (not_clipboard_target.match(window.getProcessName()) or
-                not_clipboard_target_class.match(window.getClassName())):
+            if (not_clipboard_target.match(process_name) or
+                not_clipboard_target_class.match(class_name)):
                 # クリップボードの監視用のフックを無効にする
                 keymap.clipboard_history.enableHook(False)
                 fakeymacs.clipboard_hook = False
@@ -846,9 +846,9 @@ def configure(keymap):
                 fakeymacs.is_base_target = True
                 fakeymacs.keymap_selected1 = True
 
-            elif (transparent_target.match(window.getProcessName()) or
-                  transparent_target_class.match(window.getClassName()) or
-                  game_app_list1.match(window.getProcessName()) or
+            elif (transparent_target.match(process_name) or
+                  transparent_target_class.match(class_name) or
+                  game_app_list1.match(process_name) or
                   any(checkWindow(*app, window=window) for app in game_app_list2)):
                 fakeymacs.is_base_target = False
                 fakeymacs.keymap_selected1 = True
@@ -1005,8 +1005,8 @@ def configure(keymap):
     ##################################################
 
     def toggle_emacs_keybind():
-        class_name   = keymap.getWindow().getClassName()
         process_name = keymap.getWindow().getProcessName()
+        class_name   = keymap.getWindow().getClassName()
 
         if not ((game_app_list1.match(process_name) or
                  any(checkWindow(*app) for app in game_app_list2)) or
@@ -1705,20 +1705,24 @@ def configure(keymap):
         if window is None:
             window = keymap.getWindow()
 
-        if (window.getProcessName() == "WindowsTerminal.exe" and
-            window.getClassName() == "Windows.UI.Input.InputSite.WindowClass"):
-            window = window.getParent().getParent()
+        window_process_name = window.getProcessName()
+        window_class_name   = window.getClassName()
 
-        if ((process_name is None or fnmatch.fnmatch(window.getProcessName(), process_name)) and
-            (class_name is None or fnmatch.fnmatchcase(window.getClassName(), class_name))):
+        if (window_process_name == "WindowsTerminal.exe" and
+            window_class_name   == "Windows.UI.Input.InputSite.WindowClass"):
+            window = window.getParent().getParent()
+            window_class_name = window.getClassName()
+
+        if ((process_name is None or fnmatch.fnmatch(window_process_name, process_name)) and
+            (class_name is None or fnmatch.fnmatchcase(window_class_name, class_name))):
             if text is None:
                 return True
             else:
+                title = window.getText()
                 if type(text) is list:
-                    title = window.getText()
                     return any(fnmatch.fnmatchcase(title, t) for t in text)
                 else:
-                    return fnmatch.fnmatchcase(window.getText(), text)
+                    return fnmatch.fnmatchcase(title, text)
         else:
             return False
 
