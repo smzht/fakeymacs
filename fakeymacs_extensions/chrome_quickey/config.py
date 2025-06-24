@@ -24,4 +24,4 @@ except:
 
 define_key3(keymap_emacs, "Ctl-x C-b",
             reset_search(reset_undo(reset_counter(reset_mark(self_insert_command3(fc.quickey_shortcut_key))))),
-            lambda: keymap.getWindow().getProcessName() in fc.chrome_list)
+            lambda: getProcessName() in fc.chrome_list)

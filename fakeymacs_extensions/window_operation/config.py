@@ -196,9 +196,9 @@ def windowList2():
     global window_list2
     global window_switching_time2
 
-    if (process_name != keymap.getWindow().getProcessName() or
+    if (process_name != getProcessName() or
         (time.time() - window_switching_time2 > 1.5)):
-        process_name = keymap.getWindow().getProcessName()
+        process_name = getProcessName()
         window_list2 = getWindowList(None, process_name)
 
     window_switching_time2 = time.time()

@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20250624_01"
+fakeymacs_version = "20250624_02"
 
 import time
 import os
@@ -615,7 +615,16 @@ def configure(keymap):
                     delay()
                     keymap._updateFocusWindow()
                     window = keymap.getWindow()
-                    if window and name_change_app.match(window.getProcessName()):
+                    if window:
+                        fakeymacs.window = window
+                        fakeymacs.process_name = window.getProcessName()
+                        fakeymacs.class_name = window.getClassName()
+                    else:
+                        fakeymacs.window = None
+                        fakeymacs.process_name = None
+                        fakeymacs.class_name = None
+
+                    if window and name_change_app.match(fakeymacs.process_name):
                         is_name_change_app = True
                     else:
                         is_name_change_app = False
@@ -755,6 +764,9 @@ def configure(keymap):
     ## 基本機能の設定
     ###########################################################################
 
+    fakeymacs.window = None
+    fakeymacs.process_name = None
+    fakeymacs.class_name = None
     fakeymacs.not_emacs_keybind = []
     fakeymacs.not_ime_keybind = []
     fakeymacs.ime_cancel = False
@@ -810,8 +822,8 @@ def configure(keymap):
 
     def is_base_target(window):
         if window is not fakeymacs.last_window:
-            process_name = window.getProcessName()
-            class_name   = window.getClassName()
+            process_name = getProcessName(window)
+            class_name   = getClassName(window)
 
             if (not_clipboard_target.match(process_name) or
                 not_clipboard_target_class.match(class_name)):
@@ -869,8 +881,8 @@ def configure(keymap):
         if window is not fakeymacs.last_window or fakeymacs.force_update:
             fakeymacs.is_emacs_target_in_previous_window = fakeymacs.is_emacs_target
 
-            process_name = window.getProcessName()
-            class_name   = window.getClassName()
+            process_name = getProcessName(window)
+            class_name   = getClassName(window)
 
             fakeymacs.keymap_selected2 = fakeymacs.keymap_selected1
 
@@ -910,7 +922,7 @@ def configure(keymap):
 
     def is_ime_target(window):
         if window is not fakeymacs.last_window or fakeymacs.force_update:
-            process_name = window.getProcessName()
+            process_name = getProcessName(window)
 
             if fakeymacs.keymap_selected2 == False:
                 if process_name in fakeymacs.not_ime_keybind:
@@ -1005,8 +1017,8 @@ def configure(keymap):
     ##################################################
 
     def toggle_emacs_keybind():
-        process_name = keymap.getWindow().getProcessName()
-        class_name   = keymap.getWindow().getClassName()
+        process_name = getProcessName()
+        class_name   = getClassName()
 
         if not ((game_app_list1.match(process_name) or
                  any(checkWindow(*app) for app in game_app_list2)) or
@@ -1701,24 +1713,60 @@ def configure(keymap):
                 else:
                     self_insert_command("Left")()
 
+    def getProcessName(window=None):
+        if window:
+            if window == fakeymacs.window:
+                process_name = fakeymacs.process_name
+            else:
+                process_name = window.getProcessName()
+        else:
+            if fakeymacs.window:
+                process_name = fakeymacs.process_name
+            else:
+                process_name = keymap.getWindow().getProcessName()
+
+        return process_name
+
+    def getClassName(window=None):
+        if window:
+            if window == fakeymacs.window:
+                class_name = fakeymacs.class_name
+            else:
+                class_name = window.getClassName()
+        else:
+            if fakeymacs.window:
+                class_name = fakeymacs.class_name
+            else:
+                class_name = keymap.getWindow().getClassName()
+
+        return class_name
+
+    def getText(window=None):
+        if window:
+            title = window.getText()
+        else:
+            title = keymap.getWindow().getText()
+
+        return title
+
     def checkWindow(process_name=None, class_name=None, text=None, window=None):
         if window is None:
             window = keymap.getWindow()
 
-        window_process_name = window.getProcessName()
-        window_class_name   = window.getClassName()
+        window_process_name = getProcessName(window)
+        window_class_name   = getClassName(window)
 
         if (window_process_name == "WindowsTerminal.exe" and
             window_class_name   == "Windows.UI.Input.InputSite.WindowClass"):
             window = window.getParent().getParent()
-            window_class_name = window.getClassName()
+            window_class_name = getClassName(window)
 
         if ((process_name is None or fnmatch.fnmatch(window_process_name, process_name)) and
             (class_name is None or fnmatch.fnmatchcase(window_class_name, class_name))):
             if text is None:
                 return True
             else:
-                title = window.getText()
+                title = getText(window)
                 if type(text) is list:
                     return any(fnmatch.fnmatchcase(title, t) for t in text)
                 else:
@@ -2665,8 +2713,8 @@ def configure(keymap):
         global global_target_status
 
         if window is not fakeymacs.last_window:
-            if (transparent_target.match(window.getProcessName()) or
-                transparent_target_class.match(window.getClassName())):
+            if (transparent_target.match(getProcessName(window)) or
+                transparent_target_class.match(getClassName(window))):
                 global_target_status = False
             else:
                 global_target_status = True
@@ -2824,11 +2872,11 @@ def configure(keymap):
     ###########################################################################
 
     def is_task_switching_window(window):
-        if (window.getProcessName() == "explorer.exe" and
-            window.getClassName() in ["MultitaskingViewFrame",
-                                      "TaskSwitcherWnd",
-                                      "Windows.UI.Core.CoreWindow",
-                                      "Windows.UI.Input.InputSite.WindowClass"]):
+        if (getProcessName(window) == "explorer.exe" and
+            getClassName(window) in ["MultitaskingViewFrame",
+                                     "TaskSwitcherWnd",
+                                     "Windows.UI.Core.CoreWindow",
+                                     "Windows.UI.Input.InputSite.WindowClass"]):
             return True
         else:
             return False
@@ -2873,7 +2921,7 @@ def configure(keymap):
     # ※ C-Enter（引用記号付で貼り付け）の置き換えは、対応が複雑となるため行っておりません。
 
     def is_list_window(window):
-        if window.getClassName() == "KeyhacWindowClass" and window.getText() != "Keyhac":
+        if getClassName(window) == "KeyhacWindowClass" and getText(window) != "Keyhac":
             fakeymacs.lw_is_searching = False
             return True
         else:

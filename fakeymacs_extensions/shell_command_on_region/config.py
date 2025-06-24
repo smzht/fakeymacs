@@ -141,7 +141,7 @@ def shell_command_on_region():
             print("")
 
             setClipboardText(stdout_text)
-            if keymap.getWindow().getProcessName() in fc.not_clipboard_target:
+            if getProcessName() in fc.not_clipboard_target:
                 keymap.clipboard_history._push(stdout_text)
 
             if replace_region:
