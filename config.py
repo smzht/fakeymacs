@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20250624_02"
+fakeymacs_version = "20250625_01"
 
 import time
 import os
@@ -1726,7 +1726,7 @@ def configure(keymap):
             else:
                 process_name = window.getProcessName()
         else:
-            if fakeymacs.window:
+            if keymap.getWindow() == fakeymacs.window:
                 process_name = fakeymacs.process_name
             else:
                 process_name = keymap.getWindow().getProcessName()
@@ -1740,7 +1740,7 @@ def configure(keymap):
             else:
                 class_name = window.getClassName()
         else:
-            if fakeymacs.window:
+            if keymap.getWindow() == fakeymacs.window:
                 class_name = fakeymacs.class_name
             else:
                 class_name = keymap.getWindow().getClassName()
