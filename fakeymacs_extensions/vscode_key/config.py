@@ -177,7 +177,7 @@ def is_vscode_target(window):
 
     if window is not fakeymacs.last_window or fakeymacs.force_update:
         if (fakeymacs.is_emacs_target == True and
-            (vscode_target1.match(window.getProcessName()) or
+            (vscode_target1.match(getProcessName(window)) or
              any(checkWindow(*app, window=window) for app in vscode_target2))):
             vscode_target_status = True
         else:
@@ -266,7 +266,7 @@ pattern1 = re.compile("|".join([rf"(^| - ){v}( -|$)" for v in ["Terminal", "ã‚¿ã
 pattern2 = re.compile("|".join([rf"(^| - ){t}( -|$)" for t in fc.terminal_list_for_direct_input]))
 
 def is_terminal_for_direct_input():
-    title = keymap.getWindow().getText()
+    title = getText()
     if pattern1.search(title) or pattern2.search(title):
         return True
     else:
@@ -724,7 +724,7 @@ def is_cursor_target(window):
 
     if window is not fakeymacs.last_window or fakeymacs.force_update:
         if (vscode_target_status == True and
-            (cursor_target1.match(window.getProcessName()) or
+            (cursor_target1.match(getProcessName(window)) or
              any(checkWindow(*app, window=window) for app in cursor_target2))):
             cursor_target_status = True
         else:
@@ -768,7 +768,7 @@ def is_windsurf_target(window):
 
     if window is not fakeymacs.last_window or fakeymacs.force_update:
         if (vscode_target_status == True and
-            (windsurf_target1.match(window.getProcessName()) or
+            (windsurf_target1.match(getProcessName(window)) or
              any(checkWindow(*app, window=window) for app in windsurf_target2))):
             winsurf_target_status = True
         else:

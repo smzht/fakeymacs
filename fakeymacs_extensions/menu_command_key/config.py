@@ -18,4 +18,4 @@ except:
 for process_name, command_id, key in fc.menu_command_key:
     define_key3(keymap_global, key,
                 lambda x=command_id:   keymap.getWindow().postMessage(0x0111, x),
-                lambda x=process_name: keymap.getWindow().getProcessName() == x)
+                lambda x=process_name: getProcessName() == x)

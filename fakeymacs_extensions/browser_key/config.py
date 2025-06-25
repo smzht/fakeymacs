@@ -42,7 +42,7 @@ def browser_popup(key, ime_status, browser_list=fc.browser_list):
             self_insert_command(key)()
             setImeStatus(ime_status)
 
-        if keymap.getWindow().getProcessName() in browser_list:
+        if getProcessName() in browser_list:
             _inputKey()
         else:
             for window in getWindowList():

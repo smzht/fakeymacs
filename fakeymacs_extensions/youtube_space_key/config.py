@@ -17,8 +17,8 @@ except:
 # --------------------------------------------------------------------------------------------------
 
 def is_youtube():
-    if (keymap.getWindow().getProcessName() in fc.youtube_browser_list and
-        " - YouTube " in keymap.getWindow().getText()):
+    if (getProcessName() in fc.youtube_browser_list and
+        " - YouTube " in getText()):
         return True
     else:
         return False

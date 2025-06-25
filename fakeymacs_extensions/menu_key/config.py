@@ -19,7 +19,7 @@ def is_menu_target(window):
 
     if window is not fakeymacs.last_window or fakeymacs.force_update:
         if (fakeymacs.is_emacs_target == False and
-            window.getProcessName() in fc.menu_target):
+            getProcessName(window) in fc.menu_target):
             menu_target_status = True
         else:
             menu_target_status = False
