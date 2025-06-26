@@ -612,7 +612,7 @@ def configure(keymap):
 
             if keymap.hook_enabled:
                 if event == EVENT_SYSTEM_FOREGROUND:
-                    delay(0.5)
+                    delay(0.2)
                     if hwnd == user32.GetForegroundWindow():
                         try:
                             window = Window.getFocus()
