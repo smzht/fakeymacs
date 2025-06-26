@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20250626_02"
+fakeymacs_version = "20250626_03"
 
 import time
 import os
@@ -614,12 +614,9 @@ def configure(keymap):
                 if event == EVENT_SYSTEM_FOREGROUND:
                     delay(0.2)
                     if hwnd == user32.GetForegroundWindow():
-                        try:
-                            window = Window.getFocus()
-                            if window is None:
-                                window = Window.getForeground()
-                        except:
-                            window = None
+                        window = Window.getFocus()
+                        if window is None:
+                            window = Window.getForeground()
 
                         if window:
                             fakeymacs.window = window
