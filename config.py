@@ -612,7 +612,7 @@ def configure(keymap):
 
             if keymap.hook_enabled:
                 if event == EVENT_SYSTEM_FOREGROUND:
-                    delay(0.1)
+                    delay(0.5)
                     if hwnd == user32.GetForegroundWindow():
                         try:
                             window = Window.getFocus()
@@ -625,7 +625,9 @@ def configure(keymap):
                             fakeymacs.window = window
                             fakeymacs.process_name = window.getProcessName()
                             fakeymacs.class_name = window.getClassName()
-                            keymap._focusChanged(window)
+
+                            if keymap.getWindow() is not window:
+                                keymap._focusChanged(window)
                         else:
                             fakeymacs.window = None
                             fakeymacs.process_name = None
