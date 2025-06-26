@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20250626_01"
+fakeymacs_version = "20250626_02"
 
 import time
 import os
@@ -612,28 +612,29 @@ def configure(keymap):
 
             if keymap.hook_enabled:
                 if event == EVENT_SYSTEM_FOREGROUND:
-                    delay()
-                    try:
-                        window = Window.getFocus()
-                        if window is None:
-                            window = Window.getForeground()
-                    except:
-                        window = None
+                    delay(0.1)
+                    if hwnd == user32.GetForegroundWindow(): 
+                        try:
+                            window = Window.getFocus()
+                            if window is None:
+                                window = Window.getForeground()
+                        except:
+                            window = None
 
-                    if window:
-                        fakeymacs.window = window
-                        fakeymacs.process_name = window.getProcessName()
-                        fakeymacs.class_name = window.getClassName()
-                        keymap._focusChanged(window)
-                    else:
-                        fakeymacs.window = None
-                        fakeymacs.process_name = None
-                        fakeymacs.class_name = None
+                        if window:
+                            fakeymacs.window = window
+                            fakeymacs.process_name = window.getProcessName()
+                            fakeymacs.class_name = window.getClassName()
+                            keymap._focusChanged(window)
+                        else:
+                            fakeymacs.window = None
+                            fakeymacs.process_name = None
+                            fakeymacs.class_name = None
 
-                    if window and name_change_app.match(fakeymacs.process_name):
-                        is_name_change_app = True
-                    else:
-                        is_name_change_app = False
+                        if window and name_change_app.match(fakeymacs.process_name):
+                            is_name_change_app = True
+                        else:
+                            is_name_change_app = False
 
                 elif event == EVENT_OBJECT_NAMECHANGE:
                     if hwnd == user32.GetForegroundWindow():
