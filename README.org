@@ -258,6 +258,10 @@ Windows Terminal では、複数の種類のターミナルをタブで個別に
 ウィンドウタイトルが変更されたイベントをキャッチすることにより、タブ毎に異なるキーバインドの
 設定を実現しています。
 
+なお、Windows Terminal で Ubuntu 等の Linux を利用する際は、設定 -> 二番目にある操作 メニューより、
+「貼り付け」の Ctrl+v は削除しておかないと、Emacs や 以降で紹介する Midnight Commander での
+スクロールアップが正常に動作しないようです。
+
 ** Microsoft Edit の対応について
 
 Fakeymacs は Microsoft Edit に対応しています。Microsoft Edit は、ターミナルで起動すると、その
@@ -301,6 +305,16 @@ Midnight Commander の使い方は次のページに紹介されていますの�
 なお、ファンクションキーの無い 60% キーボードなどをお使いの場合は、以降に紹介している
 space_fn 拡張機能を利用すると、Space+<数字キー> でファンクションキーが利用できるように
 なるなど、操作性が良くなると思います。
+
+また、config_personal.py の [section-base-2] セクションに次の設定をすると、プレフィックス
+キーの Esc や C-x を使う際に、IME を OFF にする機能が働き、使い勝手が良くなると思います。
+
+#+BEGIN_EXAMPLE
+# キーを入力した後に、IME を OFF にする設定
+define_key(keymap_base, "Esc", self_insert_command3("Esc"))
+define_key(keymap_base, "C-[", self_insert_command3("C-["))
+define_key(keymap_base, "C-x", self_insert_command3("C-x"))
+#+END_EXAMPLE
 
 ** ウィンドウ操作の機能強化について
 
