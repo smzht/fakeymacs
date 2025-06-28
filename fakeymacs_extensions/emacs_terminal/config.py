@@ -43,4 +43,4 @@ def is_emacs_terminal(window):
 keymap_et = keymap.defineWindowKeymap(check_func=is_emacs_terminal)
 
 for key1, key2 in fc.emacs_replace_key:
-    define_key(keymap_et, key1, self_insert_command(*key2.split()))
+    define_key(keymap_et, key1, self_insert_command4(*key2.split()))

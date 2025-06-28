@@ -207,18 +207,6 @@ def define_key_v(keys, command, skip_check=True):
 def define_key_v2(keys, command):
     define_key_v(keys, command, False)
 
-def self_insert_command_v(*key_list, usjis_conv=True):
-    func = self_insert_command(*key_list, usjis_conv=usjis_conv)
-    def _func():
-        ime_status = getImeStatus()
-        if ime_status:
-            setImeStatus(0)
-        func()
-        delay()
-        if ime_status:
-            setImeStatus(1)
-    return _func
-
 def vscodeExecuteCommand(command, esc=False):
     def _func():
         self_insert_command("f1")()
@@ -605,7 +593,7 @@ for pkey1, pkey2 in fc.vscode_prefix_key:
         key = vkToStr(vkey)
         for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
             mkey = mod1 + mod2 + mod3 + mod4 + key
-            define_key_v(f"{pkey2} {mkey}", self_insert_command_v(pkey1, mkey))
+            define_key_v(f"{pkey2} {mkey}", self_insert_command4(pkey1, mkey))
 
 ## 「ファイル操作」のキー設定
 define_key_v("Ctl-x C-d", reset_search(reset_undo(reset_counter(reset_mark(find_directory)))))
@@ -745,7 +733,7 @@ for pkey1, pkey2 in fc.cursor_prefix_key:
         key = vkToStr(vkey)
         for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
             mkey = mod1 + mod2 + mod3 + mod4 + key
-            define_key_c(f"{pkey2} {mkey}", self_insert_command_v(pkey1, mkey))
+            define_key_c(f"{pkey2} {mkey}", self_insert_command4(pkey1, mkey))
 
 ## キーの置き換え設定
 for key1, key2 in fc.cursor_replace_key:
@@ -789,7 +777,7 @@ for pkey1, pkey2 in fc.windsurf_prefix_key:
         key = vkToStr(vkey)
         for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
             mkey = mod1 + mod2 + mod3 + mod4 + key
-            define_key_w(f"{pkey2} {mkey}", self_insert_command_v(pkey1, mkey))
+            define_key_w(f"{pkey2} {mkey}", self_insert_command4(pkey1, mkey))
 
 ## キーの置き換え設定
 for key1, key2 in fc.windsurf_replace_key:
