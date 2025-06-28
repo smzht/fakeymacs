@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20250628_01"
+fakeymacs_version = "20250628_02"
 
 import time
 import os
@@ -196,10 +196,10 @@ def configure(keymap):
     # （Keyhac のメニューから「内部ログ」を ON にすると、processname や classname を確認することが
     #   できます）
     fc.emacs_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
-                        ["*PowerShell*", "*コマンド プロンプト*", "*Command Prompt*", "* - edit", "設定"]],
+                        ["*PowerShell*", "*コマンド プロンプト*", "*Command Prompt*", "* - edit*", "設定"]],
                        ["powershell.exe", "ConsoleWindowClass", ["*PowerShell*"]],
                        ["cmd.exe", "ConsoleWindowClass", ["*コマンド プロンプト*", "*Command Prompt*"]],
-                       [None, "ConsoleWindowClass", "* - edit"],
+                       [None, "ConsoleWindowClass", "* - edit*"],
                        ]
 
     # Emacs のキーバインドに“しない”アプリケーションソフトを指定する
@@ -1460,8 +1460,8 @@ def configure(keymap):
                 elif checkWindow("TeXworks.exe", "Qt661QWindowIcon"):
                     self_insert_command("C-g")()
 
-                elif (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "* - edit") or
-                      checkWindow(None, "ConsoleWindowClass", "* - edit")):
+                elif (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "* - edit*") or
+                      checkWindow(None, "ConsoleWindowClass", "* - edit*")):
                     self_insert_command({"backward":"S-Enter", "forward":"Enter"}[direction])()
                 else:
                     self_insert_command({"backward":"S-F3", "forward":"F3"}[direction])()
@@ -1473,8 +1473,8 @@ def configure(keymap):
         isearch("forward")
 
     def query_replace():
-        if (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "* - edit") or
-            checkWindow(None, "ConsoleWindowClass", "* - edit") or
+        if (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "* - edit*") or
+            checkWindow(None, "ConsoleWindowClass", "* - edit*") or
             checkWindow("sakura.exe", "EditorClient") or
             checkWindow("sakura.exe", "SakuraView*")  or
             checkWindow(class_name="HM32CLIENT")):
@@ -1589,8 +1589,8 @@ def configure(keymap):
             fakeymacs.is_searching = None
 
     def kill_emacs():
-        if (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "* - edit") or
-            checkWindow(None, "ConsoleWindowClass", "* - edit")):
+        if (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "* - edit*") or
+            checkWindow(None, "ConsoleWindowClass", "* - edit*")):
             setImeStatus(0)
             self_insert_command("C-q")()
         else:
