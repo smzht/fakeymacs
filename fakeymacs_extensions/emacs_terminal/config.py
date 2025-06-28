@@ -13,6 +13,7 @@ except:
     #   ウィンドウタイトルのリスト（ワイルドカード指定可、リストの後ろの項目から省略可）を指定して
     #   ください）
     fc.emacs_terminal = ["ubuntu*.exe",
+                         "WindowsTerminal.exe",
                          [None, None,  "さくらのクラウドシェル*"],
                          ]
 
