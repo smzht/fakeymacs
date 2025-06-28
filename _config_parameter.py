@@ -89,9 +89,9 @@ fc.emacs_target_class   = ["Edit",                   # テキスト入力フィ�
 
 fc.emacs_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
                     ["*PowerShell*", "*コマンド プロンプト*", "*Command Prompt*", "* - edit", "設定"]],
-                   ["powershell.exe", "ConsoleWindowClass", ["*PowerShell*", "* - edit"]],
-                   ["cmd.exe", "ConsoleWindowClass",
-                    ["*コマンド プロンプト*", "*Command Prompt*", "* - edit"]],
+                   ["powershell.exe", "ConsoleWindowClass", ["*PowerShell*"]],
+                   ["cmd.exe", "ConsoleWindowClass", ["*コマンド プロンプト*", "*Command Prompt*"]],
+                   [None, "ConsoleWindowClass", "* - edit"],
                    ]
 
 # Emacs のキーバインドに“しない”アプリケーションソフトを指定する
