@@ -370,7 +370,7 @@ def self_insert_command3(*key_list, usjis_conv=True):
 **** Function
 
 #+BEGIN_EXAMPLE
-def self_insert_command3(*key_list, usjis_conv=True):
+def self_insert_command4(*key_list, usjis_conv=True):
 #+END_EXAMPLE
 
 **** Parameters
