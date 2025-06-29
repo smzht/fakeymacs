@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20250628_03"
+fakeymacs_version = "20250629_01"
 
 import time
 import os
@@ -2102,8 +2102,8 @@ def configure(keymap):
             if ime_status:
                 setImeStatus(0)
             func()
-            delay()
             if ime_status:
+                delay()
                 setImeStatus(1)
         return _func
 
