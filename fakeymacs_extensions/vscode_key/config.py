@@ -294,6 +294,16 @@ def kill_line_v(repeat=1):
     else:
         self_insert_command("C-k")()
 
+def kill_line_v2():
+    if fakeymacs_vscode.vscode_focus == "not_terminal" and not is_terminal_for_direct_input():
+        self_insert_command("C-F4")()
+    else:
+        resetRegion()
+        setMark()
+        mark(move_end_of_line, True)()
+        delay()
+        kill_region()
+
 def yank_v():
     if fakeymacs_vscode.vscode_focus == "not_terminal" and not is_terminal_for_direct_input():
         yank()
@@ -612,6 +622,7 @@ define_key_v("Ctl-x `", reset_search(reset_undo(reset_counter(reset_mark(next_er
 
 ## 「カット / コピー」のキー設定
 define_key_v("C-k", reset_search(reset_undo(reset_counter(reset_mark(repeat3(kill_line_v))))))
+define_key_v("A-k", reset_search(reset_undo(reset_counter(reset_mark(kill_line_v2)))))
 define_key_v("C-y", reset_search(reset_undo(reset_counter(reset_mark(repeat(yank_v))))))
 
 ## 「バッファ / ウィンドウ操作」のキー設定
