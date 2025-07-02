@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20250629_01"
+fakeymacs_version = "20250702_01"
 
 import time
 import os
@@ -1317,7 +1317,10 @@ def configure(keymap):
             resetRegion()
 
     def yank():
-        self_insert_command("C-v")()
+        if checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS"):
+            self_insert_command("C-S-v")()
+        else:
+            self_insert_command("C-v")()
 
     def undo():
         # redo（C-y）の機能を持っていないアプリケーションソフトは常に undo とする
@@ -2950,10 +2953,9 @@ def configure(keymap):
     ##################################################
 
     def lw_newline():
+        self_insert_command("S-Enter")()
         if fakeymacs.is_emacs_target_in_previous_window:
-            self_insert_command("Enter")()
-        else:
-            self_insert_command("S-Enter")()
+            keymap.delayedCall(yank, 200)
 
     def lw_exit_search(func):
         def _func():
