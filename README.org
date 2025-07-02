@@ -260,7 +260,8 @@ Windows Terminal では、複数の種類のターミナルをタブで個別に
 
 なお、Windows Terminal で Ubuntu 等の Linux を利用する際は、設定 -> 二番目にある操作 メニューより、
 「貼り付け」の Ctrl+v は削除しておかないと、Emacs や 以降で紹介する Midnight Commander での
-スクロールアップが正常に動作しないようです。
+スクロールアップが正常に動作しません。Ctrl+v を削除した場合でも、Ctrl+Shift+v が「貼り付け」として
+機能しますので、あまり困ることはないと思います。
 
 ** Microsoft Edit の対応について
 
