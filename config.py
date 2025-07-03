@@ -197,7 +197,7 @@ def configure(keymap):
     #   できます）
     fc.emacs_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
                         ["*PowerShell*", "*コマンド プロンプト*", "*Command Prompt*", "* - edit*", "設定"]],
-                       ["powershell.exe", "ConsoleWindowClass", ["*PowerShell*"]],
+                       ["powershell.exe", "ConsoleWindowClass", "*PowerShell*"],
                        ["cmd.exe", "ConsoleWindowClass", ["*コマンド プロンプト*", "*Command Prompt*"]],
                        [None, "ConsoleWindowClass", "* - edit*"],
                        ]

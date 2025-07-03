@@ -86,10 +86,9 @@ fc.emacs_target_class   = ["Edit",                   # テキスト入力フィ�
 # （fc.not_emacs_target の設定より優先します）
 # （Keyhac のメニューから「内部ログ」を ON にすると、processname や classname を確認することが
 #   できます）
-
 fc.emacs_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
                     ["*PowerShell*", "*コマンド プロンプト*", "*Command Prompt*", "* - edit*", "設定"]],
-                   ["powershell.exe", "ConsoleWindowClass", ["*PowerShell*"]],
+                   ["powershell.exe", "ConsoleWindowClass", "*PowerShell*"],
                    ["cmd.exe", "ConsoleWindowClass", ["*コマンド プロンプト*", "*Command Prompt*"]],
                    [None, "ConsoleWindowClass", "* - edit*"],
                    ]
