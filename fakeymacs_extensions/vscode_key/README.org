@@ -124,7 +124,7 @@ Set-PSReadLineOption -EditMode Emacs
 
 なお、PowerShell の場合、上記の設定をしなくとも、C-k 以外の emacs キーバインドは
 概ね利用可能です。
-また、C-k の代わりに A-k を使うことで、kill_line も利用できるようにしていますので、
+また、C-k の代わりに A-k を使うことで kill_line も利用できるようにしていますので、
 お好みで設定してください。
 
 **** 6) WSL を使う場合の設定を行う
