@@ -124,7 +124,7 @@ Set-PSReadLineOption -EditMode Emacs
 
 なお、PowerShell の場合、上記の設定をしなくとも、C-k 以外の emacs キーバインドは
 概ね利用可能です。
-また、C-k の代わりに A-k を使うことで kill_line も利用できるようにしていますので、
+また、C-k の代わりに A-k を使うことで kill_line を利用できるようにしていますので、
 上記はお好みで設定してください。
 
 **** 6) WSL を使う場合の設定を行う
@@ -360,7 +360,7 @@ VSCode の Preferences: Open User Settings (JSON) の機能で settings.json を
 - https://atmarkit.itmedia.co.jp/ait/articles/0805/16/news139.html
 
 なお、PowerShell の場合、上記の設定をしなくとも、C-k 以外の emacs キーバインドは概ね利用可能です。
-また、C-k の代わりに A-k を使うことで、kill_line も利用できるようにしています。
+また、C-k の代わりに A-k を使うことで、kill_line を利用できるようにしています。
 
 ※ fc.use_direct_input_in_vscode_terminal 変数を True にしている場合、ターミナルから抜けるには
 次のキーを利用するようにしてください。先に説明した４つのキーがターミナル外で機能するキーバインド
