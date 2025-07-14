@@ -267,9 +267,9 @@ Windows Terminal では、複数の種類のターミナルをタブで個別に
 
 Fakeymacs は Microsoft Edit に対応しています。Microsoft Edit は、ターミナルで起動すると、その
 ターミナルのタイトルを「ファイル名 - edit」に置き換える機能をもっています。この機能により、
-Fakeymacs がターミナルで Edit を起動中であることを認識することができます。これは、Windows 版の
-Edit でも Linux 版の Edit でも同様に機能し、さらには ssh で接続した先で Edit を起動した場合でも
-同様に機能します。
+Fakeymacs がターミナルで Edit を起動中であることを認識することができ、Emacs キーバインドに
+切り替えることができます。これは、Windows 版の Edit でも Linux 版の Edit でも同様に機能し、
+さらには ssh で接続した先で Edit を起動した場合でも同様に機能します。
 
 Linux 版の Edit は、次からダウンロードすることができます。一つのバイナリファイルとなって
 いますので、これを edit や msedit というファイル名に置き換え、~/bin などのパスの通った
