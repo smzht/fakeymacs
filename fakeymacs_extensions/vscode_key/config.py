@@ -14,74 +14,91 @@ except:
                                "Firebase Studio - *",
                                ]
 
+# VSCode 用のキーバインドを利用するアプリケーションソフト、置き換えするプレフィックスキーの組み合わせ、
+# 置き換えするキーの組み合わせを指定する（fc.vscode_setting1 ～ fc.vscode_setting5 まで５つ設定可）
+#
+# 辞書型で、次の３つのデータを指定する
+#
+# １）"target"     : VSCode 用のキーバインドを利用するアプリケーションソフトを指定する
+#   （アプリケーションソフトは、プロセス名称のみ（ワイルドカード指定可）、もしくは、プロセス名称、
+#     クラス名称、ウィンドウタイトル（リストによる複数指定可）のリスト（ワイルドカード指定可、
+#     リストの後ろの項目から省略可）を指定してください）
+#
+# ２）"prefix_key" : 置き換えするプレフィックスキーの組み合わせ（置き換え元のキー、置き換え先のキー）
+#                    を指定する（複数指定可）
+#   （プレフィッスクキーの後に入力するキーが、Fakeymacs で置き換えられないようにする対策です）
+#   （同じキーを指定することもできます）
+#   （置き換え先のキーに Meta キー（M-）は指定できません）
+#
+# ３）"replace_key": 置き換えするキーの組み合わせ（置き換え元のキー、置き換え先のキー）を指定する
+#                    （複数指定可）
+#   （置き換え先のキーに Meta キー（M-）は指定できません）
+
 try:
     # 設定されているか？
-    fc.vscode_settings
+    fc.vscode_setting1
 except:
-    # VSCode 用のキーバインドを利用するアプリケーションソフト、置き換えするプレフィックスキーの組み合わせ、
-    # 置き換えするキーの組み合わせを指定する
-    #
-    # 次の３つのデータをもつ辞書型のリストを指定する
-    #
-    # １）"target"     : VSCode 用のキーバインドを利用するアプリケーションソフトを指定する
-    #   （アプリケーションソフトは、プロセス名称のみ（ワイルドカード指定可）、もしくは、プロセス名称、
-    #     クラス名称、ウィンドウタイトル（リストによる複数指定可）のリスト（ワイルドカード指定可、
-    #     リストの後ろの項目から省略可）を指定してください）
-    #
-    # ２）"prefix_key" : 置き換えするプレフィックスキーの組み合わせ（置き換え元のキー、置き換え先のキー）
-    #                    を指定する（複数指定可）
-    #   （プレフィッスクキーの後に入力するキーが、Fakeymacs で置き換えられないようにする対策です）
-    #   （同じキーを指定することもできます）
-    #   （置き換え先のキーに Meta キー（M-）は指定できません）
-    #
-    # ３）"replace_key": 置き換えするキーの組み合わせ（置き換え元のキー、置き換え先のキー）を指定する
-    #                    （複数指定可）
-    #   （置き換え先のキーに Meta キー（M-）は指定できません）
+    fc.vscode_setting1 = {"target"     : ["Code.exe",
+                                          ["chrome.exe",  "Chrome_WidgetWin_1", fc.vscode_browser_title],
+                                          ["msedge.exe",  "Chrome_WidgetWin_1", fc.vscode_browser_title],
+                                          ["firefox.exe", "MozillaWindowClass", fc.vscode_browser_title],
+                                          ["mstsc.exe",   "RAIL_WINDOW",        fc.vscode_browser_title],
+                                          ],
+                          "prefix_key" : [["C-k", "C-A-k"],
+                                          ],
+                          "replace_key": [["C-i", "C-i"],
+                                          ]
+                          }
 
-    fc.vscode_settings  = [{"target"     : ["Code.exe",
-                                            ["chrome.exe",  "Chrome_WidgetWin_1", fc.vscode_browser_title],
-                                            ["msedge.exe",  "Chrome_WidgetWin_1", fc.vscode_browser_title],
-                                            ["firefox.exe", "MozillaWindowClass", fc.vscode_browser_title],
-                                            ["mstsc.exe",   "RAIL_WINDOW",        fc.vscode_browser_title],
-                                            ],
-                            "prefix_key" : [["C-k", "C-A-k"],
-                                            ],
-                            "replace_key": [["C-i", "C-i"],
-                                            ]
-                            },
+try:
+    # 設定されているか？
+    fc.vscode_setting2
+except:
+    fc.vscode_setting2 = {"target"     : ["Cursor.exe",
+                                          ],
+                          "prefix_key" : [["C-k", "C-A-k"],
+                                          ["C-m", "C-A-m"],
+                                          ],
+                          "replace_key": [["C-i", "C-i"],
+                                          ["C-i", "C-A-i"],
+                                          ["C-e", "C-A-e"],
+                                          ["C-l", "C-A-l"],
+                                          ]
+                          }
 
-                           {"target"     : ["Cursor.exe",
-                                            ],
-                            "prefix_key" : [["C-k", "C-A-k"],
-                                            ["C-m", "C-A-m"],
-                                            ],
-                            "replace_key": [["C-i", "C-i"],
-                                            ["C-i", "C-A-i"],
-                                            ["C-e", "C-A-e"],
-                                            ["C-l", "C-A-l"],
-                                            ]
-                            },
+try:
+    # 設定されているか？
+    fc.vscode_setting3
+except:
+    fc.vscode_setting3 = {"target"     : ["Windsurf.exe",
+                                          ],
+                          "prefix_key" : [["C-k", "C-A-k"],
+                                          ],
+                          "replace_key": [["C-i", "C-i"],
+                                          ["C-i", "C-A-i"],
+                                          ["C-l", "C-A-l"],
+                                          ]
+                          }
 
-                           {"target"     : ["Windsurf.exe",
-                                            ],
-                            "prefix_key" : [["C-k", "C-A-k"],
-                                            ],
-                            "replace_key": [["C-i", "C-i"],
-                                            ["C-i", "C-A-i"],
-                                            ["C-l", "C-A-l"],
-                                            ]
-                            },
+try:
+    # 設定されているか？
+    fc.vscode_setting4
+except:
+    fc.vscode_setting4 = {"target"     : ["Kiro.exe",
+                                          ],
+                          "prefix_key" : [["C-k", "C-A-k"],
+                                          ],
+                          "replace_key": [["C-i", "C-i"],
+                                          ["C-i", "C-A-i"],
+                                          ["C-l", "C-A-l"],
+                                          ]
+                          }
 
-                           {"target"     : ["Kiro.exe",
-                                            ],
-                            "prefix_key" : [["C-k", "C-A-k"],
-                                            ],
-                            "replace_key": [["C-i", "C-i"],
-                                            ["C-i", "C-A-i"],
-                                            ["C-l", "C-A-l"],
-                                            ]
-                            },
-                           ]
+try:
+    # 設定されているか？
+    fc.vscode_setting5
+except:
+    fc.vscode_setting5 = {}
 
 try:
     # 設定されているか？
@@ -134,7 +151,13 @@ fakeymacs_vscode.vscode_focus = "not_terminal"
 fakeymacs_vscode.rectangle_mode = False
 fakeymacs_vscode.post_processing = None
 
-vscode_target = [app for vscode_setting in fc.vscode_settings for app in vscode_setting["target"]]
+vscode_target = [app for vscode_setting in [fc.vscode_setting1,
+                                            fc.vscode_setting2,
+                                            fc.vscode_setting3,
+                                            fc.vscode_setting4,
+                                            fc.vscode_setting5] if vscode_setting
+                 for app in vscode_setting["target"]]
+
 regex = "|".join([fnmatch.translate(app) for app in vscode_target if type(app) is str])
 if regex == "": regex = "$." # 絶対にマッチしない正規表現
 vscode_target1 = re.compile(regex)
@@ -704,8 +727,13 @@ def set_vscode_target(vscode_setting):
     for key1, key2 in vscode_setting["replace_key"]:
         define_key(keymap_target, key2, self_insert_command(key1))
 
-for vscode_setting in fc.vscode_settings:
-    set_vscode_target(vscode_setting)
+for vscode_setting in [fc.vscode_setting1,
+                       fc.vscode_setting2,
+                       fc.vscode_setting3,
+                       fc.vscode_setting4,
+                       fc.vscode_setting5]:
+    if vscode_setting:
+        set_vscode_target(vscode_setting)
 
 # --------------------------------------------------------------------------------------------------
 
