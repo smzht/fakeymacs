@@ -134,7 +134,7 @@ fakeymacs_vscode.vscode_focus = "not_terminal"
 fakeymacs_vscode.rectangle_mode = False
 fakeymacs_vscode.post_processing = None
 
-vscode_target = [target for dict in fc.vscode_settings for target in dict["target"]]
+vscode_target = [app for vscode_setting in fc.vscode_settings for app in vscode_setting["target"]]
 regex = "|".join([fnmatch.translate(app) for app in vscode_target if type(app) is str])
 if regex == "": regex = "$." # 絶対にマッチしない正規表現
 vscode_target1 = re.compile(regex)
