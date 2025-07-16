@@ -16,105 +16,72 @@ except:
 
 try:
     # 設定されているか？
-    fc.vscode_target
+    fc.vscode_settings
 except:
-    # VSCode 用のキーバインドを利用するアプリケーションソフトを指定する
-    # （アプリケーションソフトは、プロセス名称のみ（ワイルドカード指定可）、もしくは、プロセス名称、
-    #   クラス名称、ウィンドウタイトル（リストによる複数指定可）のリスト（ワイルドカード指定可、
-    #   リストの後ろの項目から省略可）を指定してください）
-    fc.vscode_target = ["Code.exe",
-                        ["chrome.exe",  "Chrome_WidgetWin_1", fc.vscode_browser_title],
-                        ["msedge.exe",  "Chrome_WidgetWin_1", fc.vscode_browser_title],
-                        ["firefox.exe", "MozillaWindowClass", fc.vscode_browser_title],
-                        ["mstsc.exe",   "RAIL_WINDOW",        fc.vscode_browser_title],
-                        ]
+    # VSCode 用のキーバインドを利用するアプリケーションソフト、置き換えするプレフィックスキーの組み合わせ、
+    # 置き換えするキーの組み合わせを指定する
+    #
+    # 次の３つのデータをもつ辞書型のリストを指定する
+    #
+    # １）"target"     : VSCode 用のキーバインドを利用するアプリケーションソフトを指定する
+    #   （アプリケーションソフトは、プロセス名称のみ（ワイルドカード指定可）、もしくは、プロセス名称、
+    #     クラス名称、ウィンドウタイトル（リストによる複数指定可）のリスト（ワイルドカード指定可、
+    #     リストの後ろの項目から省略可）を指定してください）
+    #
+    # ２）"prefix_key" : 置き換えするプレフィックスキーの組み合わせ（置き換え元のキー、置き換え先のキー）
+    #                    を指定する（複数指定可）
+    #   （プレフィッスクキーの後に入力するキーが、Fakeymacs で置き換えられないようにする対策です）
+    #   （同じキーを指定することもできます）
+    #   （置き換え先のキーに Meta キー（M-）は指定できません）
+    #
+    # ３）"replace_key": 置き換えするキーの組み合わせ（置き換え元のキー、置き換え先のキー）を指定する
+    #                    （複数指定可）
+    #   （置き換え先のキーに Meta キー（M-）は指定できません）
 
-try:
-    # 設定されているか？
-    fc.cursor_target
-except:
-    # Cursor 用のキーバインドを利用するアプリケーションソフトを指定する
-    # （アプリケーションソフトは、プロセス名称のみ（ワイルドカード指定可）、もしくは、プロセス名称、
-    #   クラス名称、ウィンドウタイトル（リストによる複数指定可）のリスト（ワイルドカード指定可、
-    #   リストの後ろの項目から省略可）を指定してください）
-    fc.cursor_target = ["Cursor.exe",
-                        ]
+    fc.vscode_settings  = [{"target"     : ["Code.exe",
+                                            ["chrome.exe",  "Chrome_WidgetWin_1", fc.vscode_browser_title],
+                                            ["msedge.exe",  "Chrome_WidgetWin_1", fc.vscode_browser_title],
+                                            ["firefox.exe", "MozillaWindowClass", fc.vscode_browser_title],
+                                            ["mstsc.exe",   "RAIL_WINDOW",        fc.vscode_browser_title],
+                                            ],
+                            "prefix_key" : [["C-k", "C-A-k"],
+                                            ],
+                            "replace_key": [["C-i", "C-i"],
+                                            ]
+                            },
 
-fc.vscode_target += fc.cursor_target
+                           {"target"     : ["Cursor.exe",
+                                            ],
+                            "prefix_key" : [["C-k", "C-A-k"],
+                                            ["C-m", "C-A-m"],
+                                            ],
+                            "replace_key": [["C-i", "C-i"],
+                                            ["C-i", "C-A-i"],
+                                            ["C-e", "C-A-e"],
+                                            ["C-l", "C-A-l"],
+                                            ]
+                            },
 
-try:
-    # 設定されているか？
-    fc.windsurf_target
-except:
-    # Windsurf 用のキーバインドを利用するアプリケーションソフトを指定する
-    # （アプリケーションソフトは、プロセス名称のみ（ワイルドカード指定可）、もしくは、プロセス名称、
-    #   クラス名称、ウィンドウタイトル（リストによる複数指定可）のリスト（ワイルドカード指定可、
-    #   リストの後ろの項目から省略可）を指定してください）
-    fc.windsurf_target = ["Windsurf.exe",
-                          ]
+                           {"target"     : ["Windsurf.exe",
+                                            ],
+                            "prefix_key" : [["C-k", "C-A-k"],
+                                            ],
+                            "replace_key": [["C-i", "C-i"],
+                                            ["C-i", "C-A-i"],
+                                            ["C-l", "C-A-l"],
+                                            ]
+                            },
 
-fc.vscode_target += fc.windsurf_target
-
-try:
-    # 設定されているか？
-    fc.vscode_prefix_key
-except:
-    # 置き換えするプレフィックスキーの組み合わせ（VSCode のキー、Fakeymacs のキー）を指定する（複数指定可）
-    # （プレフィッスクキーの後に入力するキーが、Fakeymacs で置き換えられないようにする対策です）
-    # （同じキーを指定することもできます）
-    # （Fakeymacs のキーに Meta キー（M-）は指定できません）
-    fc.vscode_prefix_key = [["C-k", "C-A-k"],
-                            ]
-
-try:
-    # 設定されているか？
-    fc.cursor_prefix_key
-except:
-    # 置き換えするプレフィックスキーの組み合わせ（Cursor のキー、Fakeymacs のキー）を指定する（複数指定可）
-    # （プレフィッスクキーの後に入力するキーが、Fakeymacs で置き換えられないようにする対策です）
-    # （同じキーを指定することもできます）
-    # （Fakeymacs のキーに Meta キー（M-）は指定できません）
-    fc.cursor_prefix_key = [["C-m", "C-A-m"],
-                            ]
-
-try:
-    # 設定されているか？
-    fc.windsurf_prefix_key
-except:
-    # 置き換えするプレフィックスキーの組み合わせ（Windsurf のキー、Fakeymacs のキー）を指定する（複数指定可）
-    # （プレフィッスクキーの後に入力するキーが、Fakeymacs で置き換えられないようにする対策です）
-    # （同じキーを指定することもできます）
-    # （Fakeymacs のキーに Meta キー（M-）は指定できません）
-    fc.windsurf_prefix_key = []
-
-try:
-    # 設定されているか？
-    fc.vscode_replace_key
-except:
-    # 置き換えするキーの組み合わせ（VSCode のキー、Fakeymacs のキー）を指定する（複数指定可）
-    # （Fakeymacs のキーに Meta キー（M-）は指定できません）
-    fc.vscode_replace_key = []
-
-try:
-    # 設定されているか？
-    fc.cursor_replace_key
-except:
-    # 置き換えするキーの組み合わせ（Cursor のキー、Fakeymacs のキー）を指定する（複数指定可）
-    # （Fakeymacs のキーに Meta キー（M-）は指定できません）
-    fc.cursor_replace_key = [["C-i", "C-A-i"],
-                             ["C-e", "C-A-e"],
-                             ["C-l", "C-A-l"],
-                             ]
-
-try:
-    # 設定されているか？
-    fc.windsurf_replace_key
-except:
-    # 置き換えするキーの組み合わせ（Windsurf のキー、Fakeymacs のキー）を指定する（複数指定可）
-    # （Fakeymacs のキーに Meta キー（M-）は指定できません）
-    fc.windsurf_replace_key = [["C-i", "C-A-i"],
-                               ["C-l", "C-A-l"],
-                               ]
+                           {"target"     : ["Kiro.exe",
+                                            ],
+                            "prefix_key" : [["C-k", "C-A-k"],
+                                            ],
+                            "replace_key": [["C-i", "C-i"],
+                                            ["C-i", "C-A-i"],
+                                            ["C-l", "C-A-l"],
+                                            ]
+                            },
+                           ]
 
 try:
     # 設定されているか？
@@ -167,10 +134,11 @@ fakeymacs_vscode.vscode_focus = "not_terminal"
 fakeymacs_vscode.rectangle_mode = False
 fakeymacs_vscode.post_processing = None
 
-regex = "|".join([fnmatch.translate(app) for app in fc.vscode_target if type(app) is str])
+vscode_target = [target for dict in fc.vscode_settings for target in dict["target"]]
+regex = "|".join([fnmatch.translate(app) for app in vscode_target if type(app) is str])
 if regex == "": regex = "$." # 絶対にマッチしない正規表現
 vscode_target1 = re.compile(regex)
-vscode_target2 = [app for app in fc.vscode_target if type(app) is list]
+vscode_target2 = [app for app in vscode_target if type(app) is list]
 
 def is_vscode_target(window):
     global vscode_target_status
@@ -595,16 +563,6 @@ def mergeEmacsMultiStrokeKeymap():
 ## keymap_emacs キーマップのマルチストロークキーの設定を keymap_vscode キーマップにマージする
 keymap_vscode.applying_func = mergeEmacsMultiStrokeKeymap
 
-## VSCode 用プレフィックスキーの置き換え設定
-for pkey1, pkey2 in fc.vscode_prefix_key:
-    define_key_v(pkey2, keymap.defineMultiStrokeKeymap(f"<VSCode> {pkey1}"))
-
-    for vkey in vkeys():
-        key = vkToStr(vkey)
-        for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
-            mkey = mod1 + mod2 + mod3 + mod4 + key
-            define_key_v(f"{pkey2} {mkey}", self_insert_command4(pkey1, mkey))
-
 ## 「ファイル操作」のキー設定
 define_key_v("Ctl-x C-d", reset_search(reset_undo(reset_counter(reset_mark(find_directory)))))
 define_key_v("Ctl-x C-r", reset_search(reset_undo(reset_counter(reset_mark(recentf)))))
@@ -702,97 +660,52 @@ else:
 if use_usjis_keyboard_conversion:
     define_key_v("C-=", zoom_in)
 
-## キーの置き換え設定
-for key1, key2 in fc.vscode_replace_key:
-    define_key_v(key2, self_insert_command(key1))
-
 # --------------------------------------------------------------------------------------------------
 
-# Cursor 用の追加設定
+# エディタターゲット毎のキーバインドの追加設定
 
-def define_key_c(keys, command):
-    define_key(keymap_cursor, keys, command)
+def set_vscode_target(vscode_setting):
+    regex = "|".join([fnmatch.translate(app) for app in vscode_setting["target"] if type(app) is str])
+    if regex == "": regex = "$." # 絶対にマッチしない正規表現
+    target1 = re.compile(regex)
+    target2 = [app for app in vscode_setting["target"] if type(app) is list]
 
-regex = "|".join([fnmatch.translate(app) for app in fc.cursor_target if type(app) is str])
-if regex == "": regex = "$." # 絶対にマッチしない正規表現
-cursor_target1 = re.compile(regex)
-cursor_target2 = [app for app in fc.cursor_target if type(app) is list]
+    target_status = False
 
-def is_cursor_target(window):
-    global cursor_target_status
+    def is_target(window):
+        nonlocal target_status
 
-    if window is not fakeymacs.last_window or fakeymacs.force_update:
-        if (vscode_target_status == True and
-            (cursor_target1.match(getProcessName(window)) or
-             any(checkWindow(*app, window=window) for app in cursor_target2))):
-            cursor_target_status = True
-        else:
-            cursor_target_status = False
+        if window is not fakeymacs.last_window or fakeymacs.force_update:
+            if (vscode_target_status == True and
+                (target1.match(getProcessName(window)) or
+                 any(checkWindow(*app, window=window) for app in target2))):
+                target_status = True
+            else:
+                target_status = False
 
-    return cursor_target_status
+        return target_status
 
-if fc.use_emacs_ime_mode:
-    keymap_cursor = keymap.defineWindowKeymap(check_func=lambda wnd: is_cursor_target(wnd) and not is_emacs_ime_mode(wnd))
-else:
-    keymap_cursor = keymap.defineWindowKeymap(check_func=is_cursor_target)
+    if fc.use_emacs_ime_mode:
+        keymap_target = keymap.defineWindowKeymap(check_func=lambda wnd: is_target(wnd) and not is_emacs_ime_mode(wnd))
+    else:
+        keymap_target = keymap.defineWindowKeymap(check_func=is_target)
 
-## Cursor 用プレフィックスキーの置き換え設定
-for pkey1, pkey2 in fc.cursor_prefix_key:
-    define_key_c(pkey2, keymap.defineMultiStrokeKeymap(f"<Cursor> {pkey1}"))
+    ## プレフィックスキーの置き換え設定
+    for pkey1, pkey2 in vscode_setting["prefix_key"]:
+        define_key(keymap_target, pkey2, keymap.defineMultiStrokeKeymap(f"<VSCode> {pkey1}"))
 
-    for vkey in vkeys():
-        key = vkToStr(vkey)
-        for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
-            mkey = mod1 + mod2 + mod3 + mod4 + key
-            define_key_c(f"{pkey2} {mkey}", self_insert_command4(pkey1, mkey))
+        for vkey in vkeys():
+            key = vkToStr(vkey)
+            for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
+                mkey = mod1 + mod2 + mod3 + mod4 + key
+                define_key(keymap_target, f"{pkey2} {mkey}", self_insert_command4(pkey1, mkey))
 
-## キーの置き換え設定
-for key1, key2 in fc.cursor_replace_key:
-    define_key_c(key2, self_insert_command(key1))
+    ## キーの置き換え設定
+    for key1, key2 in vscode_setting["replace_key"]:
+        define_key(keymap_target, key2, self_insert_command(key1))
 
-# --------------------------------------------------------------------------------------------------
-
-# Windsurf 用の追加設定
-
-def define_key_w(keys, command):
-    define_key(keymap_windsurf, keys, command)
-
-regex = "|".join([fnmatch.translate(app) for app in fc.windsurf_target if type(app) is str])
-if regex == "": regex = "$." # 絶対にマッチしない正規表現
-windsurf_target1 = re.compile(regex)
-windsurf_target2 = [app for app in fc.windsurf_target if type(app) is list]
-
-def is_windsurf_target(window):
-    global winsurf_target_status
-
-    if window is not fakeymacs.last_window or fakeymacs.force_update:
-        if (vscode_target_status == True and
-            (windsurf_target1.match(getProcessName(window)) or
-             any(checkWindow(*app, window=window) for app in windsurf_target2))):
-            winsurf_target_status = True
-        else:
-            winsurf_target_status = False
-
-    return winsurf_target_status
-
-if fc.use_emacs_ime_mode:
-    keymap_windsurf = keymap.defineWindowKeymap(check_func=lambda wnd: is_windsurf_target(wnd) and not is_emacs_ime_mode(wnd))
-else:
-    keymap_windsurf = keymap.defineWindowKeymap(check_func=is_windsurf_target)
-
-## Windsurf 用プレフィックスキーの置き換え設定
-for pkey1, pkey2 in fc.windsurf_prefix_key:
-    define_key_w(pkey2, keymap.defineMultiStrokeKeymap(f"<Windsurf> {pkey1}"))
-
-    for vkey in vkeys():
-        key = vkToStr(vkey)
-        for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
-            mkey = mod1 + mod2 + mod3 + mod4 + key
-            define_key_w(f"{pkey2} {mkey}", self_insert_command4(pkey1, mkey))
-
-## キーの置き換え設定
-for key1, key2 in fc.windsurf_replace_key:
-    define_key_w(key2, self_insert_command(key1))
+for vscode_setting in fc.vscode_settings:
+    set_vscode_target(vscode_setting)
 
 # --------------------------------------------------------------------------------------------------
 
