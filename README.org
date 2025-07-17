@@ -306,8 +306,9 @@ Midnight Commander の使い方は次のページに紹介されていますの�
 space_fn 拡張機能を利用すると、Space+<数字キー> でファンクションキーが利用できるように
 なるなど、操作性が良くなると思います。
 
-また、config_personal.py の [section-base-2] セクションに次の設定をすると、プレフィックス
-キーの Esc や C-x を使う際に、IME を OFF にする機能が働き、使い勝手が良くなると思います。
+また、config_personal.py の [section-base-2] セクションにある次の設定を有効にすると、
+プレフィックスキーの Esc や C-x を使う際に、IME を OFF にする機能が働き、使い勝手が
+良くなると思います。
 
 #+BEGIN_EXAMPLE
 # キーを入力した後に、IME を OFF にする設定
