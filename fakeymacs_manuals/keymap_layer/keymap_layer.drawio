@@ -1,26 +1,26 @@
-<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.1.1 Chrome/132.0.6834.210 Electron/34.3.3 Safari/537.36" version="26.1.1">
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.0.4 Chrome/138.0.7204.97 Electron/37.2.1 Safari/537.36" version="28.0.4">
   <diagram name="ページ1" id="5GmA5azT59qMRVNA7XrL">
-    <mxGraphModel dx="3756" dy="820" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="3030" dy="1081" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="R3ex-nuZuo4BqBKcZroz-3" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=0;" parent="1" vertex="1">
-          <mxGeometry x="-1440" y="80" width="2000" height="760" as="geometry" />
+          <mxGeometry x="-1120" y="80" width="1680" height="710" as="geometry" />
         </mxCell>
         <mxCell id="ZNUdISC1LJWlkmwr6NwV-11" value="適用&lt;br style=&quot;font-size: 18px;&quot;&gt;keymap&lt;br style=&quot;font-size: 18px;&quot;&gt;なし" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=4;fontSize=18;fillColor=#dbdbdb;fontColor=#333333;strokeColor=#000000;" parent="1" vertex="1">
-          <mxGeometry x="-120" y="500" width="160" height="180" as="geometry" />
+          <mxGeometry x="-120" y="500" width="160" height="120" as="geometry" />
         </mxCell>
         <mxCell id="8uGnQqRoo8XHkAc7qmPf-10" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;keymap_global&lt;br&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=4;align=center;" parent="1" vertex="1">
-          <mxGeometry x="-1080" y="440" width="1600" height="60" as="geometry" />
+          <mxGeometry x="-750" y="440" width="1270" height="60" as="geometry" />
         </mxCell>
         <mxCell id="8uGnQqRoo8XHkAc7qmPf-1" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;keymap_base&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=4;" parent="1" vertex="1">
-          <mxGeometry x="-920" y="680" width="1440" height="60" as="geometry" />
+          <mxGeometry x="-590" y="620" width="1110" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="8uGnQqRoo8XHkAc7qmPf-2" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;　　　　　　　&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;　　 keymap_emacs&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=4;fillColor=#ffcccc;strokeColor=#36393d;" parent="1" vertex="1">
-          <mxGeometry x="-930" y="500" width="650" height="180" as="geometry" />
+        <mxCell id="8uGnQqRoo8XHkAc7qmPf-2" value="&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-size: 18px;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-size: 18px;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-size: 18px;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-size: 18px;&quot;&gt;keymap_emacs&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=4;fillColor=#ffcccc;strokeColor=#36393d;" parent="1" vertex="1">
+          <mxGeometry x="-590" y="500" width="320" height="120" as="geometry" />
         </mxCell>
         <mxCell id="8uGnQqRoo8XHkAc7qmPf-4" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;keymap_ime&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=4;fillColor=#cce5ff;strokeColor=#36393d;" parent="1" vertex="1">
-          <mxGeometry x="-280" y="500" width="160" height="180" as="geometry" />
+          <mxGeometry x="-280" y="500" width="160" height="120" as="geometry" />
         </mxCell>
         <mxCell id="8uGnQqRoo8XHkAc7qmPf-7" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;keymap_tsw&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=4;" parent="1" vertex="1">
           <mxGeometry x="200" y="380" width="160" height="60" as="geometry" />
@@ -28,8 +28,8 @@
         <mxCell id="8uGnQqRoo8XHkAc7qmPf-8" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;keymap_lw&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=4;" parent="1" vertex="1">
           <mxGeometry x="360" y="380" width="160" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="8uGnQqRoo8XHkAc7qmPf-9" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; keymap_vscode&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=4;fillColor=#ffcc99;strokeColor=#36393d;" parent="1" vertex="1">
-          <mxGeometry x="-920" y="500" width="480" height="120" as="geometry" />
+        <mxCell id="8uGnQqRoo8XHkAc7qmPf-9" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;keymap_vscode&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=4;fillColor=#ffcc99;strokeColor=#36393d;" parent="1" vertex="1">
+          <mxGeometry x="-590" y="500" width="160" height="60" as="geometry" />
         </mxCell>
         <mxCell id="8uGnQqRoo8XHkAc7qmPf-16" value="リスト&lt;br&gt;ウィンドウ&lt;br&gt;表示時&lt;br&gt;　" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0.33;dx=38;direction=south;notch=0;strokeWidth=1;" parent="1" vertex="1">
           <mxGeometry x="370" y="240" width="140" height="120" as="geometry" />
@@ -38,70 +38,58 @@
           <mxGeometry x="210" y="240" width="140" height="120" as="geometry" />
         </mxCell>
         <mxCell id="NDCZV5FXc2qCAnFAwnTU-1" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;flipH=1;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;rotation=-90;" parent="1" vertex="1">
-          <mxGeometry x="-450" y="-760" width="20" height="1920" as="geometry" />
+          <mxGeometry x="-285" y="-595" width="20" height="1590" as="geometry" />
         </mxCell>
         <mxCell id="y4j9JO9H34aeiVaLA8et-1" value="適用&lt;br style=&quot;font-size: 18px;&quot;&gt;keymap&lt;br style=&quot;font-size: 18px;&quot;&gt;なし" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=4;fontSize=18;fillColor=#dbdbdb;fontColor=#333333;strokeColor=#000000;" parent="1" vertex="1">
-          <mxGeometry x="200" y="500" width="160" height="180" as="geometry" />
+          <mxGeometry x="200" y="500" width="160" height="120" as="geometry" />
         </mxCell>
         <mxCell id="y4j9JO9H34aeiVaLA8et-2" value="適用&lt;br style=&quot;font-size: 18px;&quot;&gt;keymap&lt;br style=&quot;font-size: 18px;&quot;&gt;なし" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=4;fontSize=18;fillColor=#dbdbdb;fontColor=#333333;strokeColor=#000000;" parent="1" vertex="1">
-          <mxGeometry x="360" y="500" width="160" height="180" as="geometry" />
+          <mxGeometry x="360" y="500" width="160" height="120" as="geometry" />
         </mxCell>
         <mxCell id="lBYjtZXbLTm1N8DoIs26-1" value="keymap_remote" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=4;fontSize=18;" parent="1" vertex="1">
-          <mxGeometry x="-1400" y="440" width="160" height="300" as="geometry" />
+          <mxGeometry x="-1070" y="440" width="160" height="240" as="geometry" />
         </mxCell>
         <mxCell id="lBYjtZXbLTm1N8DoIs26-3" value="" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;strokeWidth=2;" parent="1" vertex="1">
-          <mxGeometry x="-455" y="107" width="30" height="60" as="geometry" />
+          <mxGeometry x="-290" y="107" width="30" height="60" as="geometry" />
         </mxCell>
         <mxCell id="8uGnQqRoo8XHkAc7qmPf-6" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;keymap_ei&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=4;fillColor=#cdeb8b;strokeColor=#36393d;" parent="1" vertex="1">
-          <mxGeometry x="40" y="500" width="160" height="180" as="geometry" />
+          <mxGeometry x="40" y="500" width="160" height="120" as="geometry" />
         </mxCell>
         <mxCell id="8uGnQqRoo8XHkAc7qmPf-24" value="適用&lt;br style=&quot;font-size: 18px;&quot;&gt;keymap&lt;br style=&quot;font-size: 18px;&quot;&gt;なし" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=4;fontSize=18;fillColor=#dbdbdb;fontColor=#333333;strokeColor=#000000;" parent="1" vertex="1">
-          <mxGeometry x="-1080" y="500" width="160" height="240" as="geometry" />
+          <mxGeometry x="-750" y="500" width="160" height="180" as="geometry" />
         </mxCell>
         <mxCell id="8uGnQqRoo8XHkAc7qmPf-15" value="適用&lt;br style=&quot;font-size: 18px;&quot;&gt;keymap&lt;br style=&quot;font-size: 18px;&quot;&gt;なし" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=4;fontSize=18;fillColor=#dbdbdb;fontColor=#333333;strokeColor=#000000;" parent="1" vertex="1">
-          <mxGeometry x="-1240" y="440" width="160" height="300" as="geometry" />
+          <mxGeometry x="-910" y="440" width="160" height="240" as="geometry" />
         </mxCell>
         <mxCell id="9zCoiUO8UtqV8FVcG8kC-1" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;PC&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=4;fillColor=#999999;" parent="1" vertex="1">
-          <mxGeometry x="-1400" y="740" width="1920" height="60" as="geometry" />
+          <mxGeometry x="-1070" y="680" width="1590" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="gziYy8DDYO_H2cKHDIVB-1" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;keymap_cursor&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=4;fillColor=#fff2cc;strokeColor=#000000;" parent="1" vertex="1">
-          <mxGeometry x="-920" y="500" width="160" height="60" as="geometry" />
+        <mxCell id="lBYjtZXbLTm1N8DoIs26-12" value="リモート&lt;div&gt;デスクトップ&lt;/div&gt;&lt;div&gt;アプリ&lt;/div&gt;&lt;div&gt;利用時&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;（capslock_key&amp;nbsp;&amp;nbsp;&lt;/div&gt;&lt;div&gt;Extension&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp;有効時）&lt;/div&gt;&lt;/div&gt;" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0.33;dx=38;direction=south;notch=0;strokeWidth=1;" parent="1" vertex="1">
+          <mxGeometry x="-1060" y="240" width="140" height="170" as="geometry" />
         </mxCell>
-        <mxCell id="b9cJw6TPrNrNeEvLALqt-3" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;keymap_windsurf&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=4;fillColor=#e1d5e7;strokeColor=#000000;" parent="1" vertex="1">
-          <mxGeometry x="-760" y="500" width="160" height="60" as="geometry" />
+        <mxCell id="8uGnQqRoo8XHkAc7qmPf-18" value="Emacs&lt;br&gt;日本語入力&lt;br&gt;モード&lt;br&gt;移行時&lt;br&gt;　" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0.33;dx=38;direction=south;notch=0;strokeWidth=1;" parent="1" vertex="1">
+          <mxGeometry x="50" y="240" width="140" height="170.00000000000003" as="geometry" />
         </mxCell>
-        <mxCell id="b9cJw6TPrNrNeEvLALqt-15" value="" style="group" parent="1" vertex="1" connectable="0">
-          <mxGeometry x="-1390" y="240" width="1580" height="170" as="geometry" />
+        <mxCell id="8uGnQqRoo8XHkAc7qmPf-19" value="IME&lt;br&gt;の切り替え&lt;br&gt;のみをしたい&lt;br&gt;アプリ&lt;br&gt;利用時&lt;br&gt;　" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0.33;dx=38;direction=south;notch=0;strokeWidth=1;" parent="1" vertex="1">
+          <mxGeometry x="-270" y="240" width="140" height="170.00000000000003" as="geometry" />
         </mxCell>
-        <mxCell id="b9cJw6TPrNrNeEvLALqt-14" value="Cursor&lt;br&gt;利用時&lt;div&gt;&lt;br&gt;&lt;div&gt;&lt;div&gt;（vscode_key&amp;nbsp;&amp;nbsp;&lt;/div&gt;&lt;div&gt;Extension&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp;有効時）&lt;br&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0.33;dx=38;direction=south;notch=0;strokeWidth=1;" parent="b9cJw6TPrNrNeEvLALqt-15" vertex="1">
-          <mxGeometry x="480" width="140" height="170.00000000000003" as="geometry" />
+        <mxCell id="8uGnQqRoo8XHkAc7qmPf-20" value="VSCode&lt;br&gt;利用時&lt;div&gt;&lt;br&gt;&lt;div&gt;（vscode_key&amp;nbsp;&amp;nbsp;&lt;/div&gt;&lt;div&gt;Extension&lt;/div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp; &amp;nbsp;有効時）&lt;/span&gt;　&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0.33;dx=38;direction=south;notch=0;strokeWidth=1;" parent="1" vertex="1">
+          <mxGeometry x="-580" y="240" width="140" height="170.00000000000003" as="geometry" />
         </mxCell>
-        <mxCell id="lBYjtZXbLTm1N8DoIs26-12" value="リモート&lt;div&gt;デスクトップ&lt;/div&gt;&lt;div&gt;アプリ&lt;/div&gt;&lt;div&gt;利用時&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;（capslock_key&amp;nbsp;&amp;nbsp;&lt;/div&gt;&lt;div&gt;Extension&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp;有効時）&lt;/div&gt;&lt;/div&gt;" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0.33;dx=38;direction=south;notch=0;strokeWidth=1;" parent="b9cJw6TPrNrNeEvLALqt-15" vertex="1">
-          <mxGeometry width="140" height="170" as="geometry" />
+        <mxCell id="8uGnQqRoo8XHkAc7qmPf-21" value="Emacs&lt;br&gt;キーバインド&lt;br&gt;を適用する&lt;br&gt;アプリ&lt;br&gt;利用時&lt;br&gt;　" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0.33;dx=38;direction=south;notch=0;strokeWidth=1;" parent="1" vertex="1">
+          <mxGeometry x="-425" y="240" width="140" height="170.00000000000003" as="geometry" />
         </mxCell>
-        <mxCell id="gziYy8DDYO_H2cKHDIVB-2" value="Windsurf&lt;br&gt;利用時&lt;div&gt;&lt;br&gt;&lt;div&gt;&lt;div&gt;（vscode_key&amp;nbsp;&amp;nbsp;&lt;/div&gt;&lt;div&gt;Extension&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp;有効時）&lt;br&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0.33;dx=38;direction=south;notch=0;strokeWidth=1;" parent="b9cJw6TPrNrNeEvLALqt-15" vertex="1">
-          <mxGeometry x="640" width="140" height="170.00000000000003" as="geometry" />
+        <mxCell id="8uGnQqRoo8XHkAc7qmPf-22" value="fc.game&lt;br&gt;_app_list&lt;br&gt;指定&lt;br&gt;アプリ&lt;br&gt;利用時&lt;br&gt;　" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0.33;dx=38;direction=south;notch=0;strokeWidth=1;" parent="1" vertex="1">
+          <mxGeometry x="-740" y="240" width="140" height="170.00000000000003" as="geometry" />
         </mxCell>
-        <mxCell id="8uGnQqRoo8XHkAc7qmPf-18" value="Emacs&lt;br&gt;日本語入力&lt;br&gt;モード&lt;br&gt;移行時&lt;br&gt;　" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0.33;dx=38;direction=south;notch=0;strokeWidth=1;" parent="b9cJw6TPrNrNeEvLALqt-15" vertex="1">
-          <mxGeometry x="1440" width="140" height="170.00000000000003" as="geometry" />
+        <mxCell id="8uGnQqRoo8XHkAc7qmPf-23" value="透過指定&lt;br&gt;アプリ&lt;br&gt;利用時&lt;br&gt;　" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0.33;dx=38;direction=south;notch=0;strokeWidth=1;" parent="1" vertex="1">
+          <mxGeometry x="-900" y="240" width="140" height="170.00000000000003" as="geometry" />
         </mxCell>
-        <mxCell id="8uGnQqRoo8XHkAc7qmPf-19" value="IME&lt;br&gt;の切り替え&lt;br&gt;のみをしたい&lt;br&gt;アプリ&lt;br&gt;利用時&lt;br&gt;　" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0.33;dx=38;direction=south;notch=0;strokeWidth=1;" parent="b9cJw6TPrNrNeEvLALqt-15" vertex="1">
-          <mxGeometry x="1120" width="140" height="170.00000000000003" as="geometry" />
+        <mxCell id="ZNUdISC1LJWlkmwr6NwV-12" value="左記のアプリ&lt;br&gt;に該当しない&lt;br&gt;アプリ&lt;br&gt;利用時&lt;br&gt;&amp;nbsp;" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0.33;dx=38;direction=south;notch=0;strokeWidth=1;" parent="1" vertex="1">
+          <mxGeometry x="-110" y="240" width="140" height="170.00000000000003" as="geometry" />
         </mxCell>
-        <mxCell id="8uGnQqRoo8XHkAc7qmPf-20" value="VSCode&lt;br&gt;利用時&lt;div&gt;&lt;br&gt;&lt;div&gt;（vscode_key&amp;nbsp;&amp;nbsp;&lt;/div&gt;&lt;div&gt;Extension&lt;/div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp; &amp;nbsp;有効時）&lt;/span&gt;　&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0.33;dx=38;direction=south;notch=0;strokeWidth=1;" parent="b9cJw6TPrNrNeEvLALqt-15" vertex="1">
-          <mxGeometry x="800" width="140" height="170.00000000000003" as="geometry" />
-        </mxCell>
-        <mxCell id="8uGnQqRoo8XHkAc7qmPf-21" value="Emacs&lt;br&gt;キーバインド&lt;br&gt;を適用する&lt;br&gt;アプリ&lt;br&gt;利用時&lt;br&gt;　" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0.33;dx=38;direction=south;notch=0;strokeWidth=1;" parent="b9cJw6TPrNrNeEvLALqt-15" vertex="1">
-          <mxGeometry x="960" width="140" height="170.00000000000003" as="geometry" />
-        </mxCell>
-        <mxCell id="8uGnQqRoo8XHkAc7qmPf-22" value="fc.game&lt;br&gt;_app_list&lt;br&gt;指定&lt;br&gt;アプリ&lt;br&gt;利用時&lt;br&gt;　" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0.33;dx=38;direction=south;notch=0;strokeWidth=1;" parent="b9cJw6TPrNrNeEvLALqt-15" vertex="1">
-          <mxGeometry x="320" width="140" height="170.00000000000003" as="geometry" />
-        </mxCell>
-        <mxCell id="8uGnQqRoo8XHkAc7qmPf-23" value="透過指定&lt;br&gt;アプリ&lt;br&gt;利用時&lt;br&gt;　" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0.33;dx=38;direction=south;notch=0;strokeWidth=1;" parent="b9cJw6TPrNrNeEvLALqt-15" vertex="1">
-          <mxGeometry x="160" width="140" height="170.00000000000003" as="geometry" />
-        </mxCell>
-        <mxCell id="ZNUdISC1LJWlkmwr6NwV-12" value="左記のアプリ&lt;br&gt;に該当しない&lt;br&gt;アプリ&lt;br&gt;利用時&lt;br&gt;&amp;nbsp;" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0.33;dx=38;direction=south;notch=0;strokeWidth=1;" parent="b9cJw6TPrNrNeEvLALqt-15" vertex="1">
-          <mxGeometry x="1280" width="140" height="170.00000000000003" as="geometry" />
+        <mxCell id="Ipk6Pkl7LTSeYcfgV9gB-1" value="Emacs&lt;br&gt;日本語入力&lt;br&gt;モード&lt;br&gt;移行時&lt;br&gt;　" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0.33;dx=38;direction=south;notch=0;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="240" width="140" height="170.00000000000003" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
