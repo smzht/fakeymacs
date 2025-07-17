@@ -12,6 +12,11 @@ VSCode 用のキーの設定を行う拡張機能です。AI Code Editor の Cur
 
 本拡張機能を使うために、次の設定、確認を行ってください。
 
+**** 0) 本拡張機能を有効にする
+
+Keyhac のトップフォルダにある config_personal.py ファイルにおいて、vscode_key 拡張機能の設定箇所
+を有効（if 0: を if 1: に変更）にしてください。
+
 **** 1) 必要に応じて config_personal.py ファイルを作成する
 
 必要に応じて、本フォルダにある _config_personal.py を config_personal.py というファイル名
