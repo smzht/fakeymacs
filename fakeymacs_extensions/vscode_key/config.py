@@ -94,12 +94,6 @@ except:
                                           ]
                           }
 
-try:
-    # 設定されているか？
-    fc.vscode_setting5
-except:
-    fc.vscode_setting5 = {}
-
 # --------------------------------------------------------------------------------------------------
 
 try:
@@ -153,12 +147,14 @@ fakeymacs_vscode.vscode_focus = "not_terminal"
 fakeymacs_vscode.rectangle_mode = False
 fakeymacs_vscode.post_processing = None
 
-vscode_target = [app for vscode_setting in [fc.vscode_setting1,
-                                            fc.vscode_setting2,
-                                            fc.vscode_setting3,
-                                            fc.vscode_setting4,
-                                            fc.vscode_setting5] if vscode_setting
-                 for app in vscode_setting["target"]]
+vscode_target = []
+for n in range(10):
+    try:
+        vscode_setting = getattr(fc, f"vscode_setting{n + 1}")
+        if vscode_setting:
+            vscode_target += vscode_setting["target"]
+    except:
+        pass
 
 regex = "|".join([fnmatch.translate(app) for app in vscode_target if type(app) is str])
 if regex == "": regex = "$." # 絶対にマッチしない正規表現
@@ -729,13 +725,13 @@ def set_vscode_target(vscode_setting):
     for key1, key2 in vscode_setting["replace_key"]:
         define_key(keymap_target, key2, self_insert_command(key1))
 
-for vscode_setting in [fc.vscode_setting1,
-                       fc.vscode_setting2,
-                       fc.vscode_setting3,
-                       fc.vscode_setting4,
-                       fc.vscode_setting5]:
-    if vscode_setting:
-        set_vscode_target(vscode_setting)
+for n in range(10):
+    try:
+        vscode_setting = getattr(fc, f"vscode_setting{n + 1}")
+        if vscode_setting:
+            set_vscode_target(vscode_setting)
+    except:
+        pass
 
 # --------------------------------------------------------------------------------------------------
 
