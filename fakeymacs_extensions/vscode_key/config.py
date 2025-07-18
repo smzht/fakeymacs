@@ -15,7 +15,7 @@ except:
                                ]
 
 # VSCode 用のキーバインドを利用するアプリケーションソフト、置き換えするプレフィックスキーの組み合わせ、
-# 置き換えするキーの組み合わせを指定する（fc.vscode_setting1 ～ fc.vscode_setting5 まで５つ設定可）
+# 置き換えするキーの組み合わせを指定する（fc.vscode_setting1 ～ fc.vscode_setting10 まで 10個設定可）
 #
 # 辞書型で、次の３つのデータを指定する
 #
