@@ -87,7 +87,8 @@ fc.emacs_target_class   = ["Edit",                   # テキスト入力フィ�
 # （Keyhac のメニューから「内部ログ」を ON にすると、processname や classname を確認することが
 #   できます）
 fc.emacs_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
-                    ["*PowerShell*", "*コマンド プロンプト*", "*Command Prompt*", "* - edit*", "設定"]],
+                    ["*PowerShell*", "*コマンド プロンプト*", "*Command Prompt*", "* - edit*",
+                     "設定", "Settings"]],
                    ["powershell.exe", "ConsoleWindowClass", "*PowerShell*"],
                    ["cmd.exe", "ConsoleWindowClass", ["*コマンド プロンプト*", "*Command Prompt*"]],
                    [None, "ConsoleWindowClass", "* - edit*"],
