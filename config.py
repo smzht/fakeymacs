@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20250724_01"
+fakeymacs_version = "20250726_01"
 
 import time
 import os
@@ -1568,12 +1568,11 @@ def configure(keymap):
                     checkWindow("powershell.exe", "ConsoleWindowClass", "*PowerShell*") or
                     checkWindow("cmd.exe", "ConsoleWindowClass",
                                 ["*コマンド プロンプト*", "*Command Prompt*"]) or
-                    checkWindow("EXCEL.EXE", "EXCEL*", "") or      # Microsoft Excel のセル編集
-                    checkWindow("Notepad.exe", "RichEditD2DPT") or # Windows 11版 Notepad
+                    checkWindow("EXCEL.EXE", "EXCEL*", "") or # Microsoft Excel のセル編集
+                    checkWindow("Evernote.exe", "WebViewHost") or
                     checkWindow("LINE.exe", "Qt*QWindowIcon") or
                     checkWindow(None, "Chrome_WidgetWin_1", "LINE") or
-                    checkWindow("mstsc.exe", "RAIL_WINDOW", "LINE*") or
-                    checkWindow("Evernote.exe", "WebViewHost")):
+                    checkWindow("mstsc.exe", "RAIL_WINDOW", "LINE*")):
                 escape()
 
         keymap.command_RecordStop()
