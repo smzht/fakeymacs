@@ -45,6 +45,7 @@ except:
 
 # --------------------------------------------------------------------------------------------------
 
+import sys
 import subprocess
 
 def shell_command_inputbox():
@@ -85,7 +86,13 @@ def shell_command_on_region():
             bash_options += ["-c"]
 
             if fc.unix_tool == "WSL":
-                command = [r"C:\WINDOWS\SysNative\wsl.exe", "bash"]
+                if sys.maxsize > 2*32:
+                    # for Keyhac v1.83
+                    command = [r"C:\Windows\System32\wsl.exe", "bash"]
+                else:
+                    # for Keyhac v1.82
+                    command = [r"C:\Windows\SysNative\wsl.exe", "bash"]
+
                 command += bash_options
                 command += [r"cd; tr -d '\r' | " + re.sub(r"(\$)", r"\\\1", shell_command)]
                 env["LANG"] = "ja_JP.UTF8"
