@@ -155,7 +155,7 @@ def executeShellCommand():
                 resetRegion()
                 keymap.popBalloon("shell_command_message", "[Stored on the clipboard.]", 2000)
         except:
-            keymap.popBalloon("shell_command_error", "[An error has occurred (including a timeout).]", 3000)
+            keymap.popBalloon("shell_command_error", "[An error has occurred (including timeout).]", 3000)
             print("エラーが発生しました（タイムアウトを含む）\n")
     else:
         print("コマンドが指定されていません\n")
