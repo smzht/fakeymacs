@@ -156,10 +156,10 @@ def executeShellCommand():
         else:
             fakeymacs.forward_direction = True
             resetRegion()
-
-        keymap.closeBalloon("shell_command")
     else:
         print("コマンドが指定されていません\n")
+
+    keymap.closeBalloon("shell_command")
 
 def shell_command_on_region():
     keymap.popBalloon("shell_command", "[Processing...]")
