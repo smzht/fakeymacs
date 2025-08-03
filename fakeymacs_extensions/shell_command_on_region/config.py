@@ -127,35 +127,36 @@ def executeShellCommand():
                                   creationflags=subprocess.CREATE_NO_WINDOW,
                                   encoding=encoding,
                                   env=env)
+
+            stdout_text = proc.stdout
+            stdout_list = stdout_text.splitlines()
+
+            print("$ cat region | " + shell_command)
+            print("-" * 80)
+
+            # Keyhac コンソールにタブを出力すると出力結果が不正になる場合があるため、expandtabs() で
+            # スペースに変換してから出力する
+            print("\n".join(stdout_list[0:10]).expandtabs())
+            if len(stdout_list) > 10:
+                print("...")
+
+            print("-" * 80)
+            print("")
+
+            setClipboardText(stdout_text)
+            if getProcessName() in fc.not_clipboard_target:
+                keymap.clipboard_history._push(stdout_text)
+
+            if replace_region:
+                # delay() のコールでは yank に失敗することがあるため、delayedCall() 経由で実行する
+                keymap.delayedCall(yank, 30)
+            else:
+                fakeymacs.forward_direction = True
+                resetRegion()
+                keymap.popBalloon("shell_command_message", "[Stored on the clipboard.]", 2000)
         except:
-            print("プログラムがエラー終了しました（タイムアウトによる終了も含む）\n")
-            return
-
-        stdout_text = proc.stdout
-        stdout_list = stdout_text.splitlines()
-
-        print("$ cat region | " + shell_command)
-        print("-" * 80)
-
-        # Keyhac コンソールにタブを出力すると出力結果が不正になる場合があるため、expandtabs() で
-        # スペースに変換してから出力する
-        print("\n".join(stdout_list[0:10]).expandtabs())
-        if len(stdout_list) > 10:
-            print("...")
-
-        print("-" * 80)
-        print("")
-
-        setClipboardText(stdout_text)
-        if getProcessName() in fc.not_clipboard_target:
-            keymap.clipboard_history._push(stdout_text)
-
-        if replace_region:
-            # delay() のコールでは yank に失敗することがあるため、delayedCall() 経由で実行する
-            keymap.delayedCall(yank, 30)
-        else:
-            fakeymacs.forward_direction = True
-            resetRegion()
+            keymap.popBalloon("shell_command_error", "[An error has occurred (including a timeout).]", 3000)
+            print("エラーが発生しました（タイムアウトを含む）\n")
     else:
         print("コマンドが指定されていません\n")
 
