@@ -107,7 +107,7 @@ FAKEYMACS 環境変数を設定しています。除外したい設定は、次�
 
 #+BEGIN_EXAMPLE
 if [ -z "$FAKEYMACS" ]; then
-    <本拡張機能によるコマンド実行時に除外したい設定>
+    ...
 fi
 #+END_EXAMPLE
 
