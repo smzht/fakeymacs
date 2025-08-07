@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20250726_01"
+fakeymacs_version = "20250807_01"
 
 import time
 import os
@@ -551,6 +551,22 @@ def configure(keymap):
                                "cmd.exe",
                                "ubuntu*.exe",
                                ]
+
+    # keyboard_quit 関数で、Esc を発行しないアプリケーションソフトを指定する
+    # （アプリケーションソフトは、プロセス名称のみ（ワイルドカード指定可）、もしくは、プロセス名称、
+    #   クラス名称、ウィンドウタイトル（リストによる複数指定可）のリスト（ワイルドカード指定可、
+    #   リストの後ろの項目から省略可）を指定してください）
+    fc.keyboard_quit_no_esc_app_list = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
+                                         ["*PowerShell*", "*コマンド プロンプト*", "*Command Prompt*"]],
+                                        ["powershell.exe", "ConsoleWindowClass", "*PowerShell*"],
+                                        ["cmd.exe", "ConsoleWindowClass",
+                                         ["*コマンド プロンプト*", "*Command Prompt*"]],
+                                        ["EXCEL.EXE", "EXCEL*", ""], # Microsoft Excel のセル編集
+                                        ["Evernote.exe", "WebViewHost"],
+                                        ["LINE.exe", "Qt*QWindowIcon"],
+                                        [None, "Chrome_WidgetWin_1", "LINE"],
+                                        ["mstsc.exe", "RAIL_WINDOW", "LINE*"],
+                                        ]
 
     # 個人設定ファイルのセクション [section-base-1] を読み込んで実行する
     exec(readConfigPersonal("[section-base-1]"), dict(globals(), **locals()))
@@ -1558,21 +1574,20 @@ def configure(keymap):
     def indent_for_tab_command():
         self_insert_command("Tab")()
 
+    regex = "|".join([fnmatch.translate(app)
+                      for app in fc.keyboard_quit_no_esc_app_list if type(app) is str])
+    if regex == "": regex = "$." # 絶対にマッチしない正規表現
+    keyboard_quit_no_esc_app_list1 = re.compile(regex)
+    keyboard_quit_no_esc_app_list2 = [app for app in fc.keyboard_quit_no_esc_app_list
+                                      if type(app) is list]
+
     def keyboard_quit(esc=True):
         resetRegion()
 
         if esc:
             # Esc を発行して問題ないアプリケーションソフトには Esc を発行する
-            if not (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
-                                ["*PowerShell*", "*コマンド プロンプト*", "*Command Prompt*"]) or
-                    checkWindow("powershell.exe", "ConsoleWindowClass", "*PowerShell*") or
-                    checkWindow("cmd.exe", "ConsoleWindowClass",
-                                ["*コマンド プロンプト*", "*Command Prompt*"]) or
-                    checkWindow("EXCEL.EXE", "EXCEL*", "") or # Microsoft Excel のセル編集
-                    checkWindow("Evernote.exe", "WebViewHost") or
-                    checkWindow("LINE.exe", "Qt*QWindowIcon") or
-                    checkWindow(None, "Chrome_WidgetWin_1", "LINE") or
-                    checkWindow("mstsc.exe", "RAIL_WINDOW", "LINE*")):
+            if not (keyboard_quit_no_esc_app_list1.match(getProcessName()) or
+                    any(checkWindow(*app) for app in keyboard_quit_no_esc_app_list2)):
                 escape()
 
         keymap.command_RecordStop()
