@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20250807_01"
+fakeymacs_version = "20250809_01"
 
 import time
 import os
@@ -564,8 +564,8 @@ def configure(keymap):
                                         ["EXCEL.EXE", "EXCEL*", ""], # Microsoft Excel のセル編集
                                         ["Evernote.exe", "WebViewHost"],
                                         ["LINE.exe", "Qt*QWindowIcon"],
-                                        [None, "Chrome_WidgetWin_1", "LINE"],
-                                        ["mstsc.exe", "RAIL_WINDOW", "LINE*"],
+                                        [None, "Chrome_WidgetWin_1", ["LINE",  "X *", "* / X*"]],
+                                        ["mstsc.exe", "RAIL_WINDOW", ["LINE*", "X *", "* / X*"]],
                                         ]
 
     # 個人設定ファイルのセクション [section-base-1] を読み込んで実行する
