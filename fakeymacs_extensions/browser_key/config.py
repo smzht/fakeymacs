@@ -34,6 +34,13 @@ except:
 
 # --------------------------------------------------------------------------------------------------
 
+def is_browser(window):
+    if (getProcessName(window) in fc.browser_list and
+        not checkWindow(text="さくらのクラウドシェル*", window=window)):
+        return True
+    else:
+        return False
+
 # ブラウザをポップアップしてから指定したキーを実行する
 def browser_popup(key, ime_status, browser_list=fc.browser_list):
     def _func():
@@ -42,11 +49,11 @@ def browser_popup(key, ime_status, browser_list=fc.browser_list):
             self_insert_command(key)()
             setImeStatus(ime_status)
 
-        if getProcessName() in browser_list:
+        if is_browser(keymap.getWindow()):
             _inputKey()
         else:
-            for window in getWindowList():
-                if window.getProcessName() in browser_list:
+            for window in getWindowList()[1:]:
+                if is_browser(window):
                     popWindow(window)()
                     keymap.delayedCall(_inputKey, 50)
                     break
