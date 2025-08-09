@@ -43,12 +43,12 @@ def is_browser(window):
 
 # ブラウザをポップアップしてから指定したキーを実行する
 def browser_popup(key, ime_status, browser_list=fc.browser_list):
-    def _func():
-        def _inputKey():
-            escape() # 検索状態になっていた場合に Esc で解除する
-            self_insert_command(key)()
-            setImeStatus(ime_status)
+    def _inputKey():
+        escape() # 検索状態になっていた場合に Esc で解除する
+        self_insert_command(key)()
+        setImeStatus(ime_status)
 
+    def _func():
         if is_browser(keymap.getWindow()):
             _inputKey()
         else:
