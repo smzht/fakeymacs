@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20250809_01"
+fakeymacs_version = "20250809_02"
 
 import time
 import os
@@ -565,6 +565,7 @@ def configure(keymap):
                                         ["Evernote.exe", "WebViewHost"],
                                         ["LINE.exe", "Qt*QWindowIcon"],
                                         [None, "Chrome_WidgetWin_1", ["LINE",  "X *", "* / X*"]],
+                                        ["firefox.exe", "MozillaWindowClass", ["X *", "* / X*"]],
                                         ["mstsc.exe", "RAIL_WINDOW", ["LINE*", "X *", "* / X*"]],
                                         ]
 
