@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20250813_01"
+fakeymacs_version = "20250813_02"
 
 import time
 import os
@@ -1435,13 +1435,14 @@ def configure(keymap):
                         ["*PowerShell*", "*コマンド プロンプト*", "*Command Prompt*"])):
             self_insert_command("C-S-w")()
 
-        elif checkWindow("TeXworks.exe", "Qt661QWindowIcon"):
+        elif (checkWindow("TeXworks.exe", "Qt661QWindowIcon") or
+              checkWindow("Obsidian.exe", "Chrome_WidgetWin_1")):
             self_insert_command("C-w")()
         else:
             self_insert_command("C-F4")()
 
     def switch_to_buffer():
-        self_insert_command("C-Tab")()
+        self_insert_command("C-Tab")()a
 
     def other_window():
         window_list = getWindowList(False)
