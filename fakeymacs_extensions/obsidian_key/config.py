@@ -13,6 +13,7 @@ except:
     # （参考：https://blog.astha.jp/post-3925/）
     fc.obsidian_replace_key = [["C-A-Left",  "C-A-p"], # Obsidian Command : Navigate back
                                ["C-A-Right", "C-A-n"], # Obsidian Command : Navigate forward
+                               ["C-S-f", "C-A-s"],     # Obsidian Command : Search: Search in all files
                                ["C-t", "C-t"],         # Obsidian Command : New tab
                                ["C-k", "C-A-k"],       # Obsidian Command : Insert Markdown link
                                ["C-e", "C-A-e"],       # Obsidian Command : Toggle reading view

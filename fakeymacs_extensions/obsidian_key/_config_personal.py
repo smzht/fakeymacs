@@ -5,10 +5,10 @@
 
 # --------------------------------------------------------------------------------------------------
 
-def search_in_all_files():
-    # Obsidian Command : Search: Search in all files
-    self_insert_command("C-S-f")()
+def reveal_current_file():
+    # Obsidian Command : Files: Reveal current file in navigation
+    obsidianExecuteCommand("fircfin")()
 
-define_key_o("C-A-s", search_in_all_files)
+define_key_o("C-A-f", reveal_current_file)
 
 # --------------------------------------------------------------------------------------------------
