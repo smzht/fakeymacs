@@ -26,6 +26,8 @@ except:
 # Quick Switcher: Open quick switcher で C-Enter のキー操作が RCtrl で動作しない対策
 fc.obsidian_replace_key += [["RC-Enter", "LC-Enter"]]
 
+# --------------------------------------------------------------------------------------------------
+
 def is_obsidian(window):
     global obsidian_status
 
@@ -103,6 +105,10 @@ def comment_dwim():
     # Obsidian Command : Toggle comment
     self_insert_command("C-/")()
 
+def zoom_in():
+    # Obsidian Command : Zoom in
+    obsidianExecuteCommand("zoi")()
+
 ## マルチストロークキーの設定
 define_key_o("Ctl-x",  keymap.defineMultiStrokeKeymap(fc.ctl_x_prefix_key))
 define_key_o("M-",     keymap.defineMultiStrokeKeymap("Esc"))
@@ -137,6 +143,17 @@ if fc.use_ctrl_digit_key_for_digit_argument:
 define_key_o("M-x", reset_search(reset_undo(reset_counter(reset_mark(execute_extended_command)))))
 define_key_o("M-;", reset_search(reset_undo(reset_counter(reset_mark(comment_dwim)))))
 
+if os_keyboard_type == "JP":
+    if use_usjis_keyboard_conversion:
+        define_key_o("C-=", zoom_in)
+    else:
+        define_key_o("C-S-;", zoom_in)
+
 ## キーの置き換え設定
 for key1, key2 in fc.obsidian_replace_key:
     define_key_o(key2, self_insert_command(key1))
+
+# --------------------------------------------------------------------------------------------------
+
+## config_personal.py ファイルの読み込み
+exec(readConfigExtension(r"obsidian_key\config_personal.py", msg=False), dict(globals(), **locals()))
