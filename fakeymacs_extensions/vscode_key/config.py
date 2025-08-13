@@ -176,7 +176,8 @@ def is_vscode_target(window):
     return vscode_target_status
 
 if fc.use_emacs_ime_mode:
-    keymap_vscode = keymap.defineWindowKeymap(check_func=lambda wnd: is_vscode_target(wnd) and not is_emacs_ime_mode(wnd))
+    keymap_vscode = keymap.defineWindowKeymap(check_func=lambda wnd: (is_vscode_target(wnd) and
+                                                                      not is_emacs_ime_mode(wnd)))
 else:
     keymap_vscode = keymap.defineWindowKeymap(check_func=is_vscode_target)
 
@@ -708,7 +709,8 @@ def set_vscode_target(vscode_setting):
         return target_status
 
     if fc.use_emacs_ime_mode:
-        keymap_target = keymap.defineWindowKeymap(check_func=lambda wnd: is_target(wnd) and not is_emacs_ime_mode(wnd))
+        keymap_target = keymap.defineWindowKeymap(check_func=lambda wnd: (is_target(wnd) and
+                                                                          not is_emacs_ime_mode(wnd)))
     else:
         keymap_target = keymap.defineWindowKeymap(check_func=is_target)
 

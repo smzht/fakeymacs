@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20250809_02"
+fakeymacs_version = "20250813_01"
 
 import time
 import os
@@ -954,8 +954,10 @@ def configure(keymap):
     keymap_base = keymap.defineWindowKeymap(check_func=is_base_target)
 
     if fc.use_emacs_ime_mode:
-        keymap_emacs = keymap.defineWindowKeymap(check_func=lambda wnd: is_emacs_target(wnd) and not is_emacs_ime_mode(wnd))
-        keymap_ime   = keymap.defineWindowKeymap(check_func=lambda wnd: is_ime_target(wnd)   and not is_emacs_ime_mode(wnd))
+        keymap_emacs = keymap.defineWindowKeymap(check_func=lambda wnd: (is_emacs_target(wnd) and
+                                                                         not is_emacs_ime_mode(wnd)))
+        keymap_ime   = keymap.defineWindowKeymap(check_func=lambda wnd: (is_ime_target(wnd) and
+                                                                         not is_emacs_ime_mode(wnd)))
     else:
         keymap_emacs = keymap.defineWindowKeymap(check_func=is_emacs_target)
         keymap_ime   = keymap.defineWindowKeymap(check_func=is_ime_target)
