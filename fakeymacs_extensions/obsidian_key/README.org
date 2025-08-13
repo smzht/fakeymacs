@@ -114,9 +114,8 @@ def obsidianExecuteCommand(command, esc=False):
 
 *** 留意事項
 
-● fc.side_of_ctrl_key 変数で設定した側でない Ctrl キーを使う、C-q を前置する、fc.obsidian_replace_key
-変数で置き換え設定をしたプレフィックスキーを使うことで、Obsidian 本来のショートカットキーを入力する
-こともできます。
+● fc.side_of_ctrl_key 変数で設定した側でない Ctrl キーを使う、C-q を前置することで、Obsidian 本来の
+ショートカットキーを入力することもできます。
 
 ● obsidianExecuteCommand 関数内では日本語入力モードの切り替えを行っているのですが、Google
 日本語入力を利用して入力モードのポップアップを表示する設定にしている場合、このポップアップが
