@@ -130,8 +130,8 @@ define_key_o("Ctl-x 3", split_window_right)
 define_key_o("Ctl-x o", reset_search(reset_undo(reset_counter(reset_mark(other_window)))))
 
 if fc.use_ctrl_digit_key_for_digit_argument:
-    for n in range(10):
-        define_key_o(f"C-A-{n}", reset_search(reset_undo(reset_counter(reset_mark(switch_focus(n))))))
+    for n in range(9):
+        define_key_o(f"C-A-{n + 1}", reset_search(reset_undo(reset_counter(reset_mark(switch_focus(n + 1))))))
 
 ## 「その他」のキー設定
 define_key_o("M-x", reset_search(reset_undo(reset_counter(reset_mark(execute_extended_command)))))
