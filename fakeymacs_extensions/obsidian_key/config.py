@@ -90,6 +90,12 @@ def other_window():
     # （正常に動作するのは、２分割までとなります）
     obsidianExecuteCommand("footg", esc=True)()
 
+def switch_focus(number):
+    def _func():
+        # Obsidian Command : Go to tab #n
+        self_insert_command(f"C-{number}")()
+    return _func
+
 ## その他
 def execute_extended_command():
     # Obsidian Command : Command palette: Open command palette
@@ -124,6 +130,10 @@ define_key_o("Ctl-x 1", delete_other_windows)
 define_key_o("Ctl-x 2", split_window_below)
 define_key_o("Ctl-x 3", split_window_right)
 define_key_o("Ctl-x o", reset_search(reset_undo(reset_counter(reset_mark(other_window)))))
+
+if fc.use_ctrl_digit_key_for_digit_argument:
+    for n in range(10):
+        define_key_o(f"C-A-{n}", reset_search(reset_undo(reset_counter(reset_mark(switch_focus(n))))))
 
 ## 「その他」のキー設定
 define_key_o("M-x", reset_search(reset_undo(reset_counter(reset_mark(execute_extended_command)))))

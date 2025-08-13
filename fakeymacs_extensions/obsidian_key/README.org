@@ -18,17 +18,17 @@ Obsidian 用のキーの設定を行う拡張機能です。
 
 **** ● 「エディタ操作」のキー設定
 
-|----------------+------------------------------+-------------------------------------------+-------------|
-| Keybind        | Function                     | Obsidian Command                          | Description |
-|----------------+------------------------------+-------------------------------------------+-------------|
-| Ctl-x 0        | delete_window                | Close this tab group                      |             |
-| Ctl-x 1        | delete_other_windows         | Close all other tabs                      |             |
-| Ctl-x 2        | split_window_below           | Split down                                |             |
-| Ctl-x 3        | split_window_right           | Split right                               |             |
-| Ctl-x o        | other_window                 | Focus on tab group ...                    |             |
-| C-<数字キー>   | switch_focus(<数字キーの値>) | View: Focus Side Bar or n-th Editor Group |             |
-| C-A-<数字キー> | switch_focus(<数字キーの値>) | View: Focus Side Bar or n-th Editor Group |             |
-|----------------+------------------------------+-------------------------------------------+-------------|
+|----------------+------------------------------+------------------------+-------------|
+| Keybind        | Function                     | Obsidian Command       | Description |
+|----------------+------------------------------+------------------------+-------------|
+| Ctl-x 0        | delete_window                | Close this tab group   |             |
+| Ctl-x 1        | delete_other_windows         | Close all other tabs   |             |
+| Ctl-x 2        | split_window_below           | Split down             |             |
+| Ctl-x 3        | split_window_right           | Split right            |             |
+| Ctl-x o        | other_window                 | Focus on tab group ... |             |
+| C-<数字キー>   | switch_focus(<数字キーの値>) | Go to tab #n           |             |
+| C-A-<数字キー> | switch_focus(<数字キーの値>) | Go to tab #n           |             |
+|----------------+------------------------------+------------------------+-------------|
 
 ※ C-<数字キー> は、fc.use_ctrl_digit_key_for_digit_argument 変数が False（初期値）の場合に機能します。
 True の場合（C-<数字キー> は数引数の指定用として使われる）には、代わりに C-A-<数字キー> が機能する
