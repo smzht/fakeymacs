@@ -85,7 +85,7 @@ def split_window_right():
 
 def other_window():
     # Obsidian Command : Focus on tab group ...
-    # （正常に動作するのは、２分割までとなります）
+    # （tab group が２分割の状態のときのみ正常に動作します（３分割以上では正常に動作しません））
     obsidianExecuteCommand("footg", esc=True)()
 
 def switch_focus(number):
