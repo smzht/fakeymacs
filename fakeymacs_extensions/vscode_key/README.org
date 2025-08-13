@@ -216,18 +216,18 @@ True に設定した場合でも Toggle Terminal 用のキーとして C-<半角
 
 **** ● 「エディタ操作」のキー設定
 
-|----------------+------------------------------+-------------------------------------------+-------------|
-| Keybind        | Function                     | VSCode Command                            | Description |
-|----------------+------------------------------+-------------------------------------------+-------------|
-| Ctl-x 0        | delete_window                | View: Close All Editors in Group          |             |
-| Ctl-x 1        | delete_other_windows         | View: Close Editors in Other Groups       |             |
-| Ctl-x 2        | split_window_below           | View: Split Editor Orthogonal             |             |
-| Ctl-x 3        | split_window_right           | View: Split Editor                        |             |
-| Ctl-x 4        | rotate_layout                | Toggle Vertical/Horizontal Editor Layout  |             |
-| Ctl-x o        | other_window                 | View: Navigate Between Editor Groups      |             |
-| C-<数字キー>   | switch_focus(<数字キーの値>) | View: Focus Side Bar or n-th Editor Group |             |
-| C-A-<数字キー> | switch_focus(<数字キーの値>) | View: Focus Side Bar or n-th Editor Group |             |
-|----------------+------------------------------+-------------------------------------------+-------------|
+|----------------+------------------------------+-------------------------------------------+----------------------------------------------------------|
+| Keybind        | Function                     | VSCode Command                            | Description                                              |
+|----------------+------------------------------+-------------------------------------------+----------------------------------------------------------|
+| Ctl-x 0        | delete_window                | View: Close All Editors in Group          |                                                          |
+| Ctl-x 1        | delete_other_windows         | View: Close Editors in Other Groups       |                                                          |
+| Ctl-x 2        | split_window_below           | View: Split Editor Orthogonal             |                                                          |
+| Ctl-x 3        | split_window_right           | View: Split Editor                        |                                                          |
+| Ctl-x 4        | rotate_layout                | Toggle Vertical/Horizontal Editor Layout  |                                                          |
+| Ctl-x o        | other_window                 | View: Navigate Between Editor Groups      |                                                          |
+| C-<数字キー>   | switch_focus(<数字キーの値>) | View: Focus Side Bar or n-th Editor Group | fc.use_ctrl_digit_key_for_digit_argument が False の場合 |
+| C-A-<数字キー> | switch_focus(<数字キーの値>) | View: Focus Side Bar or n-th Editor Group | fc.use_ctrl_digit_key_for_digit_argument が True の場合  |
+|----------------+------------------------------+-------------------------------------------+----------------------------------------------------------|
 
 ※ C-<数字キー> は、fc.use_ctrl_digit_key_for_digit_argument 変数が False（初期値）の場合に機能します。
 True の場合（C-<数字キー> は数引数の指定用として使われる）には、代わりに C-A-<数字キー> が機能する
