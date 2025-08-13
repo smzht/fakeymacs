@@ -1442,7 +1442,7 @@ def configure(keymap):
             self_insert_command("C-F4")()
 
     def switch_to_buffer():
-        self_insert_command("C-Tab")()a
+        self_insert_command("C-Tab")()
 
     def other_window():
         window_list = getWindowList(False)
