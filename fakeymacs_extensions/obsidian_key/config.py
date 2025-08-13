@@ -11,9 +11,7 @@ except:
     # 置き換えするキーの組み合わせ（置き換え元のキー、置き換え先のキー）を指定する（複数指定可）
     # （Fakeymacs のキーに Meta キー（M-）は指定できません）
     # （参考：https://blog.astha.jp/post-3925/）
-    fc.obsidian_replace_key = [["C-A-Left",  "C-A-b"], # Obsidian Command : Navigate back
-                               ["C-A-Right", "C-A-f"], # Obsidian Command : Navigate forward
-                               ["C-A-Left",  "C-A-p"], # Obsidian Command : Navigate back
+    fc.obsidian_replace_key = [["C-A-Left",  "C-A-p"], # Obsidian Command : Navigate back
                                ["C-A-Right", "C-A-n"], # Obsidian Command : Navigate forward
                                ["C-t", "C-t"],         # Obsidian Command : New tab
                                ["C-k", "C-A-k"],       # Obsidian Command : Insert Markdown link
