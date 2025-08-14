@@ -71,31 +71,31 @@ def obsidianExecuteCommand2(command, esc=False):
 ## エディタ操作
 def delete_window():
     # Obsidian Command : Close this tab group
-    obsidianExecuteCommand("clttg")()
+    obsidianExecuteCommand("Close this tab group")()
 
 def delete_other_windows():
     # Obsidian Command : Close all other tabs
     # （other tab groups が close する他、this tab group の other tabs も close となります）
-    obsidianExecuteCommand("claota")()
+    obsidianExecuteCommand("Close all other tabs")()
 
 def split_window_below():
     # Obsidian Command : Split down
-    obsidianExecuteCommand("spdw")()
+    obsidianExecuteCommand("Split down")()
 
 def split_window_right():
     # Obsidian Command : Split right
-    obsidianExecuteCommand("sprg")()
+    obsidianExecuteCommand("Split right")()
 
 def other_window():
     # Obsidian Command : Focus on tab group ...
     # （tab group が２分割の状態のときのみ正常に動作します（３分割以上では正常に動作しません））
-    obsidianExecuteCommand("footg", esc=True)()
+    obsidianExecuteCommand("Focus on tab group", esc=True)()
 
 def switch_focus(number):
     if number == 0:
         def _func():
             # Obsidian Command : Files: Show file explorer
-            obsidianExecuteCommand("f:sf")()
+            obsidianExecuteCommand("Files: Show file explorer")()
     else:
         def _func():
             # Obsidian Command : Go to tab #n or last tab
@@ -113,7 +113,7 @@ def comment_dwim():
 
 def zoom_in():
     # Obsidian Command : Zoom in
-    obsidianExecuteCommand("zoi")()
+    obsidianExecuteCommand("Zoom in")()
 
 ## マルチストロークキーの設定
 define_key_o("Ctl-x",  keymap.defineMultiStrokeKeymap(fc.ctl_x_prefix_key))

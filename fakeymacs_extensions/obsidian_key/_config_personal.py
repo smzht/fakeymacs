@@ -7,7 +7,7 @@
 
 def show_file_explorer():
     # Obsidian Command : Files: Show file explorer
-    obsidianExecuteCommand("f:sf")()
+    obsidianExecuteCommand("Files: Show file explorer")()
 
 define_key_o("C-A-f", show_file_explorer)
 
