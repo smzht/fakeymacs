@@ -344,17 +344,17 @@ VSCode の Preferences: Open User Settings (JSON) の機能で settings.json を
 その場合も次のいずれかのキーを押下することにより、Fakeymacs に現在の場所を再認識させるようにして
 ください。なお、これらの利用上の制約は、window.title の設定を行う方法の場合には発生しません。
 
-|----------------+------------------------------+-------------------------------------+---------------------|
-| Keybind        | Function                     | VSCode Command                      | Description         |
-|----------------+------------------------------+-------------------------------------+---------------------|
-| C-`            | toggle_terminal              | View: Toggle Terminal               | US Keyboard の場合  |
-| C-@            | toggle_terminal              | View: Toggle Terminal               | JIS Keyboard の場合 |
-| C-<半角/全角>  | toggle_terminal              | View: Toggle Terminal               | JIS Keyboard の場合 |
-|----------------+------------------------------+-------------------------------------+---------------------|
-| Ctl-x o        | other_window                 | Navigate Between Editor Groups      |                     |
-| C-<数字キー>   | switch_focus(<数字キーの値>) | Focus Side Bar or n-th Editor Group |                     |
-| C-A-<数字キー> | switch_focus(<数字キーの値>) | Focus Side Bar or n-th Editor Group |                     |
-|----------------+------------------------------+-------------------------------------+---------------------|
+|---------------+-------------------+-------------------------------------+---------------------|
+| Keybind       | Function          | VSCode Command                      | Description         |
+|---------------+-------------------+-------------------------------------+---------------------|
+| C-`           | toggle_terminal   | View: Toggle Terminal               | US Keyboard の場合  |
+| C-@           | toggle_terminal   | View: Toggle Terminal               | JIS Keyboard の場合 |
+| C-<半角/全角> | toggle_terminal   | View: Toggle Terminal               | JIS Keyboard の場合 |
+|---------------+-------------------+-------------------------------------+---------------------|
+| Ctl-x o       | other_window      | Navigate Between Editor Groups      |                     |
+| C-<n>         | switch_focus(<n>) | Focus Side Bar or n-th Editor Group |                     |
+| C-A-<n>       | switch_focus(<n>) | Focus Side Bar or n-th Editor Group |                     |
+|---------------+-------------------+-------------------------------------+---------------------|
 
 ****  ●「ターミナル操作」のキー設定（エディタ領域ターミナル）
 

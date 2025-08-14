@@ -5,10 +5,10 @@
 
 # --------------------------------------------------------------------------------------------------
 
-def reveal_current_file():
-    # Obsidian Command : Files: Reveal current file in navigation
-    obsidianExecuteCommand("f:rcf", esc=True)()
+def show_file_explorer():
+    # Obsidian Command : Files: Show file explorer
+    obsidianExecuteCommand("f:sf")()
 
-define_key_o("C-A-f", reveal_current_file)
+define_key_o("C-A-f", show_file_explorer)
 
 # --------------------------------------------------------------------------------------------------
