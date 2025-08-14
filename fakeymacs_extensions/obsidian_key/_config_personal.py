@@ -7,7 +7,7 @@
 
 def reveal_current_file():
     # Obsidian Command : Files: Reveal current file in navigation
-    obsidianExecuteCommand("fircfin")()
+    obsidianExecuteCommand("f:rcf", esc=True)()
 
 define_key_o("C-A-f", reveal_current_file)
 
