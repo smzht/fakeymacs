@@ -26,8 +26,6 @@ Obsidian 用のキーの設定を行う拡張機能です。
 | Ctl-x 2 | split_window_below   | Split down             |                                                                            |
 | Ctl-x 3 | split_window_right   | Split right            |                                                                            |
 | Ctl-x o | other_window         | Focus on tab group ... |                                                                            |
-| C-<n>   | switch_focus(<n>)    | Go to tab #n           | fc.use_ctrl_digit_key_for_digit_argument が False の場合、n は 0 ～ 9 の値 |
-| C-A-<n> | switch_focus(<n>)    | Go to tab #n           | fc.use_ctrl_digit_key_for_digit_argument が True の場合、n は 0 ～ 9 の値  |
 |---------+----------------------+------------------------+----------------------------------------------------------------------------|
 
 ※ Ctl-x 1 は、other tab groups が close する他、this tab group の other tabs も close となります。
