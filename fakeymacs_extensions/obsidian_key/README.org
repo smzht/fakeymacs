@@ -40,7 +40,7 @@ Obsidian のコマンドを選択する際に発生する制約事項となり�
 | Keybind | Function          | Obsidian Command          | Description      |
 |---------+-------------------+---------------------------+------------------|
 | C-0     | switch_focus(0)   | Files: Show file explorer |                  |
-| C-<n>   | switch_focus(<n>) | Go to tab #n              | n は 1 ～ 8 の値 |
+| C-<n>   | switch_focus(n)   | Go to tab #n              | n は 1 ～ 8 の値 |
 | C-9     | switch_focus(9)   | Go to last tab            |                  |
 |---------+-------------------+---------------------------+------------------|
 
@@ -50,7 +50,7 @@ Obsidian のコマンドを選択する際に発生する制約事項となり�
 | Keybind | Function          | Obsidian Command          | Description      |
 |---------+-------------------+---------------------------+------------------|
 | C-A-0   | switch_focus(0)   | Files: Show file explorer |                  |
-| C-A-<n> | switch_focus(<n>) | Go to tab #n              | n は 1 ～ 8 の値 |
+| C-A-<n> | switch_focus(n)   | Go to tab #n              | n は 1 ～ 8 の値 |
 | C-A-9   | switch_focus(9)   | Go to last tab            |                  |
 |---------+-------------------+---------------------------+------------------|
 
