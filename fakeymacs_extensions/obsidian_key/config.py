@@ -76,7 +76,7 @@ def delete_window():
 def delete_other_windows():
     # Obsidian Command : Close all other tabs
     # （other tab groups が close する他、this tab group の other tabs も close となります）
-    obsidianExecuteCommand("Close all other tabs")()
+    obsidianExecuteCommand("Close all other tabs", esc=True)()
 
 def split_window_below():
     # Obsidian Command : Split down
