@@ -59,6 +59,8 @@ IME のショートカットキーが利用できるようになります。
 
 ※ keymap_vscode レイヤーは、vscode_key Extension を有効にしたときに機能するレイヤーです。
 
+※ keymap_obsidian レイヤーは、obsidian_key Extension を有効にしたときに機能するレイヤーです。
+
 ※ keymap_ei レイヤーは、fc.use_emacs_ime_mode 変数が True の時に機能するレイヤーです。
 
 ** 使い方
