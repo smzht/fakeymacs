@@ -147,3 +147,7 @@ def obsidianExecuteCommand(command, esc=False):
 ● Canvas で Space + Drag する機能は Fakeymacs では正常に動作しません。Canvas をスクロールする
 ためには、マウスの Scroll Wheel を利用してください。Shift キーと組み合わせることで、横スクロール
 も可能となります。
+
+● Quick Switcher: Open quick switcher（ショートカットキー：Ctrl+o）は、Fakeymacs のキーバインド
+Ctl-x C-f で開くことができます。この後、ファイルを選択して Enter、C-Enter、C-A-Enter のいずれかの
+キーで確定することにより、ファイルを指定の場所に開くことができます。
