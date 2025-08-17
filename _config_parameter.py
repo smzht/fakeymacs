@@ -639,6 +639,8 @@ if 0:
 
 # Obsidian 用のキーの設定を行う
 if 0:
+    # fc.obsidian_language = "US"
+    fc.obsidian_language = "JP"
     exec(readConfigExtension(r"obsidian_key\config.py"), dict(globals(), **locals()))
 
 # --------------------------------------------------------------------------------------------------
