@@ -187,6 +187,7 @@ def mergeEmacsMultiStrokeKeymap():
 keymap_obsidian.applying_func = mergeEmacsMultiStrokeKeymap
 
 ## 「バッファ / ウィンドウ操作」のキー設定
+define_key_o("M-k",     reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
 define_key_o("Ctl-x k", reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
 
 ## 「エディタ操作」のキー設定
