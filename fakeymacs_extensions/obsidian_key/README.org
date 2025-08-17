@@ -154,3 +154,8 @@ def obsidianExecuteCommand(command, esc=False):
 ● Quick Switcher: Open quick switcher（ショートカットキー：Ctrl+o）は、Fakeymacs のキーバインド
 Ctl-x C-f で開くことができます。この後、ファイルを選択して Enter、C-Enter、C-A-Enter のいずれかの
 キーで確定することにより、ファイルを指定の場所に開くことができます。
+
+● 次の obsidian-remote という docker image を利用する場合には、Obsidian の言語設定を「English」に
+してご利用ください。「日本語」にすると、コマンドの入力遅延により、不安定になります。
+
+- https://hub.docker.com/r/linuxserver/obsidian
