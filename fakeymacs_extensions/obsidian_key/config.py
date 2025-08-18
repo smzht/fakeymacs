@@ -54,14 +54,14 @@ try:
     fc.obsidian_command_dict
 except:
     # Obsidian の Command pallet で利用するコマンドを指定する（key: 英語コマンド、value: 日本語コマンド）
-    fc.obsidian_command_dict = {"Close current tab"        : "現在のタブを閉じる",
-                                "Close this tab group"     : "このタブグループを閉じる",
-                                "Close all other tabs"     : "他のタブをすべて閉じる",
-                                "Split down"               : "下に分割",
-                                "Split right"              : "右に分割",
-                                "Focus on tab group"       : "タブグループにフォーカス",
-                                "Files: Show file explorer": "ファイル: ファイルエクスプローラを表示",
-                                "Zoom in"                  : "ズームイン",
+    fc.obsidian_command_dict = {"Close current tab"         : "現在のタブを閉じる",
+                                "Close this tab group"      : "このタブグループを閉じる",
+                                "Close all other tabs"      : "他のタブをすべて閉じる",
+                                "Split down"                : "下に分割",
+                                "Split right"               : "右に分割",
+                                "Focus on tab group"        : "タブグループにフォーカス",
+                                "Files: Show file explorer" : "ファイル: ファイルエクスプローラを表示",
+                                "Zoom in"                   : "ズームイン",
                                 }
 
 # --------------------------------------------------------------------------------------------------
