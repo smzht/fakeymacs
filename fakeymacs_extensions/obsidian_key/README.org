@@ -165,7 +165,7 @@ Ctl-x C-f で開くことができます。この後、ファイルを選択し�
 キーで確定することにより、ファイルを指定の場所に開くことができます。
 
 ● 次の obsidian-remote という docker image を利用する場合には、Obsidian の言語設定を「English」にし、
-fc.obsidian_language を "US" にしてご利用ください。
+fc.obsidian_language 変数を "US" に設定してご利用ください。
 「日本語」で利用すると、コマンドの入力遅延により、obsidian の動作が不安定になります。
 
 - https://hub.docker.com/r/linuxserver/obsidian
