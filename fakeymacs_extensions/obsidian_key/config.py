@@ -24,7 +24,7 @@ except:
                           ["chrome.exe",  "Chrome_WidgetWin_1", "Obsidian"],
                           ["msedge.exe",  "Chrome_WidgetWin_1", "Obsidian"],
                           ["firefox.exe", "MozillaWindowClass", "Obsidian"],
-                          ["mstsc.exe",   "RAIL_WINDOW",        "Obsidian"],
+                          ["mstsc.exe",   "RAIL_WINDOW",        "Obsidian (リモート)"],
                           ]
 
 try:
