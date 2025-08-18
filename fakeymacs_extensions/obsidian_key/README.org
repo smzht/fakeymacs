@@ -164,8 +164,9 @@ def obsidianExecuteCommand(command, esc=False):
 Ctl-x C-f で開くことができます。この後、ファイルを選択して Enter、C-Enter、C-A-Enter のいずれかの
 キーで確定することにより、ファイルを指定の場所に開くことができます。
 
-● 次の obsidian-remote という docker image を利用する場合には、Obsidian の言語設定を「English」に
-してご利用ください。「日本語」にすると、コマンドの入力遅延により、不安定になります。
+● 次の obsidian-remote という docker image を利用する場合には、Obsidian の言語設定を「English」にし、
+fc.obsidian_language を "US" にしてご利用ください。
+「日本語」で利用すると、コマンドの入力遅延により、obsidian の動作が不安定になります。
 
 - https://hub.docker.com/r/linuxserver/obsidian
 
