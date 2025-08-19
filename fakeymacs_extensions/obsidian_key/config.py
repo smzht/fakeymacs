@@ -21,10 +21,11 @@ except:
     #   クラス名称、ウィンドウタイトル（リストによる複数指定可）のリスト（ワイルドカード指定可、
     #   リストの後ろの項目から省略可）を指定してください）
     fc.obsidian_target = ["Obsidian.exe",
-                          ["chrome.exe",  "Chrome_WidgetWin_1", "Obsidian"],
-                          ["msedge.exe",  "Chrome_WidgetWin_1", "Obsidian"],
-                          ["firefox.exe", "MozillaWindowClass", "Obsidian"],
-                          ["mstsc.exe",   "RAIL_WINDOW",        "Obsidian (リモート)"],
+                          ["chrome.exe",  "Chrome_WidgetWin_1", ["Obsidian", "Obsidian および他*"]],
+                          ["msedge.exe",  "Chrome_WidgetWin_1", ["Obsidian", "Obsidian および他*"]],
+                          ["firefox.exe", "MozillaWindowClass", "Obsidian — Mozilla Firefox"],
+                          ["mstsc.exe",   "RAIL_WINDOW",        ["Obsidian (リモート)",
+                                                                 "Obsidian および他*"]],
                           ]
 
 try:
@@ -55,6 +56,7 @@ try:
 except:
     # Obsidian の Command pallet で利用するコマンドを指定する（key: 英語コマンド、value: 日本語コマンド）
     fc.obsidian_command_dict = {"Close current tab"         : "現在のタブを閉じる",
+                                "Go to next tab"            : "次のタブに移動",
                                 "Close this tab group"      : "このタブグループを閉じる",
                                 "Close all other tabs"      : "他のタブをすべて閉じる",
                                 "Split down"                : "下に分割",
@@ -119,6 +121,11 @@ def kill_buffer():
     # Obsidian-remote 画面で動作するように、C-w の発行とはしていない
     # Obsidian Command : Close current tab
     obsidianExecuteCommand("Close current tab")()
+
+def switch_to_buffer():
+    # ブラウザで動作するように、C-Tab の発行とはしていない（C-Tab がブラウザでキャッチされるため）
+    # Obsidian Command : Go to next tab
+    obsidianExecuteCommand("Go to next tab")()
 
 ## エディタ操作
 def delete_window():
@@ -187,8 +194,8 @@ def mergeEmacsMultiStrokeKeymap():
 keymap_obsidian.applying_func = mergeEmacsMultiStrokeKeymap
 
 ## 「バッファ / ウィンドウ操作」のキー設定
-define_key_o("M-k",     reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
 define_key_o("Ctl-x k", reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
+define_key_o("Ctl-x b", reset_search(reset_undo(reset_counter(reset_mark(switch_to_buffer)))))
 
 ## 「エディタ操作」のキー設定
 define_key_o("Ctl-x 0", reset_search(reset_undo(reset_counter(reset_mark(delete_window)))))

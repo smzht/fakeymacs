@@ -156,6 +156,31 @@ def obsidianExecuteCommand(command, esc=False):
 
 - https://memotora.com/2014/10/05/google-ime-pop-up-setting/
 
+● ブラウザで obsidian-remote を利用する場合、C-F4 がブラウザ側でキャッチされ、ブラウザの
+タブを閉じようとしてしまいます。
+このため、ブラウザで Ctl-x k を実行した場合には、コマンドパレットで Close current tab
+を実行するようにし、obsidian-remote 側の機能が働くようにしています。
+M-k は 従来どおり C-F4 を発行するのみの機能としていますので、ブラウザで obsidian-remote
+を利用する場合には、M-k と Ctl-x k を使い分けるようにしてください。
+
+● ブラウザで obsidian-remote を利用する場合、C-Tab がブラウザ側でキャッチされ、ブラウザの
+タブを切り替えてしまいます。
+このため、ブラウザで Ctl-x b を実行した場合には、コマンドパレットで Go to next tab
+を実行するようにし、obsidian-remote 側の機能が働くようにしています。
+C-Tab は従来どおりブラウザで機能しますので、ブラウザで obsidian-remote を利用する場合には、
+C-Tab と Ctl-x b を使い分けるようにしてください。
+
+● Google Chrome を利用している場合、次のサイトに記載のある方法で obsidian-remote の画面の
+ショートカットを「ウィンドウで開く」オプション付きで作成すると、先の２つの問題を回避する
+ことができます。お試しください。
+
+- https://zenn.dev/kato_k/articles/6301d35b3d8d3c#%E5%B0%8F%E6%8A%80
+
+● Micorosoft Edge を利用している場合、次のサイトに記載のある方法で obsidian-remote の画面を
+アプリ化すると、先の２つの問題を回避することができます。お試しください。
+
+- https://kiritsume.com/microsoft-edge-install-as-an-app-feature/
+
 ● Canvas で Space + Drag する機能は Fakeymacs では正常に動作しません。Canvas をスクロールする
 ためには、マウスの Scroll Wheel を利用してください。Shift キーと組み合わせることで、横スクロール
 も可能となります。
