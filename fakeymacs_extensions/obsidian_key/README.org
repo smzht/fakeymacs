@@ -194,6 +194,3 @@ fc.obsidian_language 変数の設定を "US" にしてご利用ください。
 「日本語」で利用すると、コマンドの入力遅延により、obsidian の動作が不安定になります。
 
 - https://hub.docker.com/r/linuxserver/obsidian
-
-● obsidian-remote を利用する場合、ブラウザで開いた画面をアプリ化すると、画面タイトルが obsidian
-となり、本拡張機能が適用されるようになります。
