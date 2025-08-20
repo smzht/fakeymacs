@@ -118,6 +118,10 @@ def obsidianExecuteCommand2(command, esc=False):
 
 ## バッファ / ウィンドウ操作
 def kill_buffer():
+    # Obsidian Command : Close current tab
+    self_insert_command("C-w")()
+
+def kill_buffer_o():
     # Obsidian-remote 画面で動作するように、C-w の発行とはしていない
     # Obsidian Command : Close current tab
     obsidianExecuteCommand("Close current tab")()
@@ -194,7 +198,8 @@ def mergeEmacsMultiStrokeKeymap():
 keymap_obsidian.applying_func = mergeEmacsMultiStrokeKeymap
 
 ## 「バッファ / ウィンドウ操作」のキー設定
-define_key_o("Ctl-x k", reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
+define_key_o("M-k",     reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
+define_key_o("Ctl-x k", reset_search(reset_undo(reset_counter(reset_mark(kill_buffer_o)))))
 define_key_o("Ctl-x b", reset_search(reset_undo(reset_counter(reset_mark(switch_to_buffer)))))
 
 ## 「エディタ操作」のキー設定
