@@ -48,7 +48,7 @@ except:
                                ]
 
 # Quick Switcher: Open quick switcher で C-Enter のキー操作が RCtrl で動作しない対策
-fc.obsidian_replace_key += [["RC-Enter", "LC-Enter"]]
+fc.obsidian_replace_key += [["RC-Enter", "C-Enter"]]
 
 try:
     # 設定されているか？
