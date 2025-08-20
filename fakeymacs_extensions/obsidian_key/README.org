@@ -24,6 +24,7 @@ Obsidian 用のキーの設定を行う拡張機能です。
 |---------+------------------+-------------------+-------------|
 | Keybind | Function         | Obsidian Command  | Description |
 |---------+------------------+-------------------+-------------|
+| M-k     | kill_buffer      | Close current tab |             |
 | Ctl-x k | kill_buffer      | Close current tab |             |
 | Ctl-x b | switch_to_buffer | Go to next tab    |             |
 |---------+------------------+-------------------+-------------|
