@@ -47,6 +47,7 @@ except:
 
 import sys
 import subprocess
+import threading
 
 def shell_command_inputbox():
     global replace_region
@@ -119,11 +120,16 @@ def executeShellCommand():
             encoding = "cp932"
 
         try:
+            if replace_region:
+                timeout = 60
+            else:
+                timeout = 600
+
             proc = subprocess.run(command,
                                   input=clipboard_text,
                                   stdout=subprocess.PIPE,
                                   stderr=subprocess.STDOUT,
-                                  timeout=60,
+                                  timeout=timeout,
                                   creationflags=subprocess.CREATE_NO_WINDOW,
                                   encoding=encoding,
                                   env=env)
@@ -150,23 +156,24 @@ def executeShellCommand():
             if replace_region:
                 # delay() のコールでは yank に失敗することがあるため、delayedCall() 経由で実行する
                 keymap.delayedCall(yank, 30)
-            else:
-                fakeymacs.forward_direction = True
-                resetRegion()
-                keymap.popBalloon("shell_command_message", "[Stored on the clipboard.]", 2000)
         except:
-            keymap.popBalloon("shell_command_error", "[An error has occurred (including timeout).]", 3000)
+            if replace_region:
+                keymap.popBalloon("shell_command_error", "[An error has occurred (including timeout).]", 3000)
+
             print("エラーが発生しました（タイムアウトを含む）\n")
     else:
         print("コマンドが指定されていません\n")
 
-    keymap.closeBalloon("shell_command")
+    if replace_region:
+        keymap.closeBalloon("shell_command")
 
 def shell_command_on_region():
-    keymap.popBalloon("shell_command", "[Processing...]")
-
-    # キーフックの中で時間のかかる処理を実行できないので、delayedCall() を使って遅延実行する
-    keymap.delayedCall(executeShellCommand, 100)
+    if replace_region:
+        keymap.popBalloon("shell_command", "[Processing...]")
+        keymap.delayedCall(executeShellCommand, 100)
+    else:
+        keymap.popBalloon("shell_command", "[Start in the background]", 1000)
+        keymap.delayedCall(threading.Thread(target=executeShellCommand, daemon=True).start, 100)
 
 define_key(keymap_emacs, "M-|", reset_search(reset_undo(reset_counter(reset_mark(shell_command_inputbox)))))
 define_key(keymap_emacs, f"LC-S-{vkToStr(VK_F12)}", reset_search(reset_undo(reset_counter(reset_mark(shell_command_on_region)))))
