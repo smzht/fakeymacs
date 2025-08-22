@@ -246,6 +246,18 @@ fc.name_change_app_list += []
 
 # [section-base-2] ---------------------------------------------------------------------------------
 
+# アプリケーションソフトをポップアップする設定（define_key を追加してご利用ください）
+def popup_app(*app):
+    def _func():
+        for window in getWindowList():
+            if checkWindow(*app, window=window):
+                popWindow(window)()
+                break
+    return _func
+
+define_key(keymap_global, "C-A-q", popup_app("keyhac.exe"))
+# define_key(keymap_global, "C-A-s", popup_app(None, None, "さくらのクラウドシェル*"))
+
 # キーを入力した後に、IME を OFF にする設定
 # define_key(keymap_base, "Esc", self_insert_command3("Esc"))
 # define_key(keymap_base, "C-[", self_insert_command3("C-["))
