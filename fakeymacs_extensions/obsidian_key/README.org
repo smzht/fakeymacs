@@ -160,14 +160,14 @@ def obsidianExecuteCommand(command, esc=False):
 ● ブラウザで obsidian-remote を利用する場合、C-F4 がブラウザ側でキャッチされ、ブラウザの
 タブを閉じようとしてしまいます。
 このため、ブラウザで Ctl-x k を実行した場合には、コマンドパレットで Close current tab
-を実行するようにし、obsidian-remote 側の機能が働くようにしています。
+を実行するようにし、obsidian-remote 側のタブを閉じるようにしています。
 M-k は 従来どおり C-F4 を発行するのみの機能としていますので、ブラウザで obsidian-remote
 を利用する場合には、M-k と Ctl-x k を使い分けるようにしてください。
 
 ● ブラウザで obsidian-remote を利用する場合、C-Tab がブラウザ側でキャッチされ、ブラウザの
 タブを切り替えてしまいます。
 このため、ブラウザで Ctl-x b を実行した場合には、コマンドパレットで Go to next tab
-を実行するようにし、obsidian-remote 側の機能が働くようにしています。
+を実行するようにし、obsidian-remote 側のタブが切り替わるようにしています。
 C-Tab は従来どおりブラウザで機能しますので、ブラウザで obsidian-remote を利用する場合には、
 C-Tab と Ctl-x b を使い分けるようにしてください。
 

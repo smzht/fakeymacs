@@ -524,15 +524,15 @@ VSCode のショートカットキーは、次のページで詳しく紹介さ�
 ● ブラウザで vscode.dev を指定した際などに開く VS Code Web の画面では、C-F4 がブラウザ側
 でキャッチされ、ブラウザのタブを閉じようとしてしまいます。
 このため、VS Code Web 画面で Ctl-x k を実行した場合には、コマンドパレットで View: Close
-Editor を実行するようにし、VS Code Web 側の機能が働くようにしています。
+Editor を実行するようにし、VS Code Web 側ののタブを閉じるようにしています。
 M-k は 従来どおり C-F4 を発行するのみの機能としていますので、VS Code Web を利用する場合
 には、M-k と Ctl-x k を使い分けるようにしてください。
 
 ● ブラウザで vscode.dev を指定した際などに開く VS Code Web の画面では、C-Tab がブラウザ側
 でキャッチされ、ブラウザのタブを切り替えてしまいます。
 このため、VS Code Web 画面で Ctl-x b を実行した場合には、コマンドパレットで View: Quick
-Open Privious Recently Used Editor in Group を実行するようにし、VS Code Web 側の機能が働く
-ようにしています。
+Open Privious Recently Used Editor in Group を実行するようにし、VS Code Web 側のタブが
+切り替わるようにしています。
 C-Tab は 従来どおりブラウザで機能しますので、VS Code Web を利用する場合には、C-Tab と
 Ctl-x b を使い分けるようにしてください。
 
