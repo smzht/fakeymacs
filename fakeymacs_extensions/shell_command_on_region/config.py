@@ -9,7 +9,7 @@ try:
     fc.foreground_timeout
 except:
     # フォアグラウンド処理（C-u を付けた場合）のタイムアウト値（秒）を設定する
-    fc.foreground_timeout = 30
+    fc.foreground_timeout = 10
 
 try:
     # 設定されているか？
