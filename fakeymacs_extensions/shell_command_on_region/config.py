@@ -6,6 +6,20 @@
 
 try:
     # 設定されているか？
+    fc.foreground_timeout
+except:
+    # フォアグラウンド処理（C-u を付けた場合）のタイムアウト値（秒）を設定する
+    fc.foreground_timeout = 30
+
+try:
+    # 設定されているか？
+    fc.background_timeout
+except:
+    # バックグラウンド処理（C-u を付けない場合）のタイムアウト値（秒）を設定する
+    fc.background_timeout = 600
+
+try:
+    # 設定されているか？
     fc.unix_tool
 except:
     # Unix コマンドを起動するために利用する Unix ツールを指定する
@@ -121,9 +135,9 @@ def executeShellCommand():
 
         try:
             if replace_region:
-                timeout = 60
+                timeout = fc.foreground_timeout
             else:
-                timeout = 600
+                timeout = fc.background_timeout
 
             proc = subprocess.run(command,
                                   input=clipboard_text,
@@ -159,7 +173,8 @@ def executeShellCommand():
             if replace_region:
                 keymap.popBalloon("shell_command_error", "[An error has occurred (including timeout).]", 3000)
 
-            print("エラーが発生しました（タイムアウトを含む）\n")
+            print(f"エラーが発生しました（タイムアウト（設定値：{timeout}秒）を含む）")
+            print("時間のかかる処理は、C-u を付けずに実行すると、バックグラウンドの処理となります\n")
     else:
         print("コマンドが指定されていません\n")
 
