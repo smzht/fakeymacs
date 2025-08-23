@@ -247,6 +247,7 @@ fc.name_change_app_list += []
 # [section-base-2] ---------------------------------------------------------------------------------
 
 # アプリケーションソフトをポップアップする設定（define_key を追加してご利用ください）
+# （アプリの切り替え後は、A-o キーで切り替え前のアプリとの間を行き来することができます）
 def popup_app(*app):
     def _func():
         for window in getWindowList():
@@ -255,8 +256,15 @@ def popup_app(*app):
                 break
     return _func
 
-define_key(keymap_global, "C-A-q", popup_app("keyhac.exe"))
-# define_key(keymap_global, "C-A-s", popup_app(None, None, "さくらのクラウドシェル*"))
+define_key(keymap_global, "C-A-q", keymap.defineMultiStrokeKeymap("C-A-q")) # popup_app 起動用
+define_key(keymap_global, "C-A-q k", popup_app("keyhac.exe"))
+define_key(keymap_global, "C-A-q n", popup_app("Notepad.exe"))
+define_key(keymap_global, "C-A-q m", popup_app("msedge.exe"))
+define_key(keymap_global, "C-A-q c", popup_app("chrome.exe"))
+define_key(keymap_global, "C-A-q v", popup_app("Code.exe"))
+define_key(keymap_global, "C-A-q o", popup_app("Obsidian.exe"))
+# define_key(keymap_global, "C-A-q e", popup_app(None, None, "emacs-*"))
+# define_key(keymap_global, "C-A-q s", popup_app(None, None, "さくらのクラウドシェル*"))
 
 # キーを入力した後に、IME を OFF にする設定
 # define_key(keymap_base, "Esc", self_insert_command3("Esc"))
