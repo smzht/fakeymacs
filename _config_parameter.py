@@ -473,15 +473,16 @@ def popup_app(*app):
                 break
     return _func
 
-define_key(keymap_global, "C-A-q", keymap.defineMultiStrokeKeymap("C-A-q")) # popup_app 起動用
-define_key(keymap_global, "C-A-q k", popup_app("keyhac.exe"))
-define_key(keymap_global, "C-A-q n", popup_app("Notepad.exe"))
-define_key(keymap_global, "C-A-q m", popup_app("msedge.exe"))
-define_key(keymap_global, "C-A-q c", popup_app("chrome.exe"))
-define_key(keymap_global, "C-A-q v", popup_app("Code.exe"))
-define_key(keymap_global, "C-A-q o", popup_app("Obsidian.exe"))
-# define_key(keymap_global, "C-A-q e", popup_app(None, None, "emacs-*"))
-# define_key(keymap_global, "C-A-q s", popup_app(None, None, "さくらのクラウドシェル*"))
+popup_prefix_key = "C-A-q" # popup_app 起動用プレフィックスキー
+define_key(keymap_global, f"{popup_prefix_key}", keymap.defineMultiStrokeKeymap("C-A-q"))
+define_key(keymap_global, f"{popup_prefix_key} k", popup_app("keyhac.exe"))
+define_key(keymap_global, f"{popup_prefix_key} n", popup_app("Notepad.exe"))
+define_key(keymap_global, f"{popup_prefix_key} m", popup_app("msedge.exe"))
+define_key(keymap_global, f"{popup_prefix_key} c", popup_app("chrome.exe"))
+define_key(keymap_global, f"{popup_prefix_key} v", popup_app("Code.exe"))
+define_key(keymap_global, f"{popup_prefix_key} o", popup_app("Obsidian.exe"))
+# define_key(keymap_global, f"{popup_prefix_key} e", popup_app(None, None, "emacs-*"))
+# define_key(keymap_global, f"{popup_prefix_key} s", popup_app(None, None, "さくらのクラウドシェル*"))
 
 # キーを入力した後に、IME を OFF にする設定
 # define_key(keymap_base, "Esc", self_insert_command3("Esc"))
