@@ -257,7 +257,7 @@ def popup_app(*app):
     return _func
 
 popup_prefix_key = "C-A-q" # popup_app 起動用プレフィックスキー
-define_key(keymap_global, f"{popup_prefix_key}", keymap.defineMultiStrokeKeymap("C-A-q"))
+define_key(keymap_global, f"{popup_prefix_key}", keymap.defineMultiStrokeKeymap(f"{popup_prefix_key}"))
 define_key(keymap_global, f"{popup_prefix_key} k", popup_app("keyhac.exe"))
 define_key(keymap_global, f"{popup_prefix_key} n", popup_app("Notepad.exe"))
 define_key(keymap_global, f"{popup_prefix_key} m", popup_app("msedge.exe"))
