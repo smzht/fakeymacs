@@ -8,14 +8,14 @@ try:
     # 設定されているか？
     fc.foreground_timeout
 except:
-    # フォアグラウンド処理（C-u の前置が１つ以下の場合）のタイムアウト値（秒）を指定する
+    # フォアグラウンド処理（C-u の前置が１回以下の場合）のタイムアウト値（秒）を指定する
     fc.foreground_timeout = 10
 
 try:
     # 設定されているか？
     fc.background_timeout
 except:
-    # バックグラウンド処理（C-u を２つ前置した場合）のタイムアウト値（秒）を指定する
+    # バックグラウンド処理（C-u を２回前置した場合）のタイムアウト値（秒）を指定する
     fc.background_timeout = 600
 
 try:
@@ -182,7 +182,7 @@ def executeShellCommand():
             keymap.popBalloon("shell_command", "[An error has occurred (including timeout).]", 2000)
 
         print(f"エラーが発生しました（タイムアウト（設定値：{timeout}秒）を含む）")
-        print("時間の掛かる処理は、C-u を２つ前置すると、バックグラウンドで処理が行われます\n")
+        print("時間の掛かる処理は、C-u を２回前置すると、バックグラウンドで処理が行われます\n")
 
 def shell_command_on_region():
     global shell_command
