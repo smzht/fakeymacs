@@ -65,6 +65,9 @@ import threading
 
 def shell_command_inputbox():
     global replace_region
+    global forward_direction
+
+    forward_direction = fakeymacs.forward_direction
 
     if fakeymacs.is_universal_argument:
         replace_region = True
@@ -77,117 +80,122 @@ def shell_command_inputbox():
     keymap.ShellExecuteCommand(None, inputbox_command, "", "")()
 
 def executeShellCommand():
-    shell_command = getClipboardText()
+    setClipboardText("")
+    copyRegion()
+    delay(0.5)
+    clipboard_text = re.sub("\r", "", getClipboardText())
 
-    if shell_command:
-        setClipboardText("")
-        copyRegion()
-        delay(0.5)
-        clipboard_text = re.sub("\r", "", getClipboardText())
+    env = dict(os.environ)
 
-        env = dict(os.environ)
+    # bash に -l オプションを付け実行する場合、bash を起動する環境の .bash_profile に多くの
+    # 設定を記入していると、コマンドの実行が遅かったり、コマンドが正しくフィルタとして機能
+    # しなかったりする場合があります。
+    # このようなときに .bash_profile 内の設定をコントロール（スキップ）できるようにするため、
+    # FAKEYMACS 環境変数を設定しています。
+    env["FAKEYMACS"] = "1"
 
-        # bash に -l オプションを付け実行する場合、bash を起動する環境の .bash_profile に多くの
-        # 設定を記入していると、コマンドの実行が遅かったり、コマンドが正しくフィルタとして機能
-        # しなかったりする場合があります。
-        # このようなときに .bash_profile 内の設定をコントロール（スキップ）できるようにするため、
-        # FAKEYMACS 環境変数を設定しています。
-        env["FAKEYMACS"] = "1"
+    bash_options = []
+    if fc.bash_options:
+        bash_options += fc.bash_options
+    bash_options += ["-c"]
 
-        bash_options = []
-        if fc.bash_options:
-            bash_options += fc.bash_options
-        bash_options += ["-c"]
+    if fc.unix_tool == "WSL":
+        if sys.maxsize > 2*32:
+            # for Keyhac v1.83
+            command = [r"C:\Windows\System32\wsl.exe", "bash"]
+        else:
+            # for Keyhac v1.82
+            command = [r"C:\Windows\SysNative\wsl.exe", "bash"]
 
-        if fc.unix_tool == "WSL":
-            if sys.maxsize > 2*32:
-                # for Keyhac v1.83
-                command = [r"C:\Windows\System32\wsl.exe", "bash"]
-            else:
-                # for Keyhac v1.82
-                command = [r"C:\Windows\SysNative\wsl.exe", "bash"]
+        command += bash_options
+        command += [r"cd; tr -d '\r' | " + re.sub(r"(\$)", r"\\\1", shell_command)]
+        env["LANG"] = "ja_JP.UTF8"
+        env["WSLENV"] = "FAKEYMACS:LANG"
+        encoding = "utf-8"
 
-            command += bash_options
-            command += [r"cd; tr -d '\r' | " + re.sub(r"(\$)", r"\\\1", shell_command)]
-            env["LANG"] = "ja_JP.UTF8"
-            env["WSLENV"] = "FAKEYMACS:LANG"
-            encoding = "utf-8"
+    elif fc.unix_tool == "MSYS2":
+        command = [fc.MSYS2_path + r"\usr\bin\bash.exe"]
+        command += bash_options
+        command += [shell_command]
+        env["LANG"] = "ja_JP.UTF8"
+        encoding = "utf-8"
 
-        elif fc.unix_tool == "MSYS2":
-            command = [fc.MSYS2_path + r"\usr\bin\bash.exe"]
-            command += bash_options
-            command += [shell_command]
-            env["LANG"] = "ja_JP.UTF8"
-            encoding = "utf-8"
+    elif fc.unix_tool == "Cygwin":
+        command = [fc.Cygwin_path + r"\bin\bash.exe"]
+        command += bash_options
+        command += [r"tr -d '\r' | " + shell_command]
+        env["LANG"] = "ja_JP.UTF8"
+        encoding = "utf-8"
 
-        elif fc.unix_tool == "Cygwin":
-            command = [fc.Cygwin_path + r"\bin\bash.exe"]
-            command += bash_options
-            command += [r"tr -d '\r' | " + shell_command]
-            env["LANG"] = "ja_JP.UTF8"
-            encoding = "utf-8"
+    elif fc.unix_tool == "BusyBox":
+        command = [fc.BusyBox_path + r"\busybox64.exe", "bash"]
+        command += bash_options
+        command += [shell_command]
+        encoding = "cp932"
 
-        elif fc.unix_tool == "BusyBox":
-            command = [fc.BusyBox_path + r"\busybox64.exe", "bash"]
-            command += bash_options
-            command += [shell_command]
-            encoding = "cp932"
+    try:
+        if replace_region:
+            timeout = fc.foreground_timeout
+        else:
+            timeout = fc.background_timeout
 
-        try:
-            if replace_region:
-                timeout = fc.foreground_timeout
-            else:
-                timeout = fc.background_timeout
+        proc = subprocess.run(command,
+                              input=clipboard_text,
+                              stdout=subprocess.PIPE,
+                              stderr=subprocess.STDOUT,
+                              timeout=timeout,
+                              creationflags=subprocess.CREATE_NO_WINDOW,
+                              encoding=encoding,
+                              env=env)
 
-            proc = subprocess.run(command,
-                                  input=clipboard_text,
-                                  stdout=subprocess.PIPE,
-                                  stderr=subprocess.STDOUT,
-                                  timeout=timeout,
-                                  creationflags=subprocess.CREATE_NO_WINDOW,
-                                  encoding=encoding,
-                                  env=env)
+        stdout_text = proc.stdout
+        stdout_list = stdout_text.splitlines()
 
-            stdout_text = proc.stdout
-            stdout_list = stdout_text.splitlines()
+        print("$ cat region | " + shell_command)
+        print("-" * 80)
 
-            print("$ cat region | " + shell_command)
-            print("-" * 80)
+        # Keyhac コンソールにタブを出力すると出力結果が不正になる場合があるため、expandtabs() で
+        # スペースに変換してから出力する
+        print("\n".join(stdout_list[0:10]).expandtabs())
+        if len(stdout_list) > 10:
+            print("...")
 
-            # Keyhac コンソールにタブを出力すると出力結果が不正になる場合があるため、expandtabs() で
-            # スペースに変換してから出力する
-            print("\n".join(stdout_list[0:10]).expandtabs())
-            if len(stdout_list) > 10:
-                print("...")
+        print("-" * 80)
+        print("")
 
-            print("-" * 80)
-            print("")
+        setClipboardText(stdout_text)
+        pushToClipboardList()
 
-            setClipboardText(stdout_text)
-            pushToClipboardList()
+        if replace_region:
+            # delay() のコールでは yank に失敗することがあるため、delayedCall() 経由で実行する
+            keymap.delayedCall(yank, 30)
+            fakeymacs.forward_direction = None
+    except:
+        if replace_region:
+            keymap.popBalloon("shell_command_error", "[An error has occurred (including timeout).]", 3000)
 
-            if replace_region:
-                # delay() のコールでは yank に失敗することがあるため、delayedCall() 経由で実行する
-                keymap.delayedCall(yank, 30)
-        except:
-            if replace_region:
-                keymap.popBalloon("shell_command_error", "[An error has occurred (including timeout).]", 3000)
-
-            print(f"エラーが発生しました（タイムアウト（設定値：{timeout}秒）を含む）")
-            print("時間のかかる処理は、C-u を付けずに実行すると、バックグラウンドで処理が行われます\n")
-    else:
-        print("コマンドが指定されていません\n")
+        print(f"エラーが発生しました（タイムアウト（設定値：{timeout}秒）を含む）")
+        print("時間の掛かる処理は、C-u を付けずに実行すると、バックグラウンドで処理が行われます\n")
 
     if replace_region:
         keymap.closeBalloon("shell_command")
 
 def shell_command_on_region():
-    if replace_region:
-        keymap.popBalloon("shell_command", "[Processing...]")
-        keymap.delayedCall(executeShellCommand, 100)
+    global shell_command
+
+    shell_command = getClipboardText()
+    fakeymacs.forward_direction = forward_direction
+
+    if shell_command:
+        if replace_region:
+            keymap.popBalloon("shell_command", "[Processing...]")
+            keymap.delayedCall(executeShellCommand, 100)
+        else:
+            keymap.popBalloon("shell_command", "[Start in the background]", 1000)
+            keymap.delayedCall(threading.Thread(target=executeShellCommand, daemon=True).start, 100)
     else:
-        keymap.popBalloon("shell_command", "[Start in the background]", 1000)
-        keymap.delayedCall(threading.Thread(target=executeShellCommand, daemon=True).start, 100)
+        keymap.popBalloon("shell_command_error", "[No command specified]", 1000)
+        print("コマンドが指定されていません\n")
 
 define_key(keymap_emacs, "M-|", reset_search(reset_undo(reset_counter(reset_mark(shell_command_inputbox)))))
-define_key(keymap_emacs, f"LC-S-{vkToStr(VK_F12)}", reset_search(reset_undo(reset_counter(reset_mark(shell_command_on_region)))))
+define_key(keymap_emacs, f"LC-S-{vkToStr(VK_F12)}", reset_search(reset_undo(reset_counter(shell_command_on_region))))
