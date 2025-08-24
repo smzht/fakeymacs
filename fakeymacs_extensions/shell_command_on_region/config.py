@@ -182,7 +182,8 @@ def executeShellCommand():
             keymap.popBalloon("shell_command", "[An error has occurred (including timeout).]", 2000)
 
         print(f"エラーが発生しました（タイムアウト（設定値：{timeout}秒）を含む）")
-        print("時間の掛かる処理は、C-u を２回前置すると、バックグラウンドで処理が行われます\n")
+        if shell_command_mode != 3:
+            print("時間の掛かる処理は、C-u を２回前置して、バックグラウンドで処理を実行してください\n")
 
 def shell_command_on_region():
     global shell_command
