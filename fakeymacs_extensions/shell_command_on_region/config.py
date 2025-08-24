@@ -64,15 +64,18 @@ import subprocess
 import threading
 
 def shell_command_inputbox():
-    global replace_region
     global forward_direction
+    global shell_command_mode
 
     forward_direction = fakeymacs.forward_direction
 
     if fakeymacs.is_universal_argument:
-        replace_region = True
+        if fakeymacs.repeat_counter > 4:
+            shell_command_mode = 3
+        else:
+            shell_command_mode = 1
     else:
-        replace_region = False
+        shell_command_mode = 2
 
     # inputbox_command = dataPath() + r"\fakeymacs_extensions\shell_command_on_region\inputbox.ahk"
     inputbox_command = dataPath() + r"\fakeymacs_extensions\shell_command_on_region\inputbox.exe"
@@ -134,10 +137,10 @@ def executeShellCommand():
         encoding = "cp932"
 
     try:
-        if replace_region:
-            timeout = fc.foreground_timeout
-        else:
+        if shell_command_mode == 3:
             timeout = fc.background_timeout
+        else:
+            timeout = fc.foreground_timeout
 
         proc = subprocess.run(command,
                               input=clipboard_text,
@@ -166,19 +169,20 @@ def executeShellCommand():
         setClipboardText(stdout_text)
         pushToClipboardList()
 
-        if replace_region:
+        if shell_command_mode == 1:
             # delay() のコールでは yank に失敗することがあるため、delayedCall() 経由で実行する
             keymap.delayedCall(yank, 30)
             fakeymacs.forward_direction = None
+            keymap.closeBalloon("shell_command")
+
+        elif shell_command_mode == 2:
+            keymap.popBalloon("shell_command", "[Stored on the clipboard.]", 1000)
     except:
-        if replace_region:
-            keymap.popBalloon("shell_command_error", "[An error has occurred (including timeout).]", 3000)
+        if shell_command_mode != 3:
+            keymap.popBalloon("shell_command", "[An error has occurred (including timeout).]", 2000)
 
         print(f"エラーが発生しました（タイムアウト（設定値：{timeout}秒）を含む）")
-        print("時間の掛かる処理は、C-u を付けずに実行すると、バックグラウンドで処理が行われます\n")
-
-    if replace_region:
-        keymap.closeBalloon("shell_command")
+        print("時間の掛かる処理は、C-u を２つ前置すると、バックグラウンドで処理が行われます\n")
 
 def shell_command_on_region():
     global shell_command
@@ -187,12 +191,12 @@ def shell_command_on_region():
     fakeymacs.forward_direction = forward_direction
 
     if shell_command:
-        if replace_region:
-            keymap.popBalloon("shell_command", "[Processing...]")
-            keymap.delayedCall(executeShellCommand, 100)
-        else:
+        if shell_command_mode == 3:
             keymap.popBalloon("shell_command", "[Start in the background]", 1000)
             keymap.delayedCall(threading.Thread(target=executeShellCommand, daemon=True).start, 100)
+        else:
+            keymap.popBalloon("shell_command", "[Processing...]")
+            keymap.delayedCall(executeShellCommand, 100)
     else:
         keymap.popBalloon("shell_command_error", "[No command specified]", 1000)
         print("コマンドが指定されていません\n")
