@@ -174,7 +174,7 @@ def executeShellCommand():
                 keymap.popBalloon("shell_command_error", "[An error has occurred (including timeout).]", 3000)
 
             print(f"エラーが発生しました（タイムアウト（設定値：{timeout}秒）を含む）")
-            print("時間のかかる処理は、C-u を付けずに実行すると、バックグラウンドの処理となります\n")
+            print("時間のかかる処理は、C-u を付けずに実行すると、バックグラウンドで処理が行われます\n")
     else:
         print("コマンドが指定されていません\n")
 
