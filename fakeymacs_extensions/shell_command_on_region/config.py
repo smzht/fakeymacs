@@ -8,14 +8,14 @@ try:
     # 設定されているか？
     fc.foreground_timeout
 except:
-    # フォアグラウンド処理（C-u を付けた場合）のタイムアウト値（秒）を設定する
+    # フォアグラウンド処理（C-u を付けた場合）のタイムアウト値（秒）を指定する
     fc.foreground_timeout = 10
 
 try:
     # 設定されているか？
     fc.background_timeout
 except:
-    # バックグラウンド処理（C-u を付けない場合）のタイムアウト値（秒）を設定する
+    # バックグラウンド処理（C-u を付けない場合）のタイムアウト値（秒）を指定する
     fc.background_timeout = 600
 
 try:
