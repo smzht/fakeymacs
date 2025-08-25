@@ -199,7 +199,7 @@ def shell_command_on_region():
             keymap.popBalloon("shell_command", "[Processing...]")
             keymap.delayedCall(executeShellCommand, 100)
     else:
-        keymap.popBalloon("shell_command_error", "[No command specified]", 1000)
+        keymap.popBalloon("shell_command", "[No command specified]", 1000)
         print("コマンドが指定されていません\n")
 
 define_key(keymap_emacs, "M-|", reset_search(reset_undo(reset_counter(reset_mark(shell_command_inputbox)))))
