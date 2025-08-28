@@ -6,6 +6,13 @@
 
 try:
     # 設定されているか？
+    fc.output_line_count
+except:
+    # 実行結果を Keyhac コンソールに出力する行数を指定する
+    fc.output_line_count = 78
+
+try:
+    # 設定されているか？
     fc.foreground_timeout
 except:
     # フォアグラウンド処理（C-u の前置が１回以下の場合）のタイムアウト値（秒）を指定する
@@ -162,8 +169,8 @@ def executeShellCommand():
 
         # Keyhac コンソールにタブを出力すると出力結果が不正になる場合があるため、expandtabs() で
         # スペースに変換してから出力する
-        print("\n".join(stdout_list[0:10]).expandtabs())
-        if len(stdout_list) > 10:
+        print("\n".join(stdout_list[0:fc.output_line_count]).expandtabs())
+        if len(stdout_list) > fc.output_line_count:
             print("...")
 
         print("-" * 80)
