@@ -65,17 +65,17 @@ import threading
 
 def shell_command_inputbox():
     global forward_direction
-    global shell_command_mode
+    global command_mode
 
     forward_direction = fakeymacs.forward_direction
 
     if fakeymacs.is_universal_argument:
         if fakeymacs.repeat_counter > 4:
-            shell_command_mode = 3
+            command_mode = 3
         else:
-            shell_command_mode = 1
+            command_mode = 1
     else:
-        shell_command_mode = 2
+        command_mode = 2
 
     # inputbox_command = dataPath() + r"\fakeymacs_extensions\shell_command_on_region\inputbox.ahk"
     inputbox_command = dataPath() + r"\fakeymacs_extensions\shell_command_on_region\inputbox.exe"
@@ -83,6 +83,9 @@ def shell_command_inputbox():
     keymap.ShellExecuteCommand(None, inputbox_command, "", "")()
 
 def executeShellCommand():
+    shell_command_mode = command_mode
+    shell_command = input_command
+
     setClipboardText("")
     copyRegion()
     delay(0.5)
@@ -186,13 +189,13 @@ def executeShellCommand():
             print("時間の掛かる処理は、C-u を２回前置して、バックグラウンドで処理を実行してください\n")
 
 def shell_command_on_region():
-    global shell_command
+    global input_command
 
-    shell_command = getClipboardText()
+    input_command = getClipboardText()
     fakeymacs.forward_direction = forward_direction
 
-    if shell_command:
-        if shell_command_mode == 3:
+    if input_command:
+        if command_mode == 3:
             keymap.popBalloon("shell_command", "[Start in the background]", 1000)
             keymap.delayedCall(threading.Thread(target=executeShellCommand, daemon=True).start, 100)
         else:
