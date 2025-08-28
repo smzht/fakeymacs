@@ -73,16 +73,22 @@ import threading
 def shell_command_inputbox():
     global forward_direction
     global command_mode
+    global clipboard_text
 
     forward_direction = fakeymacs.forward_direction
 
-    if fakeymacs.is_universal_argument:
-        if fakeymacs.repeat_counter > 4:
-            command_mode = 3
-        else:
-            command_mode = 1
+    if not fakeymacs.is_universal_argument:
+        command_mode = 1
     else:
-        command_mode = 2
+        if fakeymacs.repeat_counter == 4:
+            command_mode = 2
+        else:
+            command_mode = 3
+
+    setClipboardText("")
+    copyRegion()
+    delay(0.5)
+    clipboard_text = re.sub("\r", "", getClipboardText())
 
     # inputbox_command = dataPath() + r"\fakeymacs_extensions\shell_command_on_region\inputbox.ahk"
     inputbox_command = dataPath() + r"\fakeymacs_extensions\shell_command_on_region\inputbox.exe"
@@ -92,11 +98,7 @@ def shell_command_inputbox():
 def executeShellCommand():
     shell_command_mode = command_mode
     shell_command = input_command
-
-    setClipboardText("")
-    copyRegion()
-    delay(0.5)
-    clipboard_text = re.sub("\r", "", getClipboardText())
+    region_text = clipboard_text
 
     env = dict(os.environ)
 
@@ -147,13 +149,13 @@ def executeShellCommand():
         encoding = "cp932"
 
     try:
-        if shell_command_mode == 3:
-            timeout = fc.background_timeout
-        else:
+        if shell_command_mode == 1 or shell_command_mode == 2:
             timeout = fc.foreground_timeout
+        else:
+            timeout = fc.background_timeout
 
         proc = subprocess.run(command,
-                              input=clipboard_text,
+                              input=region_text,
                               stdout=subprocess.PIPE,
                               stderr=subprocess.STDOUT,
                               timeout=timeout,
@@ -180,19 +182,20 @@ def executeShellCommand():
         pushToClipboardList()
 
         if shell_command_mode == 1:
+            keymap.popBalloon("shell_command", "[Stored on the clipboard.]", 1000)
+
+        elif shell_command_mode == 2:
             # delay() のコールでは yank に失敗することがあるため、delayedCall() 経由で実行する
             keymap.delayedCall(yank, 30)
             fakeymacs.forward_direction = None
             keymap.closeBalloon("shell_command")
-
-        elif shell_command_mode == 2:
-            keymap.popBalloon("shell_command", "[Stored on the clipboard.]", 1000)
     except:
-        if shell_command_mode != 3:
+        if shell_command_mode == 1 or shell_command_mode == 2:
             keymap.popBalloon("shell_command", "[An error has occurred (including timeout).]", 2000)
 
         print(f"エラーが発生しました（タイムアウト（設定値：{timeout}秒）を含む）")
-        if shell_command_mode != 3:
+
+        if shell_command_mode == 1 or shell_command_mode == 2:
             print("時間の掛かる処理は、C-u を２回前置して、バックグラウンドで処理を実行してください\n")
 
 def shell_command_on_region():
@@ -202,12 +205,12 @@ def shell_command_on_region():
     fakeymacs.forward_direction = forward_direction
 
     if input_command:
-        if command_mode == 3:
-            keymap.popBalloon("shell_command", "[Start in the background]", 1000)
-            keymap.delayedCall(threading.Thread(target=executeShellCommand, daemon=True).start, 100)
-        else:
+        if command_mode == 1 or command_mode == 2:
             keymap.popBalloon("shell_command", "[Processing...]")
             keymap.delayedCall(executeShellCommand, 100)
+        else:
+            keymap.popBalloon("shell_command", "[Start in the background]", 1000)
+            keymap.delayedCall(threading.Thread(target=executeShellCommand, daemon=True).start, 100)
     else:
         keymap.popBalloon("shell_command", "[No command specified]", 1000)
         print("コマンドが指定されていません\n")
