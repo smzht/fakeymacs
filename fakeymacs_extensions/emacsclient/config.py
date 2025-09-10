@@ -9,7 +9,7 @@ try:
     fc.emacsclient_key
 except:
     # emacsclient を起動するキーを指定する
-    fc.emacsclient_key = "C-."
+    fc.emacsclient_key = "C-A-."
 
 try:
     # 設定されているか？
@@ -36,7 +36,7 @@ try:
             path = re.sub('^', '"', path)
             keymap.ShellExecuteCommand(None, fc.emacsclient_name, path, "")()
 
-    define_key(keymap_emacs, fc.emacsclient_key, emacsclient)
+    define_key(keymap_global, fc.emacsclient_key, emacsclient)
 
 except:
     print("fc.emacsclient_name を設定してください")
