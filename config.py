@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20250917_01"
+fakeymacs_version = "20250917_02"
 
 import time
 import os
@@ -44,9 +44,27 @@ def configure(keymap):
     fakeymacs = Fakeymacs()
 
     # OS に設定しているキーボードタイプの設定を行う
-    # （http://tokovalue.jp/function/GetKeyboardType.htm）
+    # （https://www.tokovalue.jp/function/GetKeyboardLayout.htm）
+    # （https://www.tokovalue.jp/function/GetKeyboardType.htm）
     if ctypes.windll.user32.GetKeyboardType(0) == 7:
-        os_keyboard_type = "JP"
+        str_vk_table = copy.copy(keyhac_keymap.KeyCondition.str_vk_table_common)
+        for name in keyhac_keymap.KeyCondition.str_vk_table_jpn:
+            del str_vk_table[name]
+        str_vk_table.update(keyhac_keymap.KeyCondition.str_vk_table_std)
+
+        vk_str_table = copy.copy(keyhac_keymap.KeyCondition.vk_str_table_common)
+        for vk in keyhac_keymap.KeyCondition.vk_str_table_jpn:
+            del vk_str_table[vk]
+        vk_str_table.update(keyhac_keymap.KeyCondition.vk_str_table_std)
+
+        # 英語キーボードドライバ置換を利用する場合、キーテーブルを US 用のものに置き換える
+        # （https://github.com/kskmori/US-AltIME.ahk?tab=readme-ov-file#us101mode）
+        if (ctypes.windll.user32.GetKeyboardLayout(0) >> 16) == 0x409:
+            keyhac_keymap.KeyCondition.str_vk_table = str_vk_table
+            keyhac_keymap.KeyCondition.vk_str_table = vk_str_table
+            os_keyboard_type = "US"
+        else:
+            os_keyboard_type = "JP"
     else:
         os_keyboard_type = "US"
 
@@ -678,16 +696,6 @@ def configure(keymap):
     ###########################################################################
 
     if use_usjis_keyboard_conversion:
-        str_vk_table = copy.copy(keyhac_keymap.KeyCondition.str_vk_table_common)
-        for name in keyhac_keymap.KeyCondition.str_vk_table_jpn:
-            del str_vk_table[name]
-        str_vk_table.update(keyhac_keymap.KeyCondition.str_vk_table_std)
-
-        vk_str_table = copy.copy(keyhac_keymap.KeyCondition.vk_str_table_common)
-        for vk in keyhac_keymap.KeyCondition.vk_str_table_jpn:
-            del vk_str_table[vk]
-        vk_str_table.update(keyhac_keymap.KeyCondition.vk_str_table_std)
-
         def usjisTableSwap(swap):
             if swap:
                 keyhac_keymap.KeyCondition.str_vk_table = str_vk_table
