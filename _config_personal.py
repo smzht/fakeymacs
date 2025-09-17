@@ -248,12 +248,13 @@ fc.name_change_app_list += []
 
 # 「英語用キーボードドライバ置換」を利用する際の設定
 # （https://github.com/kskmori/US-AltIME.ahk?tab=readme-ov-file#us101mode）
-# if fc.side_of_ctrl_key == "L":
-#     keymap.replaceKey("CapsLock", "LCtrl") # CapsLock キーを Ctrl キーに変換する設定
-#     keymap_global["RC-LCtrl"] = "CapsLock" # C-CapsLock で CapsLock とする
-# else:
-#     keymap.replaceKey("CapsLock", "RCtrl") # CapsLock キーを Ctrl キーに変換する設定
-#     keymap_global["LC-RCtrl"] = "CapsLock" # C-CapsLock で CapsLock とする
+if (ctypes.windll.user32.GetKeyboardLayout(0) >> 16) == 0x409:
+    if fc.side_of_ctrl_key == "L":
+        keymap.replaceKey("CapsLock", "LCtrl") # CapsLock キーを Ctrl キーに変換する設定
+        keymap_base["RC-LCtrl"] = "CapsLock"   # C-CapsLock で CapsLock とする
+    else:
+        keymap.replaceKey("CapsLock", "RCtrl") # CapsLock キーを Ctrl キーに変換する設定
+        keymap_base["LC-RCtrl"] = "CapsLock"   # C-CapsLock で CapsLock とする
 
 # アプリケーションソフトをポップアップする設定（define_key を追加してご利用ください）
 # （アプリの切り替え後は、A-o キーで切り替え前のアプリとの間を行き来することができます）
