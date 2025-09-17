@@ -57,7 +57,7 @@ def configure(keymap):
             del vk_str_table[vk]
         vk_str_table.update(keyhac_keymap.KeyCondition.vk_str_table_std)
 
-        # 英語キーボードドライバ置換を利用する場合、キーテーブルを US 用のものに置き換える
+        # 「英語用キーボードドライバ置換」を利用する場合、キーテーブルを US 用のものに置き換える
         # （https://github.com/kskmori/US-AltIME.ahk?tab=readme-ov-file#us101mode）
         if (ctypes.windll.user32.GetKeyboardLayout(0) >> 16) == 0x409:
             keyhac_keymap.KeyCondition.str_vk_table = str_vk_table

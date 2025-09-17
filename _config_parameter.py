@@ -463,7 +463,7 @@ fc.name_change_app_list = ["chrome.exe",
 
 # [section-base-2] ---------------------------------------------------------------------------------
 
-# 英語用キーボードドライバ置換を利用する際の設定
+# 「英語用キーボードドライバ置換」を利用する際の設定
 # （https://github.com/kskmori/US-AltIME.ahk?tab=readme-ov-file#us101mode）
 # if fc.side_of_ctrl_key == "L":
 #     keymap.replaceKey("CapsLock", "LCtrl") # CapsLock キーを Ctrl キーに変換する設定
