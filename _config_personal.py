@@ -247,6 +247,7 @@ fc.name_change_app_list += []
 # [section-base-2] ---------------------------------------------------------------------------------
 
 # 「英語用キーボードドライバ置換」を利用する際の設定
+# （https://github.com/smzht/fakeymacs/issues/55）
 # （https://github.com/kskmori/US-AltIME.ahk?tab=readme-ov-file#us101mode）
 if (ctypes.windll.user32.GetKeyboardLayout(0) >> 16) == 0x409:
     if fc.side_of_ctrl_key == "L":
