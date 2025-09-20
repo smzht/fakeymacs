@@ -85,7 +85,7 @@ CapsLock のキーの置き換えは、キーボードの機能で行うか、�
 英語キーボード配列を利用しているユーザにお勧めの方法です。次のレジストリ設定ファイル
 を実行（管理者権限不要）し、Windows に再サインインすることで利用可能となります。
 
-- [[/fakeymacs/blob/master/fakeymacs_tools/Subsititutes-00000411.reg]]
+- [[/fakeymacs/fakeymacs_tools/Subsititutes-00000411.reg]]
 
 詳しくは、次の Issue を参照してください。
 
@@ -238,7 +238,7 @@ Fakeymacs を利用して、文字が二重に入力されたり、Keyhac のコ
 次のレジストリ設定ファイルを実行することでも設定可能です。
 Windows 11 の場合、この設定は必須ように思われます。
 
-- [[/fakeymacs/blob/master/fakeymacs_tools/LowLevelHooksTimeout.reg]]
+- [[/fakeymacs/fakeymacs_tools/LowLevelHooksTimeout.reg]]
 
 この対応で状況はかなり改善すると思われますが、この設定により生ずる影響は分かっていませんので、
 設定を行う場合は各自の責任でお願いします。（私はこの設定をしてかなりの期間利用していますが、
