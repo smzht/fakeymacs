@@ -85,7 +85,7 @@ CapsLock のキーの置き換えは、キーボードの機能で行うか、�
 英語キーボード配列を利用しているユーザにお勧めの方法です。次のレジストリ設定ファイル
 を実行（管理者権限不要）し、Windows に再サインインすることで利用可能となります。
 
-- https://github.com/smzht/fakeymacs/blob/master/fakeymacs_tools/Subsititutes-00000411.reg
+- [[/fakeymacs/blob/master/fakeymacs_tools/Subsititutes-00000411.reg]]
 
 詳しくは、次の Issue を参照してください。
 
@@ -235,8 +235,10 @@ keyhac.exe を起動すると、タスクバー（＾アイコンの中）に Ke
 Fakeymacs を利用して、文字が二重に入力されたり、Keyhac のコンソールに「Time stamp inversion happened.」
 と何度も表示される場合には、レジストリ HKEY_CURRENT_USER\Control Panel\Desktop\LowLevelHooksTimeout
 をDWORD形式で作成し、そこに 10進数で 1000（ms の値）を設定して PC を再起動してください。
-（fakeymacs_tools フォルダ配下にある、LowLevelHooksTimeout.reg を実行することでも設定することが
-できます。Windows 11 の場合、この設定は必須ようにに思われます。）
+次のレジストリ設定ファイルを実行することでも設定可能です。
+Windows 11 の場合、この設定は必須ように思われます。
+
+- [[/fakeymacs/blob/master/fakeymacs_tools/LowLevelHooksTimeout.reg]]
 
 この対応で状況はかなり改善すると思われますが、この設定により生ずる影響は分かっていませんので、
 設定を行う場合は各自の責任でお願いします。（私はこの設定をしてかなりの期間利用していますが、
