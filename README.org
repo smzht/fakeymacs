@@ -236,7 +236,7 @@ Fakeymacs を利用して、文字が二重に入力されたり、Keyhac のコ
 と何度も表示される場合には、レジストリ HKEY_CURRENT_USER\Control Panel\Desktop\LowLevelHooksTimeout
 をDWORD形式で作成し、そこに 10進数で 1000（ms の値）を設定して PC を再起動してください。
 次のレジストリ設定ファイルを実行することでも設定可能です。
-Windows 11 の場合、この設定は必須ように思われます。
+Windows 11 の場合、この設定は必須のように思われます。
 
 - [[/fakeymacs_tools/LowLevelHooksTimeout.reg]]
 
