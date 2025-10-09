@@ -84,7 +84,8 @@ except:
     # （アクティブウィンドウを仮想デスクトップ間で移動するためのデフォルトキーは、["W-C-A-Left", "W-C-A-Right"]
     #   です。この設定は変更しないでください。）
     fc.move_window_key_for_desktops = []
-    # fc.move_window_key_for_desktops += [["W-Up", "W-Down"]]
+    # fc.move_window_key_for_desktops += [["W-S-b", "W-S-f"]]
+    # fc.move_window_key_for_desktops += [["W-S-Left", "W-S-Right"]]
 
 # --------------------------------------------------------------------------------------------------
 
