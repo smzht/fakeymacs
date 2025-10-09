@@ -28,17 +28,10 @@ try:
     fc.switch_windows_key
 except:
     # アクティブウィンドウを切り替えるキーの組み合わせ（前、後 の順）を指定する（複数指定可）
-    # （A-Esc キーの動作とは異なり、仮想デスクトップを跨ぎ、最小化されていないウィンドウを順に切り替え
-    #   ます。初期設定は ["A-p", "A-n"] としていますが、Emacs の shell-mode のキーバインドなどと設定が
-    #   被る場合には、["A-S-p", "A-S-n"] などの異なる設定とするか、Emacs 側に次の設定を入れて、Emacs 側
-    #   のキーの設定を置き換えてご利用ください。
-    #     (define-key key-translation-map (kbd "M-S-p") (kbd "M-p"))
-    #     (define-key key-translation-map (kbd "M-S-n") (kbd "M-n"))
-    #  ）
+    # （A-Esc キーの動作とは異なり、仮想デスクトップを跨ぎ、最小化されていないウィンドウを順に切り替えます）
     fc.switch_windows_key = []
-    fc.switch_windows_key += [["A-p", "A-n"]]
-    # fc.switch_windows_key += [["A-S-p", "A-S-n"]]
-    # fc.switch_windows_key += [["A-Up", "A-Down"]]
+    fc.switch_windows_key += [["W-p", "W-n"]]
+    # fc.switch_windows_key += [["W-Up", "W-Down"]]
 
 try:
     # 設定されているか？
@@ -47,8 +40,8 @@ except:
     # アクティブなウィンドウと同じプロセスのウィンドウを順に切り替えるキーの組み合わせ（前、後 の順）
     # を指定する（複数指定可）
     fc.switch_windows_key2 = []
-    fc.switch_windows_key2 += [["A-S-p", "A-S-n"]]
-    # fc.switch_windows_key2 += [["W-Tab", "W-S-Tab"]]
+    fc.switch_windows_key2 += [["W-S-p", "W-S-n"]]
+    # fc.switch_windows_key2 += [["W-S-Up", "W-S-Down"]]
 
 try:
     # 設定されているか？
@@ -91,7 +84,6 @@ except:
     # （アクティブウィンドウを仮想デスクトップ間で移動するためのデフォルトキーは、["W-C-A-Left", "W-C-A-Right"]
     #   です。この設定は変更しないでください。）
     fc.move_window_key_for_desktops = []
-    # fc.move_window_key_for_desktops += [["W-p", "W-n"]]
     # fc.move_window_key_for_desktops += [["W-Up", "W-Down"]]
 
 # --------------------------------------------------------------------------------------------------

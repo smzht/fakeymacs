@@ -48,8 +48,8 @@
 |--------------------------------------+-----------------+-------------|
 | Keybind                              | Function        | Description |
 |--------------------------------------+-----------------+-------------|
-| fc.switch_windows_key[n][0] の設定値 | previous_window | 初期値：A-p |
-| fc.switch_windows_key[n][1] の設定値 | next_window     | 初期値：A-n |
+| fc.switch_windows_key[n][0] の設定値 | previous_window | 初期値：W-p |
+| fc.switch_windows_key[n][1] の設定値 | next_window     | 初期値：W-n |
 |--------------------------------------+-----------------+-------------|
 
 ※ A-Esc キーの動作とは異なり、仮想デスクトップを跨ぎ、最小化されていないウィンドウを順に
@@ -62,8 +62,8 @@
 |---------------------------------------+-----------------+---------------|
 | Keybind                               | Function        | Description   |
 |---------------------------------------+-----------------+---------------|
-| fc.switch_windows_key2[n][0] の設定値 | previous_window | 初期値：A-S-p |
-| fc.switch_windows_key2[n][1] の設定値 | next_window     | 初期値：A-S-n |
+| fc.switch_windows_key2[n][0] の設定値 | previous_window | 初期値：W-S-p |
+| fc.switch_windows_key2[n][1] の設定値 | next_window     | 初期値：W-S-n |
 |---------------------------------------+-----------------+---------------|
 
 ※ 本機能は最小化されているウィンドウも含め、順に切り替えます。

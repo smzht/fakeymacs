@@ -604,8 +604,8 @@ fc.lancherList_listers = [
 if 0:
     fc.minimize_window_key = [["A-S-m", "A-m"]]
     fc.maximize_window_key = [["W-S-q", "W-q"]]
-    fc.switch_windows_key  = [["A-p", "A-n"]]
-    fc.switch_windows_key2 = [["A-S-p", "A-S-n"]]
+    fc.switch_windows_key  = [["W-p", "W-n"]]
+    fc.switch_windows_key2 = [["W-S-p", "W-S-n"]]
     fc.move_window_key_for_displays = [[None, "W-o"]]
     fc.transpose_windows_key = "W-t"
     fc.switch_desktops_key = [["W-b", "W-f"]]
