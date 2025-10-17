@@ -128,6 +128,7 @@ fc.not_emacs_target     = ["wsl.exe",                # WSL
                            "MobaXterm.exe",          # MobaXterm
                            "TurboVNC.exe",           # TurboVNC
                            "vncviewer*.exe",         # UltraVNC
+                           "mc.exe",                 # Midnight Commander
                            [None, None, "さくらのクラウドシェル*"],
                            ]
 
@@ -154,6 +155,7 @@ fc.ime_target           = ["wsl.exe",                # WSL
                            "putty.exe",              # PuTTY
                            "ttermpro.exe",           # TeraTerm
                            "MobaXterm.exe",          # MobaXterm
+                           "mc.exe",                 # Midnight Commander
                            [None, None, "さくらのクラウドシェル*"],
                            ]
 
@@ -443,6 +445,7 @@ fc.name_change_app_list = ["chrome.exe",
                            "powershell.exe",
                            "cmd.exe",
                            "ubuntu*.exe",
+                           "mc.exe",
                            ]
 
  # keyboard_quit 関数で、Esc を発行しないアプリケーションソフトを指定する
