@@ -189,7 +189,7 @@ _config_personal.py ファイルを config_personal.pyという名称に変更�
 ※ ウィンドウのタイトルが変わった時にキーバインドの再設定を行うには、fc.name_change_app_list
 変数に対象とするアプリケーションソフトを指定しておく必要があります。
 初期設定では、ブラウザやターミナルソフトを指定しています。
-ブラウザでは、さくらのクラウドシェル や VS Code Web の利用を想定しているため、ターミナルソフトでは、
+ブラウザでは さくらのクラウドシェル や VS Code Web の利用を想定しているため、ターミナルソフトでは
 以降で説明する Microsoft Edit や Midnight Commander の利用を想定しているためです。
 必要なアプリケーションソフトがあれば、追加設定を行ってください。
 
@@ -285,9 +285,9 @@ Fakeymacs では、Python のクロージャの機能を多用しています。
 
 ** Windows Terminal の対応について
 
-Windows Terminal では、複数の種類のターミナルをタブで個別に開くことができます。Fakeymacs では、
-ウィンドウタイトルが変更されたイベントをキャッチすることにより、タブ毎に異なるキーバインドの
-設定を実現しています。
+Windows Terminal では、複数の種類のターミナルをタブで個別に開くことができます。
+このため、Fakeymacs ではウィンドウタイトルが変更されたイベントをキャッチすることにより、
+タブ毎に異なるキーバインドの設定を実現しています。
 
 なお、Windows Terminal で Ubuntu 等の Linux を利用する際は、設定 -> 二番目にある操作 メニューより、
 「貼り付け」の Ctrl+v を削除してご利用ください。
@@ -315,7 +315,7 @@ Microsoft Edit を使う際に改行を含む行のコピペが正しく機能�
 
 ** Midnight Commander の対応について
 
-Midnight Commander は、Linux、Windows どちらでも動く、テキストベースのファイルマネージャ
+Midnight Commander は、Linux、Windows どちらでも動くテキストベースのファイルマネージャ
 です。Emacs like のキーバインドを持ち、ウィンドウタイトルを変更する機能ももっているので、
 Windows Terminal などのターミナル上で Fakeymacs と共存して利用可能です。
 
@@ -343,7 +343,7 @@ Midnight Commander の使い方は次のページに紹介されていますの�
 space_fn 拡張機能の利用を検討ください（space_fn 拡張機能の config_persona.py は、
 config_personal_2.py を複写して利用）。
 Space+Ctrl+o でコマンドラインへの切り替え（Ctrl+o）が使えたり、Space+<数字キー>
-でファンクションキーが使えるようになるなるなど、操作性が良くなると思います。
+でファンクションキーが使えるようになるなど、操作性が良くなると思います。
 
 さらに、config_personal.py の [section-base-2] セクションにある次の設定を有効にすることを
 検討ください。プレフィックスキーの Esc や C-x を使う際に IME を OFF にする機能が働き、
