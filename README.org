@@ -335,6 +335,11 @@ Midnight Commander の使い方は次のページに紹介されていますの�
 
 - https://bioinfo-dojo.net/2020/08/31/端末用-cui-ファイルマネージャー-midnight-commander-mc-使い方-基本/
 
+マニュアル関連ページは以下を参照ください。
+
+- https://wiki.archlinux.org/title/Midnight_Commander
+- https://man.archlinux.org/man/mc.1
+
 なお、Windows Terminal で Midnight Commander を利用する際は、設定 -> 二番目にある操作
 メニューより、「全画面表示に切り替える」の Alt+Enter を削除してご利用ください。
 「ファイル名取得」の機能が利用できるようになります。
