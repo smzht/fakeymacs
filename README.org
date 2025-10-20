@@ -334,6 +334,7 @@ Windows 版は以下からダウンロード可能です。
 Midnight Commander の使い方は次のページに紹介されていますので、是非一度お試しください。
 
 - https://bioinfo-dojo.net/2020/08/31/端末用-cui-ファイルマネージャー-midnight-commander-mc-使い方-基本/
+- https://www.debian.org/doc/manuals/debian-reference/ch01.ja.html#_midnight_commander_mc
 
 マニュアル関連ページは以下を参照ください。
 
