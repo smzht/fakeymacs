@@ -372,13 +372,13 @@ WSL2 で Microsoft Edit と Midnight Commander を利用する場合は、次の
 export EDITOR=edit
 #+END_EXAMPLE
 
-- ~/.config/mc/mc.ext （mc Version 4.8.30 より前）
+- ~/.config/mc/mc.ext （mc Version 4.8.28 以前）
 #+BEGIN_EXAMPLE
 regex/.*
     Open=wslstart %f
 #+END_EXAMPLE
 
-- ~/.config/mc/mc.ext （mc Version 4.8.30 以降）
+- ~/.config/mc/mc.ext （mc Version 4.8.29 以降）
 #+BEGIN_EXAMPLE
 [mc.ext.ini]
 Version=4.0
