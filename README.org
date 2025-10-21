@@ -363,6 +363,20 @@ config_personal_2.py を複写してご利用ください）。
 Space+Ctrl+o でコマンドラインへの切り替え（Ctrl+o）が使えたり、Space+<数字キー>
 でファンクションキーが使えるようになるなど、操作性が良くなると思います。
 
+** WSL2 で Microsoft Edit と Midnight Commander を利用する場合の設定について
+
+WSL2 で Microsoft Edit と Midnight Commander を利用する場合は、次の設定を検討ください。
+
+#+BEGIN_EXAMPLE
+export EDITOR=edit
+export MC_XDG_OPEN=wslstart
+#+END_EXAMPLE
+
+wslstart は、次からダウンロードできます。wslstart の代わりに、sglstart の利用もお勧め
+です。
+
+- https://github.com/smzht/wsl-utils
+
 ** ウィンドウ操作の機能強化について
 
 ウィンドウ操作については、次の拡張機能により、機能強化を図っています。
