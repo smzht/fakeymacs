@@ -372,10 +372,20 @@ WSL2 で Microsoft Edit と Midnight Commander を利用する場合は、次の
 export EDITOR=edit
 #+END_EXAMPLE
 
-- ~/.config/mc/mc.ext
+- ~/.config/mc/mc.ext （mc Version 4.0 より前）
 #+BEGIN_EXAMPLE
 regex/.*
     Open=wslstart %f
+#+END_EXAMPLE
+
+- ~/.config/mc/mc.ext （mc Version 4.0 以降）
+#+BEGIN_EXAMPLE
+[mc.ext.ini]
+Version=4.0
+
+[file]
+Regex=.*
+Open=wslstart %f
 #+END_EXAMPLE
 
 wslstart は、次からダウンロードできます。wslstart の代わりに、sglstart の利用もお勧めです。
