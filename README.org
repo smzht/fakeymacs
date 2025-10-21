@@ -378,7 +378,7 @@ regex/.*
     Open=wslstart %f
 #+END_EXAMPLE
 
-- ~/.config/mc/mc.ext （mc Version 4.8.29 以降）
+- ~/.config/mc/mc.ext.ini （mc Version 4.8.29 以降）
 #+BEGIN_EXAMPLE
 [mc.ext.ini]
 Version=4.0
