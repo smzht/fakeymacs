@@ -372,8 +372,7 @@ export EDITOR=edit
 export MC_XDG_OPEN=wslstart
 #+END_EXAMPLE
 
-wslstart は、次からダウンロードできます。wslstart の代わりに、sglstart の利用もお勧め
-です。
+wslstart は、次からダウンロードできます。wslstart の代わりに、sglstart の利用もお勧めです。
 
 - https://github.com/smzht/wsl-utils
 
