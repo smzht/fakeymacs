@@ -377,7 +377,7 @@ export EDITOR=edit
 regex/\.txt$
     Open=edit %f
 
-regex/\.(pdf|docx|xlsx|pptx)$
+regex/\.([^.]+)$
     Open=wslstart %f
 #+END_EXAMPLE
 
