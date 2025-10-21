@@ -367,7 +367,7 @@ Space+Ctrl+o でコマンドラインへの切り替え（Ctrl+o）が使えた�
 
 WSL2 で Microsoft Edit と Midnight Commander を利用する場合は、次の設定の利用を検討ください。
 
-- .bashrc
+- ~/.bashrc
 #+BEGIN_EXAMPLE
 export EDITOR=edit
 #+END_EXAMPLE
