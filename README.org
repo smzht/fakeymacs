@@ -374,7 +374,7 @@ export EDITOR=edit
 
 - ~/.config/mc/mc.ext
 #+BEGIN_EXAMPLE
-regex/\.([^.]+)$
+regex/.*
     Open=wslstart %f
 #+END_EXAMPLE
 
