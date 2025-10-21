@@ -383,8 +383,7 @@ regex/.*
 [mc.ext.ini]
 Version=4.0
 
-[file]
-Regex=.*
+[Default]
 Open=wslstart %f
 #+END_EXAMPLE
 
