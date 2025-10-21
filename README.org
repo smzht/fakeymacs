@@ -367,9 +367,18 @@ Space+Ctrl+o でコマンドラインへの切り替え（Ctrl+o）が使えた�
 
 WSL2 で Microsoft Edit と Midnight Commander を利用する場合は、次の設定を検討ください。
 
+- .bashrc
 #+BEGIN_EXAMPLE
 export EDITOR=edit
-export MC_XDG_OPEN=wslstart
+#+END_EXAMPLE
+
+- ~/.config/mc/mc.ext
+#+BEGIN_EXAMPLE
+regex/\.txt$
+    Open=edit %f
+
+regex/\.(pdf|docx|xlsx)$
+    Open=wslstart %f
 #+END_EXAMPLE
 
 wslstart は、次からダウンロードできます。wslstart の代わりに、sglstart の利用もお勧めです。
