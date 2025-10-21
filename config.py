@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20251017_02"
+fakeymacs_version = "20251021_01"
 
 import time
 import os
@@ -1624,6 +1624,10 @@ def configure(keymap):
             checkWindow(None, "ConsoleWindowClass", "* - edit*")):
             setImeStatus(0)
             self_insert_command("C-q")()
+
+        # Windows 11版 Notepad の場合、A-F4 が失敗することがあるので、C-S-w を発行する
+        elif checkWindow("Notepad.exe", "RichEditD2DPT"):
+            self_insert_command("C-S-w")()
         else:
             self_insert_command("A-F4")()
 
