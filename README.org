@@ -286,7 +286,7 @@ Fakeymacs では、Python のクロージャの機能を多用しています。
 ** Windows Terminal の対応について
 
 Windows Terminal では、複数の種類のターミナルをタブで個別に開くことができます。
-このため、Fakeymacs ではウィンドウタイトルが変更されたイベントをキャッチすることにより、
+このため Fakeymacs では、ウィンドウタイトルが変更されたイベントをキャッチすることにより、
 タブ毎に異なるキーバインドの設定を実現しています。
 
 Windows Terminal で Ubuntu 等の Linux を利用する際は、設定 -> 二番目にある操作 メニューより、
@@ -297,7 +297,7 @@ Ctrl+v を削除しても、Ctrl+Shift+v が Windows のクリップボードか
 
 ** Microsoft Edit の対応について
 
-Fakeymacs は Microsoft Edit に対応しています。Microsoft Edit は、ターミナルで起動すると、その
+Fakeymacs は、Microsoft Edit に対応しています。Microsoft Edit は、ターミナルで起動するとその
 ターミナルのタイトルを「ファイル名 - edit」に置き換える機能をもっています。この機能により、
 Fakeymacs がターミナルで Edit を起動中であることを認識することができ、Emacs キーバインドに
 切り替えることができます。これは、Windows 版の Edit でも Linux 版の Edit でも同様に機能し、
@@ -311,7 +311,7 @@ Linux 版の Edit は、次からダウンロードすることができます�
 
 Windows Terminal で Microsoft Edit を利用する際は、設定 -> 操作 メニューより、
 「貼り付けるときに末尾の空白を削除する」をオフに設定してご利用ください。
-Microsoft Edit を使う際に改行を含む行のコピペが正しく機能するようになります。
+Microsoft Edit を使う際に、改行を含む行のコピペが正しく機能するようになります。
 
 ** Midnight Commander の対応について
 
