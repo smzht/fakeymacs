@@ -298,7 +298,7 @@ Ctrl+v を削除しても、Ctrl+Shift+v が Windows のクリップボードか
 ** Microsoft Edit の対応について
 
 Fakeymacs は、Microsoft Edit に対応しています。Microsoft Edit は、ターミナルで起動するとその
-ターミナルのタイトルを「ファイル名 - edit」に置き換える機能をもっています。この機能により、
+ターミナルのタイトルを「ファイル名 - edit」に置き換える機能をもっているので、
 Fakeymacs がターミナルで Edit を起動中であることを認識することができ、Emacs キーバインドに
 切り替えることができます。これは、Windows 版の Edit でも Linux 版の Edit でも同様に機能し、
 さらには ssh で接続した先で Edit を起動した場合でも同様に機能します。
