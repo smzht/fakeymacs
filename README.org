@@ -374,7 +374,7 @@ export EDITOR=edit
 
 - ~/.config/mc/mc.ext （mc Version 4.8.28 以前）
 #+BEGIN_EXAMPLE
-regex/.*
+default/*
     Open=wslstart %f
 #+END_EXAMPLE
 
