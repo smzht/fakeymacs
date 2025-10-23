@@ -391,6 +391,20 @@ wslstart は、次からダウンロードできます。wslstart の代わり�
 
 - https://github.com/smzht/wsl-utils
 
+また、Midnight Commander は peco との相性が良いです。次のような使い方ができます。
+
+#+BEGIN_EXAMPLE
+cd() {
+    builtin cd "$@" && history -s "cd $(printf "%q" "$(pwd)")"
+}
+alias ph='eval $(history | tac | awk "{\$1=\"\"; print}" | peco --query "cd ")'
+#+END_EXAMPLE
+
+Ubuntu-24.04 の apt でインストールする peco は画面が崩れる場合があるようですので、
+そのような場合は次の URL から最新のバージョンのものをお使いください。
+
+- https://github.com/peco/peco/releases
+
 ** ウィンドウ操作の機能強化について
 
 ウィンドウ操作については、次の拡張機能により、機能強化を図っています。
