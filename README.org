@@ -397,7 +397,8 @@ wslstart は、次からダウンロードできます。wslstart の代わり�
 - https://github.com/smzht/wsl-utils
 
 また、Midnight Commander は peco との相性が良いです。
-次のような設定による使い方が考えられます。
+次のような設定を行うと、ph コマンドで mc のカレントディレクトリを容易に変更することが
+できるようになります。
 
 - ~/.bashrc
 #+BEGIN_EXAMPLE
