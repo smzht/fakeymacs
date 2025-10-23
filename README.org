@@ -360,8 +360,9 @@ define_key(keymap_base, "C-x", self_insert_command3("C-x"))
 space_fn 拡張機能を有効にすると、Space+Ctrl+o でコマンドラインへの切り替え（Ctrl+o）
 が使えたり、Space+<数字キー> でファンクションキーが使えるようになるなど、操作性が
 良くなると思います。
-（space_fn 拡張機能を利用する際は、config_persona.py に config_personal_2.py
-を複写してご利用ください）。
+
+※ space_fn 拡張機能を利用する際は、config_persona.py に config_personal_2.py
+を複写してご利用ください。
 
 ** WSL2 で Microsoft Edit と Midnight Commander を利用する場合の設定について
 
