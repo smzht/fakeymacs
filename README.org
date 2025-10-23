@@ -369,6 +369,9 @@ WSL2 で Microsoft Edit と Midnight Commander を利用する場合は、次の
 
 - ~/.config/mc/mc.ext （mc Version 4.8.28 以前）
 #+BEGIN_EXAMPLE
+type/^directory
+    Edit=wslstart %f
+
 default/*
     Edit=edit %f
     Open=wslstart %f
@@ -378,6 +381,10 @@ default/*
 #+BEGIN_EXAMPLE
 [mc.ext.ini]
 Version=4.0
+
+[Type/^directory]
+Type=^directory
+Edit=wslstart %f
 
 [Default]
 Edit=edit %f
