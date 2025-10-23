@@ -304,7 +304,7 @@ Fakeymacs がターミナルで Edit を起動中であることを認識する�
 さらには ssh で接続した先で Edit を起動した場合でも同様に機能します。
 
 Linux 版の Edit は、次からダウンロードすることができます。一つのバイナリファイルとなって
-いますので、これを edit や msedit というファイル名に置き換え、~/bin などのパスの通った
+いますので、これを edit というファイル名に置き換え、~/bin などのパスの通った
 ディレクトリに格納すると、vim のようなエディタとして使うことができるようになります。
 
 - https://github.com/microsoft/edit/releases
@@ -367,14 +367,10 @@ space_fn 拡張機能を有効にすると、Space+Ctrl+o でコマンドライ�
 
 WSL2 で Microsoft Edit と Midnight Commander を利用する場合は、次の設定の利用を検討ください。
 
-- ~/.bashrc
-#+BEGIN_EXAMPLE
-export EDITOR=edit
-#+END_EXAMPLE
-
 - ~/.config/mc/mc.ext （mc Version 4.8.28 以前）
 #+BEGIN_EXAMPLE
 default/*
+    Edit=edit %f
     Open=wslstart %f
 #+END_EXAMPLE
 
@@ -384,6 +380,7 @@ default/*
 Version=4.0
 
 [Default]
+Edit=edit %f
 Open=wslstart %f
 #+END_EXAMPLE
 
