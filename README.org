@@ -406,7 +406,7 @@ cd() {
 alias ph='eval $(history | tac | awk "{\$1=\"\"; print}" | peco --query "cd ")'
 #+END_EXAMPLE
 
-なお、Ubuntu-24.04 の apt でインストールする peco は画面が崩れる場合があるようです。
+※ Ubuntu-24.04 の apt でインストールする peco は画面が崩れる場合があるようです。
 その場合は、次の URL から最新のバージョンのものをダウンロードしてお使いください。
 
 - https://github.com/peco/peco/releases
