@@ -340,7 +340,7 @@ Midnight Commander の使い方は次のページに紹介されていますの�
 - https://bioinfo-dojo.net/2020/08/31/端末用-cui-ファイルマネージャー-midnight-commander-mc-使い方-基本/
 - https://www.debian.org/doc/manuals/debian-reference/ch01.ja.html#_midnight_commander_mc
 
-マニュアル関連ページは以下を参照ください。
+マニュアル関連ページは以下から参照可能です。
 
 - https://wiki.archlinux.org/title/Midnight_Commander
 - https://man.archlinux.org/man/mc.1
@@ -391,8 +391,10 @@ wslstart は、次からダウンロードできます。wslstart の代わり�
 
 - https://github.com/smzht/wsl-utils
 
-また、Midnight Commander は peco との相性が良いです。次のような使い方ができます。
+また、Midnight Commander は peco との相性が良いです。
+次のような設定による使い方が考えられます。
 
+- ~/.bashrc
 #+BEGIN_EXAMPLE
 cd() {
     builtin cd "$@" && history -s "cd $(printf "%q" "$(pwd)")"
@@ -400,8 +402,8 @@ cd() {
 alias ph='eval $(history | tac | awk "{\$1=\"\"; print}" | peco --query "cd ")'
 #+END_EXAMPLE
 
-Ubuntu-24.04 の apt でインストールする peco は画面が崩れる場合があるようですので、
-そのような場合は次の URL から最新のバージョンのものをお使いください。
+なお、Ubuntu-24.04 の apt でインストールする peco は画面が崩れる場合があるようです。
+その場合は、次の URL から最新のバージョンのものをお使いください。
 
 - https://github.com/peco/peco/releases
 
