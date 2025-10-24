@@ -402,8 +402,10 @@ wslstart は、次からダウンロードできます。wslstart の代わり�
 
 - ~/.bashrc
 #+BEGIN_EXAMPLE
-cd() {
-    builtin cd "$@" && history -s "cd $(printf "%q" "$(pwd)")"
+function cd() {
+    builtin cd "$@" || return
+    local pwd="$(printf "%q" "$(pwd)")"
+    history -s "cd ${pwd/#$HOME/\~}"
 }
 alias ph='eval $(history | tac | awk "{\$1=\"\"; print}" | peco --query "cd ")'
 #+END_EXAMPLE
