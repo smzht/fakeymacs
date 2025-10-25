@@ -275,6 +275,7 @@ define_key(keymap_global, f"{popup_prefix_key} m", popup_app("msedge.exe"))
 define_key(keymap_global, f"{popup_prefix_key} c", popup_app("chrome.exe"))
 define_key(keymap_global, f"{popup_prefix_key} v", popup_app("Code.exe"))
 define_key(keymap_global, f"{popup_prefix_key} o", popup_app("Obsidian.exe"))
+define_key(keymap_global, f"{popup_prefix_key} t", popup_app("WindowsTerminal.exe"))
 # define_key(keymap_global, f"{popup_prefix_key} e", popup_app(None, None, "emacs-*"))
 # define_key(keymap_global, f"{popup_prefix_key} s", popup_app(None, None, "さくらのクラウドシェル*"))
 
