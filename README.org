@@ -419,7 +419,7 @@ Edit=edit %f
 Open=wslstart %f
 #+END_EXAMPLE
 
-「Edit=edit %」の箇所は、「Edit=settitle micro」とすると、先に紹介した Micro Editor が
+「Edit=edit %f」の箇所は、「Edit=settitle micro %f」とすると、先に紹介した Micro Editor が
 Emacs キーバインドで利用できるようになります。
 
 wslstart は、次からダウンロードできます。wslstart の代わりに、sglstart の利用もお勧めです。
