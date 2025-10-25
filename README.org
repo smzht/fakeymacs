@@ -345,8 +345,8 @@ Micro Editor の使い方は、以下が参考になると思います。
 - https://qiita.com/tadsan/items/f0747f09ea5ce863f2ec
 - https://github.com/zyedidia/micro?tab=readme-ov-file#documentation-and-help
 
-※ Linux 版 Micro Editor では、日本語のコピペで文字化けが発生するようです。
-Ctrl+E で CommandMode に移行し、set clipboard terminal とすると改善するようです。
+なお、Linux 版 Micro Editor では、日本語のコピペで文字化けが発生するようです。
+Ctrl+E で CommandMode に移行し、set clipboard terminal とすると改善するようですので、お試しください。
 
 ** Midnight Commander の対応について
 
@@ -387,12 +387,10 @@ define_key(keymap_base, "C-x", self_insert_command3("C-x"))
 #+END_EXAMPLE
 
 また、ファンクションキーの無い 60% キーボードなどをお使いの場合は、以降に紹介している
-space_fn 拡張機能を有効にすると、Space+Ctrl+o でコマンドラインへの切り替え（Ctrl+o）
-が使えたり、Space+<数字キー> でファンクションキーが使えるようになるなど、操作性が
-良くなると思います。
-
-※ space_fn 拡張機能を利用する際は、config_persona.py に config_personal_2.py
-を複写してご利用ください。
+space_fn 拡張機能を有効にすると（space_fn 拡張機能を利用する際は、config_persona.py に
+config_personal_2.py を複写してご利用ください）、Space+Ctrl+o でコマンドラインへの
+切り替え（Ctrl+o）が使えたり、Space+<数字キー> でファンクションキーが使えるようになるなど、
+操作性が良くなると思います。
 
 ** WSL2 で Midnight Commander を利用する場合の設定について
 
@@ -443,7 +441,7 @@ function cd() {
 alias ph='eval $(history | tac | awk "{\$1=\"\"; print}" | peco --query "cd ")'
 #+END_EXAMPLE
 
-※ Ubuntu-24.04 の apt でインストールする peco は画面が崩れる場合があるようです。
+なお、Ubuntu-24.04 の apt でインストールする peco は画面が崩れる場合があるようです。
 その場合は、次の URL から最新のバージョンのものをダウンロードしてお使いください。
 
 - https://github.com/peco/peco/releases
