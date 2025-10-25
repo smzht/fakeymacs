@@ -315,9 +315,9 @@ Microsoft Edit を使う際に、改行を含む行のコピペが正しく機�
 
 ** Micro Editor の対応について
 
-Fakeymacs は、Micro Editor に対応しています。ただし、Micro Editor は Microsoft Edit と異なり、
-ターミナルのタイトルを置き換える機能を持っていません。そこで、ターミナルのタイトルを置き換える
-コマンド settitle を作成しました。
+Fakeymacs は、Micro Editor に対応しています。ただし、Linux 版の Micro Editor は Microsoft Edit
+と異なり、ターミナルのタイトルを置き換える機能を持っていないようです。
+そこで、ターミナルのタイトルを置き換えるコマンド settitle を作成しました。
 
 - https://github.com/smzht/wsl-utils
 
@@ -335,8 +335,8 @@ Micro Editor の Linux 版は、次のページからダウンロード可能で
 
 - https://micro-editor.github.io/
 
-次のページから Windows 版もダウンロードできますが、ターミナルのタイトルを置き換える仕組みは
-独自に作成する必要があります。
+次のページから Windows 版もダウンロードできますが、コマンドプロンプトから動かさないと、
+タイトルを置き換わる機能は働かないようです。
 
 - https://github.com/zyedidia/micro
 
