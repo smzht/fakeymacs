@@ -345,6 +345,9 @@ Micro Editor の使い方は、以下が参考になると思います。
 - https://qiita.com/tadsan/items/f0747f09ea5ce863f2ec
 - https://github.com/zyedidia/micro?tab=readme-ov-file#documentation-and-help
 
+なお、Linux 版 Micro Editor では、日本語のコピペで文字化けが発生するようです。
+Ctrl+E で CommandMode に移行し、set clipboard terminal とすると改善するようですのでお試しください。
+
 ** Midnight Commander の対応について
 
 Midnight Commander は、Linux、Windows どちらでも動くテキストベースのファイルマネージャ
