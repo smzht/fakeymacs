@@ -313,6 +313,38 @@ Windows Terminal で Microsoft Edit を利用する際は、設定 -> 操作 メ
 「貼り付けるときに末尾の空白を削除する」をオフに設定してご利用ください。
 Microsoft Edit を使う際に、改行を含む行のコピペが正しく機能するようになります。
 
+** Micro Editor の対応について
+
+Fakeymacs は、Micro Editor に対応しています。ただし、Micro Editor は Microsoft Edit と異なり、
+ターミナルのタイトルを置き換える機能を持っていません。そこで、ターミナルのタイトルを置き換える
+コマンド settitle を作成しました。
+
+- https://github.com/smzht/wsl-utils
+
+この settitle コマンドをコマンドパスの通ったフォルダに置き、次のような alias を使って me を
+起動すると、ターミナルのタイトルを置き換えた後に micro コマンドが起動するようになります。
+
+#+BEGIN_EXAMPLE
+alias me='settitle micro'
+#+END_EXAMPLE
+
+Fakeymacs では、ターミナルのタイトルに「- micro」が付いていることを検知すると Emacs キーバインド
+にするようにしていますので、結果として Micro Editor が Emacs キーバインドで利用できるようになります。
+
+Micro Editor の Linux 版は、次のページからダウンロード可能です。
+
+- https://micro-editor.github.io/
+
+次のページから Windows 版もダウンロードできますが、ターミナルのタイトルを置き換える仕組みは
+独自に作成する必要があります。
+
+- https://github.com/zyedidia/micro
+
+Micro Editor の使い方は、以下が参考になると思います。
+
+- https://qiita.com/tadsan/items/f0747f09ea5ce863f2ec
+- https://github.com/zyedidia/micro?tab=readme-ov-file#documentation-and-help
+
 ** Midnight Commander の対応について
 
 Midnight Commander は、Linux、Windows どちらでも動くテキストベースのファイルマネージャ
@@ -322,18 +354,13 @@ Windows Terminal などのターミナル上で Fakeymacs と共存して利用�
 - https://midnight-commander.org
 
 Ubuntu で動かす場合は、sudo apt install mc でインストールが可能です。
-Windows 版は以下からダウンロード可能です。
+Windows 版は次のページダウンロード可能です。
 
 - https://github.com/adamyg/mcwin32
 
 ※ Windows 版の mc は、Open に指定したコマンドに日本語を含んだファイルを正しく渡せない
 問題があるようです。Linux 版ではこの問題が発生しませんので、WSL2 上で Linux 版の mc
 を利用することをお勧めします。
-
-次のページに書かれている方法で、利用するエディタを先に紹介したMicrosoft Edit にすると、
-シームレスに Emacs キーバインドの環境を利用することができます。
-
-- https://hiroom2.jimdoweb.com/2015/09/06/midnight-commanderを使ってみる/#sec-3-4
 
 Midnight Commander の使い方は次のページに紹介されていますので、是非一度お試しください。
 
@@ -391,6 +418,9 @@ Edit=wslstart %f
 Edit=edit %f
 Open=wslstart %f
 #+END_EXAMPLE
+
+「Edit=edit %」の箇所は、「Edit=settitle micro」とすると、先に紹介した Micro Editor が
+Emacs キーバインドで利用できるようになります。
 
 wslstart は、次からダウンロードできます。wslstart の代わりに、sglstart の利用もお勧めです。
 
