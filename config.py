@@ -1223,7 +1223,9 @@ def configure(keymap):
             checkWindow("sakura.exe", "SakuraView*")):
             self_insert_command3("C-j")()
 
-        elif checkWindow("TeXworks.exe", "Qt661QWindowIcon"):
+        elif (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "* - micro*") or
+              checkWindow(None, "ConsoleWindowClass", "* - micro*") or
+              checkWindow("TeXworks.exe", "Qt661QWindowIcon")):
             self_insert_command3("C-l")()
         else:
             self_insert_command3("C-g")()
