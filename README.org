@@ -335,8 +335,8 @@ Micro Editor の Linux 版は、次のページからダウンロード可能で
 
 - https://micro-editor.github.io/
 
-次のページから Windows 版もダウンロードできますが、コマンドプロンプトから動かさないと、
-タイトルを置き換わる機能は働かないようです。
+次のページからは Windows 版もダウンロードできます。Windows 版の場合、settile のようなコマンドを利用
+しなくとも、コマンドプロンプトから起動すればタイトルが置き換わる機能が働くようです。
 
 - https://github.com/zyedidia/micro
 
