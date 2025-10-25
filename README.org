@@ -365,7 +365,7 @@ Windows 版は次のページダウンロード可能です。
 問題があるようです。Linux 版ではこの問題が発生しませんので、WSL2 上で Linux 版の mc
 を利用することをお勧めします。
 
-Midnight Commander の使い方は次のページに紹介されていますので、是非一度お試しください。
+Midnight Commander の使い方は、以下が参考になると思います。
 
 - https://bioinfo-dojo.net/2020/08/31/端末用-cui-ファイルマネージャー-midnight-commander-mc-使い方-基本/
 - https://www.debian.org/doc/manuals/debian-reference/ch01.ja.html#_midnight_commander_mc
