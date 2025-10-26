@@ -286,8 +286,8 @@ Fakeymacs では、Python のクロージャの機能を多用しています。
 ** Windows Terminal の対応について
 
 Windows Terminal では、複数の種類のターミナルをタブで個別に開くことができます。
-このようなアプリの対応のため、Fakeymacs ではウィンドウタイトルが変更されたイベントをキャッチ
-することにより、タブ毎に異なるキーバインドの設定を実現しています。
+このようなアプリに対応するため、Fakeymacs ではタブの切り替え等によるウィンドウタイトルの変更を検知し、
+キーバインドの再設定を行う機能を実装しています。
 
 Windows Terminal で Ubuntu 等の Linux を利用する際は、設定 -> 二番目にある操作 メニューより、
 「貼り付け」の Ctrl+v を削除してご利用ください。
@@ -299,7 +299,7 @@ Ctrl+v を削除しても、Ctrl+Shift+v が Windows のクリップボードか
 
 Fakeymacs は、Microsoft Edit に対応しています。Microsoft Edit は、ターミナルで起動するとその
 ターミナルのタイトルを「ファイル名 - edit」に置き換える機能をもっているので、
-Fakeymacs がターミナルで Edit を起動中であることを認識することができ、Emacs キーバインドに
+Fakeymacs がターミナルで Edit を起動中したことを認識することができ、Emacs キーバインドに
 切り替えることができます。これは、Windows 版の Edit でも Linux 版の Edit でも同様に機能し、
 さらには ssh で接続した先で Edit を起動した場合でも同様に機能します。
 
