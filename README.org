@@ -357,7 +357,7 @@ Windows Terminal などのターミナル上で Fakeymacs と共存して利用�
 - https://midnight-commander.org
 
 Ubuntu で動かす場合は、sudo apt install mc でインストールが可能です。
-Windows 版は次のページダウンロード可能です。
+Windows 版は次のページでダウンロード可能です。
 
 - https://github.com/adamyg/mcwin32
 
