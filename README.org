@@ -416,8 +416,8 @@ Type=^directory
 Edit=wslstart %f
 
 [Default]
-Edit=edit %f
 Open=wslstart %f
+Edit=edit %f
 #+END_EXAMPLE
 
 「Edit=edit %f」の箇所は、「Edit=settitle micro %f」とすると、先に紹介した Micro Editor が
