@@ -471,6 +471,10 @@ VSCode の Emacs Keymap Extension と比較した本機能の特徴は、次の�
 
 - https://w.atwiki.jp/ntemacs/pages/25.html
 
+なお、VSCode は先に紹介した Midnight Commander とも連携可能です。
+mc.ext や mc.ext.ini の Edit や View に code %f を設定してご利用ください。
+mc を起動する Terminal と VSCode のウィンドウの切り替えは、A-o で行うことができます。
+
 ** Obsidian の機能強化について
 
 Obsidian については、次の拡張機能により、機能強化を図っています。
