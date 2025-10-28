@@ -402,8 +402,8 @@ type/^directory
     Edit=wslstart %f
 
 default/*
-    Edit=edit %f
     Open=wslstart %f
+    Edit=edit %f
 #+END_EXAMPLE
 
 - ~/.config/mc/mc.ext.ini （mc Version 4.8.29 以降）
