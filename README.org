@@ -432,8 +432,8 @@ wslstart については、次のページを参照ください。
 
 - https://github.com/smzht/wsl-utils?tab=readme-ov-file#-wslstart
 
-同じページには、Windows ショートカットを作成するコマンドや、Windows ショートカットを利用して
-cd をするコマンドなども紹介しています。
+同じページには、Windows ショートカットファイルを作成するコマンドや、
+Windows ショートカットファイルを利用して cd をするコマンドなども紹介しています。
 
 - https://github.com/smzht/wsl-utils?tab=readme-ov-file#-wslsc
 - https://github.com/smzht/wsl-utils?tab=readme-ov-file#-lnkpath
