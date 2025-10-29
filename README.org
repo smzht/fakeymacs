@@ -452,7 +452,7 @@ function cd() {
 alias ph='eval "$(history | tac | sed "s/^ *[0-9]\+ //" | peco --query "cd ")"'
 #+END_EXAMPLE
 
-Ubuntu-24.04 の apt でインストールする peco は画面が崩れる場合があるようですので、
+※ Ubuntu-24.04 の apt でインストールする peco は画面が崩れる場合があるようですので、
 Ubuntu-24.04 で利用する場合は、次の URL から最新のバージョンのものをダウンロードして
 お使いください。
 
