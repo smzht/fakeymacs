@@ -319,7 +319,7 @@ Fakeymacs は、Micro Editor に対応しています。ただし、Linux 版の
 と異なり、ターミナルのタイトルを置き換える機能を持っていないようです。
 そこで、ターミナルのタイトルを置き換えるコマンド settitle を作成しました。
 
-- https://github.com/smzht/wsl-utils
+- https://github.com/smzht/wsl-utils?tab=readme-ov-file#-settitle
 
 この settitle コマンドをコマンドパスの通ったフォルダに置き、次のような alias を使って me を
 起動すると、ターミナルのタイトルを置き換えた後に micro コマンドが起動するようになります。
@@ -425,7 +425,7 @@ Emacs キーバインドで利用できるようになります。
 
 wslstart は、次からダウンロードできます。wslstart の代わりに、sglstart の利用もお勧めです。
 
-- https://github.com/smzht/wsl-utils
+- https://github.com/smzht/wsl-utils?tab=readme-ov-file#-wslstart
 
 また、Midnight Commander は peco との相性が良いです。
 次のような設定を行うと、ph コマンドで mc のカレントディレクトリを容易に変更することが
