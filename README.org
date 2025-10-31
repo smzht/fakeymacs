@@ -309,7 +309,7 @@ Linux 版の Edit は、次からダウンロードすることができます�
 
 - https://github.com/microsoft/edit/releases
 
-Windows Terminal で Microsoft Edit を利用する際は、設定 -> 操作 メニューより、
+なお、Windows Terminal で Microsoft Edit を利用する際は、設定 -> 操作 メニューより、
 「貼り付けるときに末尾の空白を削除する」をオフに設定してご利用ください。
 Microsoft Edit を使う際に、改行を含む行のコピペが正しく機能するようになります。
 
