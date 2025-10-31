@@ -309,7 +309,7 @@ Linux 版の Edit は、次からダウンロードすることができます�
 
 - https://github.com/microsoft/edit/releases
 
-なお、Windows Terminal で Microsoft Edit を利用する際は、設定 -> 操作 メニューより、
+Windows Terminal で Microsoft Edit を利用する際は、設定 -> 操作 メニューより、
 「貼り付けるときに末尾の空白を削除する」をオフに設定してご利用ください。
 Microsoft Edit を使う際に、改行を含む行のコピペが正しく機能するようになります。
 
@@ -322,7 +322,7 @@ Fakeymacs は、Micro Editor に対応しています。ただし、Linux 版の
 - https://github.com/smzht/wsl-utils?tab=readme-ov-file#-settitle
 
 この settitle コマンドをコマンドパスの通ったフォルダに置き、次のような alias を使って me を
-起動すると、ターミナルのタイトルを置き換えた後に micro コマンドが起動するようになります。
+実行すると、ターミナルのタイトルを置き換えた後に micro コマンドが起動するようになります。
 
 #+BEGIN_EXAMPLE
 alias me='settitle micro'
@@ -375,14 +375,13 @@ Midnight Commander の使い方は、以下が参考になると思います。
 - https://wiki.archlinux.org/title/Midnight_Commander
 - https://man.archlinux.org/man/mc.1
 
-なお、Windows Terminal で Midnight Commander を利用する際は、設定 -> 二番目にある操作
-メニューより、「全画面表示に切り替える」の Alt+Enter を削除してご利用ください。
+Windows Terminal で Midnight Commander を利用する際は、設定 -> 二番目にある操作メニューより、
+「全画面表示に切り替える」の Alt+Enter を削除してご利用ください。
 「ファイル名取得」の機能に利用できるようになります。
 Alt+Enter を削除しても、F11 が同機能のために利用可能です。
 
-また、config_personal.py の [section-base-2] セクションにある次の設定を有効にすることを
-検討ください。プレフィックスキーの Esc や C-x を使う際に IME を OFF にする機能が働き、
-使い勝手が良くなると思います。
+なお、config_personal.py の [section-base-2] セクションにある次の設定を有効にすると、
+プレフィックスキーの Esc や C-x を使う際に IME を OFF にする機能が働き、使い勝手が良くなると思います。
 
 #+BEGIN_EXAMPLE
 # キーを入力した後に、IME を OFF にする設定
@@ -391,11 +390,11 @@ define_key(keymap_base, "C-[", self_insert_command3("C-["))
 define_key(keymap_base, "C-x", self_insert_command3("C-x"))
 #+END_EXAMPLE
 
-さらに、ファンクションキーの無い 60% キーボードなどをお使いの場合は、以降に紹介している
-space_fn 拡張機能を利用にすることを検討ください。（space_fn 拡張機能を利用する際は、
-config_persona.py に config_personal_2.py を複写してご利用ください。）
-Space+Ctrl+o でコマンドラインへの切り替え（Ctrl+o）が使えたり、Space+<数字キー> で
-ファンクションキーが使えるようになるなど、操作性が良くなると思います。
+また、ファンクションキーの無い 60% キーボードなどをお使いの場合は、以降に紹介している
+space_fn 拡張機能を利用すると（space_fn 拡張機能を利用する際は、config_persona.py に
+config_personal_2.py を複写してご利用ください）、Space+Ctrl+o でコマンドラインへの切り替え
+（Ctrl+o）が使えたり、Space+<数字キー> でファンクションキーが使えるようになるなど、
+操作性が良くなると思います。
 
 ** WSL2 で Midnight Commander を利用する場合の設定について
 
