@@ -445,7 +445,7 @@ Windows ショートカットファイルを利用して cd をする lcd コマ
 #+BEGIN_EXAMPLE
 function cd() {
     builtin cd "$@" || return
-    local pwd="$(printf "%q" "$(pwd)")"
+    local pwd=$(printf "%q" "$(pwd)")
     history -s "cd ${pwd/#$HOME/\~}"
 }
 alias ph='eval "$(history | tac | sed "s/^ *[0-9]\+ //" | peco --query "cd ")"'
