@@ -63,14 +63,18 @@ for vkey in vkeys():
     key = vkToStr(vkey)
 
     if key == "Escape":
-        define_key_m(f"Esc {key}", self_insert_command4("Esc", key))
-    else:
-        define_key_m(f"M-{key}",   self_insert_command4(f"A-{key}"))
-        define_key_m(f"M-S-{key}", self_insert_command4(f"A-S-{key}"))
+        continue
+
+    define_key_m(f"M-{key}",   self_insert_command4(f"A-{key}"))
+    define_key_m(f"M-S-{key}", self_insert_command4(f"A-S-{key}"))
 
     for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
         mkey = mod1 + mod2 + mod3 + mod4 + key
         define_key_m(f"Ctl-x {mkey}", self_insert_command4("C-x", mkey))
+
+## Esc キーの設定
+define_key_m(f"Esc Esc", self_insert_command4("Esc","Esc"))
+define_key_m(f"C-[ C-[", self_insert_command4("Esc","Esc"))
 
 ## 「カーソル移動」のキー設定
 define_key_m("M-<", beginning_of_buffer)
