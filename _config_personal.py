@@ -441,8 +441,6 @@ if 0:
     exec(readConfigExtension(r"menu_key\config.py"), dict(globals(), **locals()))
 
 # --------------------------------------------------------------------------------------------------
-# ■ VSCode 関連
-# --------------------------------------------------------------------------------------------------
 
 # VSCode 用のキーの設定を行う
 if 0:
@@ -450,14 +448,24 @@ if 0:
     exec(readConfigExtension(r"vscode_key\config.py"), dict(globals(), **locals()))
 
 # --------------------------------------------------------------------------------------------------
-# ■ Obsidian 関連
-# --------------------------------------------------------------------------------------------------
 
 # Obsidian 用のキーの設定を行う
 if 0:
     # fc.obsidian_language = "US"
     fc.obsidian_language = "JP"
     exec(readConfigExtension(r"obsidian_key\config.py"), dict(globals(), **locals()))
+
+# --------------------------------------------------------------------------------------------------
+
+# Micro Editor 用のキーの設定を行う
+if 0:
+    exec(readConfigExtension(r"micro_key\config.py"), dict(globals(), **locals()))
+
+# --------------------------------------------------------------------------------------------------
+
+# Midnight Commander 用のキーの設定を行う
+if 0:
+    exec(readConfigExtension(r"mc_key\config.py"), dict(globals(), **locals()))
 
 # --------------------------------------------------------------------------------------------------
 # ■ IME 関連
