@@ -146,7 +146,7 @@ define_key_u("Ctl-x 2", reset_search(reset_undo(reset_counter(reset_mark(split_w
 define_key_u("Ctl-x 3", reset_search(reset_undo(reset_counter(reset_mark(split_window_right)))))
 define_key_u("Ctl-x o", reset_search(reset_undo(reset_counter(reset_mark(other_window)))))
 
-## 「マルチカーソル」のキー設定
+## 「矩形選択 / マルチカーソル」のキー設定
 define_key_u("C-A-p",   reset_search(reset_undo(reset_counter(repeat(mark_previous_line)))))
 define_key_u("C-A-n",   reset_search(reset_undo(reset_counter(repeat(mark_next_line)))))
 define_key_u("C-A-b",   reset_search(reset_undo(reset_counter(repeat(mark_backward_char)))))
