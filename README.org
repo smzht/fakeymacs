@@ -443,17 +443,15 @@ Windows ショートカットファイルを利用して cd をする lcd コマ
 
 - ~/.bashrc
 #+BEGIN_EXAMPLE
+HISTCONTROL=ignoreboth:erasedups
+
 function cd() {
     builtin cd "$@" || return
     local pwd=$(printf "%q" "$(pwd)")
-    local cd="cd ${pwd/#$HOME/\~}"
-
-    # historyのcdの最新履歴10件に存在しなければ追加する
-    if ! history 1000 | sed "s/^ *[0-9]\+  //" | grep "^cd " | tail -n 10 | grep -Fxq "$cd"; then
-        history -s "$cd"
-    fi
+    history -s "cd ${pwd/#$HOME/\~}"
 }
-alias ph='eval "$(history 1000 | tac | sed "s/^ *[0-9]\+ //" | peco --query "cd ")"'
+
+alias ph='eval "$(history 1000 | tac | sed "s/^ *[0-9]\+  //" | peco --query "cd ")"'
 #+END_EXAMPLE
 
 なお、Ubuntu-24.04 の apt でインストールする peco は画面が崩れる場合があるようです。
