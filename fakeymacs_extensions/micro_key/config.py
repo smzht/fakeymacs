@@ -59,6 +59,12 @@ def microExecuteCommand2(command, enter=True):
         microExecuteCommand(command, enter)()
     return _func
 
+# def region(func):
+#     def _func():
+#         func()
+#         fakeymacs.forward_direction = True
+#     return _func
+
 ## バッファ / ウィンドウ操作
 def kill_buffer():
     self_insert_command("C-q")()
@@ -76,9 +82,44 @@ def split_window_right():
 def other_window():
     self_insert_command("C-w")()
 
+## 矩形選択 / マルチカーソル
+def mark_previous_line():
+    self_insert_command("A-S-Up")()
+
+def mark_next_line():
+    self_insert_command("A-S-Down")()
+
+def mark_backward_char():
+    mark2(backward_char, False)()
+
+def mark_forward_char():
+    mark2(forward_char, True)()
+
+def mark_backward_word():
+    mark2(backward_word, False)()
+
+def mark_forward_word():
+    mark2(forward_word, True)()
+
+def mark_beginning_of_line():
+    mark2(move_beginning_of_line, False)()
+
+def mark_end_of_line():
+    mark2(move_end_of_line, True)()
+
+def mark_next_like_this():
+    # region(self_insert_command("A-n"))()
+    self_insert_command("A-n")()
+
+def keyboard_quit_u1():
+    keyboard_quit(esc=False)
+
 ## その他
 def execute_extended_command():
     self_insert_command3("C-e")()
+
+def comment_dwim():
+    self_insert_command("A-/")()
 
 ## マルチストロークキーの設定
 define_key_u("Ctl-x",  keymap.defineMultiStrokeKeymap(fc.ctl_x_prefix_key))
@@ -109,8 +150,21 @@ define_key_u("Ctl-x 2", reset_search(reset_undo(reset_counter(reset_mark(split_w
 define_key_u("Ctl-x 3", reset_search(reset_undo(reset_counter(reset_mark(split_window_right)))))
 define_key_u("Ctl-x o", reset_search(reset_undo(reset_counter(reset_mark(other_window)))))
 
+## 「マルチカーソル」のキー設定
+define_key_u("C-A-p",   reset_search(reset_undo(reset_counter(repeat(mark_previous_line)))))
+define_key_u("C-A-n",   reset_search(reset_undo(reset_counter(repeat(mark_next_line)))))
+define_key_u("C-A-b",   reset_search(reset_undo(reset_counter(repeat(mark_backward_char)))))
+define_key_u("C-A-f",   reset_search(reset_undo(reset_counter(repeat(mark_forward_char)))))
+define_key_u("C-A-S-b", reset_search(reset_undo(reset_counter(repeat(mark_backward_word)))))
+define_key_u("C-A-S-f", reset_search(reset_undo(reset_counter(repeat(mark_forward_word)))))
+define_key_u("C-A-a",   reset_search(reset_undo(reset_counter(mark_beginning_of_line))))
+define_key_u("C-A-e",   reset_search(reset_undo(reset_counter(mark_end_of_line))))
+define_key_u("C-A-d",   reset_search(reset_undo(reset_counter(mark_next_like_this))))
+define_key_u("C-A-g",   reset_search(reset_counter(reset_mark(keyboard_quit_u1))))
+
 ## 「その他」のキー設定
 define_key_u("M-x", reset_search(reset_undo(reset_counter(reset_mark(execute_extended_command)))))
+define_key_u("M-;", reset_search(reset_undo(reset_counter(reset_mark(comment_dwim)))))
 
 # --------------------------------------------------------------------------------------------------
 
