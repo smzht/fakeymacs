@@ -68,8 +68,8 @@ for vkey in vkeys():
     define_key_m(f"M-{key}",   self_insert_command4(f"A-{key}"))
     define_key_m(f"M-S-{key}", self_insert_command4(f"A-S-{key}"))
 
-    for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
-        mkey = mod1 + mod2 + mod3 + mod4 + key
+    for mod1, mod2 in itertools.product(["", "C-"], ["", "S-"]):
+        mkey = mod1 + mod2 + key
         define_key_m(f"Ctl-x {mkey}", self_insert_command4("C-x", mkey))
 
 ## Esc キーの設定
