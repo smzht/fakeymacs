@@ -59,6 +59,12 @@ def microExecuteCommand2(command, enter=True):
         microExecuteCommand(command, enter)()
     return _func
 
+def region(func):
+    def _func():
+        func()
+        fakeymacs.forward_direction = True
+    return _func
+
 ## バッファ / ウィンドウ操作
 def kill_buffer():
     self_insert_command("C-q")()
@@ -102,7 +108,7 @@ def mark_end_of_line():
     mark2(move_end_of_line, True)()
 
 def mark_next_like_this():
-    self_insert_command("A-n")()
+    region(self_insert_command("A-n"))()
 
 def keyboard_quit_u1():
     keyboard_quit(esc=False)
