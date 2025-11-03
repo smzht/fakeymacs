@@ -65,11 +65,10 @@ def region(func):
         fakeymacs.forward_direction = True
     return _func
 
-## バッファ / ウィンドウ操作
+## ペイン操作
 def kill_buffer():
     self_insert_command("C-q")()
 
-## エディタ操作
 def delete_window():
     self_insert_command("C-q")()
 
@@ -139,11 +138,9 @@ def mergeEmacsMultiStrokeKeymap():
 ## keymap_emacs キーマップのマルチストロークキーの設定を keymap_micro キーマップにマージする
 keymap_micro.applying_func = mergeEmacsMultiStrokeKeymap
 
-## 「バッファ / ウィンドウ操作」のキー設定
+## 「ペイン操作」のキー設定
 define_key_u("M-k",     reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
 define_key_u("Ctl-x k", reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
-
-## 「エディタ操作」のキー設定
 define_key_u("Ctl-x 0", reset_search(reset_undo(reset_counter(reset_mark(delete_window)))))
 define_key_u("Ctl-x 2", reset_search(reset_undo(reset_counter(reset_mark(split_window_below)))))
 define_key_u("Ctl-x 3", reset_search(reset_undo(reset_counter(reset_mark(split_window_right)))))

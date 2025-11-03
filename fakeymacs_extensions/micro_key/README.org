@@ -16,20 +16,13 @@ Micro Editor 用のキーの設定を行う拡張機能です。
 
 *** キーバインド
 
-**** ● 「バッファ / ウィンドウ操作」のキー設定
-
-|---------+-------------+-------------|
-| Keybind | Function    | Description |
-|---------+-------------+-------------|
-| M-k     | kill_buffer |             |
-| Ctl-x k | kill_buffer |             |
-|---------+-------------+-------------|
-
-**** ● 「エディタ操作」のキー設定
+**** ● 「ペイン操作」のキー設定
 
 |---------+--------------------+-------------|
 | Keybind | Function           | Description |
 |---------+--------------------+-------------|
+| M-k     | kill_buffer        |             |
+| Ctl-x k | kill_buffer        |             |
 | Ctl-x 0 | delete_window      |             |
 | Ctl-x 2 | split_window_below |             |
 | Ctl-x 3 | split_window_right |             |

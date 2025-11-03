@@ -51,7 +51,7 @@ def beginning_of_buffer():
 def end_of_buffer():
     self_insert_command("End")()
 
-## ファイラー操作
+## パネル操作
 def other_window():
     self_insert_command("Tab")()
 
@@ -80,7 +80,7 @@ define_key_m(f"C-[ C-[", self_insert_command4("Esc","Esc"))
 define_key_m("M-<", beginning_of_buffer)
 define_key_m("M->", end_of_buffer)
 
-## 「エディタ操作」のキー設定
+## 「パネル操作」のキー設定
 define_key_m("Ctl-x o", other_window)
 
 # --------------------------------------------------------------------------------------------------
