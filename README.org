@@ -295,6 +295,10 @@ Windows Terminal で Ubuntu 等の Linux を利用する際は、設定 -> 二�
 Ctrl+v を削除しても、Ctrl+Shift+v が Windows のクリップボードからの「貼り付け」として機能しますので、
 あまり困ることはないと思います。
 
+また、Windows Terminal で以降に紹介するエディタを利用する際は、設定 -> 操作 メニューより、
+「貼り付けるときに末尾の空白を削除する」をオフに設定してご利用ください。コピーした文字列が、
+そのとおりに貼り付けされるようになります。
+
 ** Microsoft Edit の対応について
 
 Fakeymacs は、Microsoft Edit に対応しています。Microsoft Edit は、ターミナルで起動するとその
@@ -308,10 +312,6 @@ Linux 版の Edit は、次からダウンロードすることができます�
 ディレクトリに格納してご利用ください。
 
 - https://github.com/microsoft/edit/releases
-
-Windows Terminal で Microsoft Edit を利用する際は、設定 -> 操作 メニューより、
-「貼り付けるときに末尾の空白を削除する」をオフに設定してご利用ください。
-Microsoft Edit を使う際に、改行を含む行のコピペが正しく機能するようになります。
 
 ** Micro Editor の対応について
 
