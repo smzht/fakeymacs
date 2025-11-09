@@ -112,6 +112,16 @@ def mark_next_like_this():
 def keyboard_quit_u1():
     keyboard_quit(esc=False)
 
+## キーボードマクロ
+def keyboard_macro_start():
+    self_insert_command("C-u")()
+
+def keyboard_macro_stop():
+    self_insert_command("C-u")()
+
+def keyboard_macro_play():
+    self_insert_command("C-j")()
+
 ## その他
 def execute_extended_command():
     self_insert_command3("C-e")()
@@ -157,6 +167,11 @@ define_key_u("C-A-a",   reset_search(reset_undo(reset_counter(mark_beginning_of_
 define_key_u("C-A-e",   reset_search(reset_undo(reset_counter(mark_end_of_line))))
 define_key_u("C-A-d",   reset_search(reset_undo(reset_counter(mark_next_like_this))))
 define_key_u("C-A-g",   reset_search(reset_counter(reset_mark(keyboard_quit_u1))))
+
+## 「キーボードマクロ」のキー設定
+define_key_u("Ctl-x (", keyboard_macro_start)
+define_key_u("Ctl-x )", keyboard_macro_stop)
+define_key_u("Ctl-x e", reset_search(reset_undo(reset_counter(repeat(keyboard_macro_play)))))
 
 ## 「その他」のキー設定
 define_key_u("M-x", reset_search(reset_undo(reset_counter(reset_mark(execute_extended_command)))))
