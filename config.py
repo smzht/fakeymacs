@@ -1578,17 +1578,17 @@ def configure(keymap):
                        (keymap.record_seq[-1] == (ctl_x_prefix_vkey[1], True) and
                         keymap.record_seq[-2] == (VK_CAPITAL, True))) and
                       keymap.record_seq[-3] == (ctl_x_prefix_vkey[1], False)):
-                       for _ in range(3):
-                           keymap.record_seq.pop()
-                       if keymap.record_seq[-1] == (VK_CAPITAL, False):
-                           for i in range(len(keymap.record_seq) - 1, -1, -1):
-                               if keymap.record_seq[i] == (VK_CAPITAL, False):
-                                   keymap.record_seq.pop()
-                               else:
-                                   break
-                       else:
-                           # コントロール系の入力が連続して行われる場合があるための対処
-                           keymap.record_seq.append((VK_CAPITAL, True))
+                    for _ in range(3):
+                        keymap.record_seq.pop()
+                    if keymap.record_seq[-1] == (VK_CAPITAL, False):
+                        for i in range(len(keymap.record_seq) - 1, -1, -1):
+                            if keymap.record_seq[i] == (VK_CAPITAL, False):
+                                keymap.record_seq.pop()
+                            else:
+                                break
+                    else:
+                        # コントロール系の入力が連続して行われる場合があるための対処
+                        keymap.record_seq.append((VK_CAPITAL, True))
 
     def kmacro_end_and_call_macro():
         def _kmacro_end_and_call_macro():
