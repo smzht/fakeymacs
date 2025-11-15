@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20251025_01"
+fakeymacs_version = "20251115_01"
 
 import time
 import os
@@ -1003,15 +1003,29 @@ def configure(keymap):
     # ウィンドウのリストアが最小化した順番の逆順となるように制御する
     fakeymacs.reverse_window_to_restore = False
 
+    # 「英語用キーボードドライバ置換」を利用する際の設定を行う
+    # （https://github.com/smzht/fakeymacs/issues/55）
+    # （https://github.com/kskmori/US-AltIME.ahk?tab=readme-ov-file#us101mode）
+    if (ctypes.windll.user32.GetKeyboardLayout(0) >> 16) == 0x409:
+        if fc.side_of_ctrl_key == "L":
+            keymap.replaceKey("CapsLock", "LCtrl") # CapsLock キーを Ctrl キーに変換する設定
+            keymap_base["RC-LCtrl"] = "CapsLock"   # C-CapsLock で CapsLock とする
+        else:
+            keymap.replaceKey("CapsLock", "RCtrl") # CapsLock キーを Ctrl キーに変換する設定
+            keymap_base["LC-RCtrl"] = "CapsLock"   # C-CapsLock で CapsLock とする
+
     # Ctl-x プレフィックスキーを構成するキーの仮想キーコードを設定する
     if fc.ctl_x_prefix_key:
         keyCondition = usjisFilter(keyhac_keymap.KeyCondition.fromString, fc.ctl_x_prefix_key)
 
         if keyCondition.mod == keyhac_keymap.MODKEY_CTRL:
-            if fc.side_of_ctrl_key == "L":
-                ctl_x_prefix_vkey = [VK_LCONTROL, keyCondition.vk]
+            if (ctypes.windll.user32.GetKeyboardLayout(0) >> 16) == 0x409:
+                ctl_x_prefix_vkey = [VK_CAPITAL, keyCondition.vk]
             else:
-                ctl_x_prefix_vkey = [VK_RCONTROL, keyCondition.vk]
+                if fc.side_of_ctrl_key == "L":
+                    ctl_x_prefix_vkey = [VK_LCONTROL, keyCondition.vk]
+                else:
+                    ctl_x_prefix_vkey = [VK_RCONTROL, keyCondition.vk]
 
         elif keyCondition.mod == keyhac_keymap.MODKEY_ALT:
             if fc.side_of_alt_key == "L":

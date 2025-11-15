@@ -91,6 +91,10 @@ CapsLock のキーの置き換えは、キーボードの機能で行うか、�
 
 - https://github.com/smzht/fakeymacs/issues/55
 
+Issue に記載している次のコメントは、本機能を利用する際には必ず確認ください。
+
+- https://github.com/smzht/fakeymacs/issues/55#issuecomment-3404143636
+
 **** b) Fakeymacs の capslock_key 拡張機能を利用する
 
 日本語キーボード配列を利用しているユーザが選択できる方法です。
