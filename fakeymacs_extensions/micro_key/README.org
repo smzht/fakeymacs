@@ -69,8 +69,8 @@ Micro Editor 用のキーの設定を行う拡張機能です。
 
 ● トップページの README にある次の項目も確認してください。
 
-- /README.org#windows-terminal-の対応について
-- /README.org#micro-editor-の対応について
+- [[/README.org#windows-terminal-の対応について]]
+- [[/README.org#micro-editor-の対応について]]
 
 上記の２つ目に記載していますが、Fakeymacs は Micro Editor が set clipboard terminal
 の設定がされることを前提として調整しています。ただし、この設定ではマルチカーソルによる
