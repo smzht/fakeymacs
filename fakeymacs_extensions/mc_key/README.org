@@ -35,10 +35,11 @@ Midnight Commander 用のキーの設定を行う拡張機能です。
 
 *** 留意事項
 
+● 本フォルダにある _config_personal.py を config_personal.py というファイル名にすることで
+機能拡張ファイルとして機能します。mc_key Extension の機能を拡張する際にご利用ください。
+
 ● トップページの README にある次の項目も確認してください。
 
 - [[/README.org#windows-terminal-の対応について]]
 - [[/README.org#midnight-commander-の対応について]]
 
-● 本フォルダにある _config_personal.py を config_personal.py というファイル名にすることで
-機能拡張ファイルとして機能します。mc_key Extension の機能を拡張する際にご利用ください。

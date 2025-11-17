@@ -67,6 +67,9 @@ Micro Editor 用のキーの設定を行う拡張機能です。
 
 *** 留意事項
 
+● 本フォルダにある _config_personal.py を config_personal.py というファイル名にすることで
+機能拡張ファイルとして機能します。micro_key Extension の機能を拡張する際にご利用ください。
+
 ● トップページの README にある次の項目も確認してください。
 
 - [[/README.org#windows-terminal-の対応について]]
@@ -79,15 +82,6 @@ set clipboard internal の設定で正常に動作することは確認してい
 クリップボードとの相互利用ができなくなります。
 また、Windows Terminal や Fakeymacs の設定の追加調整が必要となります。
 
-● 本フォルダにある _config_personal.py を config_personal.py というファイル名にすることで
-機能拡張ファイルとして機能します。micro_key Extension の機能を拡張する際にご利用ください。
-
 ● Windows Terminal で Micro Editor を利用する際は、設定 -> 二番目にある操作 メニューより、
 「ウィンドウのサイズを変更する 上」の Alt+Shift+Up と 「ウィンドウのサイズを変更する 下」の
 Alt+Shift+Down を削除してご利用ください。
-
-● トップページの README にも記載しているとおり、Micro Editor で Emacs キーバインドを使う
-ためには、次のリポジトリに登録している settile コマンドを利用し、settitle micro として起動
-する必要があります。
-
-- https://github.com/smzht/wsl-utils?tab=readme-ov-file#-settitle
