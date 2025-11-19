@@ -396,10 +396,10 @@ define_key(keymap_base, "C-x", self_insert_command3("C-x"))
 #+END_EXAMPLE
 
 また、ファンクションキーの無い 60% キーボードなどをお使いの場合は、以降に紹介している
-space_fn 拡張機能を利用すると（space_fn 拡張機能を利用する際は、config_persona.py に
-config_personal_2.py を複写してご利用ください）、Space+Ctrl+o でコマンドラインへの切り替え
+space_fn 拡張機能を利用すると、Space+Ctrl+o でコマンドラインへの切り替え
 （Ctrl+o）が使えたり、Space+<数字キー> でファンクションキーが使えるようになるなど、
-操作性が良くなると思います。
+操作性が良くなると思います。（space_fn 拡張機能を利用する際は、config_persona.py に
+_config_personal_2.py の方のサンプル設定ファイルを複写してご利用ください。）
 
 ** WSL2 で Midnight Commander を利用する場合の設定について
 
