@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20251115_02"
+fakeymacs_version = "20251129_01"
 
 import time
 import os
@@ -1527,8 +1527,8 @@ def configure(keymap):
             checkWindow(class_name="HM32CLIENT")):
             self_insert_command("C-r")()
 
-        if (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "* - micro*") or
-            checkWindow(None, "ConsoleWindowClass", "* - micro*")):
+        elif (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "* - micro*") or
+              checkWindow(None, "ConsoleWindowClass", "* - micro*")):
             self_insert_command("C-e")()
             setImeStatus(0)
             keymap.InputTextCommand("replace ")()
