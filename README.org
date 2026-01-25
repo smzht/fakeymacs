@@ -356,8 +356,8 @@ Micro Editor の使い方は、以下が参考になると思います。
 ** Fresh Editor の対応について
 
 Fakeymacs は、Fresh Editor に対応しています。ただし、Fresh Editor は Linux版 Micro Editor
-と同様、ターミナルのタイトルを置き換える機能を持っていませんので、settitle コマンドを
-併用してください。
+と同様、ターミナルのタイトルを置き換える機能を持っていませんので、settitle コマンドを経由して
+起動するために、次のような alias を定義してご利用ください。
 
 #+BEGIN_EXAMPLE
 alias fe='settitle fresh'
@@ -369,6 +369,10 @@ Fakeymacs では、ターミナルのタイトルに「- fresh」が付いてい
 Fresh Editor の Linux 版は、次のページからダウンロード可能です。
 
 - https://getfresh.dev/
+
+Fresh Editor の使い方は、以下が参考になると思います。
+
+- https://github.com/sinelaw/fresh/blob/master/docs/USER_GUIDE.md
 
 なお、Fresh Editor では、エディタ自体が Emacs キーバインドをサポートしています。
 ただし、サポートされている機能が限定されていますので、Emacs ユーザは Fakeymacs の機能を
