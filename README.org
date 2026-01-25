@@ -356,8 +356,9 @@ Micro Editor の使い方は、以下が参考になると思います。
 ** Fresh Editor の対応について
 
 Fakeymacs は、Fresh Editor に対応しています。ただし、Fresh Editor は Linux版 Micro Editor
-と同様、ターミナルのタイトルを置き換える機能を持っていませんので、settitle コマンドを経由して
-起動するために、次のような alias を定義してご利用ください。
+と同様、ターミナルのタイトルを置き換える機能を持っていません。
+そこで、次のような alias を定義し、settitle コマンド経由で Fresh Editor が起動するようにして
+ご利用ください。
 
 #+BEGIN_EXAMPLE
 alias fe='settitle fresh'
