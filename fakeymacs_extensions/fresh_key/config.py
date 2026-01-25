@@ -26,12 +26,13 @@ try:
 except:
     # Fresh の Command pallet で利用するコマンドを指定する
     # （key: フルスペル英語コマンド、value[0]: 短縮英語コマンド、value[1]: 短縮日本語コマンド）
-    fc.fresh_command_dict = {"Close Buffer"         : ["clbu",   "バ閉"],
-                             "Close Split"          : ["clspl",  "分閉"],
-                             "Split Horizontal"     : ["spho",   "水平"],
-                             "Split Vertical"       : ["spvert", "垂直"],
-                             "Record Macro"         : ["recmac", "マを記録"],
-                             "Play Macro"           : ["plmac",  "マ再生"]
+    fc.fresh_command_dict = {"Close Buffer"            : ["clbu",   "バ閉"],
+                             "Close Split"             : ["clspl",  "分閉"],
+                             "Split Horizontal"        : ["spho",   "水平"],
+                             "Split Vertical"          : ["spvert", "垂直"],
+                             "Record Macro"            : ["recmac", "マを記録"],
+                             "Play Macro"              : ["plmac",  "マ再生"],
+                             "Shell Command (Replace)" : ["sherep", "シ置換"],
                              }
 
 # --------------------------------------------------------------------------------------------------
@@ -165,6 +166,12 @@ def execute_extended_command():
 def comment_dwim():
     self_insert_command("C-/")()
 
+def shell_command_on_region():
+    if fakeymacs.is_universal_argument:
+        freshExecuteCommand2("Shell Command (Replace)")()
+    else:
+        self_insert_command3("A-|")()
+
 ## マルチストロークキーの設定
 define_key_f("Ctl-x",  keymap.defineMultiStrokeKeymap(fc.ctl_x_prefix_key))
 define_key_f("M-",     keymap.defineMultiStrokeKeymap("Esc"))
@@ -216,6 +223,7 @@ define_key_f("Ctl-x e", reset_search(reset_undo(reset_counter(repeat(keyboard_ma
 ## 「その他」のキー設定
 define_key_f("M-x", reset_search(reset_undo(reset_counter(reset_mark(execute_extended_command)))))
 define_key_f("M-;", reset_search(reset_undo(reset_counter(reset_mark(comment_dwim)))))
+define_key_f("M-|", reset_search(reset_undo(reset_counter(reset_mark(shell_command_on_region)))))
 
 # --------------------------------------------------------------------------------------------------
 

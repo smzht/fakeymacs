@@ -74,6 +74,7 @@ Fresh Editor 用のキーの設定を行う拡張機能です。
 |---------+--------------------------+-------------|
 | M-x     | execute_extended_command |             |
 | M-;     | comment_dwim             |             |
+| M-\vert | shell_command_on_region  |             |
 |---------+--------------------------+-------------|
 
 *** 留意事項
