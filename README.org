@@ -450,8 +450,8 @@ Open=wslstart %f
 Edit=edit %f
 #+END_EXAMPLE
 
-「Edit=edit %f」の箇所は、「Edit=settitle micro %f」とすると、先に紹介した Micro Editor が
-Emacs キーバインドで利用できるようになります。
+「Edit=edit %f」の箇所は、「Edit=settitle micro %f」または「Edit=settitle fresh %f」とすると、
+先に紹介した Micro Editor や Fresh Editor が Emacs キーバインドで利用できるようになります。
 
 wslstart については、次のページを参照ください。
 
