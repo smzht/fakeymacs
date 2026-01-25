@@ -251,7 +251,7 @@ True に設定した場合でも Toggle Terminal 用のキーとして C-<半角
 | C-A-S-x | shrink_region              | Shrink Selection                             | 多くは C-A-u で代用可              |
 | C-A-u   | cursor_undo                | Cursor Undo                                  |                                    |
 | C-A-r   | cursor_redo                | Cursor Redo                                  |                                    |
-| C-A-g   | keyboard_quit2             | -                                            | Esc キーを発行しない keyboard_quit |
+| C-A-g   | keyboard_quit_v1           | -                                            | Esc キーを発行しない keyboard_quit |
 |---------+----------------------------+----------------------------------------------+------------------------------------|
 
 ※ Cursor を利用する場合、C-A-e は AI のインラインアシスタント機能を起動するキー（初期値）

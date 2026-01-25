@@ -109,7 +109,7 @@ def mark_end_of_line():
 def mark_next_like_this():
     region(self_insert_command("A-n"))()
 
-def keyboard_quit_u1():
+def keyboard_quit_u():
     keyboard_quit(esc=False)
 
 ## キーボードマクロ
@@ -166,7 +166,7 @@ define_key_u("C-A-S-f", reset_search(reset_undo(reset_counter(repeat(mark_forwar
 define_key_u("C-A-a",   reset_search(reset_undo(reset_counter(mark_beginning_of_line))))
 define_key_u("C-A-e",   reset_search(reset_undo(reset_counter(mark_end_of_line))))
 define_key_u("C-A-d",   reset_search(reset_undo(reset_counter(mark_next_like_this))))
-define_key_u("C-A-g",   reset_search(reset_counter(reset_mark(keyboard_quit_u1))))
+define_key_u("C-A-g",   reset_search(reset_counter(reset_mark(keyboard_quit_u))))
 
 ## 「キーボードマクロ」のキー設定
 define_key_u("Ctl-x (", keyboard_macro_start)
