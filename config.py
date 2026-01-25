@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20260125_01"
+fakeymacs_version = "20260126_01"
 
 import time
 import os
@@ -1647,10 +1647,16 @@ def configure(keymap):
         resetRegion()
 
         if esc:
-            # Esc を発行して問題ないアプリケーションソフトには Esc を発行する
-            if not (keyboard_quit_no_esc_app_list1.match(getProcessName()) or
-                    any(checkWindow(*app) for app in keyboard_quit_no_esc_app_list2)):
-                escape()
+            # Fresh Editor で redo が動作するようにするための対策
+            if (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "* - fresh*") and
+                fakeymacs.last_keys[0] is keymap_emacs and
+                fakeymacs.last_keys[1] in ["C-/", "Ctl-x u", "C-z", "C-g"]):
+                pass
+            else:
+                # Esc を発行して問題ないアプリケーションソフトには Esc を発行する
+                if not (keyboard_quit_no_esc_app_list1.match(getProcessName()) or
+                        any(checkWindow(*app) for app in keyboard_quit_no_esc_app_list2)):
+                    escape()
 
         keymap.command_RecordStop()
 
