@@ -672,6 +672,12 @@ if 0:
 
 # --------------------------------------------------------------------------------------------------
 
+# Fresh Editor 用のキーの設定を行う
+if 0:
+    exec(readConfigExtension(r"fresh_key\config.py"), dict(globals(), **locals()))
+
+# --------------------------------------------------------------------------------------------------
+
 # Midnight Commander 用のキーの設定を行う
 if 0:
     exec(readConfigExtension(r"mc_key\config.py"), dict(globals(), **locals()))

@@ -46,6 +46,7 @@ Fakeymacs には以下の機能拡張を同梱しています。
 | [[/fakeymacs_extensions/vscode_key][vscode_key]]              | VSCode 用のキーの設定を行う                                                                   | お勧め！   |
 | [[/fakeymacs_extensions/obsidian_key][obsidian_key]]            | Obsidian 用のキーの設定を行う                                                                 | お勧め！   |
 | [[/fakeymacs_extensions/micro_key][micro_key]]               | Micro Editor 用のキーの設定を行う                                                             |            |
+| [[/fakeymacs_extensions/fresh_key][fresh_key]]               | Fresh Editor 用のキーの設定を行う                                                             | お勧め！   |
 | [[/fakeymacs_extensions/mc_key][mc_key]]                  | Midnight Commander 用のキーの設定を行う                                                       |            |
 |-------------------------+-----------------------------------------------------------------------------------------------+------------|
 

@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20251129_01"
+fakeymacs_version = "20260125_01"
 
 import time
 import os
@@ -215,7 +215,7 @@ def configure(keymap):
     #   できます）
     fc.emacs_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
                         ["*PowerShell*", "*コマンド プロンプト*", "*Command Prompt*",
-                         "* - edit*", "* - micro*", "設定", "Settings"]],
+                         "* - edit*", "* - micro*", "* - fresh*", "設定", "Settings"]],
                        ["powershell.exe", "ConsoleWindowClass", "*PowerShell*"],
                        ["cmd.exe", "ConsoleWindowClass", ["*コマンド プロンプト*", "*Command Prompt*"]],
                        [None, "ConsoleWindowClass", ["* - edit*", "* - micro*"]],
@@ -1533,6 +1533,9 @@ def configure(keymap):
             setImeStatus(0)
             keymap.InputTextCommand("replace ")()
 
+        elif checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "* - fresh*"):
+            self_insert_command("C-A-r")()
+
         elif checkWindow("TeXworks.exe", "Qt661QWindowIcon"):
             self_insert_command("C-r")()
             self_insert_command("Tab", "Tab", "Tab")()
@@ -1661,7 +1664,8 @@ def configure(keymap):
             fakeymacs.is_searching = None
 
     def kill_emacs():
-        if (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", ["* - edit*", "* - micro*"]) or
+        if (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
+                        ["* - edit*", "* - micro*", "* - fresh*"]) or
             checkWindow(None, "ConsoleWindowClass", ["* - edit*", "* - micro*"])):
             setImeStatus(0)
             self_insert_command("C-q")()

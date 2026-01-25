@@ -320,7 +320,7 @@ Linux 版の Edit は、次からダウンロードすることができます�
 ** Micro Editor の対応について
 
 Fakeymacs は、Micro Editor に対応しています。ただし、Linux 版の Micro Editor は Microsoft Edit
-と異なり、ターミナルのタイトルを置き換える機能を持っていないようです。
+と異なり、ターミナルのタイトルを置き換える機能を持っていません。
 そこで、ターミナルのタイトルを置き換えるコマンド settitle を作成しました。
 
 - https://github.com/smzht/wsl-utils?tab=readme-ov-file#-settitle
@@ -352,6 +352,27 @@ Micro Editor の使い方は、以下が参考になると思います。
 なお、Linux 版 Micro Editor では、日本語のコピペで文字化けが発生します。
 これは Ctrl+E で CommandMode に移行し、set clipboard terminal の設定をすることで改善します。
 また、この設定を行うことで、Windows クリップボードとの相互利用が可能となります。
+
+** Fresh Editor の対応について
+
+Fakeymacs は、Fresh Editor に対応しています。ただし、Fresh Editor は Linux版 Micro Editor
+と同様、ターミナルのタイトルを置き換える機能を持っていませんので、settitle コマンドを
+併用してください。
+
+#+BEGIN_EXAMPLE
+alias fe='settitle fresh'
+#+END_EXAMPLE
+
+Fakeymacs では、ターミナルのタイトルに「- fresh」が付いていることを検知すると Emacs キーバインド
+にするようにしていますので、結果として Fresh Editor が Emacs キーバインドで利用できるようになります。
+
+Fresh Editor の Linux 版は、次のページからダウンロード可能です。
+
+- https://getfresh.dev/
+
+なお、Fresh Editor では、エディタ自体が Emacs キーバインドをサポートしています。
+ただし、サポートされている機能が限定されていますので、Emacs ユーザは Fakeymacs の機能を
+利用した方が違和感が少ないと思われます。
 
 ** Midnight Commander の対応について
 
@@ -512,6 +533,16 @@ Micro Editor については、次の拡張機能により、キーバインド�
 | Extension name | Description                       |
 |----------------+-----------------------------------|
 | [[/fakeymacs_extensions/micro_key][micro_key]]      | Micro Editor 用のキーの設定を行う |
+|----------------+-----------------------------------|
+
+** Fresh Editor の機能追加について
+
+Fresh Editor については、次の拡張機能により、キーバインドの追加設定を行っています。
+
+|----------------+-----------------------------------|
+| Extension name | Description                       |
+|----------------+-----------------------------------|
+| [[/fakeymacs_extensions/fresh_key][fresh_key]]      | Fresh Editor 用のキーの設定を行う |
 |----------------+-----------------------------------|
 
 ** Midnight Commander の機能追加について

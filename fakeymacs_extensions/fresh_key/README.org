@@ -1,0 +1,87 @@
+#+STARTUP: showall indent
+
+* Fakeymacs extension - fresh_key -
+
+** ■ Fresh Editor 用のキーの設定を行う
+
+Fresh Editor 用のキーの設定を行う拡張機能です。
+
+*** コンフィグレーションパラメータ
+
+|-------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Configuration parameter | Description                                                                                                                                          |
+|-------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------|
+| fc.fresh_language       | Fresh Editor に設定している表示言語を指定する（US: English、JP: 日本語）                                                                             |
+| fc.fresh_target         | Fresh Editor 用のキーバインドを利用するアプリケーションソフトを指定する                                                                              |
+| fc.fresh_command_dict   | Fresh Editor の Command pallet で利用するコマンドを指定する（key: フルスペル英語コマンド、value[0]: 短縮英語コマンド、value[1]: 短縮日本語コマンド） |
+|-------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+*** キーバインド
+
+**** ● 「バッファ操作」のキー設定
+
+|---------+------------------+-------------|
+| Keybind | Function         | Description |
+|---------+------------------+-------------|
+| M-k     | kill_buffer      |             |
+| Ctl-x k | kill_buffer      |             |
+| Ctl-x b | switch_to_buffer |             |
+|---------+------------------+-------------|
+
+**** ● 「ペイン操作」のキー設定
+
+|---------+----------------------+-------------|
+| Keybind | Function             | Description |
+|---------+----------------------+-------------|
+| Ctl-x 0 | delete_window        |             |
+| Ctl-x 1 | delete_other_windows |             |
+| Ctl-x 2 | split_window_below   |             |
+| Ctl-x 3 | split_window_right   |             |
+| Ctl-x o | other_window         |             |
+|---------+----------------------+-------------|
+
+**** ● 「矩形選択 / マルチカーソル」のキー設定
+
+|---------+------------------------+------------------------------------|
+| Keybind | Function               | Description                        |
+|---------+------------------------+------------------------------------|
+| C-A-p   | mark_previous_line     |                                    |
+| C-A-n   | mark_next_line         |                                    |
+| C-A-b   | mark_backward_char     |                                    |
+| C-A-f   | mark_forward_char      |                                    |
+| C-A-S-b | mark_backward_word     |                                    |
+| C-A-S-f | mark_forward_word      |                                    |
+| C-A-a   | mark_beginning_of_line |                                    |
+| C-A-e   | mark_end_of_line       |                                    |
+| C-A-d   | mark_next_like_this    |                                    |
+| C-A-g   | keyboard_quit_f        | Esc キーを発行しない keyboard_quit |
+|---------+------------------------+------------------------------------|
+
+**** ● 「キーボードマクロ」のキー設定
+
+|----------+----------------------+-------------|
+| Keybind  | Function             | Description |
+|----------+----------------------+-------------|
+| Ctrl-x ( | keyboard_macro_start |             |
+| Ctrl-x ) | keyboard_macro_stop  |             |
+| Ctrl-x e | keyboard_macro_play  |             |
+|----------+----------------------+-------------|
+
+**** ● 「その他」のキー設定
+
+|---------+--------------------------+-------------|
+| Keybind | Function                 | Description |
+|---------+--------------------------+-------------|
+| M-x     | execute_extended_command |             |
+| M-;     | comment_dwim             |             |
+|---------+--------------------------+-------------|
+
+*** 留意事項
+
+● 本フォルダにある _config_personal.py を config_personal.py というファイル名にすることで
+機能拡張ファイルとして機能します。fresh_key Extension の機能を拡張する際にご利用ください。
+
+● トップページの README にある次の項目も確認してください。
+
+- [[/README.org#windows-terminal-の対応について]]
+- [[/README.org#fresh-editor-の対応について]]
