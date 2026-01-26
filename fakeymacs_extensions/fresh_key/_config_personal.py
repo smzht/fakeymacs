@@ -12,6 +12,6 @@ def toggle_file_explorer():
 
 define_key_f("Ctl-x C-e", reset_search(reset_undo(reset_counter(reset_mark(toggle_file_explorer)))))
 
-# ファイルエクスポーラにフォーカスを当てる（C-e）機能は、C-q C-e で OK
+# ファイルエクスプローラにフォーカスを当てる（C-e）機能は、C-q C-e で OK
 
 # --------------------------------------------------------------------------------------------------
