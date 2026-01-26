@@ -1314,7 +1314,6 @@ def configure(keymap):
                 delay(0.1)
                 if getClipboardText() == "":
                     self_insert_command("Delete")()
-
             else:
                 # 改行を消せるようにするため Cut にはしていない
                 copyRegion()
