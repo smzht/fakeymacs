@@ -1299,17 +1299,17 @@ def configure(keymap):
             else:
                 mark(move_end_of_line, True)()
                 delay()
-    
+
                 if (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
                                 ["*コマンド プロンプト*", "*Command Prompt*"]) or
                     checkWindow("cmd.exe", "ConsoleWindowClass",
                                 ["*コマンド プロンプト*", "*Command Prompt*"])):
                     kill_region()
-    
+
                 elif (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "*PowerShell*") or
                       checkWindow("powershell.exe", "ConsoleWindowClass", "*PowerShell*")):
                     cutRegion()
-    
+
                 elif checkWindow(class_name="HM32CLIENT"): # Hidemaru Software
                     cutRegion()
                     delay()
