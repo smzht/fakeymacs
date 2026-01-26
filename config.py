@@ -1294,30 +1294,31 @@ def configure(keymap):
         setMark()
 
         if repeat == 1 and not kill_whole_line:
-            mark(move_end_of_line, True)()
-            delay()
-
-            if (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
-                            ["*コマンド プロンプト*", "*Command Prompt*"]) or
-                checkWindow("cmd.exe", "ConsoleWindowClass",
-                            ["*コマンド プロンプト*", "*Command Prompt*"])):
-                kill_region()
-
-            elif (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "*PowerShell*") or
-                  checkWindow("powershell.exe", "ConsoleWindowClass", "*PowerShell*")):
-                cutRegion()
-
-            elif (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "* - fresh*") or
-                  checkWindow(class_name="HM32CLIENT")): # Hidemaru Software
-                setClipboardText("")
-                cutRegion()
-                delay(0.1)
-                if getClipboardText() == "":
-                    self_insert_command("Delete")()
+            if checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "* - fresh*"):
+                self_insert_command("C-k")()
             else:
-                # 改行を消せるようにするため Cut にはしていない
-                copyRegion()
-                self_insert_command("Delete")()
+                mark(move_end_of_line, True)()
+                delay()
+    
+                if (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
+                                ["*コマンド プロンプト*", "*Command Prompt*"]) or
+                    checkWindow("cmd.exe", "ConsoleWindowClass",
+                                ["*コマンド プロンプト*", "*Command Prompt*"])):
+                    kill_region()
+    
+                elif (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "*PowerShell*") or
+                      checkWindow("powershell.exe", "ConsoleWindowClass", "*PowerShell*")):
+                    cutRegion()
+    
+                elif checkWindow(class_name="HM32CLIENT"): # Hidemaru Software
+                    cutRegion()
+                    delay()
+                    if getClipboardText() == "":
+                        self_insert_command("Delete")()
+                else:
+                    # 改行を消せるようにするため Cut にはしていない
+                    copyRegion()
+                    self_insert_command("Delete")()
         else:
             def _move_end_of_region():
                 if checkWindow("WINWORD.EXE", "_WwG"):
