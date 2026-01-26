@@ -375,14 +375,14 @@ Fresh Editor の使い方は、以下が参考になると思います。
 
 - https://github.com/sinelaw/fresh/blob/master/docs/USER_GUIDE.md
 
-なお、Fresh Editor では、エディタ自体が Emacs キーバインドをサポートしています。
+なお、Fresh Editor は、エディタ自体が Emacs キーバインドをサポートしています。
 ただし、サポートされている機能が限定されていますので、Emacs ユーザは Fakeymacs の機能を
 利用した方が違和感が少ないと思われます。
 
 また、kill_line の機能（キーバインド C-k）は、Fresh Editor 側の C-k の機能を利用しています。
 これは Fresh Editor で起動したターミナルで C-k が利用できるようにするための対策ですが、
 この対策により、kill_line で切り取った文字列が Windows のクリップボードに格納されません。
-これは、 Fresh Editor 利用する際の制約事項とさせていただきます。
+これは、 Fresh Editor 利用する際の制約事項とさせていただければと思います。
 
 ** Midnight Commander の対応について
 
