@@ -1303,16 +1303,18 @@ def configure(keymap):
                             ["*コマンド プロンプト*", "*Command Prompt*"])):
                 kill_region()
 
-            if (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "*PowerShell*") or
-                checkWindow("powershell.exe", "ConsoleWindowClass", "*PowerShell*")):
+            elif (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "*PowerShell*") or
+                  checkWindow("powershell.exe", "ConsoleWindowClass", "*PowerShell*")):
                 cutRegion()
 
             elif (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "* - fresh*") or
                   checkWindow(class_name="HM32CLIENT")): # Hidemaru Software
+                setClipboardText("")
                 cutRegion()
                 delay(0.1)
                 if getClipboardText() == "":
                     self_insert_command("Delete")()
+
             else:
                 # 改行を消せるようにするため Cut にはしていない
                 copyRegion()
