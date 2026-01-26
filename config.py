@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20260126_01"
+fakeymacs_version = "20260126_02"
 
 import time
 import os
@@ -1298,15 +1298,19 @@ def configure(keymap):
             delay()
 
             if (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
-                            ["*PowerShell*", "*コマンド プロンプト*", "*Command Prompt*"]) or
-                checkWindow("powershell.exe", "ConsoleWindowClass", "*PowerShell*") or
+                            ["*コマンド プロンプト*", "*Command Prompt*"]) or
                 checkWindow("cmd.exe", "ConsoleWindowClass",
                             ["*コマンド プロンプト*", "*Command Prompt*"])):
                 kill_region()
 
-            elif checkWindow(class_name="HM32CLIENT"): # Hidemaru Software
-                kill_region()
-                delay()
+            if (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "*PowerShell*") or
+                checkWindow("powershell.exe", "ConsoleWindowClass", "*PowerShell*")):
+                cutRegion()
+
+            elif (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "* - fresh*") or
+                  checkWindow(class_name="HM32CLIENT")): # Hidemaru Software
+                cutRegion()
+                delay(0.1)
                 if getClipboardText() == "":
                     self_insert_command("Delete")()
             else:
@@ -1775,6 +1779,9 @@ def configure(keymap):
                     self_insert_command("Right", "Left")()
                 else:
                     self_insert_command("Left", "Right")()
+
+            elif checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "* - fresh*"):
+                self_insert_command("Esc")()
 
             elif (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "*PowerShell*") or
                   checkWindow("powershell.exe", "ConsoleWindowClass", "*PowerShell*")):
