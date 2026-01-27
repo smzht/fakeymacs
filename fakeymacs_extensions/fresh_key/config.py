@@ -26,13 +26,14 @@ try:
 except:
     # Fresh の Command pallet で利用するコマンドを指定する
     # （key: フルスペル英語コマンド、value[0]: 短縮英語コマンド、value[1]: 短縮日本語コマンド）
-    fc.fresh_command_dict = {"Close Buffer"            : ["clbu",   "バ閉"],
-                             "Close Split"             : ["clspl",  "分閉"],
-                             "Split Horizontal"        : ["spho",   "水平"],
-                             "Split Vertical"          : ["spvert", "垂直"],
-                             "Record Macro"            : ["recmac", "マを記録"],
-                             "Play Macro"              : ["plmac",  "マ再生"],
-                             "Shell Command (Replace)" : ["sherep", "シ置換"],
+    fc.fresh_command_dict = {"Recenter"                : ["recente", "再セ"],
+                             "Close Buffer"            : ["clbu",    "バ閉"],
+                             "Close Split"             : ["clspl",   "分閉"],
+                             "Split Horizontal"        : ["spho",    "水平"],
+                             "Split Vertical"          : ["spvert",  "垂直"],
+                             "Record Macro"            : ["recmac",  "マを記録"],
+                             "Play Macro"              : ["plmac",   "マ再生"],
+                             "Shell Command (Replace)" : ["sherep",  "シ置換"],
                              }
 
 # --------------------------------------------------------------------------------------------------
@@ -90,6 +91,10 @@ def region(func):
         func()
         fakeymacs.forward_direction = True
     return _func
+
+## カーソル移動
+def recenter():
+    freshExecuteCommand("Recenter")()
 
 ## バッファ操作
 def kill_buffer():
@@ -190,6 +195,9 @@ def mergeEmacsMultiStrokeKeymap():
 
 ## keymap_emacs キーマップのマルチストロークキーの設定を keymap_fresh キーマップにマージする
 keymap_fresh.applying_func = mergeEmacsMultiStrokeKeymap
+
+## 「カーソル移動」のキー設定
+define_key_f("C-l", reset_search(reset_undo(reset_counter(recenter))))
 
 ## 「バッファ」のキー設定
 define_key_f("M-k",     reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
