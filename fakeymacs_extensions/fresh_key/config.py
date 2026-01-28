@@ -26,14 +26,14 @@ try:
 except:
     # Fresh の Command pallet で利用するコマンドを指定する
     # （key: フルスペル英語コマンド、value[0]: 短縮英語コマンド、value[1]: 短縮日本語コマンド）
-    fc.fresh_command_dict = {"Recenter"                : ["recente", "再セ"],
-                             "Close Buffer"            : ["clbu",    "バ閉"],
-                             "Close Split"             : ["clspl",   "分閉"],
-                             "Split Horizontal"        : ["spho",    "水平"],
-                             "Split Vertical"          : ["spvert",  "垂直"],
-                             "Record Macro"            : ["recmac",  "マを記録"],
-                             "Play Macro"              : ["plmac",   "マ再生"],
-                             "Shell Command (Replace)" : ["sherep",  "シ置換"],
+    fc.fresh_command_dict = {"Recenter"                : ["rcnte",  "再セ"],
+                             "Close Buffer"            : ["clbu",   "バ閉"],
+                             "Close Split"             : ["clspl",  "分閉"],
+                             "Split Horizontal"        : ["spho",   "水平"],
+                             "Split Vertical"          : ["spvert", "垂直"],
+                             "Record Macro"            : ["recmac", "マを記録"],
+                             "Play Macro"              : ["plmac",  "マ再生"],
+                             "Shell Command (Replace)" : ["sherep", "シ置換"],
                              }
 
 # --------------------------------------------------------------------------------------------------
