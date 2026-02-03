@@ -81,9 +81,10 @@ def freshExecuteCommand(command, enter=True):
     return _func
 
 def freshExecuteCommand2(command, enter=True):
+    func = freshExecuteCommand(command, enter)
     def _func():
         setImeStatus(0)
-        freshExecuteCommand(command, enter)()
+        func()
     return _func
 
 def region(func):
