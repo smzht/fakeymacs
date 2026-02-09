@@ -10,8 +10,8 @@ except:
     # （アプリケーションソフトは、プロセス名称のみ（ワイルドカード指定可）、もしくは、プロセス名称、
     #   クラス名称、ウィンドウタイトル（リストによる複数指定可）のリスト（ワイルドカード指定可、
     #   リストの後ろの項目から省略可）を指定してください）
-    fc.mc_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "mc *"],
-                    [None, "ConsoleWindowClass", "mc *"],
+    fc.mc_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", ["mc *", "* mc *"]],
+                    [None, "ConsoleWindowClass", ["mc *", "* mc *"]],
                     ]
 
 # --------------------------------------------------------------------------------------------------
