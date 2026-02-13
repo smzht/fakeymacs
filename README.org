@@ -384,6 +384,18 @@ Fresh Editor の使い方は、以下が参考になると思います。
 この対策により、kill_line で切り取った文字列が Windows のクリップボードに格納されません。
 これは、 Fresh Editor 利用する際の制約事項とさせていただければと思います。
 
+** Yazi の対応について
+
+Yazi は、Linux、Windows どちらでも動くテキストベースのファイルマネージャです。
+Yazi は、起動するとターミナルのタイトルを「Yazi: パス名」に置き換える機能をもって
+いるので、Fakeymacs がターミナルで Yazi を起動したことを検知することができ、
+Emacs キーバインドに切り替えることができます。
+
+Yazi は、次からダウンロードすることができますので、Emacs キーバインドでの操作感を
+お試しください。
+
+- https://github.com/sxyazi/yazi
+
 ** Midnight Commander の対応について
 
 Midnight Commander は、Linux、Windows どちらでも動くテキストベースのファイルマネージャ

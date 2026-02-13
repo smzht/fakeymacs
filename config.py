@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20260126_02"
+fakeymacs_version = "20260213_01"
 
 import time
 import os
@@ -215,7 +215,7 @@ def configure(keymap):
     #   できます）
     fc.emacs_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
                         ["*PowerShell*", "*コマンド プロンプト*", "*Command Prompt*",
-                         "* - edit*", "* - micro*", "* - fresh*", "設定", "Settings"]],
+                         "* - edit*", "* - micro*", "* - fresh*", "Yazi: *", "設定", "Settings"]],
                        ["powershell.exe", "ConsoleWindowClass", "*PowerShell*"],
                        ["cmd.exe", "ConsoleWindowClass", ["*コマンド プロンプト*", "*Command Prompt*"]],
                        [None, "ConsoleWindowClass", ["* - edit*", "* - micro*"]],
@@ -1681,6 +1681,9 @@ def configure(keymap):
             checkWindow(None, "ConsoleWindowClass", ["* - edit*", "* - micro*"])):
             setImeStatus(0)
             self_insert_command("C-q")()
+
+        elif checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "Yazi: *"):
+            self_insert_command("q")()
 
         # Windows 11版 Notepad の場合、A-F4 が失敗することがあるので、C-S-w を発行する
         elif checkWindow("Notepad.exe", "RichEditD2DPT"):
