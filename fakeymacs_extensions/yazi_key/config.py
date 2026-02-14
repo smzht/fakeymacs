@@ -68,6 +68,10 @@ def scroll_up():
 def scroll_down():
     self_insert_command("PageDown")()
 
+## タブ操作
+def kill_buffer():
+    self_insert_command("C-c")()
+
 ## 文字列検索
 def isearch(direction):
     if fakeymacs.is_searching is None:
@@ -118,6 +122,11 @@ define_key_y("M->", end_of_buffer)
 if fc.scroll_key:
     define_key_y(fc.scroll_key[0], scroll_up)
     define_key_y(fc.scroll_key[1], scroll_down)
+
+## 「タブ操作」のキー設定
+define_key_y("M-k",     kill_buffer)
+define_key_y("Ctl-x k", kill_buffer)
+define_key_y("C-c",     lambda: None) # C-c は c キーが v キーに近く、誤操作が発生するので無効とする
 
 ## 「文字列検索」のキー設定
 define_key_y("C-r", isearch_backward)
