@@ -67,5 +67,7 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 
 ※ <user> の箇所は、各自の設定に置き換えてください。
 
+動作の確認は、yazi を起動し、Z を押下してみてください。
+
 ● 本フォルダにある _config_personal.py を config_personal.py というファイル名にすることで
 機能拡張ファイルとして機能します。yazi_key Extension の機能を拡張する際にご利用ください。
