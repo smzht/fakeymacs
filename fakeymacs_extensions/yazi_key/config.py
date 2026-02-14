@@ -56,6 +56,18 @@ def previous_line():
 def next_line():
     self_insert_command("Down")()
 
+def beginning_of_buffer():
+    self_insert_command("g", "g")()
+
+def end_of_buffer():
+    self_insert_command("S-g")()
+
+def scroll_up():
+    self_insert_command("C-u")()
+
+def scroll_down():
+    self_insert_command("C-d")()
+
 ## 文字列検索
 def isearch(direction):
     if fakeymacs.is_searching is None:
@@ -83,12 +95,29 @@ def kill_emacs():
 
 ## マルチストロークキーの設定
 define_key_y("Ctl-x", keymap.defineMultiStrokeKeymap(fc.ctl_x_prefix_key))
+define_key_y("M-",    keymap.defineMultiStrokeKeymap("Esc"))
+
+## Esc キーの設定
+if fc.use_esc_as_meta:
+    define_key_y("Esc Esc", escape)
+else:
+    define_key_y("Esc",  escape)
+
+if fc.use_ctrl_openbracket_as_meta:
+    define_key_y("C-[ C-[",  escape)
+else:
+    define_key_y("C-[",  escape)
 
 ## 「カーソル移動」のキー設定
 define_key_y("C-b", backward_char)
 define_key_y("C-f", forward_char)
 define_key_y("C-p", previous_line)
 define_key_y("C-n", next_line)
+define_key_y("M-<", beginning_of_buffer)
+define_key_y("M->", end_of_buffer)
+if fc.scroll_key:
+    define_key_y(fc.scroll_key[0], scroll_up)
+    define_key_y(fc.scroll_key[1], scroll_down)
 
 ## 「文字列検索」のキー設定
 define_key_y("C-r", isearch_backward)
