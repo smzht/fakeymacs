@@ -46,5 +46,26 @@ Fakeymacs がターミナルで Yazi を起動したことを検知すること�
 
 *** 留意事項
 
+● Ubuntu-24.04 でインストールされる fzf のヴァージョンは 0.44.1 です。yazi はより新しい fzf
+のヴァージョンを必要とするようですので、次のサイトの内容に従い、最新の fzf をインストールして
+ください。
+
+- https://github.com/junegunn/fzf
+
+#+BEGIN_EXAMPLE
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+#+END_EXAMPLE
+
+また、インストールにより、bash を利用している場合は ~/.fzf.bash というファイルが作成されます。
+このなかの PATH の設定を次のように変更してください。
+
+#+BEGIN_EXAMPLE
+  # PATH="${PATH:+${PATH}:}/home/<user>/.fzf/bin"
+  PATH="/home/<user>/.fzf/bin${PATH:+:${PATH}}"
+#+END_EXAMPLE
+
+※ <user> の箇所は、各自の設定に置き換えてください。
+
 ● 本フォルダにある _config_personal.py を config_personal.py というファイル名にすることで
 機能拡張ファイルとして機能します。yazi_key Extension の機能を拡張する際にご利用ください。
