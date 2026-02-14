@@ -63,10 +63,10 @@ def end_of_buffer():
     self_insert_command("S-g")()
 
 def scroll_up():
-    self_insert_command("C-b")()
+    self_insert_command("PageUp")()
 
 def scroll_down():
-    self_insert_command("C-f")()
+    self_insert_command("PageDown")()
 
 ## 文字列検索
 def isearch(direction):
