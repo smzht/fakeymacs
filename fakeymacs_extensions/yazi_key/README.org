@@ -57,8 +57,8 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 #+END_EXAMPLE
 
-また、インストールにより、bash を利用している場合は ~/.fzf.bash というファイルが作成されます。
-このなかの PATH の設定を次のように変更してください。
+bash を利用している場合は ~/.fzf.bash というファイルが作成されます。既にインストールされている
+fzf よりコマンドのサーチパスを上位にするため、~/.fzf.bash の中の PATH の設定を次のように変更してください。
 
 #+BEGIN_EXAMPLE
   # PATH="${PATH:+${PATH}:}/home/<user>/.fzf/bin"
@@ -67,7 +67,17 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 
 ※ <user> の箇所は、各自の設定に置き換えてください。
 
-動作の確認は、yazi を起動し、Z を押下してみてください。
+また、~/.fzf.bash は .bashrc から実行されるように設定が追加されますが、~/.fzf.bash の内部で
+bind コマンドを実行しているため、Emacs の shell-mode を起動した際にエラーメッセージが表示されます。
+このため、Emacs をご利用の場合は、.bashrc の最終行に追加された行を次のように変更してください。
+
+#+BEGIN_EXAMPLE
+if [[[[ ! "$INSIDE_EMACS" =~ comint ]]]]; then
+    [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+fi
+#+END_EXAMPLE
+
+動作の確認は、shell、yazi を再起動し、Z を押下してみてください。
 
 ● 本フォルダにある _config_personal.py を config_personal.py というファイル名にすることで
 機能拡張ファイルとして機能します。yazi_key Extension の機能を拡張する際にご利用ください。
