@@ -56,9 +56,27 @@ def previous_line():
 def next_line():
     self_insert_command("Down")()
 
+## 文字列検索
+def isearch(direction):
+    if fakeymacs.is_searching is None:
+        self_insert_command("/")()
+        fakeymacs.is_searching = False
+
+    elif fakeymacs.is_searching is True:
+        self_insert_command({"backward":"S-n", "forward":"n"}[direction])()
+
+def isearch_backward():
+    isearch("backward")
+
+def isearch_forward():
+    isearch("forward")
+
 ## その他
 def keyboard_quit():
     escape()
+
+    if fakeymacs.is_searching == False:
+        fakeymacs.is_searching = None
 
 def kill_emacs():
     self_insert_command("q")()
@@ -72,8 +90,14 @@ define_key_y("C-f", forward_char)
 define_key_y("C-p", previous_line)
 define_key_y("C-n", next_line)
 
+## 「文字列検索」のキー設定
+define_key_y("C-r", isearch_backward)
+define_key_y("C-s", isearch_forward)
+
 ## 「その他」のキー設定
-define_key_y("C-g",       keyboard_quit)
+define_key_y("Enter",     newline)
+define_key_y("C-m",       newline)
+define_key_y("C-g",       reset_search(keyboard_quit))
 define_key_y("Ctl-x C-c", kill_emacs)
 
 # --------------------------------------------------------------------------------------------------
