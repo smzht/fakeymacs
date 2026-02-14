@@ -105,12 +105,12 @@ define_key_y("M-",    keymap.defineMultiStrokeKeymap("Esc"))
 if fc.use_esc_as_meta:
     define_key_y("Esc Esc", escape)
 else:
-    define_key_y("Esc",  escape)
+    define_key_y("Esc", escape)
 
 if fc.use_ctrl_openbracket_as_meta:
-    define_key_y("C-[ C-[",  escape)
+    define_key_y("C-[ C-[", escape)
 else:
-    define_key_y("C-[",  escape)
+    define_key_y("C-[", escape)
 
 ## 「カーソル移動」のキー設定
 define_key_y("C-b", backward_char)
