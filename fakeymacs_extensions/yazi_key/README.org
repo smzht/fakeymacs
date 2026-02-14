@@ -58,7 +58,8 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 #+END_EXAMPLE
 
 bash を利用している場合は ~/.fzf.bash というファイルが作成されます。既にインストールされている
-fzf よりコマンドのサーチパスを上位にするため、~/.fzf.bash の中の PATH の設定を次のように変更してください。
+fzf よりコマンドのサーチパスを上位にする必要があるため、~/.fzf.bash の中の PATH の設定を次のように
+変更してください。
 
 #+BEGIN_EXAMPLE
   # PATH="${PATH:+${PATH}:}/home/<user>/.fzf/bin"
