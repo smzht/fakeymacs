@@ -103,7 +103,7 @@ bind コマンドが実行されるため、Emacs の shell-mode を起動した
 このため、Emacs をご利用の場合は、.bashrc の最終行に追加された行を次のように変更してください。
 
 #+BEGIN_EXAMPLE
-if [[[[ ! "$INSIDE_EMACS" =~ comint ]]]]; then
+if [[ ! "$INSIDE_EMACS" =~ comint ]]; then
     [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 fi
 #+END_EXAMPLE
