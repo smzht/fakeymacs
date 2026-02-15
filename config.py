@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20260126_02"
+fakeymacs_version = "20260215_01"
 
 import time
 import os
@@ -2528,7 +2528,7 @@ def configure(keymap):
     define_key(keymap_emacs, "C-c",       reset_search(reset_undo(reset_counter(reset_mark(kill_ring_save)))))
     define_key(keymap_emacs, "C-v",       reset_search(reset_undo(reset_counter(reset_mark(repeat(yank)))))) # scroll_key の設定で上書きされない場合
     define_key(keymap_emacs, "C-z",       reset_search(reset_counter(reset_mark(undo))))
-    define_key(keymap_emacs, "C-_",       reset_search(reset_undo(reset_counter(reset_mark(undo)))))
+    define_key(keymap_emacs, "C-_",       reset_search(reset_counter(reset_mark(undo))))
     define_key(keymap_emacs, "C-@",       reset_search(reset_undo(reset_counter(set_mark_command))))
     define_key(keymap_emacs, "C-Space",   reset_search(reset_undo(reset_counter(set_mark_command))))
     define_key(keymap_emacs, "Ctl-x h",   reset_search(reset_undo(reset_counter(mark_whole_buffer))))
