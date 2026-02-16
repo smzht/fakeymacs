@@ -46,4 +46,9 @@ Midnight Commander 用のキーの設定を行う拡張機能です。
 ● mc から エディタを起動する際、Microsoft Edit のようにウィンドウタイトルを変更する機能を
 持たないエディタは、settitle コマンドを経由して起動するようにしてください。
 mc_key 拡張機能で設定しているキーバインドを無効とするための対策となります。
-vim や emacsclient などが該当します。
+vim や emacsclient などが該当します。次のような alias を設定しておくのがお勧めです。
+
+#+BEGIN_EXAMPLE
+alias ve='settitle vim'
+alias ee='settitle emacsclient -t'
+#+END_EXAMPLE
