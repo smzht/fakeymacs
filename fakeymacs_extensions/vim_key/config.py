@@ -1,0 +1,563 @@
+﻿# -*- mode: python; coding: utf-8-with-signature-dos -*-
+
+####################################################################################################
+## Vim 用のキーの設定を行う
+####################################################################################################
+
+try:
+    # 設定されているか？
+    fc.vim_target
+except:
+    # Vim 用のキーバインドを利用するアプリケーションソフトを指定する
+    # （アプリケーションソフトは、プロセス名称のみ（ワイルドカード指定可）、もしくは、プロセス名称、
+    #   クラス名称、ウィンドウタイトル（リストによる複数指定可）のリスト（ワイルドカード指定可、
+    #   リストの後ろの項目から省略可）を指定してください）
+    fc.vim_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", ["* - vi*", "* - VIM*"]],
+                     ]
+
+# --------------------------------------------------------------------------------------------------
+
+class FakeymacsVim:
+    pass
+
+fakeymacs_vim = FakeymacsVim()
+
+regex = "|".join([fnmatch.translate(app) for app in fc.vim_target if type(app) is str])
+if regex == "": regex = "$." # 絶対にマッチしない正規表現
+vim_target1 = re.compile(regex)
+vim_target2 = [app for app in fc.vim_target if type(app) is list]
+
+def is_vim(window):
+    global vim_status
+
+    if window is not fakeymacs.last_window or fakeymacs.force_update:
+        if (fakeymacs.is_emacs_target == False and
+            (vim_target1.match(getProcessName(window)) or
+             any(checkWindow(*app, window=window) for app in vim_target2))):
+            reset_search(reset_undo(reset_counter(escape)))()
+            vim_status = True
+        else:
+            vim_status = False
+
+    return vim_status
+
+if fc.use_emacs_ime_mode:
+    keymap_vim = keymap.defineWindowKeymap(check_func=lambda wnd: (is_vim(wnd) and
+                                                                   not is_emacs_ime_mode(wnd)))
+else:
+    keymap_vim = keymap.defineWindowKeymap(check_func=is_vim_target)
+
+fakeymacs_vim.insert_mode = False
+fakeymacs_vim.visual_mode = False
+fakeymacs_vim.command_line_mode = False
+fakeymacs_vim.insert_normal_mode = False
+
+## 共通関数
+def define_key_v(keys, command, skip_check=True):
+    if skip_check:
+        # 設定をスキップするキーの処理を行う
+        if "keymap_vim" in fc.skip_settings_key:
+            for skey in fc.skip_settings_key["keymap_vim"]:
+                if fnmatch.fnmatch(keys, skey):
+                    print(f"skip settings key : [keymap_vim] {keys}")
+                    return
+
+    define_key(keymap_vim, keys, command)
+
+def self_insert_command_v(*key_list, usjis_conv=True):
+    func = self_insert_command2(*key_list, usjis_conv=usjis_conv)
+    def _func():
+        if (fakeymacs.is_searching != False and not fakeymacs_vim.command_line_mode and
+            not fakeymacs_vim.insert_normal_mode and not fakeymacs_vim.insert_mode):
+            # ノーマルモードで日本語を入力した際は、インサートモードにする
+            if getImeStatus():
+                setImeStatus(0)
+                self_insert_command("i")()
+                setImeStatus(1)
+                fakeymacs_vim.insert_mode = True
+        func()
+    return _func
+
+def enter_insert_mode(key):
+    def _func():
+        if (fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode or
+            (not fakeymacs_vim.insert_normal_mode and fakeymacs_vim.insert_mode)):
+            reset_undo(reset_counter(repeat(execute_command(self_insert_command_v(key)))))()
+        else:
+            reset_undo(reset_counter(execute_command(self_insert_command_v(key))))()
+            if not fakeymacs_vim.insert_normal_mode:
+                fakeymacs_vim.insert_mode = True
+    return _func
+
+def enter_visual_mode(key):
+    def _func():
+        if (fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode or
+            (not fakeymacs_vim.insert_normal_mode and fakeymacs_vim.insert_mode)):
+            reset_undo(reset_counter(repeat(execute_command(self_insert_command_v(key)))))()
+        else:
+            reset_undo(reset_counter(execute_command(self_insert_command_v(key))))()
+            if fakeymacs_vim.visual_mode:
+                fakeymacs_vim.visual_mode = False
+            else:
+                fakeymacs_vim.visual_mode = True
+    return _func
+
+def enter_insert_normal_mode():
+    self_insert_command("C-o")()
+
+    if fakeymacs_vim.insert_normal_mode:
+        fakeymacs_vim.insert_normal_mode = False
+
+    elif (fakeymacs.is_searching != False and not fakeymacs_vim.command_line_mode and
+          fakeymacs_vim.insert_mode):
+        setImeStatus(0)
+        fakeymacs_vim.insert_normal_mode = True
+
+def enter_command_line_mode():
+    if (fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode or
+        (not fakeymacs_vim.insert_normal_mode and fakeymacs_vim.insert_mode)):
+        reset_undo(reset_counter(repeat(execute_command(self_insert_command(":")))))()
+    else:
+        setImeStatus(0)
+        reset_undo(reset_counter(execute_command(self_insert_command(":"))))()
+        fakeymacs_vim.command_line_mode = True
+
+def enter_search_mode(direction):
+    def _func():
+        if (fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode or
+            (not fakeymacs_vim.insert_normal_mode and fakeymacs_vim.insert_mode)):
+            reset_undo(reset_counter(repeat(execute_command(
+                self_insert_command({"backward":"?", "forward":"/"}[direction])))))()
+        else:
+            setImeStatus(0)
+            reset_undo(reset_counter(execute_command(
+                self_insert_command({"backward":"?", "forward":"/"}[direction]))))()
+            fakeymacs.is_searching = False
+    return _func
+
+def adjust_ime_status(command):
+    def _func():
+        if getImeStatus():
+            setImeStatus(0)
+            command()
+            if fakeymacs_vim.insert_mode:
+                delay()
+                setImeStatus(1)
+        else:
+            command()
+    return _func
+
+def execute_command(command):
+    def _func():
+        command()
+        fakeymacs_vim.insert_normal_mode = False
+    return _func
+
+def execute_command_in_normal_mode(command):
+    def _func():
+        if fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode:
+            return
+
+        if not fakeymacs_vim.insert_normal_mode and fakeymacs_vim.insert_mode:
+            self_insert_command("C-o")()
+            adjust_ime_status(command)()
+        else:
+            adjust_ime_status(command)()
+
+        fakeymacs_vim.visual_mode = False
+        fakeymacs_vim.insert_normal_mode = False
+    return _func
+
+def execute_command_in_insert_mode(command):
+    def _func():
+        if fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode:
+            return
+
+        if not fakeymacs_vim.insert_normal_mode and fakeymacs_vim.insert_mode:
+            self_insert_command("C-o")()
+            adjust_ime_status(command)()
+        else:
+            self_insert_command("i")()
+            self_insert_command("C-o")()
+            adjust_ime_status(command)()
+            self_insert_command("Esc", "Right")()
+
+        fakeymacs_vim.visual_mode = False
+        fakeymacs_vim.insert_normal_mode = False
+    return _func
+
+## ファイル操作
+def find_file():
+    execute_command_in_normal_mode(self_insert_command(":", "e", "Space"))()
+    fakeymacs_vim.command_line_mode = True
+
+def save_buffer():
+    execute_command_in_normal_mode(self_insert_command(":", "w", "!", "Enter"))()
+
+def write_file():
+    execute_command_in_normal_mode(self_insert_command(":", "w", "Space"))()
+    fakeymacs_vim.command_line_mode = True
+
+## カーソル移動
+def backward_char():
+    execute_command(self_insert_command("Left"))()
+
+def forward_char():
+    execute_command(self_insert_command("Right"))()
+
+def backward_word():
+    execute_command_in_normal_mode(self_insert_command("b"))()
+
+def forward_word():
+    execute_command_in_normal_mode(self_insert_command("w"))()
+
+def previous_line():
+    execute_command(self_insert_command("Up"))()
+
+def next_line():
+    execute_command(self_insert_command("Down"))()
+
+def move_beginning_of_line():
+    execute_command(self_insert_command("Home"))()
+
+def move_end_of_line():
+    if (fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode or
+        fakeymacs_vim.visual_mode or fakeymacs_vim.insert_mode):
+        execute_command(self_insert_command("End"))()
+    else:
+        execute_command(self_insert_command("End", "Right"))()
+
+def beginning_of_buffer():
+    execute_command_in_normal_mode(self_insert_command("1", "S-g"))()
+
+def end_of_buffer():
+    execute_command_in_normal_mode(self_insert_command("S-g"))()
+
+def goto_line():
+    execute_command_in_normal_mode(self_insert_command(":"))()
+    fakeymacs_vim.command_line_mode = True
+
+def scroll_up():
+    execute_command_in_normal_mode(self_insert_command("C-b"))()
+
+def scroll_down():
+    execute_command_in_normal_mode(self_insert_command("C-f"))()
+
+def recenter():
+    execute_command_in_normal_mode(self_insert_command("z", "z"))()
+
+## カット / コピー / 削除 / アンドゥ
+def delete_backward_char():
+    if (fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode or
+        fakeymacs_vim.insert_mode):
+        self_insert_command("Back")()
+    else:
+        execute_command_in_normal_mode(self_insert_command("S-x"))()
+
+def delete_char():
+    if (fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode or
+        fakeymacs_vim.insert_mode):
+        self_insert_command("Delete")()
+    else:
+        # 改行も削除できるようにビジュアルモードに移行してから削除している
+        execute_command_in_normal_mode(self_insert_command("v", "x"))()
+
+def backward_kill_word():
+    execute_command_in_normal_mode(self_insert_command("d", "b"))()
+
+def kill_word():
+    execute_command_in_normal_mode(self_insert_command("d", "w"))()
+
+def kill_line():
+    execute_command_in_normal_mode(self_insert_command("v", "$", "Delete"))()
+
+def kill_region():
+    execute_command_in_normal_mode(self_insert_command("x"))()
+
+def kill_ring_save():
+    execute_command_in_normal_mode(self_insert_command("y"))()
+
+def yank():
+    execute_command_in_insert_mode(self_insert_command("S-p"))()
+
+def undo():
+    if fakeymacs.is_undo_mode:
+        execute_command_in_normal_mode(self_insert_command("u"))()
+    else:
+        execute_command_in_normal_mode(self_insert_command("C-r"))()
+
+def set_mark_command():
+    execute_command_in_normal_mode(self_insert_command("v"))()
+    fakeymacs_vim.visual_mode = True
+
+def mark_whole_buffer():
+    execute_command_in_normal_mode(self_insert_command("C-Home"))()
+    execute_command_in_normal_mode(self_insert_command("v", "C-End"))()
+
+def mark_page():
+    mark_whole_buffer()
+
+## テキストの入れ替え
+def transpose_chars():
+    delete_char()
+    backward_char()
+    yank()
+    forward_char()
+
+# ## タブ操作
+# def kill_buffer():
+#     self_insert_command("C-c")()
+
+## 文字列検索
+def isearch(direction):
+    def _func():
+        if fakeymacs.is_searching is None:
+            self_insert_command({"backward":"?", "forward":"/"}[direction])()
+            fakeymacs.is_searching = False
+
+        elif fakeymacs.is_searching == True:
+            self_insert_command({"backward":"S-n", "forward":"n"}[direction])()
+    return _func
+
+def isearch_backward():
+    execute_command_in_normal_mode(isearch("backward"))()
+
+def isearch_forward():
+    execute_command_in_normal_mode(isearch("forward"))()
+
+## キーボードマクロ
+def keyboard_macro_start():
+    if not fakeymacs_vim.insert_mode:
+        setImeStatus(0)
+        self_insert_command("q", "a")()
+
+def keyboard_macro_stop():
+    if not fakeymacs_vim.insert_mode:
+        setImeStatus(0)
+        self_insert_command("q")()
+
+def keyboard_macro_play():
+    execute_command_in_normal_mode(self_insert_command("@", "a"))()
+
+## 矩形選択
+def rectangle_mark_mode():
+    execute_command_in_normal_mode(self_insert_command("C-v"))()
+
+## その他
+def escape():
+    self_insert_command("Esc")()
+    if not fakeymacs_vim.insert_normal_mode and fakeymacs_vim.insert_mode:
+        setImeStatus(0)
+        self_insert_command("Right")()
+        if not fakeymacs_vim.visual_mode:
+            fakeymacs_vim.insert_mode = False
+
+    fakeymacs_vim.visual_mode = False
+    fakeymacs_vim.insert_normal_mode = False
+    fakeymacs_vim.command_line_mode = False
+
+    # print("-" * 80)
+    # print("fakeymacs_vim.insert_mode        : " + str(fakeymacs_vim.insert_mode))
+    # print("fakeymacs_vim.visual_mode        : " + str(fakeymacs_vim.visual_mode))
+    # print("fakeymacs_vim.command_line_mode  : " + str(fakeymacs_vim.command_line_mode))
+    # print("fakeymacs_vim.insert_normal_mode : " + str(fakeymacs_vim.insert_normal_mode))
+
+def space():
+    self_insert_command("Space")()
+
+def newline():
+    self_insert_command("Enter")()
+    fakeymacs_vim.command_line_mode = False
+    if fakeymacs.is_searching == False:
+        fakeymacs.is_searching = True
+
+def indent_for_tab_command():
+    self_insert_command("Tab")()
+
+def keyboard_quit():
+    escape()
+
+    if fakeymacs.is_undo_mode:
+        fakeymacs.is_undo_mode = False
+    else:
+        fakeymacs.is_undo_mode = True
+
+    if fakeymacs.is_searching == False:
+        fakeymacs.is_searching = None
+
+def kill_emacs():
+    execute_command_in_normal_mode(self_insert_command(":", "q", "Enter"))()
+
+## マルチストロークキーの設定
+define_key_v("Ctl-x",  keymap.defineMultiStrokeKeymap(fc.ctl_x_prefix_key))
+define_key_v("C-q",    keymap.defineMultiStrokeKeymap("C-q"))
+define_key_v("M-",     keymap.defineMultiStrokeKeymap("Esc"))
+define_key_v("M-g",    keymap.defineMultiStrokeKeymap("M-g"))
+define_key_v("M-g M-", keymap.defineMultiStrokeKeymap("M-g Esc"))
+
+## 数字キーの設定
+for n in range(10):
+    key = str(n)
+    define_key_v(key, digit(n))
+    if fc.use_ctrl_digit_key_for_digit_argument:
+        define_key(keymap_emacs, f"C-{key}", digit2(n))
+    define_key_v(f"M-{key}", digit2(n))
+    define_key_v(f"S-{key}",
+                 reset_undo(reset_counter(repeat(execute_command(self_insert_command_v(f"S-{key}"))))))
+
+## アルファベットキーの設定
+for vkey in range(VK_A, VK_Z + 1):
+    key = vkToStr(vkey)
+    for mod in ["", "S-"]:
+        mkey = mod + key
+        define_key_v(mkey, reset_undo(reset_counter(repeat(execute_command(self_insert_command_v(mkey))))))
+
+## 特殊文字キーの設定
+define_key_v("Space"  , reset_undo(reset_counter(repeat(execute_command(self_insert_command("Space"))))))
+define_key_v("S-Space", reset_undo(reset_counter(repeat(execute_command(self_insert_command("S-Space"))))))
+
+for vkey in [VK_OEM_MINUS, VK_OEM_PLUS, VK_OEM_COMMA, VK_OEM_PERIOD,
+             VK_OEM_1, VK_OEM_2, VK_OEM_3, VK_OEM_4, VK_OEM_5, VK_OEM_6, VK_OEM_7, VK_OEM_102]:
+    key = vkToStr(vkey)
+    for mod in ["", "S-"]:
+        mkey = mod + key
+        define_key_v(mkey, reset_undo(reset_counter(repeat(execute_command(self_insert_command_v(mkey))))))
+
+## 10key の特殊文字キーの設定
+for vkey in [VK_MULTIPLY, VK_ADD, VK_SUBTRACT, VK_DECIMAL, VK_DIVIDE]:
+    key = vkToStr(vkey)
+    define_key_v(key, reset_undo(reset_counter(repeat(execute_command(self_insert_command_v(key))))))
+
+## quoted-insert キーの設定
+for vkey in vkeys():
+    key = vkToStr(vkey)
+    for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
+        mkey = mod1 + mod2 + mod3 + mod4 + key
+        define_key_v(f"C-q {mkey}", execute_command(self_insert_command(mkey)))
+
+## Esc キーの設定
+if fc.use_esc_as_meta:
+    define_key_v("Esc Esc", escape)
+else:
+    define_key_v("Esc", escape)
+
+if fc.use_ctrl_openbracket_as_meta:
+    define_key_v("C-[ C-[", escape)
+else:
+    define_key_v("C-[", escape)
+
+## 「インサートモード移行」のキー設定
+for key in ["i", "S-i", "a", "S-a", "o", "S-o", "S-r"]:
+    define_key_v(key, enter_insert_mode(key))
+
+## 「ビジュアルモード移行」のキーの設定
+for key in ["v", "S-v"]:
+    define_key_v(key, enter_visual_mode(key))
+
+## 「インサートノーマルモード移行」のキー設定
+if not getKeyCommand(keymap_ime, "C-o"):
+    define_key_v("C-o", enter_insert_normal_mode)
+define_key_v("C-A-o", enter_insert_normal_mode)
+
+## 「コマンドラインモード移行」のキー設定
+define_key_v(":", enter_command_line_mode)
+
+## 「検索モード移行」のキー設定
+define_key_v("/", enter_search_mode("forward"))
+define_key_v("?", enter_search_mode("backward"))
+
+## universal-argument キーの設定
+define_key_v("C-u", universal_argument)
+
+## 「ファイル操作」のキー設定
+define_key_v("Ctl-x C-f", reset_undo(reset_counter(find_file)))
+define_key_v("Ctl-x C-s", reset_undo(reset_counter(save_buffer)))
+define_key_v("Ctl-x C-w", reset_undo(reset_counter(write_file)))
+
+## 「カーソル移動」のキー設定
+define_key_v("C-b",      reset_undo(reset_counter(repeat(backward_char))))
+define_key_v("C-f",      reset_undo(reset_counter(repeat(forward_char))))
+define_key_v("M-b",      reset_undo(reset_counter(repeat(backward_word))))
+define_key_v("M-f",      reset_undo(reset_counter(repeat(forward_word))))
+define_key_v("C-p",      reset_undo(reset_counter(repeat(previous_line))))
+define_key_v("C-n",      reset_undo(reset_counter(repeat(next_line))) )
+define_key_v("C-a",      reset_undo(reset_counter(move_beginning_of_line)))
+define_key_v("C-e",      reset_undo(reset_counter(move_end_of_line)))
+define_key_v("M-<",      reset_undo(reset_counter(beginning_of_buffer)))
+define_key_v("M->",      reset_undo(reset_counter(end_of_buffer)))
+define_key_v("M-g g",    reset_undo(reset_counter(goto_line)))
+define_key_v("M-g M-g",  reset_undo(reset_counter(goto_line)))
+define_key_v("C-l",      reset_undo(reset_counter(recenter)))
+
+define_key_v("Left",     reset_undo(reset_counter(repeat(backward_char))))
+define_key_v("Right",    reset_undo(reset_counter(repeat(forward_char))))
+define_key_v("C-Left",   reset_undo(reset_counter(repeat(backward_word))))
+define_key_v("C-Right",  reset_undo(reset_counter(repeat(forward_word))))
+define_key_v("Up",       reset_undo(reset_counter(repeat(previous_line))))
+define_key_v("Down",     reset_undo(reset_counter(repeat(next_line))))
+define_key_v("Home",     reset_undo(reset_counter(move_beginning_of_line)))
+define_key_v("End",      reset_undo(reset_counter(move_end_of_line)))
+define_key_v("C-Home",   reset_undo(reset_counter(beginning_of_buffer)))
+define_key_v("C-End",    reset_undo(reset_counter(end_of_buffer)))
+define_key_v("PageUp",   reset_undo(reset_counter(scroll_up)))
+define_key_v("PageDown", reset_undo(reset_counter(scroll_down)))
+
+## 「カット / コピー / 削除 / アンドゥ」のキー設定
+define_key_v("C-h",      reset_undo(reset_counter(repeat(delete_backward_char))))
+define_key_v("C-d",      reset_undo(reset_counter(repeat(delete_char))))
+define_key_v("M-Delete", reset_undo(reset_counter(repeat(backward_kill_word))))
+define_key_v("M-d",      reset_undo(reset_counter(repeat(kill_word))))
+define_key_v("C-k",      reset_undo(reset_counter(repeat(kill_line))))
+define_key_v("C-w",      reset_undo(reset_counter(kill_region)))
+define_key_v("M-w",      reset_undo(reset_counter(kill_ring_save)))
+define_key_v("C-y",      reset_undo(reset_counter(repeat(yank))))
+define_key_v("C-/",      reset_counter(undo))
+define_key_v("Ctl-x u",  reset_counter(undo))
+
+define_key_v("Back",      reset_undo(reset_counter(repeat(delete_backward_char))))
+define_key_v("Delete",    reset_undo(reset_counter(repeat(delete_char))))
+define_key_v("C-Back",    reset_undo(reset_counter(repeat(backward_kill_word))))
+define_key_v("C-Delete",  reset_undo(reset_counter(repeat(kill_word))))
+define_key_v("C-c",       reset_undo(reset_counter(kill_ring_save)))
+define_key_v("C-v",       reset_undo(reset_counter(repeat(yank))))
+define_key_v("C-z",       reset_counter(undo))
+define_key_v("C-_",       reset_counter(undo))
+define_key_v("C-@",       reset_undo(reset_counter(set_mark_command)))
+define_key_v("C-Space",   reset_undo(reset_counter(set_mark_command)))
+define_key_v("Ctl-x h",   reset_undo(reset_counter(mark_whole_buffer)))
+define_key_v("Ctl-x C-p", reset_undo(reset_counter(mark_page)))
+
+## 「テキストの入れ替え」のキー設定
+define_key_v("C-t", reset_undo(reset_counter(transpose_chars)))
+
+## 「文字列検索」のキー設定
+define_key_v("C-r", reset_undo(reset_counter(isearch_backward)))
+define_key_v("C-s", reset_undo(reset_counter(isearch_forward)))
+
+## 「キーボードマクロ」のキー設定
+define_key_v("Ctl-x (", keyboard_macro_start)
+define_key_v("Ctl-x )", keyboard_macro_stop)
+define_key_v("Ctl-x e", reset_undo(reset_counter(repeat(keyboard_macro_play))))
+
+## 「矩形選択」のキー設定
+define_key_v("C-A-Space", rectangle_mark_mode)
+
+## 「その他」のキー設定
+define_key_v("Enter",     reset_undo(reset_counter(repeat(newline))))
+define_key_v("C-m",       reset_undo(reset_counter(repeat(newline))) )
+define_key_v("C-g",       reset_search(reset_counter(keyboard_quit)))
+define_key_v("Ctl-x C-c", reset_undo(reset_counter(kill_emacs)))
+
+## 「タブ」のキー設定
+if fc.use_ctrl_i_as_tab:
+    define_key_v("C-i", reset_undo(reset_counter(indent_for_tab_command)))
+
+## 「スクロール」のキー設定
+if fc.scroll_key:
+    define_key_v(fc.scroll_key[0], reset_undo(reset_counter(scroll_up)))
+    define_key_v(fc.scroll_key[1], reset_undo(reset_counter(scroll_down)))
+
+# --------------------------------------------------------------------------------------------------
+
+## config_personal.py ファイルの読み込み
+exec(readConfigExtension(r"vim_key\config_personal.py", msg=False), dict(globals(), **locals()))
