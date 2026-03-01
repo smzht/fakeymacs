@@ -447,7 +447,7 @@ else:
     define_key_v("C-[", escape)
 
 ## 「インサートモード移行」のキー設定
-for key in ["i", "S-i", "a", "S-a", "o", "S-o", "S-r", "s", "S-s"]:
+for key in ["i", "S-i", "a", "S-a", "o", "S-o", "S-r", "s", "S-s", "c"]:
     define_key_v(key, enter_insert_mode(key))
 
 ## 「ビジュアルモード移行」のキーの設定
