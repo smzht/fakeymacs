@@ -160,9 +160,8 @@ def execute_command_in_normal_mode(command):
 
         if not fakeymacs_vim.insert_normal_mode and fakeymacs_vim.insert_mode:
             self_insert_command("C-o")()
-            adjust_ime_status(command)()
-        else:
-            adjust_ime_status(command)()
+
+        adjust_ime_status(command)()
 
         fakeymacs_vim.visual_mode = False
         fakeymacs_vim.insert_normal_mode = False
@@ -173,14 +172,39 @@ def execute_command_in_insert_mode(command):
         if fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode:
             return
 
+        if fakeymacs_vim.insert_normal_mode or not fakeymacs_vim.insert_mode:
+            self_insert_command("i")()
+
+        self_insert_command("C-o")()
+        adjust_ime_status(command)()
+
+        if fakeymacs_vim.insert_normal_mode or not fakeymacs_vim.insert_mode:
+            self_insert_command("Esc", "Right")()
+
+        fakeymacs_vim.visual_mode = False
+        fakeymacs_vim.insert_normal_mode = False
+    return _func
+
+def execute_ex_command(ex_command, enter=True):
+    def _func():
+        if fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode:
+            return
+
+        def _command():
+            self_insert_command(":")()
+            princ(ex_command)
+            if enter:
+                self_insert_command("Enter")()
+
         if not fakeymacs_vim.insert_normal_mode and fakeymacs_vim.insert_mode:
             self_insert_command("C-o")()
-            adjust_ime_status(command)()
+
+        if enter:
+            adjust_ime_status(_command)()
         else:
-            self_insert_command("i")()
-            self_insert_command("C-o")()
-            adjust_ime_status(command)()
-            self_insert_command("Esc", "Right")()
+            setImeStatus(0)
+            _command()
+            fakeymacs_vim.command_line_mode = True
 
         fakeymacs_vim.visual_mode = False
         fakeymacs_vim.insert_normal_mode = False
@@ -188,15 +212,13 @@ def execute_command_in_insert_mode(command):
 
 ## ファイル操作
 def find_file():
-    execute_command_in_normal_mode(self_insert_command(":", "e", "Space"))()
-    fakeymacs_vim.command_line_mode = True
+    execute_ex_command("e ", enter=False)()
 
 def save_buffer():
-    execute_command_in_normal_mode(self_insert_command(":", "w", "!", "Enter"))()
+    execute_ex_command("w!")()
 
 def write_file():
-    execute_command_in_normal_mode(self_insert_command(":", "w", "Space"))()
-    fakeymacs_vim.command_line_mode = True
+    execute_ex_command("w ", enter=False)()
 
 ## カーソル移動
 def backward_char():
@@ -346,7 +368,8 @@ def rectangle_mark_mode():
 ## その他
 def escape():
     self_insert_command("Esc")()
-    if not fakeymacs_vim.insert_normal_mode and fakeymacs_vim.insert_mode:
+    if (fakeymacs.is_searching != False and not fakeymacs_vim.command_line_mode and
+        not fakeymacs_vim.insert_normal_mode and fakeymacs_vim.insert_mode):
         setImeStatus(0)
         self_insert_command("Right")()
         if not fakeymacs_vim.visual_mode:
@@ -386,7 +409,7 @@ def keyboard_quit():
         fakeymacs.is_searching = None
 
 def kill_emacs():
-    execute_command_in_normal_mode(self_insert_command(":", "q", "Enter"))()
+    execute_ex_command("q")()
 
 ## マルチストロークキーの設定
 define_key_v("Ctl-x",  keymap.defineMultiStrokeKeymap(fc.ctl_x_prefix_key))
