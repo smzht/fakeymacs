@@ -369,11 +369,11 @@ def rectangle_mark_mode():
 def escape():
     self_insert_command("Esc")()
     if (fakeymacs.is_searching != False and not fakeymacs_vim.command_line_mode and
-        not fakeymacs_vim.insert_normal_mode and fakeymacs_vim.insert_mode):
+        not fakeymacs_vim.insert_normal_mode and not fakeymacs_vim.visual_mode and
+        fakeymacs_vim.insert_mode):
         setImeStatus(0)
         self_insert_command("Right")()
-        if not fakeymacs_vim.visual_mode:
-            fakeymacs_vim.insert_mode = False
+        fakeymacs_vim.insert_mode = False
 
     fakeymacs_vim.visual_mode = False
     fakeymacs_vim.insert_normal_mode = False
