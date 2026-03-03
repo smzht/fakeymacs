@@ -256,8 +256,7 @@ def end_of_buffer():
     execute_command_in_normal_mode(self_insert_command("S-g"))()
 
 def goto_line():
-    execute_command_in_normal_mode(self_insert_command(":"))()
-    fakeymacs_vim.command_line_mode = True
+    execute_ex_command("", enter=False)()
 
 def scroll_up():
     execute_command_in_normal_mode(self_insert_command("C-b"))()
@@ -326,9 +325,30 @@ def transpose_chars():
     yank()
     forward_char()
 
-# ## タブ操作
-# def kill_buffer():
-#     self_insert_command("C-c")()
+## バッファ / ウィンドウ操作
+def kill_buffer():
+    execute_ex_command("bd")()
+
+def switch_to_buffer():
+    execute_ex_command("bn")()
+
+def list_buffers():
+    execute_ex_command("ls")()
+
+def delete_window():
+    execute_command_in_normal_mode(self_insert_command("C-w", "c"))()
+
+def delete_other_windows():
+    execute_command_in_normal_mode(self_insert_command("C-w", "o"))()
+
+def split_window_below():
+    execute_ex_command("sp")()
+
+def split_window_right():
+    execute_ex_command("vs")()
+
+def other_window():
+    execute_command_in_normal_mode(self_insert_command("C-w", "w"))()
 
 ## 文字列検索
 def isearch(direction):
@@ -552,6 +572,17 @@ define_key_v("Ctl-x C-p", reset_undo(reset_counter(mark_page)))
 
 ## 「テキストの入れ替え」のキー設定
 define_key_v("C-t", reset_undo(reset_counter(transpose_chars)))
+
+## 「バッファ / ウィンドウ操作」のキー設定
+define_key_v("M-k",       reset_undo(reset_counter(kill_buffer)))
+define_key_v("Ctl-x k",   reset_undo(reset_counter(kill_buffer)))
+define_key_v("Ctl-x b",   reset_undo(reset_counter(switch_to_buffer)))
+define_key_v("Ctl-x C-b", reset_undo(reset_counter(list_buffers)))
+define_key_v("Ctl-x 0",   reset_undo(reset_counter(delete_window)))
+define_key_v("Ctl-x 1",   delete_other_windows)
+define_key_v("Ctl-x 2",   split_window_below)
+define_key_v("Ctl-x 3",   split_window_right)
+define_key_v("Ctl-x o",   reset_undo(reset_counter(other_window)))
 
 ## 「文字列検索」のキー設定
 define_key_v("C-r", reset_undo(reset_counter(isearch_backward)))
