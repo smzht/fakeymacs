@@ -167,24 +167,6 @@ def execute_command_in_normal_mode(command):
         fakeymacs_vim.insert_normal_mode = False
     return _func
 
-def execute_command_in_insert_mode(command):
-    def _func():
-        if fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode:
-            return
-
-        if fakeymacs_vim.insert_normal_mode or not fakeymacs_vim.insert_mode:
-            self_insert_command("i")()
-
-        self_insert_command("C-o")()
-        adjust_ime_status(command)()
-
-        if fakeymacs_vim.insert_normal_mode or not fakeymacs_vim.insert_mode:
-            self_insert_command("Esc", "Right")()
-
-        fakeymacs_vim.visual_mode = False
-        fakeymacs_vim.insert_normal_mode = False
-    return _func
-
 def execute_ex_command(ex_command, enter=True):
     def _func():
         if fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode:
@@ -299,7 +281,10 @@ def kill_ring_save():
     execute_command_in_normal_mode(self_insert_command("y"))()
 
 def yank():
-    execute_command_in_insert_mode(self_insert_command("S-p"))()
+    execute_command_in_normal_mode(self_insert_command("S-p"))()
+    if (fakeymacs.is_searching != False and not fakeymacs_vim.command_line_mode and
+        not fakeymacs_vim.insert_mode):
+        forward_char()
 
 def undo():
     if fakeymacs.is_undo_mode:
