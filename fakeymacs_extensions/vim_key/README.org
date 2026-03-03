@@ -129,6 +129,8 @@ set whichwrap=b,s,h,l,<,>,[,]
 | Ctl-x k   | kill_buffer          |             |
 | Ctl-x b   | switch_to_buffer     |             |
 | Ctl-x C-b | list_buffers         |             |
+| M-p       | previous_buffer      |             |
+| M-n       | next_buffer          |             |
 | Ctl-x 0   | delete_window        |             |
 | Ctl-x 1   | delete_other_windows |             |
 | Ctl-x 2   | split_window_below   |             |

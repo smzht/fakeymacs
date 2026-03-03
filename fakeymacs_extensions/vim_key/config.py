@@ -320,6 +320,12 @@ def switch_to_buffer():
 def list_buffers():
     execute_ex_command("ls")()
 
+def previous_buffer():
+    execute_ex_command("bp")()
+
+def next_buffer():
+    execute_ex_command("bn")()
+
 def delete_window():
     execute_command_in_normal_mode(self_insert_command("C-w", "c"))()
 
@@ -563,6 +569,9 @@ define_key_v("M-k",       reset_undo(reset_counter(kill_buffer)))
 define_key_v("Ctl-x k",   reset_undo(reset_counter(kill_buffer)))
 define_key_v("Ctl-x b",   reset_undo(reset_counter(switch_to_buffer)))
 define_key_v("Ctl-x C-b", reset_undo(reset_counter(list_buffers)))
+define_key_v("M-p",       reset_undo(reset_counter(previous_buffer)))
+define_key_v("M-n",       reset_undo(reset_counter(next_buffer)))
+
 define_key_v("Ctl-x 0",   reset_undo(reset_counter(delete_window)))
 define_key_v("Ctl-x 1",   delete_other_windows)
 define_key_v("Ctl-x 2",   split_window_below)
