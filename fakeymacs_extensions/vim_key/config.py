@@ -334,6 +334,7 @@ def next_buffer():
     execute_ex_command("bn")()
 
 def delete_window():
+    escape()
     execute_command_in_normal_mode(self_insert_command("C-w", "c"))()
 
 def delete_other_windows():
@@ -346,6 +347,7 @@ def split_window_right():
     execute_ex_command("vs")()
 
 def other_window():
+    escape()
     execute_command_in_normal_mode(self_insert_command("C-w", "w"))()
 
 ## 文字列検索
