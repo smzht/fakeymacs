@@ -312,7 +312,7 @@ def transpose_chars():
 
 ## バッファ / ウィンドウ操作
 def kill_buffer():
-    execute_ex_command("bd")()
+    execute_ex_command("bp|bd#")()
 
 def switch_to_buffer():
     execute_ex_command("bn")()
