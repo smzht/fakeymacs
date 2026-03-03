@@ -194,6 +194,7 @@ def execute_ex_command(ex_command, enter=True):
 
 ## ファイル操作
 def find_file():
+    escape()
     execute_ex_command("e ", enter=False)()
 
 def save_buffer():
@@ -312,9 +313,11 @@ def transpose_chars():
 
 ## バッファ / ウィンドウ操作
 def kill_buffer():
+    escape()
     execute_ex_command("bp|bd#")()
 
 def switch_to_buffer():
+    escape()
     execute_ex_command("bn")()
 
 def list_buffers():
@@ -323,9 +326,11 @@ def list_buffers():
     fakeymacs_vim.command_line_mode = True
 
 def previous_buffer():
+    escape()
     execute_ex_command("bp")()
 
 def next_buffer():
+    escape()
     execute_ex_command("bn")()
 
 def delete_window():
