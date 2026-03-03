@@ -318,7 +318,9 @@ def switch_to_buffer():
     execute_ex_command("bn")()
 
 def list_buffers():
+    escape()
     execute_ex_command("ls")()
+    fakeymacs_vim.command_line_mode = True
 
 def previous_buffer():
     execute_ex_command("bp")()
