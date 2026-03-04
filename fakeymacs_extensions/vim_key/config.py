@@ -53,6 +53,26 @@ fakeymacs_vim.command_line_mode = False
 fakeymacs_vim.insert_normal_mode = False
 
 ## 共通関数
+def is_insert_mode():
+    return (fakeymacs.is_searching != False and not fakeymacs_vim.command_line_mode and
+            not fakeymacs_vim.insert_normal_mode and not fakeymacs_vim.visual_mode and
+            fakeymacs_vim.insert_mode)
+
+def is_normal_mode():
+    return (fakeymacs.is_searching != False and not fakeymacs_vim.command_line_mode and
+            not fakeymacs_vim.insert_normal_mode and not fakeymacs_vim.visual_mode and
+            not fakeymacs_vim.insert_mode)
+
+def is_text_mode1():
+    return (fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode or
+            (not fakeymacs_vim.insert_normal_mode and
+             (fakeymacs_vim.visual_mode or fakeymacs_vim.insert_mode)))
+
+def is_text_mode2():
+    return (fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode or
+            (not fakeymacs_vim.insert_normal_mode and not fakeymacs_vim.visual_mode and
+             fakeymacs_vim.insert_mode))
+
 def define_key_v(keys, command, skip_check=True):
     if skip_check:
         # 設定をスキップするキーの処理を行う
@@ -67,8 +87,7 @@ def define_key_v(keys, command, skip_check=True):
 def self_insert_command_v(*key_list, usjis_conv=True):
     func = self_insert_command2(*key_list, usjis_conv=usjis_conv)
     def _func():
-        if (fakeymacs.is_searching != False and not fakeymacs_vim.command_line_mode and
-            not fakeymacs_vim.insert_normal_mode and not fakeymacs_vim.insert_mode):
+        if is_insert_mode():
             # ノーマルモードで日本語を入力した際は、インサートモードにする
             if getImeStatus():
                 setImeStatus(0)
@@ -81,7 +100,7 @@ def self_insert_command_v(*key_list, usjis_conv=True):
 def enter_insert_mode(key):
     def _func():
         if (fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode or
-            (not fakeymacs_vim.insert_normal_mode and fakeymacs_vim.insert_mode)):
+            is_insert_mode()):
             reset_undo(reset_counter(repeat(execute_command(self_insert_command_v(key)))))()
         else:
             reset_undo(reset_counter(execute_command(self_insert_command_v(key))))()
@@ -92,7 +111,7 @@ def enter_insert_mode(key):
 def enter_visual_mode(key):
     def _func():
         if (fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode or
-            (not fakeymacs_vim.insert_normal_mode and fakeymacs_vim.insert_mode)):
+            is_insert_mode()):
             reset_undo(reset_counter(repeat(execute_command(self_insert_command_v(key)))))()
         else:
             reset_undo(reset_counter(execute_command(self_insert_command_v(key))))()
@@ -108,14 +127,12 @@ def enter_insert_normal_mode():
     if fakeymacs_vim.insert_normal_mode:
         fakeymacs_vim.insert_normal_mode = False
 
-    elif (fakeymacs.is_searching != False and not fakeymacs_vim.command_line_mode and
-          fakeymacs_vim.insert_mode):
+    elif is_insert_mode():
         setImeStatus(0)
         fakeymacs_vim.insert_normal_mode = True
 
 def enter_command_line_mode():
-    if (fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode or
-        (not fakeymacs_vim.insert_normal_mode and fakeymacs_vim.insert_mode)):
+    if is_text_mode2():
         reset_undo(reset_counter(repeat(execute_command(self_insert_command(":")))))()
     else:
         setImeStatus(0)
@@ -124,8 +141,7 @@ def enter_command_line_mode():
 
 def enter_search_mode(direction):
     def _func():
-        if (fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode or
-            (not fakeymacs_vim.insert_normal_mode and fakeymacs_vim.insert_mode)):
+        if is_text_mode2():
             reset_undo(reset_counter(repeat(execute_command(
                 self_insert_command({"backward":"?", "forward":"/"}[direction])))))()
         else:
@@ -233,8 +249,7 @@ def move_beginning_of_line():
     execute_command(self_insert_command("Home"))()
 
 def move_end_of_line():
-    if (fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode or
-        fakeymacs_vim.visual_mode or fakeymacs_vim.insert_mode):
+    if is_text_mode1():
         execute_command(self_insert_command("End"))()
     else:
         execute_command(self_insert_command("End", "Right"))()
@@ -259,15 +274,13 @@ def recenter():
 
 ## カット / コピー / 削除 / アンドゥ
 def delete_backward_char():
-    if (fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode or
-        fakeymacs_vim.insert_mode):
+    if is_text_mode1():
         self_insert_command("Back")()
     else:
         execute_command_in_normal_mode(self_insert_command("S-x"))()
 
 def delete_char():
-    if (fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode or
-        fakeymacs_vim.insert_mode):
+    if is_text_mode1():
         self_insert_command("Delete")()
     else:
         # 改行も削除できるようにビジュアルモードに移行してから削除している
@@ -388,9 +401,7 @@ def rectangle_mark_mode():
 ## その他
 def escape():
     self_insert_command("Esc")()
-    if (fakeymacs.is_searching != False and not fakeymacs_vim.command_line_mode and
-        not fakeymacs_vim.insert_normal_mode and not fakeymacs_vim.visual_mode and
-        fakeymacs_vim.insert_mode):
+    if is_insert_mode():
         setImeStatus(0)
         self_insert_command("Right")()
         fakeymacs_vim.insert_mode = False
@@ -409,7 +420,13 @@ def space():
     self_insert_command("Space")()
 
 def newline():
+    if is_normal_mode():
+        setImeStatus(0)
+        self_insert_command("i")()
+        fakeymacs_vim.insert_mode = True
+
     self_insert_command("Enter")()
+
     fakeymacs_vim.command_line_mode = False
     if fakeymacs.is_searching == False:
         fakeymacs.is_searching = True
@@ -604,7 +621,7 @@ define_key_v("C-A-Space", rectangle_mark_mode)
 
 ## 「その他」のキー設定
 define_key_v("Enter",     reset_undo(reset_counter(repeat(newline))))
-define_key_v("C-m",       reset_undo(reset_counter(repeat(newline))) )
+define_key_v("C-m",       reset_undo(reset_counter(repeat(newline))))
 define_key_v("C-g",       reset_search(reset_counter(keyboard_quit)))
 define_key_v("M-x",       reset_undo(reset_counter(execute_extended_command)))
 define_key_v("Ctl-x C-c", reset_undo(reset_counter(kill_emacs)))
