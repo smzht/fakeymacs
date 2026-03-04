@@ -153,10 +153,14 @@ def execute_command(command):
         fakeymacs_vim.insert_normal_mode = False
     return _func
 
-def execute_command_in_normal_mode(command):
+def execute_command_in_normal_mode(command, esc=False):
     def _func():
         if fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode:
             return
+
+        if esc:
+            escape()
+            escape()
 
         if not fakeymacs_vim.insert_normal_mode and fakeymacs_vim.insert_mode:
             self_insert_command("C-o")()
@@ -167,10 +171,14 @@ def execute_command_in_normal_mode(command):
         fakeymacs_vim.insert_normal_mode = False
     return _func
 
-def execute_ex_command(ex_command, enter=True):
+def execute_ex_command(ex_command, enter=True, esc=False):
     def _func():
         if fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode:
             return
+
+        if esc:
+            escape()
+            escape()
 
         def _command():
             self_insert_command(":")()
@@ -194,8 +202,7 @@ def execute_ex_command(ex_command, enter=True):
 
 ## ファイル操作
 def find_file():
-    escape(); escape()
-    execute_ex_command("e ", enter=False)()
+    execute_ex_command("e ", enter=False, esc=True)()
 
 def save_buffer():
     execute_ex_command("w!")()
@@ -313,29 +320,23 @@ def transpose_chars():
 
 ## バッファ / ウィンドウ操作
 def kill_buffer():
-    escape(); escape()
-    execute_ex_command("bp|bd#")()
+    execute_ex_command("bp|bd#", esc=True)()
 
 def switch_to_buffer():
-    escape(); escape()
-    execute_ex_command("bn")()
+    execute_ex_command("bn", esc=True)()
 
 def list_buffers():
-    escape(); escape()
-    execute_ex_command("ls")()
+    execute_ex_command("ls", esc=True)()
     fakeymacs_vim.command_line_mode = True
 
 def previous_buffer():
-    escape(); escape()
-    execute_ex_command("bp")()
+    execute_ex_command("bp", esc=True)()
 
 def next_buffer():
-    escape(); escape()
-    execute_ex_command("bn")()
+    execute_ex_command("bn", esc=True)()
 
 def delete_window():
-    escape(); escape()
-    execute_command_in_normal_mode(self_insert_command("C-w", "c"))()
+    execute_command_in_normal_mode(self_insert_command("C-w", "c"), esc=True)()
 
 def delete_other_windows():
     execute_command_in_normal_mode(self_insert_command("C-w", "o"))()
@@ -347,8 +348,7 @@ def split_window_right():
     execute_ex_command("vs")()
 
 def other_window():
-    escape(); escape()
-    execute_command_in_normal_mode(self_insert_command("C-w", "w"))()
+    execute_command_in_normal_mode(self_insert_command("C-w", "w"), esc=True)()
 
 ## 文字列検索
 def isearch(direction):
@@ -490,7 +490,7 @@ else:
     define_key_v("C-[", escape)
 
 ## 「インサートモード移行」のキー設定
-for key in ["i", "S-i", "a", "S-a", "o", "S-o", "S-r", "s", "S-s", "c", "C"]:
+for key in ["i", "S-i", "a", "S-a", "o", "S-o", "S-r", "s", "S-s", "c", "S-c"]:
     define_key_v(key, enter_insert_mode(key))
 
 ## 「ビジュアルモード移行」のキーの設定
