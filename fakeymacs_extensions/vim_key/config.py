@@ -242,10 +242,10 @@ def goto_line():
     execute_ex_command("", enter=False)()
 
 def scroll_up():
-    execute_command_in_normal_mode(self_insert_command("C-b"))()
+    execute_command(self_insert_command("PageUp"))()
 
 def scroll_down():
-    execute_command_in_normal_mode(self_insert_command("C-f"))()
+    execute_command(self_insert_command("PageDown"))()
 
 def recenter():
     execute_command_in_normal_mode(self_insert_command("z", "z"))()
