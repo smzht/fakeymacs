@@ -90,10 +90,8 @@ def self_insert_command_v(*key_list, usjis_conv=True):
         if is_normal_mode():
             # ノーマルモードで日本語を入力した際は、インサートモードにする
             if getImeStatus():
-                setImeStatus(0)
-                self_insert_command("i")()
-                setImeStatus(1)
                 fakeymacs_vim.insert_mode = True
+                adjust_ime_status(self_insert_command("i"))()
         func()
     return _func
 
@@ -151,14 +149,14 @@ def enter_search_mode(direction):
 
 def adjust_ime_status(command):
     def _func():
-        if getImeStatus():
+        ime_status = getImeStatus()
+        if ime_status:
             setImeStatus(0)
-            command()
-            if fakeymacs_vim.insert_mode:
+        command()
+        if fakeymacs_vim.insert_mode:
+            if ime_status:
                 delay()
                 setImeStatus(1)
-        else:
-            command()
     return _func
 
 def execute_command(command):
@@ -419,9 +417,8 @@ def space():
 
 def newline():
     if is_normal_mode():
-        setImeStatus(0)
-        self_insert_command("i")()
         fakeymacs_vim.insert_mode = True
+        adjust_ime_status(self_insert_command("i"))()
 
     self_insert_command("Enter")()
 
