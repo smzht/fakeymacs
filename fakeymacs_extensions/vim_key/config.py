@@ -428,6 +428,9 @@ def keyboard_quit():
     if fakeymacs.is_searching == False:
         fakeymacs.is_searching = None
 
+def execute_extended_command():
+    execute_ex_command("", enter=False)()
+
 def kill_emacs():
     execute_ex_command("q")()
 
@@ -603,6 +606,7 @@ define_key_v("C-A-Space", rectangle_mark_mode)
 define_key_v("Enter",     reset_undo(reset_counter(repeat(newline))))
 define_key_v("C-m",       reset_undo(reset_counter(repeat(newline))) )
 define_key_v("C-g",       reset_search(reset_counter(keyboard_quit)))
+define_key_v("M-x",       reset_undo(reset_counter(execute_extended_command)))
 define_key_v("Ctl-x C-c", reset_undo(reset_counter(kill_emacs)))
 
 ## 「タブ」のキー設定
