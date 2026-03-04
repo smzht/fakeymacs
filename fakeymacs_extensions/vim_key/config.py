@@ -415,16 +415,19 @@ def escape():
 def space():
     self_insert_command("Space")()
 
-def newline():
-    if is_normal_mode():
-        fakeymacs_vim.insert_mode = True
-        adjust_ime_status(self_insert_command("i"))()
+def newline(insert_mode=False):
+    def _func():
+        if insert_mode:
+            if is_normal_mode():
+                fakeymacs_vim.insert_mode = True
+                adjust_ime_status(self_insert_command("i"))()
 
-    self_insert_command("Enter")()
+        self_insert_command("Enter")()
 
-    fakeymacs_vim.command_line_mode = False
-    if fakeymacs.is_searching == False:
-        fakeymacs.is_searching = True
+        fakeymacs_vim.command_line_mode = False
+        if fakeymacs.is_searching == False:
+            fakeymacs.is_searching = True
+    return _func
 
 def indent_for_tab_command():
     self_insert_command("Tab")()
@@ -615,8 +618,9 @@ define_key_v("Ctl-x e", reset_undo(reset_counter(repeat(keyboard_macro_play))))
 define_key_v("C-A-Space", rectangle_mark_mode)
 
 ## 「その他」のキー設定
-define_key_v("Enter",     reset_undo(reset_counter(repeat(newline))))
-define_key_v("C-m",       reset_undo(reset_counter(repeat(newline))))
+define_key_v("Enter",     reset_undo(reset_counter(repeat(newline()))))
+define_key_v("C-m",       reset_undo(reset_counter(repeat(newline()))))
+define_key_v("C-Enter",   reset_undo(reset_counter(repeat(newline(insert_mode=True)))))
 define_key_v("C-g",       reset_search(reset_counter(keyboard_quit)))
 define_key_v("M-x",       reset_undo(reset_counter(execute_extended_command)))
 define_key_v("Ctl-x C-c", reset_undo(reset_counter(kill_emacs)))
