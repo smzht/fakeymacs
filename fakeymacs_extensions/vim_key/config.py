@@ -363,18 +363,23 @@ def other_window():
 def isearch(direction):
     def _func():
         if fakeymacs.is_searching is None:
-            self_insert_command({"backward":"?", "forward":"/"}[direction])()
+            execute_command_in_normal_mode(
+                self_insert_command({"backward":"?", "forward":"/"}[direction]))()
             fakeymacs.is_searching = False
 
         elif fakeymacs.is_searching == True:
-            self_insert_command({"backward":"S-n", "forward":"n"}[direction])()
+            execute_command_in_normal_mode(
+                self_insert_command({"backward":"S-n", "forward":"n"}[direction]))()
+
+        elif fakeymacs.is_searching == False:
+            self_insert_command({"backward":"C-t", "forward":"C-g"}[direction])()
     return _func
 
 def isearch_backward():
-    execute_command_in_normal_mode(isearch("backward"))()
+    isearch("backward")()
 
 def isearch_forward():
-    execute_command_in_normal_mode(isearch("forward"))()
+    isearch("forward")()
 
 ## キーボードマクロ
 def keyboard_macro_start():
