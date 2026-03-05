@@ -1,6 +1,7 @@
 set nocompatible
 set title
 set hidden
+set ambiwidth=double
 set number
 set selection=exclusive
 set virtualedit=onemore

@@ -33,6 +33,7 @@ set nocompatible
 set title
 set number
 set hidden
+set ambiwidth=double
 set selection=exclusive
 set virtualedit=onemore
 set whichwrap=b,s,h,l,<,>,[,]
