@@ -270,14 +270,20 @@ def recenter():
 
 ## カット / コピー / 削除 / アンドゥ
 def delete_backward_char():
-    if is_text_mode2():
+    if fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode:
         self_insert_command("Back")()
+
+    elif fakeymacs_vim.visual_mode:
+        execute_command_in_normal_mode(self_insert_command("x"))()
     else:
         execute_command_in_normal_mode(self_insert_command("S-x"))()
 
 def delete_char():
-    if is_text_mode2():
+    if fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode:
         self_insert_command("Delete")()
+
+    elif fakeymacs_vim.visual_mode:
+        execute_command_in_normal_mode(self_insert_command("x"))()
     else:
         # 改行も削除できるようにビジュアルモードに移行してから削除している
         execute_command_in_normal_mode(self_insert_command("v", "x"))()
