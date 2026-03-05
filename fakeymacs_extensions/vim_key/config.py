@@ -367,12 +367,12 @@ def isearch(direction):
                 self_insert_command({"backward":"?", "forward":"/"}[direction]))()
             fakeymacs.is_searching = False
 
+        elif fakeymacs.is_searching == False:
+            self_insert_command({"backward":"C-t", "forward":"C-g"}[direction])()
+
         elif fakeymacs.is_searching == True:
             execute_command_in_normal_mode(
                 self_insert_command({"backward":"S-n", "forward":"n"}[direction]))()
-
-        elif fakeymacs.is_searching == False:
-            self_insert_command({"backward":"C-t", "forward":"C-g"}[direction])()
     return _func
 
 def isearch_backward():
