@@ -378,17 +378,13 @@ def isearch_forward():
 
 ## キーボードマクロ
 def keyboard_macro_start():
-    if not fakeymacs_vim.insert_mode:
-        setImeStatus(0)
-        self_insert_command("q", "a")()
+    execute_command_in_normal_mode(self_insert_command("q", "a"), esc=True)()
 
 def keyboard_macro_stop():
-    if not fakeymacs_vim.insert_mode:
-        setImeStatus(0)
-        self_insert_command("q")()
+    execute_command_in_normal_mode(self_insert_command("q"), esc=True)()
 
 def keyboard_macro_play():
-    execute_command_in_normal_mode(self_insert_command("@", "a"))()
+    execute_command_in_normal_mode(self_insert_command("@", "a"), esc=True)()
 
 ## 矩形選択
 def rectangle_mark_mode():
