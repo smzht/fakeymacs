@@ -1824,7 +1824,7 @@ def configure(keymap):
             window = keymap.getWindow()
 
         if (getProcessName(window) == "WindowsTerminal.exe" and
-            getClassName(window)   == "Windows.UI.Input.InputSite.WindowClass"):
+            window.getClassName()  == "Windows.UI.Input.InputSite.WindowClass"):
             window = window.getParent().getParent()
 
         return window.getText()
