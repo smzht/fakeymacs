@@ -88,9 +88,9 @@ def define_key_v(keys, command, skip_check=True):
 def self_insert_command_v(*key_list, usjis_conv=True):
     func = self_insert_command2(*key_list, usjis_conv=usjis_conv)
     def _func():
-        if is_normal_mode():
-            # ノーマルモードで日本語を入力した際は、インサートモードにする
-            if getImeStatus():
+        # ノーマルモードで日本語を入力した際は、インサートモードにする
+        if getImeStatus():
+            if is_normal_mode():
                 fakeymacs_vim.insert_mode = True
                 adjust_ime_status(self_insert_command("i"))()
         func()
