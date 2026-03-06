@@ -128,13 +128,15 @@ def enter_insert_normal_mode():
         setImeStatus(0)
         fakeymacs_vim.insert_normal_mode = True
 
-def enter_command_line_mode():
-    if is_text_mode1():
-        reset_undo(reset_counter(repeat(execute_command(self_insert_command(":")))))()
-    else:
-        setImeStatus(0)
-        reset_undo(reset_counter(execute_command(self_insert_command(":"))))()
-        fakeymacs_vim.command_line_mode = True
+def enter_command_line_mode(key):
+    def _func():
+        if is_text_mode1():
+            reset_undo(reset_counter(repeat(execute_command(self_insert_command(key)))))()
+        else:
+            setImeStatus(0)
+            reset_undo(reset_counter(execute_command(self_insert_command(key))))()
+            fakeymacs_vim.command_line_mode = True
+    return _func
 
 def enter_search_mode(direction):
     def _func():
@@ -546,7 +548,8 @@ if not getKeyCommand(keymap_ime, "C-o"):
 define_key_v("C-A-o", enter_insert_normal_mode)
 
 ## 「コマンドラインモード移行」のキー設定
-define_key_v(":", enter_command_line_mode)
+for key in [":", "!"]:
+    define_key_v(key, enter_command_line_mode(key))
 
 ## 「検索モード移行」のキー設定
 define_key_v("/", enter_search_mode("forward"))
