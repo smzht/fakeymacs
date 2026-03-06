@@ -214,13 +214,13 @@ def execute_ex_command(ex_command, enter=True, esc=False):
 
 ## ファイル操作
 def find_file():
-    execute_ex_command("e ", enter=False, esc=True)()
+    execute_ex_command("edit ", enter=False, esc=True)()
 
 def save_buffer():
-    execute_ex_command("w!")()
+    execute_ex_command("write!")()
 
 def write_file():
-    execute_ex_command("w ", enter=False)()
+    execute_ex_command("write ", enter=False)()
 
 ## カーソル移動
 def backward_char():
@@ -333,23 +333,24 @@ def transpose_chars():
     yank()
     forward_char()
 
-## バッファ / ウィンドウ操作
+## バッファ操作
 def kill_buffer():
     execute_ex_command("bp|bd#", esc=True)()
 
+def previous_buffer():
+    execute_ex_command("bprevious", esc=True)()
+
+def next_buffer():
+    execute_ex_command("bnext", esc=True)()
+
 def switch_to_buffer():
-    execute_ex_command("bn", esc=True)()
+    next_buffer()
 
 def list_buffers():
     execute_ex_command("ls", esc=True)()
     fakeymacs_vim.command_line_mode = True
 
-def previous_buffer():
-    execute_ex_command("bp", esc=True)()
-
-def next_buffer():
-    execute_ex_command("bn", esc=True)()
-
+## ウィンドウ操作
 def delete_window():
     execute_command_in_normal_mode(self_insert_command("C-w", "c"), esc=True)()
 
@@ -357,13 +358,29 @@ def delete_other_windows():
     execute_command_in_normal_mode(self_insert_command("C-w", "o"))()
 
 def split_window_below():
-    execute_ex_command("sp")()
+    execute_ex_command("split")()
 
 def split_window_right():
-    execute_ex_command("vs")()
+    execute_ex_command("vsplit")()
 
 def other_window():
     execute_command_in_normal_mode(self_insert_command("C-w", "w"), esc=True)()
+
+## タブ操作
+def create_tab():
+    execute_ex_command("tabnew ", enter=False,esc=True)()
+
+def close_tab():
+    execute_ex_command("tabclose", esc=True)()
+
+def previous_tab():
+    execute_ex_command("tabprevious", esc=True)()
+
+def next_tab():
+    execute_ex_command("tabnext", esc=True)()
+
+def list_tabs():
+    execute_ex_command("tabs", esc=True)()
 
 ## 文字列検索
 def isearch(direction):
@@ -454,7 +471,7 @@ def execute_extended_command():
     execute_ex_command("", enter=False)()
 
 def kill_emacs():
-    execute_ex_command("q")()
+    execute_ex_command("quit")()
 
 ## マルチストロークキーの設定
 define_key_v("Ctl-x",  keymap.defineMultiStrokeKeymap(fc.ctl_x_prefix_key))
@@ -598,19 +615,27 @@ define_key_v("Ctl-x C-p", reset_undo(reset_counter(mark_page)))
 ## 「テキストの入れ替え」のキー設定
 define_key_v("C-t", reset_undo(reset_counter(transpose_chars)))
 
-## 「バッファ / ウィンドウ操作」のキー設定
+## 「バッファ操作」のキー設定
 define_key_v("M-k",       reset_undo(reset_counter(kill_buffer)))
 define_key_v("Ctl-x k",   reset_undo(reset_counter(kill_buffer)))
-define_key_v("Ctl-x b",   reset_undo(reset_counter(switch_to_buffer)))
-define_key_v("Ctl-x C-b", reset_undo(reset_counter(list_buffers)))
 define_key_v("M-p",       reset_undo(reset_counter(previous_buffer)))
 define_key_v("M-n",       reset_undo(reset_counter(next_buffer)))
+define_key_v("Ctl-x b",   reset_undo(reset_counter(switch_to_buffer)))
+define_key_v("Ctl-x C-b", reset_undo(reset_counter(list_buffers)))
 
+## 「ウィンドウ操作」のキー設定
 define_key_v("Ctl-x 0",   reset_undo(reset_counter(delete_window)))
 define_key_v("Ctl-x 1",   delete_other_windows)
 define_key_v("Ctl-x 2",   split_window_below)
 define_key_v("Ctl-x 3",   split_window_right)
 define_key_v("Ctl-x o",   reset_undo(reset_counter(other_window)))
+
+## 「タブ操作」のキー設定
+define_key_v("C-A-t", reset_undo(reset_counter(create_tab)))
+define_key_v("C-A-c", reset_undo(reset_counter(close_tab)))
+define_key_v("C-A-p", reset_undo(reset_counter(previous_tab)))
+define_key_v("C-A-n", reset_undo(reset_counter(next_tab)))
+define_key_v("C-A-l", reset_undo(reset_counter(list_tabs)))
 
 ## 「文字列検索」のキー設定
 define_key_v("C-r", reset_undo(reset_counter(isearch_backward)))

@@ -122,23 +122,42 @@ set incsearch
 | C-t     | transpose_chars |             |
 |---------+-----------------+-------------|
 
-**** ● 「バッファ / ウィンドウ操作」のキー設定
+**** ● 「バッファ操作」のキー設定
 
 |-----------+----------------------+-------------|
 | Keybind   | Function             | Description |
 |-----------+----------------------+-------------|
 | M-k       | kill_buffer          |             |
 | Ctl-x k   | kill_buffer          |             |
-| Ctl-x b   | switch_to_buffer     |             |
-| Ctl-x C-b | list_buffers         |             |
 | M-p       | previous_buffer      |             |
 | M-n       | next_buffer          |             |
+| Ctl-x b   | switch_to_buffer     |             |
+| Ctl-x C-b | list_buffers         |             |
+|-----------+----------------------+-------------|
+
+**** ● 「ウィンドウ操作」のキー設定
+
+|-----------+----------------------+-------------|
+| Keybind   | Function             | Description |
+|-----------+----------------------+-------------|
 | Ctl-x 0   | delete_window        |             |
 | Ctl-x 1   | delete_other_windows |             |
 | Ctl-x 2   | split_window_below   |             |
 | Ctl-x 3   | split_window_right   |             |
 | Ctl-x o   | other_window         |             |
 |-----------+----------------------+-------------|
+
+**** ● 「タブ操作」のキー設定
+
+|-----------+---------------+-------------|
+| Keybind   | Function      | Description |
+|-----------+---------------+-------------|
+| C-A-t     | create_tab    |             |
+| C-A-c     | close_tab     |             |
+| C-A-p     | previous_tab  |             |
+| C-A-n     | next_tab      |             |
+| C-A-l     | list_tabs     |             |
+|-----------+---------------+-------------|
 
 **** ● 「文字列検索」のキー設定
 
