@@ -132,9 +132,7 @@ def enter_command_line_mode():
     if is_text_mode1():
         reset_undo(reset_counter(repeat(execute_command(self_insert_command(":")))))()
     else:
-        setImeStatus(0)
-        reset_undo(reset_counter(execute_command(self_insert_command(":"))))()
-        fakeymacs_vim.command_line_mode = True
+        execute_extended_command()
 
 def enter_search_mode(direction):
     def _func():
@@ -469,7 +467,7 @@ def keyboard_quit():
         fakeymacs.is_searching = None
 
 def execute_extended_command():
-    execute_ex_command("", enter=False)()
+    execute_ex_command("", enter=False, esc=True)()
 
 def kill_emacs():
     execute_ex_command("quit")()
