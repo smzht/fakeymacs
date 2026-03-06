@@ -1813,11 +1813,19 @@ def configure(keymap):
         if window is None:
             window = keymap.getWindow()
 
+        if (getProcessName(window) == "WindowsTerminal.exe" and
+            window.getClassName()  == "Windows.UI.Input.InputSite.WindowClass"):
+            window = window.getParent().getParent()
+
         return window.getClassName()
 
     def getText(window=None):
         if window is None:
             window = keymap.getWindow()
+
+        if (getProcessName(window) == "WindowsTerminal.exe" and
+            window.getClassName()  == "Windows.UI.Input.InputSite.WindowClass"):
+            window = window.getParent().getParent()
 
         return window.getText()
 
@@ -1827,11 +1835,6 @@ def configure(keymap):
 
         window_process_name = getProcessName(window)
         window_class_name   = getClassName(window)
-
-        if (window_process_name == "WindowsTerminal.exe" and
-            window_class_name   == "Windows.UI.Input.InputSite.WindowClass"):
-            window = window.getParent().getParent()
-            window_class_name = getClassName(window)
 
         if ((process_name is None or fnmatch.fnmatch(window_process_name, process_name)) and
             (class_name is None or fnmatch.fnmatchcase(window_class_name, class_name))):

@@ -12,7 +12,7 @@ except:
     # （アプリケーションソフトは、プロセス名称のみ（ワイルドカード指定可）、もしくは、プロセス名称、
     #   クラス名称、ウィンドウタイトル（リストによる複数指定可）のリスト（ワイルドカード指定可、
     #   リストの後ろの項目から省略可）を指定してください）
-    fc.vim_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", ["* - vi*", "* - VIM*"]],
+    fc.vim_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "* - VIM*"],
                      ]
 
 # --------------------------------------------------------------------------------------------------
@@ -32,6 +32,7 @@ def is_vim(window):
 
     if window is not fakeymacs.last_window or fakeymacs.force_update:
         if (fakeymacs.is_emacs_target == False and
+            not getText(window).startswith("!") and
             (vim_target1.match(getProcessName(window)) or
              any(checkWindow(*app, window=window) for app in vim_target2))):
             reset_search(reset_undo(reset_counter(escape)))()
