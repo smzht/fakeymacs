@@ -123,6 +123,13 @@ def split_window_right():
 def other_window():
     self_insert_command("A-]")()
 
+## タブ操作
+def previous_tab():
+    self_insert_command("C-PageUp")()
+
+def next_tab():
+    self_insert_command("C-PageDown")()
+
 ## 矩形選択 / マルチカーソル
 def mark_previous_line():
     self_insert_command("C-A-Up")()
@@ -213,6 +220,10 @@ define_key_f("Ctl-x 1", reset_search(reset_undo(reset_counter(reset_mark(delete_
 define_key_f("Ctl-x 2", reset_search(reset_undo(reset_counter(reset_mark(split_window_below)))))
 define_key_f("Ctl-x 3", reset_search(reset_undo(reset_counter(reset_mark(split_window_right)))))
 define_key_f("Ctl-x o", reset_search(reset_undo(reset_counter(reset_mark(other_window)))))
+
+## タブ操作
+define_key_f("M-Left", reset_search(reset_undo(reset_counter(reset_mark(previous_tab)))))
+define_key_f("M-Right" , reset_search(reset_undo(reset_counter(reset_mark(next_tab)))))
 
 ## 「矩形選択 / マルチカーソル」のキー設定
 define_key_f("C-A-p",   reset_search(reset_undo(reset_counter(repeat(mark_previous_line)))))
