@@ -95,6 +95,13 @@ Fresh Editor 用のキーの設定を行う拡張機能です。
 - [[/README.org#windows-terminal-の対応について]]
 - [[/README.org#fresh-editor-の対応について]]
 
+● 上記にも記載していますが、kill_line の機能（キーバインド C-k）は、Fresh Editor 側の
+C-k の機能を利用しています。これは Fresh Editor で起動したターミナルで C-k が利用できる
+ようにするための対策ですが、この対策により、kill_line で切り取った文字列が Windows の
+クリップボードに格納されません。これは、 Fresh Editor 利用する際の制約事項とさせていた
+だければと思います。クリップボードに格納させながら削除するには、カーソル位置から行末までを
+リージョンで選択し、C-w でカットするようにしてください。
+
 ● Fresh Editor を使っていると、Syntax Highlight が無効となる場合があります。これは、
 カーソル移動キーや C-l（Recenter）キーなどを使って画面をスクロールすると改善するようです。
 
