@@ -338,7 +338,7 @@ def toggle_maximized_panel():
     vscodeExecuteCommand("VTMP")()
     # vscodeExecuteCommand("workbench.action.toggleMaximizedPanel")()
 
-## エディタ操作
+## ウィンドウ操作
 def delete_window():
     if fakeymacs_vscode.vscode_focus == "not_terminal":
         # VSCode Command : View: Close All Editors in Group
@@ -392,15 +392,7 @@ def other_window():
     if fc.use_direct_input_in_vscode_terminal:
         fakeymacs_vscode.vscode_focus = "not_terminal"
 
-def switch_focus(number):
-    def _func():
-        # VSCode Command : View: Focus Side Bar or n-th Editor Group
-        self_insert_command(f"C-{number}")()
-
-        if fc.use_direct_input_in_vscode_terminal:
-            fakeymacs_vscode.vscode_focus = "not_terminal"
-    return _func
-
+## ウィンドウ操作
 def previous_editor():
     # VSCode Command : Open Previous Editor
     self_insert_command("C-PageUp")()
@@ -410,6 +402,15 @@ def next_editor():
     # VSCode Command : Open Next Editor
     self_insert_command("C-PageDown")()
     # vscodeExecuteCommand("workbench.action.nextEditor")()
+
+def switch_focus(number):
+    def _func():
+        # VSCode Command : View: Focus Side Bar or n-th Editor Group
+        self_insert_command(f"C-{number}")()
+
+        if fc.use_direct_input_in_vscode_terminal:
+            fakeymacs_vscode.vscode_focus = "not_terminal"
+    return _func
 
 ## 文字列検索
 def isearch_v(direction):
@@ -621,13 +622,17 @@ define_key_v("Ctl-x k",   reset_search(reset_undo(reset_counter(reset_mark(kill_
 define_key_v("Ctl-x b",   reset_search(reset_undo(reset_counter(reset_mark(switch_to_buffer)))))
 define_key_v("Ctl-x C-b", reset_search(reset_undo(reset_counter(reset_mark(list_buffers)))))
 
-## 「エディタ操作」のキー設定
+## 「ウィンドウ操作」のキー設定
 define_key_v("Ctl-x 0", reset_search(reset_undo(reset_counter(reset_mark(delete_window)))))
 define_key_v("Ctl-x 1", delete_other_windows)
 define_key_v("Ctl-x 2", split_window_below)
 define_key_v("Ctl-x 3", split_window_right)
 define_key_v("Ctl-x 4", rotate_layout)
 define_key_v("Ctl-x o", reset_search(reset_undo(reset_counter(reset_mark(other_window)))))
+
+## 「タブ操作」のキー設定
+define_key_v("M-Up",   reset_search(reset_undo(reset_counter(reset_mark(previous_editor)))))
+define_key_v("M-Down", reset_search(reset_undo(reset_counter(reset_mark(next_editor)))))
 
 if fc.use_ctrl_digit_key_for_digit_argument:
     key = "C-A-{}"
@@ -636,9 +641,6 @@ else:
 
 for n in range(10):
     define_key_v(key.format(n), reset_search(reset_undo(reset_counter(reset_mark(switch_focus(n))))))
-
-define_key_v("M-Up",   reset_search(reset_undo(reset_counter(reset_mark(previous_editor)))))
-define_key_v("M-Down", reset_search(reset_undo(reset_counter(reset_mark(next_editor)))))
 
 ## 「文字列検索」のキー設定
 define_key_v("C-r", reset_undo(reset_counter(reset_mark(isearch_backward))))
