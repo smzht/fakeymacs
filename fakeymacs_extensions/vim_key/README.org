@@ -129,10 +129,12 @@ set incsearch
 |-----------+----------------------+-------------|
 | M-k       | kill_buffer          |             |
 | Ctl-x k   | kill_buffer          |             |
-| M-p       | previous_buffer      |             |
-| M-n       | next_buffer          |             |
 | Ctl-x b   | switch_to_buffer     |             |
 | Ctl-x C-b | list_buffers         |             |
+| M-p       | previous_buffer      |             |
+| M-n       | next_buffer          |             |
+| M-Up      | previous_buffer      |             |
+| M-Down    | next_buffer          |             |
 |-----------+----------------------+-------------|
 
 **** ● 「ウィンドウ操作」のキー設定

@@ -622,10 +622,13 @@ define_key_v("C-t", reset_undo(reset_counter(transpose_chars)))
 ## 「バッファ操作」のキー設定
 define_key_v("M-k",       reset_undo(reset_counter(kill_buffer)))
 define_key_v("Ctl-x k",   reset_undo(reset_counter(kill_buffer)))
-define_key_v("M-p",       reset_undo(reset_counter(previous_buffer)))
-define_key_v("M-n",       reset_undo(reset_counter(next_buffer)))
 define_key_v("Ctl-x b",   reset_undo(reset_counter(switch_to_buffer)))
 define_key_v("Ctl-x C-b", reset_undo(reset_counter(list_buffers)))
+
+define_key_v("M-p",       reset_undo(reset_counter(previous_buffer)))
+define_key_v("M-n",       reset_undo(reset_counter(next_buffer)))
+define_key_v("M-Up",      reset_undo(reset_counter(previous_buffer)))
+define_key_v("M-Down",    reset_undo(reset_counter(next_buffer)))
 
 ## 「ウィンドウ操作」のキー設定
 define_key_v("Ctl-x 0",   reset_undo(reset_counter(delete_window)))

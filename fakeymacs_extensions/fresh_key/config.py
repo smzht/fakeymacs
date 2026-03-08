@@ -222,8 +222,8 @@ define_key_f("Ctl-x 3", reset_search(reset_undo(reset_counter(reset_mark(split_w
 define_key_f("Ctl-x o", reset_search(reset_undo(reset_counter(reset_mark(other_window)))))
 
 ## タブ操作
-define_key_f("M-Left", reset_search(reset_undo(reset_counter(reset_mark(previous_tab)))))
-define_key_f("M-Right" , reset_search(reset_undo(reset_counter(reset_mark(next_tab)))))
+define_key_f("M-Up",   reset_search(reset_undo(reset_counter(reset_mark(previous_tab)))))
+define_key_f("M-Down", reset_search(reset_undo(reset_counter(reset_mark(next_tab)))))
 
 ## 「矩形選択 / マルチカーソル」のキー設定
 define_key_f("C-A-p",   reset_search(reset_undo(reset_counter(repeat(mark_previous_line)))))

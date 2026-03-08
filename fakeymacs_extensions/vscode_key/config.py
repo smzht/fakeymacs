@@ -302,7 +302,7 @@ def yank_v():
     else:
         self_insert_command("C-y")()
 
-## バッファ / ウィンドウ操作
+## バッファ操作
 def kill_buffer():
     # VS Code Web 画面で動作するように、C-F4 の発行とはしていない（C-F4 がブラウザでキャッチされるため）
     # VSCode Command : View: Close Editor
@@ -318,19 +318,6 @@ def list_buffers():
     # VSCode Command : View: Show All Editors By Most Recently Used
     vscodeExecuteCommand("VSAEBMRU")()
     # vscodeExecuteCommand("workbench.action.showAllEditorsByMostRecentlyUsed")()
-
-## 文字列検索
-def isearch_v(direction):
-    if fakeymacs_vscode.vscode_focus == "not_terminal" and not is_terminal_for_direct_input():
-        isearch(direction)
-    else:
-        self_insert_command({"backward":"C-r", "forward":"C-s"}[direction])()
-
-def isearch_backward():
-    isearch_v("backward")
-
-def isearch_forward():
-    isearch_v("forward")
 
 ## パネル操作
 def focus_into_panel():
@@ -413,6 +400,29 @@ def switch_focus(number):
         if fc.use_direct_input_in_vscode_terminal:
             fakeymacs_vscode.vscode_focus = "not_terminal"
     return _func
+
+def previous_editor():
+    # VSCode Command : Open Previous Editor
+    self_insert_command("C-PageUp")()
+    # vscodeExecuteCommand("workbench.action.previousEditor")()
+
+def next_editor():
+    # VSCode Command : Open Next Editor
+    self_insert_command("C-PageDown")()
+    # vscodeExecuteCommand("workbench.action.nextEditor")()
+
+## 文字列検索
+def isearch_v(direction):
+    if fakeymacs_vscode.vscode_focus == "not_terminal" and not is_terminal_for_direct_input():
+        isearch(direction)
+    else:
+        self_insert_command({"backward":"C-r", "forward":"C-s"}[direction])()
+
+def isearch_backward():
+    isearch_v("backward")
+
+def isearch_forward():
+    isearch_v("forward")
 
 ## 矩形選択 / マルチカーソル
 def mark_previous_line():
@@ -606,14 +616,10 @@ define_key_v("C-k", reset_search(reset_undo(reset_counter(reset_mark(repeat3(kil
 define_key_v("A-k", reset_search(reset_undo(reset_counter(reset_mark(kill_line_v2)))))
 define_key_v("C-y", reset_search(reset_undo(reset_counter(reset_mark(repeat(yank_v))))))
 
-## 「バッファ / ウィンドウ操作」のキー設定
+## 「バッファ操作」のキー設定
 define_key_v("Ctl-x k",   reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
 define_key_v("Ctl-x b",   reset_search(reset_undo(reset_counter(reset_mark(switch_to_buffer)))))
 define_key_v("Ctl-x C-b", reset_search(reset_undo(reset_counter(reset_mark(list_buffers)))))
-
-## 「文字列検索」のキー設定
-define_key_v("C-r", reset_undo(reset_counter(reset_mark(isearch_backward))))
-define_key_v("C-s", reset_undo(reset_counter(reset_mark(isearch_forward))))
 
 ## 「エディタ操作」のキー設定
 define_key_v("Ctl-x 0", reset_search(reset_undo(reset_counter(reset_mark(delete_window)))))
@@ -630,6 +636,13 @@ else:
 
 for n in range(10):
     define_key_v(key.format(n), reset_search(reset_undo(reset_counter(reset_mark(switch_focus(n))))))
+
+define_key_v("M-Up",   reset_search(reset_undo(reset_counter(reset_mark(previous_editor)))))
+define_key_v("M-Down", reset_search(reset_undo(reset_counter(reset_mark(next_editor)))))
+
+## 「文字列検索」のキー設定
+define_key_v("C-r", reset_undo(reset_counter(reset_mark(isearch_backward))))
+define_key_v("C-s", reset_undo(reset_counter(reset_mark(isearch_forward))))
 
 ## 「矩形選択 / マルチカーソル」のキー設定
 define_key_v("C-A-p",   reset_search(reset_undo(reset_counter(rect(repeat(mark_previous_line))))))
