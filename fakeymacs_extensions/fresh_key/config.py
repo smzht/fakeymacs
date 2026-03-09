@@ -158,7 +158,15 @@ def mark_end_of_line():
 def mark_next_like_this():
     region(self_insert_command("C-d"))()
 
-def keyboard_quit_f():
+def keyboard_quit_f1():
+    if fakeymacs.is_searching:
+        self_insert_command("C-f")()
+        self_insert_command("Esc")()
+        fakeymacs.is_searching = None
+
+    keyboard_quit()
+
+def keyboard_quit_f2():
     keyboard_quit(esc=False)
 
 ## キーボードマクロ
@@ -235,7 +243,7 @@ define_key_f("C-A-S-f", reset_search(reset_undo(reset_counter(repeat(mark_forwar
 define_key_f("C-A-a",   reset_search(reset_undo(reset_counter(mark_beginning_of_line))))
 define_key_f("C-A-e",   reset_search(reset_undo(reset_counter(mark_end_of_line))))
 define_key_f("C-A-d",   reset_search(reset_undo(reset_counter(mark_next_like_this))))
-define_key_f("C-A-g",   reset_search(reset_counter(reset_mark(keyboard_quit_f))))
+define_key_f("C-A-g",   reset_search(reset_counter(reset_mark(keyboard_quit_f2))))
 
 ## 「キーボードマクロ」のキー設定
 define_key_f("Ctl-x (", keyboard_macro_start)
@@ -243,6 +251,7 @@ define_key_f("Ctl-x )", keyboard_macro_stop)
 define_key_f("Ctl-x e", reset_search(reset_undo(reset_counter(repeat(keyboard_macro_play)))))
 
 ## 「その他」のキー設定
+define_key_f("C-g", reset_search(reset_counter(reset_mark(keyboard_quit_f1))))
 define_key_f("M-x", reset_search(reset_undo(reset_counter(reset_mark(execute_extended_command)))))
 define_key_f("M-;", reset_search(reset_undo(reset_counter(reset_mark(comment_dwim)))))
 define_key_f("M-|", reset_search(reset_undo(reset_counter(reset_mark(shell_command_on_region)))))
