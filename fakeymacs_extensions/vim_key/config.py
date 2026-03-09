@@ -27,6 +27,8 @@ if regex == "": regex = "$." # 絶対にマッチしない正規表現
 vim_target1 = re.compile(regex)
 vim_target2 = [app for app in fc.vim_target if type(app) is list]
 
+vim_status = False
+
 def is_vim(window):
     global vim_status
 
@@ -35,7 +37,8 @@ def is_vim(window):
             not getText(window).startswith("!") and
             (vim_target1.match(getProcessName(window)) or
              any(checkWindow(*app, window=window) for app in vim_target2))):
-            reset_search(reset_undo(reset_counter(escape)))()
+            if not vim_status:
+                reset_search(reset_undo(reset_counter(escape)))()
             vim_status = True
         else:
             vim_status = False
