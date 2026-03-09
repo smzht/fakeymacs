@@ -71,7 +71,7 @@ Fresh Editor 用のキーの設定を行う拡張機能です。
 | C-A-a   | mark_beginning_of_line |                                    |
 | C-A-e   | mark_end_of_line       |                                    |
 | C-A-d   | mark_next_like_this    |                                    |
-| C-A-g   | keyboard_quit_f        | Esc キーを発行しない keyboard_quit |
+| C-A-g   | keyboard_quit_f2       | Esc キーを発行しない keyboard_quit |
 |---------+------------------------+------------------------------------|
 
 **** ● 「キーボードマクロ」のキー設定
