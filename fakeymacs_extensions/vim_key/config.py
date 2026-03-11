@@ -316,6 +316,10 @@ def kill_word():
     execute_command_in_normal_mode(self_insert_command("d", "w"))()
 
 def kill_line():
+    if fakeymacs_vim.visual_mode:
+        execute_command_in_normal_mode(self_insert_command("v"))()
+        fakeymacs_vim.visual_mode = False
+
     execute_command_in_normal_mode(self_insert_command("v", "$", "Delete"))()
 
 def kill_region():
@@ -341,6 +345,10 @@ def set_mark_command():
     fakeymacs_vim.visual_mode = True
 
 def mark_whole_buffer():
+    if fakeymacs_vim.visual_mode:
+        execute_command_in_normal_mode(self_insert_command("v"))()
+        fakeymacs_vim.visual_mode = False
+
     execute_command_in_normal_mode(self_insert_command("C-Home"))()
     execute_command_in_normal_mode(self_insert_command("v", "C-End"))()
 
