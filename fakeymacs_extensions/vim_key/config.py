@@ -41,9 +41,9 @@ def is_vim(window):
             not getText(window).startswith("!") and
             (vim_target1.match(getProcessName(window)) or
              any(checkWindow(*app, window=window) for app in vim_target2))):
-            title = re.sub(r" \(.*", "", getText(window))
+            title = re.sub(r" [-(].*", "", getText(window))
             if vim_status:
-                result = re.sub(vim_title, "", title)
+                result = title.replace(vim_title, "")
                 if result != " +":
                     reset_search(reset_undo(reset_counter(lambda: None)))()
                     escape()
