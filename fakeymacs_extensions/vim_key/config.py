@@ -17,6 +17,9 @@ except:
 
 # --------------------------------------------------------------------------------------------------
 
+import difflib
+import re
+
 class FakeymacsVim:
     pass
 
@@ -28,18 +31,29 @@ vim_target1 = re.compile(regex)
 vim_target2 = [app for app in fc.vim_target if type(app) is list]
 
 vim_status = False
+vim_title = ""
 
 def is_vim(window):
-    global vim_status
+    global vim_status, vim_title
 
     if window is not fakeymacs.last_window or fakeymacs.force_update:
         if (fakeymacs.is_emacs_target == False and
             not getText(window).startswith("!") and
             (vim_target1.match(getProcessName(window)) or
              any(checkWindow(*app, window=window) for app in vim_target2))):
-            if not vim_status:
-                reset_search(reset_undo(reset_counter(escape)))()
+            title = getText(window)
+            if vim_status:
+                result = re.findall(r"\S (.*)", "\n".join(difflib.ndiff(vim_title, title)))
+                if result !=  [' ', '+']:
+                    reset_search(reset_undo(reset_counter(lambda: None)))()
+                    escape()
+                    escape()
+            else:
+                reset_search(reset_undo(reset_counter(lambda: None)))()
+                escape()
+                escape()
             vim_status = True
+            vim_title = title
         else:
             vim_status = False
 
@@ -374,7 +388,7 @@ def other_window():
 
 ## タブ操作
 def create_tab():
-    execute_ex_command("tabnew ", enter=False,esc=True)()
+    execute_ex_command("tabnew ", enter=False, esc=True)()
 
 def close_tab():
     execute_ex_command("tabclose", esc=True)()
