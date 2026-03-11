@@ -351,6 +351,7 @@ def mark_whole_buffer():
 
     execute_command_in_normal_mode(self_insert_command("C-Home"))()
     execute_command_in_normal_mode(self_insert_command("v", "C-End"))()
+    fakeymacs_vim.visual_mode = Truef
 
 def mark_page():
     mark_whole_buffer()
