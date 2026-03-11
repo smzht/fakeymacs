@@ -45,13 +45,10 @@ def is_vim(window):
             if vim_status:
                 result = title.replace(vim_title, "")
                 if result != " +":
-                    reset_search(reset_undo(reset_counter(lambda: None)))()
-                    escape()
-                    escape()
+                    vim_reset()
             else:
-                reset_search(reset_undo(reset_counter(lambda: None)))()
-                escape()
-                escape()
+                vim_reset()
+
             vim_status = True
             vim_title = title
         else:
@@ -71,6 +68,11 @@ fakeymacs_vim.command_line_mode = False
 fakeymacs_vim.insert_normal_mode = False
 
 ## 共通関数
+def vim_reset():
+    reset_search(reset_undo(reset_counter(lambda: None)))()
+    escape()
+    escape()
+
 def is_insert_mode():
     return (fakeymacs.is_searching != False and not fakeymacs_vim.command_line_mode and
             not fakeymacs_vim.insert_normal_mode and not fakeymacs_vim.visual_mode and
