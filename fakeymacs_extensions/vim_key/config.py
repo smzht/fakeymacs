@@ -316,11 +316,12 @@ def kill_word():
     execute_command_in_normal_mode(self_insert_command("d", "w"))()
 
 def kill_line():
-    if fakeymacs_vim.visual_mode:
-        execute_command_in_normal_mode(self_insert_command("v"))()
-        fakeymacs_vim.visual_mode = False
+    if fakeymacs.is_searching != False and not fakeymacs_vim.command_line_mode:
+        if fakeymacs_vim.visual_mode:
+            execute_command_in_normal_mode(self_insert_command("v"))()
+            fakeymacs_vim.visual_mode = False
 
-    execute_command_in_normal_mode(self_insert_command("v", "$", "Delete"))()
+        execute_command_in_normal_mode(self_insert_command("v", "$", "Delete"))()
 
 def kill_region():
     execute_command_in_normal_mode(self_insert_command("x"))()
@@ -329,10 +330,10 @@ def kill_ring_save():
     execute_command_in_normal_mode(self_insert_command("y"))()
 
 def yank():
-    execute_command_in_normal_mode(self_insert_command("S-p"))()
-    if (fakeymacs.is_searching != False and not fakeymacs_vim.command_line_mode and
-        not fakeymacs_vim.insert_mode):
-        forward_char()
+    if fakeymacs.is_searching != False and not fakeymacs_vim.command_line_mode:
+        execute_command_in_normal_mode(self_insert_command("S-p"))()
+        if not fakeymacs_vim.insert_mode:
+            forward_char()
 
 def undo():
     if fakeymacs.is_undo_mode:
@@ -341,27 +342,30 @@ def undo():
         execute_command_in_normal_mode(self_insert_command("C-r"))()
 
 def set_mark_command():
-    execute_command_in_normal_mode(self_insert_command("v"))()
-    fakeymacs_vim.visual_mode = True
+    if fakeymacs.is_searching != False and not fakeymacs_vim.command_line_mode:
+        execute_command_in_normal_mode(self_insert_command("v"))()
+        fakeymacs_vim.visual_mode = True
 
 def mark_whole_buffer():
-    if fakeymacs_vim.visual_mode:
-        execute_command_in_normal_mode(self_insert_command("v"))()
-        fakeymacs_vim.visual_mode = False
+    if fakeymacs.is_searching != False and not fakeymacs_vim.command_line_mode:
+        if fakeymacs_vim.visual_mode:
+            execute_command_in_normal_mode(self_insert_command("v"))()
+            fakeymacs_vim.visual_mode = False
 
-    execute_command_in_normal_mode(self_insert_command("C-Home"))()
-    execute_command_in_normal_mode(self_insert_command("v", "C-End"))()
-    fakeymacs_vim.visual_mode = True
+        execute_command_in_normal_mode(self_insert_command("C-Home"))()
+        execute_command_in_normal_mode(self_insert_command("v", "C-End"))()
+        fakeymacs_vim.visual_mode = True
 
 def mark_page():
     mark_whole_buffer()
 
 ## テキストの入れ替え
 def transpose_chars():
-    delete_char()
-    backward_char()
-    yank()
-    forward_char()
+    if fakeymacs.is_searching != False and not fakeymacs_vim.command_line_mode:
+        delete_char()
+        backward_char()
+        yank()
+        forward_char()
 
 ## バッファ操作
 def kill_buffer():
@@ -377,8 +381,9 @@ def switch_to_buffer():
     next_buffer()
 
 def list_buffers():
-    execute_ex_command("ls", esc=True)()
-    fakeymacs_vim.command_line_mode = True
+    if fakeymacs.is_searching != False and not fakeymacs_vim.command_line_mode:
+        execute_ex_command("ls", esc=True)()
+        fakeymacs_vim.command_line_mode = True
 
 ## ウィンドウ操作
 def delete_window():
