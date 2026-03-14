@@ -72,25 +72,40 @@ def vim_reset():
     escape()
     escape()
 
-def is_insert_mode():
-    return (fakeymacs.is_searching != False and not fakeymacs_vim.command_line_mode and
-            not fakeymacs_vim.insert_normal_mode and not fakeymacs_vim.visual_mode and
-            fakeymacs_vim.insert_mode)
+def is_command_line():
+    return (fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode)
 
 def is_normal_mode():
-    return (fakeymacs.is_searching != False and not fakeymacs_vim.command_line_mode and
-            not fakeymacs_vim.insert_normal_mode and not fakeymacs_vim.visual_mode and
+    return (not is_command_line() and
+            not fakeymacs_vim.visual_mode and
+            not fakeymacs_vim.insert_normal_mode and
             not fakeymacs_vim.insert_mode)
 
+def is_insert_mode():
+    return (not is_command_line() and
+            not fakeymacs_vim.visual_mode and
+            not fakeymacs_vim.insert_normal_mode and
+            fakeymacs_vim.insert_mode)
+
+def is_insert_normal_mode():
+    return (not is_command_line() and
+            fakeymacs_vim.insert_normal_mode)
+
+def is_visual_mode():
+    return (not is_command_line() and
+            fakeymacs_vim.visual_mode)
+
 def is_text_mode1():
-    return (fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode or
-            (not fakeymacs_vim.insert_normal_mode and not fakeymacs_vim.visual_mode and
+    return (is_command_line() or
+            (not fakeymacs_vim.visual_mode and
+             not fakeymacs_vim.insert_normal_mode and
              fakeymacs_vim.insert_mode))
 
 def is_text_mode2():
-    return (fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode or
+    return (is_command_line() or
+            fakeymacs_vim.visual_mode or
             (not fakeymacs_vim.insert_normal_mode and
-             (fakeymacs_vim.visual_mode or fakeymacs_vim.insert_mode)))
+             fakeymacs_vim.insert_mode))
 
 def define_key_v(keys, command, skip_check=True):
     if skip_check:
@@ -139,7 +154,7 @@ def enter_visual_mode(key):
 def enter_insert_normal_mode():
     self_insert_command("C-o")()
 
-    if fakeymacs_vim.insert_normal_mode:
+    if is_insert_normal_mode():
         fakeymacs_vim.insert_normal_mode = False
 
     elif is_insert_mode():
@@ -188,8 +203,8 @@ def execute_command(command):
 
 def execute_command_in_normal_mode(command, esc=False):
     def _func():
-        if fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode:
-            return
+        if is_command_line():
+            return False
 
         if esc:
             escape()
@@ -202,12 +217,14 @@ def execute_command_in_normal_mode(command, esc=False):
 
         fakeymacs_vim.visual_mode = False
         fakeymacs_vim.insert_normal_mode = False
+
+        return True
     return _func
 
 def execute_ex_command(ex_command, enter=True, esc=False):
     def _func():
-        if fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode:
-            return
+        if is_command_line():
+            return False
 
         if esc:
             escape()
@@ -231,6 +248,8 @@ def execute_ex_command(ex_command, enter=True, esc=False):
 
         fakeymacs_vim.visual_mode = False
         fakeymacs_vim.insert_normal_mode = False
+
+        return True
     return _func
 
 ## ファイル操作
@@ -291,19 +310,19 @@ def recenter():
 
 ## カット / コピー / 削除 / アンドゥ
 def delete_backward_char():
-    if fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode:
+    if is_command_line():
         self_insert_command("Back")()
 
-    elif fakeymacs_vim.visual_mode:
+    elif is_visual_mode():
         execute_command_in_normal_mode(self_insert_command("x"))()
     else:
         execute_command_in_normal_mode(self_insert_command("S-x"))()
 
 def delete_char():
-    if fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode:
+    if is_command_line():
         self_insert_command("Delete")()
 
-    elif fakeymacs_vim.visual_mode:
+    elif is_visual_mode():
         execute_command_in_normal_mode(self_insert_command("x"))()
     else:
         # 改行も削除できるようにビジュアルモードに移行してから削除している
@@ -316,12 +335,10 @@ def kill_word():
     execute_command_in_normal_mode(self_insert_command("d", "w"))()
 
 def kill_line():
-    if fakeymacs.is_searching != False and not fakeymacs_vim.command_line_mode:
-        if fakeymacs_vim.visual_mode:
-            execute_command_in_normal_mode(self_insert_command("v"))()
-            fakeymacs_vim.visual_mode = False
+    if is_visual_mode():
+        execute_command_in_normal_mode(self_insert_command("v"))()
 
-        execute_command_in_normal_mode(self_insert_command("v", "$", "Delete"))()
+    execute_command_in_normal_mode(self_insert_command("v", "$", "Delete"))()
 
 def kill_region():
     execute_command_in_normal_mode(self_insert_command("x"))()
@@ -330,9 +347,8 @@ def kill_ring_save():
     execute_command_in_normal_mode(self_insert_command("y"))()
 
 def yank():
-    if fakeymacs.is_searching != False and not fakeymacs_vim.command_line_mode:
-        execute_command_in_normal_mode(self_insert_command("S-p"))()
-        if not fakeymacs_vim.insert_mode:
+    if execute_command_in_normal_mode(self_insert_command("S-p"))():
+        if not is_insert_mode():
             forward_char()
 
 def undo():
@@ -342,15 +358,17 @@ def undo():
         execute_command_in_normal_mode(self_insert_command("C-r"))()
 
 def set_mark_command():
-    if fakeymacs.is_searching != False and not fakeymacs_vim.command_line_mode:
-        execute_command_in_normal_mode(self_insert_command("v"))()
-        fakeymacs_vim.visual_mode = True
+    if not is_command_line():
+        if is_visual_mode():
+            execute_command_in_normal_mode(self_insert_command("v"))()
+        else:
+            execute_command_in_normal_mode(self_insert_command("v"))()
+            fakeymacs_vim.visual_mode = True
 
 def mark_whole_buffer():
-    if fakeymacs.is_searching != False and not fakeymacs_vim.command_line_mode:
-        if fakeymacs_vim.visual_mode:
+    if not is_command_line():
+        if is_visual_mode():
             execute_command_in_normal_mode(self_insert_command("v"))()
-            fakeymacs_vim.visual_mode = False
 
         execute_command_in_normal_mode(self_insert_command("C-Home"))()
         execute_command_in_normal_mode(self_insert_command("v", "C-End"))()
@@ -361,7 +379,7 @@ def mark_page():
 
 ## テキストの入れ替え
 def transpose_chars():
-    if fakeymacs.is_searching != False and not fakeymacs_vim.command_line_mode:
+    if not is_command_line():
         delete_char()
         backward_char()
         yank()
@@ -381,8 +399,7 @@ def switch_to_buffer():
     next_buffer()
 
 def list_buffers():
-    if fakeymacs.is_searching != False and not fakeymacs_vim.command_line_mode:
-        execute_ex_command("ls", esc=True)()
+    if execute_ex_command("ls", esc=True)():
         fakeymacs_vim.command_line_mode = True
 
 ## ウィンドウ操作
@@ -421,9 +438,9 @@ def list_tabs():
 def isearch(direction):
     def _func():
         if fakeymacs.is_searching is None:
-            execute_command_in_normal_mode(
-                self_insert_command({"backward":"?", "forward":"/"}[direction]))()
-            fakeymacs.is_searching = False
+            if execute_command_in_normal_mode(
+                    self_insert_command({"backward":"?", "forward":"/"}[direction]))():
+                fakeymacs.is_searching = False
 
         elif fakeymacs.is_searching == False:
             self_insert_command({"backward":"C-t", "forward":"C-g"}[direction])()
@@ -577,6 +594,7 @@ for key in ["v", "S-v"]:
 ## 「インサートノーマルモード移行」のキー設定
 if not getKeyCommand(keymap_ime, "C-o"):
     define_key_v("C-o", enter_insert_normal_mode)
+
 define_key_v("C-A-o", enter_insert_normal_mode)
 
 ## 「コマンドラインモード移行」のキー設定
