@@ -129,60 +129,6 @@ def self_insert_command_v(*key_list, usjis_conv=True):
         func()
     return _func
 
-def enter_insert_mode(key):
-    def _func():
-        if is_text_mode1():
-            reset_undo(reset_counter(repeat(execute_command(self_insert_command_v(key)))))()
-        else:
-            reset_undo(reset_counter(execute_command(self_insert_command_v(key))))()
-            if not fakeymacs_vim.insert_normal_mode:
-                fakeymacs_vim.insert_mode = True
-    return _func
-
-def enter_visual_mode(key):
-    def _func():
-        if is_text_mode1():
-            reset_undo(reset_counter(repeat(execute_command(self_insert_command_v(key)))))()
-        else:
-            reset_undo(reset_counter(execute_command(self_insert_command_v(key))))()
-            if fakeymacs_vim.visual_mode:
-                fakeymacs_vim.visual_mode = False
-            else:
-                fakeymacs_vim.visual_mode = True
-    return _func
-
-def enter_insert_normal_mode():
-    self_insert_command("C-o")()
-
-    if is_insert_normal_mode():
-        fakeymacs_vim.insert_normal_mode = False
-
-    elif is_insert_mode():
-        setImeStatus(0)
-        fakeymacs_vim.insert_normal_mode = True
-
-def enter_command_line_mode(key):
-    def _func():
-        if is_text_mode1():
-            reset_undo(reset_counter(repeat(execute_command(self_insert_command(key)))))()
-        else:
-            setImeStatus(0)
-            reset_undo(reset_counter(execute_command(self_insert_command(key))))()
-            fakeymacs_vim.command_line_mode = True
-    return _func
-
-def enter_search_mode(direction):
-    def _func():
-        if is_text_mode1():
-            reset_undo(reset_counter(repeat(execute_command(
-                self_insert_command({"backward":"?", "forward":"/"}[direction])))))()
-        else:
-            setImeStatus(0)
-            reset_undo(reset_counter(execute_command(
-                self_insert_command({"backward":"?", "forward":"/"}[direction]))))()
-            fakeymacs.is_searching = False
-    return _func
-
 def adjust_ime_status(command):
     def _func():
         ime_status = getImeStatus()
@@ -250,6 +196,60 @@ def execute_ex_command(ex_command, enter=True, esc=False):
         fakeymacs_vim.insert_normal_mode = False
 
         return True
+    return _func
+
+def enter_insert_mode(key):
+    def _func():
+        if is_text_mode1():
+            reset_undo(reset_counter(repeat(execute_command(self_insert_command_v(key)))))()
+        else:
+            reset_undo(reset_counter(execute_command(self_insert_command_v(key))))()
+            if not fakeymacs_vim.insert_normal_mode:
+                fakeymacs_vim.insert_mode = True
+    return _func
+
+def enter_visual_mode(key):
+    def _func():
+        if is_text_mode1():
+            reset_undo(reset_counter(repeat(execute_command(self_insert_command_v(key)))))()
+        else:
+            reset_undo(reset_counter(execute_command(self_insert_command_v(key))))()
+            if fakeymacs_vim.visual_mode:
+                fakeymacs_vim.visual_mode = False
+            else:
+                fakeymacs_vim.visual_mode = True
+    return _func
+
+def enter_insert_normal_mode():
+    self_insert_command("C-o")()
+
+    if is_insert_normal_mode():
+        fakeymacs_vim.insert_normal_mode = False
+
+    elif is_insert_mode():
+        setImeStatus(0)
+        fakeymacs_vim.insert_normal_mode = True
+
+def enter_command_line_mode(key):
+    def _func():
+        if is_text_mode1():
+            reset_undo(reset_counter(repeat(execute_command(self_insert_command(key)))))()
+        else:
+            setImeStatus(0)
+            reset_undo(reset_counter(execute_command(self_insert_command(key))))()
+            fakeymacs_vim.command_line_mode = True
+    return _func
+
+def enter_search_mode(direction):
+    def _func():
+        if is_text_mode1():
+            reset_undo(reset_counter(repeat(execute_command(
+                self_insert_command({"backward":"?", "forward":"/"}[direction])))))()
+        else:
+            setImeStatus(0)
+            reset_undo(reset_counter(execute_command(
+                self_insert_command({"backward":"?", "forward":"/"}[direction]))))()
+            fakeymacs.is_searching = False
     return _func
 
 ## ファイル操作
