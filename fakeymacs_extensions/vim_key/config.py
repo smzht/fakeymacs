@@ -259,7 +259,7 @@ def find_file():
     execute_ex_command("edit ", enter=False, esc=True)()
 
 def save_buffer():
-    execute_ex_command("write!")()
+    execute_ex_command("write")()
 
 def write_file():
     execute_ex_command("write ", enter=False)()
