@@ -13,7 +13,8 @@ except:
     #   クラス名称、ウィンドウタイトル（リストによる複数指定可）のリスト（ワイルドカード指定可、
     #   リストの後ろの項目から省略可）を指定してください）
     fc.vim_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", ["* - VIM*",
-                                                                               "* - NVIM*"]],
+                                                                               "* - NVIM*",
+                                                                               "* - Nvim*"]],
                      ]
 
 # --------------------------------------------------------------------------------------------------
@@ -524,6 +525,7 @@ def execute_extended_command():
     execute_ex_command("", enter=False, esc=True)()
 
 def kill_emacs():
+    setImeStatus(0)
     execute_ex_command("quit")()
 
 ## マルチストロークキーの設定
