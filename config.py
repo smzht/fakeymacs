@@ -213,9 +213,14 @@ def configure(keymap):
     # （fc.not_emacs_target の設定より優先します）
     # （Keyhac のメニューから「内部ログ」を ON にすると、processname や classname を確認することが
     #   できます）
-    fc.emacs_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
-                        ["*PowerShell*", "*コマンド プロンプト*", "*Command Prompt*",
-                         "* - edit*", "* - micro*", "* - fresh*", "設定", "Settings"]],
+    fc.emacs_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", ["*PowerShell*",
+                                                                                 "*コマンド プロンプト*",
+                                                                                 "*Command Prompt*",
+                                                                                 "* - edit*",
+                                                                                 "* - micro*",
+                                                                                 "* - fresh*",
+                                                                                 "設定",
+                                                                                 "Settings"]],
                        ["powershell.exe", "ConsoleWindowClass", "*PowerShell*"],
                        ["cmd.exe", "ConsoleWindowClass", ["*コマンド プロンプト*", "*Command Prompt*"]],
                        [None, "ConsoleWindowClass", ["* - edit*", "* - micro*"]],
