@@ -293,10 +293,12 @@ def move_end_of_line():
         execute_command(self_insert_command("End", "Right"))()
 
 def beginning_of_buffer():
-    execute_command_in_normal_mode(self_insert_command("1", "S-g"))()
+    if execute_command_in_normal_mode(self_insert_command("C-Home"))():
+        move_beginning_of_line()
 
 def end_of_buffer():
-    execute_command_in_normal_mode(self_insert_command("S-g"))()
+    if execute_command_in_normal_mode(self_insert_command("C-End"))():
+        move_end_of_line()
 
 def goto_line():
     execute_ex_command("", enter=False)()
@@ -372,8 +374,10 @@ def mark_whole_buffer():
         if is_visual_mode():
             execute_command_in_normal_mode(self_insert_command("v"))()
 
-        execute_command_in_normal_mode(self_insert_command("C-Home"))()
-        execute_command_in_normal_mode(self_insert_command("v", "C-End"))()
+        beginning_of_buffer()
+        execute_command_in_normal_mode(self_insert_command("v"))()
+        end_of_buffer()
+
         fakeymacs_vim.visual_mode = True
 
 def mark_page():
