@@ -65,6 +65,7 @@ else:
 
 fakeymacs_vim.insert_mode = False
 fakeymacs_vim.visual_mode = False
+fakeymacs_vim.single_line = False
 fakeymacs_vim.command_line_mode = False
 fakeymacs_vim.insert_normal_mode = False
 
@@ -220,6 +221,7 @@ def enter_visual_mode(key):
                 fakeymacs_vim.visual_mode = False
             else:
                 fakeymacs_vim.visual_mode = True
+                fakeymacs_vim.single_line = True
     return _func
 
 def enter_insert_normal_mode():
@@ -279,9 +281,13 @@ def forward_word():
 
 def previous_line():
     execute_command(self_insert_command("Up"))()
+    if is_visual_mode():
+        fakeymacs_vim.single_line = False
 
 def next_line():
     execute_command(self_insert_command("Down"))()
+    if is_visual_mode():
+        fakeymacs_vim.single_line = False
 
 def move_beginning_of_line():
     execute_command(self_insert_command("Home"))()
@@ -295,10 +301,14 @@ def move_end_of_line():
 def beginning_of_buffer():
     if execute_command_in_normal_mode(self_insert_command("C-Home"))():
         move_beginning_of_line()
+        if is_visual_mode():
+            fakeymacs_vim.single_line = False
 
 def end_of_buffer():
     if execute_command_in_normal_mode(self_insert_command("C-End"))():
         move_end_of_line()
+        if is_visual_mode():
+            fakeymacs_vim.single_line = False
 
 def goto_line():
     execute_ex_command("", enter=False)()
@@ -352,8 +362,9 @@ def kill_ring_save():
 
 def yank():
     if execute_command_in_normal_mode(self_insert_command("S-p"))():
-        if not is_insert_mode():
-            forward_char()
+        if fakeymacs_vim.single_line:
+            if not is_insert_mode():
+                forward_char()
 
 def undo():
     if fakeymacs.is_undo_mode:
@@ -368,6 +379,7 @@ def set_mark_command():
         else:
             execute_command_in_normal_mode(self_insert_command("v"))()
             fakeymacs_vim.visual_mode = True
+            fakeymacs_vim.single_line = True
 
 def mark_whole_buffer():
     if not is_command_line():
@@ -379,6 +391,7 @@ def mark_whole_buffer():
         end_of_buffer()
 
         fakeymacs_vim.visual_mode = True
+        fakeymacs_vim.single_line = True
 
 def mark_page():
     mark_whole_buffer()
