@@ -65,7 +65,8 @@ else:
 
 fakeymacs_vim.insert_mode = False
 fakeymacs_vim.visual_mode = False
-fakeymacs_vim.single_line = True
+fakeymacs_vim.single_line = None
+fakeymacs_vim.vertical_movement = False
 fakeymacs_vim.command_line_mode = False
 fakeymacs_vim.insert_normal_mode = False
 
@@ -221,7 +222,7 @@ def enter_visual_mode(key):
                 fakeymacs_vim.visual_mode = False
             else:
                 fakeymacs_vim.visual_mode = True
-                fakeymacs_vim.single_line = True
+                fakeymacs_vim.vertical_movement = False
     return _func
 
 def enter_insert_normal_mode():
@@ -281,13 +282,11 @@ def forward_word():
 
 def previous_line():
     execute_command(self_insert_command("Up"))()
-    if is_visual_mode():
-        fakeymacs_vim.single_line = False
+    fakeymacs_vim.vertical_movement = True
 
 def next_line():
     execute_command(self_insert_command("Down"))()
-    if is_visual_mode():
-        fakeymacs_vim.single_line = False
+    fakeymacs_vim.vertical_movement = True
 
 def move_beginning_of_line():
     execute_command(self_insert_command("Home"))()
@@ -301,14 +300,12 @@ def move_end_of_line():
 def beginning_of_buffer():
     if execute_command_in_normal_mode(self_insert_command("C-Home"))():
         move_beginning_of_line()
-        if is_visual_mode():
-            fakeymacs_vim.single_line = False
+        fakeymacs_vim.vertical_movement = True
 
 def end_of_buffer():
     if execute_command_in_normal_mode(self_insert_command("C-End"))():
         move_end_of_line()
-        if is_visual_mode():
-            fakeymacs_vim.single_line = False
+        fakeymacs_vim.vertical_movement = True
 
 def goto_line():
     execute_ex_command("", enter=False)()
@@ -355,10 +352,22 @@ def kill_line():
     execute_command_in_normal_mode(self_insert_command("v", "$", "Delete"))()
 
 def kill_region():
+    if is_visual_mode():
+        if fakeymacs_vim.vertical_movement:
+            fakeymacs_vim.single_line = False
+        else:
+            fakeymacs_vim.single_line = True
+
     execute_command_in_normal_mode(self_insert_command("x"))()
 
 def kill_ring_save():
-    execute_command_in_normal_mode(self_insert_command("y"))()
+    if is_visual_mode():
+        execute_command_in_normal_mode(self_insert_command("y"))()
+
+        if fakeymacs_vim.vertical_movement:
+            fakeymacs_vim.single_line = False
+        else:
+            fakeymacs_vim.single_line = True
 
 def yank():
     if execute_command_in_normal_mode(self_insert_command("S-p"))():
@@ -379,7 +388,7 @@ def set_mark_command():
         else:
             execute_command_in_normal_mode(self_insert_command("v"))()
             fakeymacs_vim.visual_mode = True
-            fakeymacs_vim.single_line = True
+            fakeymacs_vim.vertical_movement = False
 
 def mark_whole_buffer():
     if not is_command_line():
@@ -391,7 +400,7 @@ def mark_whole_buffer():
         end_of_buffer()
 
         fakeymacs_vim.visual_mode = True
-        fakeymacs_vim.single_line = True
+        fakeymacs_vim.vertical_movement = True
 
 def mark_page():
     mark_whole_buffer()
