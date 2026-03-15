@@ -65,7 +65,7 @@ else:
 
 fakeymacs_vim.insert_mode = False
 fakeymacs_vim.visual_mode = False
-fakeymacs_vim.single_line = False
+fakeymacs_vim.single_line = True
 fakeymacs_vim.command_line_mode = False
 fakeymacs_vim.insert_normal_mode = False
 
