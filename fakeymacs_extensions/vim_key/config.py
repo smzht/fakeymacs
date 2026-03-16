@@ -534,12 +534,13 @@ def indent_for_tab_command():
     self_insert_command("Tab")()
 
 def keyboard_quit():
-    escape()
+    if is_normal_mode():
+        if fakeymacs.is_undo_mode:
+            fakeymacs.is_undo_mode = False
+        else:
+            fakeymacs.is_undo_mode = True
 
-    if fakeymacs.is_undo_mode:
-        fakeymacs.is_undo_mode = False
-    else:
-        fakeymacs.is_undo_mode = True
+    escape()
 
     if fakeymacs.is_searching == False:
         fakeymacs.is_searching = None
