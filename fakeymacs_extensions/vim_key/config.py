@@ -217,7 +217,7 @@ def enter_visual_mode(key):
         if is_text_mode1():
             reset_undo(reset_counter(repeat(execute_command(self_insert_command_v(key)))))()
         else:
-            reset_undo(reset_COUNTER(set_mark_command(key)))()
+            reset_undo(reset_counter(set_mark_command(key)))()
     return _func
 
 def enter_insert_normal_mode():
@@ -378,10 +378,18 @@ def set_mark_command(key):
     def _func():
         if not is_command_line():
             if is_visual_mode():
-                escape()
+                if fakeymacs_vim.visual_key == key:
+                    escape()
+                else:
+                    execute_command_in_normal_mode(self_insert_command(key))()
+                    fakeymacs_vim.visual_mode = True
+                    fakeymacs_vim.visual_key = key
+                    if key != "v":
+                        fakeymacs_vim.vertical_movement = True
             else:
                 execute_command_in_normal_mode(self_insert_command(key))()
                 fakeymacs_vim.visual_mode = True
+                fakeymacs_vim.visual_key = key
                 if key == "v":
                     fakeymacs_vim.vertical_movement = False
                 else:
@@ -394,10 +402,8 @@ def mark_whole_buffer():
             escape()
 
         beginning_of_buffer()
-        execute_command_in_normal_mode(self_insert_command("v"))()
+        set_mark_command("v")()
         end_of_buffer()
-
-        fakeymacs_vim.visual_mode = True
 
 def mark_page():
     mark_whole_buffer()
