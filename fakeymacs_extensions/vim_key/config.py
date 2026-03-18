@@ -217,12 +217,7 @@ def enter_visual_mode(key):
         if is_text_mode1():
             reset_undo(reset_counter(repeat(execute_command(self_insert_command_v(key)))))()
         else:
-            reset_undo(reset_counter(execute_command(self_insert_command_v(key))))()
-            if fakeymacs_vim.visual_mode:
-                fakeymacs_vim.visual_mode = False
-            else:
-                fakeymacs_vim.visual_mode = True
-                fakeymacs_vim.vertical_movement = False
+            reset_undo(reset_COUNTER(set_mark_command(key)))()
     return _func
 
 def enter_insert_normal_mode():
