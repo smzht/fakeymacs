@@ -402,7 +402,7 @@ def mark_whole_buffer():
             escape()
 
         beginning_of_buffer()
-        set_mark_command("v")()
+        set_mark_command("S-v")()
         end_of_buffer()
 
 def mark_page():
