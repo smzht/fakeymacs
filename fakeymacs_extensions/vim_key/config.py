@@ -387,7 +387,10 @@ def set_mark_command(key):
             else:
                 execute_command_in_normal_mode(self_insert_command(key))()
                 fakeymacs_vim.visual_mode = True
-                fakeymacs_vim.vertical_movement = False
+                if key == "v":
+                    fakeymacs_vim.vertical_movement = False
+                else:
+                    fakeymacs_vim.vertical_movement = True
     return _func
 
 def mark_whole_buffer():
