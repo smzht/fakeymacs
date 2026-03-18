@@ -270,10 +270,10 @@ def forward_char():
     execute_command(self_insert_command("Right"))()
 
 def backward_word():
-    execute_command_in_normal_mode(self_insert_command("b"))()
+    execute_command(self_insert_command("C-Left"))()
 
 def forward_word():
-    execute_command_in_normal_mode(self_insert_command("w"))()
+    execute_command(self_insert_command("C-Right"))()
 
 def previous_line():
     execute_command(self_insert_command("Up"))()
