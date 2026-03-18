@@ -345,7 +345,7 @@ def kill_word():
 
 def kill_line():
     if is_visual_mode():
-        execute_command_in_normal_mode(self_insert_command("v"))()
+        escape()
 
     execute_command_in_normal_mode(self_insert_command("v", "$", "Delete"))()
 
@@ -379,19 +379,21 @@ def undo():
     else:
         execute_command_in_normal_mode(self_insert_command("C-r"))()
 
-def set_mark_command():
-    if not is_command_line():
-        if is_visual_mode():
-            execute_command_in_normal_mode(self_insert_command("v"))()
-        else:
-            execute_command_in_normal_mode(self_insert_command("v"))()
-            fakeymacs_vim.visual_mode = True
-            fakeymacs_vim.vertical_movement = False
+def set_mark_command(key):
+    def _func():
+        if not is_command_line():
+            if is_visual_mode():
+                escape()
+            else:
+                execute_command_in_normal_mode(self_insert_command(key))()
+                fakeymacs_vim.visual_mode = True
+                fakeymacs_vim.vertical_movement = False
+    return _func
 
 def mark_whole_buffer():
     if not is_command_line():
         if is_visual_mode():
-            execute_command_in_normal_mode(self_insert_command("v"))()
+            escape()
 
         beginning_of_buffer()
         execute_command_in_normal_mode(self_insert_command("v"))()
@@ -688,8 +690,8 @@ define_key_v("C-c",       reset_undo(reset_counter(kill_ring_save)))
 define_key_v("C-v",       reset_undo(reset_counter(repeat(yank))))
 define_key_v("C-z",       reset_counter(undo))
 define_key_v("C-_",       reset_counter(undo))
-define_key_v("C-@",       reset_undo(reset_counter(set_mark_command)))
-define_key_v("C-Space",   reset_undo(reset_counter(set_mark_command)))
+define_key_v("C-@",       reset_undo(reset_counter(set_mark_command("v"))))
+define_key_v("C-Space",   reset_undo(reset_counter(set_mark_command("v"))))
 define_key_v("Ctl-x h",   reset_undo(reset_counter(mark_whole_buffer)))
 define_key_v("Ctl-x C-p", reset_undo(reset_counter(mark_page)))
 
@@ -731,7 +733,7 @@ define_key_v("Ctl-x )", keyboard_macro_stop)
 define_key_v("Ctl-x e", reset_undo(reset_counter(repeat(keyboard_macro_play))))
 
 ## 「矩形選択」のキー設定
-define_key_v("C-A-Space", rectangle_mark_mode)
+define_key_v("C-A-Space", reset_undo(reset_counter(set_mark_command("C-v"))))
 
 ## 「その他」のキー設定
 define_key_v("Enter",     reset_undo(reset_counter(repeat(newline()))))
