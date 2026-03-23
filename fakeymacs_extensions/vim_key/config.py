@@ -229,7 +229,7 @@ def enter_visual_mode(key):
     return _func
 
 def enter_insert_normal_mode():
-    self_insert_command("C-o")()
+    reset_undo(reset_counter(self_insert_command("C-o")))()
 
     if is_insert_normal_mode():
         fakeymacs_vim.insert_normal_mode = False
@@ -241,7 +241,7 @@ def enter_insert_normal_mode():
 def enter_command_line_mode(key):
     def _func():
         if is_text_mode1():
-            reset_undo(reset_counter(repeat(execute_command(self_insert_command(key)))))()
+            reset_undo(reset_counter(repeat(self_insert_command(key))))()
         else:
             setImeStatus(0)
             reset_undo(reset_counter(execute_command(self_insert_command(key))))()
@@ -251,8 +251,8 @@ def enter_command_line_mode(key):
 def enter_search_mode(direction):
     def _func():
         if is_text_mode1():
-            reset_undo(reset_counter(repeat(execute_command(
-                self_insert_command({"backward":"?", "forward":"/"}[direction])))))()
+            reset_undo(reset_counter(repeat(
+                self_insert_command({"backward":"?", "forward":"/"}[direction]))))()
         else:
             setImeStatus(0)
             reset_undo(reset_counter(execute_command(
