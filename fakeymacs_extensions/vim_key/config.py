@@ -230,7 +230,7 @@ def enter_visual_mode(key):
     return _func
 
 def enter_insert_normal_mode():
-    reset_undo(reset_counter(self_insert_command("C-o")))()
+    self_insert_command("C-o")()
 
     if is_insert_normal_mode():
         fakeymacs_vim.insert_normal_mode = False
