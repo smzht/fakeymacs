@@ -205,17 +205,25 @@ def execute_ex_command(ex_command, enter=True, esc=False):
 def enter_insert_mode(key):
     def _func():
         if is_text_mode1():
-            reset_undo(reset_counter(repeat(execute_command(self_insert_command_v(key)))))()
+            reset_undo(reset_counter(repeat(self_insert_command_v(key))))()
         else:
-            reset_undo(reset_counter(execute_command(self_insert_command_v(key))))()
-            if not fakeymacs_vim.insert_normal_mode:
+            reset_undo(reset_counter(self_insert_command_v(key)))()
+
+            if is_visual_mode():
+                if key in ["S-i", "S-a", "S-r", "s", "S-s", "c", "S-c"]:
+                    fakeymacs_vim.visual_mode = False
+                    fakeymacs_vim.insert_normal_mode = False
+
+            elif is_insert_normal_mode():
+                fakeymacs_vim.insert_normal_mode = False
+            else:
                 fakeymacs_vim.insert_mode = True
     return _func
 
 def enter_visual_mode(key):
     def _func():
         if is_text_mode1():
-            reset_undo(reset_counter(repeat(execute_command(self_insert_command_v(key)))))()
+            reset_undo(reset_counter(repeat(self_insert_command_v(key))))()
         else:
             reset_undo(reset_counter(set_mark_command(key)))()
     return _func
@@ -503,21 +511,34 @@ def rectangle_mark_mode():
 
 ## その他
 def escape():
-    self_insert_command("Esc")()
-    if is_insert_mode():
-        setImeStatus(0)
-        self_insert_command("Right")()
-        fakeymacs_vim.insert_mode = False
-
-    fakeymacs_vim.visual_mode = False
-    fakeymacs_vim.insert_normal_mode = False
-    fakeymacs_vim.command_line_mode = False
-
-    # print("-" * 80)
+    # print("<escape 実行前> " + "-" * 80)
     # print("fakeymacs_vim.insert_mode        : " + str(fakeymacs_vim.insert_mode))
     # print("fakeymacs_vim.visual_mode        : " + str(fakeymacs_vim.visual_mode))
     # print("fakeymacs_vim.command_line_mode  : " + str(fakeymacs_vim.command_line_mode))
     # print("fakeymacs_vim.insert_normal_mode : " + str(fakeymacs_vim.insert_normal_mode))
+    # print("")
+
+    self_insert_command("Esc")()
+
+    if is_command_line():
+        fakeymacs_vim.command_line_mode = False
+
+    elif is_insert_mode():
+        setImeStatus(0)
+        self_insert_command("Right")()
+        fakeymacs_vim.insert_mode = False
+
+    elif is_visual_mode():
+        fakeymacs_vim.visual_mode = False
+    else:
+        fakeymacs_vim.insert_normal_mode = False
+
+    # print("<escape 実行後> " + "-" * 80)
+    # print("fakeymacs_vim.insert_mode        : " + str(fakeymacs_vim.insert_mode))
+    # print("fakeymacs_vim.visual_mode        : " + str(fakeymacs_vim.visual_mode))
+    # print("fakeymacs_vim.command_line_mode  : " + str(fakeymacs_vim.command_line_mode))
+    # print("fakeymacs_vim.insert_normal_mode : " + str(fakeymacs_vim.insert_normal_mode))
+    # print("")
 
 def space():
     self_insert_command("Space")()
