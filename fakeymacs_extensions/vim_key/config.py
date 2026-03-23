@@ -213,6 +213,7 @@ def enter_insert_mode(key):
                 if key in ["S-i", "S-a", "S-r", "s", "S-s", "c", "S-c"]:
                     fakeymacs_vim.visual_mode = False
                     fakeymacs_vim.insert_normal_mode = False
+                    fakeymacs_vim.insert_mode = True
 
             elif is_insert_normal_mode():
                 fakeymacs_vim.insert_normal_mode = False
