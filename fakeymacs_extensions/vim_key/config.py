@@ -573,6 +573,9 @@ def keyboard_quit():
     if fakeymacs.is_searching == False:
         fakeymacs.is_searching = None
 
+    elif fakeymacs.is_searching == True:
+        execute_ex_command("nohlsearch")()
+
 def execute_extended_command():
     execute_ex_command("", enter=False, esc=True)()
 
