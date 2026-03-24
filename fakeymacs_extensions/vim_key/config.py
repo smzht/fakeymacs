@@ -410,9 +410,9 @@ def mark_whole_buffer():
         if is_visual_mode():
             escape()
 
-        beginning_of_buffer()
-        set_mark_command("S-v")()
         end_of_buffer()
+        set_mark_command("S-v")()
+        beginning_of_buffer()
 
 def mark_page():
     mark_whole_buffer()
