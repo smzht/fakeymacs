@@ -79,6 +79,8 @@ if fc.use_emacs_ime_mode:
 else:
     keymap_vim = keymap.defineWindowKeymap(check_func=is_vim_target)
 
+fakeymacs.keymap_vim = keymap_vim
+
 fakeymacs_vim.insert_mode = False
 fakeymacs_vim.visual_mode = False
 fakeymacs_vim.single_line = None
