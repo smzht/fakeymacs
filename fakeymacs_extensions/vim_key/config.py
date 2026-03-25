@@ -25,6 +25,13 @@ except:
     # （True: インサートモードに居続ける、False: ノーマルモードに移行する）
     fc.vim_keep_in_insert_mode = False
 
+try:
+    # 設定されているか？
+    fc.vim_insert_normal_mode_key
+except:
+    # インサートノーマルモードに移行するためのキーを指定する
+    fc.vim_insert_normal_mode_key = "C-o"
+
 # --------------------------------------------------------------------------------------------------
 
 import re
@@ -170,7 +177,7 @@ def execute_nm_command(nm_command, esc=False):
             escape()
 
         if not fakeymacs_vim.insert_normal_mode and fakeymacs_vim.insert_mode:
-            self_insert_command("C-o")()
+            self_insert_command(fc.vim_insert_normal_mode_key)()
 
         adjust_ime_status(nm_command)()
 
@@ -196,7 +203,7 @@ def execute_ex_command(ex_command, enter=True, esc=False):
                 self_insert_command("Enter")()
 
         if not fakeymacs_vim.insert_normal_mode and fakeymacs_vim.insert_mode:
-            self_insert_command("C-o")()
+            self_insert_command(fc.vim_insert_normal_mode_key)()
 
         if enter:
             adjust_ime_status(_command)()
@@ -239,7 +246,7 @@ def enter_visual_mode(key):
     return _func
 
 def enter_insert_normal_mode():
-    self_insert_command("C-o")()
+    self_insert_command(fc.vim_insert_normal_mode_key)()
 
     if is_insert_normal_mode():
         fakeymacs_vim.insert_normal_mode = False

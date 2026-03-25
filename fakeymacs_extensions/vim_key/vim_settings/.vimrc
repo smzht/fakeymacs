@@ -7,3 +7,5 @@ set selection=exclusive
 set virtualedit=onemore
 set whichwrap=b,s,h,l,<,>,[,]
 set incsearch
+
+inoremap <C-j> <C-o>
