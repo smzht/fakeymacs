@@ -681,6 +681,7 @@ if 0:
 
 # Vim 用のキーの設定を行う
 if 0:
+    fc.vim_keep_in_insert_mode = False
     exec(readConfigExtension(r"vim_key\config.py"), dict(globals(), **locals()))
 
 # --------------------------------------------------------------------------------------------------

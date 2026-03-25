@@ -17,6 +17,14 @@ except:
                                                                                "* - Nvim*"]],
                      ]
 
+try:
+    # 設定されているか？
+    fc.vim_keep_in_insert_mode
+except:
+    # インサートモードで C-g を押下した際、インサートモート居続けるかどうかを指定する
+    # （True: インサートモードに居続ける、False: ノーマルモードに移行する）
+    fc.vim_keep_in_insert_mode = False
+
 # --------------------------------------------------------------------------------------------------
 
 import re
@@ -44,8 +52,9 @@ def is_vim(window):
              any(checkWindow(*app, window=window) for app in vim_target2))):
             title = re.sub(r" [-(].*", "", getText(window))
             if vim_status:
-                result = title.replace(vim_title, "")
-                if result != " +":
+                result1 = title.replace(vim_title, "")
+                result2 = vim_title.replace(title, "")
+                if " +" not in [result1, result2]:
                     vim_reset()
             else:
                 vim_reset()
@@ -511,7 +520,7 @@ def rectangle_mark_mode():
     execute_nm_command(self_insert_command("C-v"))()
 
 ## その他
-def escape():
+def escape(keep_in_im=False):
     # print("<escape 実行前> " + "-" * 80)
     # print("fakeymacs_vim.insert_mode        : " + str(fakeymacs_vim.insert_mode))
     # print("fakeymacs_vim.visual_mode        : " + str(fakeymacs_vim.visual_mode))
@@ -519,19 +528,21 @@ def escape():
     # print("fakeymacs_vim.insert_normal_mode : " + str(fakeymacs_vim.insert_normal_mode))
     # print("")
 
-    self_insert_command("Esc")()
-
     if is_command_line():
+        self_insert_command("Esc")()
         fakeymacs_vim.command_line_mode = False
 
     elif is_insert_mode():
-        setImeStatus(0)
-        self_insert_command("Right")()
-        fakeymacs_vim.insert_mode = False
+        if not keep_in_im:
+            setImeStatus(0)
+            self_insert_command("Esc", "Right")()
+            fakeymacs_vim.insert_mode = False
 
     elif is_visual_mode():
+        self_insert_command("Esc")()
         fakeymacs_vim.visual_mode = False
     else:
+        self_insert_command("Esc")()
         fakeymacs_vim.insert_normal_mode = False
 
     # print("<escape 実行後> " + "-" * 80)
@@ -544,9 +555,9 @@ def escape():
 def space():
     self_insert_command("Space")()
 
-def newline(insert_mode=False):
+def newline(enter_im=False):
     def _func():
-        if insert_mode:
+        if enter_im:
             if is_normal_mode():
                 fakeymacs_vim.insert_mode = True
                 adjust_ime_status(self_insert_command("i"))()
@@ -568,7 +579,7 @@ def keyboard_quit():
         else:
             fakeymacs.is_undo_mode = True
 
-    escape()
+    escape(keep_in_im=fc.vim_keep_in_insert_mode)
 
     if fakeymacs.is_searching == False:
         fakeymacs.is_searching = None
@@ -767,7 +778,7 @@ define_key_v("C-A-Space", reset_undo(reset_counter(set_mark_command("C-v"))))
 ## 「その他」のキー設定
 define_key_v("Enter",     reset_undo(reset_counter(repeat(newline()))))
 define_key_v("C-m",       reset_undo(reset_counter(repeat(newline()))))
-define_key_v("C-Enter",   reset_undo(reset_counter(repeat(newline(insert_mode=True)))))
+define_key_v("C-Enter",   reset_undo(reset_counter(repeat(newline(enter_im=True)))))
 define_key_v("C-g",       reset_search(reset_counter(keyboard_quit)))
 define_key_v("M-x",       reset_undo(reset_counter(execute_extended_command)))
 define_key_v("Ctl-x C-c", reset_undo(reset_counter(kill_emacs)))
