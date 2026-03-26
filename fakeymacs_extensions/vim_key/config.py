@@ -255,12 +255,12 @@ def enter_visual_mode(key):
     return _func
 
 def enter_insert_normal_mode():
-    self_insert_command(fc.vim_insert_normal_mode_key)()
-
     if is_insert_normal_mode():
+        self_insert_command(fc.vim_insert_normal_mode_key)()
         fakeymacs_vim.insert_normal_mode = False
 
     elif is_insert_mode():
+        self_insert_command(fc.vim_insert_normal_mode_key)()
         setImeStatus(0)
         fakeymacs_vim.insert_normal_mode = True
 
