@@ -180,9 +180,7 @@ def execute_nm_command(nm_command, esc=False):
             delay(0.05)
             escape()
 
-        if (not fakeymacs_vim.insert_normal_mode and
-            not fakeymacs_vim.visual_mode and
-            fakeymacs_vim.insert_mode):
+        if is_insert_mode():
             self_insert_command(fc.vim_insert_normal_mode_key)()
 
         adjust_ime_status(nm_command)()
@@ -209,9 +207,7 @@ def execute_ex_command(ex_command, enter=True, esc=False):
             if enter:
                 self_insert_command("Enter")()
 
-        if (not fakeymacs_vim.insert_normal_mode and
-            not fakeymacs_vim.visual_mode and
-            fakeymacs_vim.insert_mode):
+        if is_insert_mode():
             self_insert_command(fc.vim_insert_normal_mode_key)()
 
         if enter:
