@@ -92,6 +92,7 @@ fakeymacs_vim.insert_normal_mode = False
 def vim_reset():
     reset_search(reset_undo(reset_counter(lambda: None)))()
     escape()
+    delay(0.05)
     escape()
 
 def is_command_line():
@@ -176,6 +177,7 @@ def execute_nm_command(nm_command, esc=False):
 
         if esc:
             escape()
+            delay(0.05)
             escape()
 
         if (not fakeymacs_vim.insert_normal_mode and
@@ -198,6 +200,7 @@ def execute_ex_command(ex_command, enter=True, esc=False):
 
         if esc:
             escape()
+            delay(0.05)
             escape()
 
         def _command():
