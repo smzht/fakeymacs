@@ -75,8 +75,11 @@ for vkey in vkeys():
         define_key_m(f"Ctl-x {mkey}", self_insert_command4("C-x", mkey))
 
 ## Esc キーの設定
-define_key_m(f"Esc Esc", self_insert_command4("Esc","Esc"))
-define_key_m(f"C-[ C-[", self_insert_command4("Esc","Esc"))
+if fc.use_esc_as_meta:
+    define_key_m(f"Esc Esc", self_insert_command4("Esc","Esc"))
+
+if fc.use_ctrl_openbracket_as_meta:
+    define_key_m(f"C-[ C-[", self_insert_command4("Esc","Esc"))
 
 ## 「カーソル移動」のキー設定
 define_key_m("M-<", beginning_of_buffer)
