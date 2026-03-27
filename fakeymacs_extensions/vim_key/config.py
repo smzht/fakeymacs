@@ -268,8 +268,7 @@ def enter_visual_mode(key):
 
 def enter_insert_normal_mode():
     if is_insert_normal_mode():
-        self_insert_command(fc.vim_insert_normal_mode_key)()
-        fakeymacs_vim.insert_normal_mode = False
+        escape()
 
     elif is_insert_mode():
         self_insert_command(fc.vim_insert_normal_mode_key)()
