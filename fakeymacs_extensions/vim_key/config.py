@@ -95,6 +95,14 @@ def vim_reset():
     delay(0.05)
     escape()
 
+def is_multi_character_command():
+    n = 1 if is_japanese_keyboard else 0
+    return (fakeymacs.last_keys[0] is keymap_vim and
+            fakeymacs.last_keys[1] in ["M", "Quote", "BackQuote", "G", "Q", "F", "T", "Z",
+                                       special_char_key_table["@"][n],
+                                       special_char_key_table['"'][n],
+                                       ])
+
 def is_command_line():
     return (fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode)
 
@@ -233,14 +241,7 @@ def enter_insert_mode(key):
             if is_insert_normal_mode():
                 fakeymacs_vim.insert_normal_mode = False
             else:
-                n = 1 if is_japanese_keyboard else 0
-                if (fakeymacs.last_keys[0] is keymap_vim and
-                    fakeymacs.last_keys[1] in ["M", "Quote", "BackQuote", "G", "Q", "F", "T", "Z",
-                                               special_char_key_table["@"][n],
-                                               special_char_key_table['"'][n],
-                                               ]):
-                    pass
-                else:
+                if not is_multi_character_command():
                     if is_visual_mode():
                         if key in ["S-i", "S-a", "S-r", "s", "S-s", "c", "S-c"]:
                             fakeymacs_vim.visual_mode = False
@@ -255,13 +256,8 @@ def enter_visual_mode(key):
         if is_text_mode1():
             reset_undo(reset_counter(repeat(self_insert_command_v(key))))()
         else:
-            n = 1 if is_japanese_keyboard else 0
-            if (fakeymacs.last_keys[0] is keymap_vim and
-                fakeymacs.last_keys[1] in ["M", "Quote", "BackQuote", "G", "Q", "F", "T", "Z",
-                                           special_char_key_table["@"][n],
-                                           special_char_key_table['"'][n],
-                                           ]):
-                pass
+            if is_multi_character_command():
+                self_insert_command(key)()
             else:
                 reset_undo(reset_counter(set_mark_command(key)))()
     return _func
@@ -281,9 +277,12 @@ def enter_command_line_mode(key):
         if is_text_mode1():
             reset_undo(reset_counter(repeat(self_insert_command(key))))()
         else:
-            setImeStatus(0)
-            reset_undo(reset_counter(execute_command(self_insert_command(key))))()
-            fakeymacs_vim.command_line_mode = True
+            if is_multi_character_command():
+                self_insert_command(key)()
+            else:
+                setImeStatus(0)
+                reset_undo(reset_counter(execute_command(self_insert_command(key))))()
+                fakeymacs_vim.command_line_mode = True
     return _func
 
 def enter_search_mode(direction):
@@ -292,10 +291,13 @@ def enter_search_mode(direction):
             reset_undo(reset_counter(repeat(
                 self_insert_command({"backward":"?", "forward":"/"}[direction]))))()
         else:
-            setImeStatus(0)
-            reset_undo(reset_counter(execute_command(
-                self_insert_command({"backward":"?", "forward":"/"}[direction]))))()
-            fakeymacs.is_searching = False
+            if is_multi_character_command():
+                self_insert_command(key)()
+            else:
+                setImeStatus(0)
+                reset_undo(reset_counter(execute_command(
+                    self_insert_command({"backward":"?", "forward":"/"}[direction]))))()
+                fakeymacs.is_searching = False
     return _func
 
 ## ファイル操作
