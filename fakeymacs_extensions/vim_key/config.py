@@ -233,8 +233,12 @@ def enter_insert_mode(key):
             if is_insert_normal_mode():
                 fakeymacs_vim.insert_normal_mode = False
             else:
+                n = 1 if is_japanese_keyboard else 0
                 if (fakeymacs.last_keys[0] is keymap_vim and
-                    fakeymacs.last_keys[1] in ["M", "Quote", "BackQuote", "G", "F", "T", "Z"]):
+                    fakeymacs.last_keys[1] in ["M", "Quote", "BackQuote", "G", "Q", "F", "T", "Z",
+                                               special_char_key_table["@"][n],
+                                               special_char_key_table['"'][n],
+                                               ]):
                     pass
                 else:
                     if is_visual_mode():
@@ -251,8 +255,12 @@ def enter_visual_mode(key):
         if is_text_mode1():
             reset_undo(reset_counter(repeat(self_insert_command_v(key))))()
         else:
+            n = 1 if is_japanese_keyboard else 0
             if (fakeymacs.last_keys[0] is keymap_vim and
-                fakeymacs.last_keys[1] in ["M", "Quote", "BackQuote", "G", "F", "T", "Z"]):
+                fakeymacs.last_keys[1] in ["M", "Quote", "BackQuote", "G", "Q", "F", "T", "Z",
+                                           special_char_key_table["@"][n],
+                                           special_char_key_table['"'][n],
+                                           ]):
                 pass
             else:
                 reset_undo(reset_counter(set_mark_command(key)))()
