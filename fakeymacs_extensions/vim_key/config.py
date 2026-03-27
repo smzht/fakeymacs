@@ -234,7 +234,7 @@ def enter_insert_mode(key):
                 fakeymacs_vim.insert_normal_mode = False
             else:
                 if (fakeymacs.last_keys[0] is keymap_vim and
-                    fakeymacs.last_keys[1] in ["M", "Quote", "BackQuote", "Z"]):
+                    fakeymacs.last_keys[1] in ["M", "Quote", "BackQuote", "G", "F", "T", "Z"]):
                     pass
                 else:
                     if is_visual_mode():
@@ -252,7 +252,7 @@ def enter_visual_mode(key):
             reset_undo(reset_counter(repeat(self_insert_command_v(key))))()
         else:
             if (fakeymacs.last_keys[0] is keymap_vim and
-                fakeymacs.last_keys[1] in ["M", "Quote", "BackQuote", "Z"]):
+                fakeymacs.last_keys[1] in ["M", "Quote", "BackQuote", "G", "F", "T", "Z"]):
                 pass
             else:
                 reset_undo(reset_counter(set_mark_command(key)))()
