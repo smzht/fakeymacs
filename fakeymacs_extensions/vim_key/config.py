@@ -236,19 +236,21 @@ def enter_insert_mode(key):
         if is_text_mode1():
             reset_undo(reset_counter(repeat(self_insert_command_v(key))))()
         else:
-            reset_undo(reset_counter(self_insert_command_v(key)))()
-
-            if is_insert_normal_mode():
-                fakeymacs_vim.insert_normal_mode = False
+            if is_multi_character_command():
+                self_insert_command(key)()
             else:
-                if not is_multi_character_command():
-                    if is_visual_mode():
-                        if key in ["S-i", "S-a", "S-r", "s", "S-s", "c", "S-c"]:
-                            fakeymacs_vim.visual_mode = False
-                            fakeymacs_vim.insert_normal_mode = False
-                            fakeymacs_vim.insert_mode = True
-                    else:
+                reset_undo(reset_counter(self_insert_command_v(key)))()
+
+                if is_visual_mode():
+                    if key in ["S-i", "S-a", "S-r", "s", "S-s", "c", "S-c"]:
+                        fakeymacs_vim.visual_mode = False
+                        fakeymacs_vim.insert_normal_mode = False
                         fakeymacs_vim.insert_mode = True
+
+                elif is_insert_normal_mode():
+                    fakeymacs_vim.insert_normal_mode = False
+                else:
+                    fakeymacs_vim.insert_mode = True
     return _func
 
 def enter_visual_mode(key):
