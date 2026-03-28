@@ -233,12 +233,12 @@ def execute_ex_command(ex_command, enter=True, esc=False):
 def enter_insert_mode(key):
     def _func():
         if is_text_mode1():
-            reset_undo(reset_counter(repeat(self_insert_command_v(key))))()
+            repeat(self_insert_command_v(key))()
         else:
             if is_multi_character_command():
-                self_insert_command(key)()
+                execute_command(self_insert_command(key))()
             else:
-                reset_undo(reset_counter(self_insert_command_v(key)))()
+                self_insert_command_v(key)()
 
                 if is_visual_mode():
                     if key in ["S-i", "S-a", "S-r", "s", "S-s", "c", "S-c"]:
@@ -255,12 +255,12 @@ def enter_insert_mode(key):
 def enter_visual_mode(key):
     def _func():
         if is_text_mode1():
-            reset_undo(reset_counter(repeat(self_insert_command_v(key))))()
+            repeat(self_insert_command_v(key))()
         else:
             if is_multi_character_command():
-                self_insert_command(key)()
+                execute_command(self_insert_command(key))()
             else:
-                reset_undo(reset_counter(set_mark_command(key)))()
+                set_mark_command(key)()
     return _func
 
 def enter_insert_normal_mode():
@@ -275,28 +275,22 @@ def enter_insert_normal_mode():
 def enter_command_line_mode(key):
     def _func():
         if is_text_mode1():
-            reset_undo(reset_counter(repeat(self_insert_command(key))))()
+            repeat(self_insert_command(key))()
         else:
-            if is_multi_character_command():
-                self_insert_command(key)()
-            else:
+            execute_command(self_insert_command(key))()
+            if not is_multi_character_command():
                 setImeStatus(0)
-                reset_undo(reset_counter(execute_command(self_insert_command(key))))()
                 fakeymacs_vim.command_line_mode = True
     return _func
 
 def enter_search_mode(direction):
     def _func():
         if is_text_mode1():
-            reset_undo(reset_counter(repeat(
-                self_insert_command({"backward":"?", "forward":"/"}[direction]))))()
+            repeat(self_insert_command({"backward":"?", "forward":"/"}[direction]))()
         else:
-            if is_multi_character_command():
-                self_insert_command(key)()
-            else:
+            execute_command(self_insert_command({"backward":"?", "forward":"/"}[direction]))()
+            if not is_multi_character_command():
                 setImeStatus(0)
-                reset_undo(reset_counter(execute_command(
-                    self_insert_command({"backward":"?", "forward":"/"}[direction]))))()
                 fakeymacs.is_searching = False
     return _func
 
@@ -684,25 +678,25 @@ else:
 
 ## 「インサートモード移行」のキー設定
 for key in ["i", "S-i", "a", "S-a", "o", "S-o", "S-r", "s", "S-s", "c", "S-c"]:
-    define_key_v(key, enter_insert_mode(key))
+    define_key_v(key, reset_undo(reset_counter(enter_insert_mode(key))))
 
 ## 「ビジュアルモード移行」のキーの設定
 for key in ["v", "S-v"]:
-    define_key_v(key, enter_visual_mode(key))
+    define_key_v(key, reset_undo(reset_counter(enter_visual_mode(key))))
 
 ## 「インサートノーマルモード移行」のキー設定
 if not getKeyCommand(keymap_ime, "C-o"):
-    define_key_v("C-o", enter_insert_normal_mode)
+    define_key_v("C-o", reset_undo(reset_counter(enter_insert_normal_mode)))
 
-define_key_v("C-A-o", enter_insert_normal_mode)
+define_key_v("C-A-o", reset_undo(reset_counter(enter_insert_normal_mode)))
 
 ## 「コマンドラインモード移行」のキー設定
 for key in [":", "!"]:
-    define_key_v(key, enter_command_line_mode(key))
+    define_key_v(key, reset_undo(reset_counter(enter_command_line_mode(key))))
 
 ## 「検索モード移行」のキー設定
-define_key_v("/", enter_search_mode("forward"))
-define_key_v("?", enter_search_mode("backward"))
+define_key_v("/", reset_undo(reset_counter(enter_search_mode("forward"))))
+define_key_v("?", reset_undo(reset_counter(enter_search_mode("backward"))))
 
 ## universal-argument キーの設定
 define_key_v("C-u", universal_argument)
