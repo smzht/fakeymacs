@@ -95,15 +95,12 @@ def vim_reset():
     delay(0.05)
     escape()
 
+multi_character_command_list = map(specialCharToKeyStr,
+                                   ["r", "m", "q", "f", "S-f", "t", "S-t", "'", "`", '"', "@"])
+
 def is_multi_character_command():
-    n = 1 if is_japanese_keyboard else 0
     return (fakeymacs.last_keys[0] is keymap_vim and
-            fakeymacs.last_keys[1] in ["r", "m", "q", "f", "S-f", "t", "S-t",
-                                       special_char_key_table["'"][n],
-                                       special_char_key_table["`"][n],
-                                       special_char_key_table['"'][n],
-                                       special_char_key_table["@"][n],
-                                       ])
+            fakeymacs.last_keys[1] in multi_character_command_list)
 
 def is_command_line():
     return (fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode)
@@ -550,7 +547,7 @@ def keyboard_macro_play():
 
 ## 矩形選択
 def rectangle_mark_mode():
-    execute_nm_command(self_insert_command("C-v"))()
+    set_mark_command("C-v")()
 
 ## その他
 def escape(keep_in_im=False):
@@ -806,7 +803,7 @@ define_key_v("Ctl-x )", keyboard_macro_stop)
 define_key_v("Ctl-x e", reset_undo(reset_counter(repeat(keyboard_macro_play))))
 
 ## 「矩形選択」のキー設定
-define_key_v("C-A-Space", reset_undo(reset_counter(set_mark_command("C-v"))))
+define_key_v("C-A-Space", reset_undo(reset_counter(rectangle_mark_mode)))
 
 ## 「その他」のキー設定
 define_key_v("Enter",     reset_undo(reset_counter(repeat(newline()))))
