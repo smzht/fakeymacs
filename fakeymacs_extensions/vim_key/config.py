@@ -95,8 +95,8 @@ def vim_reset():
     delay(0.05)
     escape()
 
-multi_character_command_list = map(specialCharToKeyStr,
-                                   ["r", "m", "q", "f", "S-f", "t", "S-t", "'", "`", '"', "@"])
+multi_character_command_list = list(map(specialCharToKeyStr,
+                                        ["r", "m", "q", "f", "S-f", "t", "S-t", "'", "`", '"', "@"]))
 
 def is_multi_character_command():
     return (fakeymacs.last_keys[0] is keymap_vim and
