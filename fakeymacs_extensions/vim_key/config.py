@@ -625,7 +625,7 @@ def execute_extended_command():
 
 def kill_emacs():
     setImeStatus(0)
-    execute_ex_command("quit")()
+    execute_ex_command("quitall")()
 
 ## マルチストロークキーの設定
 define_key_v("Ctl-x",  keymap.defineMultiStrokeKeymap(fc.ctl_x_prefix_key))
