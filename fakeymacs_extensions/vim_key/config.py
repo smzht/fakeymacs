@@ -98,7 +98,7 @@ def vim_reset():
 def is_multi_character_command():
     n = 1 if is_japanese_keyboard else 0
     return (fakeymacs.last_keys[0] is keymap_vim and
-            fakeymacs.last_keys[1] in ["M", "Q", "F", "S-F", "T", "S-T",
+            fakeymacs.last_keys[1] in ["m", "q", "f", "S-f", "t", "S-t",
                                        special_char_key_table["'"][n],
                                        special_char_key_table["`"][n],
                                        special_char_key_table['"'][n],

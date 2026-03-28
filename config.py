@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20260327_01"
+fakeymacs_version = "20260328_01"
 
 import time
 import os
@@ -1870,7 +1870,13 @@ def configure(keymap):
         return vkeys
 
     def vkToStr(vkey):
-        return usjisFilter(lambda vkey: keyhac_keymap.KeyCondition.vkToStr(vkey).lower(), vkey)
+        def _func(vkey):
+            if VK_A <= vkey and vkey <= VK_Z:
+                return keyhac_keymap.KeyCondition.vkToStr(vkey).lower()
+            else:
+                return keyhac_keymap.KeyCondition.vkToStr(vkey)
+
+        return usjisFilter(_func, vkey)
 
     def strToVk(name):
         return usjisFilter(keyhac_keymap.KeyCondition.strToVk, name)
