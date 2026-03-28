@@ -639,7 +639,7 @@ for n in range(10):
     key = str(n)
     define_key_v(key, digit(n))
     if fc.use_ctrl_digit_key_for_digit_argument:
-        define_key(keymap_emacs, f"C-{key}", digit2(n))
+        define_key_v(f"C-{key}", digit2(n))
     define_key_v(f"M-{key}", digit2(n))
     define_key_v(f"S-{key}",
                  reset_undo(reset_counter(repeat(execute_command(self_insert_command_v(f"S-{key}"))))))
