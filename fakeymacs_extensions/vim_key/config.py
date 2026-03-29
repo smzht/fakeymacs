@@ -203,6 +203,8 @@ def execute_dq_command(command):
     def _func():
         execute_command(command)()
 
+        # "ay と di" のように、DoubleQuote が multi character command の１文字目にも２文字目以降にも
+        # 使われることがあるため、２文字目以降に使われたときは fakeymacs.last_keys に登録しないこととする
         if (fakeymacs.last_keys[0] is keymap_vim and
             fakeymacs.last_keys[1] in multi_character_command_list + ["i", "a"]):
             fakeymacs.update_last_keys = False
