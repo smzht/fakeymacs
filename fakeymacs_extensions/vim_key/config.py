@@ -95,8 +95,13 @@ def vim_reset():
     delay(0.05)
     escape()
 
-multi_character_command_list = list(map(specialCharToKeyStr,
-                                        ["r", "m", "q", "f", "S-f", "t", "S-t", "'", "`", '"', "@"]))
+multi_character_command_list = list(map(specialCharToKeyStr, ["g", "y",
+                                                              "d", "c", "r",
+                                                              "q", "@"
+                                                              "f", "S-f", "t", "S-t",
+                                                              "m", "'", "`",
+                                                              '"',
+                                                              ]))
 
 def is_multi_character_command():
     return (fakeymacs.last_keys[0] is keymap_vim and
@@ -175,6 +180,12 @@ def execute_command(command):
     def _func():
         command()
         fakeymacs_vim.insert_normal_mode = False
+    return _func
+
+def execute_vm_command(command):
+    def _func():
+        execute_command(command)()
+        fakeymacs_vim.vertical_movement = True
     return _func
 
 def execute_nm_command(nm_command, esc=False):
@@ -318,12 +329,10 @@ def forward_word():
     execute_command(self_insert_command("C-Right"))()
 
 def previous_line():
-    execute_command(self_insert_command("Up"))()
-    fakeymacs_vim.vertical_movement = True
+    execute_vm_command(self_insert_command("Up"))()
 
 def next_line():
-    execute_command(self_insert_command("Down"))()
-    fakeymacs_vim.vertical_movement = True
+    execute_vm_command(self_insert_command("Down"))()
 
 def move_beginning_of_line():
     execute_command(self_insert_command("Home"))()
@@ -335,12 +344,10 @@ def move_end_of_line():
         execute_command(self_insert_command("End", "Right"))()
 
 def beginning_of_buffer():
-    execute_command(self_insert_command("Home", "C-Home"))()
-    fakeymacs_vim.vertical_movement = True
+    execute_vm_command(self_insert_command("Home", "C-Home"))()
 
 def end_of_buffer():
-    execute_command(self_insert_command("C-End", "Right"))()
-    fakeymacs_vim.vertical_movement = True
+    execute_vm_command(self_insert_command("C-End", "Right"))()
 
 def goto_line():
     execute_ex_command("", enter=False)()
@@ -652,6 +659,8 @@ for vkey in [VK_OEM_MINUS, VK_OEM_PLUS, VK_OEM_COMMA, VK_OEM_PERIOD,
     for mod in ["", "S-"]:
         mkey = mod + key
         define_key_v(mkey, reset_undo(reset_counter(repeat(execute_command(self_insert_command_v(mkey))))))
+
+define_key_v("'", reset_undo(reset_counter(repeat(execute_vm_command(self_insert_command_v("'"))))))
 
 ## 10key の特殊文字キーの設定
 for vkey in [VK_MULTIPLY, VK_ADD, VK_SUBTRACT, VK_DECIMAL, VK_DIVIDE]:
