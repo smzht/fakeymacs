@@ -95,8 +95,9 @@ def vim_reset():
     delay(0.05)
     escape()
 
-multi_character_command_list = list(map(specialCharToKeyStr, ["g", "y",
-                                                              "d", "c", "r",
+multi_character_command_list = list(map(specialCharToKeyStr, ["g",
+                                                              "d", "y",
+                                                              "c", "r",
                                                               "q", "@"
                                                               "f", "S-f", "t", "S-t",
                                                               "m", "'", "`",

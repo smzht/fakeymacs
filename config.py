@@ -1875,7 +1875,6 @@ def configure(keymap):
                 return keyhac_keymap.KeyCondition.vkToStr(vkey).lower()
             else:
                 return keyhac_keymap.KeyCondition.vkToStr(vkey)
-
         return usjisFilter(_func, vkey)
 
     def strToVk(name):
