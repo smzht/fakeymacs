@@ -189,17 +189,6 @@ def execute_vm_command(command):
         fakeymacs_vim.vertical_movement = True
     return _func
 
-def execute_dy_command(command):
-    def _func():
-        execute_command(command)()
-
-        if (fakeymacs.last_keys[0] is keymap_vim and
-            fakeymacs.last_keys[1] in ["d", "y"]):
-            fakeymacs_vim.single_line = False
-        else:
-            fakeymacs_vim.single_line = True
-    return _func
-
 def execute_dq_command(command):
     def _func():
         execute_command(command)()
@@ -674,9 +663,6 @@ for vkey in range(VK_A, VK_Z + 1):
         mkey = mod + key
         define_key_v(mkey, reset_undo(reset_counter(repeat(execute_command(self_insert_command_v(mkey))))))
 
-define_key_v("d", reset_undo(reset_counter(repeat(execute_dy_command(self_insert_command_v("d"))))))
-define_key_v("y", reset_undo(reset_counter(repeat(execute_dy_command(self_insert_command_v("y"))))))
-
 ## 特殊文字キーの設定
 define_key_v("Space"  , reset_undo(reset_counter(repeat(execute_command(self_insert_command("Space"))))))
 define_key_v("S-Space", reset_undo(reset_counter(repeat(execute_command(self_insert_command("S-Space"))))))
@@ -688,7 +674,6 @@ for vkey in [VK_OEM_MINUS, VK_OEM_PLUS, VK_OEM_COMMA, VK_OEM_PERIOD,
         mkey = mod + key
         define_key_v(mkey, reset_undo(reset_counter(repeat(execute_command(self_insert_command_v(mkey))))))
 
-define_key_v("'", reset_undo(reset_counter(repeat(execute_vm_command(self_insert_command_v("'"))))))
 define_key_v('"', reset_undo(reset_counter(repeat(execute_dq_command(self_insert_command_v('"'))))))
 
 ## 10key の特殊文字キーの設定
