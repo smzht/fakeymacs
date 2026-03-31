@@ -93,9 +93,8 @@ def vim_reset():
     escape()
     delay(0.05)
     escape()
-    reset_undo(reset_counter(lambda: None))()
+    reset_undo(reset_counter(execute_ex_command("nohlsearch")))()
     fakeymacs.is_searching = None
-    execute_ex_command("nohlsearch")()
 
 multi_character_command_list = list(map(specialCharToKeyStr, ["g",
                                                               "d", "y",
