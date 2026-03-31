@@ -53,3 +53,9 @@ alias ec='settitle emacsclient -t'
 alias me='settitle micro'
 alias fe='settitle fresh'
 #+END_EXAMPLE
+
+● Fakeymacs の fc.use_esc_as_meta を True にして利用する場合は、mc のオプションメニューの
+「設定」で、「Esc key mode」の「Single press」を有効とし、タイムアウトを 0 としてご利用
+ください。設定の変更後は、「設定保存」を行ってください。この設定を行わない場合、Esc を発行
+するためには、Esc を４回押下する必要があります。（設定すると２回ですみます。）
+
