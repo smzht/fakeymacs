@@ -160,9 +160,15 @@ def self_insert_command_v(*key_list, usjis_conv=True):
     def _func():
         # ノーマルモードで日本語を入力した際は、インサートモードにする
         if getImeStatus():
-            if is_normal_mode():
+            if is_normal_mode() or is_insert_normal_mode():
+                fakeymacs_vim.insert_normal_mode = False
                 fakeymacs_vim.insert_mode = True
                 adjust_ime_status(self_insert_command("i"))()
+
+            elif is_visual_mode():
+                fakeymacs_vim.visual_mode = False
+                fakeymacs_vim.insert_mode = True
+                adjust_ime_status(self_insert_command("c"))()
         func()
     return _func
 
@@ -258,13 +264,13 @@ def execute_ex_command(ex_command, enter=True, esc=False):
 
 def enter_insert_mode(key):
     def _func():
-        if is_text_mode1():
+        if getImeStatus() or is_text_mode1():
             repeat(self_insert_command_v(key))()
         else:
             if is_multi_character_command():
                 execute_command(self_insert_command(key))()
             else:
-                self_insert_command_v(key)()
+                self_insert_command(key)()
 
                 if is_visual_mode():
                     if key in ["S-i", "S-a", "S-r", "s", "S-s", "c", "S-c"]:
@@ -280,7 +286,7 @@ def enter_insert_mode(key):
 
 def enter_visual_mode(key):
     def _func():
-        if is_text_mode1():
+        if getImeStatus() or is_text_mode1():
             repeat(self_insert_command_v(key))()
         else:
             if is_multi_character_command():
@@ -300,8 +306,8 @@ def enter_insert_normal_mode():
 
 def enter_command_line_mode(key):
     def _func():
-        if is_text_mode1():
-            repeat(self_insert_command(key))()
+        if getImeStatus() or is_text_mode1():
+            repeat(self_insert_command_v(key))()
         else:
             execute_command(self_insert_command(key))()
 
@@ -312,8 +318,8 @@ def enter_command_line_mode(key):
 
 def enter_search_mode(direction):
     def _func():
-        if is_text_mode1():
-            repeat(self_insert_command({"backward":"?", "forward":"/"}[direction]))()
+        if getImeStatus() or is_text_mode1():
+            repeat(self_insert_command_v({"backward":"?", "forward":"/"}[direction]))()
         else:
             execute_command(self_insert_command({"backward":"?", "forward":"/"}[direction]))()
 
