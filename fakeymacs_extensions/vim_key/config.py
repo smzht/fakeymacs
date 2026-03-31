@@ -90,10 +90,12 @@ fakeymacs_vim.insert_normal_mode = False
 
 ## 共通関数
 def vim_reset():
-    reset_search(reset_undo(reset_counter(lambda: None)))()
     escape()
     delay(0.05)
     escape()
+    reset_undo(reset_counter(lambda: None))()
+    fakeymacs.is_searching = None
+    execute_ex_command("nohlsearch")()
 
 multi_character_command_list = list(map(specialCharToKeyStr, ["g",
                                                               "d", "y",
