@@ -99,7 +99,7 @@ def vim_reset():
 multi_character_command_list = list(map(specialCharToKeyStr, ["g",
                                                               "d", "y",
                                                               "c", "r",
-                                                              "q", "@"
+                                                              "q", "@",
                                                               "f", "S-f", "t", "S-t",
                                                               "m", "'", "`",
                                                               '"',
