@@ -176,6 +176,13 @@ def self_insert_command_v2(*key_list, usjis_conv=True):
     func = self_insert_command2(*key_list, usjis_conv=usjis_conv)
     def _func():
         check_multi_character_command(key_list)
+        func()
+    return _func
+
+def self_insert_command_v3(*key_list, usjis_conv=True):
+    func = self_insert_command2(*key_list, usjis_conv=usjis_conv)
+    def _func():
+        check_multi_character_command(key_list)
 
         # ノーマルモードで日本語を入力した際は、インサートモードにする
         if getImeStatus():
@@ -270,8 +277,11 @@ def execute_ex_command(ex_command, enter=True, esc=False):
 
 def enter_insert_mode(key):
     def _func():
-        if getImeStatus() or is_text_mode1():
+        if is_text_mode1():
             repeat(self_insert_command_v2(key))()
+
+        elif getImeStatus():
+            repeat(self_insert_command_v3(key))()
         else:
             if is_multi_character_command():
                 execute_command(self_insert_command_v1(key))()
@@ -288,8 +298,11 @@ def enter_insert_mode(key):
 
 def enter_visual_mode(key):
     def _func():
-        if getImeStatus() or is_text_mode1():
+        if is_text_mode1():
             repeat(self_insert_command_v2(key))()
+
+        elif getImeStatus():
+            repeat(self_insert_command_v3(key))()
         else:
             if is_multi_character_command():
                 execute_command(self_insert_command_v1(key))()
@@ -308,8 +321,11 @@ def enter_insert_normal_mode():
 
 def enter_command_line_mode(key):
     def _func():
-        if getImeStatus() or is_text_mode1():
+        if is_text_mode1():
             repeat(self_insert_command_v2(key))()
+
+        elif getImeStatus():
+            repeat(self_insert_command_v3(key))()
         else:
             if is_multi_character_command():
                 execute_command(self_insert_command_v1(key))()
@@ -321,8 +337,11 @@ def enter_command_line_mode(key):
 
 def enter_search_mode(direction):
     def _func():
-        if getImeStatus() or is_text_mode1():
+        if is_text_mode1():
             repeat(self_insert_command_v2({"backward":"?", "forward":"/"}[direction]))()
+
+        elif getImeStatus():
+            repeat(self_insert_command_v3({"backward":"?", "forward":"/"}[direction]))()
         else:
             if is_multi_character_command():
                 execute_command(self_insert_command_v1({"backward":"?", "forward":"/"}[direction]))()
@@ -667,14 +686,14 @@ for n in range(10):
         define_key_v(f"C-{key}", digit2(n))
     define_key_v(f"M-{key}", digit2(n))
     define_key_v(f"S-{key}",
-                 reset_undo(reset_counter(repeat(execute_command(self_insert_command_v2(f"S-{key}"))))))
+                 reset_undo(reset_counter(repeat(execute_command(self_insert_command_v3(f"S-{key}"))))))
 
 ## アルファベットキーの設定
 for vkey in range(VK_A, VK_Z + 1):
     key = vkToStr(vkey)
     for mod in ["", "S-"]:
         mkey = mod + key
-        define_key_v(mkey, reset_undo(reset_counter(repeat(execute_command(self_insert_command_v2(mkey))))))
+        define_key_v(mkey, reset_undo(reset_counter(repeat(execute_command(self_insert_command_v3(mkey))))))
 
 ## 特殊文字キーの設定
 define_key_v("Space"  , reset_undo(reset_counter(repeat(execute_command(self_insert_command_v1("Space"))))))
@@ -685,12 +704,12 @@ for vkey in [VK_OEM_MINUS, VK_OEM_PLUS, VK_OEM_COMMA, VK_OEM_PERIOD,
     key = vkToStr(vkey)
     for mod in ["", "S-"]:
         mkey = mod + key
-        define_key_v(mkey, reset_undo(reset_counter(repeat(execute_command(self_insert_command_v2(mkey))))))
+        define_key_v(mkey, reset_undo(reset_counter(repeat(execute_command(self_insert_command_v3(mkey))))))
 
 ## 10key の特殊文字キーの設定
 for vkey in [VK_MULTIPLY, VK_ADD, VK_SUBTRACT, VK_DECIMAL, VK_DIVIDE]:
     key = vkToStr(vkey)
-    define_key_v(key, reset_undo(reset_counter(repeat(execute_command(self_insert_command_v2(key))))))
+    define_key_v(key, reset_undo(reset_counter(repeat(execute_command(self_insert_command_v3(key))))))
 
 ## quoted-insert キーの設定
 for vkey in vkeys():
