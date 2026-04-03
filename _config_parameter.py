@@ -114,7 +114,6 @@ fc.not_emacs_target     = ["wsl.exe",                # WSL
                            "Cmder.exe",              # Cmder
                            "ConEmu*.exe",            # ConEmu
                            "emacs*.exe",             # Emacs
-                           "gvim.exe",               # GVim
                            "xyzzy.exe",              # xyzzy
                            "msrdc.exe",              # WSLg
                            "XWin*.exe",              # XWin
@@ -128,6 +127,8 @@ fc.not_emacs_target     = ["wsl.exe",                # WSL
                            "MobaXterm.exe",          # MobaXterm
                            "TurboVNC.exe",           # TurboVNC
                            "vncviewer*.exe",         # UltraVNC
+                           "*vim.exe",               # Vim
+                           "neovide.exe",            # Neovide
                            "mc.exe",                 # Midnight Commander
                            [None, None, "さくらのクラウドシェル*"],
                            ]
@@ -150,12 +151,13 @@ fc.ime_target           = ["wsl.exe",                # WSL
                            "mintty.exe",             # mintty
                            "Cmder.exe",              # Cmder
                            "ConEmu*.exe",            # ConEmu
-                           "gvim.exe",               # GVim
                            "xyzzy.exe",              # xyzzy
                            "putty.exe",              # PuTTY
                            "ttermpro.exe",           # TeraTerm
                            "MobaXterm.exe",          # MobaXterm
                            "mc.exe",                 # Midnight Commander
+                           "*vim.exe",               # Vim
+                           "neovide.exe",            # Neovide
                            [None, None, "さくらのクラウドシェル*"],
                            ]
 

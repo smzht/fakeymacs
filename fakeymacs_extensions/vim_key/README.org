@@ -57,7 +57,7 @@ vim.opt.incsearch = true
 vim.keymap.set('i', '<C-j>', '<C-o>')
 #+END_EXAMPLE
 
-※ Windows 版の設定ファイルは、%LOCALAPPDATA% 以下に格納してください。
+※ Windows 版 Vim の設定ファイルは、%LOCALAPPDATA% 以下に格納してください。
 
 ※ 設定の最終行にあるキーマップの設定は、インサートノーマルモードに移行するキーを追加
 するための設定です。Vim を Midnight Commander と連携して使う場合、Vim のインサート

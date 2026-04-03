@@ -288,7 +288,6 @@ def configure(keymap):
                                "ttermpro.exe",           # TeraTerm
                                "MobaXterm.exe",          # MobaXterm
                                "mc.exe",                 # Midnight Commander
-                               "vim.exe",                # Vim
                                "*vim.exe",               # Vim
                                "neovide.exe",            # Neovide
                                [None, None, "さくらのクラウドシェル*"],
