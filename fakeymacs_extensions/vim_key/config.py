@@ -15,6 +15,8 @@ except:
     fc.vim_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", ["* - VIM*",
                                                                                "* - NVIM*",
                                                                                "* - Nvim*"]],
+                     "vim.exe",
+                     "gvim.exe",
                      "nvim.exe",
                      ]
 
