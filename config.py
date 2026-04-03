@@ -246,7 +246,6 @@ def configure(keymap):
                                "Cmder.exe",              # Cmder
                                "ConEmu*.exe",            # ConEmu
                                "emacs*.exe",             # Emacs
-                               "gvim.exe",               # GVim
                                "xyzzy.exe",              # xyzzy
                                "msrdc.exe",              # WSLg
                                "XWin*.exe",              # XWin
@@ -261,11 +260,8 @@ def configure(keymap):
                                "TurboVNC.exe",           # TurboVNC
                                "vncviewer*.exe",         # UltraVNC
                                "mc.exe",                 # Midnight Commander
-                               "vim.exe",                # Vim
-                               "gvim.exe",               # gVim
-                               "nvim.exe",               # Nvim
+                               "*vim.exe",               # Vim
                                "neovide.exe",            # Neovide
-                               "goneovim.exe",           # Goneovim
                                [None, None, "さくらのクラウドシェル*"],
                                ]
 
@@ -287,17 +283,14 @@ def configure(keymap):
                                "mintty.exe",             # mintty
                                "Cmder.exe",              # Cmder
                                "ConEmu*.exe",            # ConEmu
-                               "gvim.exe",               # GVim
                                "xyzzy.exe",              # xyzzy
                                "putty.exe",              # PuTTY
                                "ttermpro.exe",           # TeraTerm
                                "MobaXterm.exe",          # MobaXterm
                                "mc.exe",                 # Midnight Commander
                                "vim.exe",                # Vim
-                               "gvim.exe",               # gVim
-                               "nvim.exe",               # Nvim
+                               "*vim.exe",               # Vim
                                "neovide.exe",            # Neovide
-                               "goneovim.exe",           # Goneovim
                                [None, None, "さくらのクラウドシェル*"],
                                ]
 
