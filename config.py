@@ -265,7 +265,7 @@ def configure(keymap):
                                "gvim.exe",               # gVim
                                "nvim.exe",               # Nvim
                                "neovide.exe",            # Neovide
-                               "goneovim.exe",           # goneovim
+                               "goneovim.exe",           # Goneovim
                                [None, None, "さくらのクラウドシェル*"],
                                ]
 
@@ -297,7 +297,7 @@ def configure(keymap):
                                "gvim.exe",               # gVim
                                "nvim.exe",               # Nvim
                                "neovide.exe",            # Neovide
-                               "goneovim.exe",           # goneovim
+                               "goneovim.exe",           # Goneovim
                                [None, None, "さくらのクラウドシェル*"],
                                ]
 
