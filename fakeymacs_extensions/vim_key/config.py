@@ -106,7 +106,7 @@ def vim_reset():
     reset_undo(reset_counter(execute_ex_command("nohlsearch")))()
     fakeymacs.is_searching = None
 
-def check_multi_character_command(key_list):
+def check_multi_character_command(*key_list):
     for key in key_list:
         if key in multi_character_command_list:
             if fakeymacs_vim.multi_character_command:
@@ -168,21 +168,21 @@ def define_key_v(keys, command, skip_check=True):
 def self_insert_command_v1(*key_list, usjis_conv=True):
     func = self_insert_command(*key_list, usjis_conv=usjis_conv)
     def _func():
-        check_multi_character_command(key_list)
+        check_multi_character_command(*key_list)
         func()
     return _func
 
 def self_insert_command_v2(*key_list, usjis_conv=True):
     func = self_insert_command2(*key_list, usjis_conv=usjis_conv)
     def _func():
-        check_multi_character_command(key_list)
+        check_multi_character_command(*key_list)
         func()
     return _func
 
 def self_insert_command_v3(*key_list, usjis_conv=True):
     func = self_insert_command2(*key_list, usjis_conv=usjis_conv)
     def _func():
-        check_multi_character_command(key_list)
+        check_multi_character_command(*key_list)
 
         # ノーマルモードで日本語を入力した際は、インサートモードにする
         if getImeStatus():
