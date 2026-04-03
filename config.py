@@ -260,7 +260,7 @@ def configure(keymap):
                                "TurboVNC.exe",           # TurboVNC
                                "vncviewer*.exe",         # UltraVNC
                                "mc.exe",                 # Midnight Commander
-                               "*vim.exe",               # Vim
+                               "*vim.exe",               # Vim 系エディタ
                                "neovide.exe",            # Neovide
                                [None, None, "さくらのクラウドシェル*"],
                                ]
@@ -288,7 +288,7 @@ def configure(keymap):
                                "ttermpro.exe",           # TeraTerm
                                "MobaXterm.exe",          # MobaXterm
                                "mc.exe",                 # Midnight Commander
-                               "*vim.exe",               # Vim
+                               "*vim.exe",               # Vim 系エディタ
                                "neovide.exe",            # Neovide
                                [None, None, "さくらのクラウドシェル*"],
                                ]

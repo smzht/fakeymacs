@@ -133,7 +133,7 @@ fc.not_emacs_target     = ["wsl.exe",                # WSL
                            "TurboVNC.exe",           # TurboVNC
                            "vncviewer*.exe",         # UltraVNC
                            "mc.exe",                 # Midnight Commander
-                           "*vim.exe",               # Vim
+                           "*vim.exe",               # Vim 系エディタ
                            "neovide.exe",            # Neovide
                            [None, None, "さくらのクラウドシェル*"],
                            ]
@@ -161,7 +161,7 @@ fc.ime_target           = ["wsl.exe",                # WSL
                            "ttermpro.exe",           # TeraTerm
                            "MobaXterm.exe",          # MobaXterm
                            "mc.exe",                 # Midnight Commander
-                           "*vim.exe",               # Vim
+                           "*vim.exe",               # Vim 系エディタ
                            "neovide.exe",            # Neovide
                            [None, None, "さくらのクラウドシェル*"],
                            ]
