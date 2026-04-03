@@ -340,18 +340,18 @@ def enter_command_line_mode(key):
                 fakeymacs_vim.command_line_mode = True
     return _func
 
-def enter_search_mode(direction):
+def enter_search_mode(key):
     def _func():
         if is_text_mode1():
-            repeat(self_insert_command_v2({"backward":"?", "forward":"/"}[direction]))()
+            repeat(self_insert_command_v2(key))()
 
         elif getImeStatus():
-            repeat(self_insert_command_v3({"backward":"?", "forward":"/"}[direction]))()
+            repeat(self_insert_command_v3(key))()
         else:
             if is_multi_character_command():
-                execute_command(self_insert_command_v1({"backward":"?", "forward":"/"}[direction]))()
+                execute_command(self_insert_command_v1(key))()
             else:
-                execute_command(self_insert_command_v1({"backward":"?", "forward":"/"}[direction]))()
+                execute_command(self_insert_command_v1(key))()
                 setImeStatus(0)
                 fakeymacs.is_searching = False
     return _func
@@ -753,8 +753,8 @@ for key in [":", "!"]:
     define_key_v(key, reset_undo(reset_counter(enter_command_line_mode(key))))
 
 ## 「検索モード移行」のキー設定
-define_key_v("/", reset_undo(reset_counter(enter_search_mode("forward"))))
-define_key_v("?", reset_undo(reset_counter(enter_search_mode("backward"))))
+for key in ["/", "?"]:
+    define_key_v(key, reset_undo(reset_counter(enter_search_mode(key))))
 
 ## universal-argument キーの設定
 define_key_v("C-u", universal_argument)
