@@ -18,6 +18,8 @@ except:
                      "vim.exe",
                      "gvim.exe",
                      "nvim.exe",
+                     "neovide.exe",
+                     "goneovim.exe",
                      ]
 
 try:
