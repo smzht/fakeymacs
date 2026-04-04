@@ -172,7 +172,7 @@ fc.ime_target           = ["wsl.exe",                # WSL
 #   利用することができます。ワイルドカード文字をエスケープしたい場合は、[] で括ってください。）
 # （ここで指定したキーに新たに別のキー設定をしたいときには、「-2」が付くセクション内で define_key2
 #   関数を利用して定義してください）
-fc.skip_settings_key    = {"keymap_base"      : ["W-g", "A-Tab", "Space"], # ベース Keymap
+fc.skip_definition_key  = {"keymap_base"      : ["W-g", "A-Tab", "Space"], # ベース Keymap
                            "keymap_global"    : [], # グローバル Keymap
                            "keymap_emacs"     : [], # Emacs キーバインド対象アプリ用 Keymap
                            "keymap_vscode"    : [], # Emacs キーバインド VSCode 拡張用 Keymap
@@ -187,7 +187,7 @@ fc.skip_settings_key    = {"keymap_base"      : ["W-g", "A-Tab", "Space"], # ベ
 # （リストに指定するキーは、Keyhac で指定可能なマルチストロークではないキーとしてください。
 #   Fakeymacs の記法の "M-f" や "Ctl-x d" などの指定はできません。"A-v"、"C-v" などが指定可能です。）
 # （ここで指定しなくとも、左右のモディファイアキーを使い分けることで入力することは可能です）
-fc.emacs_exclusion_key  = {"chrome.exe"       : ["C-l", "C-t"],
+fc.emacs_excluded_key   = {"chrome.exe"       : ["C-l", "C-t"],
                            "msedge.exe"       : ["C-l", "C-t"],
                            "firefox.exe"      : ["C-l", "C-t"],
                            "Code.exe"         : ["C-S-b", "C-S-f", "C-S-p", "C-S-n", "C-S-a", "C-S-e"],
@@ -397,11 +397,11 @@ fc.other_window_key = "A-o"
 
 # ウィンドウ操作（other_window など）の対象としたくないアプリケーションソフトのクラス名称を指定する
 # （正規表現で指定してください（複数指定する場合は「|」で連結してください））
-fc.window_operation_exclusion_class = r"Progman"
+fc.window_operation_excluded_class = r"Progman"
 
 # ウィンドウ操作（other_window など）の対象としたくないアプリケーションソフトのプロセス名称を指定する
 # （正規表現で指定してください（複数指定する場合は「|」で連結してください））
-fc.window_operation_exclusion_process = r"RocketDock\.exe"  # サンプルとして RocketDock.exe を登録
+fc.window_operation_excluded_process = r"RocketDock\.exe"  # サンプルとして RocketDock.exe を登録
 
 # クリップボードリストを起動するキーを指定する
 fc.clipboardList_key = "A-y"

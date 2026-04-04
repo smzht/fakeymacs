@@ -187,10 +187,10 @@ fakeymacs.keymap_vscode = keymap_vscode
 def define_key_v(keys, command, skip_check=True):
     if skip_check:
         # 設定をスキップするキーの処理を行う
-        if "keymap_vscode" in fc.skip_settings_key:
-            for skey in fc.skip_settings_key["keymap_vscode"]:
+        if "keymap_vscode" in fc.skip_definition_key:
+            for skey in fc.skip_definition_key["keymap_vscode"]:
                 if fnmatch.fnmatch(keys, skey):
-                    print(f"skip settings key : [keymap_vscode] {keys}")
+                    print(f"skip key definition : [keymap_vscode] {keys}")
                     return
 
     define_key(keymap_vscode, keys, command, False)
