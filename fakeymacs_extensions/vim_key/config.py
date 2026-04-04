@@ -162,10 +162,10 @@ def is_text_mode2():
 def define_key_v(keys, command, skip_check=True):
     if skip_check:
         # 設定をスキップするキーの処理を行う
-        if "keymap_vim" in fc.skip_definition_key:
-            for skey in fc.skip_definition_key["keymap_vim"]:
+        if "keymap_vim" in fc.skip_mapping_key:
+            for skey in fc.skip_mapping_key["keymap_vim"]:
                 if fnmatch.fnmatch(keys, skey):
-                    print(f"skip key definition : [keymap_vim] {keys}")
+                    print(f"skip key mapping : [keymap_vim] {keys}")
                     return
 
     define_key(keymap_vim, keys, command)

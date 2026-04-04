@@ -96,7 +96,7 @@ fc.ime_target          += []
 #   利用することができます。ワイルドカード文字をエスケープしたい場合は、[] で括ってください。）
 # （ここで指定したキーに新たに別のキー設定をしたいときには、「-2」が付くセクション内で define_key2
 #   関数を利用して定義してください）
-fc.skip_definition_key  = {"keymap_base"      : ["W-g", "A-Tab", "Space"], # ベース Keymap
+fc.skip_mapping_key     = {"keymap_base"      : ["W-g", "A-Tab", "Space"], # ベース Keymap
                            "keymap_global"    : [], # グローバル Keymap
                            "keymap_emacs"     : [], # Emacs キーバインド対象アプリ用 Keymap
                            "keymap_vscode"    : [], # Emacs キーバインド VSCode 拡張用 Keymap

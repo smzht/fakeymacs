@@ -298,7 +298,7 @@ def configure(keymap):
     #   のような指定の他に、"M-f" や "Ctl-x d" などの指定も可能です。"M-g*" のようにワイルドカードも
     #   利用することができます。ワイルドカード文字をエスケープしたい場合は、[] で括ってください。）
     # （ここで指定したキーに新たに別のキー設定をしたいときには、define_key2 関数を利用してください）
-    fc.skip_definition_key  = {"keymap_base"      : ["W-g", "A-Tab", "Space"], # ベース Keymap
+    fc.skip_mapping_key     = {"keymap_base"      : ["W-g", "A-Tab", "Space"], # ベース Keymap
                                "keymap_global"    : [], # グローバル Keymap
                                "keymap_emacs"     : [], # Emacs キーバインド対象アプリ用 Keymap
                                "keymap_ime"       : [], # IME 切り替え専用アプリ用 Keymap
@@ -602,7 +602,7 @@ def configure(keymap):
 
     # 変数名を変更したことによる誤動作回避の対策
     if hasattr(fc, "skip_settings_key"):
-        fc.skip_definition_key = fc.skip_settings_key
+        fc.skip_mapping_key = fc.skip_settings_key
 
     if hasattr(fc, "emacs_exclution_key"):
         fc.emacs_excluded_key = fc.emacs_exclution_key
@@ -2019,12 +2019,12 @@ def configure(keymap):
 
         if skip_check:
             # 設定をスキップするキーの処理を行う
-            for keymap_name in fc.skip_definition_key:
+            for keymap_name in fc.skip_mapping_key:
                 if (keymap_name in locals() and
                     window_keymap is locals()[keymap_name]):
-                    for skey in fc.skip_definition_key[keymap_name]:
+                    for skey in fc.skip_mapping_key[keymap_name]:
                         if fnmatch.fnmatch(keys, skey):
-                            print(f"skip key definition : [{keymap_name}] {keys}")
+                            print(f"skip key mapping : [{keymap_name}] {keys}")
                             return
                     break
 
