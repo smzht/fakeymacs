@@ -101,6 +101,7 @@ multi_character_command_list = list(map(specialCharToKeyStr, ["g",
                                                               "f", "S-f", "t", "S-t",
                                                               "m", "'", "`",
                                                               '"',
+                                                              "=", "z", "Z", "C-w",
                                                               ]))
 
 ## 共通関数
