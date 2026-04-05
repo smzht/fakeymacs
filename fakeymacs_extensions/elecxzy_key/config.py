@@ -60,10 +60,10 @@ for vkey in vkeys():
 
 ## Esc キーの設定
 if fc.use_esc_as_meta:
-    define_key_e("Esc Esc", self_insert_command("Esc","Esc"))
+    define_key_e("Esc Esc", self_insert_command("Esc"))
 
 if fc.use_ctrl_openbracket_as_meta:
-    define_key_e("C-[ C-[", self_insert_command("Esc","Esc"))
+    define_key_e("C-[ C-[", self_insert_command("Esc"))
 else:
     define_key_e("C-[", self_insert_command("Esc"))
 
