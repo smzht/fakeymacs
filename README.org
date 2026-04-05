@@ -405,6 +405,10 @@ Vim と Emacs のハイブリッドのようなエディタの操作感となり
 Vim のエキスパートの方には不要な拡張機能かもしれませんが、Emacsキーバインドユーザが環境条件により
 Vim を使う必要がでた場合に、有用な拡張機能になるのではないかと思います。
 
+なお、Vim のキーバインドについては、次の Vim Cheat Sheet を参照してください。
+
+- https://gihyo.jp/assets/files/magazine/SD/2015/201510/download/Furoku_CheatSheet_Vim.pd
+
 ** Midnight Commander の対応について
 
 Midnight Commander は、Linux、Windows どちらでも動くテキストベースのファイルマネージャ
