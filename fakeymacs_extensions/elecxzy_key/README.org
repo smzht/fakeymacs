@@ -4,10 +4,10 @@
 
 ** ■ elecxzy 用のキーの設定を行う
 
-elecxzyr 用のキーの設定を行う拡張機能です。
+elecxzy 用のキーの設定を行う拡張機能です。
 
 fc.use_esc_as_meta 変数や fc.use_ctrl_openbracket_as_meta 変数が True の場合に、Esc または C-[
-キーが Meta キーとして機能するようになります。
+キーが Meta キーとして機能するようになります。Esc を発行したい場合は、二回押下してください。
 
 *** コンフィグレーションパラメータ
 
