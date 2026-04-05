@@ -76,10 +76,10 @@ for vkey in vkeys():
 
 ## Esc キーの設定
 if fc.use_esc_as_meta:
-    define_key_m(f"Esc Esc", self_insert_command("Esc"))
+    define_key_m("Esc Esc", self_insert_command("Esc"))
 
 if fc.use_ctrl_openbracket_as_meta:
-    define_key_m(f"C-[ C-[", self_insert_command("Esc"))
+    define_key_m("C-[ C-[", self_insert_command("Esc"))
 
 ## 「カーソル移動」のキー設定
 define_key_m("M-<", beginning_of_buffer)
