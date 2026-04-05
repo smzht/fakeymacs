@@ -65,11 +65,11 @@ IME のショートカットキーが利用できるようになります。
 
 ※ keymap_fresh レイヤーは、fresh_key Extension を有効にしたときに機能するレイヤーです。
 
+※ keymap_vim レイヤーは、vim_key Extension を有効にしたときに機能するレイヤーです。
+
 ※ keymap_mc レイヤーは、mc_key Extension を有効にしたときに機能するレイヤーです。
 
 ※ keymap_yazi レイヤーは、yazi_key Extension を有効にしたときに機能するレイヤーです。
-
-※ keymap_vim レイヤーは、vim_key Extension を有効にしたときに機能するレイヤーです。
 
 ※ keymap_ei レイヤーは、fc.use_emacs_ime_mode 変数が True の時に機能するレイヤーです。
 

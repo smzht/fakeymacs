@@ -101,13 +101,13 @@
           <mxGeometry height="60" width="180" x="-470" y="560" as="geometry" />
         </mxCell>
         <mxCell id="mWPYtydvubT1nRCa9uvk-5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=4;fillColor=#fff2cc;strokeColor=#000000;direction=west;container=0;verticalAlign=middle;flipV=0;rotation=-90;" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;keymap_mc&lt;/font&gt;" vertex="1">
-          <mxGeometry height="60" width="240" x="-380" y="590" as="geometry" />
-        </mxCell>
-        <mxCell id="mWPYtydvubT1nRCa9uvk-6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=4;fillColor=#fff2cc;strokeColor=#000000;direction=west;container=0;verticalAlign=middle;flipV=0;rotation=-90;" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;keymap_yazi&lt;/font&gt;" vertex="1">
           <mxGeometry height="60" width="240" x="-320" y="590" as="geometry" />
         </mxCell>
-        <mxCell id="mWPYtydvubT1nRCa9uvk-7" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=4;fillColor=#fff2cc;strokeColor=#000000;direction=west;container=0;verticalAlign=middle;flipV=0;rotation=-90;" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;keymap_vim&lt;/font&gt;" vertex="1">
+        <mxCell id="mWPYtydvubT1nRCa9uvk-6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=4;fillColor=#fff2cc;strokeColor=#000000;direction=west;container=0;verticalAlign=middle;flipV=0;rotation=-90;" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;keymap_yazi&lt;/font&gt;" vertex="1">
           <mxGeometry height="60" width="240" x="-260" y="590" as="geometry" />
+        </mxCell>
+        <mxCell id="mWPYtydvubT1nRCa9uvk-7" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=4;fillColor=#fff2cc;strokeColor=#000000;direction=west;container=0;verticalAlign=middle;flipV=0;rotation=-90;" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;keymap_vim&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="240" x="-380" y="590" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
