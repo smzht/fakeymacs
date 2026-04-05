@@ -100,6 +100,7 @@ multi_character_command_list = list(map(specialCharToKeyStr, ["g",
                                                               "q", "@",
                                                               "f", "S-f", "t", "S-t",
                                                               "m", "'", "`",
+                                                              "[", "]",
                                                               '"',
                                                               "=", "z", "Z", "C-w",
                                                               ]))
