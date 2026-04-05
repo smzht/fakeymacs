@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20260404_01"
+fakeymacs_version = "20260405_01"
 
 import time
 import os
@@ -262,6 +262,7 @@ def configure(keymap):
                                "mc.exe",                 # Midnight Commander
                                "*vim.exe",               # Vim 系エディタ
                                "neovide.exe",            # Neovide
+                               "elecxzy.exe",            # elecxzy
                                [None, None, "さくらのクラウドシェル*"],
                                ]
 
@@ -290,6 +291,7 @@ def configure(keymap):
                                "mc.exe",                 # Midnight Commander
                                "*vim.exe",               # Vim 系エディタ
                                "neovide.exe",            # Neovide
+                               "elecxzy.exe",            # elecxzy
                                [None, None, "さくらのクラウドシェル*"],
                                ]
 
