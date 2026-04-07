@@ -92,18 +92,31 @@ fakeymacs_vim.single_line = None
 fakeymacs_vim.vertical_movement = False
 fakeymacs_vim.command_line_mode = False
 fakeymacs_vim.insert_normal_mode = False
-fakeymacs_vim.multi_character_command = False
+fakeymacs_vim.is_multi_character_command = False
+fakeymacs_vim.multi_character_command = None
 
-multi_character_command_list = list(map(specialCharToKeyStr, ["g",
-                                                              "d", "y",
-                                                              "c", "r",
-                                                              "q", "@",
-                                                              "f", "S-f", "t", "S-t",
-                                                              "m", "'", "`",
-                                                              "[", "]",
-                                                              '"',
-                                                              "=", "z", "Z", "C-w",
-                                                              ]))
+# ノーマルモード、インサートノーマルモードで一回目に受け付ける multi character command
+multi_character_command_list1_1 = list(map(specialCharToKeyStr, ["g", "d", "c", "y", "r", "q", "@",
+                                                                 "f", "S-f", "t", "S-t",
+                                                                 "m", "'", "`",
+                                                                 "<", ">", "[", "]",
+                                                                 '"', "=", "z", "Z", "C-w"]))
+
+# ビジュアルモードで受け付ける multi character command
+multi_character_command_list1_2 = list(map(specialCharToKeyStr, ["g", "r", "q", "@",
+                                                                 "f", "S-f", "t", "S-t",
+                                                                 "m", "'", "`",
+                                                                 "[", "]",
+                                                                 '"', "z", "Z", "C-w"]))
+
+# ノーマルモード、インサートノーマルモードで二回目に受け付ける multi character command
+# （リストの１項目目は前回受け付けたコマンド、２項目目は今回受け付けるコマンド）
+multi_character_command_list2_1 = [list(map(specialCharToKeyStr, ["g"])),
+                                   list(map(specialCharToKeyStr, ["u", "S-u", "~", "w", "r", "q"]))]
+
+multi_character_command_list2_2 = [list(map(specialCharToKeyStr, ["d", "c", "y", ">", "<", "=",
+                                                                  "u", "S-u", "~", "w"])),
+                                   list(map(specialCharToKeyStr, ["i", "a"]))]
 
 ## 共通関数
 def vim_reset():
@@ -115,16 +128,32 @@ def vim_reset():
 
 def check_multi_character_command(*key_list):
     for key in key_list:
-        if key in multi_character_command_list:
-            if fakeymacs_vim.multi_character_command:
-                fakeymacs_vim.multi_character_command = False
-            else:
-                fakeymacs_vim.multi_character_command = True
+        key = specialCharToKeyStr(key)
+        is_multi_character_command = False
+
+        if fakeymacs_vim.is_multi_character_command == False:
+            if not is_text_mode1():
+                if fakeymacs_vim.visual_mode:
+                    if key in multi_character_command_list1_2:
+                        is_multi_character_command = True
+                else:
+                    if key in multi_character_command_list1_1:
+                        is_multi_character_command = True
         else:
-            fakeymacs_vim.multi_character_command = False
+            if not fakeymacs_vim.visual_mode:
+                if (fakeymacs_vim.multi_character_command in multi_character_command_list2_1[0] and
+                    key                                   in multi_character_command_list2_1[1]):
+                    is_multi_character_command = True
+
+                elif (fakeymacs_vim.multi_character_command in multi_character_command_list2_2[0] and
+                      key                                   in multi_character_command_list2_2[1]):
+                    is_multi_character_command = True
+
+        fakeymacs_vim.is_multi_character_command = is_multi_character_command
+        fakeymacs_vim.multi_character_command = key
 
 def is_multi_character_command():
-    return fakeymacs_vim.multi_character_command
+    return fakeymacs_vim.is_multi_character_command
 
 def is_command_line():
     return (fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode)
