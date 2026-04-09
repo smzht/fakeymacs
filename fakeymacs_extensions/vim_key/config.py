@@ -153,6 +153,9 @@ def check_multi_character_command(*key_list):
         fakeymacs_vim.is_multi_character_command = is_multi_character_command
         fakeymacs_vim.multi_character_command = key
 
+        if fakeymacs_vim.is_multi_character_command == False:
+            fakeymacs_vim.insert_normal_mode = False
+
 def is_multi_character_command():
     return fakeymacs_vim.is_multi_character_command
 
@@ -224,7 +227,6 @@ def self_insert_command_v3(*key_list, usjis_conv=True):
         # ノーマルモードで日本語を入力した際は、インサートモードにする
         if getImeStatus():
             if is_normal_mode() or is_insert_normal_mode():
-                fakeymacs_vim.insert_normal_mode = False
                 fakeymacs_vim.insert_mode = True
                 adjust_ime_status(self_insert_command_v1("i"))()
 
@@ -247,15 +249,9 @@ def adjust_ime_status(command):
                 setImeStatus(1)
     return _func
 
-def execute_command(command):
-    def _func():
-        command()
-        fakeymacs_vim.insert_normal_mode = False
-    return _func
-
 def execute_vm_command(command):
     def _func():
-        execute_command(command)()
+        command()
         fakeymacs_vim.vertical_movement = True
     return _func
 
@@ -275,7 +271,6 @@ def execute_nm_command(nm_command, esc=False):
         adjust_ime_status(nm_command)()
 
         fakeymacs_vim.visual_mode = False
-        fakeymacs_vim.insert_normal_mode = False
 
         return True
     return _func
@@ -307,7 +302,6 @@ def execute_ex_command(ex_command, enter=True, esc=False):
             fakeymacs_vim.command_line_mode = True
 
         fakeymacs_vim.visual_mode = False
-        fakeymacs_vim.insert_normal_mode = False
 
         return True
     return _func
@@ -321,9 +315,9 @@ def enter_insert_mode(key):
             repeat(self_insert_command_v3(key))()
         else:
             if is_multi_character_command():
-                execute_command(self_insert_command_v1(key))()
+                self_insert_command_v1(key)()
             else:
-                execute_command(self_insert_command_v1(key))()
+                self_insert_command_v1(key)()
 
                 if is_visual_mode():
                     if key in ["S-i", "S-a", "S-r", "s", "S-s", "c", "S-c"]:
@@ -342,7 +336,7 @@ def enter_visual_mode(key):
             repeat(self_insert_command_v3(key))()
         else:
             if is_multi_character_command():
-                execute_command(self_insert_command_v1(key))()
+                self_insert_command_v1(key)()
             else:
                 set_mark_command(key)()
     return _func
@@ -364,10 +358,9 @@ def enter_command_line_mode(key):
         elif getImeStatus():
             repeat(self_insert_command_v3(key))()
         else:
-            if is_multi_character_command():
-                execute_command(self_insert_command_v1(key))()
-            else:
-                execute_command(self_insert_command_v1(key))()
+            self_insert_command_v1(key)()
+
+            if not is_multi_character_command():
                 setImeStatus(0)
                 fakeymacs_vim.command_line_mode = True
     return _func
@@ -380,10 +373,9 @@ def enter_search_mode(key):
         elif getImeStatus():
             repeat(self_insert_command_v3(key))()
         else:
-            if is_multi_character_command():
-                execute_command(self_insert_command_v1(key))()
-            else:
-                execute_command(self_insert_command_v1(key))()
+            self_insert_command_v1(key)()
+
+            if not is_multi_character_command():
                 setImeStatus(0)
                 fakeymacs.is_searching = False
     return _func
@@ -400,16 +392,16 @@ def write_file():
 
 ## カーソル移動
 def backward_char():
-    execute_command(self_insert_command_v1("Left"))()
+    self_insert_command_v1("Left")()
 
 def forward_char():
-    execute_command(self_insert_command_v1("Right"))()
+    self_insert_command_v1("Right")()
 
 def backward_word():
-    execute_command(self_insert_command_v1("C-Left"))()
+    self_insert_command_v1("C-Left")()
 
 def forward_word():
-    execute_command(self_insert_command_v1("C-Right"))()
+    self_insert_command_v1("C-Right")()
 
 def previous_line():
     execute_vm_command(self_insert_command_v1("Up"))()
@@ -418,13 +410,13 @@ def next_line():
     execute_vm_command(self_insert_command_v1("Down"))()
 
 def move_beginning_of_line():
-    execute_command(self_insert_command_v1("Home"))()
+    self_insert_command_v1("Home")()
 
 def move_end_of_line():
     if is_text_mode2():
-        execute_command(self_insert_command_v1("End"))()
+        self_insert_command_v1("End")()
     else:
-        execute_command(self_insert_command_v1("End", "Right"))()
+        self_insert_command_v1("End", "Right")()
 
 def beginning_of_buffer():
     execute_vm_command(self_insert_command_v1("Home", "C-Home"))()
@@ -436,10 +428,10 @@ def goto_line():
     execute_ex_command("", enter=False)()
 
 def scroll_up():
-    execute_command(self_insert_command_v1("PageUp"))()
+    self_insert_command_v1("PageUp")()
 
 def scroll_down():
-    execute_command(self_insert_command_v1("PageDown"))()
+    self_insert_command_v1("PageDown")()
 
 def recenter():
     execute_nm_command(self_insert_command_v1("z", "z"))()
@@ -601,16 +593,14 @@ def list_tabs():
 def isearch(direction):
     def _func():
         if fakeymacs.is_searching is None:
-            if execute_nm_command(
-                    self_insert_command_v1({"backward":"?", "forward":"/"}[direction]))():
+            if execute_nm_command(self_insert_command_v1({"backward":"?", "forward":"/"}[direction]))():
                 fakeymacs.is_searching = False
 
         elif fakeymacs.is_searching == False:
             self_insert_command_v1({"backward":"C-t", "forward":"C-g"}[direction])()
 
         elif fakeymacs.is_searching == True:
-            execute_nm_command(
-                self_insert_command_v1({"backward":"S-n", "forward":"n"}[direction]))()
+            execute_nm_command(self_insert_command_v1({"backward":"S-n", "forward":"n"}[direction]))()
     return _func
 
 def isearch_backward():
@@ -618,6 +608,26 @@ def isearch_backward():
 
 def isearch_forward():
     isearch("forward")()
+
+def isearch_repeat(direction):
+    def _func():
+        if is_text_mode1():
+            repeat(self_insert_command_v2({"backward":"S-n", "forward":"n"}[direction]))()
+
+        elif getImeStatus():
+            repeat(self_insert_command_v3({"backward":"S-n", "forward":"n"}[direction]))()
+        else:
+            self_insert_command_v1({"backward":"S-n", "forward":"n"}[direction])()
+
+            if not is_multi_character_command():
+                fakeymacs.is_searching = True
+    return _func
+
+def isearch_repeat_backward():
+    isearch_repeat("backward")()
+
+def isearch_repeat_forward():
+    isearch_repeat("forward")()
 
 ## キーボードマクロ
 def keyboard_macro_start():
@@ -657,7 +667,6 @@ def escape(keep_in_im=False):
         fakeymacs_vim.visual_mode = False
     else:
         self_insert_command_v1("Esc")()
-        fakeymacs_vim.insert_normal_mode = False
 
     # print("<escape 実行後> " + "-" * 80)
     # print("fakeymacs_vim.insert_mode        : " + str(fakeymacs_vim.insert_mode))
@@ -722,38 +731,37 @@ for n in range(10):
     if fc.use_ctrl_digit_key_for_digit_argument:
         define_key_v(f"C-{key}", digit2(n))
     define_key_v(f"M-{key}", digit2(n))
-    define_key_v(f"S-{key}",
-                 reset_undo(reset_counter(repeat(execute_command(self_insert_command_v3(f"S-{key}"))))))
+    define_key_v(f"S-{key}", reset_undo(reset_counter(repeat(self_insert_command_v3(f"S-{key}")))))
 
 ## アルファベットキーの設定
 for vkey in range(VK_A, VK_Z + 1):
     key = vkToStr(vkey)
     for mod in ["", "S-"]:
         mkey = mod + key
-        define_key_v(mkey, reset_undo(reset_counter(repeat(execute_command(self_insert_command_v3(mkey))))))
+        define_key_v(mkey, reset_undo(reset_counter(repeat(self_insert_command_v3(mkey)))))
 
 ## 特殊文字キーの設定
-define_key_v("Space"  , reset_undo(reset_counter(repeat(execute_command(self_insert_command_v1("Space"))))))
-define_key_v("S-Space", reset_undo(reset_counter(repeat(execute_command(self_insert_command_v1("S-Space"))))))
+define_key_v("Space"  , reset_undo(reset_counter(repeat(self_insert_command_v1("Space")))))
+define_key_v("S-Space", reset_undo(reset_counter(repeat(self_insert_command_v1("S-Space")))))
 
 for vkey in [VK_OEM_MINUS, VK_OEM_PLUS, VK_OEM_COMMA, VK_OEM_PERIOD,
              VK_OEM_1, VK_OEM_2, VK_OEM_3, VK_OEM_4, VK_OEM_5, VK_OEM_6, VK_OEM_7, VK_OEM_102]:
     key = vkToStr(vkey)
     for mod in ["", "S-"]:
         mkey = mod + key
-        define_key_v(mkey, reset_undo(reset_counter(repeat(execute_command(self_insert_command_v3(mkey))))))
+        define_key_v(mkey, reset_undo(reset_counter(repeat(self_insert_command_v3(mkey)))))
 
 ## 10key の特殊文字キーの設定
 for vkey in [VK_MULTIPLY, VK_ADD, VK_SUBTRACT, VK_DECIMAL, VK_DIVIDE]:
     key = vkToStr(vkey)
-    define_key_v(key, reset_undo(reset_counter(repeat(execute_command(self_insert_command_v3(key))))))
+    define_key_v(key, reset_undo(reset_counter(repeat(self_insert_command_v3(key)))))
 
 ## quoted-insert キーの設定
 for vkey in vkeys():
     key = vkToStr(vkey)
     for mod1, mod2, mod3, mod4 in itertools.product(["", "W-"], ["", "A-"], ["", "C-"], ["", "S-"]):
         mkey = mod1 + mod2 + mod3 + mod4 + key
-        define_key_v(f"C-q {mkey}", execute_command(self_insert_command_v1(mkey)))
+        define_key_v(f"C-q {mkey}", self_insert_command_v1(mkey))
 
 ## Esc キーの設定
 if fc.use_esc_as_meta:
@@ -880,6 +888,8 @@ define_key_v("C-A-l", reset_undo(reset_counter(list_tabs)))
 ## 「文字列検索」のキー設定
 define_key_v("C-r", reset_undo(reset_counter(isearch_backward)))
 define_key_v("C-s", reset_undo(reset_counter(isearch_forward)))
+define_key_v("S-n", reset_undo(reset_counter(isearch_repeat_backward)))
+define_key_v("n",   reset_undo(reset_counter(isearch_repeat_forward)))
 
 ## 「キーボードマクロ」のキー設定
 define_key_v("Ctl-x (", keyboard_macro_start)
