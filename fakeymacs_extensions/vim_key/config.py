@@ -112,11 +112,11 @@ multi_character_command_list1_2 = list(map(specialCharToKeyStr, ["g", "r", "q", 
 # ノーマルモード、インサートノーマルモードで二回目に受け付ける multi character command
 # （リストの１項目目は前回受け付けたコマンド、２項目目は今回受け付けるコマンド）
 multi_character_command_list2_1 = [list(map(specialCharToKeyStr, ["g"])),
-                                   list(map(specialCharToKeyStr, ["u", "S-u", "~", "w", "r", "q",
+                                   list(map(specialCharToKeyStr, ["u", "S-u", "~", "w", "r", "q", "@",
                                                                   "'", "`"]))]
 
 multi_character_command_list2_2 = [list(map(specialCharToKeyStr, ["d", "c", "y", "<", ">", "=",
-                                                                  "u", "S-u", "~", "w"])),
+                                                                  "u", "S-u", "~", "w", "q", "@"])),
                                    list(map(specialCharToKeyStr, ["g", "i", "a"]))]
 
 ## 共通関数
