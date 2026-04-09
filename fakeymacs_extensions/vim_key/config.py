@@ -116,7 +116,7 @@ multi_character_command_list2_1 = [list(map(specialCharToKeyStr, ["g"])),
 
 multi_character_command_list2_2 = [list(map(specialCharToKeyStr, ["d", "c", "y", "<", ">", "=",
                                                                   "u", "S-u", "~", "w"])),
-                                   list(map(specialCharToKeyStr, ["i", "a"]))]
+                                   list(map(specialCharToKeyStr, ["g", "i", "a"]))]
 
 ## 共通関数
 def vim_reset():
