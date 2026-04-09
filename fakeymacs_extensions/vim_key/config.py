@@ -107,7 +107,8 @@ multi_character_command_list1_2 = list(map(specialCharToKeyStr, ["g", "r", "q", 
                                                                  "f", "S-f", "t", "S-t",
                                                                  "m", "'", "`",
                                                                  "[", "]",
-                                                                 '"', "z", "Z", "C-w"]))
+                                                                 '"', "z", "Z", "C-w",
+                                                                 "i", "a"]))
 
 # ノーマルモード、インサートノーマルモードで二回目に受け付ける multi character command
 # （リストの１項目目は前回受け付けたコマンド、２項目目は今回受け付けるコマンド）
