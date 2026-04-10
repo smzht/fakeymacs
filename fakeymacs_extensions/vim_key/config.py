@@ -444,6 +444,11 @@ def delete_backward_char():
 
     elif is_visual_mode():
         execute_nm_command(self_insert_command_v1("x"))()
+
+        if fakeymacs_vim.vertical_movement:
+            fakeymacs_vim.single_line = False
+        else:
+            fakeymacs_vim.single_line = True
     else:
         execute_nm_command(self_insert_command_v1("S-x"))()
 
@@ -453,6 +458,11 @@ def delete_char():
 
     elif is_visual_mode():
         execute_nm_command(self_insert_command_v1("x"))()
+
+        if fakeymacs_vim.vertical_movement:
+            fakeymacs_vim.single_line = False
+        else:
+            fakeymacs_vim.single_line = True
     else:
         # 改行も削除できるようにビジュアルモードに移行してから削除している
         execute_nm_command(self_insert_command_v1("v", "x"))()
@@ -471,12 +481,12 @@ def kill_line():
 
 def kill_region():
     if is_visual_mode():
+        execute_nm_command(self_insert_command_v1("x"))()
+
         if fakeymacs_vim.vertical_movement:
             fakeymacs_vim.single_line = False
         else:
             fakeymacs_vim.single_line = True
-
-    execute_nm_command(self_insert_command_v1("x"))()
 
 def kill_ring_save():
     if is_visual_mode():
