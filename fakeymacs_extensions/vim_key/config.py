@@ -359,9 +359,10 @@ def enter_command_line_mode(key):
         elif getImeStatus():
             repeat(self_insert_command_v3(key))()
         else:
-            self_insert_command_v1(key)()
-
-            if not is_multi_character_command():
+            if is_multi_character_command():
+                self_insert_command_v1(key)()
+            else:
+                self_insert_command_v1(key)()
                 setImeStatus(0)
                 fakeymacs_vim.command_line_mode = True
     return _func
@@ -374,9 +375,10 @@ def enter_search_mode(key):
         elif getImeStatus():
             repeat(self_insert_command_v3(key))()
         else:
-            self_insert_command_v1(key)()
-
-            if not is_multi_character_command():
+            if is_multi_character_command():
+                self_insert_command_v1(key)()
+            else:
+                self_insert_command_v1(key)()
                 setImeStatus(0)
                 fakeymacs.is_searching = False
     return _func
@@ -628,9 +630,10 @@ def isearch_repeat(direction):
         elif getImeStatus():
             repeat(self_insert_command_v3({"backward":"S-n", "forward":"n"}[direction]))()
         else:
-            self_insert_command_v1({"backward":"S-n", "forward":"n"}[direction])()
-
-            if not is_multi_character_command():
+            if is_multi_character_command():
+                self_insert_command_v1({"backward":"S-n", "forward":"n"}[direction])()
+            else:
+                self_insert_command_v1({"backward":"S-n", "forward":"n"}[direction])()
                 fakeymacs.is_searching = True
     return _func
 
