@@ -23,7 +23,7 @@ if regex == "": regex = "$." # 絶対にマッチしない正規表現
 micro_target1 = re.compile(regex)
 micro_target2 = [app for app in fc.micro_target if type(app) is list]
 
-def is_micro(window):
+def is_micro_target(window):
     global micro_status
 
     if window is not fakeymacs.last_window or fakeymacs.force_update:
@@ -37,7 +37,7 @@ def is_micro(window):
     return micro_status
 
 if fc.use_emacs_ime_mode:
-    keymap_micro = keymap.defineWindowKeymap(check_func=lambda wnd: (is_micro(wnd) and
+    keymap_micro = keymap.defineWindowKeymap(check_func=lambda wnd: (is_micro_target(wnd) and
                                                                      not is_emacs_ime_mode(wnd)))
 else:
     keymap_micro = keymap.defineWindowKeymap(check_func=is_micro_target)

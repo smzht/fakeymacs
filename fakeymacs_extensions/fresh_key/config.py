@@ -45,7 +45,7 @@ if regex == "": regex = "$." # 絶対にマッチしない正規表現
 fresh_target1 = re.compile(regex)
 fresh_target2 = [app for app in fc.fresh_target if type(app) is list]
 
-def is_fresh(window):
+def is_fresh_target(window):
     global fresh_status
 
     if window is not fakeymacs.last_window or fakeymacs.force_update:
@@ -59,7 +59,7 @@ def is_fresh(window):
     return fresh_status
 
 if fc.use_emacs_ime_mode:
-    keymap_fresh = keymap.defineWindowKeymap(check_func=lambda wnd: (is_fresh(wnd) and
+    keymap_fresh = keymap.defineWindowKeymap(check_func=lambda wnd: (is_fresh_target(wnd) and
                                                                      not is_emacs_ime_mode(wnd)))
 else:
     keymap_fresh = keymap.defineWindowKeymap(check_func=is_fresh_target)

@@ -22,7 +22,7 @@ if regex == "": regex = "$." # 絶対にマッチしない正規表現
 yazi_target1 = re.compile(regex)
 yazi_target2 = [app for app in fc.yazi_target if type(app) is list]
 
-def is_yazi(window):
+def is_yazi_target(window):
     global yazi_status
 
     if window is not fakeymacs.last_window or fakeymacs.force_update:
@@ -36,7 +36,7 @@ def is_yazi(window):
     return yazi_status
 
 if fc.use_emacs_ime_mode:
-    keymap_yazi = keymap.defineWindowKeymap(check_func=lambda wnd: (is_yazi(wnd) and
+    keymap_yazi = keymap.defineWindowKeymap(check_func=lambda wnd: (is_yazi_target(wnd) and
                                                                     not is_emacs_ime_mode(wnd)))
 else:
     keymap_yazi = keymap.defineWindowKeymap(check_func=is_yazi_target)

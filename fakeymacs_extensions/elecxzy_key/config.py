@@ -22,7 +22,7 @@ if regex == "": regex = "$." # 絶対にマッチしない正規表現
 elecxzy_target1 = re.compile(regex)
 elecxzy_target2 = [app for app in fc.elecxzy_target if type(app) is list]
 
-def is_elecxzy(window):
+def is_elecxzy_target(window):
     global mc_status
 
     if window is not fakeymacs.last_window or fakeymacs.force_update:
@@ -36,7 +36,7 @@ def is_elecxzy(window):
     return mc_status
 
 if fc.use_emacs_ime_mode:
-    keymap_elecxzy = keymap.defineWindowKeymap(check_func=lambda wnd: (is_elecxzy(wnd) and
+    keymap_elecxzy = keymap.defineWindowKeymap(check_func=lambda wnd: (is_elecxzy_target(wnd) and
                                                                   not is_emacs_ime_mode(wnd)))
 else:
     keymap_elecxzy = keymap.defineWindowKeymap(check_func=is_elecxzy_target)

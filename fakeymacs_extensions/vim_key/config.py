@@ -54,7 +54,7 @@ vim_target2 = [app for app in fc.vim_target if type(app) is list]
 vim_status = False
 vim_title = ""
 
-def is_vim(window):
+def is_vim_target(window):
     global vim_status, vim_title
 
     if window is not fakeymacs.last_window or fakeymacs.force_update:
@@ -79,7 +79,7 @@ def is_vim(window):
     return vim_status
 
 if fc.use_emacs_ime_mode:
-    keymap_vim = keymap.defineWindowKeymap(check_func=lambda wnd: (is_vim(wnd) and
+    keymap_vim = keymap.defineWindowKeymap(check_func=lambda wnd: (is_vim_target(wnd) and
                                                                    not is_emacs_ime_mode(wnd)))
 else:
     keymap_vim = keymap.defineWindowKeymap(check_func=is_vim_target)
