@@ -93,7 +93,7 @@ fakeymacs_vim.vertical_movement = False
 fakeymacs_vim.command_line_mode = False
 fakeymacs_vim.insert_normal_mode = False
 fakeymacs_vim.is_multi_character_command = False
-fakeymacs_vim.multi_character_command = None
+fakeymacs_vim.last_key = None
 
 # ノーマルモード、インサートノーマルモードで一回目に受け付ける multi character command
 multi_character_command_list1_1 = list(map(specialCharToKeyStr, ["g", "d", "c", "y", "r", "q", "@",
@@ -143,16 +143,16 @@ def check_multi_character_command(*key_list):
                         is_multi_character_command = True
         else:
             if not fakeymacs_vim.visual_mode:
-                if (fakeymacs_vim.multi_character_command in multi_character_command_list2_1[0] and
-                    key                                   in multi_character_command_list2_1[1]):
+                if (fakeymacs_vim.last_key in multi_character_command_list2_1[0] and
+                    key                    in multi_character_command_list2_1[1]):
                     is_multi_character_command = True
 
-                elif (fakeymacs_vim.multi_character_command in multi_character_command_list2_2[0] and
-                      key                                   in multi_character_command_list2_2[1]):
+                elif (fakeymacs_vim.last_key in multi_character_command_list2_2[0] and
+                      key                    in multi_character_command_list2_2[1]):
                     is_multi_character_command = True
 
         fakeymacs_vim.is_multi_character_command = is_multi_character_command
-        fakeymacs_vim.multi_character_command = key
+        fakeymacs_vim.last_key = key
 
         if fakeymacs_vim.is_multi_character_command == False:
             fakeymacs_vim.insert_normal_mode = False
@@ -316,16 +316,17 @@ def enter_insert_mode(key):
             repeat(self_insert_command_v3(key))()
         else:
             if is_multi_character_command():
-                self_insert_command_v1(key)()
+                if fakeymacs_vim.last_key == "g" and key == "i":
+                    fakeymacs_vim.insert_mode = True
             else:
-                self_insert_command_v1(key)()
-
                 if is_visual_mode():
                     if key in ["S-i", "S-a", "S-r", "s", "S-s", "c", "S-c"]:
                         fakeymacs_vim.visual_mode = False
                         fakeymacs_vim.insert_mode = True
                 else:
                     fakeymacs_vim.insert_mode = True
+
+            self_insert_command_v1(key)()
     return _func
 
 def enter_visual_mode(key):
@@ -337,6 +338,10 @@ def enter_visual_mode(key):
             repeat(self_insert_command_v3(key))()
         else:
             if is_multi_character_command():
+                if fakeymacs_vim.last_key == "g" and key == "v":
+                    fakeymacs_vim.visual_mode = True
+                    fakeymacs_vim.visual_key = key
+
                 self_insert_command_v1(key)()
             else:
                 set_mark_command(key)()
@@ -359,12 +364,10 @@ def enter_command_line_mode(key):
         elif getImeStatus():
             repeat(self_insert_command_v3(key))()
         else:
-            if is_multi_character_command():
-                self_insert_command_v1(key)()
-            else:
-                self_insert_command_v1(key)()
-                setImeStatus(0)
+            if not is_multi_character_command():
                 fakeymacs_vim.command_line_mode = True
+
+            self_insert_command_v1(key)()
     return _func
 
 def enter_search_mode(key):
@@ -375,12 +378,10 @@ def enter_search_mode(key):
         elif getImeStatus():
             repeat(self_insert_command_v3(key))()
         else:
-            if is_multi_character_command():
-                self_insert_command_v1(key)()
-            else:
-                self_insert_command_v1(key)()
-                setImeStatus(0)
+            if not is_multi_character_command():
                 fakeymacs.is_searching = False
+
+            self_insert_command_v1(key)()
     return _func
 
 ## ファイル操作
