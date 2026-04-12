@@ -325,18 +325,13 @@ def enter_insert_mode(key):
             else:
                 if is_visual_mode():
                     if key in ["S-i", "S-a"]:
-                        fakeymacs_vim.insert_mode = True
                         fakeymacs_vim.visual_mode = False
                         fakeymacs_vim.single_line = True
+                        fakeymacs_vim.insert_mode = True
 
                     elif key in ["S-r", "s", "S-s", "c", "S-c"]:
+                        confirm_region()
                         fakeymacs_vim.insert_mode = True
-                        fakeymacs_vim.visual_mode = False
-
-                        if fakeymacs_vim.vertical_movement:
-                            fakeymacs_vim.single_line = False
-                        else:
-                            fakeymacs_vim.single_line = True
                 else:
                     fakeymacs_vim.insert_mode = True
 
@@ -538,11 +533,7 @@ def kill_region():
 def kill_ring_save():
     if is_visual_mode():
         execute_nm_command(self_insert_command_v1("y"))()
-
-        if fakeymacs_vim.vertical_movement:
-            fakeymacs_vim.single_line = False
-        else:
-            fakeymacs_vim.single_line = True
+        confirm_region()
 
 def yank():
     if execute_nm_command(self_insert_command_v1("S-p"))():
