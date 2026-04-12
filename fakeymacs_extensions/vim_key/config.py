@@ -843,7 +843,7 @@ for key in ["/", "?"]:
 for key in ["d", "x", "y"]:
     define_key_v(key, reset_undo(reset_counter(exit_visual_mode1(key))))
 
-for key in ["<", ">", "=", "u", "S-u", "~", "q", "w"]:
+for key in ["<", ">", "=", "u", "S-u", "~", "q", "w", "S-j"]:
     define_key_v(key, reset_undo(reset_counter(exit_visual_mode2(key))))
 
 ## universal-argument キーの設定
