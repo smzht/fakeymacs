@@ -406,7 +406,7 @@ def exit_visual_mode1(key):
                 if is_visual_mode():
                     confirm_region()
 
-            self_insert_command_v1(key)()
+            repeat(self_insert_command_v1(key))()
     return _func
 
 def exit_visual_mode2(key):
