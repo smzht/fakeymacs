@@ -113,11 +113,11 @@ multi_character_command_list1_2 = list(map(specialCharToKeyStr, ["g", "r", "q", 
 # ノーマルモード、インサートノーマルモードで二回目に受け付ける multi character command
 # （リストの１項目目は前回受け付けたコマンド、２項目目は今回受け付けるコマンド）
 multi_character_command_list2_1 = [list(map(specialCharToKeyStr, ["g"])),
-                                   list(map(specialCharToKeyStr, ["u", "S-u", "~", "w", "r", "q", "@",
+                                   list(map(specialCharToKeyStr, ["u", "S-u", "~", "r", "q", "w", "@",
                                                                   "'", "`"]))]
 
 multi_character_command_list2_2 = [list(map(specialCharToKeyStr, ["d", "c", "y", "<", ">", "=",
-                                                                  "u", "S-u", "~", "w", "q", "@"])),
+                                                                  "u", "S-u", "~", "q", "w", "@"])),
                                    list(map(specialCharToKeyStr, ["g", "f", "S-f", "t", "S-t", "i", "a"]))]
 
 ## 共通関数
@@ -324,9 +324,19 @@ def enter_insert_mode(key):
                     fakeymacs_vim.insert_mode = True
             else:
                 if is_visual_mode():
-                    if key in ["S-i", "S-a", "S-r", "s", "S-s", "c", "S-c"]:
-                        fakeymacs_vim.visual_mode = False
+                    if key in ["S-i", "S-a"]:
                         fakeymacs_vim.insert_mode = True
+                        fakeymacs_vim.visual_mode = False
+                        fakeymacs_vim.single_line = True
+
+                    elif key in ["S-r", "s", "S-s", "c", "S-c"]:
+                        fakeymacs_vim.insert_mode = True
+                        fakeymacs_vim.visual_mode = False
+
+                        if fakeymacs_vim.vertical_movement:
+                            fakeymacs_vim.single_line = False
+                        else:
+                            fakeymacs_vim.single_line = True
                 else:
                     fakeymacs_vim.insert_mode = True
 
@@ -385,6 +395,39 @@ def enter_search_mode(key):
         else:
             if not is_multi_character_command():
                 fakeymacs.is_searching = False
+
+            self_insert_command_v1(key)()
+    return _func
+
+def exit_visual_mode1(key):
+    def _func():
+        if is_text_mode1():
+            repeat(self_insert_command_v2(key))()
+
+        elif getImeStatus():
+            repeat(self_insert_command_v3(key))()
+        else:
+            if not is_multi_character_command():
+                if is_visual_mode():
+                    confirm_region()
+
+            self_insert_command_v1(key)()
+    return _func
+
+def exit_visual_mode2(key):
+    def _func():
+        if is_text_mode1():
+            repeat(self_insert_command_v2(key))()
+
+        elif getImeStatus():
+            repeat(self_insert_command_v3(key))()
+        else:
+            if is_multi_character_command():
+                if fakeymacs_vim.last_key == "g" and key in ["q", "w"]:
+                    fakeymacs_vim.visual_mode = False
+            else:
+                if is_visual_mode():
+                    fakeymacs_vim.visual_mode = False
 
             self_insert_command_v1(key)()
     return _func
@@ -451,12 +494,8 @@ def delete_backward_char():
         self_insert_command_v1("Back")()
 
     elif is_visual_mode():
-        execute_nm_command(self_insert_command_v1("x"))()
-
-        if fakeymacs_vim.vertical_movement:
-            fakeymacs_vim.single_line = False
-        else:
-            fakeymacs_vim.single_line = True
+        self_insert_command_v1("Delete")()
+        confirm_region()
     else:
         execute_nm_command(self_insert_command_v1("S-x"))()
 
@@ -465,12 +504,8 @@ def delete_char():
         self_insert_command_v1("Delete")()
 
     elif is_visual_mode():
-        execute_nm_command(self_insert_command_v1("x"))()
-
-        if fakeymacs_vim.vertical_movement:
-            fakeymacs_vim.single_line = False
-        else:
-            fakeymacs_vim.single_line = True
+        self_insert_command_v1("Delete")()
+        confirm_region()
     else:
         # 改行も削除できるようにビジュアルモードに移行してから削除している
         execute_nm_command(self_insert_command_v1("v", "x"))()
@@ -487,14 +522,18 @@ def kill_line():
 
     execute_nm_command(self_insert_command_v1("v", "$", "Delete"))()
 
+def confirm_region():
+    fakeymacs_vim.visual_mode = False
+
+    if fakeymacs_vim.vertical_movement:
+        fakeymacs_vim.single_line = False
+    else:
+        fakeymacs_vim.single_line = True
+
 def kill_region():
     if is_visual_mode():
-        execute_nm_command(self_insert_command_v1("x"))()
-
-        if fakeymacs_vim.vertical_movement:
-            fakeymacs_vim.single_line = False
-        else:
-            fakeymacs_vim.single_line = True
+        self_insert_command_v1("Delete")()
+        confirm_region()
 
 def kill_ring_save():
     if is_visual_mode():
@@ -800,6 +839,13 @@ for key in [":", "!"]:
 for key in ["/", "?"]:
     define_key_v(key, reset_undo(reset_counter(enter_search_mode(key))))
 
+## 「ビジュアルモード終了」のキー設定
+for key in ["d", "x", "y"]:
+    define_key_v(key, reset_undo(reset_counter(exit_visual_mode1(key))))
+
+for key in ["<", ">", "=", "u", "S-u", "~", "q", "w"]:
+    define_key_v(key, reset_undo(reset_counter(exit_visual_mode2(key))))
+
 ## universal-argument キーの設定
 define_key_v("C-u", universal_argument)
 
@@ -876,11 +922,11 @@ define_key_v("M-Up",      reset_undo(reset_counter(previous_buffer)))
 define_key_v("M-Down",    reset_undo(reset_counter(next_buffer)))
 
 ## 「ウィンドウ操作」のキー設定
-define_key_v("Ctl-x 0",   reset_undo(reset_counter(delete_window)))
-define_key_v("Ctl-x 1",   delete_other_windows)
-define_key_v("Ctl-x 2",   split_window_below)
-define_key_v("Ctl-x 3",   split_window_right)
-define_key_v("Ctl-x o",   reset_undo(reset_counter(other_window)))
+define_key_v("Ctl-x 0", reset_undo(reset_counter(delete_window)))
+define_key_v("Ctl-x 1", delete_other_windows)
+define_key_v("Ctl-x 2", split_window_below)
+define_key_v("Ctl-x 3", split_window_right)
+define_key_v("Ctl-x o", reset_undo(reset_counter(other_window)))
 
 ## 「タブ操作」のキー設定
 define_key_v("C-A-t", reset_undo(reset_counter(create_tab)))
