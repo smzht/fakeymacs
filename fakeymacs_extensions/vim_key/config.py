@@ -157,6 +157,12 @@ def check_multi_character_command(*key_list):
         if fakeymacs_vim.is_multi_character_command == False:
             fakeymacs_vim.insert_normal_mode = False
 
+    # print("fakeymacs_vim.insert_mode        : " + str(fakeymacs_vim.insert_mode))
+    # print("fakeymacs_vim.visual_mode        : " + str(fakeymacs_vim.visual_mode))
+    # print("fakeymacs_vim.command_line_mode  : " + str(fakeymacs_vim.command_line_mode))
+    # print("fakeymacs_vim.insert_normal_mode : " + str(fakeymacs_vim.insert_normal_mode))
+    # print("")
+
 def is_multi_character_command():
     return fakeymacs_vim.is_multi_character_command
 
@@ -221,10 +227,8 @@ def self_insert_command_v2(*key_list, usjis_conv=True):
     return _func
 
 def self_insert_command_v3(*key_list, usjis_conv=True):
-    func = self_insert_command2(*key_list, usjis_conv=usjis_conv)
+    func = self_insert_command_v2(*key_list, usjis_conv=usjis_conv)
     def _func():
-        check_multi_character_command(*key_list)
-
         # ノーマルモードで日本語を入力した際は、インサートモードにする
         if getImeStatus():
             if is_normal_mode() or is_insert_normal_mode():
@@ -341,6 +345,7 @@ def enter_visual_mode(key):
                 if fakeymacs_vim.last_key == "g" and key == "v":
                     fakeymacs_vim.visual_mode = True
                     fakeymacs_vim.visual_key = key
+                    fakeymacs_vim.vertical_movement = False
 
                 self_insert_command_v1(key)()
             else:
@@ -623,26 +628,24 @@ def isearch_backward():
 def isearch_forward():
     isearch("forward")()
 
-def isearch_repeat(direction):
+def isearch_repeat(key):
     def _func():
         if is_text_mode1():
-            repeat(self_insert_command_v2({"backward":"S-n", "forward":"n"}[direction]))()
+            repeat(self_insert_command_v2(key))()
 
         elif getImeStatus():
-            repeat(self_insert_command_v3({"backward":"S-n", "forward":"n"}[direction]))()
+            repeat(self_insert_command_v3(key))()
         else:
             if is_multi_character_command():
-                self_insert_command_v1({"backward":"S-n", "forward":"n"}[direction])()
+                if fakeymacs_vim.last_key == "g" and key == "n":
+                    fakeymacs_vim.visual_mode = True
+                    fakeymacs_vim.visual_key = "v"
+                    fakeymacs_vim.vertical_movement = False
             else:
-                self_insert_command_v1({"backward":"S-n", "forward":"n"}[direction])()
                 fakeymacs.is_searching = True
+
+            self_insert_command_v1(key)()
     return _func
-
-def isearch_repeat_backward():
-    isearch_repeat("backward")()
-
-def isearch_repeat_forward():
-    isearch_repeat("forward")()
 
 ## キーボードマクロ
 def keyboard_macro_start():
@@ -660,13 +663,6 @@ def rectangle_mark_mode():
 
 ## その他
 def escape(keep_in_im=False):
-    # print("<escape 実行前> " + "-" * 80)
-    # print("fakeymacs_vim.insert_mode        : " + str(fakeymacs_vim.insert_mode))
-    # print("fakeymacs_vim.visual_mode        : " + str(fakeymacs_vim.visual_mode))
-    # print("fakeymacs_vim.command_line_mode  : " + str(fakeymacs_vim.command_line_mode))
-    # print("fakeymacs_vim.insert_normal_mode : " + str(fakeymacs_vim.insert_normal_mode))
-    # print("")
-
     if is_command_line():
         self_insert_command_v1("Esc")()
         fakeymacs_vim.command_line_mode = False
@@ -682,13 +678,6 @@ def escape(keep_in_im=False):
         fakeymacs_vim.visual_mode = False
     else:
         self_insert_command_v1("Esc")()
-
-    # print("<escape 実行後> " + "-" * 80)
-    # print("fakeymacs_vim.insert_mode        : " + str(fakeymacs_vim.insert_mode))
-    # print("fakeymacs_vim.visual_mode        : " + str(fakeymacs_vim.visual_mode))
-    # print("fakeymacs_vim.command_line_mode  : " + str(fakeymacs_vim.command_line_mode))
-    # print("fakeymacs_vim.insert_normal_mode : " + str(fakeymacs_vim.insert_normal_mode))
-    # print("")
 
 def space():
     self_insert_command_v1("Space")()
@@ -903,8 +892,9 @@ define_key_v("C-A-l", reset_undo(reset_counter(list_tabs)))
 ## 「文字列検索」のキー設定
 define_key_v("C-r", reset_undo(reset_counter(isearch_backward)))
 define_key_v("C-s", reset_undo(reset_counter(isearch_forward)))
-define_key_v("S-n", reset_undo(reset_counter(isearch_repeat_backward)))
-define_key_v("n",   reset_undo(reset_counter(isearch_repeat_forward)))
+
+for key in ["S-n", "n"]:
+    define_key_v(key, reset_undo(reset_counter(isearch_repeat(key))))
 
 ## 「キーボードマクロ」のキー設定
 define_key_v("Ctl-x (", keyboard_macro_start)
