@@ -242,6 +242,14 @@ def self_insert_command_v3(*key_list, usjis_conv=True):
         func()
     return _func
 
+def digit(number):
+    def _func():
+        if fakeymacs.is_universal_argument:
+            digit_argument(number)
+        else:
+            reset_undo(reset_counter(repeat(self_insert_command_v3(str(number)))))()
+    return _func
+
 def adjust_ime_status(command):
     def _func():
         ime_status = getImeStatus()
