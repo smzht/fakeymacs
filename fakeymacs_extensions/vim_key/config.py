@@ -125,7 +125,7 @@ def vim_reset():
     escape()
     delay(0.05)
     escape()
-    reset_undo(reset_counter(execute_ex_command("nohlsearch")))()
+    reset_undo(reset_counter(execute_ex_command("noh")))()
     fakeymacs.is_searching = None
 
 def check_multi_character_command(*key_list):
@@ -750,7 +750,7 @@ def keyboard_quit():
         fakeymacs.is_searching = None
 
     elif fakeymacs.is_searching == True:
-        execute_ex_command("nohlsearch")()
+        execute_ex_command("noh")()
 
 def execute_extended_command():
     execute_ex_command("", enter=False, esc=True)()
