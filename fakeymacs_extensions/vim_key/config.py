@@ -122,10 +122,7 @@ multi_character_command_list2_2 = [list(map(specialCharToKeyStr, ["d", "c", "y",
 
 ## 共通関数
 def vim_reset():
-    escape()
-    delay(0.05)
-    escape()
-    reset_undo(reset_counter(execute_ex_command("noh")))()
+    reset_undo(reset_counter(execute_ex_command("noh", esc=True)))()
     fakeymacs.is_searching = None
 
 def check_multi_character_command(*key_list):
