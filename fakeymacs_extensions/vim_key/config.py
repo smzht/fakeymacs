@@ -132,12 +132,7 @@ multi_character_command_list_n = [[["g"],
 # ビジュアルモードで受け付ける multi character command
 multi_character_command_list_v = [[["g"],
                                    [[["'", "`",             # ジャンプリストに異動
-                                      "r",                  # 範囲の文字置換
-                                      "u", "S-u", "~",      # 大文字・小文字変換
-                                      "q", "w",             # テキスト整形
-                                      "@",                  # ユーザ定義関数実行
-                                      "?",                  # ROT13 変換
-                                      "i", "a"],
+                                      "r"],                 # 範囲の文字置換
                                      []]]],
 
                                   [["r",
