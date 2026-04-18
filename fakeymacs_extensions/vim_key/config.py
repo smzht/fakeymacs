@@ -95,30 +95,78 @@ fakeymacs_vim.insert_normal_mode = False
 fakeymacs_vim.is_multi_character_command = False
 fakeymacs_vim.last_key = None
 
-# ノーマルモード、インサートノーマルモードで一回目に受け付ける multi character command
-multi_character_command_list1_1 = list(map(specialCharToKeyStr, ["g", "d", "c", "y", "r", "q", "@",
-                                                                 "f", "S-f", "t", "S-t",
-                                                                 "m", "'", "`",
-                                                                 "<", ">", "[", "]",
-                                                                 '"', "=", "z", "Z", "C-w"]))
+# ノーマルモード、インサートノーマルモードで受け付ける multi character command
+multi_character_command_list_n = [[["g"],
+                                   [[["'", "`",             # ジャンプリストに異動
+                                      "r"],                 # 範囲の文字置換
+                                     []],
+
+                                    [["u", "S-u", "~",      # 大文字・小文字変換
+                                      "q", "w",             # テキスト整形
+                                      "@",                  # ユーザ定義関数実行
+                                      "?"],                 # ROT13 変換
+                                     [[["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"], None]]]]],
+
+                                  [["r",
+                                    "q", "@",               # マクロ関連
+                                    "f", "S-f", "t", "S-t", # ジャンプ関連
+                                    "m", "'", "`",          # マーク関連
+                                    "[", "]",               # 構造に基づくジャンプ
+                                    "Z",                    # 終了関連
+                                    '"'],                   # レジスタプレフィックス
+                                   []],
+
+                                  [["d", "c", "y", "<", ">", "="],
+                                   [[["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"], None],
+                                    [["g", "f", "S-f", "t", "S-t", "i", "a"], []]]],
+
+                                  [["z"],
+                                   [[["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+                                     [[["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"], None]]],
+                                    [["f"], []]]],
+
+                                  [["C-w"],
+                                   [[["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"], None]]],
+                                  ]
 
 # ビジュアルモードで受け付ける multi character command
-multi_character_command_list1_2 = list(map(specialCharToKeyStr, ["g", "r", "q", "@",
-                                                                 "f", "S-f", "t", "S-t",
-                                                                 "m", "'", "`",
-                                                                 "[", "]",
-                                                                 '"', "z", "Z", "C-w",
-                                                                 "i", "a"]))
+multi_character_command_list_v = [[["g"],
+                                   [[["'", "`",             # ジャンプリストに異動
+                                      "r",                  # 範囲の文字置換
+                                      "u", "S-u", "~",      # 大文字・小文字変換
+                                      "q", "w",             # テキスト整形
+                                      "@",                  # ユーザ定義関数実行
+                                      "?",                  # ROT13 変換
+                                      "i", "a"],
+                                     []]]],
 
-# ノーマルモード、インサートノーマルモードで二回目に受け付ける multi character command
-# （リストの１項目目は前回受け付けたコマンド、２項目目は今回受け付けるコマンド）
-multi_character_command_list2_1 = [list(map(specialCharToKeyStr, ["g"])),
-                                   list(map(specialCharToKeyStr, ["u", "S-u", "~", "r", "q", "w", "@",
-                                                                  "'", "`"]))]
+                                  [["r",
+                                    "q", "@",               # マクロ関連
+                                    "f", "S-f", "t", "S-t", # ジャンプ関連
+                                    "m", "'", "`",          # マーク関連
+                                    "[", "]",               # 構造に基づくジャンプ
+                                    "Z",                    # 終了関連
+                                    '"'],                   # レジスタプレフィックス
+                                   []],
 
-multi_character_command_list2_2 = [list(map(specialCharToKeyStr, ["d", "c", "y", "<", ">", "=",
-                                                                  "u", "S-u", "~", "q", "w", "@"])),
-                                   list(map(specialCharToKeyStr, ["g", "f", "S-f", "t", "S-t", "i", "a"]))]
+                                  [["z", "C-w"],
+                                   [[["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"], None]]],
+                                  ]
+
+def apply_all(xs, func):
+    result = []
+    for x in xs:
+        if isinstance(x, list):
+            result.append(apply_all(x, func))
+        else:
+            if x == None:
+                result.append(None)
+            else:
+                result.append(func(x))
+    return result
+
+multi_character_command_list_n = apply_all(multi_character_command_list_n, specialCharToKeyStr)
+multi_character_command_list_v = apply_all(multi_character_command_list_v, specialCharToKeyStr)
 
 ## 共通関数
 def vim_reset():
@@ -126,27 +174,25 @@ def vim_reset():
     fakeymacs.is_searching = None
 
 def check_multi_character_command(*key_list):
+    global multi_character_command_list
+
     for key in key_list:
         key = specialCharToKeyStr(key)
         is_multi_character_command = False
 
-        if fakeymacs_vim.is_multi_character_command == False:
-            if not is_text_mode1():
-                if fakeymacs_vim.visual_mode:
-                    if key in multi_character_command_list1_2:
-                        is_multi_character_command = True
-                else:
-                    if key in multi_character_command_list1_1:
-                        is_multi_character_command = True
-        else:
-            if not fakeymacs_vim.visual_mode:
-                if (fakeymacs_vim.last_key in multi_character_command_list2_1[0] and
-                    key                    in multi_character_command_list2_1[1]):
-                    is_multi_character_command = True
+        if not is_text_mode1():
+            if fakeymacs_vim.is_multi_character_command == False:
+                   if fakeymacs_vim.visual_mode:
+                       multi_character_command_list = multi_character_command_list_v
+                   else:
+                       multi_character_command_list = multi_character_command_list_n
 
-                elif (fakeymacs_vim.last_key in multi_character_command_list2_2[0] and
-                      key                    in multi_character_command_list2_2[1]):
+            for command_list in multi_character_command_list:
+                if key in command_list[0]:
                     is_multi_character_command = True
+                    if command_list[1] is not None:
+                        multi_character_command_list = command_list[1]
+                    break
 
         fakeymacs_vim.is_multi_character_command = is_multi_character_command
         fakeymacs_vim.last_key = key
@@ -154,10 +200,12 @@ def check_multi_character_command(*key_list):
         if fakeymacs_vim.is_multi_character_command == False:
             fakeymacs_vim.insert_normal_mode = False
 
-    # print("fakeymacs_vim.insert_mode        : " + str(fakeymacs_vim.insert_mode))
-    # print("fakeymacs_vim.visual_mode        : " + str(fakeymacs_vim.visual_mode))
-    # print("fakeymacs_vim.command_line_mode  : " + str(fakeymacs_vim.command_line_mode))
-    # print("fakeymacs_vim.insert_normal_mode : " + str(fakeymacs_vim.insert_normal_mode))
+    # print("fakeymacs_vim.is_multi_character_command : " + str(fakeymacs_vim.is_multi_character_command))
+    # print("fakeymacs_vim.last_key                   : " + fakeymacs_vim.last_key)
+    # print("fakeymacs_vim.insert_mode                : " + str(fakeymacs_vim.insert_mode))
+    # print("fakeymacs_vim.visual_mode                : " + str(fakeymacs_vim.visual_mode))
+    # print("fakeymacs_vim.command_line_mode          : " + str(fakeymacs_vim.command_line_mode))
+    # print("fakeymacs_vim.insert_normal_mode         : " + str(fakeymacs_vim.insert_normal_mode))
     # print("")
 
 def is_multi_character_command():
