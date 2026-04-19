@@ -103,7 +103,6 @@ multi_character_command_list_n = [[["g"],
                                    [[["'", "`",             # ジャンプリストに異動
                                       "r"],                 # 範囲の文字置換
                                      []],
-
                                     [["u", "S-u", "~",      # 大文字・小文字変換
                                       "q", "w",             # テキスト整形
                                       "@",                  # ユーザ定義関数実行
@@ -200,7 +199,7 @@ def check_multi_character_command(*key_list):
             fakeymacs_vim.insert_normal_mode = False
 
     # print("fakeymacs_vim.is_multi_character_command : " + str(fakeymacs_vim.is_multi_character_command))
-    # print("fakeymacs_vim.last_key                   : " + fakeymacs_vim.last_key)
+    # print("fakeymacs_vim.last_key                   : " + str(fakeymacs_vim.last_key))
     # print("fakeymacs_vim.insert_mode                : " + str(fakeymacs_vim.insert_mode))
     # print("fakeymacs_vim.visual_mode                : " + str(fakeymacs_vim.visual_mode))
     # print("fakeymacs_vim.command_line_mode          : " + str(fakeymacs_vim.command_line_mode))
