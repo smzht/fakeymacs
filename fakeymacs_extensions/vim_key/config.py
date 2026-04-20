@@ -12,7 +12,9 @@ except:
     # （アプリケーションソフトは、プロセス名称のみ（ワイルドカード指定可）、もしくは、プロセス名称、
     #   クラス名称、ウィンドウタイトル（リストによる複数指定可）のリスト（ワイルドカード指定可、
     #   リストの後ろの項目から省略可）を指定してください）
-    fc.vim_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", ["* - VIM*",
+    fc.vim_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", ["* - vim*",
+                                                                               "* - nvim*",
+                                                                               "* - VIM*",
                                                                                "* - NVIM*",
                                                                                "* - Nvim*"]],
                      ["cmd.exe",             "ConsoleWindowClass",            ["* - VIM*",
@@ -305,13 +307,13 @@ def adjust_ime_status(command):
                 setImeStatus(1)
     return _func
 
-def execute_vm_command(command):
+def execute_vm_command(*key_list):
     def _func():
-        command()
+        self_insert_command_v1(*key_list)()
         fakeymacs_vim.vertical_movement = True
     return _func
 
-def execute_nm_command(nm_command, esc=False):
+def execute_nm_command(*key_list, esc=False):
     def _func():
         if is_command_line():
             return False
@@ -324,7 +326,7 @@ def execute_nm_command(nm_command, esc=False):
         if is_insert_mode():
             self_insert_command_v1(fc.vim_insert_normal_mode_key)()
 
-        adjust_ime_status(nm_command)()
+        adjust_ime_status(self_insert_command_v1(*key_list))()
 
         fakeymacs_vim.visual_mode = False
 
@@ -502,10 +504,10 @@ def forward_word():
     self_insert_command_v1("C-Right")()
 
 def previous_line():
-    execute_vm_command(self_insert_command_v1("Up"))()
+    execute_vm_command("Up")()
 
 def next_line():
-    execute_vm_command(self_insert_command_v1("Down"))()
+    execute_vm_command("Down")()
 
 def move_beginning_of_line():
     self_insert_command_v1("Home")()
@@ -517,10 +519,10 @@ def move_end_of_line():
         self_insert_command_v1("End", "Right")()
 
 def beginning_of_buffer():
-    execute_vm_command(self_insert_command_v1("Home", "C-Home"))()
+    execute_vm_command("Home", "C-Home")()
 
 def end_of_buffer():
-    execute_vm_command(self_insert_command_v1("C-End", "Right"))()
+    execute_vm_command("C-End", "Right")()
 
 def goto_line():
     execute_ex_command("", enter=False)()
@@ -532,7 +534,7 @@ def scroll_down():
     self_insert_command_v1("PageDown")()
 
 def recenter():
-    execute_nm_command(self_insert_command_v1("z", "z"))()
+    execute_nm_command("z", "z")()
 
 ## カット / コピー / 削除 / アンドゥ
 def delete_backward_char():
@@ -543,7 +545,7 @@ def delete_backward_char():
         self_insert_command_v1("Delete")()
         confirm_region()
     else:
-        execute_nm_command(self_insert_command_v1("S-x"))()
+        execute_nm_command("S-x")()
 
 def delete_char():
     if is_command_line():
@@ -554,19 +556,19 @@ def delete_char():
         confirm_region()
     else:
         # 改行も削除できるようにビジュアルモードに移行してから削除している
-        execute_nm_command(self_insert_command_v1("v", "x"))()
+        execute_nm_command("v", "x")()
 
 def backward_kill_word():
-    execute_nm_command(self_insert_command_v1("d", "b"))()
+    execute_nm_command("d", "b")()
 
 def kill_word():
-    execute_nm_command(self_insert_command_v1("d", "w"))()
+    execute_nm_command("d", "w")()
 
 def kill_line():
     if is_visual_mode():
         escape()
 
-    execute_nm_command(self_insert_command_v1("v", "$", "Delete"))()
+    execute_nm_command("v", "$", "Delete")()
 
 def confirm_region():
     fakeymacs_vim.visual_mode = False
@@ -583,20 +585,20 @@ def kill_region():
 
 def kill_ring_save():
     if is_visual_mode():
-        execute_nm_command(self_insert_command_v1("y"))()
+        execute_nm_command("y")()
         confirm_region()
 
 def yank():
-    if execute_nm_command(self_insert_command_v1("S-p"))():
+    if execute_nm_command("S-p")():
         if fakeymacs_vim.single_line:
             if not is_insert_mode():
                 forward_char()
 
 def undo():
     if fakeymacs.is_undo_mode:
-        execute_nm_command(self_insert_command_v1("u"))()
+        execute_nm_command("u")()
     else:
-        execute_nm_command(self_insert_command_v1("C-r"))()
+        execute_nm_command("C-r")()
 
 def set_mark_command(key):
     def _func():
@@ -605,13 +607,13 @@ def set_mark_command(key):
                 if fakeymacs_vim.visual_key == key:
                     escape()
                 else:
-                    execute_nm_command(self_insert_command_v1(key))()
+                    execute_nm_command(key)()
                     fakeymacs_vim.visual_mode = True
                     fakeymacs_vim.visual_key = key
                     if key != "v":
                         fakeymacs_vim.vertical_movement = True
             else:
-                execute_nm_command(self_insert_command_v1(key))()
+                execute_nm_command(key)()
                 fakeymacs_vim.visual_mode = True
                 fakeymacs_vim.visual_key = key
                 if key == "v":
@@ -659,10 +661,10 @@ def list_buffers():
 
 ## ウィンドウ操作
 def delete_window():
-    execute_nm_command(self_insert_command_v1("C-w", "c"), esc=True)()
+    execute_nm_command("C-w", "c", esc=True)()
 
 def delete_other_windows():
-    execute_nm_command(self_insert_command_v1("C-w", "o"))()
+    execute_nm_command("C-w", "o")()
 
 def split_window_below():
     execute_ex_command("split")()
@@ -671,7 +673,7 @@ def split_window_right():
     execute_ex_command("vsplit")()
 
 def other_window():
-    execute_nm_command(self_insert_command_v1("C-w", "w"), esc=True)()
+    execute_nm_command("C-w", "w", esc=True)()
 
 ## タブ操作
 def create_tab():
@@ -693,14 +695,14 @@ def list_tabs():
 def isearch(direction):
     def _func():
         if fakeymacs.is_searching is None:
-            if execute_nm_command(self_insert_command_v1({"backward":"?", "forward":"/"}[direction]))():
+            if execute_nm_command({"backward":"?", "forward":"/"}[direction])():
                 fakeymacs.is_searching = False
 
         elif fakeymacs.is_searching == False:
             self_insert_command_v1({"backward":"C-t", "forward":"C-g"}[direction])()
 
         elif fakeymacs.is_searching == True:
-            execute_nm_command(self_insert_command_v1({"backward":"S-n", "forward":"n"}[direction]))()
+            execute_nm_command({"backward":"S-n", "forward":"n"}[direction])()
     return _func
 
 def isearch_backward():
@@ -730,13 +732,13 @@ def isearch_repeat(key):
 
 ## キーボードマクロ
 def keyboard_macro_start():
-    execute_nm_command(self_insert_command_v1("q", "a"), esc=True)()
+    execute_nm_command("q", "a", esc=True)()
 
 def keyboard_macro_stop():
-    execute_nm_command(self_insert_command_v1("q"), esc=True)()
+    execute_nm_command("q", esc=True)()
 
 def keyboard_macro_play():
-    execute_nm_command(self_insert_command_v1("@", "a"), esc=True)()
+    execute_nm_command("@", "a", esc=True)()
 
 ## 矩形選択
 def rectangle_mark_mode():
