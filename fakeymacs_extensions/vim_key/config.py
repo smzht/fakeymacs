@@ -13,14 +13,17 @@ except:
     #   クラス名称、ウィンドウタイトル（リストによる複数指定可）のリスト（ワイルドカード指定可、
     #   リストの後ろの項目から省略可）を指定してください）
     fc.vim_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", ["* - vim*",
-                                                                               "* - nvim*",
                                                                                "* - VIM*",
+                                                                               "* - Vim*",
+                                                                               "* - nvim*",
                                                                                "* - NVIM*",
                                                                                "* - Nvim*"]],
                      ["cmd.exe",             "ConsoleWindowClass",            ["* - VIM*",
+                                                                               "* - Vim*",
                                                                                "* - NVIM*",
                                                                                "* - Nvim*"]],
                      ["powershell.exe",      "ConsoleWindowClass",            ["* - VIM*",
+                                                                               "* - Vim*",
                                                                                "* - NVIM*",
                                                                                "* - Nvim*"]],
                      "*vim.exe",
