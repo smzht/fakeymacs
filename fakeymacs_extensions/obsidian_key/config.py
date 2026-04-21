@@ -69,7 +69,7 @@ except:
 # --------------------------------------------------------------------------------------------------
 
 regex = "|".join([fnmatch.translate(app) for app in fc.obsidian_target if type(app) is str])
-if regex == "": regex = "$." # 絶対にマッチしない正規表現
+if regex == "": regex = "(?!)" # 絶対にマッチしない正規表現
 obsidian_target1 = re.compile(regex)
 obsidian_target2 = [app for app in fc.obsidian_target if type(app) is list]
 

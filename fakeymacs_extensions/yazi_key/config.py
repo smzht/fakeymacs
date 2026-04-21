@@ -18,7 +18,7 @@ except:
 # --------------------------------------------------------------------------------------------------
 
 regex = "|".join([fnmatch.translate(app) for app in fc.yazi_target if type(app) is str])
-if regex == "": regex = "$." # 絶対にマッチしない正規表現
+if regex == "": regex = "(?!)" # 絶対にマッチしない正規表現
 yazi_target1 = re.compile(regex)
 yazi_target2 = [app for app in fc.yazi_target if type(app) is list]
 

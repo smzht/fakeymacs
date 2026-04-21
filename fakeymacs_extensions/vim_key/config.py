@@ -52,7 +52,7 @@ class FakeymacsVim:
 fakeymacs_vim = FakeymacsVim()
 
 regex = "|".join([fnmatch.translate(app) for app in fc.vim_target if type(app) is str])
-if regex == "": regex = "$." # 絶対にマッチしない正規表現
+if regex == "": regex = "(?!)" # 絶対にマッチしない正規表現
 vim_target1 = re.compile(regex)
 vim_target2 = [app for app in fc.vim_target if type(app) is list]
 

@@ -25,7 +25,7 @@ except:
 # --------------------------------------------------------------------------------------------------
 
 regex = "|".join([fnmatch.translate(p) for p in fc.x_window_apps])
-if regex == "": regex = "$." # 絶対にマッチしない正規表現
+if regex == "": regex = "(?!)" # 絶対にマッチしない正規表現
 x_window_apps = re.compile(regex)
 
 def is_real_emacs(window):

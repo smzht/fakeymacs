@@ -657,7 +657,7 @@ def configure(keymap):
         )
 
         regex = "|".join([fnmatch.translate(p) for p in fc.name_change_app_list])
-        if regex == "": regex = "$." # 絶対にマッチしない正規表現
+        if regex == "": regex = "(?!)" # 絶対にマッチしない正規表現
         name_change_app = re.compile(regex)
 
         def _callback(hWinEventHook, event, hwnd, idObject, idChild, dwEventThread, dwmsEventTime):
@@ -820,42 +820,42 @@ def configure(keymap):
     fakeymacs.shift_down2 = False
 
     regex = "|".join([fnmatch.translate(p) for p in fc.transparent_target])
-    if regex == "": regex = "$." # 絶対にマッチしない正規表現
+    if regex == "": regex = "(?!)" # 絶対にマッチしない正規表現
     transparent_target = re.compile(regex)
 
     regex = "|".join([fnmatch.translate(c) for c in fc.transparent_target_class])
-    if regex == "": regex = "$." # 絶対にマッチしない正規表現
+    if regex == "": regex = "(?!)" # 絶対にマッチしない正規表現
     transparent_target_class = re.compile(regex)
 
     regex = "|".join([fnmatch.translate(p) for p in fc.not_clipboard_target])
-    if regex == "": regex = "$." # 絶対にマッチしない正規表現
+    if regex == "": regex = "(?!)" # 絶対にマッチしない正規表現
     not_clipboard_target = re.compile(regex)
 
     regex = "|".join([fnmatch.translate(c) for c in fc.not_clipboard_target_class])
-    if regex == "": regex = "$." # 絶対にマッチしない正規表現
+    if regex == "": regex = "(?!)" # 絶対にマッチしない正規表現
     not_clipboard_target_class = re.compile(regex)
 
     regex = "|".join([fnmatch.translate(c) for c in fc.emacs_target_class])
-    if regex == "": regex = "$." # 絶対にマッチしない正規表現
+    if regex == "": regex = "(?!)" # 絶対にマッチしない正規表現
     emacs_target_class = re.compile(regex)
 
     regex = "|".join([fnmatch.translate(app) for app in fc.emacs_target if type(app) is str])
-    if regex == "": regex = "$." # 絶対にマッチしない正規表現
+    if regex == "": regex = "(?!)" # 絶対にマッチしない正規表現
     emacs_target1 = re.compile(regex)
     emacs_target2 = [app for app in fc.emacs_target if type(app) is list]
 
     regex = "|".join([fnmatch.translate(app) for app in fc.not_emacs_target if type(app) is str])
-    if regex == "": regex = "$." # 絶対にマッチしない正規表現
+    if regex == "": regex = "(?!)" # 絶対にマッチしない正規表現
     not_emacs_target1 = re.compile(regex)
     not_emacs_target2 = [app for app in fc.not_emacs_target if type(app) is list]
 
     regex = "|".join([fnmatch.translate(app) for app in fc.ime_target if type(app) is str])
-    if regex == "": regex = "$." # 絶対にマッチしない正規表現
+    if regex == "": regex = "(?!)" # 絶対にマッチしない正規表現
     ime_target1 = re.compile(regex)
     ime_target2 = [app for app in fc.ime_target if type(app) is list]
 
     regex = "|".join([fnmatch.translate(app) for app in fc.game_app_list if type(app) is str])
-    if regex == "": regex = "$." # 絶対にマッチしない正規表現
+    if regex == "": regex = "(?!)" # 絶対にマッチしない正規表現
     game_app_list1 = re.compile(regex)
     game_app_list2 = [app for app in fc.game_app_list if type(app) is list]
 
@@ -1668,7 +1668,7 @@ def configure(keymap):
 
     regex = "|".join([fnmatch.translate(app)
                       for app in fc.keyboard_quit_no_esc_app_list if type(app) is str])
-    if regex == "": regex = "$." # 絶対にマッチしない正規表現
+    if regex == "": regex = "(?!)" # 絶対にマッチしない正規表現
     keyboard_quit_no_esc_app_list1 = re.compile(regex)
     keyboard_quit_no_esc_app_list2 = [app for app in fc.keyboard_quit_no_esc_app_list
                                       if type(app) is list]
