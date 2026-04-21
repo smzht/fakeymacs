@@ -71,7 +71,7 @@ def is_vim_target(window):
             if vim_status:
                 result1 = title.replace(vim_title, "")
                 result2 = vim_title.replace(title, "")
-                if " +" not in [result1, result2]:
+                if "" not in [result1, result2] and " +" not in [result1, result2]:
                     vim_reset()
             else:
                 vim_reset()
