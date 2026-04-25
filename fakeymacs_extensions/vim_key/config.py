@@ -228,17 +228,17 @@ def is_multi_character_command():
 def is_command_line():
     return (fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode)
 
-def is_normal_mode():
-    return (not is_command_line() and
-            not fakeymacs_vim.visual_mode and
-            not fakeymacs_vim.insert_normal_mode and
-            not fakeymacs_vim.insert_mode)
-
 def is_insert_mode():
     return (not is_command_line() and
             not fakeymacs_vim.visual_mode and
             not fakeymacs_vim.insert_normal_mode and
             fakeymacs_vim.insert_mode)
+
+def is_normal_mode():
+    return (not is_command_line() and
+            not fakeymacs_vim.visual_mode and
+            not fakeymacs_vim.insert_normal_mode and
+            not fakeymacs_vim.insert_mode)
 
 def is_insert_normal_mode():
     return (not is_command_line() and
