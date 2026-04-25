@@ -12,10 +12,8 @@ except:
     # （アプリケーションソフトは、プロセス名称のみ（ワイルドカード指定可）、もしくは、プロセス名称、
     #   クラス名称、ウィンドウタイトル（リストによる複数指定可）のリスト（ワイルドカード指定可、
     #   リストの後ろの項目から省略可）を指定してください）
-    fc.vim_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", ["* - vim*",
-                                                                               "* - VIM*",
+    fc.vim_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", ["* - VIM*",
                                                                                "* - Vim*",
-                                                                               "* - nvim*",
                                                                                "* - NVIM*",
                                                                                "* - Nvim*"]],
                      ["cmd.exe",             "ConsoleWindowClass",            ["* - VIM*",
@@ -74,7 +72,7 @@ def is_vim_target(window):
             if vim_status:
                 result1 = title.replace(vim_title, "")
                 result2 = vim_title.replace(title, "")
-                if "" not in [result1, result2] and " +" not in [result1, result2]:
+                if vim_title == title or " +" in [result1, result2]:
                     vim_reset()
             else:
                 vim_reset()
