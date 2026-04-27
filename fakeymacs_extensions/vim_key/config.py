@@ -212,8 +212,10 @@ def check_multi_character_command(*key_list):
         if fakeymacs_vim.is_multi_character_command == False:
             fakeymacs_vim.insert_normal_mode = False
 
-    # print("fakeymacs_vim.is_multi_character_command : " + str(fakeymacs_vim.is_multi_character_command))
-    # print("fakeymacs_vim.last_key                   : " + str(fakeymacs_vim.last_key))
+        # print("fakeymacs_vim.is_multi_character_command : " + str(fakeymacs_vim.is_multi_character_command))
+        # print("fakeymacs_vim.last_key                   : " + str(fakeymacs_vim.last_key))
+        # print("")
+
     # print("fakeymacs_vim.insert_mode                : " + str(fakeymacs_vim.insert_mode))
     # print("fakeymacs_vim.visual_mode                : " + str(fakeymacs_vim.visual_mode))
     # print("fakeymacs_vim.command_line_mode          : " + str(fakeymacs_vim.command_line_mode))
