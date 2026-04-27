@@ -590,8 +590,7 @@ def kill_region():
 
 def kill_ring_save():
     if is_visual_mode():
-        if execute_nm_command("y")():
-            fakeymacs_vim.visual_mode = False
+        execute_nm_command("y")()
 
 def yank():
     execute_nm_command("g", "S-p")()
