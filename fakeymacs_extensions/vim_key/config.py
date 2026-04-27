@@ -94,8 +94,6 @@ fakeymacs.keymap_vim = keymap_vim
 
 fakeymacs_vim.insert_mode = False
 fakeymacs_vim.visual_mode = False
-fakeymacs_vim.single_line = None
-fakeymacs_vim.vertical_movement = False
 fakeymacs_vim.command_line_mode = False
 fakeymacs_vim.insert_normal_mode = False
 fakeymacs_vim.is_multi_character_command = False
@@ -318,12 +316,6 @@ def digit(number):
             reset_undo(reset_counter(repeat(self_insert_command_v3(str(number)))))()
     return _func
 
-def set_vm(command):
-    def _func():
-        command()
-        fakeymacs_vim.vertical_movement = True
-    return _func
-
 def adjust_ime_status(command):
     def _func():
         ime_status = getImeStatus()
@@ -402,11 +394,10 @@ def enter_insert_mode(key):
                 if is_visual_mode():
                     if key in ["S-i", "S-a"]:
                         fakeymacs_vim.visual_mode = False
-                        fakeymacs_vim.single_line = True
                         fakeymacs_vim.insert_mode = True
 
                     elif key in ["S-r", "s", "S-s", "c", "S-c"]:
-                        confirm_region()
+                        fakeymacs_vim.visual_mode = False
                         fakeymacs_vim.insert_mode = True
                 else:
                     fakeymacs_vim.insert_mode = True
@@ -426,7 +417,6 @@ def enter_visual_mode(key):
                 if fakeymacs_vim.last_key == "g" and key == "v":
                     fakeymacs_vim.visual_mode = True
                     fakeymacs_vim.visual_key = key
-                    fakeymacs_vim.vertical_movement = False
 
                 self_insert_command_v1(key)()
             else:
@@ -480,7 +470,7 @@ def exit_visual_mode1(key):
         else:
             if not is_multi_character_command():
                 if is_visual_mode():
-                    confirm_region()
+                    fakeymacs_vim.visual_mode = False
 
             repeat(self_insert_command_v1(key))()
     return _func
@@ -566,7 +556,7 @@ def delete_backward_char():
 
     elif is_visual_mode():
         self_insert_command_v1("Delete")()
-        confirm_region()
+        fakeymacs_vim.visual_mode = False
     else:
         execute_nm_command("S-x")()
 
@@ -576,7 +566,7 @@ def delete_char():
 
     elif is_visual_mode():
         self_insert_command_v1("Delete")()
-        confirm_region()
+        fakeymacs_vim.visual_mode = False
     else:
         # 改行も削除できるようにビジュアルモードに移行してから削除している
         execute_nm_command("v", "x")()
@@ -593,29 +583,18 @@ def kill_line():
 
     execute_nm_command("v", "$", "Delete")()
 
-def confirm_region():
-    fakeymacs_vim.visual_mode = False
-
-    if fakeymacs_vim.vertical_movement:
-        fakeymacs_vim.single_line = False
-    else:
-        fakeymacs_vim.single_line = True
-
 def kill_region():
     if is_visual_mode():
         self_insert_command_v1("Delete")()
-        confirm_region()
+        fakeymacs_vim.visual_mode = False
 
 def kill_ring_save():
     if is_visual_mode():
         if execute_nm_command("y")():
-            confirm_region()
+            fakeymacs_vim.visual_mode = False
 
 def yank():
-    if execute_nm_command("S-p")():
-        execute_nm_command("`", "]")()
-        if fakeymacs_vim.single_line:
-            forward_char()
+    execute_nm_command("g", "S-p")()
 
 def undo():
     if fakeymacs.is_undo_mode:
@@ -633,16 +612,10 @@ def set_mark_command(key):
                     execute_nm_command(key)()
                     fakeymacs_vim.visual_mode = True
                     fakeymacs_vim.visual_key = key
-                    if key != "v":
-                        fakeymacs_vim.vertical_movement = True
             else:
                 execute_nm_command(key)()
                 fakeymacs_vim.visual_mode = True
                 fakeymacs_vim.visual_key = key
-                if key == "v":
-                    fakeymacs_vim.vertical_movement = False
-                else:
-                    fakeymacs_vim.vertical_movement = True
     return _func
 
 def mark_whole_buffer():
@@ -663,6 +636,7 @@ def transpose_chars():
         delete_char()
         forward_char()
         yank()
+        backward_char()
 
 ## バッファ操作
 def kill_buffer():
@@ -745,7 +719,6 @@ def isearch_repeat(key):
                 if fakeymacs_vim.last_key == "g" and key == "n":
                     fakeymacs_vim.visual_mode = True
                     fakeymacs_vim.visual_key = "v"
-                    fakeymacs_vim.vertical_movement = False
             else:
                 fakeymacs.is_searching = True
 
@@ -925,12 +898,12 @@ define_key_v1("C-b",      reset_undo(reset_counter(repeat(backward_char))))
 define_key_v1("C-f",      reset_undo(reset_counter(repeat(forward_char))))
 define_key_v1("M-b",      reset_undo(reset_counter(repeat(backward_word))))
 define_key_v1("M-f",      reset_undo(reset_counter(repeat(forward_word))))
-define_key_v1("C-p",      reset_undo(reset_counter(set_vm(repeat(previous_line)))))
-define_key_v1("C-n",      reset_undo(reset_counter(set_vm(repeat(next_line)))))
+define_key_v1("C-p",      reset_undo(reset_counter(repeat(previous_line))))
+define_key_v1("C-n",      reset_undo(reset_counter(repeat(next_line))))
 define_key_v1("C-a",      reset_undo(reset_counter(move_beginning_of_line)))
 define_key_v1("C-e",      reset_undo(reset_counter(move_end_of_line)))
-define_key_v1("M-<",      reset_undo(reset_counter(set_vm(beginning_of_buffer))))
-define_key_v1("M->",      reset_undo(reset_counter(set_vm(end_of_buffer))))
+define_key_v1("M-<",      reset_undo(reset_counter(beginning_of_buffer)))
+define_key_v1("M->",      reset_undo(reset_counter(end_of_buffer)))
 define_key_v1("M-g g",    reset_undo(reset_counter(goto_line)))
 define_key_v1("M-g M-g",  reset_undo(reset_counter(goto_line)))
 define_key_v2("C-l",      reset_undo(reset_counter(recenter)))
@@ -939,12 +912,12 @@ define_key_v1("Left",     reset_undo(reset_counter(repeat(backward_char))))
 define_key_v1("Right",    reset_undo(reset_counter(repeat(forward_char))))
 define_key_v1("C-Left",   reset_undo(reset_counter(repeat(backward_word))))
 define_key_v1("C-Right",  reset_undo(reset_counter(repeat(forward_word))))
-define_key_v1("Up",       reset_undo(reset_counter(set_vm(repeat(previous_line)))))
-define_key_v1("Down",     reset_undo(reset_counter(set_vm(repeat(next_line)))))
+define_key_v1("Up",       reset_undo(reset_counter(repeat(previous_line))))
+define_key_v1("Down",     reset_undo(reset_counter(repeat(next_line))))
 define_key_v1("Home",     reset_undo(reset_counter(move_beginning_of_line)))
 define_key_v1("End",      reset_undo(reset_counter(move_end_of_line)))
-define_key_v1("C-Home",   reset_undo(reset_counter(set_vm(beginning_of_buffer))))
-define_key_v1("C-End",    reset_undo(reset_counter(set_vm(end_of_buffer))))
+define_key_v1("C-Home",   reset_undo(reset_counter(beginning_of_buffer)))
+define_key_v1("C-End",    reset_undo(reset_counter(end_of_buffer)))
 define_key_v2("PageUp",   reset_undo(reset_counter(scroll_up)))
 define_key_v2("PageDown", reset_undo(reset_counter(scroll_down)))
 
