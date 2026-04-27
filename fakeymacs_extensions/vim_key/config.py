@@ -274,6 +274,7 @@ def define_key_v1(keys, command, skip_check=True):
 def define_key_v2(keys, command, skip_check=True):
     def _command():
         if is_multi_character_command():
+            escape()
             return
         command()
 
