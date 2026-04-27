@@ -318,6 +318,12 @@ def digit(number):
             reset_undo(reset_counter(repeat(self_insert_command_v3(str(number)))))()
     return _func
 
+def set_vm(command):
+    def _func():
+        command()
+        fakeymacs_vim.vertical_movement = True
+    return _func
+
 def adjust_ime_status(command):
     def _func():
         ime_status = getImeStatus()
@@ -328,12 +334,6 @@ def adjust_ime_status(command):
             if ime_status:
                 delay()
                 setImeStatus(1)
-    return _func
-
-def execute_vm_command(*key_list):
-    def _func():
-        self_insert_command_v1(*key_list)()
-        fakeymacs_vim.vertical_movement = True
     return _func
 
 def execute_nm_command(*key_list, esc=False):
@@ -527,10 +527,10 @@ def forward_word():
     self_insert_command_v1("C-Right")()
 
 def previous_line():
-    execute_vm_command("Up")()
+    self_insert_command_v1("Up")()
 
 def next_line():
-    execute_vm_command("Down")()
+    self_insert_command_v1("Down")()
 
 def move_beginning_of_line():
     self_insert_command_v1("Home")()
@@ -542,10 +542,10 @@ def move_end_of_line():
         self_insert_command_v1("End", "Right")()
 
 def beginning_of_buffer():
-    execute_vm_command("C-Home", "Home")()
+    self_insert_command_v1("C-Home", "Home")()
 
 def end_of_buffer():
-    execute_vm_command("C-End", "Right")()
+    self_insert_command_v1("C-End", "Right")()
 
 def goto_line():
     execute_ex_command("", enter=False)()
@@ -608,14 +608,14 @@ def kill_region():
 
 def kill_ring_save():
     if is_visual_mode():
-        execute_nm_command("y")()
-        confirm_region()
+        if execute_nm_command("y")():
+            confirm_region()
 
 def yank():
     if execute_nm_command("S-p")():
+        execute_nm_command("`", "]")()
         if fakeymacs_vim.single_line:
-            if not is_insert_mode():
-                forward_char()
+            forward_char()
 
 def undo():
     if fakeymacs.is_undo_mode:
@@ -661,9 +661,8 @@ def mark_page():
 def transpose_chars():
     if not is_command_line():
         delete_char()
-        backward_char()
-        yank()
         forward_char()
+        yank()
 
 ## バッファ操作
 def kill_buffer():
@@ -926,12 +925,12 @@ define_key_v1("C-b",      reset_undo(reset_counter(repeat(backward_char))))
 define_key_v1("C-f",      reset_undo(reset_counter(repeat(forward_char))))
 define_key_v1("M-b",      reset_undo(reset_counter(repeat(backward_word))))
 define_key_v1("M-f",      reset_undo(reset_counter(repeat(forward_word))))
-define_key_v1("C-p",      reset_undo(reset_counter(repeat(previous_line))))
-define_key_v1("C-n",      reset_undo(reset_counter(repeat(next_line))) )
+define_key_v1("C-p",      reset_undo(reset_counter(set_vm(repeat(previous_line)))))
+define_key_v1("C-n",      reset_undo(reset_counter(set_vm(repeat(next_line)))))
 define_key_v1("C-a",      reset_undo(reset_counter(move_beginning_of_line)))
 define_key_v1("C-e",      reset_undo(reset_counter(move_end_of_line)))
-define_key_v1("M-<",      reset_undo(reset_counter(beginning_of_buffer)))
-define_key_v1("M->",      reset_undo(reset_counter(end_of_buffer)))
+define_key_v1("M-<",      reset_undo(reset_counter(set_vm(beginning_of_buffer))))
+define_key_v1("M->",      reset_undo(reset_counter(set_vm(end_of_buffer))))
 define_key_v1("M-g g",    reset_undo(reset_counter(goto_line)))
 define_key_v1("M-g M-g",  reset_undo(reset_counter(goto_line)))
 define_key_v2("C-l",      reset_undo(reset_counter(recenter)))
@@ -940,26 +939,26 @@ define_key_v1("Left",     reset_undo(reset_counter(repeat(backward_char))))
 define_key_v1("Right",    reset_undo(reset_counter(repeat(forward_char))))
 define_key_v1("C-Left",   reset_undo(reset_counter(repeat(backward_word))))
 define_key_v1("C-Right",  reset_undo(reset_counter(repeat(forward_word))))
-define_key_v1("Up",       reset_undo(reset_counter(repeat(previous_line))))
-define_key_v1("Down",     reset_undo(reset_counter(repeat(next_line))))
+define_key_v1("Up",       reset_undo(reset_counter(set_vm(repeat(previous_line)))))
+define_key_v1("Down",     reset_undo(reset_counter(set_vm(repeat(next_line)))))
 define_key_v1("Home",     reset_undo(reset_counter(move_beginning_of_line)))
 define_key_v1("End",      reset_undo(reset_counter(move_end_of_line)))
-define_key_v1("C-Home",   reset_undo(reset_counter(beginning_of_buffer)))
-define_key_v1("C-End",    reset_undo(reset_counter(end_of_buffer)))
+define_key_v1("C-Home",   reset_undo(reset_counter(set_vm(beginning_of_buffer))))
+define_key_v1("C-End",    reset_undo(reset_counter(set_vm(end_of_buffer))))
 define_key_v2("PageUp",   reset_undo(reset_counter(scroll_up)))
 define_key_v2("PageDown", reset_undo(reset_counter(scroll_down)))
 
 ## 「カット / コピー / 削除 / アンドゥ」のキー設定
-define_key_v1("C-h",      reset_undo(reset_counter(repeat(delete_backward_char))))
-define_key_v2("C-d",      reset_undo(reset_counter(repeat(delete_char))))
-define_key_v2("M-Delete", reset_undo(reset_counter(repeat(backward_kill_word))))
-define_key_v2("M-d",      reset_undo(reset_counter(repeat(kill_word))))
-define_key_v2("C-k",      reset_undo(reset_counter(repeat(kill_line))))
-define_key_v2("C-w",      reset_undo(reset_counter(kill_region)))
-define_key_v2("M-w",      reset_undo(reset_counter(kill_ring_save)))
-define_key_v2("C-y",      reset_undo(reset_counter(repeat(yank))))
-define_key_v2("C-/",      reset_counter(undo))
-define_key_v2("Ctl-x u",  reset_counter(undo))
+define_key_v1("C-h",       reset_undo(reset_counter(repeat(delete_backward_char))))
+define_key_v2("C-d",       reset_undo(reset_counter(repeat(delete_char))))
+define_key_v2("M-Delete",  reset_undo(reset_counter(repeat(backward_kill_word))))
+define_key_v2("M-d",       reset_undo(reset_counter(repeat(kill_word))))
+define_key_v2("C-k",       reset_undo(reset_counter(repeat(kill_line))))
+define_key_v2("C-w",       reset_undo(reset_counter(kill_region)))
+define_key_v2("M-w",       reset_undo(reset_counter(kill_ring_save)))
+define_key_v2("C-y",       reset_undo(reset_counter(repeat(yank))))
+define_key_v2("C-/",       reset_counter(undo))
+define_key_v2("Ctl-x u",   reset_counter(undo))
 
 define_key_v1("Back",      reset_undo(reset_counter(repeat(delete_backward_char))))
 define_key_v2("Delete",    reset_undo(reset_counter(repeat(delete_char))))
