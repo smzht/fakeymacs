@@ -776,7 +776,7 @@ def escape(keep_in_im=False):
     elif is_insert_mode():
         if not keep_in_im:
             setImeStatus(0)
-            self_insert_command_v1("Esc", "Right")()
+            self_insert_command_v1("Esc", "`", "^")()
             fakeymacs_vim.insert_mode = False
 
     elif is_visual_mode():
