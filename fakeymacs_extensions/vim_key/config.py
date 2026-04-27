@@ -214,7 +214,6 @@ def check_multi_character_command(*key_list):
 
         # print("fakeymacs_vim.is_multi_character_command : " + str(fakeymacs_vim.is_multi_character_command))
         # print("fakeymacs_vim.last_key                   : " + str(fakeymacs_vim.last_key))
-        # print("")
 
     # print("fakeymacs_vim.insert_mode                : " + str(fakeymacs_vim.insert_mode))
     # print("fakeymacs_vim.visual_mode                : " + str(fakeymacs_vim.visual_mode))
@@ -391,20 +390,19 @@ def enter_insert_mode(key):
         else:
             if is_multi_character_command():
                 if fakeymacs_vim.last_key == "g" and key == "i":
+                    self_insert_command_v1(key)()
                     fakeymacs_vim.insert_mode = True
+                else:
+                    self_insert_command_v1(key)()
             else:
-                if is_visual_mode():
-                    if key in ["S-i", "S-a"]:
-                        fakeymacs_vim.visual_mode = False
-                        fakeymacs_vim.insert_mode = True
+                self_insert_command_v1(key)()
 
-                    elif key in ["S-r", "s", "S-s", "c", "S-c"]:
+                if is_visual_mode():
+                    if key in ["S-i", "S-a", "S-r", "s", "S-s", "c", "S-c"]:
                         fakeymacs_vim.visual_mode = False
                         fakeymacs_vim.insert_mode = True
                 else:
                     fakeymacs_vim.insert_mode = True
-
-            self_insert_command_v1(key)()
     return _func
 
 def enter_visual_mode(key):
@@ -417,10 +415,11 @@ def enter_visual_mode(key):
         else:
             if is_multi_character_command():
                 if fakeymacs_vim.last_key == "g" and key == "v":
+                    self_insert_command_v1(key)()
                     fakeymacs_vim.visual_mode = True
                     fakeymacs_vim.visual_key = key
-
-                self_insert_command_v1(key)()
+                else:
+                    self_insert_command_v1(key)()
             else:
                 set_mark_command(key)()
     return _func
@@ -442,10 +441,11 @@ def enter_command_line_mode(key):
         elif getImeStatus():
             repeat(self_insert_command_v3(key))()
         else:
-            if not is_multi_character_command():
+            if is_multi_character_command():
+                self_insert_command_v1(key)()
+            else:
+                self_insert_command_v1(key)()
                 fakeymacs_vim.command_line_mode = True
-
-            self_insert_command_v1(key)()
     return _func
 
 def enter_search_mode(key):
@@ -456,10 +456,11 @@ def enter_search_mode(key):
         elif getImeStatus():
             repeat(self_insert_command_v3(key))()
         else:
-            if not is_multi_character_command():
+            if is_multi_character_command():
+                self_insert_command_v1(key)()
+            else:
+                self_insert_command_v1(key)()
                 fakeymacs.is_searching = False
-
-            self_insert_command_v1(key)()
     return _func
 
 def exit_visual_mode1(key):
@@ -470,11 +471,11 @@ def exit_visual_mode1(key):
         elif getImeStatus():
             repeat(self_insert_command_v3(key))()
         else:
-            if not is_multi_character_command():
-                if is_visual_mode():
-                    fakeymacs_vim.visual_mode = False
-
-            repeat(self_insert_command_v1(key))()
+            if is_multi_character_command():
+                self_insert_command_v1(key)()
+            else:
+                repeat(self_insert_command_v1(key))()
+                fakeymacs_vim.visual_mode = False
     return _func
 
 def exit_visual_mode2(key):
@@ -487,12 +488,13 @@ def exit_visual_mode2(key):
         else:
             if is_multi_character_command():
                 if fakeymacs_vim.last_key == "g" and key in ["q", "w"]:
+                    self_insert_command_v1(key)()
                     fakeymacs_vim.visual_mode = False
+                else:
+                    self_insert_command_v1(key)()
             else:
-                if is_visual_mode():
-                    fakeymacs_vim.visual_mode = False
-
-            self_insert_command_v1(key)()
+                self_insert_command_v1(key)()
+                fakeymacs_vim.visual_mode = False
     return _func
 
 ## ファイル操作
