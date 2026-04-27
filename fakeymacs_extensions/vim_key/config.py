@@ -463,22 +463,7 @@ def enter_search_mode(key):
                 fakeymacs.is_searching = False
     return _func
 
-def exit_visual_mode1(key):
-    def _func():
-        if is_text_mode1():
-            repeat(self_insert_command_v2(key))()
-
-        elif getImeStatus():
-            repeat(self_insert_command_v3(key))()
-        else:
-            if is_multi_character_command():
-                self_insert_command_v1(key)()
-            else:
-                repeat(self_insert_command_v1(key))()
-                fakeymacs_vim.visual_mode = False
-    return _func
-
-def exit_visual_mode2(key):
+def exit_visual_mode(key):
     def _func():
         if is_text_mode1():
             repeat(self_insert_command_v2(key))()
@@ -882,11 +867,8 @@ for key in ["/", "?"]:
     define_key_v1(key, reset_undo(reset_counter(enter_search_mode(key))))
 
 ## 「ビジュアルモード終了」のキー設定
-for key in ["d", "x", "y"]:
-    define_key_v1(key, reset_undo(reset_counter(exit_visual_mode1(key))))
-
-for key in ["<", ">", "=", "u", "S-u", "~", "q", "w", "S-j"]:
-    define_key_v1(key, reset_undo(reset_counter(exit_visual_mode2(key))))
+for key in ["d", "x", "y", "<", ">", "=", "u", "S-u", "~", "q", "w", "S-j"]:
+    define_key_v1(key, reset_undo(reset_counter(exit_visual_mode(key))))
 
 ## universal-argument キーの設定
 define_key_v2("C-u", universal_argument)
