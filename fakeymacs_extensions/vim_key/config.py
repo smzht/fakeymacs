@@ -653,8 +653,7 @@ def switch_to_buffer():
     next_buffer()
 
 def list_buffers():
-    if execute_ex_command("ls", esc=True)():
-        fakeymacs_vim.command_line_mode = True
+    execute_ex_command("ls", esc=True)()
 
 ## ウィンドウ操作
 def delete_window():
