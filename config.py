@@ -678,7 +678,7 @@ def configure(keymap):
                                 if process_name and name_change_app.match(process_name):
 
                                     if fc.debug:
-                                        print("<Fakeymacs>")
+                                        print("")
                                         print(f"Window : exe   : {process_name}")
                                         print(f"       : class : {getClassName()}")
                                         print(f"       : text  : {getText()}")
