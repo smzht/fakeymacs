@@ -473,7 +473,10 @@ def enter_search_mode(key):
                 self_insert_command_v1(key)()
             else:
                 self_insert_command_v1(key)()
-                fakeymacs.is_searching = False
+                if key == "*":
+                    fakeymacs.is_searching = True
+                else:
+                    fakeymacs.is_searching = False
     return _func
 
 def exit_visual_mode(key):
@@ -875,7 +878,7 @@ for key in [":", "!"]:
     define_key_v1(key, reset_undo(reset_counter(enter_command_line_mode(key))))
 
 ## 「検索モード移行」のキー設定
-for key in ["/", "?"]:
+for key in ["/", "?", "*"]:
     define_key_v1(key, reset_undo(reset_counter(enter_search_mode(key))))
 
 ## 「ビジュアルモード終了」のキー設定
