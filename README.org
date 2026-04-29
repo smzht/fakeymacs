@@ -2,6 +2,8 @@
 
 * Fakeymacs
 
+[[/fakeymacs_logo/fakeymacs_logo.png]]
+
 Fakeymacs は、Windows の操作を Emacs のキーバインドで行えるようにするための
 Keyhac の設定です。
 
