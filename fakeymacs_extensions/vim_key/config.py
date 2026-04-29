@@ -212,20 +212,14 @@ def check_multi_character_command(*key_list):
         if fakeymacs_vim.is_multi_character_command == False:
             fakeymacs_vim.insert_normal_mode = False
 
-        # print("fakeymacs_vim.is_multi_character_command : " + str(fakeymacs_vim.is_multi_character_command))
-        # print("fakeymacs_vim.last_key                   : " + str(fakeymacs_vim.last_key))
-
-    # print("fakeymacs_vim.insert_mode                : " + str(fakeymacs_vim.insert_mode))
-    # print("fakeymacs_vim.visual_mode                : " + str(fakeymacs_vim.visual_mode))
-    # print("fakeymacs_vim.command_line_mode          : " + str(fakeymacs_vim.command_line_mode))
-    # print("fakeymacs_vim.insert_normal_mode         : " + str(fakeymacs_vim.insert_normal_mode))
-    # print("")
+    # print("fakeymacs_vim.is_multi_character_command : " + str(fakeymacs_vim.is_multi_character_command))
 
 def is_multi_character_command():
     return fakeymacs_vim.is_multi_character_command
 
 def is_command_line():
-    return (fakeymacs.is_searching == False or fakeymacs_vim.command_line_mode)
+    return (fakeymacs.is_searching == False or
+            fakeymacs_vim.command_line_mode)
 
 def is_insert_mode():
     return (not is_command_line() and
@@ -268,7 +262,19 @@ def define_key_v1(keys, command, skip_check=True):
                     print(f"skip key mapping : [keymap_vim] {keys}")
                     return
 
-    define_key(keymap_vim, keys, command)
+    if callable(command):
+        def _command():
+            command()
+
+            # print("fakeymacs_vim.insert_mode                : " + str(fakeymacs_vim.insert_mode))
+            # print("fakeymacs_vim.visual_mode                : " + str(fakeymacs_vim.visual_mode))
+            # print("fakeymacs_vim.command_line_mode          : " + str(fakeymacs_vim.command_line_mode))
+            # print("fakeymacs_vim.insert_normal_mode         : " + str(fakeymacs_vim.insert_normal_mode))
+            # print("")
+    else:
+        _command = command
+
+    define_key(keymap_vim, keys, _command)
 
 def define_key_v2(keys, command, skip_check=True):
     def _command():
@@ -387,6 +393,16 @@ def enter_insert_mode(key):
 
         elif getImeStatus():
             repeat(self_insert_command_v3(key))()
+
+        elif is_visual_mode():
+            if is_multi_character_command():
+                self_insert_command_v1(key)()
+            else:
+                self_insert_command_v1(key)()
+
+                if key in ["S-i", "S-a", "S-r", "s", "S-s", "c", "S-c"]:
+                    fakeymacs_vim.visual_mode = False
+                    fakeymacs_vim.insert_mode = True
         else:
             if is_multi_character_command():
                 if fakeymacs_vim.last_key == "g" and key == "i":
@@ -396,13 +412,7 @@ def enter_insert_mode(key):
                     self_insert_command_v1(key)()
             else:
                 self_insert_command_v1(key)()
-
-                if is_visual_mode():
-                    if key in ["S-i", "S-a", "S-r", "s", "S-s", "c", "S-c"]:
-                        fakeymacs_vim.visual_mode = False
-                        fakeymacs_vim.insert_mode = True
-                else:
-                    fakeymacs_vim.insert_mode = True
+                fakeymacs_vim.insert_mode = True
     return _func
 
 def enter_visual_mode(key):
@@ -445,6 +455,7 @@ def enter_command_line_mode(key):
                 self_insert_command_v1(key)()
             else:
                 self_insert_command_v1(key)()
+                fakeymacs_vim.visual_mode = False
                 fakeymacs_vim.command_line_mode = True
     return _func
 
