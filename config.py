@@ -115,6 +115,9 @@ def configure(keymap):
     ## 機能オプションの選択
     ####################################################################################################
 
+    # デバッグライトを表示するかどうかを指定する
+    fc.debug = False
+
     # IMEの設定（次の設定のいずれかを有効にする）
     # fc.ime = "old_Microsoft_IME"
     fc.ime = "new_Microsoft_IME"
@@ -674,7 +677,7 @@ def configure(keymap):
                                 process_name = getProcessName()
                                 if process_name and name_change_app.match(process_name):
 
-                                    if keymap.debug:
+                                    if fc.debug:
                                         print("<Fakeymacs>")
                                         print(f"Window : exe   : {process_name}")
                                         print(f"       : class : {getClassName()}")
