@@ -488,7 +488,7 @@ def exit_visual_mode(key):
             repeat(self_insert_command_v3(key))()
         else:
             if is_multi_character_command():
-                if fakeymacs_vim.last_key == "g" and key in ["q", "w"]:
+                if fakeymacs_vim.last_key == "g" and key in ["u", "S-u", "~", "q", "w"]:
                     self_insert_command_v1(key)()
                     fakeymacs_vim.visual_mode = False
                 else:
