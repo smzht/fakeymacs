@@ -1,8 +1,8 @@
 #+STARTUP: showall indent
 
-* Fakeymacs configuration parameters referance
+* Fakeymacs Configuration Parameters Referance
 
-** コンフィグレーションパラメータ（Configuration parameters）
+** コンフィグレーションパラメータ（Configuration Parameters）
 
 Fakeymacs をカスタマイズするために、以下のコンフィグレーションパラメータを指定できます。
 

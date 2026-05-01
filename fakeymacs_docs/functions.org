@@ -1,6 +1,6 @@
 #+STARTUP: showall indent
 
-* Fakeymacs functions referance
+* Fakeymacs Functions Referance
 
 ** 関数（Functions）
 

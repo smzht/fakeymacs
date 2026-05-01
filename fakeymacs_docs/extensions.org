@@ -1,6 +1,6 @@
 #+STARTUP: showall indent
 
-* Fakeymacs extensions referance
+* Fakeymacs Extensions Referance
 
 ** 拡張機能（Extensions）
 
