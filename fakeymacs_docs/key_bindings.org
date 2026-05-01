@@ -1,6 +1,6 @@
 #+STARTUP: showall indent
 
-* Fakeymacs key bindings manual
+* Fakeymacs key bindings referance
 
 ** キーバインド（Key bindings）
 

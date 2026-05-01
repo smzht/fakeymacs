@@ -1,6 +1,6 @@
 #+STARTUP: showall indent
 
-* Fakeymacs configuration parameters manual
+* Fakeymacs configuration parameters referance
 
 ** コンフィグレーションパラメータ（Configuration parameters）
 
