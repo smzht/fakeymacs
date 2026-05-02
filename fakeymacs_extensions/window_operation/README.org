@@ -1,6 +1,6 @@
 #+STARTUP: showall indent
 
-* Fakeymacs extension - window_operation -
+* Fakeymacs Extension - window_operation -
 
 ** ■ ウィンドウ操作のための設定を行う
 

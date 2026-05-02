@@ -1,6 +1,6 @@
 #+STARTUP: showall indent
 
-* Fakeymacs extension - emacsclient -
+* Fakeymacs Extension - emacsclient -
 
 ** ■ クリップボードに格納したファイルもしくはフォルダのパスを emacsclient で開く
 
