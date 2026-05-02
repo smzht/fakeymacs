@@ -100,6 +100,8 @@ fakeymacs_vim.is_multi_character_command = False
 fakeymacs_vim.last_key = None
 
 # ノーマルモード、インサートノーマルモードで受け付ける multi character command
+# （リストの階層は、multi character command が続くことを意味し、[] は終了を意味する。
+#   また、None は次のリストの階層に移行しないことを意味する）
 multi_character_command_list_n = [[["g"],
                                    [[["'", "`",             # ジャンプリストに異動
                                       "r"],                 # 範囲の文字置換
