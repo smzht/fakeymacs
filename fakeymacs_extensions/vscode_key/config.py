@@ -105,6 +105,7 @@ except:
                                           ],
                           "replace_key": [["C-i", "C-i"],
                                           ["C-i", "C-A-i"],
+                                          ["C-e", "C-A-e"],
                                           ["C-l", "C-A-l"],
                                           ]
                           }
