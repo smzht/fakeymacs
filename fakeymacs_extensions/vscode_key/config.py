@@ -85,7 +85,21 @@ try:
     # 設定されているか？
     fc.vscode_setting4
 except:
-    fc.vscode_setting4 = {"target"     : ["Kiro.exe",
+    fc.vscode_setting4 = {"target"     : ["Antigravity.exe",
+                                          ],
+                          "prefix_key" : [["C-k", "C-A-k"],
+                                          ],
+                          "replace_key": [["C-i", "C-i"],
+                                          ["C-i", "C-A-i"],
+                                          ["C-l", "C-A-l"],
+                                          ]
+                          }
+
+try:
+    # 設定されているか？
+    fc.vscode_setting5
+except:
+    fc.vscode_setting5 = {"target"     : ["Kiro.exe",
                                           ],
                           "prefix_key" : [["C-k", "C-A-k"],
                                           ],
