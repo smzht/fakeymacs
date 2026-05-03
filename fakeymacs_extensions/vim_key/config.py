@@ -96,7 +96,7 @@ fakeymacs_vim.insert_mode = False
 fakeymacs_vim.visual_mode = False
 fakeymacs_vim.command_line_mode = False
 fakeymacs_vim.insert_normal_mode = False
-fakeymacs_vim.is_pending_key_sequence = False
+fakeymacs_vim.is_prefix_key = False
 fakeymacs_vim.last_key = None
 
 # ノーマルモード、インサートノーマルモードで受け付ける prefix key のリスト
@@ -188,37 +188,37 @@ def vim_reset():
     fakeymacs.is_searching = None
 
 def check_prefix_key(*key_list):
-    global prefix_key_list
+    global p_key_list
 
     for key in key_list:
         key = specialCharToKeyStr(key)
-        is_pending_key_sequence = False
+        is_prefix_key = False
 
         if not is_text_mode1():
-            if fakeymacs_vim.is_pending_key_sequence == False:
+            if fakeymacs_vim.is_prefix_key == False:
                 if fakeymacs_vim.visual_mode:
-                    prefix_key_list = prefix_key_list_v
+                    p_key_list = p_key_list_v
                 else:
-                    prefix_key_list = prefix_key_list_n
+                    p_key_list = p_key_list_n
 
-            for key_list_c in prefix_key_list:
-                if key in key_list_c[0]:
-                    is_pending_key_sequence = True
-                    if key_list_c[1] is not None:
-                        prefix_key_list = key_list_c[1]
+            for c_key_list in p_key_list:
+                if key in c_key_list[0]:
+                    is_prefix_key = True
+                    if c_key_list[1] is not None:
+                        p_key_list = c_key_list[1]
                     break
 
-        fakeymacs_vim.is_pending_key_sequence = is_pending_key_sequence
+        fakeymacs_vim.is_prefix_key = is_prefix_key
         fakeymacs_vim.last_key = key
 
-        if fakeymacs_vim.is_pending_key_sequence == False:
+        if fakeymacs_vim.is_prefix_key == False:
             fakeymacs_vim.insert_normal_mode = False
 
     if fc.debug:
-        print("fakeymacs_vim.is_pending_key_sequence : " + str(fakeymacs_vim.is_pending_key_sequence))
+        print("fakeymacs_vim.is_prefix_key      : " + str(fakeymacs_vim.is_prefix_key))
 
 def is_pending_key_sequence():
-    return fakeymacs_vim.is_pending_key_sequence
+    return fakeymacs_vim.is_prefix_key
 
 def is_command_line():
     return (fakeymacs.is_searching == False or
@@ -270,10 +270,10 @@ def define_key_v1(keys, command, skip_check=True):
             command()
 
             if fc.debug:
-                print("fakeymacs_vim.insert_mode             : " + str(fakeymacs_vim.insert_mode))
-                print("fakeymacs_vim.visual_mode             : " + str(fakeymacs_vim.visual_mode))
-                print("fakeymacs_vim.command_line_mode       : " + str(fakeymacs_vim.command_line_mode))
-                print("fakeymacs_vim.insert_normal_mode      : " + str(fakeymacs_vim.insert_normal_mode))
+                print("fakeymacs_vim.insert_mode        : " + str(fakeymacs_vim.insert_mode))
+                print("fakeymacs_vim.visual_mode        : " + str(fakeymacs_vim.visual_mode))
+                print("fakeymacs_vim.command_line_mode  : " + str(fakeymacs_vim.command_line_mode))
+                print("fakeymacs_vim.insert_normal_mode : " + str(fakeymacs_vim.insert_normal_mode))
                 print("")
     else:
         _command = command
