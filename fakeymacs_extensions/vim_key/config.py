@@ -722,12 +722,14 @@ def isearch_repeat(key):
         else:
             if is_multi_character_command():
                 if fakeymacs_vim.last_key == "g" and key == "n":
+                    self_insert_command_v1(key)()
                     fakeymacs_vim.visual_mode = True
                     fakeymacs_vim.visual_key = "v"
+                else:
+                    self_insert_command_v1(key)()
             else:
+                self_insert_command_v1(key)()
                 fakeymacs.is_searching = True
-
-            self_insert_command_v1(key)()
     return _func
 
 ## キーボードマクロ
