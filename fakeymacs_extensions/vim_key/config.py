@@ -409,14 +409,17 @@ def enter_insert_mode(key):
                     fakeymacs_vim.insert_mode = True
         else:
             if is_multi_character_command():
-                if fakeymacs_vim.last_key == "g" and key == "i":
+                if fakeymacs_vim.last_key == "g" and key in ["i", "h", "S-h", "C-h"]:
                     self_insert_command_v1(key)()
                     fakeymacs_vim.insert_mode = True
                 else:
                     self_insert_command_v1(key)()
             else:
-                self_insert_command_v1(key)()
-                fakeymacs_vim.insert_mode = True
+                if key in ["h", "S-h", "C-h"]:
+                    repeat(self_insert_command_v2(key))()
+                else:
+                    self_insert_command_v1(key)()
+                    fakeymacs_vim.insert_mode = True
     return _func
 
 def enter_visual_mode(key):
@@ -864,7 +867,7 @@ else:
     define_key_v1("C-[", escape)
 
 ## 「インサートモード移行」のキー設定
-for key in ["i", "S-i", "a", "S-a", "o", "S-o", "S-r", "s", "S-s", "c", "S-c"]:
+for key in ["i", "S-i", "a", "S-a", "o", "S-o", "S-r", "s", "S-s", "c", "S-c", "h", "S-h", "C-h"]:
     define_key_v1(key, reset_undo(reset_counter(enter_insert_mode(key))))
 
 ## 「ビジュアルモード移行」のキーの設定
