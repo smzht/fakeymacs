@@ -96,76 +96,76 @@ fakeymacs_vim.insert_mode = False
 fakeymacs_vim.visual_mode = False
 fakeymacs_vim.command_line_mode = False
 fakeymacs_vim.insert_normal_mode = False
-fakeymacs_vim.is_multi_character_command = False
+fakeymacs_vim.is_pending_key_sequence = False
 fakeymacs_vim.last_key = None
 
-# ノーマルモード、インサートノーマルモードで受け付ける multi character command
-# （リストの階層は、multi character command が続くことを意味し、[] は終了を意味する。
+# ノーマルモード、インサートノーマルモードで受け付ける prefix key のリスト
+# （リストの階層は、prefix key が続くことを意味し、[] は終了を意味する。
 #   また、None は次のリストの階層に移行しないことを意味する）
-multi_character_command_list_n = [[["g"],
-                                   [[["'", "`",             # ジャンプリストに異動
-                                      "r"],                 # 範囲の文字置換
-                                     []],
-                                    [["u", "S-u", "~",      # 大文字・小文字変換
-                                      "q", "w",             # テキスト整形
-                                      "@",                  # ユーザ定義関数実行
-                                      "?"],                 # ROT13 変換
-                                     [[["1", "2", "3", "4", "5", "6", "7", "8", "9"],
-                                       [[["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"], None],
-                                        [["g", "f", "S-f", "t", "S-t", "i", "a"], []]]],
-                                      [["g", "f", "S-f", "t", "S-t", "i", "a"], []]]]]],
+prefix_key_list_n = [[["g"],
+                      [[["'", "`",             # ジャンプリストに異動
+                         "r"],                 # 範囲の文字置換
+                        []],
+                       [["u", "S-u", "~",      # 大文字・小文字変換
+                         "q", "w",             # テキスト整形
+                         "@",                  # ユーザ定義関数実行
+                         "?"],                 # ROT13 変換
+                        [[["1", "2", "3", "4", "5", "6", "7", "8", "9"],
+                          [[["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"], None],
+                           [["g", "f", "S-f", "t", "S-t", "i", "a"], []]]],
+                         [["g", "f", "S-f", "t", "S-t", "i", "a"], []]]]]],
 
-                                  [["r",
-                                    "q", "@",               # マクロ関連
-                                    "f", "S-f", "t", "S-t", # ジャンプ関連
-                                    "m", "'", "`",          # マーク関連
-                                    "[", "]",               # 構造に基づくジャンプ
-                                    "Z",                    # 終了関連
-                                    '"'],                   # レジスタプレフィックス
-                                   []],
+                     [["r",
+                       "q", "@",               # マクロ関連
+                       "f", "S-f", "t", "S-t", # ジャンプ関連
+                       "m", "'", "`",          # マーク関連
+                       "[", "]",               # 構造に基づくジャンプ
+                       "Z",                    # 終了関連
+                       '"'],                   # レジスタプレフィックス
+                      []],
 
-                                  [["d", "c", "y", "<", ">", "="],
-                                   [[["1", "2", "3", "4", "5", "6", "7", "8", "9"],
-                                     [[["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"], None],
-                                      [["g", "f", "S-f", "t", "S-t", "i", "a"], []]]],
-                                    [["g", "f", "S-f", "t", "S-t", "i", "a"], []]]],
+                     [["d", "c", "y", "<", ">", "=", "!"],
+                      [[["1", "2", "3", "4", "5", "6", "7", "8", "9"],
+                        [[["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"], None],
+                         [["g", "f", "S-f", "t", "S-t", "i", "a"], []]]],
+                       [["g", "f", "S-f", "t", "S-t", "i", "a"], []]]],
 
-                                  [["z"],
-                                   [[["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
-                                     [[["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"], None]]],
-                                    [["f"], []]]],
+                     [["z"],
+                      [[["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+                        [[["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"], None]]],
+                       [["f"], []]]],
 
-                                  [["C-w"],
-                                   [[["1", "2", "3", "4", "5", "6", "7", "8", "9"],
-                                     [[["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"], None],
-                                      [["g"], []]]],
-                                    [["g"], []]]],
-                                  ]
+                     [["C-w"],
+                      [[["1", "2", "3", "4", "5", "6", "7", "8", "9"],
+                        [[["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"], None],
+                         [["g"], []]]],
+                       [["g"], []]]],
+                     ]
 
-# ビジュアルモードで受け付ける multi character command
-multi_character_command_list_v = [[["g"],
-                                   [[["'", "`",             # ジャンプリストに異動
-                                      "r"],                 # 範囲の文字置換
-                                     []]]],
+# ビジュアルモードで受け付ける prefix key のリスト
+prefix_key_list_v = [[["g"],
+                      [[["'", "`",             # ジャンプリストに異動
+                         "r"],                 # 範囲の文字置換
+                        []]]],
 
-                                  [["r",
-                                    "q", "@",               # マクロ関連
-                                    "f", "S-f", "t", "S-t", # ジャンプ関連
-                                    "m", "'", "`",          # マーク関連
-                                    "[", "]",               # 構造に基づくジャンプ
-                                    "Z",                    # 終了関連
-                                    '"'],                   # レジスタプレフィックス
-                                   []],
+                     [["r",
+                       "q", "@",               # マクロ関連
+                       "f", "S-f", "t", "S-t", # ジャンプ関連
+                       "m", "'", "`",          # マーク関連
+                       "[", "]",               # 構造に基づくジャンプ
+                       "Z",                    # 終了関連
+                       '"'],                   # レジスタプレフィックス
+                      []],
 
-                                  [["z"],
-                                   [[["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"], None]]],
+                     [["z"],
+                      [[["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"], None]]],
 
-                                  [["C-w"],
-                                   [[["1", "2", "3", "4", "5", "6", "7", "8", "9"],
-                                     [[["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"], None],
-                                      [["g"], []]]],
-                                    [["g"], []]]],
-                                  ]
+                     [["C-w"],
+                      [[["1", "2", "3", "4", "5", "6", "7", "8", "9"],
+                        [[["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"], None],
+                         [["g"], []]]],
+                       [["g"], []]]],
+                     ]
 
 def apply_all(xs, func):
     result = []
@@ -179,46 +179,46 @@ def apply_all(xs, func):
                 result.append(func(x))
     return result
 
-multi_character_command_list_n = apply_all(multi_character_command_list_n, specialCharToKeyStr)
-multi_character_command_list_v = apply_all(multi_character_command_list_v, specialCharToKeyStr)
+prefix_key_list_n = apply_all(prefix_key_list_n, specialCharToKeyStr)
+prefix_key_list_v = apply_all(prefix_key_list_v, specialCharToKeyStr)
 
 ## 共通関数
 def vim_reset():
     reset_undo(reset_counter(execute_ex_command("noh", esc=True)))()
     fakeymacs.is_searching = None
 
-def check_multi_character_command(*key_list):
-    global multi_character_command_list
+def check_prefix_key(*key_list):
+    global prefix_key_list
 
     for key in key_list:
         key = specialCharToKeyStr(key)
-        is_multi_character_command = False
+        is_pending_key_sequence = False
 
         if not is_text_mode1():
-            if fakeymacs_vim.is_multi_character_command == False:
-                   if fakeymacs_vim.visual_mode:
-                       multi_character_command_list = multi_character_command_list_v
-                   else:
-                       multi_character_command_list = multi_character_command_list_n
+            if fakeymacs_vim.is_pending_key_sequence == False:
+                if fakeymacs_vim.visual_mode:
+                    prefix_key_list = prefix_key_list_v
+                else:
+                    prefix_key_list = prefix_key_list_n
 
-            for command_list in multi_character_command_list:
-                if key in command_list[0]:
-                    is_multi_character_command = True
-                    if command_list[1] is not None:
-                        multi_character_command_list = command_list[1]
+            for key_list_c in prefix_key_list:
+                if key in key_list_c[0]:
+                    is_pending_key_sequence = True
+                    if key_list_c[1] is not None:
+                        prefix_key_list = key_list_c[1]
                     break
 
-        fakeymacs_vim.is_multi_character_command = is_multi_character_command
+        fakeymacs_vim.is_pending_key_sequence = is_pending_key_sequence
         fakeymacs_vim.last_key = key
 
-        if fakeymacs_vim.is_multi_character_command == False:
+        if fakeymacs_vim.is_pending_key_sequence == False:
             fakeymacs_vim.insert_normal_mode = False
 
     if fc.debug:
-        print("fakeymacs_vim.is_multi_character_command : " + str(fakeymacs_vim.is_multi_character_command))
+        print("fakeymacs_vim.is_pending_key_sequence : " + str(fakeymacs_vim.is_pending_key_sequence))
 
-def is_multi_character_command():
-    return fakeymacs_vim.is_multi_character_command
+def is_pending_key_sequence():
+    return fakeymacs_vim.is_pending_key_sequence
 
 def is_command_line():
     return (fakeymacs.is_searching == False or
@@ -270,10 +270,10 @@ def define_key_v1(keys, command, skip_check=True):
             command()
 
             if fc.debug:
-                print("fakeymacs_vim.insert_mode                : " + str(fakeymacs_vim.insert_mode))
-                print("fakeymacs_vim.visual_mode                : " + str(fakeymacs_vim.visual_mode))
-                print("fakeymacs_vim.command_line_mode          : " + str(fakeymacs_vim.command_line_mode))
-                print("fakeymacs_vim.insert_normal_mode         : " + str(fakeymacs_vim.insert_normal_mode))
+                print("fakeymacs_vim.insert_mode             : " + str(fakeymacs_vim.insert_mode))
+                print("fakeymacs_vim.visual_mode             : " + str(fakeymacs_vim.visual_mode))
+                print("fakeymacs_vim.command_line_mode       : " + str(fakeymacs_vim.command_line_mode))
+                print("fakeymacs_vim.insert_normal_mode      : " + str(fakeymacs_vim.insert_normal_mode))
                 print("")
     else:
         _command = command
@@ -282,7 +282,7 @@ def define_key_v1(keys, command, skip_check=True):
 
 def define_key_v2(keys, command, skip_check=True):
     def _command():
-        if is_multi_character_command():
+        if is_pending_key_sequence():
             escape()
         else:
             command()
@@ -292,14 +292,14 @@ def define_key_v2(keys, command, skip_check=True):
 def self_insert_command_v1(*key_list, usjis_conv=True):
     func = self_insert_command(*key_list, usjis_conv=usjis_conv)
     def _func():
-        check_multi_character_command(*key_list)
+        check_prefix_key(*key_list)
         func()
     return _func
 
 def self_insert_command_v2(*key_list, usjis_conv=True):
     func = self_insert_command2(*key_list, usjis_conv=usjis_conv)
     def _func():
-        check_multi_character_command(*key_list)
+        check_prefix_key(*key_list)
         func()
     return _func
 
@@ -399,7 +399,7 @@ def enter_insert_mode(key):
             repeat(self_insert_command_v3(key))()
 
         elif is_visual_mode():
-            if is_multi_character_command():
+            if is_pending_key_sequence():
                 self_insert_command_v1(key)()
             else:
                 self_insert_command_v1(key)()
@@ -408,7 +408,7 @@ def enter_insert_mode(key):
                     fakeymacs_vim.visual_mode = False
                     fakeymacs_vim.insert_mode = True
         else:
-            if is_multi_character_command():
+            if is_pending_key_sequence():
                 if fakeymacs_vim.last_key == "g" and key in ["i", "h", "S-h", "C-h"]:
                     self_insert_command_v1(key)()
                     fakeymacs_vim.insert_mode = True
@@ -430,7 +430,7 @@ def enter_visual_mode(key):
         elif getImeStatus():
             repeat(self_insert_command_v3(key))()
         else:
-            if is_multi_character_command():
+            if is_pending_key_sequence():
                 if fakeymacs_vim.last_key == "g" and key == "v":
                     self_insert_command_v1(key)()
                     fakeymacs_vim.visual_mode = True
@@ -458,7 +458,7 @@ def enter_command_line_mode(key):
         elif getImeStatus():
             repeat(self_insert_command_v3(key))()
         else:
-            if is_multi_character_command():
+            if is_pending_key_sequence():
                 self_insert_command_v1(key)()
             else:
                 self_insert_command_v1(key)()
@@ -474,7 +474,7 @@ def enter_search_mode(key):
         elif getImeStatus():
             repeat(self_insert_command_v3(key))()
         else:
-            if is_multi_character_command():
+            if is_pending_key_sequence():
                 self_insert_command_v1(key)()
             else:
                 self_insert_command_v1(key)()
@@ -492,7 +492,7 @@ def exit_visual_mode(key):
         elif getImeStatus():
             repeat(self_insert_command_v3(key))()
         else:
-            if is_multi_character_command():
+            if is_pending_key_sequence():
                 if fakeymacs_vim.last_key == "g" and key in ["u", "S-u", "~", "q", "w"]:
                     self_insert_command_v1(key)()
                     fakeymacs_vim.visual_mode = False
@@ -723,7 +723,7 @@ def isearch_repeat(key):
         elif getImeStatus():
             repeat(self_insert_command_v3(key))()
         else:
-            if is_multi_character_command():
+            if is_pending_key_sequence():
                 if fakeymacs_vim.last_key == "g" and key == "n":
                     self_insert_command_v1(key)()
                     fakeymacs_vim.visual_mode = True
