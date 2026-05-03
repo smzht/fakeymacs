@@ -197,9 +197,9 @@ def check_prefix_key(*key_list):
         if not is_text_mode1():
             if fakeymacs_vim.is_prefix_key == False:
                 if fakeymacs_vim.visual_mode:
-                    p_key_list = p_key_list_v
+                    p_key_list = prefix_key_list_v
                 else:
-                    p_key_list = p_key_list_n
+                    p_key_list = prefix_key_list_n
 
             for c_key_list in p_key_list:
                 if key in c_key_list[0]:
