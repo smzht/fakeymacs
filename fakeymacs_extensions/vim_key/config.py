@@ -221,8 +221,7 @@ def is_pending_key_sequence():
     return fakeymacs_vim.is_prefix_key
 
 def is_command_line():
-    return (fakeymacs.is_searching == False or
-            fakeymacs_vim.command_line_mode)
+    return fakeymacs_vim.command_line_mode
 
 def is_insert_mode():
     return (not is_command_line() and
@@ -271,9 +270,10 @@ def define_key_v1(keys, command, skip_check=True):
 
             if fc.debug:
                 print("fakeymacs_vim.insert_mode        : " + str(fakeymacs_vim.insert_mode))
+                print("fakeymacs_vim.insert_normal_mode : " + str(fakeymacs_vim.insert_normal_mode))
                 print("fakeymacs_vim.visual_mode        : " + str(fakeymacs_vim.visual_mode))
                 print("fakeymacs_vim.command_line_mode  : " + str(fakeymacs_vim.command_line_mode))
-                print("fakeymacs_vim.insert_normal_mode : " + str(fakeymacs_vim.insert_normal_mode))
+                print("fakeymacs.is_searching           : " + str(fakeymacs.is_searching))
                 print("")
     else:
         _command = command
@@ -333,13 +333,12 @@ def adjust_ime_status(command):
         if ime_status:
             setImeStatus(0)
         command()
-        if fakeymacs_vim.insert_mode:
-            if ime_status:
-                delay()
-                setImeStatus(1)
+        if ime_status:
+            delay()
+            setImeStatus(1)
     return _func
 
-def execute_nm_command(*key_list, esc=False):
+def execute_nm_command(*key_list, esc=False, vm_reset=True):
     def _func():
         if is_command_line():
             return False
@@ -354,7 +353,8 @@ def execute_nm_command(*key_list, esc=False):
 
         adjust_ime_status(self_insert_command_v1(*key_list))()
 
-        fakeymacs_vim.visual_mode = False
+        if vm_reset:
+            fakeymacs_vim.visual_mode = False
 
         return True
     return _func
@@ -481,6 +481,7 @@ def enter_search_mode(key):
                 if key == "*":
                     fakeymacs.is_searching = True
                 else:
+                    fakeymacs_vim.command_line_mode = True
                     fakeymacs.is_searching = False
     return _func
 
@@ -699,14 +700,15 @@ def list_tabs():
 def isearch(direction):
     def _func():
         if fakeymacs.is_searching is None:
-            if execute_nm_command({"backward":"?", "forward":"/"}[direction])():
+            if execute_nm_command({"backward":"?", "forward":"/"}[direction], vm_reset=False)():
+                fakeymacs_vim.command_line_mode = True
                 fakeymacs.is_searching = False
 
         elif fakeymacs.is_searching == False:
             self_insert_command_v1({"backward":"C-t", "forward":"C-g"}[direction])()
 
         elif fakeymacs.is_searching == True:
-            execute_nm_command({"backward":"S-n", "forward":"n"}[direction])()
+            execute_nm_command({"backward":"S-n", "forward":"n"}[direction], vm_reset=False)()
     return _func
 
 def isearch_backward():
