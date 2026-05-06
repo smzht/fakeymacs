@@ -198,26 +198,26 @@ def mergeEmacsMultiStrokeKeymap():
 keymap_obsidian.applying_func = mergeEmacsMultiStrokeKeymap
 
 ## 「バッファ / ウィンドウ操作」のキー設定
-define_key_o("M-k",     reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
-define_key_o("Ctl-x k", reset_search(reset_undo(reset_counter(reset_mark(kill_buffer_o)))))
-define_key_o("Ctl-x b", reset_search(reset_undo(reset_counter(reset_mark(switch_to_buffer)))))
+define_key_o("M-k",     reset("sucm", kill_buffer))
+define_key_o("Ctl-x k", reset("sucm", kill_buffer_o))
+define_key_o("Ctl-x b", reset("sucm", switch_to_buffer))
 
 ## 「エディタ操作」のキー設定
-define_key_o("Ctl-x 0", reset_search(reset_undo(reset_counter(reset_mark(delete_window)))))
+define_key_o("Ctl-x 0", reset("sucm", delete_window))
 define_key_o("Ctl-x 1", delete_other_windows)
 define_key_o("Ctl-x 2", split_window_below)
 define_key_o("Ctl-x 3", split_window_right)
-define_key_o("Ctl-x o", reset_search(reset_undo(reset_counter(reset_mark(other_window)))))
+define_key_o("Ctl-x o", reset("sucm", other_window))
 
 if fc.use_ctrl_digit_key_for_digit_argument:
     for n in range(10):
-        define_key_o(f"C-A-{n}", reset_search(reset_undo(reset_counter(reset_mark(switch_focus(n))))))
+        define_key_o(f"C-A-{n}", reset("sucm", switch_focus(n)))
 else:
-    define_key_o(f"C-0", reset_search(reset_undo(reset_counter(reset_mark(switch_focus(0))))))
+    define_key_o(f"C-0", reset("sucm", switch_focus(0)))
 
 ## 「その他」のキー設定
-define_key_o("M-x", reset_search(reset_undo(reset_counter(reset_mark(execute_extended_command)))))
-define_key_o("M-;", reset_search(reset_undo(reset_counter(reset_mark(comment_dwim)))))
+define_key_o("M-x", reset("sucm", execute_extended_command))
+define_key_o("M-;", reset("sucm", comment_dwim))
 
 if os_keyboard_type == "JP":
     if use_usjis_keyboard_conversion:

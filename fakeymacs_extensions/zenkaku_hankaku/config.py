@@ -77,4 +77,4 @@ if fc.use_emacs_ime_mode:
                 forward_char()
 
     define_key(keymap_ei,    fc.zenkaku_hankaku_key, hankaku_henkan)
-    define_key(keymap_emacs, fc.zenkaku_hankaku_key, reset_undo(reset_counter(reset_mark(zenkaku_henkan))))
+    define_key(keymap_emacs, fc.zenkaku_hankaku_key, reset("ucm", zenkaku_henkan))

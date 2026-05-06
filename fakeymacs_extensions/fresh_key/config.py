@@ -215,46 +215,46 @@ def mergeEmacsMultiStrokeKeymap():
 keymap_fresh.applying_func = mergeEmacsMultiStrokeKeymap
 
 ## 「カーソル移動」のキー設定
-define_key_f("C-l", reset_search(reset_undo(reset_counter(recenter))))
+define_key_f("C-l", reset("suc", recenter))
 
 ## 「バッファ」のキー設定
-define_key_f("M-k",     reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
-define_key_f("Ctl-x k", reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
-define_key_f("Ctl-x b", reset_search(reset_undo(reset_counter(reset_mark(switch_to_buffer)))))
+define_key_f("M-k",     reset("sucm", kill_buffer))
+define_key_f("Ctl-x k", reset("sucm", kill_buffer))
+define_key_f("Ctl-x b", reset("sucm", switch_to_buffer))
 
 ## 「ペイン」のキー設定
-define_key_f("Ctl-x 0", reset_search(reset_undo(reset_counter(reset_mark(delete_window)))))
-define_key_f("Ctl-x 1", reset_search(reset_undo(reset_counter(reset_mark(delete_other_windows)))))
-define_key_f("Ctl-x 2", reset_search(reset_undo(reset_counter(reset_mark(split_window_below)))))
-define_key_f("Ctl-x 3", reset_search(reset_undo(reset_counter(reset_mark(split_window_right)))))
-define_key_f("Ctl-x o", reset_search(reset_undo(reset_counter(reset_mark(other_window)))))
+define_key_f("Ctl-x 0", reset("sucm", delete_window))
+define_key_f("Ctl-x 1", reset("sucm", delete_other_windows))
+define_key_f("Ctl-x 2", reset("sucm", split_window_below))
+define_key_f("Ctl-x 3", reset("sucm", split_window_right))
+define_key_f("Ctl-x o", reset("sucm", other_window))
 
 ## タブ操作
-define_key_f("M-Up",   reset_search(reset_undo(reset_counter(reset_mark(previous_tab)))))
-define_key_f("M-Down", reset_search(reset_undo(reset_counter(reset_mark(next_tab)))))
+define_key_f("M-Up",    reset("sucm", previous_tab))
+define_key_f("M-Down",  reset("sucm", next_tab))
 
 ## 「矩形選択 / マルチカーソル」のキー設定
-define_key_f("C-A-p",   reset_search(reset_undo(reset_counter(repeat(mark_previous_line)))))
-define_key_f("C-A-n",   reset_search(reset_undo(reset_counter(repeat(mark_next_line)))))
-define_key_f("C-A-b",   reset_search(reset_undo(reset_counter(repeat(mark_backward_char)))))
-define_key_f("C-A-f",   reset_search(reset_undo(reset_counter(repeat(mark_forward_char)))))
-define_key_f("C-A-S-b", reset_search(reset_undo(reset_counter(repeat(mark_backward_word)))))
-define_key_f("C-A-S-f", reset_search(reset_undo(reset_counter(repeat(mark_forward_word)))))
-define_key_f("C-A-a",   reset_search(reset_undo(reset_counter(mark_beginning_of_line))))
-define_key_f("C-A-e",   reset_search(reset_undo(reset_counter(mark_end_of_line))))
-define_key_f("C-A-d",   reset_search(reset_undo(reset_counter(mark_next_like_this))))
-define_key_f("C-A-g",   reset_search(reset_counter(reset_mark(keyboard_quit_f2))))
+define_key_f("C-A-p",   reset("suc",  repeat(mark_previous_line)))
+define_key_f("C-A-n",   reset("suc",  repeat(mark_next_line)))
+define_key_f("C-A-b",   reset("suc",  repeat(mark_backward_char)))
+define_key_f("C-A-f",   reset("suc",  repeat(mark_forward_char)))
+define_key_f("C-A-S-b", reset("suc",  repeat(mark_backward_word)))
+define_key_f("C-A-S-f", reset("suc",  repeat(mark_forward_word)))
+define_key_f("C-A-a",   reset("suc",  mark_beginning_of_line))
+define_key_f("C-A-e",   reset("suc",  mark_end_of_line))
+define_key_f("C-A-d",   reset("suc",  mark_next_like_this))
+define_key_f("C-A-g",   reset("scm",  keyboard_quit_f2))
 
 ## 「キーボードマクロ」のキー設定
 define_key_f("Ctl-x (", keyboard_macro_start)
 define_key_f("Ctl-x )", keyboard_macro_stop)
-define_key_f("Ctl-x e", reset_search(reset_undo(reset_counter(repeat(keyboard_macro_play)))))
+define_key_f("Ctl-x e", reset("suc",  repeat(keyboard_macro_play)))
 
 ## 「その他」のキー設定
-define_key_f("C-g", reset_search(reset_counter(reset_mark(keyboard_quit_f1))))
-define_key_f("M-x", reset_search(reset_undo(reset_counter(reset_mark(execute_extended_command)))))
-define_key_f("M-;", reset_search(reset_undo(reset_counter(reset_mark(comment_dwim)))))
-define_key_f("M-|", reset_search(reset_undo(reset_counter(reset_mark(shell_command_on_region)))))
+define_key_f("C-g",     reset("scm",  keyboard_quit_f1))
+define_key_f("M-x",     reset("sucm", execute_extended_command))
+define_key_f("M-;",     reset("sucm", comment_dwim))
+define_key_f("M-|",     reset("sucm", shell_command_on_region))
 
 # --------------------------------------------------------------------------------------------------
 

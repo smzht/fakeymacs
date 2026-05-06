@@ -36,4 +36,4 @@ def youtube_space():
     else:
         reconversion()
 
-define_key3(keymap_emacs, "Space", reset_undo(reset_counter(reset_mark(repeat(youtube_space)))), is_youtube)
+define_key3(keymap_emacs, "Space", reset("ucm", repeat(youtube_space)), is_youtube)

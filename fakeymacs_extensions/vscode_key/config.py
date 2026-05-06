@@ -613,41 +613,41 @@ def mergeEmacsMultiStrokeKeymap():
 keymap_vscode.applying_func = mergeEmacsMultiStrokeKeymap
 
 ## 「ファイル操作」のキー設定
-define_key_v("Ctl-x C-d", reset_search(reset_undo(reset_counter(reset_mark(find_directory)))))
-define_key_v("Ctl-x C-r", reset_search(reset_undo(reset_counter(reset_mark(recentf)))))
-define_key_v("Ctl-x C-l", reset_search(reset_undo(reset_counter(reset_mark(locate)))))
+define_key_v("Ctl-x C-d", reset("sucm", find_directory))
+define_key_v("Ctl-x C-r", reset("sucm", recentf))
+define_key_v("Ctl-x C-l", reset("sucm", locate))
 
 ## 「カーソル移動」のキー設定
-define_key_v("M-g p",   reset_search(reset_undo(reset_counter(reset_mark(previous_error)))))
-define_key_v("M-g M-p", reset_search(reset_undo(reset_counter(reset_mark(previous_error)))))
-define_key_v("M-g n",   reset_search(reset_undo(reset_counter(reset_mark(next_error)))))
-define_key_v("M-g M-n", reset_search(reset_undo(reset_counter(reset_mark(next_error)))))
-define_key_v("Ctl-x `", reset_search(reset_undo(reset_counter(reset_mark(next_error)))))
+define_key_v("M-g p",     reset("sucm", previous_error))
+define_key_v("M-g M-p",   reset("sucm", previous_error))
+define_key_v("M-g n",     reset("sucm", next_error))
+define_key_v("M-g M-n",   reset("sucm", next_error))
+define_key_v("Ctl-x `",   reset("sucm", next_error))
 
 # define_key_v("A-p", self_insert_command("C-Up"))
 # define_key_v("A-n", self_insert_command("C-Down"))
 
 ## 「カット / コピー」のキー設定
-define_key_v("C-k", reset_search(reset_undo(reset_counter(reset_mark(repeat3(kill_line_v))))))
-define_key_v("A-k", reset_search(reset_undo(reset_counter(reset_mark(kill_line_v2)))))
-define_key_v("C-y", reset_search(reset_undo(reset_counter(reset_mark(repeat(yank_v))))))
+define_key_v("C-k",       reset("sucm", repeat3(kill_line_v)))
+define_key_v("A-k",       reset("sucm", kill_line_v2))
+define_key_v("C-y",       reset("sucm", repeat(yank_v)))
 
 ## 「バッファ操作」のキー設定
-define_key_v("Ctl-x k",   reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
-define_key_v("Ctl-x b",   reset_search(reset_undo(reset_counter(reset_mark(switch_to_buffer)))))
-define_key_v("Ctl-x C-b", reset_search(reset_undo(reset_counter(reset_mark(list_buffers)))))
+define_key_v("Ctl-x k",   reset("sucm", kill_buffer))
+define_key_v("Ctl-x b",   reset("sucm", switch_to_buffer))
+define_key_v("Ctl-x C-b", reset("sucm", list_buffers))
 
 ## 「ウィンドウ操作」のキー設定
-define_key_v("Ctl-x 0", reset_search(reset_undo(reset_counter(reset_mark(delete_window)))))
-define_key_v("Ctl-x 1", delete_other_windows)
-define_key_v("Ctl-x 2", split_window_below)
-define_key_v("Ctl-x 3", split_window_right)
-define_key_v("Ctl-x 4", rotate_layout)
-define_key_v("Ctl-x o", reset_search(reset_undo(reset_counter(reset_mark(other_window)))))
+define_key_v("Ctl-x 0",   reset("sucm", delete_window))
+define_key_v("Ctl-x 1",   delete_other_windows)
+define_key_v("Ctl-x 2",   split_window_below)
+define_key_v("Ctl-x 3",   split_window_right)
+define_key_v("Ctl-x 4",   rotate_layout)
+define_key_v("Ctl-x o",   reset("sucm", other_window))
 
 ## 「タブ操作」のキー設定
-define_key_v("M-Up",   reset_search(reset_undo(reset_counter(reset_mark(previous_editor)))))
-define_key_v("M-Down", reset_search(reset_undo(reset_counter(reset_mark(next_editor)))))
+define_key_v("M-Up",      reset("sucm", previous_editor))
+define_key_v("M-Down",    reset("sucm", next_editor))
 
 if fc.use_ctrl_digit_key_for_digit_argument:
     key = "C-A-{}"
@@ -655,55 +655,55 @@ else:
     key = "C-{}"
 
 for n in range(10):
-    define_key_v(key.format(n), reset_search(reset_undo(reset_counter(reset_mark(switch_focus(n))))))
+    define_key_v(key.format(n), reset("sucm", switch_focus(n)))
 
 ## 「文字列検索」のキー設定
-define_key_v("C-r", reset_undo(reset_counter(reset_mark(isearch_backward))))
-define_key_v("C-s", reset_undo(reset_counter(reset_mark(isearch_forward))))
+define_key_v("C-r",       reset("ucm", isearch_backward))
+define_key_v("C-s",       reset("ucm", isearch_forward))
 
 ## 「矩形選択 / マルチカーソル」のキー設定
-define_key_v("C-A-p",   reset_search(reset_undo(reset_counter(rect(repeat(mark_previous_line))))))
-define_key_v("C-A-n",   reset_search(reset_undo(reset_counter(rect(repeat(mark_next_line))))))
-define_key_v("C-A-b",   reset_search(reset_undo(reset_counter(repeat(mark_backward_char)))))
-define_key_v("C-A-f",   reset_search(reset_undo(reset_counter(repeat(mark_forward_char)))))
-define_key_v("C-A-S-b", reset_search(reset_undo(reset_counter(reset_rect(repeat(mark_backward_word))))))
-define_key_v("C-A-S-f", reset_search(reset_undo(reset_counter(reset_rect(repeat(mark_forward_word))))))
-define_key_v("C-A-a",   reset_search(reset_undo(reset_counter(reset_rect(mark_beginning_of_line)))))
-define_key_v("C-A-e",   reset_search(reset_undo(reset_counter(reset_rect(mark_end_of_line)))))
-define_key_v("C-A-S-e", reset_search(reset_undo(reset_counter(reset_rect(mark_end_of_line)))))
-define_key_v("C-A-d",   reset_search(reset_undo(reset_counter(reset_rect(mark_next_like_this)))))
-define_key_v("C-A-S-d", reset_search(reset_undo(reset_counter(reset_rect(mark_all_like_this)))))
-define_key_v("C-A-s",   reset_search(reset_undo(reset_counter(reset_rect(skip_to_next_like_this)))))
-define_key_v("C-A-S-s", reset_search(reset_undo(reset_counter(reset_rect(skip_to_previous_like_this)))))
-define_key_v("C-A-x",   reset_search(reset_undo(reset_counter(reset_rect(expand_region)))))
-define_key_v("C-A-S-x", reset_search(reset_undo(reset_counter(reset_rect(shrink_region)))))
-define_key_v("C-A-u",   reset_search(reset_undo(reset_counter(reset_rect(cursor_undo)))))
-define_key_v("C-A-r",   reset_search(reset_undo(reset_counter(reset_rect(cursor_redo)))))
-define_key_v("C-A-g",   reset_search(reset_counter(reset_mark(keyboard_quit_v1))))
+define_key_v("C-A-p",     reset("suc", rect(repeat(mark_previous_line))))
+define_key_v("C-A-n",     reset("suc", rect(repeat(mark_next_line))))
+define_key_v("C-A-b",     reset("suc", repeat(mark_backward_char)))
+define_key_v("C-A-f",     reset("suc", repeat(mark_forward_char)))
+define_key_v("C-A-S-b",   reset("suc", reset_rect(repeat(mark_backward_word))))
+define_key_v("C-A-S-f",   reset("suc", reset_rect(repeat(mark_forward_word))))
+define_key_v("C-A-a",     reset("suc", reset_rect(mark_beginning_of_line)))
+define_key_v("C-A-e",     reset("suc", reset_rect(mark_end_of_line)))
+define_key_v("C-A-S-e",   reset("suc", reset_rect(mark_end_of_line)))
+define_key_v("C-A-d",     reset("suc", reset_rect(mark_next_like_this)))
+define_key_v("C-A-S-d",   reset("suc", reset_rect(mark_all_like_this)))
+define_key_v("C-A-s",     reset("suc", reset_rect(skip_to_next_like_this)))
+define_key_v("C-A-S-s",   reset("suc", reset_rect(skip_to_previous_like_this)))
+define_key_v("C-A-x",     reset("suc", reset_rect(expand_region)))
+define_key_v("C-A-S-x",   reset("suc", reset_rect(shrink_region)))
+define_key_v("C-A-u",     reset("suc", reset_rect(cursor_undo)))
+define_key_v("C-A-r",     reset("suc", reset_rect(cursor_redo)))
+define_key_v("C-A-g",     reset("scm", keyboard_quit_v1))
 
 ## 「ターミナル操作」のキー設定
-define_key_v("C-S-(243)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
-define_key_v("C-S-(244)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
-define_key_v("C-(243)",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
-define_key_v("C-(244)",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
-define_key_v("C-A-(248)", reset_search(reset_undo(reset_counter(reset_mark(create_terminal_in_editor_area)))))
+define_key_v("C-S-(243)", reset("sucm", create_terminal))
+define_key_v("C-S-(244)", reset("sucm", create_terminal))
+define_key_v("C-(243)",   reset("sucm", toggle_terminal))
+define_key_v("C-(244)",   reset("sucm", toggle_terminal))
+define_key_v("C-A-(248)", reset("sucm", create_terminal_in_editor_area))
 
 if is_japanese_keyboard:
-    define_key_v("C-S-@", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
+    define_key_v("C-S-@", reset("sucm", create_terminal))
     if not fc.use_ctrl_atmark_for_mark:
-        define_key_v("C-@", reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
-    define_key_v("C-A-@", reset_search(reset_undo(reset_counter(reset_mark(create_terminal_in_editor_area)))))
+        define_key_v("C-@", reset("sucm", toggle_terminal))
+    define_key_v("C-A-@", reset("sucm", create_terminal_in_editor_area))
 else:
-    define_key_v("C-S-`", reset_search(reset_undo(reset_counter(reset_mark(create_terminal)))))
-    define_key_v("C-`",   reset_search(reset_undo(reset_counter(reset_mark(toggle_terminal)))))
-    define_key_v("C-A-`", reset_search(reset_undo(reset_counter(reset_mark(create_terminal_in_editor_area)))))
+    define_key_v("C-S-`", reset("sucm", create_terminal))
+    define_key_v("C-`",   reset("sucm", toggle_terminal))
+    define_key_v("C-A-`", reset("sucm", create_terminal_in_editor_area))
 
 ## 「その他」のキー設定
-define_key_v("Enter", post(reset_undo(reset_counter(reset_mark(repeat(newline))))))
-define_key_v("C-m",   post(reset_undo(reset_counter(reset_mark(repeat(newline))))))
-define_key_v("C-g",   reset_search(reset_counter(reset_mark(keyboard_quit_v2))))
-define_key_v("M-x",   reset_search(reset_undo(reset_counter(reset_mark(execute_extended_command)))))
-define_key_v("M-;",   reset_search(reset_undo(reset_counter(reset_mark(comment_dwim)))))
+define_key_v("Enter",     post(reset("ucm", repeat(newline))))
+define_key_v("C-m",       post(reset("ucm", repeat(newline))))
+define_key_v("C-g",       reset("scm",  keyboard_quit_v2))
+define_key_v("M-x",       reset("sucm", execute_extended_command))
+define_key_v("M-;",       reset("sucm", comment_dwim))
 
 if is_japanese_keyboard:
     define_key_v("C-:", trigger_suggest)

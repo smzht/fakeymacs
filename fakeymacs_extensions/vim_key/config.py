@@ -184,7 +184,7 @@ prefix_key_list_v = apply_all(prefix_key_list_v, specialCharToKeyStr)
 
 ## 共通関数
 def vim_reset():
-    reset_undo(reset_counter(execute_ex_command("noh", esc=True)))()
+    reset("uc", execute_ex_command("noh", esc=True))()
     fakeymacs.is_searching = None
 
 def check_prefix_key(*key_list):
@@ -324,7 +324,7 @@ def digit(number):
         if fakeymacs.is_universal_argument:
             digit_argument(number)
         else:
-            reset_undo(reset_counter(repeat(self_insert_command_v3(str(number)))))()
+            reset("uc", repeat(self_insert_command_v3(str(number))))()
     return _func
 
 def adjust_ime_status(command):
@@ -825,30 +825,30 @@ for n in range(10):
     if fc.use_ctrl_digit_key_for_digit_argument:
         define_key_v1(f"C-{key}", digit2(n))
     define_key_v1(f"M-{key}", digit2(n))
-    define_key_v1(f"S-{key}", reset_undo(reset_counter(repeat(self_insert_command_v3(f"S-{key}")))))
+    define_key_v1(f"S-{key}", reset("uc", repeat(self_insert_command_v3(f"S-{key}"))))
 
 ## アルファベットキーの設定
 for vkey in range(VK_A, VK_Z + 1):
     key = vkToStr(vkey)
     for mod in ["", "S-"]:
         mkey = mod + key
-        define_key_v1(mkey, reset_undo(reset_counter(repeat(self_insert_command_v3(mkey)))))
+        define_key_v1(mkey, reset("uc", repeat(self_insert_command_v3(mkey))))
 
 ## 特殊文字キーの設定
-define_key_v1("Space"  , reset_undo(reset_counter(repeat(self_insert_command_v1("Space")))))
-define_key_v1("S-Space", reset_undo(reset_counter(repeat(self_insert_command_v1("S-Space")))))
+define_key_v1("Space"  , reset("uc", repeat(self_insert_command_v1("Space"))))
+define_key_v1("S-Space", reset("uc", repeat(self_insert_command_v1("S-Space"))))
 
 for vkey in [VK_OEM_MINUS, VK_OEM_PLUS, VK_OEM_COMMA, VK_OEM_PERIOD,
              VK_OEM_1, VK_OEM_2, VK_OEM_3, VK_OEM_4, VK_OEM_5, VK_OEM_6, VK_OEM_7, VK_OEM_102]:
     key = vkToStr(vkey)
     for mod in ["", "S-"]:
         mkey = mod + key
-        define_key_v1(mkey, reset_undo(reset_counter(repeat(self_insert_command_v3(mkey)))))
+        define_key_v1(mkey, reset("uc", repeat(self_insert_command_v3(mkey))))
 
 ## 10key の特殊文字キーの設定
 for vkey in [VK_MULTIPLY, VK_ADD, VK_SUBTRACT, VK_DECIMAL, VK_DIVIDE]:
     key = vkToStr(vkey)
-    define_key_v1(key, reset_undo(reset_counter(repeat(self_insert_command_v3(key)))))
+    define_key_v1(key, reset("uc", repeat(self_insert_command_v3(key))))
 
 ## quoted-insert キーの設定
 for vkey in vkeys():
@@ -870,150 +870,150 @@ else:
 
 ## 「インサートモード移行」のキー設定
 for key in ["i", "S-i", "a", "S-a", "o", "S-o", "S-r", "s", "S-s", "c", "S-c", "h", "S-h", "C-h"]:
-    define_key_v1(key, reset_undo(reset_counter(enter_insert_mode(key))))
+    define_key_v1(key, reset("uc", enter_insert_mode(key)))
 
 ## 「ビジュアルモード移行」のキーの設定
 for key in ["v", "S-v"]:
-    define_key_v1(key, reset_undo(reset_counter(enter_visual_mode(key))))
+    define_key_v1(key, reset("uc", enter_visual_mode(key)))
 
 ## 「インサートノーマルモード移行」のキー設定
 if not getKeyCommand(keymap_ime, "C-o"):
-    define_key_v2("C-o", reset_undo(reset_counter(enter_insert_normal_mode)))
+    define_key_v2("C-o", reset("uc", enter_insert_normal_mode))
 
-define_key_v2("C-A-o", reset_undo(reset_counter(enter_insert_normal_mode)))
+define_key_v2("C-A-o", reset("uc", enter_insert_normal_mode))
 
 ## 「コマンドラインモード移行」のキー設定
 for key in [":", "!"]:
-    define_key_v1(key, reset_undo(reset_counter(enter_command_line_mode(key))))
+    define_key_v1(key, reset("uc", enter_command_line_mode(key)))
 
 ## 「検索モード移行」のキー設定
 for key in ["/", "?", "*"]:
-    define_key_v1(key, reset_undo(reset_counter(enter_search_mode(key))))
+    define_key_v1(key, reset("uc", enter_search_mode(key)))
 
 ## 「ビジュアルモード終了」のキー設定
 for key in ["d", "x", "y", "<", ">", "=", "u", "S-u", "~", "q", "w", "S-j"]:
-    define_key_v1(key, reset_undo(reset_counter(exit_visual_mode(key))))
+    define_key_v1(key, reset("uc", exit_visual_mode(key)))
 
 ## universal-argument キーの設定
 define_key_v2("C-u", universal_argument)
 
 ## 「ファイル操作」のキー設定
-define_key_v2("Ctl-x C-f", reset_undo(reset_counter(find_file)))
-define_key_v2("Ctl-x C-s", reset_undo(reset_counter(save_buffer)))
-define_key_v2("Ctl-x C-w", reset_undo(reset_counter(write_file)))
+define_key_v2("Ctl-x C-f", reset("uc", find_file))
+define_key_v2("Ctl-x C-s", reset("uc", save_buffer))
+define_key_v2("Ctl-x C-w", reset("uc", write_file))
 
 ## 「カーソル移動」のキー設定
-define_key_v1("C-b",      reset_undo(reset_counter(repeat(backward_char))))
-define_key_v1("C-f",      reset_undo(reset_counter(repeat(forward_char))))
-define_key_v1("M-b",      reset_undo(reset_counter(repeat(backward_word))))
-define_key_v1("M-f",      reset_undo(reset_counter(repeat(forward_word))))
-define_key_v1("C-p",      reset_undo(reset_counter(repeat(previous_line))))
-define_key_v1("C-n",      reset_undo(reset_counter(repeat(next_line))))
-define_key_v1("C-a",      reset_undo(reset_counter(move_beginning_of_line)))
-define_key_v1("C-e",      reset_undo(reset_counter(move_end_of_line)))
-define_key_v1("M-<",      reset_undo(reset_counter(beginning_of_buffer)))
-define_key_v1("M->",      reset_undo(reset_counter(end_of_buffer)))
-define_key_v1("M-g g",    reset_undo(reset_counter(goto_line)))
-define_key_v1("M-g M-g",  reset_undo(reset_counter(goto_line)))
-define_key_v2("C-l",      reset_undo(reset_counter(recenter)))
+define_key_v1("C-b",       reset("uc", repeat(backward_char)))
+define_key_v1("C-f",       reset("uc", repeat(forward_char)))
+define_key_v1("M-b",       reset("uc", repeat(backward_word)))
+define_key_v1("M-f",       reset("uc", repeat(forward_word)))
+define_key_v1("C-p",       reset("uc", repeat(previous_line)))
+define_key_v1("C-n",       reset("uc", repeat(next_line)))
+define_key_v1("C-a",       reset("uc", move_beginning_of_line))
+define_key_v1("C-e",       reset("uc", move_end_of_line))
+define_key_v1("M-<",       reset("uc", beginning_of_buffer))
+define_key_v1("M->",       reset("uc", end_of_buffer))
+define_key_v1("M-g g",     reset("uc", goto_line))
+define_key_v1("M-g M-g",   reset("uc", goto_line))
+define_key_v2("C-l",       reset("uc", recenter))
 
-define_key_v1("Left",     reset_undo(reset_counter(repeat(backward_char))))
-define_key_v1("Right",    reset_undo(reset_counter(repeat(forward_char))))
-define_key_v1("C-Left",   reset_undo(reset_counter(repeat(backward_word))))
-define_key_v1("C-Right",  reset_undo(reset_counter(repeat(forward_word))))
-define_key_v1("Up",       reset_undo(reset_counter(repeat(previous_line))))
-define_key_v1("Down",     reset_undo(reset_counter(repeat(next_line))))
-define_key_v1("Home",     reset_undo(reset_counter(move_beginning_of_line)))
-define_key_v1("End",      reset_undo(reset_counter(move_end_of_line)))
-define_key_v1("C-Home",   reset_undo(reset_counter(beginning_of_buffer)))
-define_key_v1("C-End",    reset_undo(reset_counter(end_of_buffer)))
-define_key_v2("PageUp",   reset_undo(reset_counter(scroll_up)))
-define_key_v2("PageDown", reset_undo(reset_counter(scroll_down)))
+define_key_v1("Left",      reset("uc", repeat(backward_char)))
+define_key_v1("Right",     reset("uc", repeat(forward_char)))
+define_key_v1("C-Left",    reset("uc", repeat(backward_word)))
+define_key_v1("C-Right",   reset("uc", repeat(forward_word)))
+define_key_v1("Up",        reset("uc", repeat(previous_line)))
+define_key_v1("Down",      reset("uc", repeat(next_line)))
+define_key_v1("Home",      reset("uc", move_beginning_of_line))
+define_key_v1("End",       reset("uc", move_end_of_line))
+define_key_v1("C-Home",    reset("uc", beginning_of_buffer))
+define_key_v1("C-End",     reset("uc", end_of_buffer))
+define_key_v2("PageUp",    reset("uc", scroll_up))
+define_key_v2("PageDown",  reset("uc", scroll_down))
 
 ## 「カット / コピー / 削除 / アンドゥ」のキー設定
-define_key_v1("C-h",       reset_undo(reset_counter(repeat(delete_backward_char))))
-define_key_v2("C-d",       reset_undo(reset_counter(repeat(delete_char))))
-define_key_v2("M-Delete",  reset_undo(reset_counter(repeat(backward_kill_word))))
-define_key_v2("M-d",       reset_undo(reset_counter(repeat(kill_word))))
-define_key_v2("C-k",       reset_undo(reset_counter(repeat(kill_line))))
-define_key_v2("C-w",       reset_undo(reset_counter(kill_region)))
-define_key_v2("M-w",       reset_undo(reset_counter(kill_ring_save)))
-define_key_v2("C-y",       reset_undo(reset_counter(repeat(yank))))
-define_key_v2("C-/",       reset_counter(undo))
-define_key_v2("Ctl-x u",   reset_counter(undo))
+define_key_v1("C-h",       reset("uc", repeat(delete_backward_char)))
+define_key_v2("C-d",       reset("uc", repeat(delete_char)))
+define_key_v2("M-Delete",  reset("uc", repeat(backward_kill_word)))
+define_key_v2("M-d",       reset("uc", repeat(kill_word)))
+define_key_v2("C-k",       reset("uc", repeat(kill_line)))
+define_key_v2("C-w",       reset("uc", kill_region))
+define_key_v2("M-w",       reset("uc", kill_ring_save))
+define_key_v2("C-y",       reset("uc", repeat(yank)))
+define_key_v2("C-/",       reset("c",  undo))
+define_key_v2("Ctl-x u",   reset("c",  undo))
 
-define_key_v1("Back",      reset_undo(reset_counter(repeat(delete_backward_char))))
-define_key_v2("Delete",    reset_undo(reset_counter(repeat(delete_char))))
-define_key_v2("C-Back",    reset_undo(reset_counter(repeat(backward_kill_word))))
-define_key_v2("C-Delete",  reset_undo(reset_counter(repeat(kill_word))))
-define_key_v2("C-c",       reset_undo(reset_counter(kill_ring_save)))
-define_key_v2("C-v",       reset_undo(reset_counter(repeat(yank))))
-define_key_v2("C-z",       reset_counter(undo))
-define_key_v2("C-_",       reset_counter(undo))
-define_key_v2("C-@",       reset_undo(reset_counter(set_mark_command("v"))))
-define_key_v2("C-Space",   reset_undo(reset_counter(set_mark_command("v"))))
-define_key_v2("Ctl-x h",   reset_undo(reset_counter(mark_whole_buffer)))
-define_key_v2("Ctl-x C-p", reset_undo(reset_counter(mark_page)))
+define_key_v1("Back",      reset("uc", repeat(delete_backward_char)))
+define_key_v2("Delete",    reset("uc", repeat(delete_char)))
+define_key_v2("C-Back",    reset("uc", repeat(backward_kill_word)))
+define_key_v2("C-Delete",  reset("uc", repeat(kill_word)))
+define_key_v2("C-c",       reset("uc", kill_ring_save))
+define_key_v2("C-v",       reset("uc", repeat(yank)))
+define_key_v2("C-z",       reset("c",  undo))
+define_key_v2("C-_",       reset("c",  undo))
+define_key_v2("C-@",       reset("uc", set_mark_command("v")))
+define_key_v2("C-Space",   reset("uc", set_mark_command("v")))
+define_key_v2("Ctl-x h",   reset("uc", mark_whole_buffer))
+define_key_v2("Ctl-x C-p", reset("uc", mark_page))
 
 ## 「テキストの入れ替え」のキー設定
-define_key_v2("C-t", reset_undo(reset_counter(transpose_chars)))
+define_key_v2("C-t",       reset("uc", transpose_chars))
 
 ## 「バッファ操作」のキー設定
-define_key_v2("M-k",       reset_undo(reset_counter(kill_buffer)))
-define_key_v2("Ctl-x k",   reset_undo(reset_counter(kill_buffer)))
-define_key_v2("Ctl-x b",   reset_undo(reset_counter(switch_to_buffer)))
-define_key_v2("Ctl-x C-b", reset_undo(reset_counter(list_buffers)))
+define_key_v2("M-k",       reset("uc", kill_buffer))
+define_key_v2("Ctl-x k",   reset("uc", kill_buffer))
+define_key_v2("Ctl-x b",   reset("uc", switch_to_buffer))
+define_key_v2("Ctl-x C-b", reset("uc", list_buffers))
 
-define_key_v2("M-p",       reset_undo(reset_counter(previous_buffer)))
-define_key_v2("M-n",       reset_undo(reset_counter(next_buffer)))
-define_key_v2("M-Up",      reset_undo(reset_counter(previous_buffer)))
-define_key_v2("M-Down",    reset_undo(reset_counter(next_buffer)))
+define_key_v2("M-p",       reset("uc", previous_buffer))
+define_key_v2("M-n",       reset("uc", next_buffer))
+define_key_v2("M-Up",      reset("uc", previous_buffer))
+define_key_v2("M-Down",    reset("uc", next_buffer))
 
 ## 「ウィンドウ操作」のキー設定
-define_key_v2("Ctl-x 0", reset_undo(reset_counter(delete_window)))
-define_key_v2("Ctl-x 1", delete_other_windows)
-define_key_v2("Ctl-x 2", split_window_below)
-define_key_v2("Ctl-x 3", split_window_right)
-define_key_v2("Ctl-x o", reset_undo(reset_counter(other_window)))
+define_key_v2("Ctl-x 0",   reset("uc", delete_window))
+define_key_v2("Ctl-x 1",   delete_other_windows)
+define_key_v2("Ctl-x 2",   split_window_below)
+define_key_v2("Ctl-x 3",   split_window_right)
+define_key_v2("Ctl-x o",   reset("uc", other_window))
 
 ## 「タブ操作」のキー設定
-define_key_v2("C-A-t", reset_undo(reset_counter(create_tab)))
-define_key_v2("C-A-c", reset_undo(reset_counter(close_tab)))
-define_key_v2("C-A-p", reset_undo(reset_counter(previous_tab)))
-define_key_v2("C-A-n", reset_undo(reset_counter(next_tab)))
-define_key_v2("C-A-l", reset_undo(reset_counter(list_tabs)))
+define_key_v2("C-A-t",     reset("uc", create_tab))
+define_key_v2("C-A-c",     reset("uc", close_tab))
+define_key_v2("C-A-p",     reset("uc", previous_tab))
+define_key_v2("C-A-n",     reset("uc", next_tab))
+define_key_v2("C-A-l",     reset("uc", list_tabs))
 
 ## 「文字列検索」のキー設定
-define_key_v2("C-r", reset_undo(reset_counter(isearch_backward)))
-define_key_v2("C-s", reset_undo(reset_counter(isearch_forward)))
+define_key_v2("C-r",       reset("uc", isearch_backward))
+define_key_v2("C-s",       reset("uc", isearch_forward))
 
 for key in ["S-n", "n"]:
-    define_key_v1(key, reset_undo(reset_counter(isearch_repeat(key))))
+    define_key_v1(key,     reset("uc", isearch_repeat(key)))
 
 ## 「キーボードマクロ」のキー設定
-define_key_v2("Ctl-x (", keyboard_macro_start)
-define_key_v2("Ctl-x )", keyboard_macro_stop)
-define_key_v2("Ctl-x e", reset_undo(reset_counter(repeat(keyboard_macro_play))))
+define_key_v2("Ctl-x (",   keyboard_macro_start)
+define_key_v2("Ctl-x )",   keyboard_macro_stop)
+define_key_v2("Ctl-x e",   reset("uc", repeat(keyboard_macro_play)))
 
 ## 「矩形選択」のキー設定
-define_key_v2("C-A-Space", reset_undo(reset_counter(rectangle_mark_mode)))
+define_key_v2("C-A-Space", reset("uc", rectangle_mark_mode))
 
 ## 「その他」のキー設定
-define_key_v2("Enter",     reset_undo(reset_counter(repeat(newline()))))
-define_key_v2("C-m",       reset_undo(reset_counter(repeat(newline()))))
-define_key_v2("C-Enter",   reset_undo(reset_counter(repeat(newline(enter_im=True)))))
-define_key_v1("C-g",       reset_search(reset_counter(keyboard_quit)))
-define_key_v2("M-x",       reset_undo(reset_counter(execute_extended_command)))
-define_key_v2("Ctl-x C-c", reset_undo(reset_counter(kill_emacs)))
+define_key_v2("Enter",     reset("uc", repeat(newline())))
+define_key_v2("C-m",       reset("uc", repeat(newline())))
+define_key_v2("C-Enter",   reset("uc", repeat(newline(enter_im=True))))
+define_key_v1("C-g",       reset("sc", keyboard_quit))
+define_key_v2("M-x",       reset("uc", execute_extended_command))
+define_key_v2("Ctl-x C-c", reset("uc", kill_emacs))
 
 ## 「タブ」のキー設定
 if fc.use_ctrl_i_as_tab:
-    define_key_v1("C-i", reset_undo(reset_counter(indent_for_tab_command)))
+    define_key_v1("C-i",   reset("uc", indent_for_tab_command))
 
 ## 「スクロール」のキー設定
 if fc.scroll_key:
-    define_key_v2(fc.scroll_key[0], reset_undo(reset_counter(scroll_up)))
-    define_key_v2(fc.scroll_key[1], reset_undo(reset_counter(scroll_down)))
+    define_key_v2(fc.scroll_key[0], reset("uc", scroll_up))
+    define_key_v2(fc.scroll_key[1], reset("uc", scroll_down))
 
 # --------------------------------------------------------------------------------------------------
 

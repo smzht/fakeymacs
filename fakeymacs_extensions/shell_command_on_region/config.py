@@ -215,5 +215,5 @@ def shell_command_on_region():
         keymap.popBalloon("shell_command", "[No command specified]", 1000)
         print("コマンドが指定されていません\n")
 
-define_key(keymap_emacs, "M-|", reset_search(reset_undo(reset_counter(reset_mark(shell_command_inputbox)))))
-define_key(keymap_emacs, f"LC-S-{vkToStr(VK_F12)}", reset_search(reset_undo(reset_counter(shell_command_on_region))))
+define_key(keymap_emacs, "M-|",                     reset("sucm", shell_command_inputbox))
+define_key(keymap_emacs, f"LC-S-{vkToStr(VK_F12)}", reset("suc",  shell_command_on_region))

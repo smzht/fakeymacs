@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20260405_01"
+fakeymacs_version = "20260506_01"
 
 import time
 import os
@@ -948,7 +948,7 @@ def configure(keymap):
                 fakeymacs.is_emacs_target = False
 
             if fakeymacs.is_emacs_target == True:
-                reset_undo(reset_counter(reset_mark(lambda: None)))()
+                reset("ucm", lambda: None)()
                 fakeymacs.ime_cancel = False
 
                 if process_name in fc.emacs_excluded_key:
@@ -2246,7 +2246,7 @@ def configure(keymap):
             if fakeymacs.is_universal_argument:
                 digit_argument(number)
             else:
-                reset_undo(reset_counter(reset_mark(repeat(self_insert_command2(str(number))))))()
+                reset("ucm", repeat(self_insert_command2(str(number))))()
         return _func
 
     def digit2(number):
@@ -2304,6 +2304,18 @@ def configure(keymap):
             if fakeymacs.is_searching:
                 fakeymacs.is_searching = None
         return _func
+
+    def reset(target, func):
+        for t in target[::-1]:
+            if t == "s":
+                func = reset_search(func)
+            elif t == "u":
+                func = reset_undo(func)
+            elif t == "c":
+                func = reset_counter(func)
+            elif t == "m":
+                func = reset_mark(func)
+        return func
 
     def repeat(func):
         def _func():
@@ -2426,7 +2438,7 @@ def configure(keymap):
         if fc.use_ctrl_digit_key_for_digit_argument:
             define_key(keymap_emacs, f"C-{key}", digit2(n))
         define_key(keymap_emacs, f"M-{key}", digit2(n))
-        define_key(keymap_emacs, f"S-{key}", reset_undo(reset_counter(reset_mark(repeat(self_insert_command2(f"S-{key}"))))))
+        define_key(keymap_emacs, f"S-{key}", reset("ucm", repeat(self_insert_command2(f"S-{key}"))))
         for mod in ["", "S-"]:
             mkey = mod + key
             define_key(keymap_ime, mkey, self_insert_command2(mkey))
@@ -2436,25 +2448,25 @@ def configure(keymap):
         key = vkToStr(vkey)
         for mod in ["", "S-"]:
             mkey = mod + key
-            define_key(keymap_emacs, mkey, reset_undo(reset_counter(reset_mark(repeat(self_insert_command2(mkey))))))
+            define_key(keymap_emacs, mkey, reset("ucm", repeat(self_insert_command2(mkey))))
             define_key(keymap_ime,   mkey, self_insert_command2(mkey))
 
     ## 特殊文字キーの設定
-    define_key(keymap_emacs, "Space"  , reset_undo(reset_counter(reset_mark(repeat(space)))))
-    define_key(keymap_emacs, "S-Space", reset_undo(reset_counter(reset_mark(repeat(self_insert_command("S-Space"))))))
+    define_key(keymap_emacs, "Space"  , reset("ucm", repeat(space)))
+    define_key(keymap_emacs, "S-Space", reset("ucm", repeat(self_insert_command("S-Space"))))
 
     for vkey in [VK_OEM_MINUS, VK_OEM_PLUS, VK_OEM_COMMA, VK_OEM_PERIOD,
                  VK_OEM_1, VK_OEM_2, VK_OEM_3, VK_OEM_4, VK_OEM_5, VK_OEM_6, VK_OEM_7, VK_OEM_102]:
         key = vkToStr(vkey)
         for mod in ["", "S-"]:
             mkey = mod + key
-            define_key(keymap_emacs, mkey, reset_undo(reset_counter(reset_mark(repeat(self_insert_command2(mkey))))))
+            define_key(keymap_emacs, mkey, reset("ucm", repeat(self_insert_command2(mkey))))
             define_key(keymap_ime,   mkey, self_insert_command2(mkey))
 
     ## 10key の特殊文字キーの設定
     for vkey in [VK_MULTIPLY, VK_ADD, VK_SUBTRACT, VK_DECIMAL, VK_DIVIDE]:
         key = vkToStr(vkey)
-        define_key(keymap_emacs, key, reset_undo(reset_counter(reset_mark(repeat(self_insert_command2(key))))))
+        define_key(keymap_emacs, key, reset("ucm", repeat(self_insert_command2(key))))
         define_key(keymap_ime,   key, self_insert_command2(key))
 
     ## quoted-insert キーの設定
@@ -2466,150 +2478,150 @@ def configure(keymap):
 
     ## Esc キーの設定
     if fc.use_esc_as_meta:
-        define_key(keymap_emacs, "Esc Esc", reset_undo(reset_counter(escape)))
+        define_key(keymap_emacs, "Esc Esc", reset("uc", escape))
     else:
-        define_key(keymap_emacs, "Esc", reset_undo(reset_counter(escape)))
+        define_key(keymap_emacs, "Esc", reset("uc", escape))
 
     if fc.use_ctrl_openbracket_as_meta:
-        define_key(keymap_emacs, "C-[ C-[", reset_undo(reset_counter(escape)))
+        define_key(keymap_emacs, "C-[ C-[", reset("uc", escape))
     else:
-        define_key(keymap_emacs, "C-[", reset_undo(reset_counter(escape)))
+        define_key(keymap_emacs, "C-[", reset("uc", escape))
 
     ## universal-argument キーの設定
     define_key(keymap_emacs, "C-u", universal_argument)
 
     ## 「IME の切り替え」のキー設定
-    define_key(keymap_base, "C-`",     toggle_input_method) # C-` キー
-    define_key(keymap_base, "A-(25)",  toggle_input_method) # A-` キー
-    define_key(keymap_base, "(243)",   toggle_input_method) # <半角／全角> キー
-    define_key(keymap_base, "(244)",   toggle_input_method) # <半角／全角> キー
-    define_key(keymap_base, "C-(243)", toggle_input_method) # C-<半角／全角> キー
-    define_key(keymap_base, "C-(244)", toggle_input_method) # C-<半角／全角> キー
-    define_key(keymap_base, "(240)",   toggle_input_method) # CapsLock キー
-    define_key(keymap_base, "S-(240)", toggle_input_method) # S-CapsLock キー
+    define_key(keymap_base, "C-`",         toggle_input_method) # C-` キー
+    define_key(keymap_base, "A-(25)",      toggle_input_method) # A-` キー
+    define_key(keymap_base, "(243)",       toggle_input_method) # <半角／全角> キー
+    define_key(keymap_base, "(244)",       toggle_input_method) # <半角／全角> キー
+    define_key(keymap_base, "C-(243)",     toggle_input_method) # C-<半角／全角> キー
+    define_key(keymap_base, "C-(244)",     toggle_input_method) # C-<半角／全角> キー
+    define_key(keymap_base, "(240)",       toggle_input_method) # CapsLock キー
+    define_key(keymap_base, "S-(240)",     toggle_input_method) # S-CapsLock キー
 
     ## 「ファイル操作」のキー設定
-    define_key(keymap_emacs, "Ctl-x C-f", reset_search(reset_undo(reset_counter(reset_mark(find_file)))))
-    define_key(keymap_emacs, "Ctl-x C-s", reset_search(reset_undo(reset_counter(reset_mark(save_buffer)))))
-    define_key(keymap_emacs, "Ctl-x C-w", reset_search(reset_undo(reset_counter(reset_mark(write_file)))))
-    define_key(keymap_emacs, "Ctl-x d",   reset_search(reset_undo(reset_counter(reset_mark(dired)))))
+    define_key(keymap_emacs, "Ctl-x C-f",  reset("sucm", find_file))
+    define_key(keymap_emacs, "Ctl-x C-s",  reset("sucm", save_buffer))
+    define_key(keymap_emacs, "Ctl-x C-w",  reset("sucm", write_file))
+    define_key(keymap_emacs, "Ctl-x d",    reset("sucm", dired))
 
     ## 「カーソル移動」のキー設定
-    define_key(keymap_emacs, "C-b",     reset_search(reset_undo(reset_counter(mark(repeat(backward_char), False)))))
-    define_key(keymap_emacs, "C-f",     reset_search(reset_undo(reset_counter(mark(repeat(forward_char), True)))))
-    define_key(keymap_emacs, "M-b",     reset_search(reset_undo(reset_counter(mark(repeat(backward_word), False)))))
-    define_key(keymap_emacs, "M-f",     reset_search(reset_undo(reset_counter(mark(repeat(forward_word), True)))))
-    define_key(keymap_emacs, "C-p",     reset_search(reset_undo(reset_counter(mark(repeat(previous_line), False)))))
-    define_key(keymap_emacs, "C-n",     reset_search(reset_undo(reset_counter(mark(repeat(next_line), True)))))
-    define_key(keymap_emacs, "C-a",     reset_search(reset_undo(reset_counter(mark(move_beginning_of_line, False)))))
-    define_key(keymap_emacs, "C-e",     reset_search(reset_undo(reset_counter(mark(move_end_of_line, True)))))
-    define_key(keymap_emacs, "M-<",     reset_search(reset_undo(reset_counter(mark(beginning_of_buffer, False)))))
-    define_key(keymap_emacs, "M->",     reset_search(reset_undo(reset_counter(mark(end_of_buffer, True)))))
-    define_key(keymap_emacs, "M-g g",   reset_search(reset_undo(reset_counter(reset_mark(goto_line)))))
-    define_key(keymap_emacs, "M-g M-g", reset_search(reset_undo(reset_counter(reset_mark(goto_line)))))
-    define_key(keymap_emacs, "C-l",     reset_search(reset_undo(reset_counter(recenter))))
+    define_key(keymap_emacs, "C-b",        reset("suc",  mark(repeat(backward_char), False)))
+    define_key(keymap_emacs, "C-f",        reset("suc",  mark(repeat(forward_char), True)))
+    define_key(keymap_emacs, "M-b",        reset("suc",  mark(repeat(backward_word), False)))
+    define_key(keymap_emacs, "M-f",        reset("suc",  mark(repeat(forward_word), True)))
+    define_key(keymap_emacs, "C-p",        reset("suc",  mark(repeat(previous_line), False)))
+    define_key(keymap_emacs, "C-n",        reset("suc",  mark(repeat(next_line), True)))
+    define_key(keymap_emacs, "C-a",        reset("suc",  mark(move_beginning_of_line, False)))
+    define_key(keymap_emacs, "C-e",        reset("suc",  mark(move_end_of_line, True)))
+    define_key(keymap_emacs, "M-<",        reset("suc",  mark(beginning_of_buffer, False)))
+    define_key(keymap_emacs, "M->",        reset("suc",  mark(end_of_buffer, True)))
+    define_key(keymap_emacs, "M-g g",      reset("sucm", goto_line))
+    define_key(keymap_emacs, "M-g M-g",    reset("sucm", goto_line))
+    define_key(keymap_emacs, "C-l",        reset("suc",  recenter))
 
-    define_key(keymap_emacs, "C-S-b", reset_search(reset_undo(reset_counter(mark2(repeat(backward_char), False)))))
-    define_key(keymap_emacs, "C-S-f", reset_search(reset_undo(reset_counter(mark2(repeat(forward_char), True)))))
-    define_key(keymap_emacs, "M-S-b", reset_search(reset_undo(reset_counter(mark2(repeat(backward_word), False)))))
-    define_key(keymap_emacs, "M-S-f", reset_search(reset_undo(reset_counter(mark2(repeat(forward_word), True)))))
-    define_key(keymap_emacs, "C-S-p", reset_search(reset_undo(reset_counter(mark2(repeat(previous_line), False)))))
-    define_key(keymap_emacs, "C-S-n", reset_search(reset_undo(reset_counter(mark2(repeat(next_line), True)))))
-    define_key(keymap_emacs, "C-S-a", reset_search(reset_undo(reset_counter(mark2(move_beginning_of_line, False)))))
-    define_key(keymap_emacs, "C-S-e", reset_search(reset_undo(reset_counter(mark2(move_end_of_line, True)))))
+    define_key(keymap_emacs, "C-S-b",      reset("suc",  mark2(repeat(backward_char), False)))
+    define_key(keymap_emacs, "C-S-f",      reset("suc",  mark2(repeat(forward_char), True)))
+    define_key(keymap_emacs, "M-S-b",      reset("suc",  mark2(repeat(backward_word), False)))
+    define_key(keymap_emacs, "M-S-f",      reset("suc",  mark2(repeat(forward_word), True)))
+    define_key(keymap_emacs, "C-S-p",      reset("suc",  mark2(repeat(previous_line), False)))
+    define_key(keymap_emacs, "C-S-n",      reset("suc",  mark2(repeat(next_line), True)))
+    define_key(keymap_emacs, "C-S-a",      reset("suc",  mark2(move_beginning_of_line, False)))
+    define_key(keymap_emacs, "C-S-e",      reset("suc",  mark2(move_end_of_line, True)))
 
-    define_key(keymap_emacs, "Left",     reset_search(reset_undo(reset_counter(mark(repeat(backward_char), False)))))
-    define_key(keymap_emacs, "Right",    reset_search(reset_undo(reset_counter(mark(repeat(forward_char), True)))))
-    define_key(keymap_emacs, "C-Left",   reset_search(reset_undo(reset_counter(mark(repeat(backward_word), False)))))
-    define_key(keymap_emacs, "C-Right",  reset_search(reset_undo(reset_counter(mark(repeat(forward_word), True)))))
-    define_key(keymap_emacs, "Up",       reset_search(reset_undo(reset_counter(mark(repeat(previous_line), False)))))
-    define_key(keymap_emacs, "Down",     reset_search(reset_undo(reset_counter(mark(repeat(next_line), True)))))
-    define_key(keymap_emacs, "Home",     reset_search(reset_undo(reset_counter(mark(move_beginning_of_line, False)))))
-    define_key(keymap_emacs, "End",      reset_search(reset_undo(reset_counter(mark(move_end_of_line, True)))))
-    define_key(keymap_emacs, "C-Home",   reset_search(reset_undo(reset_counter(mark(beginning_of_buffer, False)))))
-    define_key(keymap_emacs, "C-End",    reset_search(reset_undo(reset_counter(mark(end_of_buffer, True)))))
-    define_key(keymap_emacs, "PageUp",   reset_search(reset_undo(reset_counter(mark(scroll_up, False)))))
-    define_key(keymap_emacs, "PageDown", reset_search(reset_undo(reset_counter(mark(scroll_down, True)))))
+    define_key(keymap_emacs, "Left",       reset("suc",  mark(repeat(backward_char), False)))
+    define_key(keymap_emacs, "Right",      reset("suc",  mark(repeat(forward_char), True)))
+    define_key(keymap_emacs, "C-Left",     reset("suc",  mark(repeat(backward_word), False)))
+    define_key(keymap_emacs, "C-Right",    reset("suc",  mark(repeat(forward_word), True)))
+    define_key(keymap_emacs, "Up",         reset("suc",  mark(repeat(previous_line), False)))
+    define_key(keymap_emacs, "Down",       reset("suc",  mark(repeat(next_line), True)))
+    define_key(keymap_emacs, "Home",       reset("suc",  mark(move_beginning_of_line, False)))
+    define_key(keymap_emacs, "End",        reset("suc",  mark(move_end_of_line, True)))
+    define_key(keymap_emacs, "C-Home",     reset("suc",  mark(beginning_of_buffer, False)))
+    define_key(keymap_emacs, "C-End",      reset("suc",  mark(end_of_buffer, True)))
+    define_key(keymap_emacs, "PageUp",     reset("suc",  mark(scroll_up, False)))
+    define_key(keymap_emacs, "PageDown",   reset("suc",  mark(scroll_down, True)))
 
-    define_key(keymap_emacs, "S-Left",     reset_search(reset_undo(reset_counter(mark2(repeat(backward_char), False)))))
-    define_key(keymap_emacs, "S-Right",    reset_search(reset_undo(reset_counter(mark2(repeat(forward_char), True)))))
-    define_key(keymap_emacs, "C-S-Left",   reset_search(reset_undo(reset_counter(mark2(repeat(backward_word), False)))))
-    define_key(keymap_emacs, "C-S-Right",  reset_search(reset_undo(reset_counter(mark2(repeat(forward_word), True)))))
-    define_key(keymap_emacs, "S-Up",       reset_search(reset_undo(reset_counter(mark2(repeat(previous_line), False)))))
-    define_key(keymap_emacs, "S-Down",     reset_search(reset_undo(reset_counter(mark2(repeat(next_line), True)))))
-    define_key(keymap_emacs, "S-Home",     reset_search(reset_undo(reset_counter(mark2(move_beginning_of_line, False)))))
-    define_key(keymap_emacs, "S-End",      reset_search(reset_undo(reset_counter(mark2(move_end_of_line, True)))))
-    define_key(keymap_emacs, "C-S-Home",   reset_search(reset_undo(reset_counter(mark2(beginning_of_buffer, False)))))
-    define_key(keymap_emacs, "C-S-End",    reset_search(reset_undo(reset_counter(mark2(end_of_buffer, True)))))
-    define_key(keymap_emacs, "S-PageUp",   reset_search(reset_undo(reset_counter(mark2(scroll_up, False)))))
-    define_key(keymap_emacs, "S-PageDown", reset_search(reset_undo(reset_counter(mark2(scroll_down, True)))))
+    define_key(keymap_emacs, "S-Left",     reset("suc", mark2(repeat(backward_char), False)))
+    define_key(keymap_emacs, "S-Right",    reset("suc", mark2(repeat(forward_char), True)))
+    define_key(keymap_emacs, "C-S-Left",   reset("suc", mark2(repeat(backward_word), False)))
+    define_key(keymap_emacs, "C-S-Right",  reset("suc", mark2(repeat(forward_word), True)))
+    define_key(keymap_emacs, "S-Up",       reset("suc", mark2(repeat(previous_line), False)))
+    define_key(keymap_emacs, "S-Down",     reset("suc", mark2(repeat(next_line), True)))
+    define_key(keymap_emacs, "S-Home",     reset("suc", mark2(move_beginning_of_line, False)))
+    define_key(keymap_emacs, "S-End",      reset("suc", mark2(move_end_of_line, True)))
+    define_key(keymap_emacs, "C-S-Home",   reset("suc", mark2(beginning_of_buffer, False)))
+    define_key(keymap_emacs, "C-S-End",    reset("suc", mark2(end_of_buffer, True)))
+    define_key(keymap_emacs, "S-PageUp",   reset("suc", mark2(scroll_up, False)))
+    define_key(keymap_emacs, "S-PageDown", reset("suc", mark2(scroll_down, True)))
 
     ## 「カット / コピー / 削除 / アンドゥ」のキー設定
-    define_key(keymap_emacs, "C-h",      reset_search(reset_undo(reset_counter(reset_mark(repeat2(delete_backward_char))))))
-    define_key(keymap_emacs, "C-d",      reset_search(reset_undo(reset_counter(reset_mark(repeat2(delete_char))))))
-    define_key(keymap_emacs, "M-Delete", reset_search(reset_undo(reset_counter(reset_mark(repeat3(backward_kill_word))))))
-    define_key(keymap_emacs, "M-d",      reset_search(reset_undo(reset_counter(reset_mark(repeat3(kill_word))))))
-    define_key(keymap_emacs, "C-k",      reset_search(reset_undo(reset_counter(reset_mark(repeat3(kill_line))))))
-    define_key(keymap_emacs, "C-w",      reset_search(reset_undo(reset_counter(reset_mark(kill_region)))))
-    define_key(keymap_emacs, "M-w",      reset_search(reset_undo(reset_counter(reset_mark(kill_ring_save)))))
-    define_key(keymap_emacs, "C-y",      reset_search(reset_undo(reset_counter(reset_mark(repeat(yank))))))
-    define_key(keymap_emacs, "C-/",      reset_search(reset_counter(reset_mark(undo))))
-    define_key(keymap_emacs, "Ctl-x u",  reset_search(reset_counter(reset_mark(undo))))
+    define_key(keymap_emacs, "C-h",        reset("sucm", repeat2(delete_backward_char)))
+    define_key(keymap_emacs, "C-d",        reset("sucm", repeat2(delete_char)))
+    define_key(keymap_emacs, "M-Delete",   reset("sucm", repeat3(backward_kill_word)))
+    define_key(keymap_emacs, "M-d",        reset("sucm", repeat3(kill_word)))
+    define_key(keymap_emacs, "C-k",        reset("sucm", repeat3(kill_line)))
+    define_key(keymap_emacs, "C-w",        reset("sucm", kill_region))
+    define_key(keymap_emacs, "M-w",        reset("sucm", kill_ring_save))
+    define_key(keymap_emacs, "C-y",        reset("sucm", repeat(yank)))
+    define_key(keymap_emacs, "C-/",        reset("scm",  undo))
+    define_key(keymap_emacs, "Ctl-x u",    reset("scm",  undo))
 
-    define_key(keymap_emacs, "Back",      reset_search(reset_undo(reset_counter(reset_mark(repeat2(delete_backward_char))))))
-    define_key(keymap_emacs, "Delete",    reset_search(reset_undo(reset_counter(reset_mark(repeat2(delete_char))))))
-    define_key(keymap_emacs, "C-Back",    reset_search(reset_undo(reset_counter(reset_mark(repeat3(backward_kill_word))))))
-    define_key(keymap_emacs, "C-Delete",  reset_search(reset_undo(reset_counter(reset_mark(repeat3(kill_word))))))
-    define_key(keymap_emacs, "C-c",       reset_search(reset_undo(reset_counter(reset_mark(kill_ring_save)))))
-    define_key(keymap_emacs, "C-v",       reset_search(reset_undo(reset_counter(reset_mark(repeat(yank)))))) # scroll_key の設定で上書きされない場合
-    define_key(keymap_emacs, "C-z",       reset_search(reset_counter(reset_mark(undo))))
-    define_key(keymap_emacs, "C-_",       reset_search(reset_counter(reset_mark(undo))))
-    define_key(keymap_emacs, "C-@",       reset_search(reset_undo(reset_counter(set_mark_command))))
-    define_key(keymap_emacs, "C-Space",   reset_search(reset_undo(reset_counter(set_mark_command))))
-    define_key(keymap_emacs, "Ctl-x h",   reset_search(reset_undo(reset_counter(mark_whole_buffer))))
-    define_key(keymap_emacs, "Ctl-x C-p", reset_search(reset_undo(reset_counter(mark_page))))
+    define_key(keymap_emacs, "Back",       reset("sucm", repeat2(delete_backward_char)))
+    define_key(keymap_emacs, "Delete",     reset("sucm", repeat2(delete_char)))
+    define_key(keymap_emacs, "C-Back",     reset("sucm", repeat3(backward_kill_word)))
+    define_key(keymap_emacs, "C-Delete",   reset("sucm", repeat3(kill_word)))
+    define_key(keymap_emacs, "C-c",        reset("sucm", kill_ring_save))
+    define_key(keymap_emacs, "C-v",        reset("sucm", repeat(yank))) # scroll_key の設定で上書きされない場合
+    define_key(keymap_emacs, "C-z",        reset("scm",  undo))
+    define_key(keymap_emacs, "C-_",        reset("scm",  undo))
+    define_key(keymap_emacs, "C-@",        reset("suc",  set_mark_command))
+    define_key(keymap_emacs, "C-Space",    reset("suc",  set_mark_command))
+    define_key(keymap_emacs, "Ctl-x h",    reset("suc",  mark_whole_buffer))
+    define_key(keymap_emacs, "Ctl-x C-p",  reset("suc",  mark_page))
 
     ## 「テキストの入れ替え」のキー設定
-    define_key(keymap_emacs, "C-t", reset_search(reset_undo(reset_counter(reset_mark(transpose_chars)))))
+    define_key(keymap_emacs, "C-t",        reset("sucm", transpose_chars))
 
     ## 「バッファ / ウィンドウ操作」のキー設定
-    define_key(keymap_emacs, "M-k",     reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
-    define_key(keymap_emacs, "Ctl-x k", reset_search(reset_undo(reset_counter(reset_mark(kill_buffer)))))
-    define_key(keymap_emacs, "Ctl-x b", reset_search(reset_undo(reset_counter(reset_mark(switch_to_buffer)))))
-    define_key(keymap_emacs, "Ctl-x o", reset_search(reset_undo(reset_counter(reset_mark(other_window)))))
+    define_key(keymap_emacs, "M-k",        reset("sucm", kill_buffer))
+    define_key(keymap_emacs, "Ctl-x k",    reset("sucm", kill_buffer))
+    define_key(keymap_emacs, "Ctl-x b",    reset("sucm", switch_to_buffer))
+    define_key(keymap_emacs, "Ctl-x o",    reset("sucm", other_window))
 
     ## 「文字列検索 / 置換」のキー設定
-    define_key(keymap_emacs, "C-r", reset_undo(reset_counter(reset_mark(isearch_backward))))
-    define_key(keymap_emacs, "C-s", reset_undo(reset_counter(reset_mark(isearch_forward))))
-    define_key(keymap_emacs, "M-%", reset_search(reset_undo(reset_counter(reset_mark(query_replace)))))
+    define_key(keymap_emacs, "C-r",        reset("ucm",  isearch_backward))
+    define_key(keymap_emacs, "C-s",        reset("ucm",  isearch_forward))
+    define_key(keymap_emacs, "M-%",        reset("sucm", query_replace))
 
     ## 「キーボードマクロ」のキー設定
-    define_key(keymap_emacs, "Ctl-x (", kmacro_start_macro)
-    define_key(keymap_emacs, "Ctl-x )", kmacro_end_macro)
-    define_key(keymap_emacs, "Ctl-x e", reset_search(reset_undo(reset_counter(repeat(kmacro_end_and_call_macro)))))
+    define_key(keymap_emacs, "Ctl-x (",    kmacro_start_macro)
+    define_key(keymap_emacs, "Ctl-x )",    kmacro_end_macro)
+    define_key(keymap_emacs, "Ctl-x e",    reset("suc", repeat(kmacro_end_and_call_macro)))
 
     ## 「その他」のキー設定
-    define_key(keymap_emacs, "Enter",     reset_undo(reset_counter(reset_mark(repeat(newline)))))
-    define_key(keymap_emacs, "C-m",       reset_undo(reset_counter(reset_mark(repeat(newline)))))
-    define_key(keymap_emacs, "C-j",       reset_undo(reset_counter(reset_mark(newline_and_indent))))
-    define_key(keymap_emacs, "C-o",       reset_undo(reset_counter(reset_mark(repeat(open_line)))))
-    define_key(keymap_emacs, "Tab",       reset_undo(reset_counter(reset_mark(repeat(indent_for_tab_command)))))
-    define_key(keymap_emacs, "C-g",       reset_search(reset_counter(reset_mark(keyboard_quit))))
-    define_key(keymap_emacs, "Ctl-x C-c", reset_search(reset_undo(reset_counter(reset_mark(kill_emacs)))))
-    define_key(keymap_emacs, "M-!",       reset_search(reset_undo(reset_counter(reset_mark(shell_command)))))
+    define_key(keymap_emacs, "Enter",      reset("ucm",  repeat(newline)))
+    define_key(keymap_emacs, "C-m",        reset("ucm",  repeat(newline)))
+    define_key(keymap_emacs, "C-j",        reset("ucm",  newline_and_indent))
+    define_key(keymap_emacs, "C-o",        reset("ucm",  repeat(open_line)))
+    define_key(keymap_emacs, "Tab",        reset("ucm",  repeat(indent_for_tab_command)))
+    define_key(keymap_emacs, "C-g",        reset("scm",  keyboard_quit))
+    define_key(keymap_emacs, "Ctl-x C-c",  reset("sucm", kill_emacs))
+    define_key(keymap_emacs, "M-!",        reset("sucm", shell_command))
 
     ## 「タブ」のキー設定
     if fc.use_ctrl_i_as_tab:
-        define_key(keymap_emacs, "C-i", reset_undo(reset_counter(reset_mark(repeat(indent_for_tab_command)))))
+        define_key(keymap_emacs, "C-i", reset("ucm", repeat(indent_for_tab_command)))
 
     ## 「スクロール」のキー設定
     if fc.scroll_key:
-        define_key(keymap_emacs, fc.scroll_key[0], reset_search(reset_undo(reset_counter(mark(scroll_up, False)))))
-        define_key(keymap_emacs, fc.scroll_key[1], reset_search(reset_undo(reset_counter(mark(scroll_down, True)))))
+        define_key(keymap_emacs, fc.scroll_key[0], reset("suc", mark(scroll_up, False)))
+        define_key(keymap_emacs, fc.scroll_key[1], reset("suc", mark(scroll_down, True)))
 
     ## 「カット」のキー設定
     if fc.ctl_x_prefix_key != "C-x":
-        define_key(keymap_emacs, "C-x", reset_search(reset_undo(reset_counter(reset_mark(kill_region)))))
+        define_key(keymap_emacs, "C-x", reset("sucm", kill_region))
 
     ## 「IME の切り替え」のキー設定
     for key in fc.toggle_input_method_key:
@@ -2635,7 +2647,7 @@ def configure(keymap):
                 pass
 
         for key in fc.reconversion_key:
-            define_key(keymap_emacs, key, reset_undo(reset_counter(reset_mark(reconversion))))
+            define_key(keymap_emacs, key, reset("ucm", reconversion))
 
 
     ###########################################################################
