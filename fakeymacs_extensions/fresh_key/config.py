@@ -215,7 +215,7 @@ def mergeEmacsMultiStrokeKeymap():
 keymap_fresh.applying_func = mergeEmacsMultiStrokeKeymap
 
 ## 「カーソル移動」のキー設定
-define_key_f("C-l", reset("suc", recenter))
+define_key_f("C-l",     reset("suc",  recenter))
 
 ## 「バッファ」のキー設定
 define_key_f("M-k",     reset("sucm", kill_buffer))
