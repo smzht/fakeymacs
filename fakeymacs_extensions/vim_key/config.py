@@ -324,7 +324,7 @@ def digit(number):
         if fakeymacs.is_universal_argument:
             digit_argument(number)
         else:
-            reset("uc", repeat(self_insert_command_v3(str(number))))()
+            reset_undo(reset_counter(repeat(self_insert_command_v3(str(number)))))()
     return _func
 
 def adjust_ime_status(command):
