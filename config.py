@@ -948,7 +948,7 @@ def configure(keymap):
                 fakeymacs.is_emacs_target = False
 
             if fakeymacs.is_emacs_target == True:
-                reset("ucm", lambda: None)()
+                reset_undo(reset_counter(reset_mark(lambda: None)))()
                 fakeymacs.ime_cancel = False
 
                 if process_name in fc.emacs_excluded_key:
