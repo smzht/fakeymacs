@@ -2315,6 +2315,8 @@ def configure(keymap):
                 func = reset_counter(func)
             elif t == "m":
                 func = reset_mark(func)
+            else:
+                print("リセットするターゲットに誤りがあります")
         return func
 
     def repeat(func):
