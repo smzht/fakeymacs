@@ -184,7 +184,7 @@ prefix_key_list_v = apply_all(prefix_key_list_v, specialCharToKeyStr)
 
 ## 共通関数
 def vim_reset():
-    reset("uc", execute_ex_command("noh", esc=True))()
+    reset_undo(reset_counter(execute_ex_command("noh", esc=True)))()
     fakeymacs.is_searching = None
 
 def check_prefix_key(*key_list):
