@@ -2785,26 +2785,26 @@ def configure(keymap):
         define_key(keymap_ei, "S-(240)", ei_disable_input_method) # S-CapsLock キー
 
         ## Esc キーの設定
-        define_key(keymap_ei, "Esc", escape)
-        define_key(keymap_ei, "C-[", escape)
+        define_key(keymap_ei, "Esc",     escape)
+        define_key(keymap_ei, "C-[",     escape)
 
         ## 「カーソル移動」のキー設定
-        define_key(keymap_ei, "C-b", backward_char)
-        define_key(keymap_ei, "C-f", forward_char)
-        define_key(keymap_ei, "C-p", previous_line)
-        define_key(keymap_ei, "C-n", next_line)
-        define_key(keymap_ei, "C-a", move_beginning_of_line)
-        define_key(keymap_ei, "C-e", move_end_of_line)
+        define_key(keymap_ei, "C-b",     backward_char)
+        define_key(keymap_ei, "C-f",     forward_char)
+        define_key(keymap_ei, "C-p",     previous_line)
+        define_key(keymap_ei, "C-n",     next_line)
+        define_key(keymap_ei, "C-a",     move_beginning_of_line)
+        define_key(keymap_ei, "C-e",     move_end_of_line)
 
         ## 「カット / コピー / 削除 / アンドゥ」のキー設定
-        define_key(keymap_ei, "C-h",  delete_backward_char)
-        define_key(keymap_ei, "Back", delete_backward_char) # キーの記録を残すために敢えて設定
-        define_key(keymap_ei, "C-d",  delete_char)
+        define_key(keymap_ei, "C-h",     delete_backward_char)
+        define_key(keymap_ei, "Back",    delete_backward_char) # キーの記録を残すために敢えて設定
+        define_key(keymap_ei, "C-d",     delete_char)
 
         ## 「その他」のキー設定
-        define_key(keymap_ei, "Enter", ei_newline)
-        define_key(keymap_ei, "C-m",   ei_newline)
-        define_key(keymap_ei, "C-g",   ei_keyboard_quit)
+        define_key(keymap_ei, "Enter",   ei_newline)
+        define_key(keymap_ei, "C-m",     ei_newline)
+        define_key(keymap_ei, "C-g",     ei_keyboard_quit)
 
         ## 「スクロール」のキー設定
         if fc.scroll_key:
@@ -3119,21 +3119,21 @@ def configure(keymap):
     ##################################################
 
     ## Esc キーの設定
-    define_key(keymap_lw, "Esc", lw_reset_search(escape))
-    define_key(keymap_lw, "C-[", lw_reset_search(escape))
+    define_key(keymap_lw, "Esc",     lw_reset_search(escape))
+    define_key(keymap_lw, "C-[",     lw_reset_search(escape))
 
     ## 「カーソル移動」のキー設定
-    define_key(keymap_lw, "C-b", backward_char)
-    define_key(keymap_lw, "A-b", backward_char)
+    define_key(keymap_lw, "C-b",     backward_char)
+    define_key(keymap_lw, "A-b",     backward_char)
 
-    define_key(keymap_lw, "C-f", forward_char)
-    define_key(keymap_lw, "A-f", forward_char)
+    define_key(keymap_lw, "C-f",     forward_char)
+    define_key(keymap_lw, "A-f",     forward_char)
 
-    define_key(keymap_lw, "C-p", previous_line)
-    define_key(keymap_lw, "A-p", previous_line)
+    define_key(keymap_lw, "C-p",     previous_line)
+    define_key(keymap_lw, "A-p",     previous_line)
 
-    define_key(keymap_lw, "C-n", next_line)
-    define_key(keymap_lw, "A-n", next_line)
+    define_key(keymap_lw, "C-n",     next_line)
+    define_key(keymap_lw, "A-n",     next_line)
 
     if fc.scroll_key:
         if fc.scroll_key[0]:
@@ -3142,26 +3142,26 @@ def configure(keymap):
             define_key(keymap_lw, fc.scroll_key[1].replace("M-", "A-"), scroll_down)
 
     ## 「カット / コピー / 削除 / アンドゥ」のキー設定
-    define_key(keymap_lw, "C-h", delete_backward_char)
-    define_key(keymap_lw, "A-h", delete_backward_char)
+    define_key(keymap_lw, "C-h",     delete_backward_char)
+    define_key(keymap_lw, "A-h",     delete_backward_char)
 
-    define_key(keymap_lw, "C-d", delete_char)
-    define_key(keymap_lw, "A-d", delete_char)
+    define_key(keymap_lw, "C-d",     delete_char)
+    define_key(keymap_lw, "A-d",     delete_char)
 
     ## 「文字列検索 / 置換」のキー設定
-    define_key(keymap_lw, "C-r", lw_isearch_backward)
-    define_key(keymap_lw, "A-r", lw_isearch_backward)
+    define_key(keymap_lw, "C-r",     lw_isearch_backward)
+    define_key(keymap_lw, "A-r",     lw_isearch_backward)
 
-    define_key(keymap_lw, "C-s", lw_isearch_forward)
-    define_key(keymap_lw, "A-s", lw_isearch_forward)
+    define_key(keymap_lw, "C-s",     lw_isearch_forward)
+    define_key(keymap_lw, "A-s",     lw_isearch_forward)
 
     ## 「その他」のキー設定
-    define_key(keymap_lw, "Enter", lw_exit_search(lw_newline))
-    define_key(keymap_lw, "C-m",   lw_exit_search(lw_newline))
-    define_key(keymap_lw, "A-m",   lw_exit_search(lw_newline))
+    define_key(keymap_lw, "Enter",   lw_exit_search(lw_newline))
+    define_key(keymap_lw, "C-m",     lw_exit_search(lw_newline))
+    define_key(keymap_lw, "A-m",     lw_exit_search(lw_newline))
 
-    define_key(keymap_lw, "C-g", lw_reset_search(lw_keyboard_quit))
-    define_key(keymap_lw, "A-g", lw_reset_search(lw_keyboard_quit))
+    define_key(keymap_lw, "C-g",     lw_reset_search(lw_keyboard_quit))
+    define_key(keymap_lw, "A-g",     lw_reset_search(lw_keyboard_quit))
 
     define_key(keymap_lw, "S-Enter", lw_exit_search(self_insert_command("S-Enter")))
     define_key(keymap_lw, "C-Enter", lw_exit_search(self_insert_command("C-Enter")))
