@@ -2246,7 +2246,7 @@ def configure(keymap):
             if fakeymacs.is_universal_argument:
                 digit_argument(number)
             else:
-                reset("ucm", repeat(self_insert_command2(str(number))))()
+                reset_undo(reset_counter(reset_mark(repeat(self_insert_command2(str(number))))))()
         return _func
 
     def digit2(number):
