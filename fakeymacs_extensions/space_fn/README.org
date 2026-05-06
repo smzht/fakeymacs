@@ -249,8 +249,7 @@ def kill_line2(repeat):
 
 # Vim の一行削除をイメージ
 define_key_fn(keymap_emacs, "U0-d U0-d",
-              lambda: keymap.delayedCall(
-                  reset_search(reset_undo(reset_counter(reset_mark(repeat3(kill_line2))))), 50))
+              lambda: keymap.delayedCall(reset("sucm", epeat3(kill_line2)), 50))
 
 # 数引数のサポート
 for n in range(10):
