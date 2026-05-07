@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20260507_01"
+fakeymacs_version = "20260508_01"
 
 import time
 import os
@@ -222,6 +222,7 @@ def configure(keymap):
                                                                                  "* - edit*",
                                                                                  "* - micro*",
                                                                                  "* - fresh*",
+                                                                                 "* — Fresh*",
                                                                                  "設定",
                                                                                  "Settings"]],
                        ["powershell.exe", "ConsoleWindowClass", "*PowerShell*"],
@@ -1321,7 +1322,8 @@ def configure(keymap):
         setMark()
 
         if repeat == 1 and not kill_whole_line:
-            if checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "* - fresh*"):
+            if checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", ["* - fresh*",
+                                                                                    "* — Fresh*"]):
                 self_insert_command("C-k")()
             else:
                 mark(move_end_of_line, True)()
@@ -1566,7 +1568,8 @@ def configure(keymap):
             setImeStatus(0)
             keymap.InputTextCommand("replace ")()
 
-        elif checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "* - fresh*"):
+        elif checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", ["* - fresh*",
+                                                                                  "* — Fresh*"]):
             self_insert_command("C-A-r")()
 
         elif checkWindow("TeXworks.exe", "Qt661QWindowIcon"):
@@ -1681,7 +1684,8 @@ def configure(keymap):
 
         if esc:
             # Fresh Editor で redo が動作するようにするための対策
-            if (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "* - fresh*") and
+            if (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", ["* - fresh*",
+                                                                                     "* — Fresh*"]) and
                 fakeymacs.last_keys[0] is keymap_emacs and
                 fakeymacs.last_keys[1] in ["C-/", "Ctl-x u", "C-z", "C-g"]):
                 pass
@@ -1704,7 +1708,7 @@ def configure(keymap):
 
     def kill_emacs():
         if (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
-                        ["* - edit*", "* - micro*", "* - fresh*"]) or
+                        ["* - edit*", "* - micro*", "* - fresh*", "* — Fresh*"]) or
             checkWindow(None, "ConsoleWindowClass", ["* - edit*", "* - micro*"])):
             setImeStatus(0)
             self_insert_command("C-q")()
@@ -1809,7 +1813,8 @@ def configure(keymap):
                 else:
                     self_insert_command("Left", "Right")()
 
-            elif checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "* - fresh*"):
+            elif checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", ["* - fresh*",
+                                                                                      "* — Fresh*"]):
                 self_insert_command("Esc")()
 
             elif (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", "*PowerShell*") or
