@@ -95,6 +95,7 @@ fc.emacs_target = [["WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", ["*P
                                                                              "* - edit*",
                                                                              "* - micro*",
                                                                              "* - fresh*",
+                                                                             "* — Fresh*",
                                                                              "設定",
                                                                              "Settings"]],
                    ["powershell.exe", "ConsoleWindowClass", "*PowerShell*"],
@@ -138,6 +139,7 @@ fc.not_emacs_target     = ["wsl.exe",                # WSL
                            "mc.exe",                 # Midnight Commander
                            "*vim.exe",               # Vim 系エディタ
                            "neovide.exe",            # Neovide
+                           "elecxzy.exe",            # elecxzy
                            [None, None, "さくらのクラウドシェル*"],
                            ]
 
@@ -166,6 +168,7 @@ fc.ime_target           = ["wsl.exe",                # WSL
                            "mc.exe",                 # Midnight Commander
                            "*vim.exe",               # Vim 系エディタ
                            "neovide.exe",            # Neovide
+                           "elecxzy.exe",            # elecxzy
                            [None, None, "さくらのクラウドシェル*"],
                            ]
 
