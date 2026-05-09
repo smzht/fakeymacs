@@ -715,11 +715,7 @@ if use_usjis_keyboard_conversion:
 # エディタターゲット毎のキーバインドの追加設定
 
 def set_vscode_target(vscode_setting):
-    regex = "|".join([fnmatch.translate(app) for app in vscode_setting["target"] if type(app) is str])
-    if regex == "": regex = "(?!)" # 絶対にマッチしない正規表現
-    target1 = re.compile(regex)
-    target2 = [app for app in vscode_setting["target"] if type(app) is list]
-
+    target = target_regexify(vscode_setting["target"])
     target_status = False
 
     def is_target(window):
@@ -727,8 +723,8 @@ def set_vscode_target(vscode_setting):
 
         if window is not fakeymacs.last_window or fakeymacs.force_update:
             if (vscode_target_status == True and
-                (target1.match(getProcessName(window)) or
-                 any(checkWindow(*app, window=window) for app in target2))):
+                (target[0].match(getProcessName(window)) or
+                 any(checkWindow(*app, window=window) for app in target[1]))):
                 target_status = True
             else:
                 target_status = False

@@ -107,6 +107,13 @@ def configure(keymap):
         startup_string_formatter = "Fakeymacs version {}:\n  https://github.com/smzht/fakeymacs\n"
         return startup_string_formatter.format(fakeymacs_version)
 
+    def target_regexify(target):
+        regex = "|".join([fnmatch.translate(app) for app in target if type(app) is str])
+        if regex == "": regex = "(?!)" # 絶対にマッチしない正規表現
+        target1 = re.compile(regex)
+        target2 = [app for app in target if type(app) is list]
+        return [target1, target2]
+
     # 個人設定ファイルのセクション [section-init] を読み込んで実行する
     exec(readConfigPersonal("[section-init]"), dict(globals(), **locals()))
 
@@ -660,9 +667,7 @@ def configure(keymap):
             ctypes.wintypes.DWORD
         )
 
-        regex = "|".join([fnmatch.translate(p) for p in fc.name_change_app_list])
-        if regex == "": regex = "(?!)" # 絶対にマッチしない正規表現
-        name_change_app = re.compile(regex)
+        name_change_app = target_regexify(fc.name_change_app_list)[0]
 
         def _callback(hWinEventHook, event, hwnd, idObject, idChild, dwEventThread, dwmsEventTime):
             if keymap.hook_enabled:
@@ -822,13 +827,6 @@ def configure(keymap):
     fakeymacs.delayed_command = None
     fakeymacs.shift_down = False
     fakeymacs.shift_down2 = False
-
-    def target_regexify(target):
-        regex = "|".join([fnmatch.translate(app) for app in target if type(app) is str])
-        if regex == "": regex = "(?!)" # 絶対にマッチしない正規表現
-        target1 = re.compile(regex)
-        target2 = [app for app in target if type(app) is list]
-        return [target1, target2]
 
     transparent_target         = target_regexify(fc.transparent_target)[0]
     transparent_target_class   = target_regexify(fc.transparent_target_class)[0]
