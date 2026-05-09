@@ -41,7 +41,7 @@ except:
 
 # --------------------------------------------------------------------------------------------------
 
-fresh_target = target_regexify(fc.fresh_target)
+fresh_target = targetRegexify(fc.fresh_target)
 
 def is_fresh_target(window):
     global fresh_status

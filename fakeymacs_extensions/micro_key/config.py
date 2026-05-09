@@ -18,7 +18,7 @@ except:
 
 # --------------------------------------------------------------------------------------------------
 
-micro_target = target_regexify(fc.micro_target)
+micro_target = targetRegexify(fc.micro_target)
 
 def is_micro_target(window):
     global micro_status

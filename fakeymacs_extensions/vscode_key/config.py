@@ -172,7 +172,7 @@ for n in range(10):
     except:
         pass
 
-vscode_target = target_regexify(vscode_target)
+vscode_target = targetRegexify(vscode_target)
 
 def is_vscode_target(window):
     global vscode_target_status
@@ -715,7 +715,7 @@ if use_usjis_keyboard_conversion:
 # エディタターゲット毎のキーバインドの追加設定
 
 def set_vscode_target(vscode_setting):
-    target = target_regexify(vscode_setting["target"])
+    target = targetRegexify(vscode_setting["target"])
     target_status = False
 
     def is_target(window):

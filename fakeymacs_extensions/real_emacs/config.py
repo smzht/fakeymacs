@@ -24,7 +24,7 @@ except:
 
 # --------------------------------------------------------------------------------------------------
 
-x_window_apps = target_regexify(fc.x_window_apps)[0]
+x_window_apps = targetRegexify(fc.x_window_apps)[0]
 
 def is_real_emacs(window):
     global real_emacs_status

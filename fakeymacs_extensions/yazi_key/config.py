@@ -17,7 +17,7 @@ except:
 
 # --------------------------------------------------------------------------------------------------
 
-yazi_target = target_regexify(fc.yazi_target)
+yazi_target = targetRegexify(fc.yazi_target)
 
 def is_yazi_target(window):
     global yazi_status

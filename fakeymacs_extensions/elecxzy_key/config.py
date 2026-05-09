@@ -17,7 +17,7 @@ except:
 
 # --------------------------------------------------------------------------------------------------
 
-elecxzy_target = target_regexify(fc.elecxzy_target)
+elecxzy_target = targetRegexify(fc.elecxzy_target)
 
 def is_elecxzy_target(window):
     global mc_status

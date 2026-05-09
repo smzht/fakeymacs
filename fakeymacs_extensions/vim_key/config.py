@@ -52,7 +52,7 @@ class FakeymacsVim:
 
 fakeymacs_vim = FakeymacsVim()
 
-vim_target = target_regexify(fc.vim_target)
+vim_target = targetRegexify(fc.vim_target)
 vim_status = False
 vim_title = ""
 
@@ -69,9 +69,9 @@ def is_vim_target(window):
                 result1 = title.replace(vim_title, "")
                 result2 = vim_title.replace(title, "")
                 if not (vim_title == title or " +" in [result1, result2]):
-                    vim_reset()
+                    resetVim()
             else:
-                vim_reset()
+                resetVim()
 
             vim_status = True
             vim_title = title
@@ -163,11 +163,11 @@ prefix_key_list_v = [[["g"],
                        [["g"], []]]],
                      ]
 
-def apply_all(xs, func):
+def applyAll(xs, func):
     result = []
     for x in xs:
         if isinstance(x, list):
-            result.append(apply_all(x, func))
+            result.append(applyAll(x, func))
         else:
             if x == None:
                 result.append(None)
@@ -175,15 +175,15 @@ def apply_all(xs, func):
                 result.append(func(x))
     return result
 
-prefix_key_list_n = apply_all(prefix_key_list_n, specialCharToKeyStr)
-prefix_key_list_v = apply_all(prefix_key_list_v, specialCharToKeyStr)
+prefix_key_list_n = applyAll(prefix_key_list_n, specialCharToKeyStr)
+prefix_key_list_v = applyAll(prefix_key_list_v, specialCharToKeyStr)
 
 ## 共通関数
-def vim_reset():
+def resetVim():
     reset_undo(reset_counter(execute_ex_command("noh", esc=True)))()
     fakeymacs.is_searching = None
 
-def check_prefix_key(*key_list):
+def checkPrefixKey(*key_list):
     global p_key_list
 
     for key in key_list:
@@ -288,14 +288,14 @@ def define_key_v2(keys, command, skip_check=True):
 def self_insert_command_v1(*key_list, usjis_conv=True):
     func = self_insert_command(*key_list, usjis_conv=usjis_conv)
     def _func():
-        check_prefix_key(*key_list)
+        checkPrefixKey(*key_list)
         func()
     return _func
 
 def self_insert_command_v2(*key_list, usjis_conv=True):
     func = self_insert_command2(*key_list, usjis_conv=usjis_conv)
     def _func():
-        check_prefix_key(*key_list)
+        checkPrefixKey(*key_list)
         func()
     return _func
 

@@ -68,7 +68,7 @@ except:
 
 # --------------------------------------------------------------------------------------------------
 
-obsidian_target = target_regexify(fc.obsidian_target)
+obsidian_target = targetRegexify(fc.obsidian_target)
 
 def is_obsidian_target(window):
     global obsidian_status

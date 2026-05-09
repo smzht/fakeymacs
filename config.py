@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20260508_01"
+fakeymacs_version = "20260510_01"
 
 import time
 import os
@@ -107,7 +107,7 @@ def configure(keymap):
         startup_string_formatter = "Fakeymacs version {}:\n  https://github.com/smzht/fakeymacs\n"
         return startup_string_formatter.format(fakeymacs_version)
 
-    def target_regexify(target):
+    def targetRegexify(target):
         regex = "|".join([fnmatch.translate(app) for app in target if type(app) is str])
         if regex == "": regex = "(?!)" # 絶対にマッチしない正規表現
         target1 = re.compile(regex)
@@ -667,7 +667,7 @@ def configure(keymap):
             ctypes.wintypes.DWORD
         )
 
-        name_change_app = target_regexify(fc.name_change_app_list)[0]
+        name_change_app = targetRegexify(fc.name_change_app_list)[0]
 
         def _callback(hWinEventHook, event, hwnd, idObject, idChild, dwEventThread, dwmsEventTime):
             if keymap.hook_enabled:
@@ -828,15 +828,15 @@ def configure(keymap):
     fakeymacs.shift_down = False
     fakeymacs.shift_down2 = False
 
-    transparent_target         = target_regexify(fc.transparent_target)[0]
-    transparent_target_class   = target_regexify(fc.transparent_target_class)[0]
-    not_clipboard_target       = target_regexify(fc.not_clipboard_target)[0]
-    not_clipboard_target_class = target_regexify(fc.not_clipboard_target_class)[0]
-    emacs_target_class         = target_regexify(fc.emacs_target_class)[0]
-    emacs_target               = target_regexify(fc.emacs_target)
-    not_emacs_target           = target_regexify(fc.not_emacs_target)
-    ime_target                 = target_regexify(fc.ime_target)
-    game_app_list              = target_regexify(fc.game_app_list)
+    transparent_target         = targetRegexify(fc.transparent_target)[0]
+    transparent_target_class   = targetRegexify(fc.transparent_target_class)[0]
+    not_clipboard_target       = targetRegexify(fc.not_clipboard_target)[0]
+    not_clipboard_target_class = targetRegexify(fc.not_clipboard_target_class)[0]
+    emacs_target_class         = targetRegexify(fc.emacs_target_class)[0]
+    emacs_target               = targetRegexify(fc.emacs_target)
+    not_emacs_target           = targetRegexify(fc.not_emacs_target)
+    ime_target                 = targetRegexify(fc.ime_target)
+    game_app_list              = targetRegexify(fc.game_app_list)
 
     def is_base_target(window):
         if window is not fakeymacs.last_window:
@@ -1647,7 +1647,7 @@ def configure(keymap):
     def indent_for_tab_command():
         self_insert_command("Tab")()
 
-    keyboard_quit_no_esc_app_list = target_regexify(fc.keyboard_quit_no_esc_app_list)
+    keyboard_quit_no_esc_app_list = targetRegexify(fc.keyboard_quit_no_esc_app_list)
 
     def keyboard_quit(esc=True):
         resetRegion()
