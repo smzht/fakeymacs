@@ -17,18 +17,15 @@ except:
 
 # --------------------------------------------------------------------------------------------------
 
-regex = "|".join([fnmatch.translate(app) for app in fc.yazi_target if type(app) is str])
-if regex == "": regex = "(?!)" # 絶対にマッチしない正規表現
-yazi_target1 = re.compile(regex)
-yazi_target2 = [app for app in fc.yazi_target if type(app) is list]
+yazi_target = target_regexify(fc.yazi_target)
 
 def is_yazi_target(window):
     global yazi_status
 
     if window is not fakeymacs.last_window or fakeymacs.force_update:
         if (fakeymacs.is_emacs_target == False and
-            (yazi_target1.match(getProcessName(window)) or
-             any(checkWindow(*app, window=window) for app in yazi_target2))):
+            (yazi_target[0].match(getProcessName(window)) or
+             any(checkWindow(*app, window=window) for app in yazi_target[1]))):
             yazi_status = True
         else:
             yazi_status = False

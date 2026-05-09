@@ -17,18 +17,15 @@ except:
 
 # --------------------------------------------------------------------------------------------------
 
-regex = "|".join([fnmatch.translate(app) for app in fc.elecxzy_target if type(app) is str])
-if regex == "": regex = "(?!)" # 絶対にマッチしない正規表現
-elecxzy_target1 = re.compile(regex)
-elecxzy_target2 = [app for app in fc.elecxzy_target if type(app) is list]
+elecxzy_target = target_regexify(fc.elecxzy_target)
 
 def is_elecxzy_target(window):
     global mc_status
 
     if window is not fakeymacs.last_window or fakeymacs.force_update:
         if (fakeymacs.is_emacs_target == False and
-            (elecxzy_target1.match(getProcessName(window)) or
-             any(checkWindow(*app, window=window) for app in elecxzy_target2))):
+            (elecxzy_target[0].match(getProcessName(window)) or
+             any(checkWindow(*app, window=window) for app in elecxzy_target[1]))):
             mc_status = True
         else:
             mc_status = False

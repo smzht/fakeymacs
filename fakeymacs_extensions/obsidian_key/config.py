@@ -68,18 +68,15 @@ except:
 
 # --------------------------------------------------------------------------------------------------
 
-regex = "|".join([fnmatch.translate(app) for app in fc.obsidian_target if type(app) is str])
-if regex == "": regex = "(?!)" # 絶対にマッチしない正規表現
-obsidian_target1 = re.compile(regex)
-obsidian_target2 = [app for app in fc.obsidian_target if type(app) is list]
+obsidian_target = target_regexify(fc.obsidian_target)
 
 def is_obsidian_target(window):
     global obsidian_status
 
     if window is not fakeymacs.last_window or fakeymacs.force_update:
         if (fakeymacs.is_emacs_target == True and
-            (obsidian_target1.match(getProcessName(window)) or
-             any(checkWindow(*app, window=window) for app in obsidian_target2))):
+            (obsidian_target[0].match(getProcessName(window)) or
+             any(checkWindow(*app, window=window) for app in obsidian_target[1]))):
             obsidian_status = True
         else:
             obsidian_status = False

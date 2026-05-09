@@ -52,11 +52,7 @@ class FakeymacsVim:
 
 fakeymacs_vim = FakeymacsVim()
 
-regex = "|".join([fnmatch.translate(app) for app in fc.vim_target if type(app) is str])
-if regex == "": regex = "(?!)" # 絶対にマッチしない正規表現
-vim_target1 = re.compile(regex)
-vim_target2 = [app for app in fc.vim_target if type(app) is list]
-
+vim_target = target_regexify(fc.vim_target)
 vim_status = False
 vim_title = ""
 
@@ -66,8 +62,8 @@ def is_vim_target(window):
     if window is not fakeymacs.last_window or fakeymacs.force_update:
         if (fakeymacs.is_emacs_target == False and
             not getText(window).startswith("!") and
-            (vim_target1.match(getProcessName(window)) or
-             any(checkWindow(*app, window=window) for app in vim_target2))):
+            (vim_target[0].match(getProcessName(window)) or
+             any(checkWindow(*app, window=window) for app in vim_target[1]))):
             title = re.sub(r" [-(].*", "", getText(window))
             if vim_status:
                 result1 = title.replace(vim_title, "")
