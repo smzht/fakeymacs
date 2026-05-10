@@ -165,12 +165,9 @@ fakeymacs_vscode.post_processing = None
 
 vscode_target = []
 for n in range(10):
-    try:
+    if hasattr(fc, f"vscode_setting{n + 1}"):
         vscode_setting = getattr(fc, f"vscode_setting{n + 1}")
-        if vscode_setting:
-            vscode_target += vscode_setting["target"]
-    except:
-        pass
+        vscode_target += vscode_setting["target"]
 
 vscode_target = targetRegexify(vscode_target)
 
