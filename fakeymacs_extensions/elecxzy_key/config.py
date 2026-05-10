@@ -34,7 +34,7 @@ def is_elecxzy_target(window):
 
 if fc.use_emacs_ime_mode:
     keymap_elecxzy = keymap.defineWindowKeymap(check_func=lambda wnd: (is_elecxzy_target(wnd) and
-                                                                  not is_emacs_ime_mode(wnd)))
+                                                                       not is_emacs_ime_mode(wnd)))
 else:
     keymap_elecxzy = keymap.defineWindowKeymap(check_func=is_elecxzy_target)
 
