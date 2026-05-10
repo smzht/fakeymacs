@@ -53,7 +53,7 @@ for vkey in vkeys():
 
     for mod1, mod2 in itertools.product(["", "C-"], ["", "S-"]):
         mkey = mod1 + mod2 + key
-        define_key_e(f"M-{mkey}",   self_insert_command(f"A-{mkey}"))
+        define_key_e(f"M-{mkey}", self_insert_command(f"A-{mkey}"))
 
 ## Esc キーの設定
 if fc.use_esc_as_meta:
