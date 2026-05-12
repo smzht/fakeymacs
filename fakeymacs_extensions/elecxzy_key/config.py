@@ -42,8 +42,31 @@ else:
 def define_key_e(keys, command):
     define_key(keymap_elecxzy, keys, command)
 
+## アンドゥ
+def undo():
+    if (fakeymacs.last_keys[0] is keymap_elecxzy and
+        fakeymacs.last_keys[1] in ["C-/", "Ctl-x u", "C-z", "C-_", "C-g"]):
+        if fakeymacs.is_undo_mode:
+            self_insert_command("C-/")()
+        else:
+            self_insert_command("A-_")()
+    else:
+        self_insert_command("C-/")()
+        fakeymacs.is_undo_mode = True
+
+## その他
+def keyboard_quit():
+    self_insert_command("C-g")()
+
+    if fakeymacs.is_undo_mode:
+        fakeymacs.is_undo_mode = False
+    else:
+        fakeymacs.is_undo_mode = True
+
 ## マルチストロークキーの設定
-define_key_e("M-", keymap.defineMultiStrokeKeymap("Esc"))
+define_key_e("Ctl-x",    keymap.defineMultiStrokeKeymap(fc.ctl_x_prefix_key))
+define_key_e("M-",       keymap.defineMultiStrokeKeymap("Esc"))
+define_key_e("Ctl-x M-", keymap.defineMultiStrokeKeymap(f"{fc.ctl_x_prefix_key} Esc"))
 
 for vkey in vkeys():
     key = vkToStr(vkey)
@@ -55,6 +78,10 @@ for vkey in vkeys():
         mkey = mod1 + mod2 + key
         define_key_e(f"M-{mkey}", self_insert_command(f"A-{mkey}"))
 
+    for mod1, mod2, mod3 in itertools.product(["", "C-"], ["", "M-"], ["", "S-"]):
+        mkey = mod1 + mod2 + mod3 + key
+        define_key_e(f"Ctl-x {mkey}", self_insert_command4("C-x", mkey.replace("M-", "A-")))
+
 ## Esc キーの設定
 if fc.use_esc_as_meta:
     define_key_e("Esc Esc", self_insert_command("Esc"))
@@ -63,6 +90,15 @@ if fc.use_ctrl_openbracket_as_meta:
     define_key_e("C-[ C-[", self_insert_command("Esc"))
 else:
     define_key_e("C-[", self_insert_command("Esc"))
+
+## 「カット / コピー / 削除 / アンドゥ」のキー設定
+define_key_e("C-/",     undo)
+define_key_e("Ctl-x u", undo)
+define_key_e("C-z",     undo)
+define_key_e("C-_",     undo)
+
+## 「その他」のキー設定
+define_key_e("C-g", keyboard_quit)
 
 # --------------------------------------------------------------------------------------------------
 
