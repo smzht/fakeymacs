@@ -2,11 +2,11 @@
 
 * Fakeymacs Extension - elecxzy_key -
 
-** ■ elecxzy 用のキーの設定を行う
+** ■ elecxzy エディタ用のキーの設定を行う
 
-elecxzy 用のキーの設定を行う拡張機能です。
+elecxzy エディタ用のキーの設定を行う拡張機能です。
 
-elecxzy の Emacs キーバインドに次の機能を追加します。
+elecxzy エディタの Emacs キーバインドに次の機能を追加します。
 
 - Meta キーとして Esc キーや C-[ キーを使えるようにする
 - C-g キーの押下により、C-/ キーで undo と redo が切り替わるようにする
