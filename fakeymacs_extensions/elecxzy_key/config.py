@@ -89,10 +89,10 @@ if fc.use_ctrl_openbracket_as_meta:
 else:
     define_key_e("C-[", self_insert_command("Esc"))
 
-## 「カット / コピー / 削除 / アンドゥ」のキー設定
+## 「アンドゥ」のキー設定
 define_key_e("C-/", undo)
 
-## 「バッファ / ウィンドウ操作」のキー設定
+## 「バッファ操作」のキー設定
 define_key_e("M-k", kill_buffer)
 
 ## 「その他」のキー設定
