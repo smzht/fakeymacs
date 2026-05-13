@@ -6,8 +6,11 @@
 
 elecxzy 用のキーの設定を行う拡張機能です。
 
-fc.use_esc_as_meta 変数または fc.use_ctrl_openbracket_as_meta 変数が True の場合に、Esc または C-[
-キーが Meta キーとして機能するようになります。Esc を発行したい場合は、キーを二回押下してください。
+elecxzy の Emacs キーバインドに次の機能を追加します。
+
+- Meta キーとして Esc キーや C-[ キーを使えるようにする
+- C-g キーの押下により、C-/ キーで undo と redo が切り替わるようにする
+- kill_buffer コマンドに M-k キーを割り当てる
 
 *** コンフィグレーションパラメータ
 
@@ -21,3 +24,6 @@ fc.use_esc_as_meta 変数または fc.use_ctrl_openbracket_as_meta 変数が Tru
 
 ● 本フォルダにある _config_personal.py を config_personal.py というファイル名にすることで
 機能拡張ファイルとして機能します。mc_key Extension の機能を拡張する際にご利用ください。
+
+● Esc、 C-[ キーを Meta キーとして利用する場合には、それぞれ fc.use_esc_as_meta 変数、
+fc.use_ctrl_openbracket_as_meta 変数が True である必要があります。
