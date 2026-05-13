@@ -69,6 +69,8 @@ IME のショートカットキーが利用できるようになります。
 
 ※ keymap_vim レイヤーは、vim_key Extension を有効にしたときに機能するレイヤーです。
 
+※ keymap_elecxzy レイヤーは、elecxzy_key Extension を有効にしたときに機能するレイヤーです。
+
 ※ keymap_mc レイヤーは、mc_key Extension を有効にしたときに機能するレイヤーです。
 
 ※ keymap_yazi レイヤーは、yazi_key Extension を有効にしたときに機能するレイヤーです。
