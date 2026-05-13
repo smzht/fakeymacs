@@ -442,8 +442,17 @@ elecxzy エディタのキーバインドは、以下に記載があります。
 #+BEGIN_EXAMPLE
 #!/bin/bash
 
-/mnt/c/Users/<user>/AppData/Local/Programs/elecxzy/elecxzy.exe "$(wslpath -wa "$1")" &
+args=()
+for arg; do
+    args+=("$(wslpath -wa "$arg")")
+done
+set -- "${args[@]}"
+
+/mnt/c/Users/<user>/AppData/Local/Programs/elecxzy/elecxzy.exe "$@" &
 #+END_EXAMPLE
+
+※ elecxzy は、Microsoft Store 版のものではなく、上記の GitHub からダウンロードしたものを
+インストールしてください。Microsoft Store 版のアプリは、WSL2 から起動できないようです。
 
 ※ <user> の箇所は置き換える必要があります。
 
