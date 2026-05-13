@@ -1381,6 +1381,10 @@ def configure(keymap):
             else:
                 self_insert_command("C-y")()
 
+    def redo():
+        if not checkWindow("notepad.exe", "Edit"): # Windows 10版 Notepad
+            self_insert_command("C-y")()
+
     def set_mark_command():
         if fakeymacs.is_marked or fakeymacs.forward_direction is not None:
             resetRegion()
@@ -1657,7 +1661,7 @@ def configure(keymap):
             if (checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS", ["* - fresh*",
                                                                                      "* — Fresh*"]) and
                 fakeymacs.last_keys[0] is keymap_emacs and
-                fakeymacs.last_keys[1] in ["C-/", "Ctl-x u", "C-z", "C-g"]):
+                fakeymacs.last_keys[1] in ["C-/", "Ctl-x u", "C-z", "C-_", "C-g"]):
                 pass
             else:
                 # Esc を発行して問題ないアプリケーションソフトには Esc を発行する
@@ -2553,6 +2557,7 @@ def configure(keymap):
     define_key(keymap_emacs, "C-v",        reset("sucm", repeat(yank))) # scroll_key の設定で上書きされない場合
     define_key(keymap_emacs, "C-z",        reset("scm",  undo))
     define_key(keymap_emacs, "C-_",        reset("scm",  undo))
+    define_key(keymap_emacs, "M-_",        reset("scm",  redo))
     define_key(keymap_emacs, "C-@",        reset("suc",  set_mark_command))
     define_key(keymap_emacs, "C-Space",    reset("suc",  set_mark_command))
     define_key(keymap_emacs, "Ctl-x h",    reset("suc",  mark_whole_buffer))
