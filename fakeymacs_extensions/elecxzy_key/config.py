@@ -68,7 +68,7 @@ def keyboard_quit():
         fakeymacs.is_undo_mode = True
 
 ## マルチストロークキーの設定
-define_key_e("M-",       keymap.defineMultiStrokeKeymap("Esc"))
+define_key_e("M-", keymap.defineMultiStrokeKeymap("Esc"))
 
 for vkey in vkeys():
     key = vkToStr(vkey)
@@ -90,7 +90,7 @@ else:
     define_key_e("C-[", self_insert_command("Esc"))
 
 ## 「カット / コピー / 削除 / アンドゥ」のキー設定
-define_key_e("C-/",     undo)
+define_key_e("C-/", undo)
 
 ## 「バッファ / ウィンドウ操作」のキー設定
 define_key_e("M-k", kill_buffer)
