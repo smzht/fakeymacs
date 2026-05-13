@@ -444,7 +444,7 @@ elecxzy エディタのキーバインドは、以下に記載があります。
 ※ elecxzy は、Microsoft Store 版のものではなく、上記の GitHub からダウンロードしたものを
 インストールしてください。Microsoft Store 版のアプリは、WSL2 から起動できないようです。
 
-※ <user> の箇所はユーザの ID に置き換える必要があります。
+※ <user> の箇所は利用者の ログインID に置き換える必要があります。
 
 ** Midnight Commander の対応について
 
