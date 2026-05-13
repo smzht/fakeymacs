@@ -434,8 +434,8 @@ elecxzy エディタのキーバインドは、以下に記載があります。
 
 - https://github.com/kurouna/elecxzy/blob/main/COMMANDLIST.md
 
-なお、WSL2 の Linux から elecxzy を使えるようにするには、~/bin 等のコマンドパスの通った
-フォルダに次の内容の elecxzy というコマンドを作成してお使いください。
+なお、WSL2 の Linux から elecxzy エディタを使えるようにするには、~/bin 等のコマンドパスの
+通ったフォルダに次の内容の elecxzy というコマンドを作成してお使いください。
 
 #+BEGIN_EXAMPLE
 #!/bin/bash
