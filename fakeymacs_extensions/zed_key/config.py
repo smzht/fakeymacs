@@ -49,13 +49,6 @@ def zedExecuteCommand(command):
         self_insert_command("Enter")()
     return _func
 
-## カーソル移動
-def move_beginning_of_line():
-    zedExecuteCommand("editor:move to start of excerpt")()
-
-def move_end_of_line():
-    zedExecuteCommand("editor:move to end of excerpt")()
-
 ## ウィンドウ操作
 def delete_window():
     self_insert_command("C-w")()
@@ -72,6 +65,37 @@ def split_window_right():
 
 def other_window():
     zedExecuteCommand("workspace:activate next pane")()
+
+## 矩形選択 / マルチカーソル
+def mark_previous_line():
+    self_insert_command("C-A-Up")()
+
+def mark_next_line():
+    self_insert_command("C-A-Down")()
+
+def mark_backward_char():
+    mark2(backward_char, False)()
+
+def mark_forward_char():
+    mark2(forward_char, True)()
+
+def mark_backward_word():
+    mark2(backward_word, False)()
+
+def mark_forward_word():
+    mark2(forward_word, True)()
+
+def mark_beginning_of_line():
+    mark2(move_beginning_of_line, False)()
+
+def mark_end_of_line():
+    mark2(move_end_of_line, True)()
+
+def mark_next_like_this():
+    region(self_insert_command("A-d"))()
+
+def keyboard_quit_z():
+    keyboard_quit(esc=False)
 
 ## その他
 def execute_extended_command():
@@ -96,16 +120,24 @@ def mergeEmacsMultiStrokeKeymap():
 ## keymap_emacs キーマップのマルチストロークキーの設定を keymap_zed キーマップにマージする
 keymap_zed.applying_func = mergeEmacsMultiStrokeKeymap
 
-## 「カーソル移動」のキー設定
-define_key_z("M-<", reset("suc", mark(beginning_of_buffer, False)))
-define_key_z("M->", reset("suc", mark(end_of_buffer, True)))
-
 ## 「ウィンドウ操作」のキー設定
 define_key_z("Ctl-x 0", reset("sucm", delete_window))
 define_key_z("Ctl-x 1", delete_other_windows)
 define_key_z("Ctl-x 2", split_window_below)
 define_key_z("Ctl-x 3", split_window_right)
 define_key_z("Ctl-x o", reset("sucm", other_window))
+
+## 「矩形選択 / マルチカーソル」のキー設定
+define_key_z("C-A-p",   reset("suc", repeat(mark_previous_line)))
+define_key_z("C-A-n",   reset("suc", repeat(mark_next_line)))
+define_key_z("C-A-b",   reset("suc", repeat(mark_backward_char)))
+define_key_z("C-A-f",   reset("suc", repeat(mark_forward_char)))
+define_key_z("C-A-S-b", reset("suc", repeat(mark_backward_word)))
+define_key_z("C-A-S-f", reset("suc", repeat(mark_forward_word)))
+define_key_z("C-A-a",   reset("suc", mark_beginning_of_line))
+define_key_z("C-A-e",   reset("suc", mark_end_of_line))
+define_key_z("C-A-d",   reset("suc", mark_next_like_this))
+define_key_z("C-A-g",   reset("scm", keyboard_quit_z))
 
 ## 「その他」のキー設定
 define_key_z("M-x", reset("sucm", execute_extended_command))
