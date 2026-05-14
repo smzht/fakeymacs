@@ -20,17 +20,17 @@ except:
 elecxzy_target = targetRegexify(fc.elecxzy_target)
 
 def is_elecxzy_target(window):
-    global mc_status
+    global elecxzy_status
 
     if window is not fakeymacs.last_window or fakeymacs.force_update:
         if (fakeymacs.is_emacs_target == False and
             (elecxzy_target[0].match(getProcessName(window)) or
              any(checkWindow(*app, window=window) for app in elecxzy_target[1]))):
-            mc_status = True
+            elecxzy_status = True
         else:
-            mc_status = False
+            elecxzy_status = False
 
-    return mc_status
+    return elecxzy_status
 
 if fc.use_emacs_ime_mode:
     keymap_elecxzy = keymap.defineWindowKeymap(check_func=lambda wnd: (is_elecxzy_target(wnd) and
