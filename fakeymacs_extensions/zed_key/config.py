@@ -93,6 +93,9 @@ def mergeEmacsMultiStrokeKeymap():
         mergeMultiStrokeKeymap(keymap_zed, keymap_emacs, "M-g M-")
         run_once = True
 
+## keymap_emacs キーマップのマルチストロークキーの設定を keymap_zed キーマップにマージする
+keymap_zed.applying_func = mergeEmacsMultiStrokeKeymap
+
 ## 「カーソル移動」のキー設定
 define_key_z("M-<", reset("suc", mark(beginning_of_buffer, False)))
 define_key_z("M->", reset("suc", mark(end_of_buffer, True)))
