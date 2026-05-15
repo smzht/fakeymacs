@@ -50,6 +50,12 @@ def zedExecuteCommand(command):
 
     return executeCommandWithImeOff(_func, 0.1)
 
+def region(func):
+    def _func():
+        func()
+        fakeymacs.forward_direction = True
+    return _func
+
 ## カーソル移動
 def recenter():
     zedExecuteCommand("editor: scroll cursor center")()
@@ -97,7 +103,7 @@ def mark_end_of_line():
     mark2(move_end_of_line, True)()
 
 def mark_next_like_this():
-    region(self_insert_command("A-d"))()
+    region(self_insert_command("C-d"))()
 
 def keyboard_quit_z():
     keyboard_quit(esc=False)
@@ -148,7 +154,7 @@ define_key_z("C-A-d",   reset("suc", mark_next_like_this))
 define_key_z("C-A-g",   reset("scm", keyboard_quit_z))
 
 ## 「その他」のキー設定
-define_key_z("M-x", reset("sucm", execute_extended_command))
+define_key_z("M-x",     reset("sucm", execute_extended_command))
 
 # --------------------------------------------------------------------------------------------------
 
