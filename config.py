@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20260515_01"
+fakeymacs_version = "20260515_02"
 
 import time
 import os
@@ -2174,14 +2174,14 @@ def configure(keymap):
                         pyauto.Input.send([pyauto.Key(strToVk("(255)"))])
         return _func
 
-    def executeCommandWithImeOff(command):
+    def executeCommandWithImeOff(command, ime_delay=0.02):
         def _func():
             ime_status = getImeStatus()
             if ime_status:
                 setImeStatus(0)
             command()
             if ime_status:
-                delay()
+                delay(ime_delay)
                 setImeStatus(1)
         return _func
 

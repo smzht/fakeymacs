@@ -44,11 +44,11 @@ def define_key_z(keys, command):
 
 def zedExecuteCommand(command):
     def _func():
-        setImeStatus(0) # IME が ON のときにコマンドが文字化けする対策
         self_insert_command("C-S-p")()
-        princ(command)
+        keymap.InputTextCommand(command)()
         self_insert_command("Enter")()
-    return _func
+
+    return executeCommandWithImeOff(_func, 0.1)
 
 ## カーソル移動
 def recenter():
