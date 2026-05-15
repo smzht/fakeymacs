@@ -50,6 +50,10 @@ def zedExecuteCommand(command):
         self_insert_command("Enter")()
     return _func
 
+## カーソル移動
+def recenter():
+    zedExecuteCommand("editor: scroll cursor center")()
+
 ## ペイン操作
 def delete_window():
     self_insert_command("C-w")()
@@ -120,6 +124,9 @@ def mergeEmacsMultiStrokeKeymap():
 
 ## keymap_emacs キーマップのマルチストロークキーの設定を keymap_zed キーマップにマージする
 keymap_zed.applying_func = mergeEmacsMultiStrokeKeymap
+
+## 「カーソル移動」のキー設定
+define_key_z("C-l",     reset("suc", recenter))
 
 ## 「ペイン操作」のキー設定
 define_key_z("Ctl-x 0", reset("sucm", delete_window))
