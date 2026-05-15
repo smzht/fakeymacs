@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20260510_01"
+fakeymacs_version = "20260515_01"
 
 import time
 import os
@@ -2174,6 +2174,17 @@ def configure(keymap):
                         pyauto.Input.send([pyauto.Key(strToVk("(255)"))])
         return _func
 
+    def executeCommandWithImeOff(command):
+        def _func():
+            ime_status = getImeStatus()
+            if ime_status:
+                setImeStatus(0)
+            command()
+            if ime_status:
+                delay()
+                setImeStatus(1)
+        return _func
+
     self_insert_command_cache = {}
 
     def self_insert_command(*key_list, usjis_conv=True):
@@ -2210,15 +2221,7 @@ def configure(keymap):
 
     def self_insert_command4(*key_list, usjis_conv=True):
         func = self_insert_command(*key_list, usjis_conv=usjis_conv)
-        def _func():
-            ime_status = getImeStatus()
-            if ime_status:
-                setImeStatus(0)
-            func()
-            if ime_status:
-                delay()
-                setImeStatus(1)
-        return _func
+        return executeCommandWithImeOff(func)
 
     def digit(number):
         def _func():
@@ -2332,13 +2335,7 @@ def configure(keymap):
         return _func
 
     def princ(str):
-        imeStatus = getImeStatus()
-        if imeStatus:
-            setImeStatus(0)
-        keymap.InputTextCommand(str)()
-        if imeStatus:
-            delay()
-            setImeStatus(1)
+        executeCommandWithImeOff(keymap.InputTextCommand(str))()
 
     def reloadConfig(mode):
         if mode == 1:

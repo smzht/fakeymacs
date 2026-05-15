@@ -306,12 +306,12 @@ def self_insert_command_v3(*key_list, usjis_conv=True):
         if getImeStatus():
             if is_normal_mode() or is_insert_normal_mode():
                 fakeymacs_vim.insert_mode = True
-                adjust_ime_status(self_insert_command_v1("i"))()
+                executeCommandWithImeOff(self_insert_command_v1("i"))()
 
             elif is_visual_mode():
                 fakeymacs_vim.visual_mode = False
                 fakeymacs_vim.insert_mode = True
-                adjust_ime_status(self_insert_command_v1("c"))()
+                executeCommandWithImeOff(self_insert_command_v1("c"))()
         func()
     return _func
 
@@ -321,17 +321,6 @@ def digit(number):
             digit_argument(number)
         else:
             reset_undo(reset_counter(repeat(self_insert_command_v3(str(number)))))()
-    return _func
-
-def adjust_ime_status(command):
-    def _func():
-        ime_status = getImeStatus()
-        if ime_status:
-            setImeStatus(0)
-        command()
-        if ime_status:
-            delay()
-            setImeStatus(1)
     return _func
 
 def execute_nm_command(*key_list, esc=False, vm_reset=True):
@@ -347,7 +336,7 @@ def execute_nm_command(*key_list, esc=False, vm_reset=True):
         if is_insert_mode():
             self_insert_command_v1(fc.vim_insert_normal_mode_key)()
 
-        adjust_ime_status(self_insert_command_v1(*key_list))()
+        executeCommandWithImeOff(self_insert_command_v1(*key_list))()
 
         if vm_reset:
             fakeymacs_vim.visual_mode = False
@@ -375,7 +364,7 @@ def execute_ex_command(ex_command, enter=True, esc=False):
             self_insert_command_v1(fc.vim_insert_normal_mode_key)()
 
         if enter:
-            adjust_ime_status(_command)()
+            executeCommandWithImeOff(_command)()
         else:
             setImeStatus(0)
             _command()
@@ -773,7 +762,7 @@ def newline(enter_im=False):
         if enter_im:
             if is_normal_mode():
                 fakeymacs_vim.insert_mode = True
-                adjust_ime_status(self_insert_command_v1("i"))()
+                executeCommandWithImeOff(self_insert_command_v1("i"))()
 
         self_insert_command_v1("Enter")()
 

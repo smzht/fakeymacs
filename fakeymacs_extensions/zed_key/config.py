@@ -44,6 +44,7 @@ def define_key_z(keys, command):
 
 def zedExecuteCommand(command):
     def _func():
+        setImeStatus(0) # IME が ON のときにコマンドが文字化けする対策
         self_insert_command("C-S-p")()
         princ(command)
         self_insert_command("Enter")()
@@ -64,7 +65,7 @@ def split_window_right():
     self_insert_command("C-k", "Right")()
 
 def other_window():
-    zedExecuteCommand("workspace:activate next pane")()
+    zedExecuteCommand("workspace: activate next pane")()
 
 ## 矩形選択 / マルチカーソル
 def mark_previous_line():
