@@ -50,13 +50,13 @@ def zedExecuteCommand(command):
         self_insert_command("Enter")()
     return _func
 
-## ウィンドウ操作
+## ペイン操作
 def delete_window():
     self_insert_command("C-w")()
 
 def delete_other_windows():
-    # 正常に動かない
-    self_insert_command("C-A-S-t")()
+    # 適当なコマンドが見つからない
+    pass
 
 def split_window_below():
     self_insert_command("C-k", "Down")()
@@ -121,7 +121,7 @@ def mergeEmacsMultiStrokeKeymap():
 ## keymap_emacs キーマップのマルチストロークキーの設定を keymap_zed キーマップにマージする
 keymap_zed.applying_func = mergeEmacsMultiStrokeKeymap
 
-## 「ウィンドウ操作」のキー設定
+## 「ペイン操作」のキー設定
 define_key_z("Ctl-x 0", reset("sucm", delete_window))
 define_key_z("Ctl-x 1", delete_other_windows)
 define_key_z("Ctl-x 2", split_window_below)
