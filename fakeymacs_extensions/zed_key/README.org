@@ -16,8 +16,8 @@ WSL2 の Linux から Zed エディタを使えるようにするには、~/bin 
 - https://github.com/smzht/wsl-utils/blob/master/zed
 - https://github.com/smzht/wsl-utils/blob/master/wzed
 
-zed は、Windows アプリである Zed を --wsl オプションを利用し、WSL2 に接続し、起動するためのコマンドです。
-wzed は、Windows アプリである Zed を --wsl オプションを利用せず、引数を wslpath で変換して起動するための
+zed は Windows アプリである Zed を --wsl オプションを利用し、WSL2 に接続し、起動するためのコマンドです。
+wzed は Windows アプリである Zed を --wsl オプションを利用せず、引数を wslpath で変換して起動するための
 コマンドです。
 
 *** コンフィグレーションパラメータ
