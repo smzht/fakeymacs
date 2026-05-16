@@ -1,0 +1,73 @@
+#+STARTUP: showall indent
+
+* Fakeymacs Extension - zed_key -
+
+** ■ Zed エディタ用のキーの設定を行う
+
+Zed エディタ用のキーの設定を行う拡張機能です。
+
+Zed エディタは、次のページからダウンロード可能です。
+
+- https://zed.dev/
+
+WSL2 の Linux から elecxzy エディタを使えるようにするには、~/bin 等のコマンドパスの
+通ったフォルダに次の zed または wzed というコマンドを作成してお使いください。
+
+- https://github.com/smzht/wsl-utils/blob/master/zed
+- https://github.com/smzht/wsl-utils/blob/master/wzed
+
+zed は、Windows アプリである Zed を、--wsl オプションを利用して WSL2 に接続して利用するためのコマンドです。
+wzed は、Windows アプリである Zed を、--wsl オプションを利用せずに、引数を wslpath で変換して起動するための
+コマンドです。
+
+*** コンフィグレーションパラメータ
+
+|-------------------------+------------------------------------------------------------------------|
+| Configuration parameter | Description                                                            |
+|-------------------------+------------------------------------------------------------------------|
+| fc.zed_target           | Zed エディタ用のキーバインドを利用するアプリケーションソフトを指定する |
+|-------------------------+------------------------------------------------------------------------|
+
+*** キーバインド
+
+**** ● 「ペイン操作」のキー設定
+
+|---------+--------------------+-------------|
+| Keybind | Function           | Description |
+|---------+--------------------+-------------|
+| Ctl-x 0 | delete_window      |             |
+| Ctl-x 2 | split_window_below |             |
+| Ctl-x 3 | split_window_right |             |
+| Ctl-x o | other_window       |             |
+|---------+--------------------+-------------|
+
+**** ● 「矩形選択 / マルチカーソル」のキー設定
+
+|---------+------------------------+------------------------------------|
+| Keybind | Function               | Description                        |
+|---------+------------------------+------------------------------------|
+| C-A-p   | mark_previous_line     |                                    |
+| C-A-n   | mark_next_line         |                                    |
+| C-A-b   | mark_backward_char     |                                    |
+| C-A-f   | mark_forward_char      |                                    |
+| C-A-S-b | mark_backward_word     |                                    |
+| C-A-S-f | mark_forward_word      |                                    |
+| C-A-a   | mark_beginning_of_line |                                    |
+| C-A-e   | mark_end_of_line       |                                    |
+| C-A-d   | mark_next_like_this    |                                    |
+| C-A-g   | keyboard_quit_z        | Esc キーを発行しない keyboard_quit |
+|---------+------------------------+------------------------------------|
+
+**** ● 「その他」のキー設定
+
+|---------+--------------------------+-------------|
+| Keybind | Function                 | Description |
+|---------+--------------------------+-------------|
+| M-x     | execute_extended_command |             |
+| M-;     | comment_dwim             |             |
+|---------+--------------------------+-------------|
+
+*** 留意事項
+
+● 本フォルダにある _config_personal.py を config_personal.py というファイル名にすることで
+機能拡張ファイルとして機能します。zed_key Extension の機能を拡張する際にご利用ください。
