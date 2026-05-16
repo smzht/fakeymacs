@@ -112,6 +112,9 @@ def keyboard_quit_z():
 def execute_extended_command():
     self_insert_command3("C-S-p")()
 
+def comment_dwim():
+    self_insert_command("C-k", "C-c")()
+
 ## マルチストロークキーの設定
 define_key_z("Ctl-x",  keymap.defineMultiStrokeKeymap(fc.ctl_x_prefix_key))
 define_key_z("M-",     keymap.defineMultiStrokeKeymap("Esc"))
@@ -142,19 +145,20 @@ define_key_z("Ctl-x 3", split_window_right)
 define_key_z("Ctl-x o", reset("sucm", other_window))
 
 ## 「矩形選択 / マルチカーソル」のキー設定
-define_key_z("C-A-p",   reset("suc", repeat(mark_previous_line)))
-define_key_z("C-A-n",   reset("suc", repeat(mark_next_line)))
-define_key_z("C-A-b",   reset("suc", repeat(mark_backward_char)))
-define_key_z("C-A-f",   reset("suc", repeat(mark_forward_char)))
-define_key_z("C-A-S-b", reset("suc", repeat(mark_backward_word)))
-define_key_z("C-A-S-f", reset("suc", repeat(mark_forward_word)))
-define_key_z("C-A-a",   reset("suc", mark_beginning_of_line))
-define_key_z("C-A-e",   reset("suc", mark_end_of_line))
-define_key_z("C-A-d",   reset("suc", mark_next_like_this))
-define_key_z("C-A-g",   reset("scm", keyboard_quit_z))
+define_key_z("C-A-p",   reset("suc",  repeat(mark_previous_line)))
+define_key_z("C-A-n",   reset("suc",  repeat(mark_next_line)))
+define_key_z("C-A-b",   reset("suc",  repeat(mark_backward_char)))
+define_key_z("C-A-f",   reset("suc",  repeat(mark_forward_char)))
+define_key_z("C-A-S-b", reset("suc",  repeat(mark_backward_word)))
+define_key_z("C-A-S-f", reset("suc",  repeat(mark_forward_word)))
+define_key_z("C-A-a",   reset("suc",  mark_beginning_of_line))
+define_key_z("C-A-e",   reset("suc",  mark_end_of_line))
+define_key_z("C-A-d",   reset("suc",  mark_next_like_this))
+define_key_z("C-A-g",   reset("scm",  keyboard_quit_z))
 
 ## 「その他」のキー設定
 define_key_z("M-x",     reset("sucm", execute_extended_command))
+define_key_z("M-;",     reset("sucm", comment_dwim))
 
 # --------------------------------------------------------------------------------------------------
 
