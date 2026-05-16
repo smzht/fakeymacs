@@ -10,8 +10,8 @@ Zed エディタは、次のページからダウンロード可能です。
 
 - https://zed.dev/
 
-WSL2 の Linux から elecxzy エディタを使えるようにするには、~/bin 等のコマンドパスの
-通ったフォルダに次の zed または wzed というコマンドを作成してお使いください。
+WSL2 の Linux から Zed エディタを使えるようにするには、~/bin 等のコマンドパスの通ったフォルダに、
+次の zed または wzed というコマンドを作成してお使いください。
 
 - https://github.com/smzht/wsl-utils/blob/master/zed
 - https://github.com/smzht/wsl-utils/blob/master/wzed

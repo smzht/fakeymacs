@@ -20,8 +20,8 @@ elecxzy エディタのキーバインドは、以下に記載があります。
 
 - https://github.com/kurouna/elecxzy/blob/main/COMMANDLIST.md
 
-WSL2 の Linux から elecxzy エディタを使えるようにするには、~/bin 等のコマンドパスの
-通ったフォルダに次の elecxzy というコマンドを作成してお使いください。
+WSL2 の Linux から elecxzy エディタを使えるようにするには、~/bin 等のコマンドパスの通ったフォルダに、
+次の elecxzy というコマンドを作成してお使いください。
 
 - https://github.com/smzht/wsl-utils/blob/master/elecxzy
 
