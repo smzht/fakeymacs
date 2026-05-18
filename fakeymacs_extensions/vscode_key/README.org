@@ -6,7 +6,7 @@
 
 VSCode 用のキーの設定を行う拡張機能です。
 
-AI Code Editor の Cursor、Windsurf、Kiro、Antigravity にも対応しています。
+AI Code Editor の Cursor、Windsurf、Kiro、Google Antigravity にも対応しています。
 また、ブラウザで動作する VS Code Web にも対応しており、vscode.dev、github.dev、Firebase Studio
 などでも利用可能です。
 
