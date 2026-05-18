@@ -62,7 +62,7 @@ def recenter():
 
 ## ペイン操作
 def delete_window():
-    self_insert_command("C-w")()
+    self_insert_command4("C-k", "w")()
 
 def delete_other_windows():
     # 適当なコマンドが見つからない
