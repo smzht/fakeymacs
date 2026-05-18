@@ -291,7 +291,7 @@ keyboard_quit（C-A-g）を利用してください。（fc.esc_mode_in_keyboard
 
 キーバインドの設定は次の拡張機能の中で行っています。
 
-- https://github.com/smzht/fakeymacs/tree/master/fakeymacs_extensions/vscode_extensions
+- https://github.com/smzht/fakeymacs/tree/master/fakeymacs_extensions/vscode_key/vscode_extensions
 
 ****  ●「ターミナル操作」のキー設定（パネル内ターミナル）
 
