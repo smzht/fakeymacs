@@ -56,12 +56,27 @@ def region(func):
         fakeymacs.forward_direction = True
     return _func
 
+## ファイル操作
+def find_directory():
+    # Zed Command : workspace: open
+    self_insert_command("C-k", "C-o")()
+
+def recentf():
+    # Zed Command : projects: open recent
+    self_insert_command("C-r")()
+
+def locate():
+    # Zed Command : file finder: toggle
+    self_insert_command("C-r")()
+
 ## カーソル移動
 def recenter():
+    # Zed Command : editor: scroll cursor center
     zedExecuteCommand("editor: scroll cursor center")()
 
 ## ペイン操作
 def delete_window():
+    # Zed Command : pane: close all items
     self_insert_command4("C-k", "w")()
 
 def delete_other_windows():
@@ -69,19 +84,24 @@ def delete_other_windows():
     pass
 
 def split_window_below():
+    # Zed Command : pane: split down
     self_insert_command("C-k", "Down")()
 
 def split_window_right():
+    # Zed Command : pane: split right
     self_insert_command("C-k", "Right")()
 
 def other_window():
+    # Zed Command : workspace: activate next pane
     zedExecuteCommand("workspace: activate next pane")()
 
 ## 矩形選択 / マルチカーソル
 def mark_previous_line():
+    # Zed Command : editor: add selection above
     self_insert_command("C-A-Up")()
 
 def mark_next_line():
+    # Zed Command : editor: add selection below
     self_insert_command("C-A-Down")()
 
 def mark_backward_char():
@@ -103,16 +123,28 @@ def mark_end_of_line():
     mark2(move_end_of_line, True)()
 
 def mark_next_like_this():
+    # Zed Command : editor: select next
     region(self_insert_command("C-d"))()
 
 def keyboard_quit_z():
     keyboard_quit(esc=False)
 
+## ターミナル操作
+def create_terminal():
+    # Zed Command : workspace: new terminal
+    zedExecuteCommand("workspace: new terminal")()
+
+def toggle_terminal():
+    # Zed Command : terminal panel: toggle
+    zedExecuteCommand("terminal panel: toggle")()
+
 ## その他
 def execute_extended_command():
+    # Zed Command : command_palette: toggle
     self_insert_command3("C-S-p")()
 
 def comment_dwim():
+    # Zed Command : editor: toggle comments
     self_insert_command("C-k", "C-c")()
 
 ## マルチストロークキーの設定
@@ -134,31 +166,50 @@ def mergeEmacsMultiStrokeKeymap():
 ## keymap_emacs キーマップのマルチストロークキーの設定を keymap_zed キーマップにマージする
 keymap_zed.applying_func = mergeEmacsMultiStrokeKeymap
 
+## 「ファイル操作」のキー設定
+define_key_z("Ctl-x C-d", reset("sucm", find_directory))
+define_key_z("Ctl-x C-r", reset("sucm", recentf))
+define_key_z("Ctl-x C-l", reset("sucm", locate))
+
 ## 「カーソル移動」のキー設定
-define_key_z("C-l",     reset("suc", recenter))
+define_key_z("C-l",       reset("suc", recenter))
 
 ## 「ペイン操作」のキー設定
-define_key_z("Ctl-x 0", reset("sucm", delete_window))
-define_key_z("Ctl-x 1", delete_other_windows)
-define_key_z("Ctl-x 2", split_window_below)
-define_key_z("Ctl-x 3", split_window_right)
-define_key_z("Ctl-x o", reset("sucm", other_window))
+define_key_z("Ctl-x 0",   reset("sucm", delete_window))
+define_key_z("Ctl-x 1",   delete_other_windows)
+define_key_z("Ctl-x 2",   split_window_below)
+define_key_z("Ctl-x 3",   split_window_right)
+define_key_z("Ctl-x o",   reset("sucm", other_window))
 
 ## 「矩形選択 / マルチカーソル」のキー設定
-define_key_z("C-A-p",   reset("suc",  repeat(mark_previous_line)))
-define_key_z("C-A-n",   reset("suc",  repeat(mark_next_line)))
-define_key_z("C-A-b",   reset("suc",  repeat(mark_backward_char)))
-define_key_z("C-A-f",   reset("suc",  repeat(mark_forward_char)))
-define_key_z("C-A-S-b", reset("suc",  repeat(mark_backward_word)))
-define_key_z("C-A-S-f", reset("suc",  repeat(mark_forward_word)))
-define_key_z("C-A-a",   reset("suc",  mark_beginning_of_line))
-define_key_z("C-A-e",   reset("suc",  mark_end_of_line))
-define_key_z("C-A-d",   reset("suc",  mark_next_like_this))
-define_key_z("C-A-g",   reset("scm",  keyboard_quit_z))
+define_key_z("C-A-p",     reset("suc",  repeat(mark_previous_line)))
+define_key_z("C-A-n",     reset("suc",  repeat(mark_next_line)))
+define_key_z("C-A-b",     reset("suc",  repeat(mark_backward_char)))
+define_key_z("C-A-f",     reset("suc",  repeat(mark_forward_char)))
+define_key_z("C-A-S-b",   reset("suc",  repeat(mark_backward_word)))
+define_key_z("C-A-S-f",   reset("suc",  repeat(mark_forward_word)))
+define_key_z("C-A-a",     reset("suc",  mark_beginning_of_line))
+define_key_z("C-A-e",     reset("suc",  mark_end_of_line))
+define_key_z("C-A-d",     reset("suc",  mark_next_like_this))
+define_key_z("C-A-g",     reset("scm",  keyboard_quit_z))
+
+## 「ターミナル操作」のキー設定
+define_key_z("C-S-(243)", reset("sucm", create_terminal))
+define_key_z("C-S-(244)", reset("sucm", create_terminal))
+define_key_z("C-(243)",   reset("sucm", toggle_terminal))
+define_key_z("C-(244)",   reset("sucm", toggle_terminal))
+
+if is_japanese_keyboard:
+    define_key_z("C-S-@", reset("sucm", create_terminal))
+    if not fc.use_ctrl_atmark_for_mark:
+        define_key_z("C-@", reset("sucm", toggle_terminal))
+else:
+    define_key_z("C-S-`", reset("sucm", create_terminal))
+    define_key_z("C-`",   reset("sucm", toggle_terminal))
 
 ## 「その他」のキー設定
-define_key_z("M-x",     reset("sucm", execute_extended_command))
-define_key_z("M-;",     reset("sucm", comment_dwim))
+define_key_z("M-x",       reset("sucm", execute_extended_command))
+define_key_z("M-;",       reset("sucm", comment_dwim))
 
 # --------------------------------------------------------------------------------------------------
 

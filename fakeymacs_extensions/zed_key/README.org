@@ -30,42 +30,82 @@ wzed は Windows アプリである Zed を --wsl オプションを利用せず
 
 *** キーバインド
 
+**** ● 「ファイル操作」のキー設定
+
+|-----------+----------------+-----------------------+--------------------------------|
+| Keybind   | Function       | Zed Command           | Description                    |
+|-----------+----------------+-----------------------+--------------------------------|
+| Ctl-x C-f | find_file      | workspace: open files | Fakeymacs 標準機能（参考記載） |
+| Ctl-x C-d | find_directory | workspace: open       |                                |
+| Ctl-x C-r | recentf        | projects: open recent |                                |
+| Ctl-x C-l | locate         | file finder: toggle   |                                |
+|-----------+----------------+-----------------------+--------------------------------|
+
+**** ● 「カーソル移動」のキー設定
+
+|---------+----------+------------------------------+-------------|
+| Keybind | Function | Zed Command                  | Description |
+|---------+----------+------------------------------+-------------|
+| C-l     | recenter | editor: scroll cursor center |             |
+|---------+----------+------------------------------+-------------|
+
 **** ● 「ペイン操作」のキー設定
 
-|---------+--------------------+-------------|
-| Keybind | Function           | Description |
-|---------+--------------------+-------------|
-| Ctl-x 0 | delete_window      |             |
-| Ctl-x 2 | split_window_below |             |
-| Ctl-x 3 | split_window_right |             |
-| Ctl-x o | other_window       |             |
-|---------+--------------------+-------------|
+|---------+----------------------+-------------------------------+------------------------------|
+| Keybind | Function             | Zed Command                   | Description                  |
+|---------+----------------------+-------------------------------+------------------------------|
+| Ctl-x 0 | delete_window        | pane: close all items         |                              |
+| Ctl-x 1 | delete_other_windows | -                             | 適当なコマンドが見つからない |
+| Ctl-x 2 | split_window_below   | pane: split down              |                              |
+| Ctl-x 3 | split_window_right   | pane: split right             |                              |
+| Ctl-x o | other_window         | workspace: activate next pane |                              |
+|---------+----------------------+-------------------------------+------------------------------|
 
 **** ● 「矩形選択 / マルチカーソル」のキー設定
 
-|---------+------------------------+------------------------------------|
-| Keybind | Function               | Description                        |
-|---------+------------------------+------------------------------------|
-| C-A-p   | mark_previous_line     |                                    |
-| C-A-n   | mark_next_line         |                                    |
-| C-A-b   | mark_backward_char     |                                    |
-| C-A-f   | mark_forward_char      |                                    |
-| C-A-S-b | mark_backward_word     |                                    |
-| C-A-S-f | mark_forward_word      |                                    |
-| C-A-a   | mark_beginning_of_line |                                    |
-| C-A-e   | mark_end_of_line       |                                    |
-| C-A-d   | mark_next_like_this    |                                    |
-| C-A-g   | keyboard_quit_z        | Esc キーを発行しない keyboard_quit |
-|---------+------------------------+------------------------------------|
+|---------+------------------------+-----------------------------+------------------------------------|
+| Keybind | Function               | Zed Command                 | Description                        |
+|---------+------------------------+-----------------------------+------------------------------------|
+| C-A-p   | mark_previous_line     | editor: add selection above |                                    |
+| C-A-n   | mark_next_line         | editor: add selection below |                                    |
+| C-A-b   | mark_backward_char     |                             |                                    |
+| C-A-f   | mark_forward_char      |                             |                                    |
+| C-A-S-b | mark_backward_word     |                             |                                    |
+| C-A-S-f | mark_forward_word      |                             |                                    |
+| C-A-a   | mark_beginning_of_line |                             |                                    |
+| C-A-e   | mark_end_of_line       |                             |                                    |
+| C-A-d   | mark_next_like_this    | editor: select next         |                                    |
+| C-A-g   | keyboard_quit_z        |                             | Esc キーを発行しない keyboard_quit |
+|---------+------------------------+-----------------------------+------------------------------------|
+
+****  ●「ターミナル操作」のキー設定
+
+|-------------+-----------------+-------------------------+--------------------|
+| Keybind     | Function        | Zed Command             | Description        |
+|-------------+-----------------+-------------------------+--------------------|
+| C-~ (C-S-`) | create_terminal | workspace: new terminal | US Keyboard の場合 |
+| C-`         | toggle_terminal | terminal panel: toggle  | US Keyboard の場合 |
+|-------------+-----------------+-------------------------+--------------------|
+
+|-----------------+-----------------+-------------------------+---------------------|
+| Keybind         | Function        | Zed Command             | Description         |
+|-----------------+-----------------+-------------------------+---------------------|
+| C-` (C-S-@)     | create_terminal | workspace: new terminal | JIS Keyboard の場合 |
+| C-@             | toggle_terminal | terminal panel: toggle  | JIS Keyboard の場合 |
+| C-S-<半角/全角> | create_terminal | workspace: new terminal | JIS Keyboard の場合 |
+| C-<半角/全角>   | toggle_terminal | terminal panel: toggle  | JIS Keyboard の場合 |
+|-----------------+-----------------+-------------------------+---------------------|
+
+※ C-@ は、fc.use_ctrl_atmark_for_mark 変数が False の場合に機能します。
 
 **** ● 「その他」のキー設定
 
-|---------+--------------------------+-------------|
-| Keybind | Function                 | Description |
-|---------+--------------------------+-------------|
-| M-x     | execute_extended_command |             |
-| M-;     | comment_dwim             |             |
-|---------+--------------------------+-------------|
+|---------+--------------------------+-------------------------+-------------|
+| Keybind | Function                 | Zed Command             | Description |
+|---------+--------------------------+-------------------------+-------------|
+| M-x     | execute_extended_command | command_palette: toggle |             |
+| M-;     | comment_dwim             | editor: toggle comments |             |
+|---------+--------------------------+-------------------------+-------------|
 
 *** 留意事項
 
