@@ -67,7 +67,7 @@ def recentf():
 
 def locate():
     # Zed Command : file finder: toggle
-    self_insert_command("C-r")()
+    self_insert_command("C-p")()
 
 ## カーソル移動
 def recenter():
