@@ -39,6 +39,7 @@ wzed は Windows アプリである Zed を --wsl オプションを利用せず
 | Ctl-x C-d | find_directory | workspace: open       |                                |
 | Ctl-x C-r | recentf        | projects: open recent |                                |
 | Ctl-x C-l | locate         | file finder: toggle   |                                |
+| Ctl-x C-o | remote         | projects: open remote |                                |
 |-----------+----------------+-----------------------+--------------------------------|
 
 **** ● 「カーソル移動」のキー設定

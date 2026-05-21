@@ -69,6 +69,10 @@ def locate():
     # Zed Command : file finder: toggle
     self_insert_command("C-p")()
 
+def remote():
+    # Zed Command : projects: open remote
+    self_insert_command("C-A-S-o")()
+
 ## カーソル移動
 def recenter():
     # Zed Command : editor: scroll cursor center
@@ -170,6 +174,7 @@ keymap_zed.applying_func = mergeEmacsMultiStrokeKeymap
 define_key_z("Ctl-x C-d", reset("sucm", find_directory))
 define_key_z("Ctl-x C-r", reset("sucm", recentf))
 define_key_z("Ctl-x C-l", reset("sucm", locate))
+define_key_z("Ctl-x C-o", reset("sucm", remote))
 
 ## 「カーソル移動」のキー設定
 define_key_z("C-l",       reset("suc", recenter))
