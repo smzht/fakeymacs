@@ -128,7 +128,27 @@ def mark_end_of_line():
 
 def mark_next_like_this():
     # Zed Command : editor: select next
-    region(self_insert_command("C-d"))()
+    region(self_insert_command("C-F3"))()
+
+def mark_all_like_this():
+    # Zed Command : editor: select all matches
+    region(self_insert_command("C-F2"))()
+
+def expand_region():
+    # Zed Command : editor: select larger syntax node
+    region(self_insert_command("A-S-Right"))()
+
+def shrink_region():
+    # Zed Command : editor: select smaller syntax node
+    self_insert_command("A-S-Left")()
+
+def cursor_undo():
+    # VSCode Command : editor: undo selection
+    self_insert_command("C-u")()
+
+def cursor_redo():
+    # VSCode Command : editor: redo selection
+    self_insert_command("C-S-u")()
 
 def keyboard_quit_z():
     keyboard_quit(esc=False)
@@ -196,6 +216,11 @@ define_key_z("C-A-S-f",   reset("suc",  repeat(mark_forward_word)))
 define_key_z("C-A-a",     reset("suc",  mark_beginning_of_line))
 define_key_z("C-A-e",     reset("suc",  mark_end_of_line))
 define_key_z("C-A-d",     reset("suc",  mark_next_like_this))
+define_key_z("C-A-S-d",   reset("suc",  mark_all_like_this))
+define_key_z("C-A-x",     reset("suc",  expand_region))
+define_key_z("C-A-S-x",   reset("suc",  shrink_region))
+define_key_z("C-A-u",     reset("suc",  cursor_undo))
+define_key_z("C-A-r",     reset("suc",  cursor_redo))
 define_key_z("C-A-g",     reset("scm",  keyboard_quit_z))
 
 ## 「ターミナル操作」のキー設定

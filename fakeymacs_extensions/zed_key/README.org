@@ -64,20 +64,25 @@ wzed は Windows アプリである Zed を --wsl オプションを利用せず
 
 **** ● 「矩形選択 / マルチカーソル」のキー設定
 
-|---------+------------------------+-----------------------------+------------------------------------|
-| Keybind | Function               | Zed Command                 | Description                        |
-|---------+------------------------+-----------------------------+------------------------------------|
-| C-A-p   | mark_previous_line     | editor: add selection above |                                    |
-| C-A-n   | mark_next_line         | editor: add selection below |                                    |
-| C-A-b   | mark_backward_char     |                             |                                    |
-| C-A-f   | mark_forward_char      |                             |                                    |
-| C-A-S-b | mark_backward_word     |                             |                                    |
-| C-A-S-f | mark_forward_word      |                             |                                    |
-| C-A-a   | mark_beginning_of_line |                             |                                    |
-| C-A-e   | mark_end_of_line       |                             |                                    |
-| C-A-d   | mark_next_like_this    | editor: select next         |                                    |
-| C-A-g   | keyboard_quit_z        |                             | Esc キーを発行しない keyboard_quit |
-|---------+------------------------+-----------------------------+------------------------------------|
+|---------+------------------------+------------------------------------+------------------------------------|
+| Keybind | Function               | Zed Command                        | Description                        |
+|---------+------------------------+------------------------------------+------------------------------------|
+| C-A-p   | mark_previous_line     | editor: add selection above        |                                    |
+| C-A-n   | mark_next_line         | editor: add selection below        |                                    |
+| C-A-b   | mark_backward_char     |                                    |                                    |
+| C-A-f   | mark_forward_char      |                                    |                                    |
+| C-A-S-b | mark_backward_word     |                                    |                                    |
+| C-A-S-f | mark_forward_word      |                                    |                                    |
+| C-A-a   | mark_beginning_of_line |                                    |                                    |
+| C-A-e   | mark_end_of_line       |                                    |                                    |
+| C-A-d   | mark_next_like_this    | editor: select next                |                                    |
+| C-A-S-d | mark_all_like_this     | editor: select all matches         |                                    |
+| C-A-x   | expand_region          | editor: select larger syntax node  |                                    |
+| C-A-S-x | shrink_region          | editor: select smaller syntax node |                                    |
+| C-A-u   | cursor_undo            | editor: undo selection             |                                    |
+| C-A-r   | cursor_redo            | editor: redo selection             |                                    |
+| C-A-g   | keyboard_quit_z        |                                    | Esc キーを発行しない keyboard_quit |
+|---------+------------------------+------------------------------------+------------------------------------|
 
 ****  ●「ターミナル操作」のキー設定
 
