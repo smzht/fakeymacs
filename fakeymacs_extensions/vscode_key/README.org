@@ -143,8 +143,8 @@ Remote Development 拡張機能を使って WSL を使う場合には、.bashrc 
 してください。
 
 #+BEGIN_EXAMPLE
-if [ -t 1 ]; then
-    stty stop undef
+if [[ $- == *i* ]]; then
+   stty -ixon
 fi
 #+END_EXAMPLE
 
@@ -156,30 +156,30 @@ fi
 
 *** コンフィグレーションパラメータ
 
-|----------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------|
-| Configuration parameter                | Description                                                                                                                                 |
-|----------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------|
-| fc.vscode_browser_title                | VS Code Web の画面で VSCode 用のキーバインドを利用するブラウザタブのタイトルを指定する                                                      |
-| fc.vscode_setting<1> ～ <10>           | VSCode 用のキーバインドを利用するアプリケーションソフト、置き換えするプレフィックスキーの組み合わせ、置き換えするキーの組み合わせを指定する |
-| fc.use_ctrl_atmark_for_mark            | 日本語キーボードを利用する際、VSCode で  C-@ をマーク用のキーとして使うかどうかを指定する                                                   |
-| fc.use_direct_input_in_vscode_terminal | パネルのターミナル内で４つのキー（C-k、C-r、C-s、C-y）のダイレクト入力機能を使うかどうかを指定する                                          |
-| fc.terminal_list_for_direct_input      | ターミナルをエディタ領域で使う際、ダイレクト入力機能を使うターミナルの種類を指定する                                                        |
-| fc.esc_mode_in_keyboard_quit           | keyboard_quit 関数実行時（C-g 押下時）の Esc キーの発行方法を指定する                                                                       |
-|----------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------|
+|------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------|
+| Configuration parameter                  | Description                                                                                                                                 |
+|------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------|
+| fc.vscode_browser_title                  | VS Code Web の画面で VSCode 用のキーバインドを利用するブラウザタブのタイトルを指定する                                                      |
+| fc.vscode_setting<1> ～ <10>             | VSCode 用のキーバインドを利用するアプリケーションソフト、置き換えするプレフィックスキーの組み合わせ、置き換えするキーの組み合わせを指定する |
+| fc.vscode_use_ctrl_atmark_for_mark       | 日本語キーボードを利用する際、VSCode で  C-@ をマーク用のキーとして使うかどうかを指定する                                                   |
+| fc.vscode_use_direct_input_in_terminal   | パネルのターミナル内で４つのキー（C-k、C-r、C-s、C-y）のダイレクト入力機能を使うかどうかを指定する                                          |
+| fc.vsocde_terminal_list_for_direct_input | ターミナルをエディタ領域で使う際、ダイレクト入力機能を使うターミナルの種類を指定する                                                        |
+| fc.vscode_esc_mode_in_keyboard_quit      | keyboard_quit 関数実行時（C-g 押下時）の Esc キーの発行方法を指定する                                                                       |
+|------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------|
 
-※ fc.use_ctrl_atmark_for_mark 変数は、VSCode で C-@ を Toggle Terminal 用のキーとして使えるように
-するために設けた設定です。
+※ fc.vscode_use_ctrl_atmark_for_mark 変数は、VSCode で C-@ を Toggle Terminal 用のキーとして
+使えるようにするために設けた設定です。
 初期値は False としており、C-@ を Toggle Terminal 用のキーとして使えるようにしています。
 True に設定した場合でも Toggle Terminal 用のキーとして C-<半角／全角> が使えます。
 
-※ fc.use_direct_input_in_vscode_terminal 変数は初期値を False（使わない）としており、
-仕様を理解した方のみ使う機能としています。fc.use_direct_input_in_vscode_terminal 変数を True に
+※ fc.vscode_use_direct_input_in_terminal 変数は初期値を False（使わない）としており、
+仕様を理解した方のみ使う機能としています。fc.vscode_use_direct_input_in_terminal 変数を True に
 した際の仕様については、以降の説明を参照してください。
 なお、2025/01/21 に実施したエンハンス対応により、VSCode の settings.json に window.title の設定を
-行えば、fc.use_direct_input_in_vscode_terminal 変数を True にする必要がなくなりました。window.title
+行えば、fc.vscode_use_direct_input_in_terminal 変数を True にする必要がなくなりました。window.title
 の設定についても以降の説明を参照してください。
 
-※ fc.esc_mode_in_keyboard_quit 変数の設定値には、次のいずれかの値を指定できます。
+※ fc.vscode_esc_mode_in_keyboard_quit 変数の設定値には、次のいずれかの値を指定できます。
 - 1：C-g を押下した際、常に Esc キーを発行する
 - 2：C-g を２回連続して押下した場合に Esc キーを発行する
 設定値 2 の利用は、VSCode で Jupyter Notebook を使う場合などを想定しています。
@@ -220,7 +220,7 @@ True に設定した場合でも Toggle Terminal 用のキーとして C-<半角
 | Ctl-x C-b | list_buffers     | View: Show All Editors By Most Recently Used            |                                          |
 |-----------+------------------+---------------------------------------------------------+------------------------------------------|
 
-**** ● 「ウィンドウ操作」のキー設定
+**** ● 「ペイン操作」のキー設定
 
 |---------+----------------------+------------------------------------------+-------------|
 | Keybind | Function             | VSCode Command                           | Description |
@@ -273,7 +273,7 @@ True に設定した場合でも Toggle Terminal 用のキーとして C-<半角
 となっています。このため、代替用のキーとして C-A-S-e を設定しています。
 
 ※ マルチカーソルを維持したまま選択したリージョンを解除するには、Esc キーを発行しない
-keyboard_quit（C-A-g）を利用してください。（fc.esc_mode_in_keyboard_quit 変数が 2 の場合は、
+keyboard_quit（C-A-g）を利用してください。（fc.vscode_esc_mode_in_keyboard_quit 変数が 2 の場合は、
 連続入力しない C-g を利用することもできます。）
 
 ※ 「矩形選択 / マルチカーソル」の機能については、次のページを参考としてください。
@@ -311,7 +311,7 @@ keyboard_quit（C-A-g）を利用してください。（fc.esc_mode_in_keyboard
 | C-<半角/全角>   | toggle_terminal | View: Toggle Terminal         | JIS Keyboard の場合 |
 |-----------------+-----------------+-------------------------------+---------------------|
 
-※ C-@ は、fc.use_ctrl_atmark_for_mark 変数が False の場合に機能します。
+※ C-@ は、fc.vscode_use_ctrl_atmark_for_mark 変数が False の場合に機能します。
 
 ※ ターミナルで４つのキー（C-k、C-r、C-s、C-y）のダイレクト入力をできるようにするためには、
 VSCode の Preferences: Open User Settings (JSON) の機能で settings.json を開き、
@@ -321,7 +321,7 @@ VSCode の Preferences: Open User Settings (JSON) の機能で settings.json を
     "window.title": "${dirty}${activeEditorShort}${separator}${rootName}${separator}${appName}${separator}${focusedView}"
 #+END_EXAMPLE
 
-※ fc.use_direct_input_in_vscode_terminal 変数を True にすることでも、同様の機能を利用することが
+※ fc.vscode_use_direct_input_in_terminal 変数を True にすることでも、同様の機能を利用することが
 できます。この機能を利用する場合は、上記のいずれかのキーを押下してターミナルに移行するように
 してください。
 ただし、window.title の設定を行う方法の方がマウスでビューを切り替えられるなどメリットが多いため、
@@ -346,7 +346,7 @@ VSCode の Preferences: Open User Settings (JSON) の機能で settings.json を
 なお、PowerShell の場合、上記の設定をしなくとも、C-k 以外の emacs キーバインドは概ね利用可能です。
 また、C-k の代わりに A-k を使うことで、kill_line を利用できるようにしています。
 
-※ fc.use_direct_input_in_vscode_terminal 変数を True にしている場合、ターミナルから抜けるには
+※ fc.vscode_use_direct_input_in_terminal 変数を True にしている場合、ターミナルから抜けるには
 次のキーを利用するようにしてください。先に説明した４つのキーがターミナル外で機能するキーバインド
 として認識されるように戻ります。
 また、マウスでビューの変更をしたり、ターミナルのシェルを終了してパネルをクロースした場合などに、
@@ -378,7 +378,7 @@ VSCode の Preferences: Open User Settings (JSON) の機能で settings.json を
 
 ※ エディタ領域にターミナルを開く場合には、上記のキーを利用してください。
 
-※ この機能は、fc.terminal_list_for_direct_input 変数に設定しているターミナルに対し、動作します。
+※ この機能は、fc.vsocde_terminal_list_for_direct_input 変数に設定しているターミナルに対し、動作します。
 
 **** ● 「その他」のキー設定
 

@@ -437,7 +437,7 @@ if 0:
 
 # VSCode 用のキーの設定を行う
 if 0:
-    fc.esc_mode_in_keyboard_quit = 1
+    fc.vscode_esc_mode_in_keyboard_quit = 1
     exec(readConfigExtension(r"vscode_key\config.py"), dict(globals(), **locals()))
 
 # --------------------------------------------------------------------------------------------------
