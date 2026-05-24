@@ -192,7 +192,6 @@ def other_window():
 ## 文字列検索
 def isearch_v(direction):
     if fakeymacs_zed.terminal_focus:
-        print("IN")
         self_insert_command({"backward":"C-r", "forward":"C-s"}[direction])()
     else:
         isearch(direction)
