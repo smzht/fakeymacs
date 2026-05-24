@@ -182,6 +182,7 @@ fc.skip_mapping_key     = {"keymap_base"      : ["W-g", "A-Tab", "Space"], # ベ
                            "keymap_global"    : [], # グローバル Keymap
                            "keymap_emacs"     : [], # Emacs キーバインド対象アプリ用 Keymap
                            "keymap_vscode"    : [], # Emacs キーバインド VSCode 拡張用 Keymap
+                           "keymap_zed"       : [], # Emacs キーバインド Zed 拡張用 Keymap
                            "keymap_vim"       : [], # Emacs キーバインド Vim 用 Keymap
                            "keymap_ime"       : [], # IME 切り替え専用アプリ用 Keymap
                            "keymap_ei"        : [], # Emacs 日本語入力モード用 Keymap
@@ -673,6 +674,14 @@ if 0:
 
 # --------------------------------------------------------------------------------------------------
 
+# Zed エディタ用のキーの設定を行う
+if 0:
+    fc.zed_esc_mode_in_keyboard_quit = 1
+    fc.zed_use_direct_input_in_terminal = False
+    exec(readConfigExtension(r"zed_key\config.py"), dict(globals(), **locals()))
+
+# --------------------------------------------------------------------------------------------------
+
 # Obsidian 用のキーの設定を行う
 if 0:
     # fc.obsidian_language = "US"
@@ -690,12 +699,6 @@ if 0:
 # Fresh Editor 用のキーの設定を行う
 if 0:
     exec(readConfigExtension(r"fresh_key\config.py"), dict(globals(), **locals()))
-
-# --------------------------------------------------------------------------------------------------
-
-# Zed エディタ用のキーの設定を行う
-if 0:
-    exec(readConfigExtension(r"zed_key\config.py"), dict(globals(), **locals()))
 
 # --------------------------------------------------------------------------------------------------
 
