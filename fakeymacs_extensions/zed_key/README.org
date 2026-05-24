@@ -162,7 +162,7 @@ True に設定した場合でも Toggle Terminal 用のキーとして C-<半角
 | C-<半角/全角>   | toggle_terminal | terminal panel: toggle  | JIS Keyboard の場合 |
 |-----------------+-----------------+-------------------------+---------------------|
 
-※ C-@ は、fc.use_ctrl_atmark_for_mark 変数が False の場合に機能します。
+※ C-@ は、fc.zed_use_ctrl_atmark_for_mark 変数が False の場合に機能します。
 
 ※ ターミナルで４つのキー（C-k、C-r、C-s、C-y）のダイレクト入力をできるようにするためには、
 fc.zed_use_direct_input_in_terminal 変数を True にしてください。
