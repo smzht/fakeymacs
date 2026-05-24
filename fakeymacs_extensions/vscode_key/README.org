@@ -332,7 +332,7 @@ VSCode の Preferences: Open User Settings (JSON) の機能で settings.json を
 
 - https://code.visualstudio.com/docs/terminal/advanced
 
-※ bash のターミナルで C-s を利用できるようにするには、bash で stty stop undef の設定をする必要が
+※ bash のターミナルで C-s を利用できるようにするには、bash で stty -ixon の設定をする必要が
 あります。この設定をしないでこのキーを押下すると stop から戻れなくなりますのでご注意ください。
 
 ※ PowerShell のターミナルで emacs キーバインドを使うためには、次のページを参照してください。
