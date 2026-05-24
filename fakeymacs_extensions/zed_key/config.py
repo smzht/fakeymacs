@@ -163,8 +163,8 @@ def delete_window():
     # Zed Command : pane: close all items
     self_insert_command4("C-k", "w")()
 
-    if fakeymacs_vscode.terminal_focus:
-        fakeymacs_vscode.terminal_focus = False
+    if fakeymacs_zed.terminal_focus:
+        fakeymacs_zed.terminal_focus = False
 
 def delete_other_windows():
     # 適当なコマンドが見つからない
@@ -246,11 +246,11 @@ def shrink_region():
     self_insert_command("A-S-Left")()
 
 def cursor_undo():
-    # VSCode Command : editor: undo selection
+    # Zed Command : editor: undo selection
     self_insert_command("C-u")()
 
 def cursor_redo():
-    # VSCode Command : editor: redo selection
+    # Zed Command : editor: redo selection
     self_insert_command("C-S-u")()
 
 def keyboard_quit_z1():
