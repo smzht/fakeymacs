@@ -155,16 +155,17 @@ def yank_z():
 
 ## パネル操作
 def close_panel():
-    # Zed Command : workspace: close active dock
-    zedExecuteCommand("workspace: close active dock")()
+    # Zed Command : workspace::ToggleBottomDock
+    self_insert_command("C-j")()
 
 ## ペイン操作
 def delete_window():
-    # Zed Command : pane: close all items
-    self_insert_command4("C-k", "w")()
-
     if fakeymacs_zed.terminal_focus:
+        close_panel()
         fakeymacs_zed.terminal_focus = False
+    else:
+        # Zed Command : pane: close all items
+        self_insert_command4("C-k", "w")()
 
 def delete_other_windows():
     # 適当なコマンドが見つからない

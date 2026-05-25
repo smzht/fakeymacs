@@ -350,9 +350,6 @@ def focus_into_panel():
     # vscodeExecuteCommand("workbench.action.focusPanel")()
 
 def close_panel():
-    # VSCode Command : View: Close Panel
-    # vscodeExecuteCommand("VCPa", esc=True)()
-
     # VSCode Command : View: Hide Panel
     vscodeExecuteCommand("VHP", esc=True)()
     # vscodeExecuteCommand("workbench.action.closePanel")()
