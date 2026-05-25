@@ -295,16 +295,11 @@ keyboard_quit（C-A-g）を利用してください。（fc.vscode_esc_mode_in_k
 
 ****  ●「ターミナル操作」のキー設定（パネル内ターミナル）
 
-|-------------+-----------------+-------------------------------+--------------------|
-| Keybind     | Function        | VSCode Command                | Description        |
-|-------------+-----------------+-------------------------------+--------------------|
-| C-~ (C-S-`) | create_terminal | Terminal: Create New Terminal | US Keyboard の場合 |
-| C-`         | toggle_terminal | View: Toggle Terminal         | US Keyboard の場合 |
-|-------------+-----------------+-------------------------------+--------------------|
-
-
 |-----------------+-----------------+-------------------------------+---------------------|
 | Keybind         | Function        | VSCode Command                | Description         |
+|-----------------+-----------------+-------------------------------+---------------------|
+| C-~ (C-S-`)     | create_terminal | Terminal: Create New Terminal | US Keyboard の場合  |
+| C-`             | toggle_terminal | View: Toggle Terminal         | US Keyboard の場合  |
 |-----------------+-----------------+-------------------------------+---------------------|
 | C-` (C-S-@)     | create_terminal | Terminal: Create New Terminal | JIS Keyboard の場合 |
 | C-@             | toggle_terminal | View: Toggle Terminal         | JIS Keyboard の場合 |

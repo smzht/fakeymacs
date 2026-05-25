@@ -146,16 +146,11 @@ True に設定した場合でも Toggle Terminal 用のキーとして C-<半角
 
 ****  ●「ターミナル操作」のキー設定
 
-|-------------+-----------------+-------------------------+--------------------|
-| Keybind     | Function        | Zed Command             | Description        |
-|-------------+-----------------+-------------------------+--------------------|
-| C-~ (C-S-`) | create_terminal | workspace: new terminal | US Keyboard の場合 |
-| C-`         | toggle_terminal | terminal panel: toggle  | US Keyboard の場合 |
-|-------------+-----------------+-------------------------+--------------------|
-
-
 |-----------------+-----------------+-------------------------+---------------------|
 | Keybind         | Function        | Zed Command             | Description         |
+|-----------------+-----------------+-------------------------+---------------------|
+| C-~ (C-S-`)     | create_terminal | workspace: new terminal | US Keyboard の場合  |
+| C-`             | toggle_terminal | terminal panel: toggle  | US Keyboard の場合  |
 |-----------------+-----------------+-------------------------+---------------------|
 | C-` (C-S-@)     | create_terminal | workspace: new terminal | JIS Keyboard の場合 |
 | C-@             | toggle_terminal | terminal panel: toggle  | JIS Keyboard の場合 |
