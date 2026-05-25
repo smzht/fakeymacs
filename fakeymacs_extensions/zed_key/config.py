@@ -183,8 +183,7 @@ def other_window():
         # Zed Command : terminal panel: toggle focus
         zedExecuteCommand("terminal panel: toggle focus")()
 
-        if fc.zed_use_direct_input_in_terminal:
-            fakeymacs_zed.terminal_focus = False
+        fakeymacs_zed.terminal_focus = False
     else:
         # Zed Command : workspace: activate next pane
         zedExecuteCommand("workspace: activate next pane")()
@@ -265,17 +264,15 @@ def create_terminal():
         fakeymacs_zed.terminal_focus = True
 
 def toggle_terminal():
-    if fc.zed_use_direct_input_in_terminal:
-        if fakeymacs_zed.terminal_focus:
-            close_panel()
-            fakeymacs_zed.terminal_focus = False
-        else:
-            # Zed Command : terminal panel: toggle
-            zedExecuteCommand("terminal panel: toggle")()
-            fakeymacs_zed.terminal_focus = True
+    if fakeymacs_zed.terminal_focus:
+        close_panel()
+        fakeymacs_zed.terminal_focus = False
     else:
         # Zed Command : terminal panel: toggle
         zedExecuteCommand("terminal panel: toggle")()
+
+        if fc.zed_use_direct_input_in_terminal:
+            fakeymacs_zed.terminal_focus = True
 
 ## その他
 def keyboard_quit_z2():
