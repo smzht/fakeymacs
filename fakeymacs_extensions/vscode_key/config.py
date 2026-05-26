@@ -575,7 +575,7 @@ def create_terminal():
 
 def toggle_terminal():
     if fc.vscode_use_direct_input_in_terminal:
-        if fakeymacs_vscode.terminal_focus:
+        if fakeymacs_vscode.terminal_focus or is_panel_terminal():
             close_panel()
             fakeymacs_vscode.terminal_focus = False
         else:
