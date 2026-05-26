@@ -157,6 +157,7 @@ def yank_z():
 def close_panel():
     # Zed Command : workspace: close active dock
     zedExecuteCommand("workspace: close active dock")()
+    # self_insert_command("C-w")() # C-w は複数の機能に割り当てられているので使わない
 
 ## ペイン操作
 def delete_window():
