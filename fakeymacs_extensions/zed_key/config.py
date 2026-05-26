@@ -168,8 +168,9 @@ def delete_window():
         self_insert_command4("C-k", "w")()
 
 def delete_other_windows():
-    # 適当なコマンドが見つからない
-    pass
+    # 適当なコマンドが見つからないので、とりあえず
+    other_window()
+    delete_window()
 
 def split_window_below():
     # Zed Command : pane: split down
