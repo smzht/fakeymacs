@@ -160,6 +160,18 @@ except:
 
 try:
     # 設定されているか？
+    fc.vscode_panel_list
+except:
+    fc.vscode_panel_list = ["Problems",      "問題",
+                            "Search",        "検索",
+                            "Output",        "出力",
+                            "Debug Console", "デバッグ コンソール",
+                            "Terminal",      "ターミナル"
+                            "Ports",         "ポート",
+                            ]
+
+try:
+    # 設定されているか？
     fc.vscode_esc_mode_in_keyboard_quit
 except:
     # keyboard_quit 関数実行時（C-g 押下時）の Esc キーの発行方法を指定する
@@ -267,10 +279,25 @@ def post(func):
 
 pattern1 = re.compile("|".join([rf"(^| - ){v}( -|$)" for v in ["Terminal", "ターミナル"]]))
 pattern2 = re.compile("|".join([rf"(^| - ){t}( -|$)" for t in fc.vscode_terminal_list_for_direct_input]))
+pattern3 = re.compile("|".join([rf"(^| - ){p}( -|$)" for p in fc.vscode_panel_list]))
 
 def is_terminal_for_direct_input():
     title = getText()
     if pattern1.search(title) or pattern2.search(title):
+        return True
+    else:
+        return False
+
+def is_panel_terminal():
+    title = getText()
+    if pattern1.search(title):
+        return True
+    else:
+        return False
+
+def is_panel():
+    title = getText()
+    if pattern3.search(title):
         return True
     else:
         return False
@@ -361,7 +388,7 @@ def toggle_maximized_panel():
 
 ## ペイン操作
 def delete_window():
-    if fakeymacs_vscode.terminal_focus:
+    if fakeymacs_vscode.terminal_focus or is_panel():
         close_panel()
         fakeymacs_vscode.terminal_focus = False
     else:
@@ -370,7 +397,7 @@ def delete_window():
         # vscodeExecuteCommand("workbench.action.closeEditorsInGroup")()
 
 def delete_other_windows():
-    if fakeymacs_vscode.terminal_focus:
+    if fakeymacs_vscode.terminal_focus or is_panel():
         toggle_maximized_panel()
     else:
         # VSCode Command : View: Close Editors in Other Groups
@@ -381,7 +408,7 @@ def delete_other_windows():
             close_panel()
 
 def split_window_below():
-    if fakeymacs_vscode.terminal_focus:
+    if fakeymacs_vscode.terminal_focus or is_panel():
         toggle_maximized_panel()
     else:
         # VSCode Command : View: Split Editor Orthogonal
@@ -394,7 +421,8 @@ def split_window_right():
         # VSCode Command : View: Split Terminal
         # self_insert_command("C-S-5")()
         vscodeExecuteCommand("workbench.action.terminal.split")()
-    else:
+
+    elif not is_panel():
         # VSCode Command : View: Split Editor
         self_insert_command("C-Yen")()
         # vscodeExecuteCommand("workbench.action.splitEditor")()
