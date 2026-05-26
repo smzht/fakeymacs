@@ -183,6 +183,7 @@ def other_window():
     if fakeymacs_zed.terminal_focus:
         # Zed Command : terminal panel: toggle focus
         zedExecuteCommand("terminal panel: toggle focus")()
+
         fakeymacs_zed.terminal_focus = False
     else:
         # Zed Command : workspace: activate next pane
