@@ -155,8 +155,8 @@ def yank_z():
 
 ## パネル操作
 def close_panel():
-    # Zed Command : workspace::ToggleBottomDock
-    self_insert_command("C-j")()
+    # Zed Command : workspace: close active dock
+    zedExecuteCommand("workspace: close active dock")()
 
 ## ペイン操作
 def delete_window():
