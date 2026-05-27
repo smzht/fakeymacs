@@ -568,7 +568,11 @@ def keyboard_quit_v1():
 ## ターミナル操作
 def create_terminal():
     # VSCode Command : Terminal: Create New Terminal
-    vscodeExecuteCommand2("workbench.action.terminal.new")()
+    if os_keyboard_type == "JP":
+        self_insert_command("C-S-@")()
+    else:
+        self_insert_command("C-S-`")()
+    # vscodeExecuteCommand2("workbench.action.terminal.new")()
 
     if fc.vscode_use_direct_input_in_terminal:
         fakeymacs_vscode.terminal_focus = True
