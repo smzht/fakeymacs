@@ -419,8 +419,8 @@ def split_window_below():
 def split_window_right():
     if fakeymacs_vscode.terminal_focus or is_terminal_for_direct_input():
         # VSCode Command : View: Split Terminal
-        # self_insert_command("C-S-5")()
-        vscodeExecuteCommand("workbench.action.terminal.split")()
+        self_insert_command("C-S-5")()
+        # vscodeExecuteCommand("workbench.action.terminal.split")()
 
     elif not is_panel():
         # VSCode Command : View: Split Editor
@@ -568,7 +568,8 @@ def keyboard_quit_v1():
 ## ターミナル操作
 def create_terminal():
     # VSCode Command : Terminal: Create New Terminal
-    vscodeExecuteCommand2("workbench.action.terminal.new")()
+    self_insert_command("C-S-`")()
+    # vscodeExecuteCommand2("workbench.action.terminal.new")()
 
     if fc.vscode_use_direct_input_in_terminal:
         fakeymacs_vscode.terminal_focus = True
@@ -580,12 +581,14 @@ def toggle_terminal():
             fakeymacs_vscode.terminal_focus = False
         else:
             # VSCode Command : Terminal: Focus Terminal
+            # self_insert_command("C-Down")() # 動かない
             vscodeExecuteCommand2("workbench.action.terminal.focus")()
 
             fakeymacs_vscode.terminal_focus = True
     else:
         # VSCode Command : View: Toggle Terminal
-        vscodeExecuteCommand2("workbench.action.terminal.toggleTerminal")()
+        vscodeExecuteCommand2("VToTe")()
+        # vscodeExecuteCommand2("workbench.action.terminal.toggleTerminal")()
 
 def create_terminal_in_editor_area():
     # VSCode Command : Terminal: Create New Terminal in Editor Area
