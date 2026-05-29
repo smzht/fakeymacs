@@ -56,7 +56,7 @@ Set-PSReadLineOption -EditMode Emacs
 Remote 接続機能を使って WSL を使う場合には、.bashrc に次の設定を追加してください。
 
 #+BEGIN_EXAMPLE
-if [[ $- == *i* ]]; then
+if [[ $- =~ i ]]; then
    stty -ixon
 fi
 #+END_EXAMPLE
