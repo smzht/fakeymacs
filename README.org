@@ -11,6 +11,8 @@ Keyhac for Windows v1.82 以上のバージョンでご利用ください（最�
 
 - https://sites.google.com/site/craftware/keyhac-ja
 
+※ 現時点では、Keyhac 2 では動作しません。Keyhac 1 でご利用ください。
+
 ドキュメントは次のリンクを参照してください。
 
 1. [[fakeymacs_docs/configuration_parameters.org][Configuration Parameters]]
