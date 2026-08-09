@@ -275,7 +275,7 @@ def configure(keymap):
                                "neovide.exe",            # Neovide
                                "elecxzy.exe",            # elecxzy
                                [None, None, "さくらのクラウドシェル*"],
-                               [None, "Chrome_WidgetWin_1", "Chrome リモート デスクトップ*"],
+                               [None, None, "Chrome リモート デスクトップ*"],
                                ]
 
     # IME の切り替え“のみをしたい”アプリケーションソフトを指定する
