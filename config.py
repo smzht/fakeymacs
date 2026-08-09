@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20260809_02"
+fakeymacs_version = "20260809_03"
 
 import time
 import os
@@ -276,6 +276,7 @@ def configure(keymap):
                                "elecxzy.exe",            # elecxzy
                                [None, None, "さくらのクラウドシェル*"],
                                [None, None, "Chrome リモート デスクトップ*"],
+                               [None, None, "DESKTOP-*"],
                                ]
 
     # IME の切り替え“のみをしたい”アプリケーションソフトを指定する
