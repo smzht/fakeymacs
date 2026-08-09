@@ -141,6 +141,7 @@ fc.not_emacs_target     = ["wsl.exe",                # WSL
                            "neovide.exe",            # Neovide
                            "elecxzy.exe",            # elecxzy
                            [None, None, "さくらのクラウドシェル*"],
+                           [None, "Chrome_WidgetWin_1", "Chrome リモート デスクトップ*"],
                            ]
 
 # IME の切り替え“のみをしたい”アプリケーションソフトを指定する
