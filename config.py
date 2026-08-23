@@ -2999,8 +2999,9 @@ def configure(keymap):
     define_key(keymap_global, fc.other_window_key, other_window)
 
     # IME の「単語登録」プログラムの起動
-    define_key(keymap_global, fc.word_register_key,
-               keymap.ShellExecuteCommand(None, fc.word_register_name, fc.word_register_param, ""))
+    if fc.word_register_name:
+        define_key(keymap_global, fc.word_register_key,
+                   keymap.ShellExecuteCommand(None, fc.word_register_name, fc.word_register_param, ""))
 
 
     ###########################################################################
@@ -3243,24 +3244,24 @@ def configure(keymap):
 
     # アプリケーションソフト
     fc.application_items = [
-        ["Notepad",     keymap.ShellExecuteCommand(None, r"notepad.exe", "", "")],
-        ["Explorer",    keymap.ShellExecuteCommand(None, r"explorer.exe", "", "")],
-        ["Cmd",         keymap.ShellExecuteCommand(None, r"cmd.exe", "", "")],
-        ["MSEdge",      keymap.ShellExecuteCommand(None, r"msedge.exe", "", "")],
-        ["Chrome",      keymap.ShellExecuteCommand(None, r"chrome.exe", "", "")],
-        ["Firefox",     keymap.ShellExecuteCommand(None, r"firefox.exe", "", "")],
-        ["Thunderbird", keymap.ShellExecuteCommand(None, r"thunderbird.exe", "", "")],
+        ["Notepad",     keymap.ShellExecuteCommand(None, "notepad.exe", "", "")],
+        ["Explorer",    keymap.ShellExecuteCommand(None, "explorer.exe", "", "")],
+        ["Cmd",         keymap.ShellExecuteCommand(None, "cmd.exe", "", "")],
+        ["MSEdge",      keymap.ShellExecuteCommand(None, "msedge.exe", "", "")],
+        ["Chrome",      keymap.ShellExecuteCommand(None, "chrome.exe", "", "")],
+        ["Firefox",     keymap.ShellExecuteCommand(None, "firefox.exe", "", "")],
+        ["Thunderbird", keymap.ShellExecuteCommand(None, "thunderbird.exe", "", "")],
     ]
     fc.application_items[0][0] = list_formatter.format(fc.application_items[0][0])
 
     # ウェブサイト
     fc.website_items = [
-        ["Google",          keymap.ShellExecuteCommand(None, r"https://www.google.co.jp/", "", "")],
-        ["Facebook",        keymap.ShellExecuteCommand(None, r"https://www.facebook.com/", "", "")],
-        ["Twitter",         keymap.ShellExecuteCommand(None, r"https://twitter.com/", "", "")],
-        ["Keyhac",          keymap.ShellExecuteCommand(None, r"https://sites.google.com/site/craftware/keyhac-ja", "", "")],
-        ["Fakeymacs",       keymap.ShellExecuteCommand(None, r"https://github.com/smzht/fakeymacs", "", "")],
-        ["NTEmacs＠ウィキ", keymap.ShellExecuteCommand(None, r"https://w.atwiki.jp/ntemacs/", "", "")],
+        ["Google",          keymap.ShellExecuteCommand(None, "https://www.google.co.jp/", "", "")],
+        ["Facebook",        keymap.ShellExecuteCommand(None, "https://www.facebook.com/", "", "")],
+        ["Twitter",         keymap.ShellExecuteCommand(None, "https://twitter.com/", "", "")],
+        ["Keyhac",          keymap.ShellExecuteCommand(None, "https://sites.google.com/site/craftware/keyhac-ja", "", "")],
+        ["Fakeymacs",       keymap.ShellExecuteCommand(None, "https://github.com/smzht/fakeymacs", "", "")],
+        ["NTEmacs＠ウィキ", keymap.ShellExecuteCommand(None, "https://w.atwiki.jp/ntemacs/", "", "")],
     ]
     fc.website_items[0][0] = list_formatter.format(fc.website_items[0][0])
 
@@ -3298,7 +3299,7 @@ def configure(keymap):
             window_list = getWindowList()
             window_items = []
             if window_list:
-                process_name_length = max(map(len, map(Window.getProcessName, window_list)))
+                process_name_length = max(map(len, map(getProcessName, window_list)))
 
                 formatter = f"{{0:{process_name_length}}} |{{1:1}}| {{2}}"
                 for window in window_list:
@@ -3307,7 +3308,7 @@ def configure(keymap):
                                                           icon, getText(window)), popWindow(window)])
 
             window_items.append([list_formatter.format("<Desktop>"),
-                                 keymap.ShellExecuteCommand(None, r"shell:::{3080F90D-D7AD-11D9-BD98-0000947B0257}", "", "")])
+                                 keymap.ShellExecuteCommand(None, "shell:::{3080F90D-D7AD-11D9-BD98-0000947B0257}", "", "")])
 
             listers = [["Window", cblister_FixedPhrase(window_items)]] + fc.lancherList_listers
 
