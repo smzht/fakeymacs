@@ -5,7 +5,7 @@
 ####################################################################################################
 
 user_vkey = VK_F23 # リモートデスクトップ接続先に渡る仮想キーコードを選択する必要有り
-user_key = keyhac_keymap.KeyCondition.vkToStr(user_vkey)
+user_key = KeyCondition.vkToStr(user_vkey)
 
 keymap.replaceKey("CapsLock", user_key)
 keymap.replaceKey(240, user_key)
@@ -117,7 +117,7 @@ def replicateKey(window_keymap):
             else:
                 window_keymap[key2] = handler
 
-        if isinstance(handler, keyhac_keymap.WindowKeymap):
+        if isinstance(handler, WindowKeymap):
             if handler not in wk_history:
                 replicateKey(handler)
                 setCapslock(handler)

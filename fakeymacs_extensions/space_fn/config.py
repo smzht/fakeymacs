@@ -192,7 +192,7 @@ def replace_space_fn_key(window):
             fakeymacs_spacefn.fn_key_replacement = True
     else:
         if fakeymacs_spacefn.fn_key_replacement:
-            keymap.modifier &= ~keyhac_keymap.MODKEY_USER0_L
+            keymap.modifier &= ~MODKEY_USER0_L
             keymap.replaceKey(fc.space_fn_key, fc.space_fn_key)
             fakeymacs_spacefn.fn_key_replacement = False
     return False

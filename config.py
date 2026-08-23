@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20260809_03"
+fakeymacs_version = "20260823_01"
 
 import time
 import os
@@ -14,13 +14,16 @@ import re
 import fnmatch
 import copy
 import datetime
-import ctypes
-import pyauto
 import winreg
 import itertools
+import sys
+import subprocess
+import threading
+import ctypes
+import pyauto
 
-import keyhac_keymap
 from keyhac import *
+from keyhac_keymap import *
 
 def configure(keymap):
 
@@ -43,25 +46,31 @@ def configure(keymap):
 
     fakeymacs = Fakeymacs()
 
+    user32 = ctypes.windll.user32
+    ole32 = ctypes.windll.ole32
+
     # OS に設定しているキーボードタイプの設定を行う
     # （https://www.tokovalue.jp/function/GetKeyboardLayout.htm）
     # （https://www.tokovalue.jp/function/GetKeyboardType.htm）
-    if ctypes.windll.user32.GetKeyboardType(0) == 7:
-        str_vk_table = copy.copy(keyhac_keymap.KeyCondition.str_vk_table_common)
-        for name in keyhac_keymap.KeyCondition.str_vk_table_jpn:
-            del str_vk_table[name]
-        str_vk_table.update(keyhac_keymap.KeyCondition.str_vk_table_std)
+    if user32.GetKeyboardType(0) == 7:
+        str_vk_table_jis = KeyCondition.str_vk_table_common
+        vk_str_table_jis = KeyCondition.vk_str_table_common
 
-        vk_str_table = copy.copy(keyhac_keymap.KeyCondition.vk_str_table_common)
-        for vk in keyhac_keymap.KeyCondition.vk_str_table_jpn:
-            del vk_str_table[vk]
-        vk_str_table.update(keyhac_keymap.KeyCondition.vk_str_table_std)
+        str_vk_table_us = copy.copy(KeyCondition.str_vk_table_common)
+        for name in KeyCondition.str_vk_table_jpn:
+            del str_vk_table_us[name]
+        str_vk_table_us.update(KeyCondition.str_vk_table_std)
+
+        vk_str_table_us = copy.copy(KeyCondition.vk_str_table_common)
+        for vk in KeyCondition.vk_str_table_jpn:
+            del vk_str_table_us[vk]
+        vk_str_table_us.update(KeyCondition.vk_str_table_std)
 
         # 「英語用キーボードドライバ置換」を利用する場合、キーテーブルを US 用のものに置き換える
         # （https://github.com/kskmori/US-AltIME.ahk?tab=readme-ov-file#us101mode）
-        if (ctypes.windll.user32.GetKeyboardLayout(0) >> 16) == 0x409:
-            keyhac_keymap.KeyCondition.str_vk_table = str_vk_table
-            keyhac_keymap.KeyCondition.vk_str_table = vk_str_table
+        if (user32.GetKeyboardLayout(0) >> 16) == 0x409:
+            KeyCondition.str_vk_table = str_vk_table_us
+            KeyCondition.vk_str_table = vk_str_table_us
             os_keyboard_type = "US"
         else:
             os_keyboard_type = "JP"
@@ -638,12 +647,9 @@ def configure(keymap):
         EVENT_OBJECT_NAMECHANGE = 0x800C
         WINEVENT_OUTOFCONTEXT   = 0x0000
 
-        user32 = ctypes.windll.user32
-        ole32 = ctypes.windll.ole32
-
         try:
             # 変数が設定されていて０でない場合、イベントフックを解除する
-            if keymap.fakeymacs_hook2 != 0:
+            if keymap.fakeymacs_hook1 != 0:
                 user32.UnhookWinEvent(keymap.fakeymacs_hook1)
         except:
             pass
@@ -704,6 +710,15 @@ def configure(keymap):
 
         WinEventProc = WinEventProcType(_callback)
 
+        user32.SetWinEventHook.argtypes = [
+            ctypes.wintypes.DWORD,
+            ctypes.wintypes.DWORD,
+            ctypes.wintypes.HMODULE,
+            WinEventProcType,
+            ctypes.wintypes.DWORD,
+            ctypes.wintypes.DWORD,
+            ctypes.wintypes.DWORD,
+        ]
         user32.SetWinEventHook.restype = ctypes.wintypes.HANDLE
 
         keymap.fakeymacs_hook1 = user32.SetWinEventHook(
@@ -737,12 +752,11 @@ def configure(keymap):
     if use_usjis_keyboard_conversion:
         def usjisTableSwap(swap):
             if swap:
-                keyhac_keymap.KeyCondition.str_vk_table = str_vk_table
-                keyhac_keymap.KeyCondition.vk_str_table = vk_str_table
+                KeyCondition.str_vk_table = str_vk_table_us
+                KeyCondition.vk_str_table = vk_str_table_us
             else:
-                # table_common は table_jpn で update した状態となっているためこれで良い
-                keyhac_keymap.KeyCondition.str_vk_table = keyhac_keymap.KeyCondition.str_vk_table_common
-                keyhac_keymap.KeyCondition.vk_str_table = keyhac_keymap.KeyCondition.vk_str_table_common
+                KeyCondition.str_vk_table = str_vk_table_jis
+                KeyCondition.vk_str_table = vk_str_table_jis
 
         def usjisFilter(func, *param):
             usjisTableSwap(1)
@@ -781,7 +795,7 @@ def configure(keymap):
                        }
 
     def keyStrNormalization(key):
-        nkey = usjisFilter(str, usjisFilter(keyhac_keymap.KeyCondition.fromString, key))
+        nkey = usjisFilter(str, usjisFilter(KeyCondition.fromString, key))
         if "D-" not in key:
             nkey = nkey.replace("D-", "")
         return nkey
@@ -889,7 +903,7 @@ def configure(keymap):
                 if not fakeymacs.force_update:
                     if fc.use_ime_status_reset:
                         setImeStatus(0)
-                    showImeStatus(window.getImeStatus(), window=window)
+                    showImeStatus(getImeStatus(window), window=window)
 
                 fakeymacs.is_base_target = True
                 fakeymacs.keymap_selected1 = False
@@ -1011,15 +1025,15 @@ def configure(keymap):
 
     # Ctl-x プレフィックスキーを構成するキーの仮想キーコードを設定する
     if fc.ctl_x_prefix_key:
-        keyCondition = usjisFilter(keyhac_keymap.KeyCondition.fromString, fc.ctl_x_prefix_key)
+        keyCondition = usjisFilter(KeyCondition.fromString, fc.ctl_x_prefix_key)
 
-        if keyCondition.mod == keyhac_keymap.MODKEY_CTRL:
+        if keyCondition.mod == MODKEY_CTRL:
             if fc.side_of_ctrl_key == "L":
                 ctl_x_prefix_vkey = [VK_LCONTROL, keyCondition.vk]
             else:
                 ctl_x_prefix_vkey = [VK_RCONTROL, keyCondition.vk]
 
-        elif keyCondition.mod == keyhac_keymap.MODKEY_ALT:
+        elif keyCondition.mod == MODKEY_ALT:
             if fc.side_of_alt_key == "L":
                 ctl_x_prefix_vkey = [VK_LMENU, keyCondition.vk]
             else:
@@ -1030,7 +1044,7 @@ def configure(keymap):
     # 「英語用キーボードドライバ置換」を利用する際の設定を行う
     # （https://github.com/smzht/fakeymacs/issues/55）
     # （https://github.com/kskmori/US-AltIME.ahk?tab=readme-ov-file#us101mode）
-    if (ctypes.windll.user32.GetKeyboardLayout(0) >> 16) == 0x409:
+    if (user32.GetKeyboardLayout(0) >> 16) == 0x409:
         if fc.side_of_ctrl_key == "L":
             keymap.replaceKey("CapsLock", "LCtrl") # CapsLock キーを Ctrl キーに変換する設定
             keymap_base["RC-LCtrl"] = "CapsLock"   # C-CapsLock で CapsLock とする
@@ -1112,11 +1126,17 @@ def configure(keymap):
 
         showImeStatus(ime_status)
 
-    def getImeStatus():
-        return keymap.getWindow().getImeStatus()
+    def getImeStatus(window=None):
+        if window is None:
+            window = keymap.getWindow()
 
-    def setImeStatus(ime_status):
-        keymap.getWindow().setImeStatus(ime_status)
+        return window.getImeStatus()
+
+    def setImeStatus(ime_status, window=None):
+        if window is None:
+            window = keymap.getWindow()
+
+        window.setImeStatus(ime_status)
         setCursorColor(ime_status)
 
     def showImeStatus(ime_status, force=False, window=None):
@@ -1593,7 +1613,7 @@ def configure(keymap):
                         # コントロール系の入力が連続して行われる場合があるための対処
                         keymap.record_seq.append((ctl_x_prefix_vkey[0], True))
 
-                elif ((ctypes.windll.user32.GetKeyboardLayout(0) >> 16) == 0x409 and
+                elif ((user32.GetKeyboardLayout(0) >> 16) == 0x409 and
                       ((keymap.record_seq[-1] == (VK_CAPITAL, True) and
                         keymap.record_seq[-2] == (ctl_x_prefix_vkey[1], True)) or
                        (keymap.record_seq[-1] == (ctl_x_prefix_vkey[1], True) and
@@ -1716,7 +1736,7 @@ def configure(keymap):
     def shell_command():
         command_name = os.path.basename(fc.command_name)
         for window in getWindowList():
-            if window.getProcessName() == command_name:
+            if getProcessName(window) == command_name:
                 popWindow(window)()
                 return
 
@@ -1761,11 +1781,7 @@ def configure(keymap):
         # 反映されない場合がある。その対策でもある。
         clipboard_text = getClipboardText()
         if clipboard_text:
-            if len(keymap.clipboard_history.items) > 0:
-                if keymap.clipboard_history.items[0] != clipboard_text:
-                    keymap.clipboard_history._push(clipboard_text)
-            else:
-                keymap.clipboard_history._push(clipboard_text)
+            keymap.clipboard_history._push(clipboard_text)
 
     def resetRegion():
         if checkWindow("WindowsTerminal.exe", "CASCADIA_HOSTING_WINDOW_CLASS",
@@ -1859,22 +1875,24 @@ def configure(keymap):
             return False
 
     def vkeys():
-        vkeys = list(usjisFilter(lambda: keyhac_keymap.KeyCondition.vk_str_table))
-        for vkey in [VK_MENU, VK_LMENU, VK_RMENU, VK_CONTROL, VK_LCONTROL, VK_RCONTROL,
-                     VK_SHIFT, VK_LSHIFT, VK_RSHIFT, VK_LWIN, VK_RWIN]:
-            vkeys.remove(vkey)
-        return vkeys
+        def _func():
+            vkeys = list(KeyCondition.vk_str_table)
+            for vkey in [VK_MENU, VK_LMENU, VK_RMENU, VK_CONTROL, VK_LCONTROL, VK_RCONTROL,
+                         VK_SHIFT, VK_LSHIFT, VK_RSHIFT, VK_LWIN, VK_RWIN]:
+                vkeys.remove(vkey)
+            return vkeys
+        return usjisFilter(_func)
 
     def vkToStr(vkey):
         def _func(vkey):
             if VK_A <= vkey and vkey <= VK_Z:
-                return keyhac_keymap.KeyCondition.vkToStr(vkey).lower()
+                return KeyCondition.vkToStr(vkey).lower()
             else:
-                return keyhac_keymap.KeyCondition.vkToStr(vkey)
+                return KeyCondition.vkToStr(vkey)
         return usjisFilter(_func, vkey)
 
     def strToVk(name):
-        return usjisFilter(keyhac_keymap.KeyCondition.strToVk, name)
+        return usjisFilter(KeyCondition.strToVk, name)
 
     special_char_key_table = {"!"  : ["S-1",            "S-1"],
                               "@"  : ["S-2",            "Atmark"],
@@ -2103,7 +2121,7 @@ def configure(keymap):
         key_list = kbd(key)[0]
         pos_list = keyPos(key_list)[0]
         if len(pos_list) == 1:
-            key_cond = keyhac_keymap.KeyCondition.fromString(pos_list[0])
+            key_cond = KeyCondition.fromString(pos_list[0])
             def _func():
                 try:
                     keymap.current_map[key_cond]()
@@ -2155,9 +2173,9 @@ def configure(keymap):
             if shift_check:
                 # 「define_key(keymap_base, "W-S-m", self_insert_command("W-S-m"))」のような設定を
                 # した場合、 Shift に RShift を使うと正常に動作しない。その対策。
-                if (keymap.modifier & keyhac_keymap.MODKEY_SHIFT_R and
-                    (keymap.modifier & (keyhac_keymap.MODKEY_WIN_L | keyhac_keymap.MODKEY_WIN_R) or
-                     keymap.modifier & (keyhac_keymap.MODKEY_ALT_L | keyhac_keymap.MODKEY_ALT_R))):
+                if (keymap.modifier & MODKEY_SHIFT_R and
+                    (keymap.modifier & (MODKEY_WIN_L | MODKEY_WIN_R) or
+                     keymap.modifier & (MODKEY_ALT_L | MODKEY_ALT_R))):
                     key_list2[-1] = re.sub(r"(^|-)(S-)", r"\1R\2", key_list2[-1])
 
             if fakeymacs.shift_down:
@@ -2171,7 +2189,7 @@ def configure(keymap):
             # Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrl キーの単押しによりサブウインドウが
             # 開く機能がある。その挙動を抑制するための対策。
             if fakeymacs.ctrl_button_app:
-                if keyhac_keymap.checkModifier(keymap.modifier, keyhac_keymap.MODKEY_CTRL):
+                if checkModifier(keymap.modifier, MODKEY_CTRL):
                     if "C-" not in key_list[-1]:
                         delay(0.01) # issue #19 の対策
                         pyauto.Input.send([pyauto.Key(strToVk("(255)"))])
@@ -2899,8 +2917,8 @@ def configure(keymap):
     def getTopLevelWindow():
         window = keymap.getTopLevelWindow()
         if (window and
-            window.getProcessName() == "explorer.exe" and
-            window.getClassName() in ["WorkerW", "Shell_TrayWnd"]):
+            getProcessName(window) == "explorer.exe" and
+            getClassName(window) in ["WorkerW", "Shell_TrayWnd"]):
             return None
         else:
             return window
@@ -2923,13 +2941,13 @@ def configure(keymap):
             nonlocal window_title
 
             if window.isVisible() and not window.getOwner():
-                process_name2 = window.getProcessName()
+                process_name2 = getProcessName(window)
 
                 if process_name is None or process_name == process_name2:
-                    class_name = window.getClassName()
+                    class_name = getClassName(window)
 
                     # ハイフンの前に見えない文字がある場合の対策
-                    title = re.sub(r".* ‎- ", r"", window.getText())
+                    title = re.sub(r".* ‎- ", r"", getText(window))
 
                     # RemoteApp を利用する際のおまじない
                     if (process_name2 == "mstsc.exe" and
@@ -3285,8 +3303,8 @@ def configure(keymap):
                 formatter = f"{{0:{process_name_length}}} |{{1:1}}| {{2}}"
                 for window in window_list:
                     icon  = "m" if window.isMinimized() else ""
-                    window_items.append([formatter.format(window.getProcessName(),
-                                                          icon, window.getText()), popWindow(window)])
+                    window_items.append([formatter.format(getProcessName(window),
+                                                          icon, getText(window)), popWindow(window)])
 
             window_items.append([list_formatter.format("<Desktop>"),
                                  keymap.ShellExecuteCommand(None, r"shell:::{3080F90D-D7AD-11D9-BD98-0000947B0257}", "", "")])
@@ -3328,12 +3346,9 @@ def configure(keymap):
     ####################################################################################################
 
     # キーマップの優先順位を調整する
-    keymap.window_keymap_list.remove(keymap_global)
-    keymap.window_keymap_list.remove(keymap_tsw)
-    keymap.window_keymap_list.remove(keymap_lw)
-    keymap.window_keymap_list.append(keymap_global)
-    keymap.window_keymap_list.append(keymap_tsw)
-    keymap.window_keymap_list.append(keymap_lw)
+    for window_keymap in keymap_global, keymap_tsw, keymap_lw:
+        keymap.window_keymap_list.remove(window_keymap)
+        keymap.window_keymap_list.append(window_keymap)
 
     # 個人設定ファイルのセクション [section-extension-space_fn] を読み込んで実行する
     exec(readConfigPersonal("[section-extension-space_fn]"), dict(globals(), **locals()))

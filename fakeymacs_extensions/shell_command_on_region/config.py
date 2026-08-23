@@ -66,10 +66,6 @@ except:
 
 # --------------------------------------------------------------------------------------------------
 
-import sys
-import subprocess
-import threading
-
 def shell_command_inputbox():
     global forward_direction
     global command_mode

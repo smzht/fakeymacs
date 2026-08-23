@@ -338,24 +338,24 @@ fc.clipboardList_listers = [
 
 # アプリケーションソフト
 fc.application_items = [
-    ["Notepad",     keymap.ShellExecuteCommand(None, r"notepad.exe", "", "")],
-    ["Explorer",    keymap.ShellExecuteCommand(None, r"explorer.exe", "", "")],
-    ["Cmd",         keymap.ShellExecuteCommand(None, r"cmd.exe", "", "")],
-    ["MSEdge",      keymap.ShellExecuteCommand(None, r"msedge.exe", "", "")],
-    ["Chrome",      keymap.ShellExecuteCommand(None, r"chrome.exe", "", "")],
-    ["Firefox",     keymap.ShellExecuteCommand(None, r"firefox.exe", "", "")],
-    ["Thunderbird", keymap.ShellExecuteCommand(None, r"thunderbird.exe", "", "")],
+    ["Notepad",     keymap.ShellExecuteCommand(None, "notepad.exe", "", "")],
+    ["Explorer",    keymap.ShellExecuteCommand(None, "explorer.exe", "", "")],
+    ["Cmd",         keymap.ShellExecuteCommand(None, "cmd.exe", "", "")],
+    ["MSEdge",      keymap.ShellExecuteCommand(None, "msedge.exe", "", "")],
+    ["Chrome",      keymap.ShellExecuteCommand(None, "chrome.exe", "", "")],
+    ["Firefox",     keymap.ShellExecuteCommand(None, "firefox.exe", "", "")],
+    ["Thunderbird", keymap.ShellExecuteCommand(None, "thunderbird.exe", "", "")],
 ]
 fc.application_items[0][0] = list_formatter.format(fc.application_items[0][0])
 
 # ウェブサイト
 fc.website_items = [
-    ["Google",          keymap.ShellExecuteCommand(None, r"https://www.google.co.jp/", "", "")],
-    ["Facebook",        keymap.ShellExecuteCommand(None, r"https://www.facebook.com/", "", "")],
-    ["Twitter",         keymap.ShellExecuteCommand(None, r"https://twitter.com/", "", "")],
-    ["Keyhac",          keymap.ShellExecuteCommand(None, r"https://sites.google.com/site/craftware/keyhac-ja", "", "")],
-    ["Fakeymacs",       keymap.ShellExecuteCommand(None, r"https://github.com/smzht/fakeymacs", "", "")],
-    ["NTEmacs＠ウィキ", keymap.ShellExecuteCommand(None, r"https://w.atwiki.jp/ntemacs/", "", "")],
+    ["Google",          keymap.ShellExecuteCommand(None, "https://www.google.co.jp/", "", "")],
+    ["Facebook",        keymap.ShellExecuteCommand(None, "https://www.facebook.com/", "", "")],
+    ["Twitter",         keymap.ShellExecuteCommand(None, "https://twitter.com/", "", "")],
+    ["Keyhac",          keymap.ShellExecuteCommand(None, "https://sites.google.com/site/craftware/keyhac-ja", "", "")],
+    ["Fakeymacs",       keymap.ShellExecuteCommand(None, "https://github.com/smzht/fakeymacs", "", "")],
+    ["NTEmacs＠ウィキ", keymap.ShellExecuteCommand(None, "https://w.atwiki.jp/ntemacs/", "", "")],
 ]
 fc.website_items[0][0] = list_formatter.format(fc.website_items[0][0])
 
