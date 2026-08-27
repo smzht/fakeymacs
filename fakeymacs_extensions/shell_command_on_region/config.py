@@ -69,7 +69,6 @@ except:
 def shell_command_inputbox():
     global forward_direction
     global command_mode
-    global clipboard_text
 
     forward_direction = fakeymacs.forward_direction
 
@@ -83,13 +82,19 @@ def shell_command_inputbox():
 
     setClipboardText("")
     copyRegion()
-    delay(0.5)
-    clipboard_text = re.sub("\r", "", getClipboardText())
 
-    # inputbox_command = dataPath() + r"\fakeymacs_extensions\shell_command_on_region\inputbox.ahk"
-    inputbox_command = dataPath() + r"\fakeymacs_extensions\shell_command_on_region\inputbox.exe"
+    def _inputbox():
+        global clipboard_text
 
-    keymap.ShellExecuteCommand(None, inputbox_command, "", "")()
+        clipboard_text = re.sub("\r", "", getClipboardText())
+
+        # inputbox_command = dataPath() + r"\fakeymacs_extensions\shell_command_on_region\inputbox.ahk"
+        inputbox_command = dataPath() + r"\fakeymacs_extensions\shell_command_on_region\inputbox.exe"
+
+        keymap.ShellExecuteCommand(None, inputbox_command, "", "")()
+
+    # copy の処理が終わるのを 0.5 秒待ってから、処理を行う
+    keymap.delayedCall(_inputbox, 500)
 
 def executeShellCommand():
     shell_command_mode = command_mode
