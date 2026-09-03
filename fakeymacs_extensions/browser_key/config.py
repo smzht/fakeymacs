@@ -55,7 +55,7 @@ def browser_popup(key, ime_status, browser_list=fc.browser_list):
             for window in getWindowList()[1:]:
                 if is_browser(window):
                     popWindow(window)()
-                    keymap.delayedCall(_inputKey, 50)
+                    keymap.delayedCall(_inputKey, 100)
                     break
             else:
                 # browser_list に設定されているブラウザが起動していない場合、browser_url を開く
