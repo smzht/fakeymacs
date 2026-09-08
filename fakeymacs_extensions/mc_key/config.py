@@ -1,4 +1,4 @@
-﻿# -*- mode: python; coding: utf-8-with-signature-dos -*-
+# -*- mode: python; coding: utf-8-unix -*-
 
 ####################################################################################################
 ## Midnight Commander 用のキーの設定を行う

@@ -1,4 +1,4 @@
-﻿# -*- mode: python; coding: utf-8-with-signature-dos -*-
+# -*- mode: python; coding: utf-8-unix -*-
 
 ####################################################################################################
 ## 60% US キーボードのキー不足（Delete キー、Backquote キー不足）の対策を行う

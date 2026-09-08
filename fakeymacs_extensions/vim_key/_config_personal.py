@@ -1,4 +1,4 @@
-﻿# -*- mode: python; coding: utf-8-with-signature-dos -*-
+# -*- mode: python; coding: utf-8-unix -*-
 
 # 本ファイルは、config_personal.py というファイル名にすることで vim_key Extension の機能拡張ファイル
 # として機能します。

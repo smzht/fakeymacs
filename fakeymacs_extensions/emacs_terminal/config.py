@@ -1,4 +1,4 @@
-﻿# -*- mode: python; coding: utf-8-with-signature-dos -*-
+# -*- mode: python; coding: utf-8-unix -*-
 
 ####################################################################################################
 ## Emacs をターミナルで動かす場合に event-apply-modifier を使ってキーの置き換えを行う

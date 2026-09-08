@@ -1,4 +1,4 @@
-﻿# -*- mode: python; coding: utf-8-with-signature-dos -*-
+# -*- mode: python; coding: utf-8-unix -*-
 
 ####################################################################################################
 ## Emacs の shell-command-on-region の機能をサポートする

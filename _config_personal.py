@@ -1,4 +1,4 @@
-﻿# -*- mode: python; coding: utf-8-with-signature-dos -*-
+# -*- mode: python; coding: utf-8-unix -*-
 
 # 本ファイルは、config_personal.py というファイル名にすることで個人設定ファイルとして機能します。
 # 本ファイルの設定には [] で括られたセクション名が定義されており、その単位で config.py の中に設定

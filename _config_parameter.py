@@ -1,4 +1,4 @@
-﻿# -*- mode: python; coding: utf-8-with-signature-dos -*-
+# -*- mode: python; coding: utf-8-unix -*-
 
 # 本ファイルは、fakeymacs で設定可能な全てのコンフィグレーションパラメータをまとめたファイルです。
 # config_personal.py を作成する際の参考としてください。config_personal.py に名称変更して個人設定

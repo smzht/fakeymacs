@@ -1,4 +1,4 @@
-﻿# -*- mode: python; coding: utf-8-with-signature-dos -*-
+# -*- mode: python; coding: utf-8-unix -*-
 
 ####################################################################################################
 ## Chrome 系ブラウザで Ctl-x C-b を入力した際、Chrome の拡張機能 QuicKey を起動する
