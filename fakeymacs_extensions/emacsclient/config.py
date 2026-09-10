@@ -31,10 +31,15 @@ try:
             path = re.sub("\n|\r", "", clipboard_text.strip())
             if fc.remove_space:
                 path = re.sub(" ", "", path)
-            path = re.sub(r'(\\+)"', r'\1\1"', path)
-            path = re.sub('"', r'\"', path)
-            path = re.sub('^', '"', path)
-            keymap.ShellExecuteCommand(None, fc.emacsclient_name, path, "")()
+
+            # path = re.sub(r'(\\+)"', r'\1\1"', path)
+            # path = re.sub('"', r'\"', path)
+            # path = re.sub('^', '"', path)
+            # keymap.ShellExecuteCommand(None, fc.emacsclient_name, path, "")()
+
+            subprocess.Popen([fc.emacsclient_name, path],
+                             stdout=subprocess.DEVNULL,
+                             stderr=subprocess.STDOUT)
 
     define_key(keymap_global, fc.emacsclient_key, emacsclient)
 
