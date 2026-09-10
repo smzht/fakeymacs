@@ -2192,7 +2192,7 @@ def configure(keymap):
                 if checkModifier(keymap.modifier, MODKEY_CTRL):
                     if "C-" not in key_list[-1]:
                         delay(0.01) # issue #19 の対策
-                        pyauto.Input.send([pyauto.Key(strToVk("(255)"))])
+                        pyauto.Input.send([pyauto.Key(255)])
         return _func
 
     def executeCommandWithImeOff(command, ime_delay=0.02):
