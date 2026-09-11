@@ -3098,9 +3098,10 @@ def configure(keymap):
     ##################################################
 
     def lw_newline():
-        self_insert_command("S-Enter")()
         if fakeymacs.is_emacs_target_in_previous_window:
-            keymap.delayedCall(yank, 200)
+            self_insert_command("Enter")()
+        else:
+            self_insert_command("S-Enter")()
 
     def lw_exit_search(func):
         def _func():
