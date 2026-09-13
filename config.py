@@ -3282,11 +3282,25 @@ def configure(keymap):
     fc.lancherList_listers = [
         ["App",     cblister_FixedPhrase(fc.application_items)],
         ["Website", cblister_FixedPhrase(fc.website_items)],
-        ["Other",   cblister_FixedPhrase(fc.other_items)],
     ]
 
     # 個人設定ファイルのセクション [section-lancherList-1] を読み込んで実行する
     exec(readConfigPersonal("[section-lancherList-1]"), dict(globals(), **locals()))
+
+    # その他
+    fc.other_items = [
+        ["Edit   config.py",          keymap.command_EditConfig],
+        ["Edit   config_personal.py", editConfigPersonal],
+        ["Reload config file",        lambda: reloadConfig(0)],
+    ]
+    if os_keyboard_type == "JP":
+        fc.other_items += [
+            ["Reload config file (to  US layout)", lambda: reloadConfig(1)],
+            ["Reload config file (to JIS layout)", lambda: reloadConfig(2)],
+        ]
+    fc.other_items[0][0] = list_formatter.format(fc.other_items[0][0])
+
+    fc.lancherList_listers = fc.lancherList_listers + [["Other", cblister_FixedPhrase(fc.other_items)]]
 
     def lw_lancherList():
         def _lw_lancherList():

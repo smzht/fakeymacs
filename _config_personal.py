@@ -362,7 +362,6 @@ fc.website_items[0][0] = list_formatter.format(fc.website_items[0][0])
 fc.lancherList_listers = [
     ["App",     cblister_FixedPhrase(fc.application_items)],
     ["Website", cblister_FixedPhrase(fc.website_items)],
-    ["Other",   cblister_FixedPhrase(fc.other_items)],
 ]
 
 # [section-lancherList-2] --------------------------------------------------------------------------
