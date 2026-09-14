@@ -676,8 +676,11 @@ def configure(keymap):
         )
 
         name_change_app = targetRegexify(fc.name_change_app_list)[0]
+        hook_enabled = True
 
         def _callback(hWinEventHook, event, hwnd, idObject, idChild, dwEventThread, dwmsEventTime):
+            nonlocal hook_enabled
+
             if keymap.hook_enabled:
                 if event == EVENT_SYSTEM_FOREGROUND:
                     def _check_and_update():
@@ -702,8 +705,13 @@ def configure(keymap):
                                     updateKeymap(True)
                             except:
                                 pass
+
+                hook_enabled = True
             else:
-                setCursorColor(False)
+                if hook_enabled:
+                    setCursorColor(False)
+
+                hook_enabled = False
 
         # この設定は必要（この設定がないと、Keyhac が落ちる場合がある）
         global WinEventProc
