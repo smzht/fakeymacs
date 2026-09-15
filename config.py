@@ -3274,19 +3274,6 @@ def configure(keymap):
     ]
     fc.website_items[0][0] = list_formatter.format(fc.website_items[0][0])
 
-    # その他
-    fc.other_items = [
-        ["Edit   config.py",          keymap.command_EditConfig],
-        ["Edit   config_personal.py", editConfigPersonal],
-        ["Reload config file",        lambda: reloadConfig(0)],
-    ]
-    if os_keyboard_type == "JP":
-        fc.other_items += [
-            ["Reload config file (to  US layout)", lambda: reloadConfig(1)],
-            ["Reload config file (to JIS layout)", lambda: reloadConfig(2)],
-        ]
-    fc.other_items[0][0] = list_formatter.format(fc.other_items[0][0])
-
     fc.lancherList_listers = [
         ["App",     cblister_FixedPhrase(fc.application_items)],
         ["Website", cblister_FixedPhrase(fc.website_items)],
