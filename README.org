@@ -12,7 +12,7 @@ Keyhac 2 の対応は、次のリポジトリで行っています。
 Fakeymacs は、Windows の操作を Emacs のキーバインドで行えるようにするための
 Keyhac の設定です。
 
-Keyhac for Windows v1.82 以上のバージョンでご利用ください（最新版は v1.83 です）。
+Keyhac 1 の Keyhac for Windows v1.82 でご利用ください。
 
 - https://sites.google.com/site/craftware/keyhac-ja
 
