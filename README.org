@@ -2,6 +2,11 @@
 
 * Fakeymacs
 
+
+Keyhac 2 の対応は、次のリポジトリで行っています。
+
+- https://github.com/smzht/fakeymacs2
+
 [[/fakeymacs_logo/fakeymacs_logo.png]]
 
 Fakeymacs は、Windows の操作を Emacs のキーバインドで行えるようにするための
