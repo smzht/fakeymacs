@@ -140,7 +140,7 @@ Alt+Shift や Ctrl+Shift のキー操作により IME の切り替えが行わ�
 
 - https://sites.google.com/site/craftware/keyhac-ja
 
-起動時に dll load エラーが発生する場合は、「Microsoft Visual C++ 再頒布可能パッケージ」を
+※ 起動時に dll load エラーが発生する場合は、「Microsoft Visual C++ 再頒布可能パッケージ」を
 インストールする必要があります。
 次のサイトから最新の「Visual Studio 2015、2017、2019、および2022の Microsoft Visual C++
 再頒布可能パッケージ」をダウンロードし、インストールしてください。
@@ -266,7 +266,7 @@ keyhac.bat は keyhac.exe をプロセス優先度「HIGH」で起動させる�
 お好みにより、ご利用ください。また、Windows のスタートアップフォルダにショートカットファイルを
 格納することで、PC 起動時に Keyhac を自動起動することができます。
 
-keyhac.exe を起動すると、タスクバーの ＾アイコンの中に Keyhac のアイコンが表示されます。
+Keyhac を起動すると、タスクバーの ＾アイコンの中に Keyhac のアイコンが表示されます。
 必要に応じて、通知領域に表示するように調整してください。
 このアイコンを左クリックするとコンソールが表示され、右クリックすると機能の一覧が表示されます。
 
