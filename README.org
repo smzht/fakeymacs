@@ -138,7 +138,7 @@ Alt+Shift や Ctrl+Shift のキー操作により IME の切り替えが行わ�
 
 次のサイトから Keyhac をインストールしてください。
 
-- https://sites.google.com/site/craftware/keyhac-ja
+- https://github.com/crftwr/keyhac-win/releases
 
 ※ 起動時に dll load エラーが発生する場合は、「Microsoft Visual C++ 再頒布可能パッケージ」を
 インストールする必要があります。
