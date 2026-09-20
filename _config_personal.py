@@ -450,6 +450,7 @@ if 0:
     exec(readConfigExtension(r"zed_key\config.py"), dict(globals(), **locals()))
 
 # --------------------------------------------------------------------------------------------------
+
 # Obsidian 用のキーの設定を行う
 if 0:
     # fc.obsidian_language = "US"
