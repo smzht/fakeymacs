@@ -26,7 +26,7 @@ except:
 def is_edit_mode_target(window):
     global edit_mode_target_status
 
-    if window is not fakeymacs.last_window:
+    if window != fakeymacs.last_window:
         if any(checkWindow(*app, window=window) for app in fc.edit_mode_target):
             edit_mode_target_status = True
         else:

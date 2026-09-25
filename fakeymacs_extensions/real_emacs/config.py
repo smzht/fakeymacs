@@ -29,7 +29,7 @@ x_window_apps = targetRegexify(fc.x_window_apps)[0]
 def is_real_emacs(window):
     global real_emacs_status
 
-    if window is not fakeymacs.last_window:
+    if window != fakeymacs.last_window:
         if (getClassName(window) == "Emacs" or
             (x_window_apps.match(getProcessName(window)) and
              # ウィンドウのタイトルを検索する正規表現を指定する

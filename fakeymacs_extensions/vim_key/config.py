@@ -57,7 +57,7 @@ vim_title = ""
 def is_vim_target(window):
     global vim_status, vim_title
 
-    if window is not fakeymacs.last_window or fakeymacs.force_update:
+    if fakeymacs.force_update or window != fakeymacs.last_window:
         if (fakeymacs.is_emacs_target == False and
             not getText(window).startswith("!") and
             (vim_target[0].match(getProcessName(window)) or

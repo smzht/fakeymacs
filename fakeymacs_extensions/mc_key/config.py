@@ -23,7 +23,7 @@ mc_target = targetRegexify(fc.mc_target)
 def is_mc_target(window):
     global mc_status
 
-    if window is not fakeymacs.last_window or fakeymacs.force_update:
+    if fakeymacs.force_update or window != fakeymacs.last_window:
         if (fakeymacs.is_emacs_target == False and
             (mc_target[0].match(getProcessName(window)) or
              any(checkWindow(*app, window=window) for app in mc_target[1]))):

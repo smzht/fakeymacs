@@ -23,7 +23,7 @@ micro_target = targetRegexify(fc.micro_target)
 def is_micro_target(window):
     global micro_status
 
-    if window is not fakeymacs.last_window or fakeymacs.force_update:
+    if fakeymacs.force_update or window != fakeymacs.last_window:
         if (fakeymacs.is_emacs_target == True and
             (micro_target[0].match(getProcessName(window)) or
              any(checkWindow(*app, window=window) for app in micro_target[1]))):

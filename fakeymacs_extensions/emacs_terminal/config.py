@@ -31,7 +31,7 @@ except:
 def is_emacs_terminal(window):
     global emacs_terminal_status
 
-    if window is not fakeymacs.last_window:
+    if window != fakeymacs.last_window:
         if any(checkWindow(*app, window=window) if type(app) is list else
                checkWindow( app, window=window) for app in fc.emacs_terminal):
             emacs_terminal_status = True

@@ -22,7 +22,7 @@ yazi_target = targetRegexify(fc.yazi_target)
 def is_yazi_target(window):
     global yazi_status
 
-    if window is not fakeymacs.last_window or fakeymacs.force_update:
+    if fakeymacs.force_update or window != fakeymacs.last_window:
         if (fakeymacs.is_emacs_target == False and
             (yazi_target[0].match(getProcessName(window)) or
              any(checkWindow(*app, window=window) for app in yazi_target[1]))):
