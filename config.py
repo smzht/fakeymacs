@@ -689,8 +689,8 @@ def configure(keymap):
                     keymap.delayedCall(_check_and_update, 200)
 
                 elif event == EVENT_OBJECT_NAMECHANGE:
-                    if hwnd == user32.GetForegroundWindow():
-                        if idChild == 0:
+                    if idChild == 0:
+                        if hwnd == user32.GetForegroundWindow():
                             try:
                                 process_name = getProcessName()
                                 if process_name and name_change_app.match(process_name):
