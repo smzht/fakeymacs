@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20260925_01"
+fakeymacs_version = "20260927_02"
 
 import time
 import os
@@ -2178,12 +2178,14 @@ def configure(keymap):
         def _func():
             key_list2 = list(key_list)
 
+            modifier = keymap.modifier
+
             if shift_check:
                 # 「define_key(keymap_base, "W-S-m", self_insert_command("W-S-m"))」のような設定を
                 # した場合、 Shift に RShift を使うと正常に動作しない。その対策。
-                if (keymap.modifier & MODKEY_SHIFT_R and
-                    (keymap.modifier & (MODKEY_WIN_L | MODKEY_WIN_R) or
-                     keymap.modifier & (MODKEY_ALT_L | MODKEY_ALT_R))):
+                if (modifier & MODKEY_SHIFT_R and
+                    (modifier & (MODKEY_WIN_L | MODKEY_WIN_R) or
+                     modifier & (MODKEY_ALT_L | MODKEY_ALT_R))):
                     key_list2[-1] = re.sub(r"(^|-)(S-)", r"\1R\2", key_list2[-1])
 
             if fakeymacs.shift_down:
@@ -2197,7 +2199,7 @@ def configure(keymap):
             # Microsoft Word 等では画面に Ctrl ボタンが表示され、Ctrl キーの単押しによりサブウインドウが
             # 開く機能がある。その挙動を抑制するための対策。
             if fakeymacs.ctrl_button_app:
-                if checkModifier(keymap.modifier, MODKEY_CTRL):
+                if checkModifier(modifier, MODKEY_CTRL):
                     if "C-" not in key_list[-1]:
                         delay(0.01) # issue #19 の対策
                         pyauto.Input.send([pyauto.Key(255)])
@@ -2774,7 +2776,7 @@ def configure(keymap):
 
         def ei_updateKeymap(delay):
             if fakeymacs.is_playing_kmacro:
-               updateKeymap()
+                updateKeymap()
             else:
                 keymap.delayedCall(updateKeymap, delay)
 
@@ -3128,54 +3130,62 @@ def configure(keymap):
     ## キーバインド（リストウィンドウ用）
     ##################################################
 
+    ## マルチストロークキーの設定
+    define_key(keymap_lw, "M-", keymap.defineMultiStrokeKeymap("Esc"))
+
     ## Esc キーの設定
-    define_key(keymap_lw, "Esc", lw_reset_search(escape))
-    define_key(keymap_lw, "C-[", lw_reset_search(escape))
+    if fc.use_esc_as_meta:
+        define_key(keymap_lw, "Esc Esc", lw_reset_search(escape))
+    else:
+        define_key(keymap_lw, "Esc", lw_reset_search(escape))
+
+    if fc.use_ctrl_openbracket_as_meta:
+        define_key(keymap_lw, "C-[ C-[", lw_reset_search(escape))
+    else:
+        define_key(keymap_lw, "C-[", lw_reset_search(escape))
 
     ## 「カーソル移動」のキー設定
     define_key(keymap_lw, "C-b", backward_char)
-    define_key(keymap_lw, "A-b", backward_char)
+    define_key(keymap_lw, "M-b", backward_char)
 
     define_key(keymap_lw, "C-f", forward_char)
-    define_key(keymap_lw, "A-f", forward_char)
+    define_key(keymap_lw, "M-f", forward_char)
 
     define_key(keymap_lw, "C-p", previous_line)
-    define_key(keymap_lw, "A-p", previous_line)
+    define_key(keymap_lw, "M-p", previous_line)
 
     define_key(keymap_lw, "C-n", next_line)
-    define_key(keymap_lw, "A-n", next_line)
+    define_key(keymap_lw, "M-n", next_line)
 
     if fc.scroll_key:
-        if fc.scroll_key[0]:
-            define_key(keymap_lw, fc.scroll_key[0].replace("M-", "A-"), scroll_up)
-        if fc.scroll_key[1]:
-            define_key(keymap_lw, fc.scroll_key[1].replace("M-", "A-"), scroll_down)
+        define_key(keymap_lw, fc.scroll_key[0], scroll_up)
+        define_key(keymap_lw, fc.scroll_key[1], scroll_down)
 
     ## 「カット / コピー / 削除 / アンドゥ」のキー設定
     define_key(keymap_lw, "C-h", delete_backward_char)
-    define_key(keymap_lw, "A-h", delete_backward_char)
+    define_key(keymap_lw, "M-h", delete_backward_char)
 
     define_key(keymap_lw, "C-d", delete_char)
-    define_key(keymap_lw, "A-d", delete_char)
+    define_key(keymap_lw, "M-d", delete_char)
 
     ## 「文字列検索 / 置換」のキー設定
     define_key(keymap_lw, "C-r", lw_isearch_backward)
-    define_key(keymap_lw, "A-r", lw_isearch_backward)
+    define_key(keymap_lw, "M-r", lw_isearch_backward)
 
     define_key(keymap_lw, "C-s", lw_isearch_forward)
-    define_key(keymap_lw, "A-s", lw_isearch_forward)
+    define_key(keymap_lw, "M-s", lw_isearch_forward)
 
     ## 「その他」のキー設定
     define_key(keymap_lw, "Enter",   lw_exit_search(lw_newline))
     define_key(keymap_lw, "C-m",     lw_exit_search(lw_newline))
-    define_key(keymap_lw, "A-m",     lw_exit_search(lw_newline))
+    define_key(keymap_lw, "M-m",     lw_exit_search(lw_newline))
 
     define_key(keymap_lw, "C-g",     lw_reset_search(lw_keyboard_quit))
-    define_key(keymap_lw, "A-g",     lw_reset_search(lw_keyboard_quit))
+    define_key(keymap_lw, "M-g",     lw_reset_search(lw_keyboard_quit))
 
     define_key(keymap_lw, "S-Enter", lw_exit_search(self_insert_command("S-Enter")))
     define_key(keymap_lw, "C-Enter", lw_exit_search(self_insert_command("C-Enter")))
-    define_key(keymap_lw, "A-Enter", lw_exit_search(self_insert_command("C-Enter")))
+    define_key(keymap_lw, "M-Enter", lw_exit_search(self_insert_command("C-Enter")))
 
     # 個人設定ファイルのセクション [section-base-2] を読み込んで実行する
     exec(readConfigPersonal("[section-base-2]"), dict(globals(), **locals()))
