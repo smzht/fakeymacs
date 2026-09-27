@@ -456,22 +456,25 @@ Emacs 日本語入力モードは、次の操作で終了します。
 
 **** ● Esc キーの設定
 
-|---------+----------------------------+-------------|
-| Keybind | Function                   | Description |
-|---------+----------------------------+-------------|
-| C-[     | self_insert_command("Esc") |             |
-|---------+----------------------------+-------------|
+|---------+----------------------------+-------------------------------------------------|
+| Keybind | Function                   | Description                                     |
+|---------+----------------------------+-------------------------------------------------|
+| Esc     | self_insert_command("Esc") | fc.use_esc_as_meta が False の場合              |
+| Esc Esc | self_insert_command("Esc") | fc.use_esc_as_meta が True の場合               |
+| C-[     | self_insert_command("Esc") | fc.use_ctrl_openbracket_as_meta が False の場合 |
+| C-[ C-[ | self_insert_command("Esc") | fc.use_ctrl_openbracket_as_meta が True の場合  |
+|---------+----------------------------+-------------------------------------------------|
 
 **** ● 「カーソル移動」のキー設定
 
 |---------------------------+---------------+-------------|
 | Keybind                   | Function      | Description |
 |---------------------------+---------------+-------------|
-| C-b, A-b                  | backward_char |             |
-| C-f, A-f                  | forward_char  |             |
-| C-p, A-p                  | previous_line |             |
-| C-n, A-n                  | next_line     |             |
-| fc.scroll_key[0] の設定値 | scroll_up     | 初期値：A-v |
+| C-b, M-b                  | backward_char |             |
+| C-f, M-f                  | forward_char  |             |
+| C-p, M-p                  | previous_line |             |
+| C-n, M-n                  | next_line     |             |
+| fc.scroll_key[0] の設定値 | scroll_up     | 初期値：M-v |
 | fc.scroll_key[1] の設定値 | scroll_down   | 初期値：C-v |
 |---------------------------+---------------+-------------|
 
@@ -480,8 +483,8 @@ Emacs 日本語入力モードは、次の操作で終了します。
 |----------+----------------------+-------------|
 | Keybind  | Function             | Description |
 |----------+----------------------+-------------|
-| C-h, A-h | delete_backward_char |             |
-| C-d, A-d | delete_char          |             |
+| C-h, M-h | delete_backward_char |             |
+| C-d, M-d | delete_char          |             |
 |----------+----------------------+-------------|
 
 **** ● 「文字列検索 / 置換」のキー設定
@@ -489,8 +492,8 @@ Emacs 日本語入力モードは、次の操作で終了します。
 |----------+---------------------+-------------|
 | Keybind  | Function            | Description |
 |----------+---------------------+-------------|
-| C-r, A-r | lw_isearch_backward |             |
-| C-s, A-s | lw_isearch_forward  |             |
+| C-r, M-r | lw_isearch_backward |             |
+| C-s, M-s | lw_isearch_forward  |             |
 |----------+---------------------+-------------|
 
 ※ Keyhac に migemo 辞書を登録してあれば、検索文字を大文字で始めることで migemo 検索が
@@ -501,11 +504,11 @@ Emacs 日本語入力モードは、次の操作で終了します。
 |------------------+--------------------------------+------------------------------------------------|
 | Keybind          | Function                       | Description                                    |
 |------------------+--------------------------------+------------------------------------------------|
-| Enter, C-m, A-m  | self_insert_command("Enter")   | Emacs キーバインドを適用しているアプリの場合   |
-| Enter, C-m, A-m  | self_insert_command("S-Enter") | Emacs キーバインドを適用していないアプリの場合 |
+| Enter, C-m, M-m  | self_insert_command("Enter")   | Emacs キーバインドを適用しているアプリの場合   |
+| Enter, C-m, M-m  | self_insert_command("S-Enter") | Emacs キーバインドを適用していないアプリの場合 |
 | S-Enter          | self_insert_command("S-Enter") |                                                |
-| C-Enter, A-Enter | self_insert_command("C-Enter") |                                                |
-| C-g, A-g         | lw_keyboard_quit               |                                                |
+| C-Enter, M-Enter | self_insert_command("C-Enter") |                                                |
+| C-g, M-g         | lw_keyboard_quit               |                                                |
 |------------------+--------------------------------+------------------------------------------------|
 
 ※ Keyhac に発行するキーの挙動は以下のとおりとなります。
