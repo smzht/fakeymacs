@@ -6,7 +6,7 @@
 ##  Windows の操作を Emacs のキーバインドで行うための設定（Keyhac版）
 #########################################################################
 
-fakeymacs_version = "20260927_02"
+fakeymacs_version = "20261112_01"
 
 import time
 import os
@@ -3308,13 +3308,12 @@ def configure(keymap):
     fc.lancherList_listers = fc.lancherList_listers + [["Other", cblister_FixedPhrase(fc.other_items)]]
 
     def lw_lancherList():
+        # 既にリストが開いていたら閉じるだけ
+        if keymap.isListWindowOpened():
+            keymap.cancelListWindow()
+            return
+
         def _lw_lancherList():
-
-            # 既にリストが開いていたら閉じるだけ
-            if keymap.isListWindowOpened():
-                keymap.cancelListWindow()
-                return
-
             # ウィンドウ
             window_list = getWindowList()
             window_items = []
